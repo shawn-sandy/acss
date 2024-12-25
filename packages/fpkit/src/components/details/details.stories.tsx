@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within, expect } from '@storybook/test'
+import { within, expect, userEvent } from '@storybook/test'
 
 
 import Details from './details'
@@ -119,3 +119,20 @@ export const DetailsAccordion: Story = {
     </>
   )
 } as Story
+
+export const DetailsInteractionTest: Story = {
+  args: {},
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Find the summary element
+    const summaryElement = canvas.getByText('Summary Section');
+
+    // Simulate a click on the summary element
+    await userEvent.click(summaryElement);
+
+    // Assert that the details element is open
+    const detailsElement = canvas.getByRole('group', { name: /details dropdown/i });
+    expect(detailsElement).toHaveAttribute('open');
+  },
+}
