@@ -61,10 +61,11 @@ export const Details = ({
       ref={ref}
       open={open}
       aria-label={ariaLabel || 'Details dropdown'}
+      // aria-roledescription="detail accordion"
       name={name}
       {...props}
     >
-      <UI as="summary" role="group" onPointerDown={onPointerDownCallback}>
+      <UI as="summary" onPointerDown={onPointerDownCallback}>
         {icon}
         {summary}
       </UI>

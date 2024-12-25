@@ -53,10 +53,10 @@ type Story = StoryObj<typeof Details>
 
 export const DetailsDropdown: Story = {
   args: {},
-  // play: async ({ canvasElement }) => {
-  //   const canvas = within(canvasElement)
-  //   expect(canvas.getByRole('group')).toBeInTheDocument()
-  // },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    expect(canvas.getByRole('group', { name: /details dropdown/i })).toBeInTheDocument()
+  },
 } as Story
 
 export const DetailsOpen: Story = {
