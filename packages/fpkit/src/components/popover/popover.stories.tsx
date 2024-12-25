@@ -1,6 +1,6 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/testing-library'
-import { expect } from '@storybook/jest'
+import { within, userEvent, screen } from '@storybook/test'
+
 
 import Popover from './popover'
 import { getByText } from '@testing-library/react'

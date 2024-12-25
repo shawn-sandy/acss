@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import FP from '../components/fp'
 import jest from 'jest-mock'
-import { userEvent } from '@storybook/testing-library'
+import { userEvent } from '@storybook/test'
 
 describe('FP component', () => {
   it('renders a div by default', () => {
