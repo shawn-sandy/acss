@@ -13,7 +13,56 @@ const preview: Preview = {
     autodocs: true,
     toc: true, // 👈 Enables the table of contents
   },
+  viewport: {
+    viewports: {
+      reflow: {
+        name: 'Reflow 320px',
+        styles: {
+          width: '320px',
+          height: '100%',
+        },
+      },
+
+      nobreakpoint: {
+        name: '375px',
+        styles: {
+          width: '375px',
+          height: '100%',
+        },
+      },
+      sm: {
+        name: 'SM 480px',
+        styles: {
+          width: '480px',
+          height: '100%',
+        },
+      },
+      md: {
+        name: 'MD 768px',
+        styles: {
+          width: '768px',
+          height: '100%',
+        },
+      },
+      lg: {
+        name: 'LG 992px',
+        styles: {
+          width: '992px',
+          height: '100%',
+        },
+      },
+      xl: {
+        name: 'XL 1280px',
+        styles: {
+          width: '1280px',
+          height: '100%',
+        },
+      },
+    },
   },
+  },
+  
+  
 };
 
 export default preview;
