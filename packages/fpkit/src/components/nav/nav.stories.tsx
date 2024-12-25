@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within } from '@storybook/test'
+import { within, expect } from '@storybook/test'
 
 import React from 'react'
 
@@ -40,7 +40,8 @@ export const NavComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    expect(canvas.getByText(/link/i)).toBeInTheDocument()
+    expect(canvas.getAllByRole('link')).toHaveLength(2)
+    expect(canvas.getByText(/link 1/i)).toBeInTheDocument()
   },
 }
 

@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/test'
+import { within, expect } from '@storybook/test'
 
 
 import Badge from './badge'

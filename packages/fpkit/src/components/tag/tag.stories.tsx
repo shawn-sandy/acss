@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/test'
+import { within, expect } from '@storybook/test'
 
 
 import Tag from './tag'
@@ -22,7 +22,7 @@ export const TagComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    expect(canvas.queryByText(/basic badge/i)).toBeInTheDocument()
+    expect(canvas.queryByText(/basic tag/i)).toBeInTheDocument()
   },
 }
 

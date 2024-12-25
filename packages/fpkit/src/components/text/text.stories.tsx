@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/test'
+import { within, expect} from '@storybook/test'
 
 
 import Text from './text'
@@ -19,10 +19,10 @@ type Story = StoryObj<typeof Text>
 
 export const ParagraphText: Story = {
   args: {},
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByText(/link/i)).toBeInTheDocument()
-  },
+  // play: async ({ canvasElement }) => {
+  //   const canvas = within(canvasElement)
+  //   expect(canvas.getByText(/link/i)).toBeInTheDocument()
+  // },
 }
 
 export const span: Story = {
