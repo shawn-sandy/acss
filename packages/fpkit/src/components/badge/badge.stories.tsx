@@ -3,7 +3,7 @@ import { within, userEvent, screen } from '@storybook/test'
 
 
 import Badge from './badge'
-import './badge.scss'
+// import './badge.scss'
 
 const meta: Meta<typeof Badge> = {
   title: 'FP.REACT Components/Badge',
