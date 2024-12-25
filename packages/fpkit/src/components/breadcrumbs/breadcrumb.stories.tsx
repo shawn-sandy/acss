@@ -1,8 +1,10 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/test'
+import { within, userEvent, fn, expect } from '@storybook/test'
 
 
 import Breadcrumb from './breadcrumb'
+
+const linkClicked = fn()
 
 const meta: Meta<typeof Breadcrumb> = {
   title: 'FP.REACT Components/Breadcrumb',
@@ -75,18 +77,31 @@ export const EncodedBreadcrumbs: Story = {
       },
     ],
     currentRoute: '/products/learning%20in%20public',
+  
   },
 
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await userEvent.click(screen.getByText('Shirts'))
-    expect(screen.getByText('Shirts')).toBeInTheDocument()
-  },
 } as Story
 
 export const TruncateName: Story = {
   args: {
     ...CustomURL.args,
     currentRoute: '/products/AveryLongNameTruncate',
+  },
+} as Story
+
+export const ClickHomeLink: Story = {
+  args: {
+    ...CustomURL.args,
+    currentRoute: '/products/shirts',
+    linkProps: {
+      onClick: linkClicked,
+    },
+  },
+  
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const homeLink = canvas.getByRole('link', { name: 'Home' })
+    await userEvent.click(homeLink)
+    expect(linkClicked).toHaveBeenCalled()
   },
 } as Story

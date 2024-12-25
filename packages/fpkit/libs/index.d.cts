@@ -504,6 +504,7 @@ type BreadcrumbProps = {
     ariaLabelPrefix?: string;
     /** Truncate breadcrumb text after this length */
     truncateLength?: number;
+    linkProps?: React__default.ComponentProps<typeof Link>;
 } & React__default.ComponentProps<typeof FP$1>;
 /**
  * Navigation component for breadcrumbs.
@@ -519,7 +520,7 @@ type BreadcrumbProps = {
  * @param props.children - Child components.
  */
 declare const Breadcrumb: {
-    ({ startRoute, currentRoute, spacer, routes, styles, id, classes, ariaLabelPrefix, truncateLength, ...props }: BreadcrumbProps): React__default.JSX.Element;
+    ({ startRoute, currentRoute, spacer, routes, styles, id, classes, ariaLabelPrefix, truncateLength, linkProps, ...props }: BreadcrumbProps): React__default.JSX.Element;
     displayName: string;
     Nav: ({ styles, id, classes, children, ...props }: React__default.ComponentProps<typeof FP$1>) => React__default.JSX.Element;
     List: ({ children, ...props }: React__default.ComponentProps<typeof FP$1>) => React__default.JSX.Element;
