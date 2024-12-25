@@ -9,6 +9,10 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+  docs: {
+    autodocs: true,
+    toc: true, // 👈 Enables the table of contents
+  },
   },
 };
 
