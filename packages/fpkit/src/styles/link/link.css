@@ -1,0 +1,88 @@
+a[href] {
+  --link-decoration: none;
+  --link-color: #085ab7;
+  --link-bg: transparent;
+  --link-px: 0;
+  --link-py: 0;
+  --link-transition: all 0.75s ease-in-out;
+  --link-fs: 1rem;
+  --link-radius: 0.25rem;
+  --link-skip-ink: auto;
+  --link-decoration-offset: 1.5px;
+  --link-decoration-thickness: 3px;
+  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
+    var(--link-decoration-thickness) var(--link-skip-ink);
+  --link-decoration-thickness: 3px;
+  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
+    var(--link-decoration-thickness) var(--link-skip-ink);
+  color: var(--link-color);
+  font-size: var(--link-fs);
+  text-decoration: var(--link-decoration);
+  text-underline-offset: var(--link-decoration-offset);
+  text-decoration-skip-ink: var(--link-skip-ink);
+  background-color: var(--link-bg);
+  border-radius: var(--link-radius);
+  background-color: var(--link-bg);
+  border-radius: var(--link-radius);
+  font-weight: var(--link-weight);
+}
+a[href] > i,
+a[href] > b {
+  font-weight: var(--link-weight);
+  font-style: normal;
+}
+a[href]:hover {
+  --link-decoration: underline;
+}
+a[href]:focus {
+  outline: none;
+  --link-decoration: underline;
+}
+a[href]:visited, a[href]:active {
+  --link-color: currentColor;
+}
+a[href]:has(> b), a[href][data-link~=btn], a[href]:has(> i) {
+  --link-button-color: var(--link-color);
+  --link-bg: transparent;
+  --link-decoration: none;
+  --link-border: 2px currentColor solid;
+  --link-fs: 0.9rem;
+  background-color: var(--link-bg);
+  font-style: normal;
+  font-size: var(--link-fs);
+  color: var(--link-button-color);
+  padding-inline: var(--link-fs);
+  padding-block: calc(var(--link-fs) - 0.4rem);
+  border-radius: var(--link-radius, 99rem);
+  display: inline-flex;
+  outline: var(--link-border);
+  --scale-transition: transform 0.25s ease;
+  --scale: scale(1);
+  --scale-to: scale(1.05);
+  transform: var(--scale);
+  transition: var(--scale-transition);
+}
+a[href]:has(> b):focus, a[href][data-link~=btn]:focus, a[href]:has(> i):focus {
+  outline: var(--link-border);
+  --link-decoration: none;
+}
+a[href]:has(> b):hover, a[href][data-link~=btn]:hover, a[href]:has(> i):hover {
+  --link-decoration: none;
+}
+a[href]:has(> b):hover, a[href][data-link~=btn]:hover, a[href]:has(> i):hover {
+  transform: var(--scale-to);
+}
+a[href][data-link~=pill], a[href]:has(> i) {
+  --link-radius: 99rem;
+  --link-decoration: none;
+  font-style: normal;
+}
+a[href][data-link~=pill]:hover, a[href][data-link~=pill]:focus, a[href]:has(> i):hover, a[href]:has(> i):focus {
+  --link-decoration: none;
+}
+
+header > section {
+  width: auto;
+}
+
+/*# sourceMappingURL=link.css.map */

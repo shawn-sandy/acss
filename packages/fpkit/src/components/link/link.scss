@@ -1,0 +1,92 @@
+@use '../../sass/mixins';
+
+a[href] {
+  --link-decoration: none;
+  --link-color: #085ab7;
+  --link-bg: transparent;
+  --link-px: 0;
+  --link-py: 0;
+  --link-transition: all 0.75s ease-in-out;
+  --link-fs: 1rem;
+  --link-radius: 0.25rem;
+  --link-skip-ink: auto;
+  --link-decoration-offset: 1.5px;
+  --link-decoration-thickness: 3px;
+  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
+    var(--link-decoration-thickness) var(--link-skip-ink);
+  --link-decoration-thickness: 3px;
+  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
+    var(--link-decoration-thickness) var(--link-skip-ink);
+
+  color: var(--link-color);
+  font-size: var(--link-fs);
+  text-decoration: var(--link-decoration);
+  text-underline-offset: var(--link-decoration-offset);
+  text-decoration-skip-ink: var(--link-skip-ink);
+  background-color: var(--link-bg);
+  border-radius: var(--link-radius);
+  background-color: var(--link-bg);
+  border-radius: var(--link-radius);
+  font-weight: var(--link-weight);
+
+  > i,
+  > b {
+    font-weight: var(--link-weight);
+    font-style: normal;
+  }
+
+  &:hover {
+    --link-decoration: underline;
+  }
+
+  &:focus {
+    outline: none;
+    --link-decoration: underline;
+  }
+
+  &:visited,
+  &:active {
+    --link-color: currentColor;
+  }
+
+  &:has(> b),
+  &[data-link~='btn'],
+  &:has(> i) {
+    --link-button-color: var(--link-color);
+    --link-bg: transparent;
+    --link-decoration: none;
+    --link-border: 2px currentColor solid;
+    --link-fs: 0.9rem;
+    background-color: var(--link-bg);
+    font-style: normal;
+    font-size: var(--link-fs);
+    color: var(--link-button-color);
+    padding-inline: var(--link-fs);
+    padding-block: calc(var(--link-fs) - 0.4rem);
+    border-radius: var(--link-radius, 99rem);
+    display: inline-flex;
+    outline: var(--link-border);
+    &:focus {
+      outline: var(--link-border);
+      --link-decoration: none;
+    }
+    &:hover {
+      --link-decoration: none;
+    }
+    @include mixins.scale-transitions;
+  }
+  &[data-link~='pill'],
+  &:has(> i) {
+    --link-radius: 99rem;
+    --link-decoration: none;
+    font-style: normal;
+    &:hover,
+    &:focus {
+      --link-decoration: none;
+    }
+  }
+}
+
+header > section {
+  width: auto;
+}
