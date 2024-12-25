@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react";
+import '../packages/fpkit/src/styles/index.css';
 
 const preview: Preview = {
   parameters: {
