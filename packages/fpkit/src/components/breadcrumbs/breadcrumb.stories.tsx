@@ -18,7 +18,6 @@ const meta: Meta<typeof Breadcrumb> = {
     },
   },
   args: {
-    // @ts-ignore
     children: 'Link',
   },
 } as Story
