@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/test'
+import { within, expect } from '@storybook/test'
 
 
 import Img from './img'
@@ -19,6 +19,6 @@ export const ImgComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    expect(canvas.getByRole('img')).toBeInTheDocument()
+    await expect(canvas.getByRole('img')).toBeInTheDocument()
   },
 }
