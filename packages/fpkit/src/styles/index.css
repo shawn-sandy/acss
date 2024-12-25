@@ -754,8 +754,8 @@ details {
   --details-border: 1px solid #dfdfdf;
   --details-display: flex;
   --details-justify: flex-start;
-  --details-direction: columns;
-  --details-gap: 5rem;
+  --details-direction: column;
+  --details-gap: 0rem;
   --details-px: 1.5rem;
   --details-py: 1.5rem;
   --details-radius: 0.5rem;
@@ -789,10 +789,17 @@ details summary {
   padding-block: var(--summary-py, var(--details-py));
   gap: var(--summary-gap);
   list-style: none;
+  border-top-left-radius: var(--details-radius);
+  border-top-right-radius: var(--details-radius);
   /* This ensures no bullet points are shown */
 }
 details summary::-webkit-details-marker {
   display: none;
+}
+details summary:focus-within {
+  outline: none;
+  border-bottom: solid 2px var(--details-border);
+  background-color: whitesmoke;
 }
 details summary:hover {
   cursor: var(--summary-cursor);
