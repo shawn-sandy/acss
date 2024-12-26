@@ -26,3 +26,4 @@ dist-ssr
 *storybook.log
 
 packages/fp-kit/libs
+packages/fpkit/libs/*
