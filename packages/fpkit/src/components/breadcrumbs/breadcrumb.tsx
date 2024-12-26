@@ -20,6 +20,7 @@ type BreadcrumbProps = {
   routes?: customRoute[]
   /** Starting route node */
   startRoute?: React.ReactNode
+  /* Starting route url */
   startRouteUrl?: string
   /** Spacer node between routes */
   spacer?: React.ReactNode
