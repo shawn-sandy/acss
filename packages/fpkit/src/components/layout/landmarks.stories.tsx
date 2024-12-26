@@ -2,7 +2,7 @@ import { StoryObj, Meta } from '@storybook/react'
 /**
  * Import testing library dependencies
  */
-import { within, userEvent } from '@storybook/test'
+import { within, expect } from '@storybook/test'
 
 /**
  * Import jest matchers

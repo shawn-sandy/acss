@@ -20,6 +20,8 @@ type BreadcrumbProps = {
   routes?: customRoute[]
   /** Starting route node */
   startRoute?: React.ReactNode
+  /* Starting route url */
+  startRouteUrl?: string
   /** Spacer node between routes */
   spacer?: React.ReactNode
   /** String representing current route */
@@ -109,6 +111,7 @@ const Nav = ({
  */
 export const Breadcrumb = ({
   startRoute = 'Home',
+  startRouteUrl = "/",
   currentRoute,
   spacer = <>&#47;</>,
   routes,
@@ -162,7 +165,7 @@ export const Breadcrumb = ({
       aria-label={ariaLabelPrefix}
     >
       <Items key={`${startRoute}-${uuid}`}>
-        <Link href="/" {...linkProps}>{startRoute}</Link>
+        <Link href={startRouteUrl} {...linkProps}>{startRoute}</Link>
       </Items>
       <>
       {segments.length ? (
