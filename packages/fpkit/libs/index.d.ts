@@ -496,6 +496,7 @@ type BreadcrumbProps = {
     routes?: customRoute[];
     /** Starting route node */
     startRoute?: React__default.ReactNode;
+    startRouteUrl?: string;
     /** Spacer node between routes */
     spacer?: React__default.ReactNode;
     /** String representing current route */
@@ -520,7 +521,7 @@ type BreadcrumbProps = {
  * @param props.children - Child components.
  */
 declare const Breadcrumb: {
-    ({ startRoute, currentRoute, spacer, routes, styles, id, classes, ariaLabelPrefix, truncateLength, linkProps, ...props }: BreadcrumbProps): React__default.JSX.Element;
+    ({ startRoute, startRouteUrl, currentRoute, spacer, routes, styles, id, classes, ariaLabelPrefix, truncateLength, linkProps, ...props }: BreadcrumbProps): React__default.JSX.Element;
     displayName: string;
     Nav: ({ styles, id, classes, children, ...props }: React__default.ComponentProps<typeof FP$1>) => React__default.JSX.Element;
     List: ({ children, ...props }: React__default.ComponentProps<typeof FP$1>) => React__default.JSX.Element;
