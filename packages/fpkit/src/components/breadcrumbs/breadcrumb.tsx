@@ -30,7 +30,7 @@ type BreadcrumbProps = {
   ariaLabelPrefix?: string
   /** Truncate breadcrumb text after this length */
   truncateLength?: number
-
+  /** Link props for breadcrumb links */
   linkProps?: React.ComponentProps<typeof Link>
 } & React.ComponentProps<typeof UI>
 
