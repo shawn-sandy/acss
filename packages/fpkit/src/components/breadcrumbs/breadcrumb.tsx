@@ -164,7 +164,7 @@ export const Breadcrumb = ({
       aria-label={ariaLabelPrefix}
     >
       <Items key={`${startRoute}-${uuid}`}>
-        <Link href="/" {...linkProps}>{startRoute}</Link>
+        <Link href={startRouteUrl} {...linkProps}>{startRoute}</Link>
       </Items>
       <>
       {segments.length ? (
