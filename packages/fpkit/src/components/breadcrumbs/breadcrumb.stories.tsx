@@ -1,8 +1,11 @@
 import { StoryObj, Meta } from '@storybook/react'
 import { within, userEvent, fn, expect } from '@storybook/test'
+import { within, userEvent, fn, expect } from '@storybook/test'
 
 
 import Breadcrumb from './breadcrumb'
+
+const linkClicked = fn()
 
 const linkClicked = fn()
 

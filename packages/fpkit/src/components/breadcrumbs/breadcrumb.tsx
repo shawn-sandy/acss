@@ -164,50 +164,47 @@ export const Breadcrumb = ({
       aria-label={ariaLabelPrefix}
     >
       <Items key={`${startRoute}-${uuid}`}>
-        <a href="/">{startRoute}</a>
+        <Link href="/" {...linkProps}>{startRoute}</Link>
       </Items>
       <>
       {segments.length ? (
         segments.map((segment: any, index: number) => {
           const currentSegment = getPathName(segment)
           const { name, url, path } = currentSegment
-          if (index === lastSegment) {
-            return (
-              <>
-                {typeof segments[lastSegment] === 'string' &&
-                  segments[lastSegment].length > 3 &&
-                  segments[lastSegment] !== segments[lastSegment - 1] && (
-                    <Items key={`${path || index}-${uuid}`}>
-                      <>
-                        <span aria-hidden="true">{spacer}</span>
-                        <a
-                          aria-current="page"
-                          aria-label={
-                            name.length > truncateLength ? name : undefined
-                          }
-                        >
-                          {Truncate(decodeURIComponent(name), truncateLength)}
-                        </a>
-                      </>{' '}
-                    </Items>
-                  )}
-              </>
-            )
-          } else {
-            return (
-              <Items key={`${currentSegment?.name}-${uuid}`}>
-                <span aria-hidden="true">{spacer}</span>
-                <span>
-                  <a
-                    href={url}
-                    aria-label={name.length > truncateLength ? name : undefined}
-                  >
-                    {Truncate(decodeURIComponent(name), truncateLength)}
-                  </a>
-                </span>
-              </Items>
-            )
-          }
+          return index === lastSegment ? (
+            <>
+              {typeof segments[lastSegment] === 'string' &&
+                segments[lastSegment].length > 3 &&
+                segments[lastSegment] !== segments[lastSegment - 1] && (
+                  <Items  key={`${path || index}-${uuid}`}>
+                     
+                      <span aria-hidden="true">{spacer}</span>
+                      <a
+                        aria-current="page"
+                        aria-label={
+                          name.length > truncateLength ? name : undefined
+                        }
+                      >
+                        {Truncate(decodeURIComponent(name), truncateLength)}
+                      </a>
+                     
+                  </Items>
+                )}
+            </>
+          ) : (
+            <Items key={`${currentSegment?.name}-${uuid}`}>
+              <span aria-hidden="true">{spacer}</span>
+              <span>
+                <Link
+                  href={url}
+                  aria-label={name.length > truncateLength ? name : undefined}
+                 {...linkProps}
+                >
+                  {Truncate(decodeURIComponent(name), truncateLength)}
+                </Link>
+              </span>
+            </Items>
+          );
         })
       ) : (
         null
