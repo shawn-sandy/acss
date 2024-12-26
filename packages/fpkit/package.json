@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "focus-trap": "^7.5.2",
+    "jest-mock": "^29.7.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
