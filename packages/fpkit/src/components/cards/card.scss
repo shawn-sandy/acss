@@ -5,8 +5,9 @@
   --card-position: relative;
   --card-display: flex;
   --card-direction: column;
-  --card-gap: 1.5rem;
+  --card-gap: 1rem;
 }
+
 [data-card],
 [data-component~='card'] {
   display: var(--card-display);
@@ -20,6 +21,7 @@
   h3,
   h2 {
     margin-block-end: 0;
+    padding-block-end: 0;
   }
   + div {
     margin-block-start: 0;
@@ -41,3 +43,4 @@
     padding-block-start: calc(var(--card-p) - 0.5rem);
   }
 }
+

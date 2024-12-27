@@ -133,7 +133,6 @@ Footer.displayName = 'Footer'
  * @param {boolean} [props.renderStyles=true] - Whether to render default styles
  * @param {string} [props.dataStyle] - data-card attribute value
  * @param {string} [props.id] - Unique ID
- *
  * @returns {ReactElement} Card component
  */
 export const Card = ({

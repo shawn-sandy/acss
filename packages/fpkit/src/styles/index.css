@@ -448,9 +448,9 @@ button {
   --btn-md: calc(16rem / 16);
   --btn-lg: calc(21rem / 16);
   --btn-pill: 100rem;
-  --btn-height: calc(40rem / 16);
+  --btn-height: 2.5rem;
   --fs: 0.95rem;
-  --btn-fs: calc(15rem / 16);
+  --btn-fs: 0.9375rem;
   --btn-bg: lightgray;
   --btn-width: max-content;
   font-size: var(--btn-fs);
@@ -653,7 +653,7 @@ figure:has(img[alt]) > figcaption {
   --card-position: relative;
   --card-display: flex;
   --card-direction: column;
-  --card-gap: 1.5rem;
+  --card-gap: 1rem;
 }
 
 [data-card],
@@ -672,6 +672,7 @@ figure:has(img[alt]) > figcaption {
 [data-component~=card] h3,
 [data-component~=card] h2 {
   margin-block-end: 0;
+  padding-block-end: 0;
 }
 [data-card] + div,
 [data-component~=card] + div {
