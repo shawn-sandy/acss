@@ -345,7 +345,7 @@ ol {
   flex-direction: var(--li-direction, column);
   gap: var(--li-gap, 0.2rem);
   flex-wrap: var(--li-wrap, nowrap);
-  padding-inline-start: var(--li-ps, var(--spc-0));
+  padding-inline-start: var(--li-ps, var(--spc-2));
 }
 ul[role=list], ul[data-list~=unstyled],
 ol[role=list],
@@ -360,6 +360,7 @@ ol[data-list~=inline] {
   --li-gap: 1rem;
   --li-wrap: wrap;
   --li-px: 0;
+  --li-pi: 0;
 }
 
 sup {
