@@ -1,21 +1,23 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, expect } from '@storybook/test'
+import React from "react"
+import type { StoryObj, Meta } from '@storybook/react'
+import { within, userEvent, expect, fn } from '@storybook/test'
 
 
 import Button from './button'
-import './button.scss'
+// import './button.scss'
 
-const meta: Meta<typeof Button> = {
+const meta = {
   title: 'FP.React Components/Buttons',
   component: Button,
   args: {
     children: 'Click me',
+    type: 'button',
   },
   parameters: {
     // actions: { argTypesRegex: '^on.*' },
   },
   argTypes: { onClick: { action: 'clicked' } },
-} as Meta
+} satisfies Meta<typeof Button>
 
 export default meta
 type Story = StoryObj<typeof Button>

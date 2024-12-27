@@ -1,8 +1,7 @@
 import UI from '../ui'
 import React from 'react'
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  Partial<React.ComponentProps<typeof UI>> & {
+export type ButtonProps = Partial<React.ComponentProps<typeof UI>> & {
     /**
      * The button type
      * Required - 'button' | 'submit' | 'reset'
