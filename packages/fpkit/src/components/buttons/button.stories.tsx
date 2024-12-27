@@ -40,6 +40,16 @@ export const ButtonComponent: Story = {
       await userEvent.click(button);
       expect(buttonClicked).toHaveBeenCalled();
     });
+    // add a step tyo check for enter key press
+    await step("Button is clicked with enter key", async () => {
+      await userEvent.type(button, "{enter}");
+      expect(buttonClicked).toHaveBeenCalled();
+    });
+    // step check for space key press
+    await step("Button is clicked with space key", async () => {
+      await userEvent.type(button, "{space}");
+      expect(buttonClicked).toHaveBeenCalled();
+    });
   },
 } as Story;
 
