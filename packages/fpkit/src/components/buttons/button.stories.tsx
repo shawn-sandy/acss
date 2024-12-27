@@ -11,9 +11,10 @@ const meta = {
   component: Button,
   args: {
     children: "Click me",
+    onClick: buttonClicked,
   },
   parameters: {
-    // actions: { argTypesRegex: '^on.*' },
+    actions: { argTypesRegex: '^on.*' },
   },
   argTypes: { onClick: { action: "clicked" } },
 } as Meta;
@@ -22,7 +23,9 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const ButtonComponent: Story = {
-  args: {},
+  args: {
+    onClick: buttonClicked,
+  },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button");
@@ -35,7 +38,7 @@ export const ButtonComponent: Story = {
     });
     await step("Button is clicked", async () => {
       await userEvent.click(button);
-      expect(button).toHaveFocus();
+      expect(buttonClicked).toHaveBeenCalled();
     });
   },
 } as Story;

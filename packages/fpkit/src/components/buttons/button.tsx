@@ -61,7 +61,7 @@ export const Button = ({
      */
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!disabled) {
-      props.onClick?.(e)
+       onClick?.(e)
     }
   }
 
