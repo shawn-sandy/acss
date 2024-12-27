@@ -16,7 +16,6 @@ const meta = {
   parameters: {
     actions: { argTypesRegex: '^on.*' },
   },
-  argTypes: { onClick: { action: "clicked" } },
 } as Meta;
 
 export default meta;
@@ -40,7 +39,7 @@ export const ButtonComponent: Story = {
       await userEvent.click(button);
       expect(buttonClicked).toHaveBeenCalled();
     });
-    // add a step tyo check for enter key press
+    // step to check for enter key press
     await step("Button is clicked with enter key", async () => {
       await userEvent.type(button, "{enter}");
       expect(buttonClicked).toHaveBeenCalled();
