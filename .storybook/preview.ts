@@ -8,6 +8,8 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+      // exclude specific props from the controls panel
+      exclude: ['children'],
     },
   docs: {
     autodocs: true,
