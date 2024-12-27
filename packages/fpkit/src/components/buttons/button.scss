@@ -58,7 +58,7 @@ button {
     background-color: var(--btn-bg, var(--btn, lightgray));
     filter: invert(1) hue-rotate (180deg);
     transform: scale(0.95) var(--line-style, solid);
-    outline-offset: var(--line-offset, 5px);
+    outline-offset: var(--line-offset, 1px);
 
     &[aria-disabled='true'] {
       transform: none;

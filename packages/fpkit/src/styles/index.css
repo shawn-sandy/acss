@@ -491,7 +491,7 @@ button:is(:hover, :focus) {
   background-color: var(--btn-bg, var(--btn, lightgray));
   filter: invert(1) hue-rotate 180deg;
   transform: scale(0.95) var(--line-style, solid);
-  outline-offset: var(--line-offset, 5px);
+  outline-offset: var(--line-offset, 1px);
 }
 button:is(:hover, :focus)[aria-disabled=true] {
   transform: none;
