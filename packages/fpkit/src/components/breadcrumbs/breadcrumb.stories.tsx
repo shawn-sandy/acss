@@ -1,4 +1,4 @@
-import { StoryObj, Meta } from '@storybook/react'
+import type { StoryObj, Meta } from '@storybook/react'
 import { within, userEvent, fn, expect } from '@storybook/test'
 
 
@@ -20,7 +20,7 @@ const meta: Meta<typeof Breadcrumb> = {
   args: {
     children: 'Link',
   },
-} as Story
+} as Meta  
 
 export default meta
 type Story = StoryObj<typeof Breadcrumb>

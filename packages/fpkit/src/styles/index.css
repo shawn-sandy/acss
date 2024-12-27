@@ -345,7 +345,7 @@ ol {
   flex-direction: var(--li-direction, column);
   gap: var(--li-gap, 0.2rem);
   flex-wrap: var(--li-wrap, nowrap);
-  padding-inline-start: var(--li-ps, var(--spc-0));
+  padding-inline-start: var(--li-ps, var(--spc-2));
 }
 ul[role=list], ul[data-list~=unstyled],
 ol[role=list],
@@ -360,6 +360,7 @@ ol[data-list~=inline] {
   --li-gap: 1rem;
   --li-wrap: wrap;
   --li-px: 0;
+  --li-pi: 0;
 }
 
 sup {
@@ -389,27 +390,27 @@ h6 {
 }
 
 h1 {
-  font-size: var(--h1, var(--fs-7));
+  font-size: var(--h1, var(--fs-6));
 }
 
 h2 {
-  font-size: var(--h2, var(--fs-6));
+  font-size: var(--h2, var(--fs-5));
 }
 
 h3 {
-  font-size: var(--h3, var(--fs-5));
+  font-size: var(--h3, var(--fs-4));
 }
 
 h4 {
-  font-size: var(--h4, var(--fs-4));
+  font-size: var(--h4, var(--fs-3));
 }
 
 h5 {
-  font-size: var(--h5, var(--fs-3));
+  font-size: var(--h5, var(--fs-2));
 }
 
 h6 {
-  font-size: var(--h6, var(--fs-2));
+  font-size: var(--h6, var(--fs-1));
 }
 
 hr {
@@ -447,9 +448,9 @@ button {
   --btn-md: calc(16rem / 16);
   --btn-lg: calc(21rem / 16);
   --btn-pill: 100rem;
-  --btn-height: calc(40rem / 16);
+  --btn-height: 2.5rem;
   --fs: 0.95rem;
-  --btn-fs: calc(15rem / 16);
+  --btn-fs: 0.9375rem;
   --btn-bg: lightgray;
   --btn-width: max-content;
   font-size: var(--btn-fs);
@@ -490,7 +491,7 @@ button:is(:hover, :focus) {
   background-color: var(--btn-bg, var(--btn, lightgray));
   filter: invert(1) hue-rotate 180deg;
   transform: scale(0.95) var(--line-style, solid);
-  outline-offset: var(--line-offset, 5px);
+  outline-offset: var(--line-offset, 1px);
 }
 button:is(:hover, :focus)[aria-disabled=true] {
   transform: none;
@@ -652,7 +653,7 @@ figure:has(img[alt]) > figcaption {
   --card-position: relative;
   --card-display: flex;
   --card-direction: column;
-  --card-gap: 1.5rem;
+  --card-gap: 1rem;
 }
 
 [data-card],
@@ -664,13 +665,12 @@ figure:has(img[alt]) > figcaption {
   background-color: var(--card-bg);
   text-align: var(--card-align, left);
 }
-[data-card] [data-card-content],
 [data-card] h3,
 [data-card] h2,
-[data-component~=card] [data-card-content],
 [data-component~=card] h3,
 [data-component~=card] h2 {
   margin-block-end: 0;
+  padding-block-end: 0;
 }
 [data-card] + div,
 [data-component~=card] + div {
@@ -757,7 +757,7 @@ details {
   --details-direction: column;
   --details-gap: 0rem;
   --details-px: 1.5rem;
-  --details-py: 1.5rem;
+  --details-py: 1rem;
   --details-radius: 0.5rem;
   --summary-cursor: pointer;
   --summary-transitions: all 0.75s linear;
@@ -810,6 +810,7 @@ details summary > section {
 details > section {
   padding-inline: var(--details-px);
   padding-block: var(--details-py);
+  margin-block-start: 0;
   border: 1px transparent solid;
 }
 details[open] {
@@ -1178,6 +1179,7 @@ sup:has(> span) {
   padding: var(--badge-padding);
   border-radius: var(--badge-radius);
   vertical-align: var(--badge-v-align);
+  font-size: var(--badge-fs);
 }
 sup:has(> span) span {
   color: inherit;

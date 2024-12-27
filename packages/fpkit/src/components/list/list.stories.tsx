@@ -27,6 +27,12 @@ export const DefaultList: Story = {
   args: {
     children: listElm,
   },
+  argTypes: {
+    // foo is the property we want to remove from the UI
+    children: {
+      control: false,
+    },
+  },
 } as Story
 
 export const UnstyledList: Story = {

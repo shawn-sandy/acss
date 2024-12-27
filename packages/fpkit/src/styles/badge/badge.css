@@ -10,6 +10,7 @@ sup:has(> span) {
   padding: var(--badge-padding);
   border-radius: var(--badge-radius);
   vertical-align: var(--badge-v-align);
+  font-size: var(--badge-fs);
 }
 sup:has(> span) span {
   color: inherit;

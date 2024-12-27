@@ -3,9 +3,9 @@ button {
   --btn-md: calc(16rem / 16);
   --btn-lg: calc(21rem / 16);
   --btn-pill: 100rem;
-  --btn-height: calc(40rem / 16);
+  --btn-height: 2.5rem;
   --fs: 0.95rem;
-  --btn-fs: calc(15rem / 16);
+  --btn-fs: 0.9375rem;
   --btn-bg: lightgray;
   --btn-width: max-content;
 
@@ -58,7 +58,7 @@ button {
     background-color: var(--btn-bg, var(--btn, lightgray));
     filter: invert(1) hue-rotate (180deg);
     transform: scale(0.95) var(--line-style, solid);
-    outline-offset: var(--line-offset, 5px);
+    outline-offset: var(--line-offset, 1px);
 
     &[aria-disabled='true'] {
       transform: none;
@@ -105,7 +105,6 @@ button {
     --btn-width: unset;
     --btn-py: 0.75rem;
     --btn-px: 0.75rem;
-
     &:is(:hover, :focus) {
       background-color: transparent;
       outline: 0.07rem solid var(--btn-cl);

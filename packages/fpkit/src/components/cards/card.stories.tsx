@@ -30,7 +30,7 @@ export const Multiple: Story = {
     },
   },
   render: (args) => (
-    <>
+    <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
       <Card {...args}>
         <p>
           Proident et amet aliqua excepteur sunt qui deserunt commodo tempor
@@ -55,7 +55,7 @@ export const Multiple: Story = {
           culpa aliqua veniam.
         </p>
       </Card>
-    </>
+    </div>
   ),
 } as Story
 

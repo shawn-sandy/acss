@@ -7,7 +7,7 @@ details {
   --details-direction: column;
   --details-gap: 0rem;
   --details-px: 1.5rem;
-  --details-py: 1.5rem;
+  --details-py: 1rem;
   --details-radius: 0.5rem;
   --summary-cursor: pointer;
   --summary-transitions: all 0.75s linear;
@@ -67,6 +67,7 @@ details {
   > section {
     padding-inline: var(--details-px);
     padding-block: var(--details-py);
+    margin-block-start: 0;
     border: 1px transparent solid;
   }
 

@@ -87,7 +87,7 @@ ol {
   flex-direction: var(--li-direction, column);
   gap: var(--li-gap, 0.2rem);
   flex-wrap: var(--li-wrap, nowrap);
-  padding-inline-start: var(--li-ps, var(--spc-0));
+  padding-inline-start: var(--li-ps, var(--spc-2));
   &[role='list'],
   &[data-list~='unstyled'] {
     list-style: var(--li-style, none);
@@ -99,6 +99,7 @@ ol {
     --li-gap: 1rem;
     --li-wrap: wrap;
     --li-px: 0;
+    --li-pi: 0;
   }
 }
 
@@ -129,27 +130,27 @@ h6 {
 }
 
 h1 {
-  font-size: var(--h1, var(--fs-7));
+  font-size: var(--h1, var(--fs-6));
 }
 
 h2 {
-  font-size: var(--h2, var(--fs-6));
+  font-size: var(--h2, var(--fs-5));
 }
 
 h3 {
-  font-size: var(--h3, var(--fs-5));
+  font-size: var(--h3, var(--fs-4));
 }
 
 h4 {
-  font-size: var(--h4, var(--fs-4));
+  font-size: var(--h4, var(--fs-3));
 }
 
 h5 {
-  font-size: var(--h5, var(--fs-3));
+  font-size: var(--h5, var(--fs-2));
 }
 
 h6 {
-  font-size: var(--h6, var(--fs-2));
+  font-size: var(--h6, var(--fs-1));
 }
 
 hr {
