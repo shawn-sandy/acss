@@ -1,7 +1,7 @@
 {
   "name": "astro-builds",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,7 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@fpkit/acss": "^0.5.0",
+    "@fpkit/acss": "^0.5.1",
     "astro": "^5.1.1"
   }
 }
