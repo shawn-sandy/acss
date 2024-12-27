@@ -12,7 +12,7 @@ const Heading = ({
   type = 'h3',
   id,
   styles,
-  ui = 'display',
+  ui,
   children,
   ...props
 }: TitleProps) => {
