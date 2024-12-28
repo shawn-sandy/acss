@@ -1,10 +1,11 @@
 import * as React from 'react'
 
-import { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from '#components/buttons/button'
 import { Icon } from './icon'
 import './icon.scss'
+import { I } from "vitest/dist/types-198fd1d9.js"
 
 const meta: Meta<typeof Icon> = {
   component: Icon,
@@ -36,21 +37,40 @@ export const IconSet = {
   },
 }
 
+
+export const IconSizes = {
+  args: {},
+  render: (...args: any) => {
+    return (
+      <Icon>
+        <Icon.ArrowUp size={16} />
+        <Icon.ArrowUp size={24} />
+        <Icon.ArrowUp size={32} />
+        <Icon.ArrowUp size={48} />
+        <Icon.ArrowUp size={64} />
+        <Icon.ArrowUp size={96} />
+        <Icon.ArrowUp size={128} />
+      </Icon>
+    )
+  },
+}
+
 export const IconButton = {
   args: {},
   render: (...args: any) => {
     return (
-      <>
+   
         <Button type="button">
           <Icon>
             <Icon.Code />
           </Icon>
           Click Me
         </Button>
-      </>
+     
     )
   },
 }
+
 
 export const Code: Story = {
   args: {

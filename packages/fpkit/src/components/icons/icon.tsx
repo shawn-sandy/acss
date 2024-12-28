@@ -48,6 +48,17 @@ const defaultStyles = {
 
 export type IconProps = React.ComponentProps<typeof UI>
 
+/**
+ * A component for rendering icons with consistent styling and behavior.
+ *
+ * @param {object} props - The component props
+ * @param {string} [props.id] - Optional unique identifier for the icon
+ * @param {string} [props.classes] - CSS classes to apply to the icon
+ * @param {React.ReactNode} [props.children] - Child elements to render inside the icon
+ * @param {object} [props.styles] - Custom styles to apply to the icon
+ * @param {...any} [props.props] - Additional props to spread to the underlying UI component
+ * @returns {JSX.Element} The rendered icon component
+ */
 export const Icon = ({
   id,
   classes,

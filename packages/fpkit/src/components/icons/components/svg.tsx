@@ -6,6 +6,7 @@ const defaultStyes = {
   display: 'inline-flex',
   alignItems: 'center',
   width: 'auto',
+  fontSize: 'inherit',
 }
 
 export const Svg = ({

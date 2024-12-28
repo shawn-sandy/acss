@@ -1,6 +1,6 @@
 import React from 'react'
 import UI from '#components/ui'
-import { type } from 'os'
+
 
 export type TitleProps = {
   children: React.ReactNode

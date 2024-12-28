@@ -5,6 +5,7 @@
   --icon-width: max-content;
   --icon-gap: 0.2rem;
   --icon-height: max-content;
+  --icon-fs: inherit;
 
   display: var(--icon-display);
   flex-direction: var(--icon-direction);
@@ -12,4 +13,5 @@
   place-items: var(--icons-placement);
   width: var(--icon-width);
   height: var(--icon-height);
+  font-size: var(--icon-fs);
 }
