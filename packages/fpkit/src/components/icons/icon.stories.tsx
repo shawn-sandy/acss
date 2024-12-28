@@ -5,8 +5,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Button } from '#components/buttons/button'
 import { Icon } from './icon'
 import Heading  from '#components/heading/heading'
-import './icon.scss'
-import { I } from "vitest/dist/types-198fd1d9.js"
+// import './icon.scss'
+ 
 
 const meta: Meta<typeof Icon> = {
   component: Icon,

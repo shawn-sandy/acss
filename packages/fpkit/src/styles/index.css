@@ -1437,6 +1437,23 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
   outline: var(--tts-border-width) var(--tts-border-style);
 }
 
+[data-icon] {
+  --icon-display: inline-flex;
+  --icon-direction: row;
+  --icons-placement: center;
+  --icon-width: max-content;
+  --icon-gap: 0.2rem;
+  --icon-height: max-content;
+  --icon-fs: inherit;
+  display: var(--icon-display);
+  flex-direction: var(--icon-direction);
+  gap: var(--icon-gap);
+  align-items: var(--icons-placement);
+  width: var(--icon-width);
+  height: var(--icon-height);
+  font-size: var(--icon-fs);
+}
+
 :root {
   --shadow: 0 0 0.525rem 0 rgba(0, 0, 0, 0.1);
   --shadow-xs: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
