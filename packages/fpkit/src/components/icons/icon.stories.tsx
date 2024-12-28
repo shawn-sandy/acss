@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from '#components/buttons/button'
 import { Icon } from './icon'
+import Heading  from '#components/heading/heading'
 import './icon.scss'
 import { I } from "vitest/dist/types-198fd1d9.js"
 
@@ -51,6 +52,19 @@ export const IconSizes = {
         <Icon.ArrowUp size={96} />
         <Icon.ArrowUp size={128} />
       </Icon>
+    )
+  },
+}
+
+export const HeadingIcon = {
+  args: {},
+  render: (...args: any) => {
+    return (
+      <Heading type="h1">
+        <Icon>
+          <Icon.Code size={32} /> Code Icon
+        </Icon>
+      </Heading>
     )
   },
 }

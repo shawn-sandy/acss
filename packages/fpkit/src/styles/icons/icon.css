@@ -9,7 +9,7 @@
   display: var(--icon-display);
   flex-direction: var(--icon-direction);
   gap: var(--icon-gap);
-  place-items: var(--icons-placement);
+  align-items: var(--icons-placement);
   width: var(--icon-width);
   height: var(--icon-height);
   font-size: var(--icon-fs);
