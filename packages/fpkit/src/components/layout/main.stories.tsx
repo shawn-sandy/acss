@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryObj, Meta } from "@storybook/react";
 /**
  * Import testing library dependencies
