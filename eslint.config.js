@@ -11,4 +11,15 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  {
+    rules: {
+      // Add your rules here
+      "react/prop-types": "off",
+      "jsx-quotes": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "react/react-in-jsx-scop": "off",
+      "no-unused-vars": "error",
+      "react/display-name": "warn",
+    },
+  },
 ];

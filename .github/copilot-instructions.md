@@ -12,5 +12,6 @@ Answer all questions in less than 1000 characters.
 4. Add a body if necessary, separated by a blank line.
 5. Write a short description of the changes made.
 6. Explain or describe the changes in a bullet list.
-7. Use `git diff` to see the changes made.
-8. Add a footer for issue references, separated by a blank line.
+7. Be precise and concise when writing the commit message when possible.
+8. Use `git diff` to see the changes made.
+9. Add a footer for issue references, separated by a blank line.

@@ -1,20 +1,27 @@
-import FP from '../fp'
-import { ComponentProps } from '../../types'
+import React from "react";
+import UI from "../ui";
+import { ComponentProps } from "../../types";
 
 export interface CBProps extends ComponentProps {
   /**
    * Styles use data-variant attribute
    */
-  variant?: string
-  current?: "page" | "step"
+  variant?: string;
+  current?: "page" | "step";
 }
 
 export const BCItem = ({ children, current, variant, ...props }: CBProps) => {
   return (
-    <li className='style' data-variant={variant} aria-current={current} {...props}>
+    <UI
+      as="li"
+      className="style"
+      data-variant={variant}
+      aria-current={current}
+      {...props}
+    >
       {children}
-    </li>
-  )
-}
+    </UI>
+  );
+};
 
 // BCItem.displayName = 'FP.BreadCrumb.Item'
