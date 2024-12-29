@@ -1,108 +1,105 @@
-import type { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, fn, expect } from '@storybook/test'
+import type { StoryObj, Meta } from "@storybook/react";
+import { within, fn, expect } from "@storybook/test";
 
+import Breadcrumb from "./breadcrumb";
 
-import Breadcrumb from './breadcrumb'
-
-const linkClicked = fn()
+const linkClicked = fn();
 
 const meta: Meta<typeof Breadcrumb> = {
-  title: 'FP.REACT Components/Breadcrumb',
+  title: "FP.REACT Components/Breadcrumb",
   component: Breadcrumb,
   parameters: {
-    actions: { argTypesRegex: '^on.*' },
+    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
-        component: 'Breadcrumb description here...',
+        component: "Breadcrumb description here...",
       },
     },
   },
   args: {
-    children: 'Link',
+    children: "Link",
   },
-} as Meta  
+} as Meta;
 
-export default meta
-type Story = StoryObj<typeof Breadcrumb>
+export default meta;
+type Story = StoryObj<typeof Breadcrumb>;
 
 export const BreadcrumbComponent: Story = {
   args: {},
-}
+};
 
 export const CustomURL: Story = {
   args: {
     routes: [
       {
-        name: 'Products',
-        url: '/products',
-        path: 'product',
+        name: "Products",
+        url: "/products",
+        path: "product",
       },
       {
-        name: 'Shirts',
-        url: '/products/shirts',
-        path: 'shirts',
+        name: "Shirts",
+        url: "/products/shirts",
+        path: "shirts",
       },
       {
-        name: 'Pants',
-        url: '/products/pants',
-        path: 'pants',
+        name: "Pants",
+        url: "/products/pants",
+        path: "pants",
       },
     ],
-    currentRoute: '/product/men/shirts/size-22',
+    currentRoute: "/product/men/shirts/size-22",
   },
-} as Story
+} as Story;
 
 export const AstroBreadcrumbs: Story = {
   args: {
     ...CustomURL.args,
-    currentRoute: '/about',
+    currentRoute: "/about",
   },
-} as Story
+} as Story;
 
 export const EncodedBreadcrumbs: Story = {
   args: {
     routes: [
       {
-        name: 'Home',
-        path: '/',
+        name: "Home",
+        path: "/",
       },
       {
-        name: 'Products',
-        path: '/products',
+        name: "Products",
+        path: "/products",
       },
       {
-        name: 'Shirts',
-        path: '/products/shirts',
+        name: "Shirts",
+        path: "/products/shirts",
       },
     ],
-    currentRoute: '/products/learning%20in%20public',
-  
+    currentRoute: "/products/learning%20in%20public",
   },
-
-} as Story
+} as Story;
 
 export const TruncateName: Story = {
   args: {
     ...CustomURL.args,
-    currentRoute: '/products/AveryLongNameTruncate',
+    currentRoute: "/products/AveryLongNameTruncate",
   },
-} as Story
+} as Story;
 
 export const ClickHomeLink: Story = {
   args: {
     ...CustomURL.args,
-    currentRoute: '/products/shirts',
+    currentRoute: "/products/shirts",
     startRouteUrl: "#",
     linkProps: {
       onClick: linkClicked,
     },
   },
-  
+
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const homeLink = canvas.getByRole('link', { name: 'Home' })
-    expect(homeLink).toHaveAttribute('href', '#')
+    const canvas = within(canvasElement);
+    const homeLink = canvas.getByRole("link", { name: "Home" });
+    expect(homeLink).toHaveAttribute("href", "#");
     // await userEvent.click(homeLink)
     // expect(linkClicked).toHaveBeenCalled()
   },
-} as Story
+} as Story;

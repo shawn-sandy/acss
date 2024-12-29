@@ -17,7 +17,7 @@ export default [
       "react/prop-types": "off",
       "jsx-quotes": "off",
       "@typescript-eslint/no-explicit-any": "warn",
-      "react/react-in-jsx-scop": "off",
+      "react/react-in-jsx-scope": "off",
       "no-unused-vars": "error",
       "react/display-name": "warn",
     },
