@@ -9,7 +9,6 @@ const meta: Meta<typeof Link> = {
   title: "FP.React Components/Links",
   component: Link,
   args: {
-    // @ts-ignore
     href: "/",
     children: "Link",
   },
@@ -45,7 +44,7 @@ export const ExternalLink: Story = {
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer prefetch");
   },
-};
+} as Story;
 
 export const ButtonLink: Story = {
   args: {
