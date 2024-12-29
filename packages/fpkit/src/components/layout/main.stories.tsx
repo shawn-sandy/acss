@@ -1,38 +1,35 @@
-import { StoryObj, Meta } from '@storybook/react'
+import { StoryObj, Meta } from "@storybook/react";
 /**
  * Import testing library dependencies
  */
-import { within, userEvent, expect } from '@storybook/test'
+import { within, expect } from "@storybook/test";
 
 /**
  * Import jest matchers
  */
 
-
-import { Main } from './landmarks'
+import { Main } from "./landmarks";
 
 const meta: Meta<typeof Main> = {
-  title: 'FP.React Components/Layout/Landmarks',
+  title: "FP.React Components/Layout/Landmarks",
   component: Main,
   args: {
-    // @ts-ignore
     children: (
       <section>
         The main HTML element represents the dominant content of the body of a
         document.
       </section>
     ),
-    // @ts-ignore
-    'data-testid': 'main',
+    "data-testid": "main",
   },
   decorators: [
     (Story) => (
-      <div style={{ minHeight: '80vh', display: 'flex' }}>
+      <div style={{ minHeight: "80vh", display: "flex" }}>
         <Story />
       </div>
     ),
   ],
-} as Meta
+} as Meta;
 
 const mainChildren = () => (
   <>
@@ -61,30 +58,29 @@ const mainChildren = () => (
       </aside>
     </section>
   </>
-)
+);
 
-export default meta
-type Story = StoryObj<typeof Main>
+export default meta;
+type Story = StoryObj<typeof Main>;
 
 export const MainLandmark: Story = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const main = canvas.getByRole('main')
-    expect(main).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    const main = canvas.getByRole("main");
+    expect(main).toBeInTheDocument();
   },
-}
+};
 
 export const MainArticles: Story = {
   args: {
-    // @ts-ignore
     children: mainChildren(),
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const main = canvas.getByRole('main')
-    expect(main).toBeInTheDocument()
-    const title = canvas.getByRole('heading')
-    expect(title).toBeInTheDocument()
-    expect(title).toHaveTextContent('Header Title')
+    const canvas = within(canvasElement);
+    const main = canvas.getByRole("main");
+    expect(main).toBeInTheDocument();
+    const title = canvas.getByRole("heading");
+    expect(title).toBeInTheDocument();
+    expect(title).toHaveTextContent("Header Title");
   },
-}
+};

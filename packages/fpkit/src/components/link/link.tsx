@@ -1,11 +1,11 @@
-import UI from '../ui'
-import React from 'react'
+import UI from "../ui";
+import React from "react";
 
 export type LinkProps = {
   /** Applies button styling to the link */
-  btnStyle?: boolean
+  btnStyle?: boolean;
 } & React.ComponentProps<typeof UI> &
-  React.ComponentProps<'a'>
+  React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export const Link = ({
   href,
@@ -18,14 +18,14 @@ export const Link = ({
   onPointerDown,
   ...props
 }: LinkProps) => {
-  let relValue = rel
+  let relValue = rel;
 
-  if (target === '_blank')
-    relValue = `noopener noreferrer ${prefetch ? 'prefetch' : ''}`
+  if (target === "_blank")
+    relValue = `noopener noreferrer ${prefetch ? "prefetch" : ""}`;
 
   const handleOnpointerDown = (e: React.PointerEvent<HTMLAnchorElement>) => {
-    if (onPointerDown) onPointerDown?.(e)
-  }
+    if (onPointerDown) onPointerDown?.(e);
+  };
 
   return (
     <UI
@@ -41,8 +41,8 @@ export const Link = ({
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
-export default Link
-Link.displayName = 'Link'
+export default Link;
+Link.displayName = "Link";
