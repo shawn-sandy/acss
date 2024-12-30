@@ -1,75 +1,74 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, expect } from '@storybook/test'
+import { StoryObj, Meta } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 
-
-import Heading from './heading'
+import Heading from "./heading";
 
 const meta: Meta<typeof Heading> = {
-  title: 'FP.REACT Components/Heading',
+  title: "FP.REACT Components/Heading",
   component: Heading,
+  tags: ["version:1.0.0"],
   parameters: {
-    actions: { argTypesRegex: '^on.*' },
+    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
-        component: 'Heading description here...',
+        component: "Heading description here...",
       },
     },
   },
   args: {
-    // @ts-ignore
-    children: 'Default title',
+    children: "Default title",
   },
-} as Story
+} as Story;
 
-export default meta
-type Story = StoryObj<typeof Heading>
+export default meta;
+type Story = StoryObj<typeof Heading>;
 
 export const HeadingComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByText(/default title/i)).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getByText(/default title/i)).toBeInTheDocument();
   },
-}
+};
 
 export const HeadingOne: Story = {
   args: {
-    type: 'h1',
-    children: 'Heading One',
+    type: "h1",
+    children: "Heading One",
   },
-} as Story
+} as Story;
 
 export const HeadingTwo: Story = {
   args: {
-    type: 'h2',
-    children: 'Heading Two',
+    type: "h2",
+    children: "Heading Two",
   },
-} as Story
+} as Story;
 
 export const HeadingThree: Story = {
   args: {
-    type: 'h3',
-    children: 'Heading Three',
+    type: "h3",
+    children: "Heading Three",
   },
-} as Story
+} as Story;
 
 export const HeadingFour: Story = {
   args: {
-    type: 'h4',
-    children: 'Heading Four',
+    type: "h4",
+    children: "Heading Four",
   },
-} as Story
+} as Story;
 
 export const HeadingFive: Story = {
   args: {
-    type: 'h5',
-    children: 'Heading Five',
+    type: "h5",
+    children: "Heading Five",
   },
-} as Story
+} as Story;
 
 export const HeadingSix: Story = {
   args: {
-    type: 'h6',
-    children: 'Heading Six',
+    type: "h6",
+    children: "Heading Six",
   },
-} as Story
+} as Story;

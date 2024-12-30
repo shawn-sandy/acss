@@ -1,9 +1,8 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, expect, userEvent } from '@storybook/test'
+import { StoryObj, Meta } from "@storybook/react";
+import { within, expect, userEvent } from "@storybook/test";
 
-
-import Details from './details'
-import Icons from '../icons/icon'
+import Details from "./details";
+import Icons from "../icons/icon";
 
 const content = (
   <>
@@ -25,49 +24,51 @@ const content = (
       hic est placeat!
     </p>
   </>
-)
+);
 
-const icon = <Icons.Add />
+const icon = <Icons.Add />;
 
 const meta: Meta<typeof Details> = {
-  title: 'FP.REACT Components/Details',
+  title: "FP.REACT Components/Details",
   component: Details,
+  tags: ["rc"],
   args: {
-    // @ts-ignore
     children: content,
     icon: icon,
     summary: <>Summary Section</>,
   },
-  actions: { argTypesRegex: '^on.*' },
+  actions: { argTypesRegex: "^on.*" },
   decorators: [
     (Story) => (
-      <div className="container" style={{ minWidth: '50vw' }}>
+      <div className="container" style={{ minWidth: "50vw" }}>
         <Story />
       </div>
     ),
   ],
-} as Story
+} as Story;
 
-export default meta
-type Story = StoryObj<typeof Details>
+export default meta;
+type Story = StoryObj<typeof Details>;
 
 export const DetailsDropdown: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByRole('group', { name: /details dropdown/i })).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(
+      canvas.getByRole("group", { name: /details dropdown/i })
+    ).toBeInTheDocument();
   },
-} as Story
+} as Story;
 
 export const DetailsOpen: Story = {
   args: {
     open: true,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByRole('group')).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getByRole("group")).toBeInTheDocument();
   },
-} as Story
+} as Story;
 
 export const CustomDropdown: Story = {
   render: () => (
@@ -87,12 +88,12 @@ export const CustomDropdown: Story = {
       </p>
     </>
   ),
-} as Story
+} as Story;
 
 export const DetailsAccordion: Story = {
   render: () => (
     <>
-    <Details
+      <Details
         summary="Summary Section"
         icon={icon}
         ariaLabel="Details Section"
@@ -100,7 +101,7 @@ export const DetailsAccordion: Story = {
       >
         {content}
       </Details>
-    <Details
+      <Details
         summary="Summary Section"
         icon={icon}
         ariaLabel="Details Section"
@@ -108,7 +109,7 @@ export const DetailsAccordion: Story = {
       >
         {content}
       </Details>
-    <Details
+      <Details
         summary="Summary Section"
         icon={icon}
         ariaLabel="Details Section"
@@ -117,8 +118,8 @@ export const DetailsAccordion: Story = {
         {content}
       </Details>
     </>
-  )
-} as Story
+  ),
+} as Story;
 
 export const DetailsInteractionTest: Story = {
   args: {},
@@ -126,13 +127,15 @@ export const DetailsInteractionTest: Story = {
     const canvas = within(canvasElement);
 
     // Find the summary element
-    const summaryElement = canvas.getByText('Summary Section');
+    const summaryElement = canvas.getByText("Summary Section");
 
     // Simulate a click on the summary element
     await userEvent.click(summaryElement);
 
     // Assert that the details element is open
-    const detailsElement = canvas.getByRole('group', { name: /details dropdown/i });
-    expect(detailsElement).toHaveAttribute('open');
+    const detailsElement = canvas.getByRole("group", {
+      name: /details dropdown/i,
+    });
+    expect(detailsElement).toHaveAttribute("open");
   },
-}
+};

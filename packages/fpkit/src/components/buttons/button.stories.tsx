@@ -9,12 +9,13 @@ const buttonClicked = fn();
 const meta = {
   title: "FP.React Components/Buttons",
   component: Button,
+  tags: ["rc"],
   args: {
     children: "Click me",
     onClick: buttonClicked,
   },
   parameters: {
-    actions: { argTypesRegex: '^on.*' },
+    actions: { argTypesRegex: "^on.*" },
   },
 } as Meta;
 

@@ -1,21 +1,20 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, expect} from '@storybook/test'
+import { StoryObj, Meta } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 
-
-import Text from './text'
+import Text from "./text";
 
 const meta: Meta<typeof Text> = {
-  title: 'FP.REACT Components/Text',
+  title: "FP.REACT Components/Text",
   component: Text,
+  tags: ["version:1.0.0"],
   args: {
-    // @ts-ignore
     children:
-      'Exercitation non voluptate fugiat amet dolor tempor consectetur. Eu esse adipisicing laboris duis et velit in quis et sunt pariatur tempor laborum nisi. Et id amet ullamco culpa irure nulla esse dolore velit esse.',
+      "Exercitation non voluptate fugiat amet dolor tempor consectetur. Eu esse adipisicing laboris duis et velit in quis et sunt pariatur tempor laborum nisi. Et id amet ullamco culpa irure nulla esse dolore velit esse.",
   },
-} as Story
+} as Story;
 
-export default meta
-type Story = StoryObj<typeof Text>
+export default meta;
+type Story = StoryObj<typeof Text>;
 
 export const ParagraphText: Story = {
   args: {},
@@ -23,45 +22,45 @@ export const ParagraphText: Story = {
   //   const canvas = within(canvasElement)
   //   expect(canvas.getByText(/link/i)).toBeInTheDocument()
   // },
-}
+};
 
 export const span: Story = {
   args: {
-    as: 'span',
-    children: 'Heading Text',
+    as: "span",
+    children: "Heading Text",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByText(/heading/i)).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getByText(/heading/i)).toBeInTheDocument();
   },
-} as Story
+} as Story;
 
 export const Blockquote: Story = {
   args: {
-    as: 'blockquote',
+    as: "blockquote",
     children:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.",
   },
-} as Story
+} as Story;
 
 export const Strong: Story = {
   args: {
-    as: 'strong',
-    children: 'Emphasis Text',
+    as: "strong",
+    children: "Emphasis Text",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByText(/emphasis/i)).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getByText(/emphasis/i)).toBeInTheDocument();
   },
-} as Story
+} as Story;
 
 export const Code: Story = {
   args: {
-    as: 'code',
-    children: 'Code Text',
+    as: "code",
+    children: "Code Text",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByText(/code/i)).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getByText(/code/i)).toBeInTheDocument();
   },
-} as Story
+} as Story;
