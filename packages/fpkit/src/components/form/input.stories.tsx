@@ -1,13 +1,13 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, expect } from '@storybook/test'
+import { StoryObj, Meta } from "@storybook/react";
+import { within, userEvent, expect } from "@storybook/test";
 
-
-import Input from './inputs'
-import './form.scss'
+import Input from "./inputs";
+import "./form.scss";
 
 const meta: Meta<typeof Input> = {
-  title: 'FP.REACT  Forms/Inputs',
+  title: "FP.REACT  Forms/Inputs",
   component: Input,
+  tags: ["rc"],
   args: {},
   parameters: {
     docs: {
@@ -17,18 +17,18 @@ const meta: Meta<typeof Input> = {
       },
     },
   },
-} as Story
+} as Story;
 
-export default meta
-type Story = StoryObj<typeof Input>
+export default meta;
+type Story = StoryObj<typeof Input>;
 
 export const InputComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByRole('textbox')).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getByRole("textbox")).toBeInTheDocument();
   },
-}
+};
 
 //required input story
 export const RequiredInput: Story = {
@@ -41,32 +41,32 @@ export const RequiredInput: Story = {
     },
   },
   args: {
-    type: 'text',
+    type: "text",
     required: true,
-    placeholder: 'This Field is required (placeholder)',
+    placeholder: "This Field is required (placeholder)",
   },
 
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('textbox')
-    expect(input).toBeRequired()
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox");
+    expect(input).toBeRequired();
 
-    await userEvent.type(input, 'test')
-    expect(input).toBeValid()
+    await userEvent.type(input, "test");
+    expect(input).toBeValid();
 
-    await userEvent.clear(input)
+    await userEvent.clear(input);
 
-    userEvent.type(input, '\n')
-    expect(input).toBeInvalid()
+    userEvent.type(input, "\n");
+    expect(input).toBeInvalid();
   },
-} as Story
+} as Story;
 
 export const DefaultRequired: Story = {
   args: {
-    type: 'text',
+    type: "text",
     required: true,
   },
-} as Story
+} as Story;
 
 export const InputDisabled: Story = {
   parameters: {
@@ -78,78 +78,78 @@ export const InputDisabled: Story = {
     },
   },
   args: {
-    type: 'text',
+    type: "text",
     isDisabled: true,
   },
-} as Story
+} as Story;
 
 export const EmailInput: Story = {
   args: {
-    type: 'email',
+    type: "email",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('textbox')
-    expect(input).toHaveAttribute('type', 'email')
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox");
+    expect(input).toHaveAttribute("type", "email");
 
-    await userEvent.type(input, 'test@example.com')
-    expect(input).toHaveValue('test@example.com')
+    await userEvent.type(input, "test@example.com");
+    expect(input).toHaveValue("test@example.com");
   },
-} as Story
+} as Story;
 
 export const PasswordInput: Story = {
   args: {
-    type: 'password',
+    type: "password",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByPlaceholderText(/password/i)
-    expect(input).toHaveAttribute('type', 'password')
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText(/password/i);
+    expect(input).toHaveAttribute("type", "password");
 
-    await userEvent.type(input, 'password')
-    expect(input).toHaveValue('password')
+    await userEvent.type(input, "password");
+    expect(input).toHaveValue("password");
   },
-} as Story
+} as Story;
 
 export const SearchInput: Story = {
   args: {
-    type: 'search',
+    type: "search",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('searchbox')
-    expect(input).toHaveAttribute('type', 'search')
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("searchbox");
+    expect(input).toHaveAttribute("type", "search");
 
-    await userEvent.type(input, 'search term')
-    expect(input).toHaveValue('search term')
+    await userEvent.type(input, "search term");
+    expect(input).toHaveValue("search term");
   },
-} as Story
+} as Story;
 
 export const TelInput: Story = {
   args: {
-    type: 'tel',
+    type: "tel",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('textbox')
-    expect(input).toHaveAttribute('type', 'tel')
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox");
+    expect(input).toHaveAttribute("type", "tel");
 
-    await userEvent.type(input, '1234567890')
-    expect(input).toHaveValue('1234567890')
+    await userEvent.type(input, "1234567890");
+    expect(input).toHaveValue("1234567890");
   },
-} as Story
+} as Story;
 
 // URL text input story
 export const UrlInput: Story = {
   args: {
-    type: 'url',
+    type: "url",
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const input = canvas.getByRole('textbox')
-    expect(input).toHaveAttribute('type', 'url')
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox");
+    expect(input).toHaveAttribute("type", "url");
 
-    await userEvent.type(input, 'https://example.com')
-    expect(input).toHaveValue('https://example.com')
+    await userEvent.type(input, "https://example.com");
+    expect(input).toHaveValue("https://example.com");
   },
-} as Story
+} as Story;

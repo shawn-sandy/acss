@@ -1,28 +1,28 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, expect } from '@storybook/test'
+import { StoryObj, Meta } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 
-
-import Form from './form'
-import './form.scss'
+import Form from "./form";
+import "./form.scss";
 
 const meta: Meta<typeof Form> = {
-  title: 'FP.REACT Forms/Examples',
+  title: "FP.REACT Forms/Examples",
+  tags: ["beta"],
   component: Form,
   parameters: {
     docs: {
       description: {
-        component: 'Form description here...',
+        component: "Form description here...",
       },
     },
   },
   args: {
-    children: 'Link',
-    name: 'my-form',
+    children: "Link",
+    name: "my-form",
   },
-} as Story
+} as Story;
 
-export default meta
-type Story = StoryObj<typeof Form>
+export default meta;
+type Story = StoryObj<typeof Form>;
 
 export const FormComponent: Story = {
   args: {
@@ -42,8 +42,8 @@ export const FormComponent: Story = {
     ),
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const form = canvas.getByRole('form')
-    await expect(form).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    const form = canvas.getByRole("form");
+    await expect(form).toBeInTheDocument();
   },
-} as Story
+} as Story;
