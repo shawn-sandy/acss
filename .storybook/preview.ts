@@ -62,6 +62,11 @@ const preview: Preview = {
         },
       },
     },
+    chromatic: {
+      delay: 300,
+      pauseAnimationAtEnd: true,
+      viewports: [375, 480, 768, 992, 1280],
+    },
   },
 };
 
