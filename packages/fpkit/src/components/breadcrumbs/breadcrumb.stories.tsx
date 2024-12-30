@@ -99,7 +99,7 @@ export const ClickHomeLink: Story = {
     const canvas = within(canvasElement);
     const homeLink = canvas.getByRole("link", { name: "Home" });
     expect(homeLink).toHaveAttribute("href", "#");
-    // await userEvent.click(homeLink)
-    // expect(linkClicked).toHaveBeenCalled()
+    // await userEvent.click(homeLink);
+    // expect(linkClicked).toHaveBeenCalled();
   },
 } as Story;
