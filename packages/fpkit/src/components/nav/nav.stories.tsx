@@ -1,19 +1,20 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, expect } from '@storybook/test'
+import { StoryObj, Meta } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 
-import React from 'react'
+import React from "react";
 
-import Nav from './nav'
-import Link from '../link/link'
+import Nav from "./nav";
+import Link from "../link/link";
 
 const meta: Meta<typeof Nav> = {
-  title: 'FP.REACT Components/Nav',
+  title: "FP.REACT Components/Nav",
   component: Nav,
+  tags: ["rc"],
   parameters: {
-    actions: { argTypesRegex: '^on.*' },
+    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
-        component: 'Nav description here...',
+        component: "Nav description here...",
       },
     },
   },
@@ -28,22 +29,22 @@ const meta: Meta<typeof Nav> = {
         </Nav.Item>
       </Nav.List>
     ),
-    id: 'nav',
-    classes: 'nav',
+    id: "nav",
+    classes: "nav",
   },
-} as Story
+} as Story;
 
-export default meta
-type Story = StoryObj<typeof Nav>
+export default meta;
+type Story = StoryObj<typeof Nav>;
 
 export const NavComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getAllByRole('link')).toHaveLength(2)
-    expect(canvas.getByText(/link 1/i)).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getAllByRole("link")).toHaveLength(2);
+    expect(canvas.getByText(/link 1/i)).toBeInTheDocument();
   },
-}
+};
 
 export const NavSection: Story = {
   args: {
@@ -57,11 +58,11 @@ export const NavSection: Story = {
     ),
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    expect(canvas.getByText('Link 1')).toBeInTheDocument()
-    expect(canvas.getByText('Link 2')).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    expect(canvas.getByText("Link 1")).toBeInTheDocument();
+    expect(canvas.getByText("Link 2")).toBeInTheDocument();
   },
-} as Story
+} as Story;
 
 export const NavBlock: Story = {
   args: {
@@ -75,12 +76,12 @@ export const NavBlock: Story = {
       </>
     ),
   },
-} as Story
+} as Story;
 
 export const MultipleNavs: Story = {
   args: {
     ...NavSection.args,
-    classes: 'navbar',
+    classes: "navbar",
     children: (
       <>
         <Nav.List>
@@ -94,4 +95,4 @@ export const MultipleNavs: Story = {
       </>
     ),
   },
-} as Story
+} as Story;

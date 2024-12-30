@@ -1,24 +1,24 @@
-import { StoryObj, Meta } from '@storybook/react'
-import { within, expect } from '@storybook/test'
+import { StoryObj, Meta } from "@storybook/react";
+import { within, expect } from "@storybook/test";
 
-
-import Img from './img'
+import Img from "./img";
 
 const meta: Meta<typeof Img> = {
-  title: 'FP.REACT Components/Img',
+  title: "FP.REACT Components/Img",
   component: Img,
+  tags: ["version:1.0.0"],
   args: {
-    src: '//',
+    src: "//",
   },
-} as Story
+} as Story;
 
-export default meta
-type Story = StoryObj<typeof Img>
+export default meta;
+type Story = StoryObj<typeof Img>;
 
 export const ImgComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    await expect(canvas.getByRole('img')).toBeInTheDocument()
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("img")).toBeInTheDocument();
   },
-}
+};

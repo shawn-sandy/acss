@@ -8,6 +8,7 @@ const linkClicked = fn();
 const meta: Meta<typeof Breadcrumb> = {
   title: "FP.REACT Components/Breadcrumb",
   component: Breadcrumb,
+  tags: ["beta"],
   parameters: {
     actions: { argTypesRegex: "^on.*" },
     docs: {
@@ -85,7 +86,7 @@ export const TruncateName: Story = {
   },
 } as Story;
 
-export const ClickHomeLink: Story = {
+export const BreadCrumbInteractions: Story = {
   args: {
     ...CustomURL.args,
     currentRoute: "/products/shirts",
@@ -94,7 +95,6 @@ export const ClickHomeLink: Story = {
       onClick: linkClicked,
     },
   },
-
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const homeLink = canvas.getByRole("link", { name: "Home" });

@@ -1,16 +1,16 @@
-import React from 'react'
+import React from "react";
 
-import { StoryObj, Meta } from '@storybook/react'
+import { StoryObj, Meta } from "@storybook/react";
 
-import { within, userEvent } from '@storybook/test'
+// import { within, userEvent } from "@storybook/test";
 
-
-import List from './list'
+import List from "./list";
 
 const meta: Meta<typeof List> = {
-  title: 'FP.React Components/List',
+  title: "FP.React Components/List",
+  tags: ["version:1.0.0"],
   component: List,
-} as Meta
+} as Meta;
 
 const listElm = (
   <>
@@ -18,10 +18,10 @@ const listElm = (
     <List.ListItem>About</List.ListItem>
     <List.ListItem>Contact</List.ListItem>
   </>
-)
+);
 
-export default meta
-type Story = StoryObj<typeof List>
+export default meta;
+type Story = StoryObj<typeof List>;
 
 export const DefaultList: Story = {
   args: {
@@ -33,25 +33,25 @@ export const DefaultList: Story = {
       control: false,
     },
   },
-} as Story
+} as Story;
 
 export const UnstyledList: Story = {
   args: {
     ...DefaultList.args,
-    role: 'list',
+    role: "list",
   },
   parameters: {
     docs: {
       description: {
-        story: 'Another description `on the story`, with some markdown',
+        story: "Another description `on the story`, with some markdown",
       },
     },
   },
-} as Story
+} as Story;
 
 export const InlineList: Story = {
   args: {
     ...UnstyledList.args,
-    'data-list': 'inline',
+    "data-list": "inline",
   },
-} as Story
+} as Story;

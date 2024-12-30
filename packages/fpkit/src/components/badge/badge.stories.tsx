@@ -6,6 +6,7 @@ import Badge from "./badge";
 const meta: Meta<typeof Badge> = {
   title: "FP.REACT Components/Badge",
   component: Badge,
+  tags: ["beta"],
   args: {
     children: "Link",
   },
