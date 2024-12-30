@@ -1372,7 +1372,7 @@ nav[data-breadcrumb] {
   --breadcrumb-gap: 0.5rem;
   --breadcrumb-color: currentColor;
   --breadcrumb-current-color: rgb(46, 46, 46);
-  --breadcrumb-fs: var(--fs-0);
+  --breadcrumb-fs: var(--fs-3);
   margin-inline: unset;
   padding-inline: unset;
 }
