@@ -63,7 +63,7 @@ export const EncodedBreadcrumbs: Story = {
     routes: [
       {
         name: "Home",
-        path: "/",
+        path: "#",
       },
       {
         name: "Products",
