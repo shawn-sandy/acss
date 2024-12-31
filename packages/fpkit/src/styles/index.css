@@ -1076,6 +1076,10 @@ footer > div {
   text-align: center;
 }
 
+dialog {
+  min-width: 320px;
+}
+
 :root {
   --gap: 1.75rem;
 }
