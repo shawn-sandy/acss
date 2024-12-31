@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { within } from "@storybook/test";
+import { within, fn } from "@storybook/test";
 
 import Dialog from "./dialog";
 
@@ -8,7 +8,7 @@ const meta: Meta<typeof Dialog> = {
   component: Dialog,
   tags: ["new"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
+    // actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: "Dialog component for displaying modal dialogs.",
@@ -17,6 +17,7 @@ const meta: Meta<typeof Dialog> = {
   },
   args: {
     children: "Dialog Content",
+    onClose: fn(),
   },
 } as Story;
 
