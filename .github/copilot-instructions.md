@@ -14,7 +14,7 @@ Suggest a informative commit message by summarizing code changes from the shared
 4. Add a body if necessary, separated by a blank line.
 5. Write a short description of the changes made.
 6. Explain or describe the changes in a bullet list.
-7. Be precise and concise when writing the commit message when possible.
+7. Be precise and concise when writing changes.
 8. Use `git diff` to see the changes made.
 9. Add a footer for issue references, separated by a blank line.
 
