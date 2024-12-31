@@ -64,3 +64,49 @@ export default ComponentName
 ComponentName.displayName = 'ComponentName'
 
 ```
+
+### React Component Stories
+
+- Use Storybook to document the components.
+- Write stories for the component.
+- Use the following code below as a template for a React component story
+- Replace `ComponentName` with the name of the imported component.
+- Replace the import path with the correct path to the component.
+- Always use the CFS3 pattern for stories.
+
+```tsx
+import { StoryObj, Meta } from '@storybook/react'
+import { within, userEvent, screen } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
+
+import ComponentName from 'import_path'
+
+const meta: Meta<typeof ComponentName> = {
+  title: 'FP.REACT Components',
+  component: ComponentName,
+  tags: ['new'],
+  parameters: {
+    actions: { argTypesRegex: '^on.*' },
+    docs: {
+      description: {
+        component:
+          'ComponentName description here...',
+      },
+    },
+  },
+  args: { 
+    children: 'Link'
+  },
+} as Story;
+
+export default meta
+type Story = StoryObj<typeof ComponentName >
+
+export const ComponentNameComponent: Story = {
+  args: {},
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    expect(canvas.getByText(/link/i)).toBeInTheDocument()
+  },
+}
+```
