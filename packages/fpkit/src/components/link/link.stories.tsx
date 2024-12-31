@@ -45,7 +45,7 @@ export const ExternalLink: Story = {
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer prefetch");
   },
-};
+} as Story;
 
 export const ButtonLink: Story = {
   args: {

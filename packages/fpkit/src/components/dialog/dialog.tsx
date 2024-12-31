@@ -16,7 +16,6 @@ const Dialog = ({
   ...props
 }: DialogProps): JSX.Element => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
-  if (!isOpen) return <></>;
 
   if (onClose) {
     onClose();
