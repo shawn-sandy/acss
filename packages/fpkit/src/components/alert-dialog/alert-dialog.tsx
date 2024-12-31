@@ -43,6 +43,7 @@ const AlertDialog = ({
     setIsOpen(open);
     if (!open && onOpen) {
       dialogRef.current?.showModal();
+      onOpen();
     }
   }, [open]);
 
