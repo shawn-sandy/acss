@@ -10,7 +10,7 @@ details {
   --details-py: 1rem;
   --details-radius: 0.5rem;
   --summary-cursor: pointer;
-  --summary-transitions: height 0.75s ease;
+  --summary-transitions: all 0.75s ease;
   --summary-display: flex;
   --summary-justify: flex-start;
   --summary-align: center;
@@ -28,6 +28,7 @@ details {
   max-height: var(--max-h-closed);
   overflow: clip;
   border-radius: var(--details-radius);
+  transition: var(--summary-transitions);
 }
 details::marker {
   content: none;
@@ -66,7 +67,7 @@ details > section {
   border: 1px transparent solid;
 }
 details[open] {
-  max-height: var(--max-h-open);
+  max-height: max-content;
   transition: var(--summary-transitions);
 }
 details[open] > summary {
