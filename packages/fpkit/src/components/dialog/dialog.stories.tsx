@@ -1,14 +1,13 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { within, fn } from "@storybook/test";
+import { within, fn, expect } from "@storybook/test";
 
 import Dialog from "./dialog";
 
 const meta: Meta<typeof Dialog> = {
   title: "FP.REACT Components/Dialog",
   component: Dialog,
-  tags: ["new"],
+  tags: ["alpha"],
   parameters: {
-    // actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: "Dialog component for displaying modal dialogs.",

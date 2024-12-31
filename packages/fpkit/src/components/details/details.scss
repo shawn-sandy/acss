@@ -10,7 +10,7 @@ details {
   --details-py: 1rem;
   --details-radius: 0.5rem;
   --summary-cursor: pointer;
-  --summary-transitions: all 0.75s linear;
+  --summary-transitions: height 0.75s ease;
   --summary-display: flex;
   --summary-justify: flex-start;
   --summary-align: center;
@@ -18,6 +18,7 @@ details {
   --max-h-closed: 6.25rem;
   --max-h-open: 50rem;
 
+  interpolate-size: allow-keywords;
   display: var(--details-display);
   flex-direction: var(--details-direction);
   justify-content: var(--details-justify);
@@ -43,12 +44,13 @@ details {
     list-style: none;
     border-top-left-radius: var(--details-radius);
     border-top-right-radius: var(--details-radius);
+    transition: var(--summary-transitions);
 
     &::-webkit-details-marker {
       display: none;
     }
 
-    &:focus-within  {
+    &:focus-within {
       outline: none;
       border-bottom: solid 2px var(--details-border);
       background-color: whitesmoke;
