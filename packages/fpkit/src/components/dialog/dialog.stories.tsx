@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { within, fn, expect } from "@storybook/test";
+import { within, expect } from "@storybook/test";
 
 import Dialog from "./dialog";
 
@@ -8,6 +8,7 @@ const meta: Meta<typeof Dialog> = {
   component: Dialog,
   tags: ["alpha"],
   parameters: {
+    // actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: "Dialog component for displaying modal dialogs.",
@@ -16,7 +17,6 @@ const meta: Meta<typeof Dialog> = {
   },
   args: {
     children: "Dialog Content",
-    onClose: fn(),
   },
 } as Story;
 
@@ -28,5 +28,6 @@ export const DialogComponent: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByText(/dialog content/i)).toBeInTheDocument();
+    expect(canvas.getByRole("dialog")).toBeInTheDocument();
   },
 };
