@@ -18,6 +18,22 @@ const meta: Meta<typeof Dialog> = {
   args: {
     children: "Dialog Content",
   },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "500px",
+          marginInline: "20px",
+          marginBlockStart: "5rem",
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
 } as Story;
 
 export default meta;

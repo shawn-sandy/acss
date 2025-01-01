@@ -1,16 +1,21 @@
 import React from "react";
 import UI from "#components/ui";
+import Heading from "#components/heading/heading";
+import Button from "#components/buttons/button";
+import Icon from "#components/icons/icon";
 
 export type DialogProps = {
   isOpen: boolean;
   onOpen?: () => void;
   onClose?: () => void;
   onCancel?: () => void;
+  dialogTitle?: string;
   children: React.ReactNode;
 };
 
 const Dialog = ({
   isOpen = true,
+  dialogTitle = "Dialog",
   onOpen,
   onClose,
   onCancel,
@@ -38,8 +43,9 @@ const Dialog = ({
     if (e.currentTarget === e.target) {
       if (onClose) {
         onClose();
-        e.currentTarget.close();
       }
+      isOpen = false;
+      dialogRef.current?.close();
     }
   };
 
@@ -52,6 +58,12 @@ const Dialog = ({
       onClose={handleCloseEvent}
       {...props}
     >
+      <UI as="div" classes="dialog-header">
+        <Heading type="h3">{dialogTitle}</Heading>
+        <Button type="button" onClick={handleCloseEvent} data-btn="pill sm">
+          <Icon.Remove />
+        </Button>
+      </UI>
       {children}
     </UI>
   );

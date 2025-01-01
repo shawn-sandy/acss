@@ -1077,7 +1077,31 @@ footer > div {
 }
 
 dialog {
-  min-width: 320px;
+  min-width: var(--dialog-min-w, 320px);
+  border-color: lightgray;
+  border-radius: 0.5rem;
+}
+dialog .dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+dialog .dialog-header h3 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+dialog .dialog-header .dialog-close {
+  color: gray;
+  margin-block-end: 0;
+}
+dialog .dialog-header button[type=button] {
+  background-color: transparent;
+  border: transparent 1px solid;
+  cursor: pointer;
+}
+dialog .dialog-header button[type=button]:hover {
+  border: 1px solid lightgray;
+  background-color: whitesmoke;
 }
 
 :root {
