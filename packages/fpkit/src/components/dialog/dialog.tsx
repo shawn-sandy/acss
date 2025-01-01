@@ -60,7 +60,7 @@ const Dialog = ({
     >
       <UI as="div" classes="dialog-header">
         <Heading type="h3">{dialogTitle}</Heading>
-        <Button type="button" onClick={handleCloseEvent} data-btn="pill sm">
+        <Button type="button" onClick={handleCloseEvent} data-btn="pill xs">
           <Icon.Remove />
         </Button>
       </UI>

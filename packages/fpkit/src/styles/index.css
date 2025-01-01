@@ -444,6 +444,7 @@ h6:has(span:first-of-type) > span {
 }
 
 button {
+  --btn-xs: calc(9rem / 16);
   --btn-sm: calc(12rem / 16);
   --btn-md: calc(16rem / 16);
   --btn-lg: calc(21rem / 16);
@@ -510,6 +511,9 @@ button[type=submit] {
 }
 button[data-fp-btn~=pill], button[data-btn~=pill], button[data-style~=pill] {
   border-radius: var(--btn-pill, 100rem);
+}
+button[data-btn~=xs] {
+  --btn-fs: var(--btn-xs);
 }
 button[data-btn~=sm] {
   --btn-fs: var(--btn-sm);
@@ -1507,6 +1511,22 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
 
 .shadow-xl {
   box-shadow: var(--shadow-xl);
+}
+
+:root {
+  --transparent: transparent;
+}
+
+.transparent {
+  background-color: var(--transparent);
+}
+
+.transparent-border {
+  border-color: var(--transparent);
+}
+
+.transparent-color {
+  color: var(--transparent);
 }
 
 /*# sourceMappingURL=index.css.map */

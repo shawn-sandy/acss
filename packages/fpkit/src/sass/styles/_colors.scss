@@ -1,0 +1,13 @@
+:root {
+  --transparent: transparent;
+}
+
+.transparent {
+  background-color: var(--transparent);
+  &-border {
+    border-color: var(--transparent);
+  }
+  &-color {
+    color: var(--transparent);
+  }
+}
