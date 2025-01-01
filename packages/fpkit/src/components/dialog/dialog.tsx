@@ -49,6 +49,14 @@ const Dialog = ({
     }
   };
 
+  const closeDialog = () => {
+    if (onClose) {
+      onClose();
+    }
+    isOpen = false;
+    dialogRef.current?.close();
+  };
+
   return (
     <UI
       as="dialog"
@@ -60,7 +68,7 @@ const Dialog = ({
     >
       <UI as="div" classes="dialog-header">
         <Heading type="h3">{dialogTitle}</Heading>
-        <Button type="button" onClick={handleCloseEvent} data-btn="pill xs">
+        <Button type="button" onClick={closeDialog} data-btn="pill xs">
           <Icon.Remove />
         </Button>
       </UI>
