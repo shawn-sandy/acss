@@ -1,7 +1,25 @@
+:root {
+  --dialog-min-w: 320px;
+  --dialog-gap: 0.75rem;
+  --dialog-border-color: lightgray;
+  --dialog-border-radius: 0.5rem;
+  --dialog-padding: 0.75rem;
+  --dialog-padding-inline: 1.5rem;
+  --dialog-close-color: gray;
+  --dialog-button-bg: transparent;
+  --dialog-button-border: transparent 1px solid;
+  --dialog-button-hover-bg: whitesmoke;
+}
+
 dialog {
-  min-width: var(--dialog-min-w, 320px);
-  border-color: lightgray;
-  border-radius: 0.5rem;
+  min-width: var(--dialog-min-w);
+  display: flex;
+  flex-direction: column;
+  gap: var(--dialog-gap);
+  border-color: var(--dialog-border-color);
+  border-radius: var(--dialog-border-radius);
+  padding: var(--dialog-padding);
+  padding-inline: var(--dialog-padding-inline);
 }
 dialog .dialog-header {
   display: flex;
@@ -13,17 +31,16 @@ dialog .dialog-header h3 {
   margin-block-end: 0;
 }
 dialog .dialog-header .dialog-close {
-  color: gray;
   margin-block-end: 0;
 }
 dialog .dialog-header button[type=button] {
-  background-color: transparent;
-  border: transparent 1px solid;
+  background-color: var(--dialog-button-bg);
+  border: var(--dialog-button-border);
   cursor: pointer;
 }
-dialog .dialog-header button[type=button]:hover {
-  border: 1px solid lightgray;
-  background-color: whitesmoke;
+dialog .dialog-header button[type=button]:hover, dialog .dialog-header button[type=button]:focus {
+  border-color: currentColor;
+  background-color: var(--dialog-button-hover-bg);
 }
 
 /*# sourceMappingURL=dialog.css.map */
