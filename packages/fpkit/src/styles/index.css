@@ -1118,27 +1118,28 @@ dialog[open] {
   display: var(--dialog-display);
   flex-direction: var(--dialog-flex-direction);
   gap: var(--dialog-gap);
-  background-color: white;
 }
-dialog .dialog-header {
+
+.dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-width: 320px;
 }
-dialog .dialog-header h3 {
+.dialog-header h3 {
   margin-block-start: 0;
   margin-block-end: 0;
 }
-dialog .dialog-header .dialog-close {
+.dialog-header .dialog-close {
   margin-block-end: 0;
 }
-dialog .dialog-header button[type=button] {
+.dialog-header button[type=button] {
   background-color: var(--dialog-button-bg);
   border: var(--dialog-button-border);
   cursor: pointer;
 }
-dialog .dialog-header button[type=button]:hover, dialog .dialog-header button[type=button]:focus {
+.dialog-header button[type=button]:hover, .dialog-header button[type=button]:focus {
   border-color: currentColor;
   background-color: var(--dialog-button-hover-bg);
 }

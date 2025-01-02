@@ -26,30 +26,30 @@ dialog {
     display: var(--dialog-display);
     flex-direction: var(--dialog-flex-direction);
     gap: var(--dialog-gap);
-    background-color: white;
   }
+}
 
-  .dialog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    h3 {
-      margin-block-start: 0;
-      margin-block-end: 0;
-    }
-    .dialog-close {
-      margin-block-end: 0;
-    }
-    button[type="button"] {
-      background-color: var(--dialog-button-bg);
-      border: var(--dialog-button-border);
-      cursor: pointer;
-      &:hover,
-      &:focus {
-        border-color: currentColor;
-        background-color: var(--dialog-button-hover-bg);
-      }
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 320px;
+  h3 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+  .dialog-close {
+    margin-block-end: 0;
+  }
+  button[type="button"] {
+    background-color: var(--dialog-button-bg);
+    border: var(--dialog-button-border);
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      border-color: currentColor;
+      background-color: var(--dialog-button-hover-bg);
     }
   }
 }

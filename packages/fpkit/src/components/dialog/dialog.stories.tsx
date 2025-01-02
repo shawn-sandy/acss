@@ -4,7 +4,7 @@ import { within, expect } from "@storybook/test";
 import Dialog from "./dialog";
 
 const meta: Meta<typeof Dialog> = {
-  title: "FP.REACT Components/Dialog",
+  title: "FP.REACT/Components/Dialog",
   component: Dialog,
   tags: ["alpha"],
   parameters: {
@@ -47,3 +47,15 @@ export const DialogComponent: Story = {
     expect(canvas.getByRole("dialog")).toBeInTheDocument();
   },
 };
+
+export const NoDialogTitle: Story = {
+  args: {
+    dialogTitle: "",
+    children:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quod tenetur, alias vitae incidunt porro rem laboriosam deserunt, fugit eligendi eum eos ducimus inventore suscipit, quasi dignissimos dicta. Deleniti, error",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    expect(canvas.queryByRole("heading")).not.toBeInTheDocument();
+  },
+} as Story;
