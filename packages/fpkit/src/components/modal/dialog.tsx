@@ -1,24 +1,24 @@
-import UI from '../ui'
-import React from 'react'
+import UI from "../ui";
+import React from "react";
 
 export type DialogProps = {
   /**
    * React ref for dialog element
    */
-  modalRef: React.RefObject<HTMLDialogElement>
+  modalRef: React.RefObject<HTMLDialogElement>;
   /**
    * Handle close modal event
    */
-  closeModal?: (e: React.SyntheticEvent<HTMLDialogElement>) => void
+  closeModal?: (e: React.SyntheticEvent<HTMLDialogElement>) => void;
   /**
    * open modal on mount
    */
-  openOnMount?: boolean
-} & React.ComponentProps<typeof UI>
+  openOnMount?: boolean;
+} & React.ComponentProps<typeof UI>;
 /**
  * Dialog component
  */
-export const Dialog = ({
+export const ModalDialog = ({
   id,
   children,
   classes,
@@ -28,9 +28,9 @@ export const Dialog = ({
 }: DialogProps) => {
   const handleCloseModal = (e: React.SyntheticEvent<HTMLDialogElement>) => {
     if (e.currentTarget === e.target) {
-      e.currentTarget.close()
+      e.currentTarget.close();
     }
-  }
+  };
 
   return (
     <UI
@@ -44,7 +44,8 @@ export const Dialog = ({
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
-Dialog.displayName = 'Dialog'
+export default React.memo(ModalDialog);
+ModalDialog.displayName = "Dialog";

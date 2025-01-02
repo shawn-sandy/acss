@@ -1,19 +1,19 @@
-import UI from '#components/ui'
-import React from 'react'
+import UI from "#components/ui";
+import React from "react";
 
 type DetailsProps = {
   /**
    * The summary text shown for the details.
    * Required.
    */
-  summary: React.ReactNode
+  summary: React.ReactNode;
 
   /**
    * The aria-label  element for accessibility.
    */
-  ariaLabel: string
-} & React.ComponentProps<'details'> &
-  Partial<React.ComponentProps<typeof UI>>
+  ariaLabel: string;
+} & React.ComponentProps<"details"> &
+  Partial<React.ComponentProps<typeof UI>>;
 
 /**3
  * Details component props interface.
@@ -42,16 +42,16 @@ export const Details = ({
   ref,
   ...props
 }: DetailsProps) => {
-  const defaultStyles: React.CSSProperties = { ...styles }
+  const defaultStyles: React.CSSProperties = { ...styles };
 
   const onPointerDownCallback = (e: React.PointerEvent<HTMLDetailsElement>) => {
-    if (onPointerDown) onPointerDown?.(e)
-    if (onPointerDown) onPointerDown?.(e)
-  }
+    if (onPointerDown) onPointerDown?.(e);
+    if (onPointerDown) onPointerDown?.(e);
+  };
 
   const onToggleCallback = (e: React.PointerEvent<HTMLDetailsElement>) => {
-    if (onToggle) onPointerDown?.(e)
-  }
+    if (onToggle) onPointerDown?.(e);
+  };
   return (
     <UI
       as="details"
@@ -60,7 +60,7 @@ export const Details = ({
       onToggle={onToggleCallback}
       ref={ref}
       open={open}
-      aria-label={ariaLabel || 'Details dropdown'}
+      aria-label={ariaLabel || "Details dropdown"}
       // aria-roledescription="detail accordion"
       name={name}
       {...props}
@@ -71,8 +71,8 @@ export const Details = ({
       </UI>
       <UI as="section">{children}</UI>
     </UI>
-  )
-}
+  );
+};
 
-export default Details
-Details.displayName = 'Details'
+export default Details;
+Details.displayName = "Details";
