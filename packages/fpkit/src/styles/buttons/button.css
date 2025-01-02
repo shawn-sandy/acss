@@ -1,5 +1,5 @@
 button {
-  --btn-xs: calc(9rem / 16);
+  --btn-xs: 0.8rem;
   --btn-sm: calc(12rem / 16);
   --btn-md: calc(16rem / 16);
   --btn-lg: calc(21rem / 16);
@@ -68,6 +68,7 @@ button[data-fp-btn~=pill], button[data-btn~=pill], button[data-style~=pill] {
   border-radius: var(--btn-pill, 100rem);
 }
 button[data-btn~=xs] {
+  padding-inline: var(--btn-xs);
   --btn-fs: var(--btn-xs);
 }
 button[data-btn~=sm] {

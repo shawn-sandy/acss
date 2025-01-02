@@ -17,7 +17,6 @@ const meta: Meta<typeof Dialog> = {
   },
   args: {
     children: "Dialog Content",
-    isOpen: false,
   },
   decorators: [
     (Story) => (
@@ -42,16 +41,6 @@ type Story = StoryObj<typeof Dialog>;
 
 export const DialogComponent: Story = {
   args: {},
-  render: () => (
-    <Dialog isOpen={false} onClose={() => {}}>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-        quam in et accusantium eaque sit, dicta quibusdam debitis, numquam
-        exercitationem asperiores beatae nihil ullam dolorem. Velit itaque illum
-        suscipit cumque.
-      </p>
-    </Dialog>
-  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByText(/dialog content/i)).toBeInTheDocument();
