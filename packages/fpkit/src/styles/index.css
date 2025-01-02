@@ -1101,6 +1101,8 @@ footer > div {
   --dialog-button-bg: transparent;
   --dialog-button-border: transparent 1px solid;
   --dialog-button-hover-bg: whitesmoke;
+  --dialog-display: flex;
+  --dialog-flex-direction: column;
 }
 
 dialog {
@@ -1113,8 +1115,8 @@ dialog {
   padding-block-start: calc(var(--dialog-padding) - 0rem);
 }
 dialog[open] {
-  display: flex;
-  flex-direction: column;
+  display: var(--dialog-display);
+  flex-direction: var(--dialog-flex-direction);
   gap: var(--dialog-gap);
   background-color: white;
 }
