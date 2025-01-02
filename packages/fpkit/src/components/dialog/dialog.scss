@@ -4,7 +4,7 @@
   --dialog-border-color: lightgray;
   --dialog-border-radius: 0.5rem;
   --dialog-padding: 0.75rem;
-  --dialog-padding-inline: 1.5rem;
+  --dialog-padding-inline: 1rem;
   --dialog-close-color: gray;
   --dialog-button-bg: transparent;
   --dialog-button-border: transparent 1px solid;
@@ -18,11 +18,20 @@ dialog {
   border-radius: var(--dialog-border-radius);
   padding: var(--dialog-padding);
   padding-inline: var(--dialog-padding-inline);
-  padding-block-start: calc(var(--dialog-padding) - 0.5rem);
+  padding-block-start: calc(var(--dialog-padding) - 0rem);
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dialog-gap);
+    background-color: white;
+  }
+
   .dialog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     h3 {
       margin-block-start: 0;
       margin-block-end: 0;

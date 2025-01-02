@@ -103,6 +103,17 @@ button {
     --btn-fs: var(--btn-lg);
   }
 
+  &[data-btn~="icon"] {
+    padding: unset;
+    height: unset;
+    min-width: 24px;
+    min-height: 24px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &[data-btn~="text"] {
     --btn-bg: transparent;
     --btn-cl: currentColor;

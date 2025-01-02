@@ -20,9 +20,9 @@ const DialogHeader = ({
         type="button"
         onClick={onClose}
         classes="transparent"
-        data-btn="pill xs"
+        data-btn="icon pill"
       >
-        <Icon.Remove />
+        <Icon.Remove size={16} />
       </Button>
     </UI>
   );

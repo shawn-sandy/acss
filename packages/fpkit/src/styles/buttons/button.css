@@ -80,6 +80,16 @@ button[data-btn~=md] {
 button[data-btn~=lg] {
   --btn-fs: var(--btn-lg);
 }
+button[data-btn~=icon] {
+  padding: unset;
+  height: unset;
+  min-width: 24px;
+  min-height: 24px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 button[data-btn~=text] {
   --btn-bg: transparent;
   --btn-cl: currentColor;
