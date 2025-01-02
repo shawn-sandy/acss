@@ -1,8 +1,6 @@
 import React from "react";
 import UI from "#components/ui";
-import Heading from "#components/heading/heading";
-import Button from "#components/buttons/button";
-import Icon from "#components/icons/icon";
+import DialogHeader from "./view/dialog-header";
 
 export type DialogProps = {
   isOpen: boolean;
@@ -66,12 +64,7 @@ const Dialog = ({
       onClose={handleCloseEvent}
       {...props}
     >
-      <UI as="div" classes="dialog-header">
-        <Heading type="h3">{dialogTitle}</Heading>
-        <Button type="button" onClick={closeDialog} data-btn="pill xs">
-          <Icon.Remove size={12} />
-        </Button>
-      </UI>
+      <DialogHeader dialogTitle={dialogTitle} onClose={closeDialog} />
       {children}
     </UI>
   );
