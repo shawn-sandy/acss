@@ -8,6 +8,8 @@ export type DialogProps = {
   onClose?: () => void;
   onCancel?: () => void;
   dialogTitle?: string;
+  showDialogHeader?: boolean;
+  isAlertDialog?: boolean;
   children: React.ReactNode;
 };
 
@@ -17,6 +19,8 @@ const Dialog = ({
   onOpen,
   onClose,
   onCancel,
+  showDialogHeader = true,
+  isAlertDialog,
   children,
   ...props
 }: DialogProps): JSX.Element => {
@@ -60,11 +64,14 @@ const Dialog = ({
       as="dialog"
       open={isOpen}
       ref={dialogRef}
+      role={isAlertDialog ? "alertdialog" : undefined}
       onCancel={handleCancelEvent}
       onClose={handleCloseEvent}
       {...props}
     >
-      <DialogHeader dialogTitle={dialogTitle} onClose={closeDialog} />
+      {showDialogHeader && (
+        <DialogHeader dialogTitle={dialogTitle} onClose={closeDialog} />
+      )}
       {children}
     </UI>
   );
