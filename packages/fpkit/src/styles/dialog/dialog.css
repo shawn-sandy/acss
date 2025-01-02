@@ -13,13 +13,12 @@
 
 dialog {
   min-width: var(--dialog-min-w);
-  display: flex;
-  flex-direction: column;
   gap: var(--dialog-gap);
   border-color: var(--dialog-border-color);
   border-radius: var(--dialog-border-radius);
   padding: var(--dialog-padding);
   padding-inline: var(--dialog-padding-inline);
+  padding-block-start: calc(var(--dialog-padding) - 0.5rem);
 }
 dialog .dialog-header {
   display: flex;

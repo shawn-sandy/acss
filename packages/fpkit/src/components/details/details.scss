@@ -1,6 +1,6 @@
 details {
   --details-w: 100%;
-  --details-h: fit-content;
+  --details-h: max-content;
   --details-border: 1px solid #dfdfdf;
   --details-display: flex;
   --details-justify: flex-start;
@@ -10,7 +10,7 @@ details {
   --details-py: 1rem;
   --details-radius: 0.5rem;
   --summary-cursor: pointer;
-  --summary-transitions: all 0.75s ease;
+  --summary-transitions: all 0.75s ease-in-out;
   --summary-display: flex;
   --summary-justify: flex-start;
   --summary-align: center;
@@ -29,7 +29,6 @@ details {
   max-height: var(--max-h-closed);
   overflow: clip;
   border-radius: var(--details-radius);
-  transition: var(--summary-transitions);
 
   &::marker {
     content: none;
