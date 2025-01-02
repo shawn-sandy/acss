@@ -1,81 +1,43 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import UI from "#components/ui";
-import Heading from "#components/heading/heading";
-import Button from "#components/buttons/button";
-import Icon from "#components/icons/icon";
 
-export type DialogProps = {
-  isOpen: boolean;
-  onOpen?: () => void;
+export type ModalProps = {
+  isOpen?: boolean;
   onClose?: () => void;
-  onCancel?: () => void;
-  dialogTitle?: string;
   children: React.ReactNode;
 };
 
 const Dialog = ({
-  isOpen = true,
-  dialogTitle = "Dialog",
-  onOpen,
+  isOpen,
   onClose,
-  onCancel,
   children,
   ...props
-}: DialogProps): JSX.Element => {
-  const dialogRef = React.useRef<HTMLDialogElement>(null);
+}: ModalProps): JSX.Element => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  React.useEffect(() => {
-    if (isOpen && onOpen) {
-      dialogRef.current?.showModal();
-      onOpen();
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (dialog) {
+      if (isOpen) {
+        dialog.showModal();
+      } else {
+        dialog.close();
+      }
     }
   }, [isOpen]);
 
-  const handleCancelEvent = (e: React.SyntheticEvent<HTMLDialogElement>) => {
-    if (e.currentTarget === e.target) {
-      if (onCancel) {
-        onCancel();
-      }
-    }
-  };
-
-  const handleCloseEvent = (e: React.SyntheticEvent<HTMLDialogElement>) => {
-    if (e.currentTarget === e.target) {
-      if (onClose) {
-        onClose();
-      }
-      isOpen = false;
-      dialogRef.current?.close();
-    }
-  };
-
-  const closeDialog = () => {
-    if (onClose) {
-      onClose();
-    }
-    isOpen = false;
+  const handleClose = () => {
+    onClose?.();
     dialogRef.current?.close();
   };
 
   return (
-    <UI
-      as="dialog"
-      open={isOpen}
-      ref={dialogRef}
-      onCancel={handleCancelEvent}
-      onClose={handleCloseEvent}
-      {...props}
-    >
-      <UI as="div" classes="dialog-header">
-        <Heading type="h3">{dialogTitle}</Heading>
-        <Button type="button" onClick={closeDialog} data-btn="pill xs">
-          <Icon.Remove />
-        </Button>
-      </UI>
+    <UI as="dialog" ref={dialogRef} {...props} onClose={onClose}>
       {children}
+      <button onClick={handleClose}>Close</button>
     </UI>
   );
 };
 
 export default React.memo(Dialog);
-Dialog.displayName = "Dialog";
+Dialog.displayName = "Modal";
