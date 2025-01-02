@@ -10,10 +10,9 @@ const preview: Preview = {
       },
       // exclude specific props from the controls panel
       exclude: ["children"],
-    },
-    docs: {
-      autodocs: true,
-      toc: true, // 👈 Enables the table of contents
+      docs: {
+        toc: true, // 👈 Enables the table of contents
+      },
     },
     viewport: {
       viewports: {

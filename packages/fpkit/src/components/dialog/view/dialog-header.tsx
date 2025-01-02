@@ -15,7 +15,7 @@ const DialogHeader = ({
 }: DialogHeaderProps): JSX.Element => {
   return (
     <UI as="div" classes="dialog-header">
-      <Heading type="h3">{dialogTitle}</Heading>
+      {dialogTitle && <Heading type="h3">{dialogTitle}</Heading>}
       <Button
         type="button"
         onClick={onClose}

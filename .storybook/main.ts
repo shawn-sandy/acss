@@ -4,6 +4,7 @@ const config: StorybookConfig = {
   stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../packages/fpkit/**/*.mdx",
     "../packages/fpkit/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
@@ -17,6 +18,10 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/react-vite",
     options: {},
+  },
+  docs: {
+    autodocs: true,
+    defaultName: "Interactive Guide",
   },
 };
 export default config;
