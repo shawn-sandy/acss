@@ -3,43 +3,40 @@ import UI from "#components/ui";
 import DialogHeader from "./view/dialog-header";
 
 export type DialogProps = {
+  dialogId?: string;
+  arialLabel?: string;
   isOpen?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
   onCancel?: () => void;
   dialogTitle?: string;
-  showDialogHeader?: boolean;
+  hideDialogHeader?: boolean;
   isAlertDialog?: boolean;
   children: React.ReactNode;
 } & React.ComponentProps<typeof UI> &
   React.ComponentProps<"dialog">;
 
 export const Dialog = ({
-  isOpen = true,
+  isOpen,
+  dialogId,
   dialogTitle = "Dialog",
+  dialogLabel,
   onOpen,
   onClose,
   onCancel,
-  showDialogHeader = true,
+  hideDialogHeader,
   isAlertDialog,
   classes,
   children,
   ...props
 }: DialogProps): JSX.Element => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
-  const [dialogOpen, setDialogOpen] = React.useState(isOpen);
 
-  React.useEffect(() => {
-    if (dialogOpen) {
-      dialogRef.current?.show();
-    }
-  }, []);
   React.useEffect(() => {
     if (isOpen && onOpen) {
       dialogRef.current?.showModal();
       onOpen();
     }
-    setDialogOpen(isOpen);
   }, [isOpen]);
 
   const handleCancelEvent = (e: React.SyntheticEvent<HTMLDialogElement>) => {
@@ -71,14 +68,17 @@ export const Dialog = ({
   return (
     <UI
       as="dialog"
+      open={isAlertDialog || undefined}
       ref={dialogRef}
       role={isAlertDialog ? "alertdialog" : undefined}
       onCancel={handleCancelEvent}
       onClose={handleCloseEvent}
       className={classes}
+      aria-describedby={dialogId}
+      aria-label={dialogId ? undefined : dialogLabel}
       {...props}
     >
-      {showDialogHeader && (
+      {!hideDialogHeader && (
         <DialogHeader dialogTitle={dialogTitle} onClose={closeDialog} />
       )}
       {children}

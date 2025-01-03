@@ -1,11 +1,11 @@
 import { StoryObj, Meta } from "@storybook/react";
 import { within, expect } from "@storybook/test";
 
-import AlertDialog from "./alert-dialog";
+import DialogAlert from "./dialog-alerts";
 
-const meta: Meta<typeof AlertDialog> = {
-  title: "FP.REACT Components/AlertDialog",
-  component: AlertDialog,
+const meta: Meta<typeof DialogAlert> = {
+  title: "FP.REACT Components/DialogAlert",
+  component: DialogAlert,
   tags: ["alpha"],
   parameters: {
     actions: { argTypesRegex: "^on.*" },
@@ -16,7 +16,8 @@ const meta: Meta<typeof AlertDialog> = {
     },
   },
   args: {
-    message: "Alert Dialog Content",
+    children:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     title: "Alert Dialog Title",
     alertType: "alert",
     open: true,
@@ -24,12 +25,13 @@ const meta: Meta<typeof AlertDialog> = {
 } as Story;
 
 export default meta;
-type Story = StoryObj<typeof AlertDialog>;
+type Story = StoryObj<typeof DialogAlert>;
 
-export const AlertDialogComponent: Story = {
+export const DialogAlertComponent: Story = {
   args: {},
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByText(/alert dialog content/i)).toBeInTheDocument();
+    expect(canvas.getByText(/alert dialog title/i)).toBeInTheDocument();
+    expect(canvas.getByRole("heading")).toBeInTheDocument();
   },
 };

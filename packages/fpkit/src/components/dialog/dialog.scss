@@ -2,6 +2,8 @@
   --dialog-min-w: 320px;
   --dialog-gap: 0.75rem;
   --dialog-border-color: lightgray;
+  --dialog-border-width: thin;
+  --dialog-border-style: solid;
   --dialog-border-radius: 0.5rem;
   --dialog-padding: 0.5rem;
   --dialog-padding-inline: 1rem;
@@ -16,7 +18,7 @@
 dialog {
   min-width: var(--dialog-min-w);
   gap: var(--dialog-gap);
-  border-color: var(--dialog-border-color);
+  border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
   padding: var(--dialog-padding);
   padding-inline: var(--dialog-padding-inline);

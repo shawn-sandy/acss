@@ -40,17 +40,20 @@ export default meta;
 type Story = StoryObj<typeof Dialog>;
 
 export const DialogComponent: Story = {
-  args: {},
+  args: {
+    isAlertDialog: true,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByText(/dialog content/i)).toBeInTheDocument();
     expect(canvas.getByRole("dialog")).toBeInTheDocument();
   },
-};
+} as Story;
 
 export const NoDialogTitle: Story = {
   args: {
     dialogTitle: "",
+    isAlertDialog: true,
     children:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quod tenetur, alias vitae incidunt porro rem laboriosam deserunt, fugit eligendi eum eos ducimus inventore suscipit, quasi dignissimos dicta. Deleniti, error",
   },

@@ -1,7 +1,7 @@
 sup:has(> span) {
   --badge-bg: lightgray;
   --badge-color: currentColor;
-  --badge-radius: 0.15rem;
+  --badge-radius: 0.5rem;
   --badge-padding: 0.3rem;
   --badge-v-align: 0.5rem;
   --badge-fs: var(--fs-1);
