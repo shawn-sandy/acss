@@ -1,1 +1,2 @@
+git add -A
 npx lint-staged
