@@ -7,7 +7,7 @@
   --dialog-padding-inline: 1rem;
   --dialog-close-color: gray;
   --dialog-button-bg: transparent;
-  --dialog-button-border: transparent 1px solid;
+  --dialog-button-border: transparent thin solid;
   --dialog-button-hover-bg: whitesmoke;
   --dialog-display: flex;
   --dialog-flex-direction: column;

@@ -2,9 +2,9 @@ sup:has(> span) {
   --badge-bg: lightgray;
   --badge-color: currentColor;
   --badge-radius: 0.15rem;
-  --badge-padding: 0.15rem;
+  --badge-padding: 0.3rem;
   --badge-v-align: 0.5rem;
-  --badge-fs: clamp(0.4rem, 0.5rem + 0.5vw, 7rem);
+  --badge-fs: var(--fs-1);
   background-color: var(--badge-bg);
   color: var(--badge-color);
   padding: var(--badge-padding);
@@ -14,7 +14,7 @@ sup:has(> span) {
   span {
     color: inherit;
   }
-  &[data-badge~='rounded'] {
+  &[data-badge~="rounded"] {
     --badge-radius: 100%;
     --badge-padding: 0.2rem;
   }
