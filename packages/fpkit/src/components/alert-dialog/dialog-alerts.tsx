@@ -11,9 +11,9 @@ import Dialog from "#components/dialog/dialog";
  * @property {function} onCancel - Callback function triggered when the cancel button is clicked
  * @property {"alert" | "alertdialog"} alertType - The ARIA role type for the dialog
  */
-export type AlertDialogProps = {
+export type DialogAlertProps = {
   title: string;
-  message: React.ReactNode;
+  children: React.ReactNode;
   onConfirm: (e: React.MouseEvent) => void;
   onCancel: (e: React.MouseEvent) => void;
   onOpen?: () => void;
@@ -21,14 +21,14 @@ export type AlertDialogProps = {
 } & React.ComponentProps<typeof UI> &
   React.ComponentProps<"dialog">;
 
-const AlertDialog = ({
+const DialogAlert = ({
   title = "Alert Dialog",
-  message,
+  children,
   open,
   onConfirm,
   onCancel,
   onOpen,
-}: AlertDialogProps): React.JSX.Element => {
+}: DialogAlertProps): React.JSX.Element => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = React.useState(open);
   /**
@@ -53,8 +53,8 @@ const AlertDialog = ({
   };
 
   return (
-    <Dialog isOpen={isOpen} isAlertDialog={true} dialogTitle={title}>
-      {message}
+    <Dialog isOpen={isOpen} isAlertDialog dialogTitle={title}>
+      {children}
       <UI as="div" classes="alert-dialog-actions">
         <Button type="button" onClick={handleOnConfirm} data-btn="sm">
           Confirm
@@ -72,5 +72,5 @@ const AlertDialog = ({
   );
 };
 
-export default React.memo(AlertDialog);
-AlertDialog.displayName = "AlertDialog";
+export default React.memo(DialogAlert);
+DialogAlert.displayName = "DialogAlert";
