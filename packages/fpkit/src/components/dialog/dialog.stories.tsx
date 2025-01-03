@@ -4,7 +4,7 @@ import { within, expect } from "@storybook/test";
 import Dialog from "./dialog";
 
 const meta: Meta<typeof Dialog> = {
-  title: "FP.REACT/Components/Dialog",
+  title: "FP.REACT Components/Dialog",
   component: Dialog,
   tags: ["alpha"],
   parameters: {
