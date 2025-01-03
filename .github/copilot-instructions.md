@@ -76,8 +76,7 @@ ComponentName.displayName = 'ComponentName'
 
 ```tsx
 import { StoryObj, Meta } from '@storybook/react'
-import { within, userEvent, screen } from '@storybook/testing-library'
-import { expect } from '@storybook/jest'
+import { within, expect } from '@storybook/test'
 
 import ComponentName from 'import_path'
 

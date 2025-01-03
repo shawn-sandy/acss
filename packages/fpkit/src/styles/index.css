@@ -1083,7 +1083,7 @@ footer > div {
   --dialog-padding-inline: 1rem;
   --dialog-close-color: gray;
   --dialog-button-bg: transparent;
-  --dialog-button-border: transparent 1px solid;
+  --dialog-button-border: transparent thin solid;
   --dialog-button-hover-bg: whitesmoke;
   --dialog-display: flex;
   --dialog-flex-direction: column;
@@ -1232,9 +1232,9 @@ sup:has(> span) {
   --badge-bg: lightgray;
   --badge-color: currentColor;
   --badge-radius: 0.15rem;
-  --badge-padding: 0.15rem;
+  --badge-padding: 0.3rem;
   --badge-v-align: 0.5rem;
-  --badge-fs: clamp(0.4rem, 0.5rem + 0.5vw, 7rem);
+  --badge-fs: var(--fs-1);
   background-color: var(--badge-bg);
   color: var(--badge-color);
   padding: var(--badge-padding);

@@ -11,7 +11,8 @@ export type DialogProps = {
   showDialogHeader?: boolean;
   isAlertDialog?: boolean;
   children: React.ReactNode;
-};
+} & React.ComponentProps<typeof UI> &
+  React.ComponentProps<"dialog">;
 
 export const Dialog = ({
   isOpen = true,
@@ -21,12 +22,18 @@ export const Dialog = ({
   onCancel,
   showDialogHeader = true,
   isAlertDialog,
+  classes,
   children,
   ...props
 }: DialogProps): JSX.Element => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
   const [dialogOpen, setDialogOpen] = React.useState(isOpen);
 
+  React.useEffect(() => {
+    if (dialogOpen) {
+      dialogRef.current?.show();
+    }
+  }, []);
   React.useEffect(() => {
     if (isOpen && onOpen) {
       dialogRef.current?.showModal();
@@ -64,11 +71,11 @@ export const Dialog = ({
   return (
     <UI
       as="dialog"
-      open={dialogOpen}
       ref={dialogRef}
       role={isAlertDialog ? "alertdialog" : undefined}
       onCancel={handleCancelEvent}
       onClose={handleCloseEvent}
+      className={classes}
       {...props}
     >
       {showDialogHeader && (
