@@ -13,7 +13,7 @@ export type DialogProps = {
   children: React.ReactNode;
 };
 
-const Dialog = ({
+export const Dialog = ({
   isOpen = true,
   dialogTitle = "Dialog",
   onOpen,
@@ -25,12 +25,14 @@ const Dialog = ({
   ...props
 }: DialogProps): JSX.Element => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
+  const [dialogOpen, setDialogOpen] = React.useState(isOpen);
 
   React.useEffect(() => {
     if (isOpen && onOpen) {
       dialogRef.current?.showModal();
       onOpen();
     }
+    setDialogOpen(isOpen);
   }, [isOpen]);
 
   const handleCancelEvent = (e: React.SyntheticEvent<HTMLDialogElement>) => {
@@ -62,7 +64,7 @@ const Dialog = ({
   return (
     <UI
       as="dialog"
-      open={isOpen}
+      open={dialogOpen}
       ref={dialogRef}
       role={isAlertDialog ? "alertdialog" : undefined}
       onCancel={handleCancelEvent}

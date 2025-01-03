@@ -1,10 +1,10 @@
 // import { TextToSpeech } from "./components/text-to-speech/TextToSpeech";
 // import { Popover } from './hooks/popover/popover'
 // export { Textarea } from './components/form/textarea';
+// export { ModalDialog as Dialog } from "./components/modal/dialog";
 
 export { Button } from "./components/buttons/button";
 export { Card } from "./components/cards/card";
-export { ModalDialog as Dialog } from "./components/modal/dialog";
 export { Field } from "./components/form/fields";
 export * from "./components/layout/landmarks";
 export * from "./components/layout/landmarks";
@@ -26,6 +26,7 @@ export * from "./components/nav/nav";
 export * from "./components/heading/heading";
 export * from "./components/breadcrumbs/breadcrumb";
 export * from "./components/text-to-speech/TextToSpeech";
+export { Dialog } from "./components/dialog/dialog";
 export { TextToSpeech } from "./components/text-to-speech/TextToSpeech";
 
 export { default as To } from "./components/link/link";
