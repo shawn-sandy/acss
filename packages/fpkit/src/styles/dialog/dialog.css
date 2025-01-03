@@ -3,7 +3,7 @@
   --dialog-gap: 0.75rem;
   --dialog-border-color: lightgray;
   --dialog-border-radius: 0.5rem;
-  --dialog-padding: 0.75rem;
+  --dialog-padding: 0.5rem;
   --dialog-padding-inline: 1rem;
   --dialog-close-color: gray;
   --dialog-button-bg: transparent;
@@ -50,6 +50,12 @@ dialog[open] {
 .dialog-header button[type=button]:hover, .dialog-header button[type=button]:focus {
   border-color: currentColor;
   background-color: var(--dialog-button-hover-bg);
+}
+
+.alert-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 /*# sourceMappingURL=dialog.css.map */
