@@ -420,9 +420,9 @@ h6:has(span:first-of-type) > span {
 }
 
 button {
-  --btn-xs: 0.5rem;
-  --btn-sm: 0.8rem;
-  --btn-md: 1rem;
+  --btn-xs: 0.6rem;
+  --btn-sm: 0.7rem;
+  --btn-md: 0.85rem;
   --btn-lg: calc(21rem / 16);
   --btn-pill: 100rem;
   --btn-height: 2.5rem;
@@ -449,6 +449,9 @@ button {
   background-color: var(--btn-bg, var(--btn));
   outline: none;
   width: var(--btn-width);
+  display: inline-flex;
+  align-items: center;
+  line-height: 0cap;
 }
 button[type] {
   background-color: var(--btn-bg, var(--neutral-300));
@@ -491,21 +494,26 @@ button[data-fp-btn~=pill], button[data-btn~=pill], button[data-style~=pill] {
 button[data-btn~=xs] {
   padding-inline: var(--btn-xs);
   --btn-fs: var(--btn-xs);
+  --btn-height: 1.5rem;
+  text-transform: uppercase;
 }
 button[data-btn~=sm] {
   --btn-fs: var(--btn-sm);
+  --btn-height: 1.75rem;
 }
 button[data-btn~=md] {
   --btn-fs: var(--btn-md);
+  --btn-height: 2rem;
 }
 button[data-btn~=lg] {
   --btn-fs: var(--btn-lg);
+  --btn-height: 2.5rem;
 }
 button[data-btn~=icon] {
   padding: unset;
   height: unset;
-  min-width: 24px;
-  min-height: 24px;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
   text-align: center;
   display: inline-flex;
   align-items: center;

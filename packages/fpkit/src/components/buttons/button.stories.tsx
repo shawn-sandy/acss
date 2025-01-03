@@ -53,6 +53,12 @@ export const ButtonComponent: Story = {
   },
 } as Story;
 
+export const Xsmall: Story = {
+  args: {
+    "data-btn": "xs",
+  },
+} as Story;
+
 export const Small: Story = {
   args: {
     "data-btn": "sm",
