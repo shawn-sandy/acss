@@ -1,8 +1,7 @@
 import React from "react";
 import UI from "#components/ui";
-import Heading from "#components/heading/heading.jsx";
-import Text from "#components/text/text";
 import Button from "#components/buttons/button";
+import Dialog from "#components/dialog/dialog";
 
 /**
  * Props for the AlertDialog component.
@@ -23,15 +22,12 @@ export type AlertDialogProps = {
   React.ComponentProps<"dialog">;
 
 const AlertDialog = ({
-  title,
+  title = "Alert Dialog",
   message,
   open,
-  alertType = "alert",
   onConfirm,
   onCancel,
   onOpen,
-  classes,
-  ...props
 }: AlertDialogProps): React.JSX.Element => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = React.useState(open);
@@ -53,29 +49,26 @@ const AlertDialog = ({
 
   const handleOnCancel = (e: React.MouseEvent) => {
     onCancel?.(e);
-    dialogRef.current?.close();
+    setIsOpen(false);
   };
 
   return (
-    <UI
-      as="dialog"
-      role={alertType}
-      open={isOpen}
-      classes={`"alert-dialog" ${classes}`}
-      ref={dialogRef}
-      {...props}
-    >
-      <Heading type="h3">{title}</Heading>
-      <Text>{message}</Text>
+    <Dialog isOpen={isOpen} isAlertDialog={true} dialogTitle={title}>
+      {message}
       <UI as="div" classes="alert-dialog-actions">
-        <Button type="button" onClick={handleOnConfirm}>
+        <Button type="button" onClick={handleOnConfirm} data-btn="sm">
           Confirm
         </Button>
-        <Button type="button" onClick={handleOnCancel}>
+        <Button
+          type="button"
+          onClick={handleOnCancel}
+          data-btn="sm"
+          classes="transparent"
+        >
           Cancel
         </Button>
       </UI>
-    </UI>
+    </Dialog>
   );
 };
 

@@ -3,7 +3,7 @@ import UI from "#components/ui";
 import DialogHeader from "./view/dialog-header";
 
 export type DialogProps = {
-  isOpen: boolean;
+  isOpen?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
   onCancel?: () => void;
