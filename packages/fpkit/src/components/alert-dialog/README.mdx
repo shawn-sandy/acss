@@ -1,0 +1,70 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Views/DialogHeader/Readme" />
+
+# DialogHeader
+
+## Summary
+
+A reusable header component specifically designed for dialog/modal interfaces.
+The component provides a clean, accessible header with a title and close button
+functionality.
+
+## Features
+
+- Clean, minimal header design
+- Built-in close button with icon
+- Customizable title using the Heading component
+- Memoized for performance optimization
+- Fully accessible
+
+## Props
+
+The `DialogHeader` component accepts the following props:
+
+- `dialogTitle: string`: The title text to display in the header
+- `onClose: () => void`: Callback function triggered when the close button is
+  clicked
+
+## Technical Details
+
+- Uses React.memo for performance optimization
+- Integrates with the UI component system
+- Implements accessible heading structure using the Heading component
+- Uses Icon.Remove for the close button visual
+- Includes data attributes for styling customization
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import { DialogHeader } from "./dialog-header";
+
+function BasicDialog() {
+  return (
+    <DialogHeader
+      dialogTitle="Settings"
+      onClose={() => console.log("Dialog closed")}
+    />
+  );
+}
+
+// Example within a Dialog component
+import { Dialog } from "./dialog";
+import { DialogHeader } from "./dialog-header";
+
+function SettingsDialog() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Dialog isOpen={isOpen}>
+      <DialogHeader
+        dialogTitle="Application Settings"
+        onClose={() => setIsOpen(false)}
+      />
+      <div>Dialog content here...</div>
+    </Dialog>
+  );
+}
+```
