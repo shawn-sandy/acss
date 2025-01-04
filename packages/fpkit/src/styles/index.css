@@ -1081,7 +1081,7 @@ footer > div {
   --dialog-border-width: thin;
   --dialog-border-style: solid;
   --dialog-border-radius: 0.5rem;
-  --dialog-padding: 0.5rem;
+  --dialog-padding: 0.75rem;
   --dialog-padding-inline: 1rem;
   --dialog-close-color: gray;
   --dialog-button-bg: transparent;

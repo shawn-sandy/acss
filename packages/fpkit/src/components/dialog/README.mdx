@@ -1,0 +1,142 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Dialog/Readme" />
+
+# Dialog Components
+
+A flexible Dialog component system for building accessible modal dialogs in
+React applications. The component supports:
+
+- Controlled modal behavior with built-in state management
+- Full ARIA accessibility support out of the box
+- Customizable headers and content layout
+- Multiple variants including standard dialogs and alert dialogs
+- Event handling for open, close, and cancel actions
+- Responsive design with inline rendering option
+
+Built with TypeScript and React, this component follows modern best practices
+and provides a developer-friendly API for implementing modal dialogs in your web
+applications.
+
+## Overview
+
+The dialog component system consists of the following key parts:
+
+### Dialog Component
+
+The base `Dialog` component provides core modal functionality:
+
+- Controlled modal behavior with `isOpen` prop
+- Built-in accessibility features with ARIA support
+- Custom header with close button (optional)
+- Event handling for open, close, and cancel actions
+- Support for alert dialogs via `isAlertDialog` prop
+
+### Props
+
+The `Dialog` component accepts the following props:
+
+- `dialogId?: string`: The ID of the dialog, used for ARIA attributes.
+- `arialLabel?: string`: The ARIA label for the dialog.
+- `isOpen?: boolean`: Controls whether the dialog is open.
+- `onOpen?: () => void`: Callback function triggered when the dialog opens.
+- `onClose?: () => void`: Callback function triggered when the dialog closes.
+- `onCancel?: () => void`: Callback function triggered when the dialog is
+  canceled.
+- `dialogTitle?: string`: The title of the dialog, displayed in the header.
+- `hideDialogHeader?: boolean`: If true, hides the dialog header.
+- `isAlertDialog?: boolean`: If true, the dialog is treated as an alert dialog.
+- `children: React.ReactNode`: The content of the dialog.
+- Additional props from `UI` and `dialog` elements.
+
+### Usage Examples
+
+```tsx
+// Basic usage
+import { Dialog } from "./dialog";
+
+function MyComponent() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>Open Dialog</button>
+      <Dialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        dialogTitle="My Dialog"
+        dialogId="example-dialog"
+      >
+        <div>Dialog content goes here</div>
+      </Dialog>
+    </>
+  );
+}
+```
+
+### Inline Dialog
+
+You can also render the dialog inline by using the `inline` prop:
+
+```tsx
+import { Dialog } from "./dialog";
+
+function MyComponent() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>Open Dialog</button>
+      <Dialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        dialogTitle="My Dialog"
+        dialogId="example-dialog"
+        inline
+      >
+        <div>Dialog content goes here</div>
+      </Dialog>
+    </>
+  );
+}
+```
+
+## Alert Dialog Example
+
+A basic example of an Alert Dialog component implementation. Alert dialogs are
+used to show important messages that require user acknowledgment or
+confirmation.
+
+### Features
+
+- Uses the `Dialog` component with `isAlertDialog` prop set to true
+- Displays a warning message with a confirmation button
+- Custom dialog title "Warning"
+- Unique dialog identifier "alert-dialog"
+
+### Usage
+
+```tsx
+function AlertExample() {
+  return (
+    <Dialog isAlertDialog dialogTitle="Warning" dialogId="alert-dialog">
+      <p>This action cannot be undone. Continue?</p>
+      <button onClick={() => {}}>Confirm</button>
+    </Dialog>
+  );
+}
+```
+
+### Custom header dialog example
+
+```tsx
+// Custom header dialog
+function CustomDialog() {
+  return (
+    <Dialog hideDialogHeader dialogId="custom-dialog">
+      <h2>Custom Header</h2>
+      <div>Content with custom header</div>
+    </Dialog>
+  );
+}
+```
