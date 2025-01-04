@@ -65,7 +65,7 @@ ComponentName.displayName = 'ComponentName'
 
 ```
 
-### React Component Stories
+## React Component Stories
 
 - Use Storybook to document the components.
 - Write stories for the component.
@@ -113,6 +113,7 @@ export const ComponentNameComponent: Story = {
 # Component `MDX` Documentation
 
 - Use MDX to document the components.
+- Always import the `import { Meta } from "@storybook/blocks"` package at the top of the file.
 - Write documentation for the component.
 - Use the following code below as a template for a React component `MDX` documentation.
 - Replace `ComponentName` with the name of the component.
