@@ -109,3 +109,137 @@ export const ComponentNameComponent: Story = {
   },
 }
 ```
+
+# Component `MDX` Documentation
+
+- Use MDX to document the components.
+- Write documentation for the component.
+- Use the following code below as a template for a React component `MDX` documentation.
+- Replace `ComponentName` with the name of the component.
+- Replace the import path with the correct path to the component.
+- Always wrap code examples in the appropriate MD/MDX code block.
+  
+```mdx
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/ComponentName/Readme" />
+
+# ComponentName
+
+## Summary
+
+A flexible Dialog component system for building accessible modal dialogs in
+React applications. The component supports:
+
+- Controlled modal behavior with built-in state management
+- Full ARIA accessibility support out of the box
+- ...
+
+Built with TypeScript and React, this component follows modern best practices
+and provides a developer-friendly API for implementing modal dialogs in your web
+applications.
+
+## Overview
+
+The dialog component system consists of the following key parts:
+
+### Dialog Component
+
+The base `Dialog` component provides core modal functionality:
+
+- Controlled modal behavior with `isOpen` prop
+- Built-in accessibility features with ARIA support
+- Custom header with close button (optional)
+- Event handling for open, close, and cancel actions
+- Support for alert dialogs via `isAlertDialog` prop
+
+### Props
+
+The `Dialog` component accepts the following props:
+
+- `dialogId?: string`: The ID of the dialog, used for ARIA attributes.
+- `arialLabel?: string`: The ARIA label for the dialog.
+- `isOpen?: boolean`: Controls whether the dialog is open.
+- `onOpen?: () => void`: Callback function triggered when the dialog opens.
+- `onClose?: () => void`: Callback function triggered when the dialog closes.
+- `onCancel?: () => void`: Callback function triggered when the dialog is
+  canceled.
+- `dialogTitle?: string`: The title of the dialog, displayed in the header.
+- `hideDialogHeader?: boolean`: If true, hides the dialog header.
+- `isAlertDialog?: boolean`: If true, the dialog is treated as an alert dialog.
+- `children: React.ReactNode`: The content of the dialog.
+- Additional props from `UI` and `dialog` elements.
+
+### Usage Examples
+
+```mdx
+// Basic usage
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Dialog/Readme" />
+
+# Dialog Components
+
+A flexible Dialog component system for building accessible modal dialogs in
+React applications. The component supports:
+
+- Controlled modal behavior with built-in state management
+- Full ARIA accessibility support out of the box
+- Customizable headers and content layout
+- Multiple variants including standard dialogs and alert dialogs
+- Event handling for open, close, and cancel actions
+- Responsive design with inline rendering option
+
+Built with TypeScript and React, this component follows modern best practices
+and provides a developer-friendly API for implementing modal dialogs in your web
+applications.
+
+## Overview
+
+The dialog component system consists of the following key parts:
+
+### Dialog Component
+
+The base `Dialog` component provides core modal functionality:
+
+- Controlled modal behavior with `isOpen` prop
+- Built-in accessibility features with ARIA support
+- Custom header with close button (optional)
+- Event handling for open, close, and cancel actions
+- Support for alert dialogs via `isAlertDialog` prop
+
+### Props
+
+The `Dialog` component accepts the following props:
+
+- `dialogId?: string`: The ID of the dialog, used for ARIA attributes.
+- `arialLabel?: string`: The ARIA label for the dialog.
+- `isOpen?: boolean`: Controls whether the dialog is open.
+- `onOpen?: () => void`: Callback function triggered when the dialog opens.
+- ...
+ 
+
+### Usage Examples
+
+```tsx
+// Basic usage
+import { Dialog } from "./dialog";
+
+function MyComponent() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>Open Dialog</button>
+      <Dialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        dialogTitle="My Dialog"
+        dialogId="example-dialog"
+      >
+        <div>Dialog content goes here</div>
+      </Dialog>
+    </>
+  );
+}
+```
