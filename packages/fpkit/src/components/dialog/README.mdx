@@ -140,3 +140,63 @@ function CustomDialog() {
   );
 }
 ```
+
+## Styles
+
+This `dialog.scss` file defines the styling for a dialog component with
+customizable properties using CSS variables.
+
+## CSS Custom Properties
+
+### Dialog Dimensions and Spacing
+
+- `--dialog-min-w`: Minimum width of the dialog (320px)
+- `--dialog-gap`: Spacing between dialog elements (0.75rem)
+- `--dialog-padding`: General padding inside dialog (0.75rem)
+- `--dialog-padding-inline`: Horizontal padding inside dialog (1rem)
+
+### Border Properties
+
+- `--dialog-border-color`: Color of dialog border (lightgray)
+- `--dialog-border-width`: Width of dialog border (thin)
+- `--dialog-border-style`: Style of dialog border (solid)
+- `--dialog-border-radius`: Border radius of dialog corners (0.5rem)
+
+### Dialog Button Styles
+
+- `--dialog-button-bg`: Background color for dialog buttons (transparent)
+- `--dialog-button-border`: Border style for dialog buttons (transparent thin
+  solid)
+- `--dialog-button-hover-bg`: Background color for button hover state
+  (whitesmoke)
+- `--dialog-close-color`: Color for close button (gray)
+
+### Layout Properties
+
+- `--dialog-display`: Display property for dialog (flex)
+- `--dialog-flex-direction`: Flex direction for dialog layout (column)
+
+## Component Structure
+
+### Base Dialog
+
+- Sets minimum width and spacing
+- Applies border and padding styles
+- Implements flex layout when dialog is open
+
+### Dialog Header
+
+- Implements a flex layout with space-between alignment
+- Contains title (h3) and close button
+- Custom button styling with hover states
+
+### Alert Dialog Actions
+
+- Container for dialog action buttons
+- Uses flex layout with left alignment
+- Includes gap spacing between buttons
+
+## Usage
+
+To customize the dialog appearance, override the CSS custom properties in your
+stylesheet.
