@@ -173,7 +173,7 @@ The `Dialog` component accepts the following props:
 
 ### Usage Examples
 
-```mdx
+```md
 // Basic usage
 import { Meta } from "@storybook/blocks";
 
