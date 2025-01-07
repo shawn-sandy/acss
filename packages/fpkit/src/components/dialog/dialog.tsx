@@ -1,90 +1,117 @@
-import React from "react";
-import UI from "#components/ui";
-import DialogHeader from "./view/dialog-header";
+// DialogModal.tsx
+import React, { useRef, useEffect } from "react";
 
-export type DialogProps = {
-  dialogId?: string;
-  arialLabel?: string;
-  isOpen?: boolean;
-  onOpen?: () => void;
-  onClose?: () => void;
-  onCancel?: () => void;
-  dialogTitle?: string;
-  hideDialogHeader?: boolean;
-  isAlertDialog?: boolean;
+interface DialogModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
   children: React.ReactNode;
-} & React.ComponentProps<typeof UI> &
-  React.ComponentProps<"dialog">;
+  /** Optional confirm handler. If provided, shows a confirm button */
+  onConfirm?: () => void | Promise<void>;
+  /** Optional confirm button text */
+  confirmText?: string;
+  /** Optional cancel button text */
+  cancelText?: string;
+  /** Optional className for the dialog content wrapper */
+  className?: string;
+}
 
-export const Dialog = ({
+export const Dialog: React.FC<DialogModalProps> = ({
   isOpen,
-  dialogId,
-  dialogTitle = "Dialog",
-  dialogLabel,
-  onOpen,
   onClose,
-  onCancel,
-  hideDialogHeader,
-  isAlertDialog,
-  classes,
+  title,
   children,
-  ...props
-}: DialogProps): JSX.Element => {
-  const dialogRef = React.useRef<HTMLDialogElement>(null);
+  onConfirm,
+  confirmText = "Confirm",
+  cancelText = "Cancel",
+  className = "",
+}) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  React.useEffect(() => {
-    if (isOpen && onOpen) {
-      dialogRef.current?.showModal();
-      onOpen();
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen) {
+      dialog.showModal();
+    } else {
+      dialog.close();
     }
   }, [isOpen]);
 
-  const handleCancelEvent = (e: React.SyntheticEvent<HTMLDialogElement>) => {
-    if (e.currentTarget === e.target) {
-      if (onCancel) {
-        onCancel();
-      }
-    }
+  const handleClose = () => {
+    onClose();
   };
 
-  const handleCloseEvent = (e: React.SyntheticEvent<HTMLDialogElement>) => {
-    if (e.currentTarget === e.target) {
-      if (onClose) {
-        onClose();
-      }
-      isOpen = false;
-      dialogRef.current?.close();
+  const handleConfirm = async () => {
+    if (onConfirm) {
+      await onConfirm();
     }
+    handleClose();
   };
 
-  const closeDialog = () => {
-    if (onClose) {
-      onClose();
+  const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+    const dialogDimensions = dialogRef.current?.getBoundingClientRect();
+    if (dialogDimensions) {
+      const isClickOutside =
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom ||
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right;
+
+      if (isClickOutside) {
+        handleClose();
+      }
     }
-    isOpen = false;
-    dialogRef.current?.close();
   };
 
   return (
-    <UI
-      as="dialog"
-      open={isAlertDialog || undefined}
+    <dialog
       ref={dialogRef}
-      role={isAlertDialog ? "alertdialog" : undefined}
-      onCancel={handleCancelEvent}
-      onClose={handleCloseEvent}
-      className={classes}
-      aria-describedby={dialogId}
-      aria-label={dialogId ? undefined : dialogLabel}
-      {...props}
+      onClose={handleClose}
+      onClick={handleClick}
+      className="dialog-modal"
     >
-      {!hideDialogHeader && (
-        <DialogHeader dialogTitle={dialogTitle} onClose={closeDialog} />
-      )}
-      {children}
-    </UI>
+      <div
+        className={`dialog-content ${className}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="dialog-header">
+          <h2 className="dialog-title">{title}</h2>
+          <button
+            type="button"
+            onClick={handleClose}
+            className="dialog-close"
+            aria-label="Close dialog"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="dialog-body">{children}</div>
+
+        <div className="dialog-footer">
+          <button
+            type="button"
+            onClick={handleClose}
+            className="dialog-button button-secondary"
+          >
+            {cancelText}
+          </button>
+          {onConfirm && (
+            <button
+              type="button"
+              onClick={handleConfirm}
+              className="dialog-button button-primary"
+            >
+              {confirmText}
+            </button>
+          )}
+        </div>
+      </div>
+    </dialog>
   );
 };
 
-export default React.memo(Dialog);
+export default Dialog;
 Dialog.displayName = "Dialog";
