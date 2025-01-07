@@ -1,5 +1,6 @@
 // DialogModal.tsx
 import React, { useRef, useEffect } from "react";
+// import "./DialogModal.css";
 
 interface DialogModalProps {
   isOpen: boolean;
@@ -17,7 +18,7 @@ interface DialogModalProps {
 }
 
 export const Dialog: React.FC<DialogModalProps> = ({
-  isOpen,
+  //   isOpen,
   onClose,
   title,
   children,
@@ -27,6 +28,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
   className = "",
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -41,6 +43,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
 
   const handleClose = () => {
     onClose();
+    setIsOpen(false);
   };
 
   const handleConfirm = async () => {
@@ -66,52 +69,59 @@ export const Dialog: React.FC<DialogModalProps> = ({
   };
 
   return (
-    <dialog
-      ref={dialogRef}
-      onClose={handleClose}
-      onClick={handleClick}
-      className="dialog-modal"
-    >
-      <div
-        className={`dialog-content ${className}`}
-        onClick={(e) => e.stopPropagation()}
+    <>
+      <button
+        onClick={() => {
+          setIsOpen(true);
+        }}
       >
-        <div className="dialog-header">
-          <h2 className="dialog-title">{title}</h2>
-          <button
-            type="button"
-            onClick={handleClose}
-            className="dialog-close"
-            aria-label="Close dialog"
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="dialog-body">{children}</div>
-
-        <div className="dialog-footer">
-          <button
-            type="button"
-            onClick={handleClose}
-            className="dialog-button button-secondary"
-          >
-            {cancelText}
-          </button>
-          {onConfirm && (
+        Open Dialog
+      </button>
+      <dialog
+        ref={dialogRef}
+        onClose={handleClose}
+        onClick={handleClick}
+        className="dialog-modal"
+      >
+        <div
+          className={`dialog-content ${className}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="dialog-header">
+            <h2 className="dialog-title">{title}</h2>
             <button
               type="button"
-              onClick={handleConfirm}
-              className="dialog-button button-primary"
+              onClick={handleClose}
+              className="dialog-close"
+              aria-label="Close dialog"
             >
-              {confirmText}
+              ✕
             </button>
-          )}
+          </div>
+
+          <div className="dialog-body">{children}</div>
+
+          <div className="dialog-footer">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="dialog-button button-secondary"
+            >
+              {cancelText}
+            </button>
+            {onConfirm && (
+              <button
+                type="button"
+                onClick={handleConfirm}
+                className="dialog-button button-primary"
+              >
+                {confirmText}
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-    </dialog>
+      </dialog>
+    </>
   );
 };
-
 export default Dialog;
-Dialog.displayName = "Dialog";

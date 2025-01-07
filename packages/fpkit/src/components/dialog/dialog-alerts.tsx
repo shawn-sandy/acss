@@ -12,7 +12,7 @@ import Dialog from "#components/dialog/dialog";
  * @property {"alert" | "alertdialog"} alertType - The ARIA role type for the dialog
  */
 export type DialogAlertProps = {
-  title: string;
+  title?: string;
   children: React.ReactNode;
   onConfirm: (e: React.MouseEvent) => void;
   onCancel: (e: React.MouseEvent) => void;
@@ -30,7 +30,7 @@ const DialogAlert = ({
   onOpen,
 }: DialogAlertProps): React.JSX.Element => {
   const dialogRef = React.useRef<HTMLDialogElement>(null);
-  const [isOpen, setIsOpen] = React.useState(open);
+  const [isOpen, setIsOpen] = React.useState(false);
   /**
    * Updates the internal open state whenever the `open` prop changes.
    * Synchronizes the controlled open state with the internal state.
@@ -53,7 +53,7 @@ const DialogAlert = ({
   };
 
   return (
-    <Dialog isOpen={isOpen} isAlertDialog dialogTitle={title}>
+    <Dialog isOpen={isOpen} onClose={() => {}} title={title}>
       {children}
       <UI as="div" classes="alert-dialog-actions">
         <Button type="button" onClick={handleOnConfirm} data-btn="sm">

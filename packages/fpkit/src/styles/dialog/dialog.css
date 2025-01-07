@@ -54,10 +54,12 @@ dialog[open] {
   background-color: var(--dialog-button-hover-bg);
 }
 
-.alert-dialog-actions {
+.alert-dialog-actions,
+.dialog-footer {
   display: flex;
   justify-content: flex-start;
-  gap: 0.5rem;
+  gap: 1rem;
+  width: 100%;
 }
 
 /*# sourceMappingURL=dialog.css.map */
