@@ -48,6 +48,8 @@ Suggest a informative commit message by summarizing code changes from the shared
 - Replace `ComponentName` with the name of the component.
 - Replace ComponentNameProps with the `ComponentNAmeProps` interface.
 - Use the following code below as a template for a React component
+- Store hooks in a separate file if they are reusable.
+- place hooks in a folder named `hooks` in the `src/component` directory.
   
 ```tsx
 import React from 'react'
