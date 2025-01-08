@@ -4,10 +4,14 @@ import Button from "#components/buttons/button";
 import DialogHeader from "#components/dialog/views/dialog-header";
 import DialogFooter from "#components/dialog/views/dialog-footer";
 
-type DialogModalProps = {
+interface DialogModalProps extends React.ComponentProps<typeof UI> {
+  /** Controls the visibility of the dialog */
   isOpen: boolean;
+  /** Function to close the dialog */
   onClose: () => void;
+  /** Title of the dialog */
   title: string;
+  /** Content of the dialog */
   children: React.ReactNode;
   /** Optional confirm handler. If provided, shows a confirm button */
   onConfirm?: () => void | Promise<void>;
@@ -17,7 +21,7 @@ type DialogModalProps = {
   cancelLabel?: string;
   /** Optional className for the dialog content wrapper */
   className?: string;
-} & React.ComponentProps<typeof UI>;
+}
 
 export const Dialog: React.FC<DialogModalProps> = ({
   //   isOpen,

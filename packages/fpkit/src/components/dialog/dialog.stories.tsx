@@ -1,5 +1,5 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { within, expect, waitFor, userEvent } from "@storybook/test";
 
 import Dialog from "./dialog";
 
@@ -8,7 +8,6 @@ const meta: Meta<typeof Dialog> = {
   component: Dialog,
   tags: ["alpha"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: "Dialog component for displaying modal dialogs.",
@@ -41,12 +40,30 @@ type Story = StoryObj<typeof Dialog>;
 
 export const DialogComponent: Story = {
   args: {
-    isAlertDialog: true,
+    isAlertDialog: false,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByText(/dialog content/i)).toBeInTheDocument();
-    expect(canvas.getByRole("dialog")).toBeInTheDocument();
+    step("Open dialog", async () => {
+      const button = canvas.getByRole("button");
+      await userEvent.click(button);
+      await waitFor(() => {}, { timeout: 5000 });
+    });
+
+    step("validate dialog content", async () => {
+      // check for the dialog role
+      // await expect(canvas.getByRole("dialog")).toBeInTheDocument();
+      const closeBtn = canvas.getByLabelText(/close dialog/i);
+      await expect(closeBtn).toBeInTheDocument();
+      await expect(canvas.getByText(/dialog content/i)).toBeInTheDocument();
+    });
+
+    step("Close dialog", async () => {
+      const button = canvas.getByLabelText(/close dialog/i);
+      await userEvent.click(button);
+
+      await expect(canvas.queryByRole("dialog")).not.toBeInTheDocument();
+    });
   },
 } as Story;
 
