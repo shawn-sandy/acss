@@ -1,8 +1,8 @@
-// Dialog.tsx
 import React, { useRef, useEffect } from "react";
 import UI from "#components/ui";
 import Button from "#components/buttons/button";
 import DialogHeader from "#components/dialog/views/dialog-header";
+import DialogFooter from "#components/dialog/views/dialog-footer";
 
 type DialogModalProps = {
   isOpen: boolean;
@@ -48,13 +48,6 @@ export const Dialog: React.FC<DialogModalProps> = ({
     setIsOpen(false);
   };
 
-  const handleConfirm = async () => {
-    if (onConfirm) {
-      await onConfirm();
-    }
-    handleClose();
-  };
-
   const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
     const dialogDimensions = dialogRef.current?.getBoundingClientRect();
     if (dialogDimensions) {
@@ -96,26 +89,12 @@ export const Dialog: React.FC<DialogModalProps> = ({
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
         >
           {children}
-
-          <UI as="section" className="dialog-footer">
-            <Button
-              type="button"
-              onClick={handleClose}
-              className="dialog-button button-secondary"
-            >
-              {cancelLabel}
-            </Button>
-            {onConfirm && (
-              <Button
-                type="button"
-                onClick={handleConfirm}
-                className="dialog-button button-primary"
-                data-btn="sm"
-              >
-                {confirmLabel}
-              </Button>
-            )}
-          </UI>
+          <DialogFooter
+            onClose={handleClose}
+            onConfirm={onConfirm}
+            confirmLabel={confirmLabel}
+            cancelLabel={cancelLabel}
+          />
         </UI>
       </UI>
     </>
