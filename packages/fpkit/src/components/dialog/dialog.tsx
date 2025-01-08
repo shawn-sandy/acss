@@ -12,9 +12,9 @@ type DialogModalProps = {
   /** Optional confirm handler. If provided, shows a confirm button */
   onConfirm?: () => void | Promise<void>;
   /** Optional confirm button text */
-  confirmText?: string;
+  confirmLabel?: string;
   /** Optional cancel button text */
-  cancelText?: string;
+  cancelLabel?: string;
   /** Optional className for the dialog content wrapper */
   className?: string;
 } & React.ComponentProps<typeof UI>;
@@ -25,8 +25,8 @@ export const Dialog: React.FC<DialogModalProps> = ({
   title,
   children,
   onConfirm,
-  confirmText = "Confirm",
-  cancelText = "Cancel",
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
   className = "",
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -97,13 +97,13 @@ export const Dialog: React.FC<DialogModalProps> = ({
         >
           {children}
 
-          <div className="dialog-footer">
+          <UI as="section" className="dialog-footer">
             <Button
               type="button"
               onClick={handleClose}
               className="dialog-button button-secondary"
             >
-              {cancelText}
+              {cancelLabel}
             </Button>
             {onConfirm && (
               <Button
@@ -112,10 +112,10 @@ export const Dialog: React.FC<DialogModalProps> = ({
                 className="dialog-button button-primary"
                 data-btn="sm"
               >
-                {confirmText}
+                {confirmLabel}
               </Button>
             )}
-          </div>
+          </UI>
         </UI>
       </UI>
     </>

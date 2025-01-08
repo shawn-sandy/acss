@@ -27,10 +27,10 @@ const DialogHeader = ({
         onClick={handleClose}
         className="dialog-close"
         aria-label="Close dialog"
-        data-btn="icon pill"
+        data-btn="icon"
       >
         <Icon>
-          <Icon.Remove size={16} />
+          <Icon.Remove size={24} />
         </Icon>
       </Button>
     </UI>
