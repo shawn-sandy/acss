@@ -79,3 +79,17 @@ export const NoDialogTitle: Story = {
     expect(canvas.queryByRole("heading")).not.toBeInTheDocument();
   },
 } as Story;
+
+/**
+ * Show the dialog by default
+ * set the showDialog prop to true
+ */
+export const ShowDialog: Story = {
+  args: {
+    showDialog: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole("dialog")).toBeInTheDocument();
+  },
+} as Story;

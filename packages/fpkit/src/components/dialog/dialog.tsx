@@ -4,27 +4,31 @@ import Button from "#components/buttons/button";
 import DialogHeader from "#components/dialog/views/dialog-header";
 import DialogFooter from "#components/dialog/views/dialog-footer";
 
-interface DialogModalProps extends React.ComponentProps<typeof UI> {
-  /** Controls the visibility of the dialog */
-  isOpen: boolean;
-  /** Function to close the dialog */
-  onClose: () => void;
-  /** Title of the dialog */
-  title: string;
-  /** Content of the dialog */
-  children: React.ReactNode;
-  /** Optional confirm handler. If provided, shows a confirm button */
-  onConfirm?: () => void | Promise<void>;
-  /** Optional confirm button text */
-  confirmLabel?: string;
-  /** Optional cancel button text */
-  cancelLabel?: string;
-  /** Optional className for the dialog content wrapper */
-  className?: string;
-}
+type DialogModalProps = React.ComponentProps<typeof UI> &
+  React.ComponentProps<"dialog"> & {
+    /** Controls the visibility of the dialog */
+    showDialog: boolean;
+    /** Boolean to set the dialog role to dialog alert */
+    isAlertDialog?: boolean;
+    /** Function to close the dialog */
+    onClose: () => void;
+    /** Title of the dialog */
+    title: string;
+    /** Content of the dialog */
+    children: React.ReactNode;
+    /** Optional confirm handler. If provided, shows a confirm button */
+    onConfirm?: () => void | Promise<void>;
+    /** Optional confirm button text */
+    confirmLabel?: string;
+    /** Optional cancel button text */
+    cancelLabel?: string;
+    /** Optional className for the dialog content wrapper */
+    className?: string;
+  };
 
 export const Dialog: React.FC<DialogModalProps> = ({
-  //   isOpen,
+  showDialog,
+  isDialogAlert,
   onClose,
   title,
   children,
@@ -34,7 +38,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
   className = "",
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(showDialog);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -80,9 +84,11 @@ export const Dialog: React.FC<DialogModalProps> = ({
       </Button>
       <UI
         as="dialog"
+        role={isDialogAlert ? "alertdialog" : "dialog"}
         ref={dialogRef}
         onClose={handleClose}
         onClick={handleClick}
+        aria-modal={isOpen ? "true" : undefined}
         className="dialog-modal"
       >
         <DialogHeader dialogTitle={title} onClick={handleClose} />
