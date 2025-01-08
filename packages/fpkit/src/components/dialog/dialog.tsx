@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import UI from "#components/ui";
 import Button from "#components/buttons/button";
+import DialogHeader from "#components/dialog/views/dialog-header";
 
 type DialogModalProps = {
   isOpen: boolean;
@@ -43,7 +44,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
   }, [isOpen]);
 
   const handleClose = () => {
-    onClose();
+    if (onClose) onClose();
     setIsOpen(false);
   };
 
@@ -87,23 +88,13 @@ export const Dialog: React.FC<DialogModalProps> = ({
         onClick={handleClick}
         className="dialog-modal"
       >
+        <DialogHeader dialogTitle={title} onClick={handleClose} />
+
         <UI
           as="section"
           className={`dialog-content ${className}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="dialog-header">
-            <h2 className="dialog-title">{title}</h2>
-            <Button
-              type="button"
-              onClick={handleClose}
-              className="dialog-close"
-              aria-label="Close dialog"
-            >
-              ✕
-            </Button>
-          </div>
-
           <div className="dialog-body">{children}</div>
 
           <div className="dialog-footer">
