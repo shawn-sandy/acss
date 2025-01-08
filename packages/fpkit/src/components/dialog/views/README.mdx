@@ -2,6 +2,70 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="FP.REACT Views/DialogHeader/Readme" />
 
+# Dialog
+
+## Summary
+
+A reusable dialog/modal component that includes a header, content area, and
+footer. The component provides customizable title, confirm, and cancel
+functionality.
+
+## Features
+
+- Customizable title, confirm, and cancel functionality
+- Built-in close button with icon
+- Fully accessible
+- Memoized for performance optimization
+
+## Props
+
+The `Dialog` component accepts the following props:
+
+- `isOpen: boolean`: Controls the visibility of the dialog
+- `onClose: () => void`: Callback function triggered when the dialog is closed
+- `title: string`: The title text to display in the header
+- `children: React.ReactNode`: The content to display inside the dialog
+- `onConfirm?: () => void | Promise<void>`: Optional callback function triggered
+  when the confirm button is clicked
+- `confirmLabel?: string`: Optional label text for the confirm button
+- `cancelLabel?: string`: Optional label text for the cancel button
+- `className?: string`: Optional className for the dialog content wrapper
+
+## Technical Details
+
+- Uses React.memo for performance optimization
+- Integrates with the UI component system
+- Implements accessible heading structure using the Heading component
+- Uses Icon.Remove for the close button visual
+- Includes data attributes for styling customization
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import { Dialog } from "./dialog";
+
+function BasicDialog() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>Open Dialog</button>
+      <Dialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="Dialog Title"
+        confirmLabel="Confirm"
+        cancelLabel="Cancel"
+      >
+        <div>Dialog content here...</div>
+      </Dialog>
+    </>
+  );
+}
+```
+
 # DialogHeader
 
 ## Summary
@@ -23,7 +87,7 @@ functionality.
 The `DialogHeader` component accepts the following props:
 
 - `dialogTitle: string`: The title text to display in the header
-- `onClose: () => void`: Callback function triggered when the close button is
+- `onClick: () => void`: Callback function triggered when the close button is
   clicked
 
 ## Technical Details
@@ -65,6 +129,54 @@ function SettingsDialog() {
       />
       <div>Dialog content here...</div>
     </Dialog>
+  );
+}
+```
+
+# DialogFooter
+
+## Summary
+
+A reusable footer component specifically designed for dialog/modal interfaces.
+The component provides customizable confirm and cancel buttons.
+
+## Features
+
+- Customizable confirm and cancel buttons
+- Optional confirm button handler
+- Fully accessible
+
+## Props
+
+The `DialogFooter` component accepts the following props:
+
+- `onClose: () => void`: Callback function triggered when the cancel button is
+  clicked
+- `onConfirm?: () => void | Promise<void>`: Optional callback function triggered
+  when the confirm button is clicked
+- `confirmLabel: string`: Label text for the confirm button
+- `cancelLabel: string`: Label text for the cancel button
+
+## Technical Details
+
+- Integrates with the UI component system
+- Includes data attributes for styling customization
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import { DialogFooter } from "./dialog-footer";
+
+function BasicDialogFooter() {
+  return (
+    <DialogFooter
+      onClose={() => console.log("Dialog closed")}
+      onConfirm={() => console.log("Dialog confirmed")}
+      confirmLabel="Confirm"
+      cancelLabel="Cancel"
+    />
   );
 }
 ```
