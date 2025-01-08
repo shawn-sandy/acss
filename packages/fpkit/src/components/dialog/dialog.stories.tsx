@@ -8,7 +8,7 @@ const meta: Meta<typeof Dialog> = {
   component: Dialog,
   tags: ["alpha"],
   parameters: {
-    // actions: { argTypesRegex: "^on.*" },
+    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: "Dialog component for displaying modal dialogs.",
