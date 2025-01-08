@@ -28,7 +28,7 @@ type DialogModalProps = React.ComponentProps<typeof UI> &
 
 export const Dialog: React.FC<DialogModalProps> = ({
   showDialog,
-  isDialogAlert,
+  isAlertDialog,
   onClose,
   title,
   children,
@@ -45,7 +45,11 @@ export const Dialog: React.FC<DialogModalProps> = ({
     if (!dialog) return;
 
     if (isOpen) {
-      dialog.showModal();
+      if (isAlertDialog) {
+        dialog.show();
+      } else {
+        dialog.showModal();
+      }
     } else {
       dialog.close();
     }
@@ -84,7 +88,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
       </Button>
       <UI
         as="dialog"
-        role={isDialogAlert ? "alertdialog" : "dialog"}
+        role={isAlertDialog ? "alertdialog" : "dialog"}
         ref={dialogRef}
         onClose={handleClose}
         onClick={handleClick}

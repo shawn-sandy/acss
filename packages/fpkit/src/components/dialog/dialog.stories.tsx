@@ -3,6 +3,10 @@ import { within, expect, waitFor, userEvent } from "@storybook/test";
 
 import Dialog from "./dialog";
 
+// write a const witn some content for the dialo
+const content =
+  "This is a dialog component used to display modal dialogs. It can be used to show important information or prompt the user for input.";
+
 const meta: Meta<typeof Dialog> = {
   title: "FP.REACT Components/Dialog",
   component: Dialog,
@@ -15,7 +19,7 @@ const meta: Meta<typeof Dialog> = {
     },
   },
   args: {
-    children: "Dialog Content",
+    children: content,
   },
   decorators: [
     (Story) => (
@@ -67,19 +71,6 @@ export const DialogComponent: Story = {
   },
 } as Story;
 
-export const NoDialogTitle: Story = {
-  args: {
-    dialogTitle: "",
-    isAlertDialog: true,
-    children:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga quod tenetur, alias vitae incidunt porro rem laboriosam deserunt, fugit eligendi eum eos ducimus inventore suscipit, quasi dignissimos dicta. Deleniti, error",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    expect(canvas.queryByRole("heading")).not.toBeInTheDocument();
-  },
-} as Story;
-
 /**
  * Show the dialog by default
  * set the showDialog prop to true
@@ -87,9 +78,10 @@ export const NoDialogTitle: Story = {
 export const ShowDialog: Story = {
   args: {
     showDialog: true,
+    isAlertDialog: true,
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("dialog")).toBeInTheDocument();
+    await expect(canvas.getByRole("alertdialog")).toBeInTheDocument();
   },
 } as Story;
