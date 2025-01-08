@@ -46,6 +46,9 @@ body {
 * + ul,
 * + section {
   margin-block-start: 1rem;
+  &:empty {
+    display: none;
+  }
 }
 
 main,
