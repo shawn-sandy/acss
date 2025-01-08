@@ -17,13 +17,17 @@ const DialogFooter: React.FC<DialogFooterProps> = ({
 }) => {
   return (
     <UI as="section" className="dialog-footer">
-      <Button
-        type="button"
-        onClick={onClose}
-        className="dialog-button button-secondary"
-      >
-        {cancelLabel}
-      </Button>
+      {cancelLabel && (
+        <Button
+          type="button"
+          onClick={onClose}
+          className="dialog-button button-secondary"
+          data-btn="sm"
+        >
+          {cancelLabel}
+        </Button>
+      )}
+
       {onConfirm && (
         <Button
           type="button"

@@ -4,6 +4,11 @@ Answer all questions in the style of a friendly colleague, using informal langua
 
 Answer all questions in less than 1000 characters.
 
+## Convert pixels to rem
+
+- Convert the selected pixel value `*px` to `*rem` units.
+- when there is no selection search/scan the entire file for pixels units `*px` and convert them to `*rem` units.
+
 ## write conventional commit message
 
 Suggest a informative commit message by summarizing code changes from the shared command output. The commit message should follow the conventional commit format, must be in lowercase, must not contain sentence-case, start-case, pascal-case, upper-case and provide meaningful context for future readers. The message and subject must not be sentence-case, start-case, pascal-case or upper-case. Add a summary of the changes to the commit description.

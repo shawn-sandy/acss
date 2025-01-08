@@ -1,11 +1,11 @@
 :root {
-  --dialog-min-w: 320px;
-  --dialog-gap: 0.5rem;
+  --dialog-min-w: 50%;
+  --dialog-gap: 0.625rem;
   --dialog-border-color: lightgray;
   --dialog-border-width: thin;
   --dialog-border-style: solid;
   --dialog-border-radius: 0.5rem;
-  --dialog-padding: 0.75rem;
+  --dialog-padding: 1rem;
   --dialog-padding-inline: 1rem;
   --dialog-close-color: gray;
   --dialog-button-bg: transparent;
@@ -16,7 +16,7 @@
 }
 
 dialog {
-  min-width: var(--dialog-min-w);
+  max-width: var(--dialog-min-w);
   gap: var(--dialog-gap);
   border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
@@ -59,7 +59,7 @@ dialog {
     cursor: pointer;
     &:hover,
     &:focus {
-      border-color: currentColor;
+      border-color: var(--dialog-close-color);
       background-color: var(--dialog-button-hover-bg);
     }
   }
