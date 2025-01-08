@@ -93,9 +93,9 @@ export const Dialog: React.FC<DialogModalProps> = ({
         <UI
           as="section"
           className={`dialog-content ${className}`}
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
         >
-          <div className="dialog-body">{children}</div>
+          {children}
 
           <div className="dialog-footer">
             <Button
@@ -110,6 +110,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
                 type="button"
                 onClick={handleConfirm}
                 className="dialog-button button-primary"
+                data-btn="sm"
               >
                 {confirmText}
               </Button>
