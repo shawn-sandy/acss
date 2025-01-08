@@ -1,6 +1,6 @@
 :root {
   --dialog-min-w: 320px;
-  --dialog-gap: 0.75rem;
+  --dialog-gap: 0.5rem;
   --dialog-border-color: lightgray;
   --dialog-border-width: thin;
   --dialog-border-style: solid;
@@ -28,6 +28,15 @@ dialog[open] {
   display: var(--dialog-display);
   flex-direction: var(--dialog-flex-direction);
   gap: var(--dialog-gap);
+}
+dialog section {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: var(--dialog-gap);
+  flex-direction: var(--dialog-flex-direction);
+  margin-block-start: 0;
+  --sect-y: 0;
 }
 
 .dialog-header {

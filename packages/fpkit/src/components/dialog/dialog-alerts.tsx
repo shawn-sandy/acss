@@ -36,7 +36,7 @@ const DialogAlert = ({
    * Synchronizes the controlled open state with the internal state.
    */
   React.useEffect(() => {
-    setIsOpen(open);
+    // setIsOpen(open);
     if (!open && onOpen) {
       dialogRef.current?.showModal();
       onOpen();
