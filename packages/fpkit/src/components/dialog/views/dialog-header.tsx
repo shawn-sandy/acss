@@ -30,7 +30,7 @@ const DialogHeader = ({
         data-btn="icon"
       >
         <Icon>
-          <Icon.Remove size={24} />
+          <Icon.Remove size={16} />
         </Icon>
       </Button>
     </UI>

@@ -260,6 +260,8 @@ svg[role=img] {
   --TRUE: initial;
   --FALSE: ;
   --fs-weight: 500;
+  --min-w: 20rem;
+  --border-radius: 0.25rem;
 }
 
 html {
@@ -1080,12 +1082,12 @@ footer > div {
 }
 
 :root {
-  --dialog-min-w: 50%;
+  --dialog-min-w: 70%;
   --dialog-gap: 0.625rem;
   --dialog-border-color: lightgray;
   --dialog-border-width: thin;
   --dialog-border-style: solid;
-  --dialog-border-radius: 0.5rem;
+  --dialog-border-radius: var(--border-radius);
   --dialog-padding: 1rem;
   --dialog-padding-inline: 1rem;
   --dialog-close-color: gray;
@@ -1097,7 +1099,8 @@ footer > div {
 }
 
 dialog {
-  max-width: var(--dialog-min-w);
+  width: var(--dialog-min-w);
+  min-width: var(--min-w);
   gap: var(--dialog-gap);
   border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
@@ -1125,7 +1128,7 @@ dialog section {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-width: 320px;
+  min-width: 100%;
 }
 .dialog-header h3 {
   margin-block-start: 0;
@@ -1147,8 +1150,10 @@ dialog section {
 .alert-dialog-actions,
 .dialog-footer {
   display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: var(--dialog-footer-justify, flex-end);
+  gap: var(--dialog-gap);
   width: 100%;
 }
 
