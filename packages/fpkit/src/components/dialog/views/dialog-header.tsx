@@ -1,28 +1,31 @@
 import React from "react";
 import UI from "#components/ui";
-import Heading from "#components/heading/heading";
+// import Heading from "#components/heading/heading";
 import Button from "#components/buttons/button";
-import Icon from "#components/icons/icon";
+// import Icon from "#components/icons/icon";
 
 export type DialogHeaderProps = {
   dialogTitle: string;
-  onClose: () => void;
+  onClick: () => void;
 };
 
 const DialogHeader = ({
   dialogTitle,
-  onClose,
+  onClick,
 }: DialogHeaderProps): JSX.Element => {
+  const handleClose = () => {
+    onClick();
+  };
   return (
     <UI as="div" classes="dialog-header">
-      {dialogTitle && <Heading type="h3">{dialogTitle}</Heading>}
+      <h2 className="dialog-title">{dialogTitle || "Dialog"}</h2>
       <Button
         type="button"
-        onClick={onClose}
-        classes="transparent"
-        data-btn="icon pill"
+        onClick={handleClose}
+        className="dialog-close"
+        aria-label="Close dialog"
       >
-        <Icon.Remove size={16} />
+        ✕
       </Button>
     </UI>
   );

@@ -1,8 +1,9 @@
-// DialogModal.tsx
+// Dialog.tsx
 import React, { useRef, useEffect } from "react";
-// import "./DialogModal.css";
+import UI from "#components/ui";
+import Button from "#components/buttons/button";
 
-interface DialogModalProps {
+type DialogModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title: string;
@@ -15,7 +16,7 @@ interface DialogModalProps {
   cancelText?: string;
   /** Optional className for the dialog content wrapper */
   className?: string;
-}
+} & React.ComponentProps<typeof UI>;
 
 export const Dialog: React.FC<DialogModalProps> = ({
   //   isOpen,
@@ -70,57 +71,61 @@ export const Dialog: React.FC<DialogModalProps> = ({
 
   return (
     <>
-      <button
+      <Button
+        type="button"
         onClick={() => {
           setIsOpen(true);
         }}
+        data-btn="sm"
       >
         Open Dialog
-      </button>
-      <dialog
+      </Button>
+      <UI
+        as="dialog"
         ref={dialogRef}
         onClose={handleClose}
         onClick={handleClick}
         className="dialog-modal"
       >
-        <div
+        <UI
+          as="section"
           className={`dialog-content ${className}`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="dialog-header">
             <h2 className="dialog-title">{title}</h2>
-            <button
+            <Button
               type="button"
               onClick={handleClose}
               className="dialog-close"
               aria-label="Close dialog"
             >
               ✕
-            </button>
+            </Button>
           </div>
 
           <div className="dialog-body">{children}</div>
 
           <div className="dialog-footer">
-            <button
+            <Button
               type="button"
               onClick={handleClose}
               className="dialog-button button-secondary"
             >
               {cancelText}
-            </button>
+            </Button>
             {onConfirm && (
-              <button
+              <Button
                 type="button"
                 onClick={handleConfirm}
                 className="dialog-button button-primary"
               >
                 {confirmText}
-              </button>
+              </Button>
             )}
           </div>
-        </div>
-      </dialog>
+        </UI>
+      </UI>
     </>
   );
 };

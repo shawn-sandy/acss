@@ -16,7 +16,7 @@ interface DialogModalProps {
   className?: string;
 }
 
-export const Dialog: React.FC<DialogModalProps> = ({
+export const DialogModal: React.FC<DialogModalProps> = ({
   //   isOpen,
   onClose,
   title,
@@ -123,4 +123,4 @@ export const Dialog: React.FC<DialogModalProps> = ({
     </>
   );
 };
-export default Dialog;
+export default DialogModal;
