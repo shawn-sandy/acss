@@ -13,6 +13,11 @@ React applications. The component supports:
 - Multiple variants including standard dialogs and alert dialogs
 - Event handling for open, close, and cancel actions
 - Responsive design with inline rendering option
+- Modal and non-modal dialog variants via `isAlertDialog`
+- Built-in header with close functionality
+- Configurable footer with confirm/cancel actions
+- Click-outside-to-close behavior
+- Focus management and keyboard navigation
 
 Built with TypeScript and React, this component follows modern best practices
 and provides a developer-friendly API for implementing modal dialogs in your web
@@ -24,30 +29,37 @@ The dialog component system consists of the following key parts:
 
 ### Dialog Component
 
-The base `Dialog` component provides core modal functionality:
+The dialog system consists of:
 
-- Controlled modal behavior with `isOpen` prop
-- Built-in accessibility features with ARIA support
-- Custom header with close button (optional)
-- Event handling for open, close, and cancel actions
-- Support for alert dialogs via `isAlertDialog` prop
+- `Dialog`: Main modal component
+- `DialogHeader`: Header with title and close button
+- `DialogFooter`: Footer with confirm/cancel actions
 
 ### Props
 
-The `Dialog` component accepts the following props:
+The Dialog component accepts two types of props - required core props and
+optional configuration props.
 
-- `dialogId?: string`: The ID of the dialog, used for ARIA attributes.
-- `arialLabel?: string`: The ARIA label for the dialog.
-- `isOpen?: boolean`: Controls whether the dialog is open.
-- `onOpen?: () => void`: Callback function triggered when the dialog opens.
-- `onClose?: () => void`: Callback function triggered when the dialog closes.
-- `onCancel?: () => void`: Callback function triggered when the dialog is
-  canceled.
-- `dialogTitle?: string`: The title of the dialog, displayed in the header.
-- `hideDialogHeader?: boolean`: If true, hides the dialog header.
-- `isAlertDialog?: boolean`: If true, the dialog is treated as an alert dialog.
-- `children: React.ReactNode`: The content of the dialog.
-- Additional props from `UI` and `dialog` elements.
+#### Required Props
+
+- `dialogTitle` (`string`): Title text displayed in dialog header
+- `children` (`React.ReactNode`): Content rendered inside dialog body
+- `showDialog` (`boolean`): Controls dialog visibility state
+
+#### Optional Props
+
+- `isAlertDialog` (`boolean`, default: `false`): Renders as non-modal alert
+  dialog
+- `onClose` (`() => void`): Callback when dialog closes
+- `onConfirm` (`() => void | Promise<void>`): Confirmation action callback
+- `confirmLabel` (`string`, default: "Confirm"): Custom confirm button text
+- `cancelLabel` (`string`, default: "Cancel"): Custom cancel button text
+- `className` (`string`, default: ""): Additional CSS classes
+
+The component also inherits props from:
+
+- `React.ComponentProps<typeof UI>`
+- `React.ComponentProps<dialog>`
 
 ### Usage Examples
 
