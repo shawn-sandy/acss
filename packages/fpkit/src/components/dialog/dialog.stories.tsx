@@ -3,7 +3,6 @@ import { within, expect } from "@storybook/test";
 
 import Dialog from "./dialog";
 
-// write a const witn some content for the dialo
 const content =
   "This is a dialog component used to display modal dialogs. It can be used to show important information or prompt the user for input.";
 
