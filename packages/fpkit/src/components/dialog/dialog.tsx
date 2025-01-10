@@ -5,23 +5,14 @@ import DialogFooter from "#components/dialog/views/dialog-footer";
 
 type DialogModalProps = React.ComponentProps<typeof UI> &
   React.ComponentProps<"dialog"> & {
-    /** Controls the visibility of the dialog */
     showDialog: boolean;
-    /** Boolean to set the dialog role to dialog alert */
     isAlertDialog?: boolean;
-    /** Function to close the dialog */
     onClose: () => void;
-    /** Title of the dialog */
     title: string;
-    /** Content of the dialog */
     children: React.ReactNode;
-    /** Optional confirm handler. If provided, shows a confirm button */
     onConfirm?: () => void | Promise<void>;
-    /** Optional confirm button text */
     confirmLabel?: string;
-    /** Optional cancel button text */
     cancelLabel?: string;
-    /** Optional className for the dialog content wrapper */
     className?: string;
   };
 
@@ -40,6 +31,10 @@ export const Dialog: React.FC<DialogModalProps> = ({
   const [isOpen, setIsOpen] = React.useState(showDialog);
 
   useEffect(() => {
+    setIsOpen(showDialog);
+  }, [showDialog]);
+
+  useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
 
@@ -52,12 +47,11 @@ export const Dialog: React.FC<DialogModalProps> = ({
     } else {
       dialog.close();
     }
-  }, [isOpen]);
+  }, [isOpen, isAlertDialog]);
 
   const handleClose = () => {
     if (onClose) onClose();
     setIsOpen(false);
-    // dialogRef.current?.close();
   };
 
   const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
@@ -77,8 +71,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
 
   return (
     <>
-      <UI
-        as="dialog"
+      <dialog
         role={isAlertDialog ? "alertdialog" : "dialog"}
         ref={dialogRef}
         onClose={handleClose}
@@ -101,7 +94,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
             cancelLabel={cancelLabel}
           />
         </UI>
-      </UI>
+      </dialog>
     </>
   );
 };

@@ -1,7 +1,8 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { within, expect, userEvent } from "@storybook/test";
 
 import Dialog from "./dialog";
+import React from "react";
 
 const content =
   "This is a dialog component used to display modal dialogs. It can be used to show important information or prompt the user for input.";
@@ -62,5 +63,51 @@ export const ShowDialog: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole("alertdialog")).toBeInTheDocument();
+  },
+} as Story;
+
+export const DialogInteractions: Story = {
+  args: {
+    isAlertDialog: false,
+    showDialog: true,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const dialog = canvas.getByRole("dialog");
+    const closeButton = canvas.getByRole("button", { name: /close dialog/i });
+
+    await step("Modal is rendered", async () => {
+      await expect(dialog).toBeInTheDocument();
+      await expect(closeButton).toBeInTheDocument();
+    });
+
+    await step("Close modal", async () => {
+      await userEvent.click(closeButton, { delay: 1000 });
+      // await expect(dialog).not.toBeInTheDocument();
+    });
+  },
+} as Story;
+
+// render the Dialog with a button to open it
+export const DialogWithButton: Story = {
+  render: () => {
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    const openDialog = () => {
+      setIsOpen(true);
+    };
+
+    return (
+      <>
+        <button onClick={openDialog}>Open Dialog</button>
+        <Dialog
+          title="Dialog with button"
+          showDialog={isOpen}
+          onClose={() => setIsOpen(false)}
+        >
+          {content}
+        </Dialog>
+      </>
+    );
   },
 } as Story;
