@@ -53,7 +53,7 @@ const DialogAlert = ({
   };
 
   return (
-    <Dialog isOpen={isOpen} onClose={() => {}} title={title}>
+    <Dialog showDialog isOpen={isOpen} onClose={() => {}} title={title}>
       {children}
       <UI as="div" classes="alert-dialog-actions">
         <Button type="button" onClick={handleOnConfirm} data-btn="sm">
