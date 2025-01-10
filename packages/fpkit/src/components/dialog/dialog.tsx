@@ -6,11 +6,11 @@ import { useDialogClickHandler } from "#hooks/useDialogClickHandler.js";
 
 type DialogModalProps = React.ComponentProps<typeof UI> &
   React.ComponentProps<"dialog"> & {
-    showDialog: boolean;
-    isAlertDialog?: boolean;
-    onClose: () => void;
-    title: string;
+    dialogTitle: string;
     children: React.ReactNode;
+    showDialog?: boolean;
+    isAlertDialog?: boolean;
+    onClose?: () => void;
     onConfirm?: () => void | Promise<void>;
     confirmLabel?: string;
     cancelLabel?: string;
@@ -21,7 +21,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
   showDialog,
   isAlertDialog,
   onClose,
-  title,
+  dialogTitle: title,
   children,
   onConfirm,
   confirmLabel = "Confirm",
@@ -64,7 +64,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
         ref={dialogRef}
         onClose={handleClose}
         onClick={handleClickOutside}
-        // aria-modal={isOpen ? "true" : undefined}
+        aria-modal={isOpen ? "true" : undefined}
         className="dialog-modal"
       >
         <DialogHeader dialogTitle={title} onClick={handleClose} />

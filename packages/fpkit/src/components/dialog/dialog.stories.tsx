@@ -89,25 +89,48 @@ export const DialogInteractions: Story = {
 } as Story;
 
 // render the Dialog with a button to open it
-export const DialogWithButton: Story = {
-  render: () => {
-    const [isOpen, setIsOpen] = React.useState(false);
+// export const DialogWithButton: Story = {
+//   render: () => {
+//     const [isOpen, setIsOpen] = React.useState(false);
 
-    const openDialog = () => {
-      setIsOpen(true);
-    };
+//     const openDialog = () => {
+//       setIsOpen(true);
+//     };
 
-    return (
-      <>
-        <button onClick={openDialog}>Open Dialog</button>
-        <Dialog
-          title="Dialog with button"
-          showDialog={isOpen}
-          onClose={() => setIsOpen(false)}
-        >
-          {content}
-        </Dialog>
-      </>
-    );
-  },
+//     return (
+//       <>
+//         <button onClick={openDialog}>Open Dialog</button>
+//         <Dialog
+//           dialogTitle="Dialog with button"
+//           showDialog={isOpen}
+//           onClose={() => setIsOpen(false)}
+//         >
+//           {content}
+//         </Dialog>
+//       </>
+//     );
+//   },
+// } as Story;
+
+// ...existing code...
+
+export const DialogWithButtonDecorator: Story = {
+  decorators: [
+    (Story) => {
+      const [isOpen, setIsOpen] = React.useState(false);
+      return (
+        <div>
+          <button onClick={() => setIsOpen(true)}>Open Dialog</button>
+          <Story
+            args={{
+              showDialog: isOpen,
+              onClose: () => setIsOpen(false),
+              title: "Dialog Title",
+              children: content,
+            }}
+          />
+        </div>
+      );
+    },
+  ],
 } as Story;
