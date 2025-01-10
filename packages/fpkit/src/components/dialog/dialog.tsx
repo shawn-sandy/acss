@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import UI from "#components/ui";
 import DialogHeader from "#components/dialog/views/dialog-header";
 import DialogFooter from "#components/dialog/views/dialog-footer";
+import { useDialogClickHandler } from "#hooks/useDialogClickHandler.js";
 
 type DialogModalProps = React.ComponentProps<typeof UI> &
   React.ComponentProps<"dialog"> & {
@@ -54,20 +55,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
     setIsOpen(false);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-    const dialogDimensions = dialogRef.current?.getBoundingClientRect();
-    if (dialogDimensions) {
-      const isClickOutside =
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom ||
-        e.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right;
-
-      if (isClickOutside) {
-        handleClose();
-      }
-    }
-  };
+  const handleClickOutside = useDialogClickHandler(dialogRef, handleClose);
 
   return (
     <>
@@ -75,8 +63,8 @@ export const Dialog: React.FC<DialogModalProps> = ({
         role={isAlertDialog ? "alertdialog" : "dialog"}
         ref={dialogRef}
         onClose={handleClose}
-        onClick={handleClick}
-        aria-modal={isOpen ? "true" : undefined}
+        onClick={handleClickOutside}
+        // aria-modal={isOpen ? "true" : undefined}
         className="dialog-modal"
       >
         <DialogHeader dialogTitle={title} onClick={handleClose} />
