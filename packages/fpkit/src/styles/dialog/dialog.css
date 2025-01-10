@@ -1,5 +1,5 @@
 :root {
-  --dialog-min-w: 70%;
+  --dialog-min-w: max(20rem, 80%);
   --dialog-gap: 0.625rem;
   --dialog-border-color: lightgray;
   --dialog-border-width: thin;
@@ -22,7 +22,6 @@ dialog {
   border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
   padding: var(--dialog-padding);
-  padding-inline: var(--dialog-padding-inline);
   padding-block-start: calc(var(--dialog-padding) - 0rem);
 }
 dialog[open] {

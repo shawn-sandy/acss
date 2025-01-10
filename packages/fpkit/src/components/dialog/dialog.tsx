@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 import UI from "#components/ui";
 import DialogHeader from "#components/dialog/views/dialog-header";
 import DialogFooter from "#components/dialog/views/dialog-footer";
-import useClickOutside from "./hooks/useClickOutside";
 
 type DialogModalProps = React.ComponentProps<typeof UI> &
   React.ComponentProps<"dialog"> & {
@@ -58,36 +57,52 @@ export const Dialog: React.FC<DialogModalProps> = ({
   const handleClose = () => {
     if (onClose) onClose();
     setIsOpen(false);
+    // dialogRef.current?.close();
   };
 
-  useClickOutside(dialogRef, handleClose);
+  const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+    const dialogDimensions = dialogRef.current?.getBoundingClientRect();
+    if (dialogDimensions) {
+      const isClickOutside =
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom ||
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right;
+
+      if (isClickOutside) {
+        handleClose();
+      }
+    }
+  };
 
   return (
-    <UI
-      as="dialog"
-      role={isAlertDialog ? "alertdialog" : "dialog"}
-      ref={dialogRef}
-      onClose={handleClose}
-      // onClick={handleClick}
-      aria-modal={isOpen ? "true" : undefined}
-      className="dialog-modal"
-    >
-      <DialogHeader dialogTitle={title} onClick={handleClose} />
-
+    <>
       <UI
-        as="section"
-        className={`dialog-content ${className}`}
-        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+        as="dialog"
+        role={isAlertDialog ? "alertdialog" : "dialog"}
+        ref={dialogRef}
+        onClose={handleClose}
+        onClick={handleClick}
+        aria-modal={isOpen ? "true" : undefined}
+        className="dialog-modal"
       >
-        {children}
-        <DialogFooter
-          onClose={handleClose}
-          onConfirm={onConfirm}
-          confirmLabel={confirmLabel}
-          cancelLabel={cancelLabel}
-        />
+        <DialogHeader dialogTitle={title} onClick={handleClose} />
+
+        <UI
+          as="section"
+          className={`dialog-content ${className}`}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+        >
+          {children}
+          <DialogFooter
+            onClose={handleClose}
+            onConfirm={onConfirm}
+            confirmLabel={confirmLabel}
+            cancelLabel={cancelLabel}
+          />
+        </UI>
       </UI>
-    </UI>
+    </>
   );
 };
 export default Dialog;
