@@ -86,33 +86,6 @@ function MyComponent() {
 }
 ```
 
-### Inline Dialog
-
-You can also render the dialog inline by using the `inline` prop:
-
-```tsx
-import { Dialog } from "./dialog";
-
-function MyComponent() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  return (
-    <>
-      <button onClick={() => setIsOpen(true)}>Open Dialog</button>
-      <Dialog
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        dialogTitle="My Dialog"
-        dialogId="example-dialog"
-        inline
-      >
-        <div>Dialog content goes here</div>
-      </Dialog>
-    </>
-  );
-}
-```
-
 ## Alert Dialog Example
 
 A basic example of an Alert Dialog component implementation. Alert dialogs are
