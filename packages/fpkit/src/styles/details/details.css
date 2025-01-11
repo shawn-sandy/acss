@@ -29,6 +29,19 @@ details {
   overflow: clip;
   border-radius: var(--details-radius);
 }
+details + details {
+  border-radius: 0;
+  border-top: none;
+}
+details:first-of-type {
+  border-radius: var(--details-radius) var(--details-radius) 0 0;
+}
+details:last-of-type {
+  border-radius: 0 0 var(--details-radius) var(--details-radius);
+}
+details:only-of-type {
+  border-radius: var(--details-radius);
+}
 details::marker {
   content: none;
 }
