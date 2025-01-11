@@ -1,8 +1,26 @@
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta, StoryFn } from "@storybook/react";
 import { within, expect, userEvent } from "@storybook/test";
 
 import Dialog from "./dialog";
 import React from "react";
+const buttonDecorator = [
+  (Story: StoryFn) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    return (
+      <div>
+        <button onClick={() => setIsOpen(true)}>Open Dialog</button>
+        <Story
+          args={{
+            showDialog: isOpen,
+            onClose: () => setIsOpen(false),
+            title: "Dialog Title",
+            children: content,
+          }}
+        />
+      </div>
+    );
+  },
+];
 
 const content =
   "This is a dialog component used to display modal dialogs. It can be used to show important information or prompt the user for input.";
@@ -89,22 +107,5 @@ export const DialogInteractions: Story = {
 } as Story;
 
 export const DialogButton: Story = {
-  decorators: [
-    (Story) => {
-      const [isOpen, setIsOpen] = React.useState(false);
-      return (
-        <div>
-          <button onClick={() => setIsOpen(true)}>Open Dialog</button>
-          <Story
-            args={{
-              showDialog: isOpen,
-              onClose: () => setIsOpen(false),
-              title: "Dialog Title",
-              children: content,
-            }}
-          />
-        </div>
-      );
-    },
-  ],
+  decorators: buttonDecorator,
 } as Story;
