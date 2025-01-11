@@ -30,6 +30,25 @@ details {
   overflow: clip;
   border-radius: var(--details-radius);
 
+  // Handle multiple details elements
+  & + details {
+    border-radius: 0; // remove radius from middle elements
+    border-top: none; // optional: remove double borders
+  }
+
+  &:first-of-type {
+    border-radius: var(--details-radius) var(--details-radius) 0 0;
+  }
+
+  &:last-of-type {
+    border-radius: 0 0 var(--details-radius) var(--details-radius);
+  }
+
+  // If it's the only details element, keep original radius
+  &:only-of-type {
+    border-radius: var(--details-radius);
+  }
+
   &::marker {
     content: none;
   }
