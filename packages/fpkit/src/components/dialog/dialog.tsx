@@ -7,6 +7,7 @@ import { useDialogClickHandler } from "#hooks/useDialogClickHandler.js";
 type DialogModalProps = React.ComponentProps<typeof UI> &
   React.ComponentProps<"dialog"> & {
     dialogTitle: string;
+    dialogLabel?: string;
     children: React.ReactNode;
     showDialog?: boolean;
     isAlertDialog?: boolean;
@@ -21,7 +22,8 @@ export const Dialog: React.FC<DialogModalProps> = ({
   showDialog,
   isAlertDialog,
   onClose,
-  dialogTitle: title,
+  dialogTitle,
+  dialogLabel,
   children,
   onConfirm,
   confirmLabel = "Confirm",
@@ -59,15 +61,17 @@ export const Dialog: React.FC<DialogModalProps> = ({
 
   return (
     <>
-      <dialog
+      <UI
+        as="dialog"
         role={isAlertDialog ? "alertdialog" : "dialog"}
         ref={dialogRef}
         onClose={handleClose}
         onClick={handleClickOutside}
         aria-modal={isOpen ? "true" : undefined}
         className="dialog-modal"
+        aria-label={dialogLabel}
       >
-        <DialogHeader dialogTitle={title} onClick={handleClose} />
+        <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} />
 
         <UI
           as="section"
@@ -82,7 +86,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
             cancelLabel={cancelLabel}
           />
         </UI>
-      </dialog>
+      </UI>
     </>
   );
 };
