@@ -764,7 +764,7 @@ details {
   --details-gap: 0rem;
   --details-px: 1.5rem;
   --details-py: 1rem;
-  --details-radius: 0.5rem;
+  --details-radius: var(--border-radius);
   --summary-cursor: pointer;
   --summary-transitions: all 0.75s ease-in-out;
   --summary-display: flex;
