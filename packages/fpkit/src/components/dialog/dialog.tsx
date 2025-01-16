@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, CSSProperties } from "react";
 import UI from "#components/ui";
 import DialogHeader from "#components/dialog/views/dialog-header";
 import DialogFooter from "#components/dialog/views/dialog-footer";
@@ -16,6 +16,7 @@ type DialogModalProps = React.ComponentProps<typeof UI> &
     confirmLabel?: string;
     cancelLabel?: string;
     className?: string;
+    styles?: CSSProperties;
   };
 
 export const Dialog: React.FC<DialogModalProps> = ({
@@ -70,7 +71,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
       aria-modal={isOpen ? "true" : undefined}
       className={`${"dialog-modal"} ${className}`}
       aria-label={dialogLabel}
-      styles={styles}
+      style={styles}
     >
       <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} />
 

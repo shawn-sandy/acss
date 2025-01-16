@@ -68,7 +68,8 @@
   "module": "./libs/index.js",
   "types": "./libs/index.d.ts",
   "imports": {
-    "#*": "./src/*"
+    "#*": "./src/*",
+    "#decorators": "./src/decorators/*"
   },
   "exports": {
     ".": {
