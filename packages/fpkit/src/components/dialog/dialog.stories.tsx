@@ -73,7 +73,7 @@ export const BasicDialog: Story = {
  * Show the dialog by default
  * set the showDialog prop to true
  */
-export const ShowDialog: Story = {
+export const NonModalDialog: Story = {
   args: {
     showDialog: true,
     isAlertDialog: true,
@@ -82,6 +82,10 @@ export const ShowDialog: Story = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole("alertdialog")).toBeInTheDocument();
   },
+} as Story;
+
+export const DialogWithButton: Story = {
+  decorators: buttonDecorator,
 } as Story;
 
 export const DialogInteractions: Story = {
@@ -104,8 +108,4 @@ export const DialogInteractions: Story = {
       // await expect(dialog).not.toBeInTheDocument();
     });
   },
-} as Story;
-
-export const DialogButton: Story = {
-  decorators: buttonDecorator,
 } as Story;

@@ -60,34 +60,32 @@ export const Dialog: React.FC<DialogModalProps> = ({
   const handleClickOutside = useDialogClickHandler(dialogRef, handleClose);
 
   return (
-    <>
-      <UI
-        as="dialog"
-        role={isAlertDialog ? "alertdialog" : "dialog"}
-        ref={dialogRef}
-        onClose={handleClose}
-        onClick={handleClickOutside}
-        aria-modal={isOpen ? "true" : undefined}
-        className="dialog-modal"
-        aria-label={dialogLabel}
-      >
-        <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} />
+    <UI
+      as="dialog"
+      role={isAlertDialog ? "alertdialog" : "dialog"}
+      ref={dialogRef}
+      onClose={handleClose}
+      onClick={handleClickOutside}
+      aria-modal={isOpen ? "true" : undefined}
+      className="dialog-modal"
+      aria-label={dialogLabel}
+    >
+      <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} />
 
-        <UI
-          as="section"
-          className={`dialog-content ${className}`}
-          onClick={(e: React.MouseEvent) => e.stopPropagation()}
-        >
-          {children}
-          <DialogFooter
-            onClose={handleClose}
-            onConfirm={onConfirm}
-            confirmLabel={confirmLabel}
-            cancelLabel={cancelLabel}
-          />
-        </UI>
+      <UI
+        as="section"
+        className={`dialog-content ${className}`}
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+      >
+        {children}
+        <DialogFooter
+          onClose={handleClose}
+          onConfirm={onConfirm}
+          confirmLabel={confirmLabel}
+          cancelLabel={cancelLabel}
+        />
       </UI>
-    </>
+    </UI>
   );
 };
-export default Dialog;
+export default React.memo(Dialog);
