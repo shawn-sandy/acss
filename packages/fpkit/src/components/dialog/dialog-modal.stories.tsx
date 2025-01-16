@@ -20,7 +20,7 @@ const meta: Meta<typeof DialogModal> = {
     children: "Dialog Content",
     title: "Dialog Title",
     isOpen: false,
-    onClose: () => console.log("Dialog closed"),
+    onClose: () => {},
   },
 } as Meta;
 
@@ -28,36 +28,12 @@ export default meta;
 type Story = StoryObj<typeof DialogModal>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    children:
+      "DialogModal is a modal dialog component that provides an accessible overlay for displaying content.",
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByRole("dialog")).toBeInTheDocument();
-  },
-} as Story;
-
-export const OpenDialog: Story = {
-  args: {
-    isOpen: true,
-    children: <div>This is the dialog content</div>,
-    title: "Open Dialog Example",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    expect(canvas.getByRole("dialog")).toBeVisible();
-    expect(canvas.getByText(/open dialog example/i)).toBeInTheDocument();
-  },
-} as Story;
-
-export const WithCustomContent: Story = {
-  args: {
-    isOpen: true,
-    title: "Custom Content",
-    children: (
-      <div className="p-4">
-        <h2>Custom Dialog Content</h2>
-        <p>This is a paragraph inside the dialog.</p>
-        <button className="mt-4">Action Button</button>
-      </div>
-    ),
   },
 } as Story;

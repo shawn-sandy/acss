@@ -20,7 +20,7 @@ const DialogHeader = ({
   return (
     <UI as="div" classes="dialog-header">
       <Heading type={type} className="dialog-title">
-        {dialogTitle || "Dialog"}
+        {dialogTitle ?? "Dialog"}
       </Heading>
       <Button
         type="button"

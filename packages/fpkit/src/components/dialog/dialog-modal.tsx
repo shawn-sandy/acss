@@ -1,126 +1,62 @@
 // Dialog.tsx
-import React, { useRef, useEffect } from "react";
+import React from "react";
+import Dialog from "./dialog";
+import Button from "#components/buttons/button.jsx";
 
-interface DialogModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  children: React.ReactNode;
-  /** Optional confirm handler. If provided, shows a confirm button */
-  onConfirm?: () => void | Promise<void>;
-  /** Optional confirm button text */
-  confirmText?: string;
-  /** Optional cancel button text */
-  cancelText?: string;
+interface DialogModalProps extends React.ComponentProps<typeof Dialog> {
   /** Optional className for the dialog content wrapper */
   className?: string;
+  btnLabel?: string;
+  btnOnClick?: () => void;
+  btnSize?: "sm" | "md" | "lg";
 }
 
 export const DialogModal: React.FC<DialogModalProps> = ({
-  //   isOpen,
+  isAlertDialog,
   onClose,
-  title,
+  dialogTitle,
+  dialogLabel,
+  btnLabel = "Open Dialog",
+  btnSize = "md",
+  btnOnClick,
   children,
   onConfirm,
-  confirmText = "Confirm",
-  cancelText = "Cancel",
-  className = "",
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
+  className,
 }) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = React.useState(false);
 
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    if (isOpen) {
-      dialog.showModal();
-    } else {
-      dialog.close();
-    }
-  }, [isOpen]);
-
   const handleClose = () => {
-    onClose();
     setIsOpen(false);
+    onClose?.();
   };
-
-  const handleConfirm = async () => {
-    if (onConfirm) {
-      await onConfirm();
-    }
-    handleClose();
-  };
-
-  const handleClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-    const dialogDimensions = dialogRef.current?.getBoundingClientRect();
-    if (dialogDimensions) {
-      const isClickOutside =
-        e.clientY < dialogDimensions.top ||
-        e.clientY > dialogDimensions.bottom ||
-        e.clientX < dialogDimensions.left ||
-        e.clientX > dialogDimensions.right;
-
-      if (isClickOutside) {
-        handleClose();
-      }
-    }
+  const handleButtonClick = () => {
+    setIsOpen(true);
+    btnOnClick?.();
   };
 
   return (
     <>
-      <button
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        Open Dialog
-      </button>
-      <dialog
-        ref={dialogRef}
+      <Button type="button" onClick={handleButtonClick} data-btn={btnSize}>
+        {btnLabel}
+      </Button>
+      <Dialog
+        showDialog={isOpen}
+        dialogTitle={dialogTitle}
         onClose={handleClose}
-        onClick={handleClick}
-        className="dialog-modal"
+        title={dialogTitle}
+        dialogLabel={dialogLabel}
+        className={className}
+        isAlertDialog={isAlertDialog}
+        onConfirm={onConfirm}
+        confirmLabel={confirmLabel}
+        cancelLabel={cancelLabel}
       >
-        <div
-          className={`dialog-content ${className}`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="dialog-header">
-            <h2 className="dialog-title">{title}</h2>
-            <button
-              type="button"
-              onClick={handleClose}
-              className="dialog-close"
-              aria-label="Close dialog"
-            >
-              ✕
-            </button>
-          </div>
-
-          <div className="dialog-body">{children}</div>
-
-          <div className="dialog-footer">
-            <button
-              type="button"
-              onClick={handleClose}
-              className="dialog-button button-secondary"
-            >
-              {cancelText}
-            </button>
-            {onConfirm && (
-              <button
-                type="button"
-                onClick={handleConfirm}
-                className="dialog-button button-primary"
-              >
-                {confirmText}
-              </button>
-            )}
-          </div>
-        </div>
-      </dialog>
+        {children}
+      </Dialog>
     </>
   );
 };
-export default DialogModal;
+export default React.memo(DialogModal);
+DialogModal.displayName = "Dialog Modal";
