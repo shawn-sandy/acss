@@ -29,6 +29,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
   className = "",
+  styles,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = React.useState(showDialog);
@@ -67,8 +68,9 @@ export const Dialog: React.FC<DialogModalProps> = ({
       onClose={handleClose}
       onClick={handleClickOutside}
       aria-modal={isOpen ? "true" : undefined}
-      className="dialog-modal"
+      className={`${"dialog-modal"} ${className}`}
       aria-label={dialogLabel}
+      styles={styles}
     >
       <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} />
 

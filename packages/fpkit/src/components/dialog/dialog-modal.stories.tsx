@@ -6,7 +6,7 @@ import DialogModal from "./dialog-modal";
 const meta: Meta<typeof DialogModal> = {
   title: "FP.REACT Components/Dialog/DialogModal",
   component: DialogModal,
-  tags: ["autodocs"],
+  tags: ["autodocs", "experimental"],
   parameters: {
     actions: { argTypesRegex: "^on.*" },
     docs: {
