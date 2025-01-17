@@ -17,26 +17,57 @@ interface DialogModalProps extends React.ComponentProps<typeof Dialog> {
   btnLabel?: string;
   btnOnClick?: () => void;
   btnSize?: "sm" | "md" | "lg";
+  btnProps?: React.ComponentProps<typeof Button>;
 }
 
 /**
- * A React component that renders a modal dialog with a button to open it.
- * The dialog can be configured with various props, such as the dialog title, label, and button label.
- * The component also handles the state of the dialog being open or closed.
+ * A modal dialog component that provides an accessible overlay with an optional trigger button.
+ * Extends the base Dialog component with additional button control functionality.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} [props.isAlertDialog] - Whether this is an alert dialog requiring user action
+ * @param {() => void} [props.onClose] - Callback when dialog is closed
+ * @param {string} [props.dialogTitle] - Title displayed in dialog header
+ * @param {string} [props.dialogLabel] - Accessible label for the dialog
+ * @param {string} [props.btnLabel="Open Dialog"] - Text label for the trigger button
+ * @param {"sm" | "md" | "lg"} [props.btnSize="md"] - Size of the trigger button
+ * @param {() => void} [props.btnOnClick] - Callback when trigger button is clicked
+ * @param {React.ReactNode} props.children - Content to display inside the dialog
+ * @param {() => void} [props.onConfirm] - Callback when confirm button is clicked (for alert dialogs)
+ * @param {string} [props.confirmLabel="Confirm"] - Text for the confirm button
+ * @param {string} [props.cancelLabel="Cancel"] - Text for the cancel button
+ * @param {string} [props.className] - Additional CSS class for the dialog wrapper
+ * @param {React.ComponentProps<typeof Button>} [props.btnProps] - Additional props for the trigger button
+ * @returns {JSX.Element} A dialog component with a trigger button
+ *
+ * @example
+ * ```jsx
+ * <DialogModal
+ *   dialogTitle="Confirm Action"
+ *   btnLabel="Open Modal"
+ *   btnSize="lg"
+ *   onClose={() => console.log('Dialog closed')}
+ * >
+ *   <p>Dialog content goes here</p>
+ * </DialogModal>
+ * ```
  */
+
 export const DialogModal: React.FC<DialogModalProps> = ({
   isAlertDialog,
   onClose,
   dialogTitle,
   dialogLabel,
   btnLabel = "Open Dialog",
-  btnSize = "md",
+  btnSize = "sm",
   btnOnClick,
   children,
   onConfirm,
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
   className,
+  btnProps,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -49,11 +80,16 @@ export const DialogModal: React.FC<DialogModalProps> = ({
     btnOnClick?.();
   };
 
+  const dialogBtnProps = {
+    type: "button" as "button" | "submit" | "reset",
+    onClick: handleButtonClick,
+    "data-btn": btnSize,
+    ...btnProps,
+  };
+
   return (
     <>
-      <Button type="button" onClick={handleButtonClick} data-btn={btnSize}>
-        {btnLabel}
-      </Button>
+      <Button {...dialogBtnProps}>{btnLabel}</Button>
       <Dialog
         showDialog={isOpen}
         dialogTitle={dialogTitle}
