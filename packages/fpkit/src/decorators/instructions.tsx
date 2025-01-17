@@ -18,7 +18,7 @@ import { StoryFn } from "@storybook/react";
  */
 
 export const WithInstructions =
-  (instructions?: React.ReactNode) => (Story: StoryFn) => {
+  (instructions?: React.ReactNode, title?: string) => (Story: StoryFn) => {
     return (
       <>
         <div
@@ -27,11 +27,11 @@ export const WithInstructions =
             display: "flex",
             flexDirection: "column",
             gap: "3rem",
-            width: "100%",
+            width: "80%",
           }}
         >
           <div>
-            <h3>Instructions</h3>
+            <h3>{title || "Story Instructions"}</h3>
             {instructions}
           </div>
         </div>

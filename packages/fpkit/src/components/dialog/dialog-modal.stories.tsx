@@ -39,33 +39,72 @@ export const Default: Story = {
   },
 } as Story;
 
-const instructions = <div>This is a dialog modal component</div>;
+const instructions = (
+  <div>
+    <p>
+      In this example, the dialog is opened and closed using the Storybook
+      interactions.{" "}
+    </p>
+  </div>
+);
 
-export const WithInteractions: Story = {
+export const ModalInteractions: Story = {
   args: {
     children: "This dialog can be opened and closed using the button",
     dialogTitle: "Interactive Dialog",
     btnLabel: "Open Dialog",
   },
   decorators: [WithInstructions(instructions)],
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
     // Find and click the open button
     const openButton = canvas.getByRole("button", { name: /open dialog/i });
-    await userEvent.click(openButton, { delay: 1000 });
 
-    // Verify dialog is open
-    const dialog = canvas.getByRole("dialog");
-    expect(dialog).toBeVisible();
-
-    // Find and click close button
-    const closeButton = within(dialog).getByRole("button", {
-      name: /close dialog/i,
+    await step("Open Dialog", async () => {
+      await step("Open Dialog", async () => {
+        await userEvent.click(openButton, { delay: 1500 }); // Verify dialog is open
+        const dialog = canvas.getByRole("dialog");
+        expect(dialog).toBeVisible();
+      });
     });
-    await userEvent.click(closeButton, { delay: 1000 });
 
-    // Verify dialog is closed
-    expect(dialog).not.toBeVisible();
+    await step("Close Dialog", async () => {
+      const dialog = canvas.getByRole("dialog");
+
+      // Find and click close button
+      const closeButton = canvas.getByRole("button", {
+        name: /close dialog/i,
+      });
+      expect(closeButton).toHaveFocus();
+      await userEvent.click(closeButton, { delay: 1000 });
+      // Verify dialog is closed
+      expect(dialog).not.toBeVisible();
+    });
+
+     
+    await step("Dialog focus order, close with cancel button", async () => {
+      await userEvent.click(openButton, { delay: 1000 });
+      const dialog = canvas.getByRole("dialog");
+      expect(dialog).toBeVisible();
+      expect(
+        canvas.getByRole("button", { name: /close dialog/i })
+      ).toHaveFocus();
+      const cancelButton = canvas.getByRole("button", { name: /cancel/i });
+      await userEvent.tab();
+      expect(cancelButton).toHaveFocus();
+      await userEvent.keyboard(" ", { delay: 1000 });
+      expect(dialog).not.toBeVisible();
+      expect(openButton).toHaveFocus();
+    });
+
+    await step("Close Dialog with Escape Key", async () => {
+      expect(openButton).toHaveFocus();
+      await userEvent.click(openButton, { delay: 1000 });
+
+      const dialog = canvas.getByRole("dialog");
+      await userEvent.keyboard("{escape}", { delay: 1200 });
+      expect(dialog).not.toBeVisible();
+    });
   },
 } as Story;
