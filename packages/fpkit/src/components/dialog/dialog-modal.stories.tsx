@@ -82,7 +82,6 @@ export const ModalInteractions: Story = {
       expect(dialog).not.toBeVisible();
     });
 
-     
     await step("Dialog focus order, close with cancel button", async () => {
       await userEvent.click(openButton, { delay: 1000 });
       const dialog = canvas.getByRole("dialog");
@@ -101,9 +100,10 @@ export const ModalInteractions: Story = {
     await step("Close Dialog with Escape Key", async () => {
       expect(openButton).toHaveFocus();
       await userEvent.click(openButton, { delay: 1000 });
-
+      await userEvent.tab();
+      expect(openButton).not.toHaveFocus();
       const dialog = canvas.getByRole("dialog");
-      await userEvent.keyboard("{escape}", { delay: 1200 });
+      await userEvent.keyboard(" ", { delay: 1200 });
       expect(dialog).not.toBeVisible();
     });
   },
