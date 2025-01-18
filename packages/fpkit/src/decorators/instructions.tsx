@@ -1,22 +1,22 @@
-/* eslint-disable react/display-name */
-import { StoryFn } from "@storybook/react";
 /**
- * A higher-order component that wraps a Storybook story with instructions.
+ * A decorator that wraps a Storybook story with instructions and an optional title.
+ * This decorator creates a container that displays instructions above the story component.
  *
  * @param {React.ReactNode} [instructions] - Optional instructions to display above the story
- * @returns {(Story: StoryFn) => JSX.Element} A function that takes a Story component and returns it wrapped with instructions
+ * @param {string} [title] - Optional title for the instructions section. Defaults to "Story Instructions"
+ * @returns {Function} A decorator function that wraps the story component
  *
  * @example
- * ```jsx
+ * ```tsx
  * export const MyStory = Template.bind({});
  * MyStory.decorators = [
  *   WithInstructions(
- *     <p>These are the instructions for using this component...</p>
+ *     <p>Follow these steps to interact with the component...</p>,
+ *     "Usage Instructions"
  *   )
  * ];
  * ```
  */
-
 export const WithInstructions =
   (instructions?: React.ReactNode, title?: string) => (Story: StoryFn) => {
     return (
