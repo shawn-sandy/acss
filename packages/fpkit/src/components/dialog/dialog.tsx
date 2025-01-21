@@ -31,6 +31,7 @@ type DialogModalProps = React.ComponentProps<typeof UI> &
     confirmLabel?: string;
     cancelLabel?: string;
     className?: string;
+    hideFooter?: boolean;
     styles?: CSSProperties;
   };
 
@@ -60,6 +61,7 @@ export const Dialog: React.FC<DialogModalProps> = ({
   confirmLabel = "Confirm",
   cancelLabel = "Cancel",
   className = "",
+  hideFooter,
   styles,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -111,12 +113,14 @@ export const Dialog: React.FC<DialogModalProps> = ({
         onClick={(e: React.MouseEvent) => e.stopPropagation()}
       >
         {children}
-        <DialogFooter
-          onClose={handleClose}
-          onConfirm={onConfirm}
-          confirmLabel={confirmLabel}
-          cancelLabel={cancelLabel}
-        />
+        {!hideFooter && (
+          <DialogFooter
+            onClose={handleClose}
+            onConfirm={onConfirm}
+            confirmLabel={confirmLabel}
+            cancelLabel={cancelLabel}
+          />
+        )}
       </UI>
     </UI>
   );

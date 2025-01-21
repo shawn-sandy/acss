@@ -4,7 +4,7 @@ import { within, expect } from "@storybook/test";
 import DialogHeader from "./dialog-header";
 
 const meta: Meta<typeof DialogHeader> = {
-  title: "FP.REACT Views/DialogHeader",
+  title: "FP.REACT Components/Dialog/Views/DialogHeader",
   component: DialogHeader,
   parameters: {
     layout: "centered",
@@ -37,6 +37,6 @@ export const Default: Story = {
 export const WithCloseButton: Story = {
   args: {
     dialogTitle: "Dialog Header with Close",
-    onClose: () => console.log("Close clicked"),
+    onClose: () => {},
   },
 } as Story;
