@@ -3,6 +3,10 @@ import { within, expect, userEvent } from "@storybook/test";
 
 import Dialog from "./dialog";
 import React from "react";
+
+const content =
+  "This is a dialog component used to display modal dialogs. It can be used to show important information or prompt the user for input.";
+
 const buttonDecorator = [
   (Story: StoryFn) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -13,20 +17,18 @@ const buttonDecorator = [
           args={{
             showDialog: isOpen,
             onClose: () => setIsOpen(false),
-            title: "Dialog Title",
+            dialogTitle: "Dialog Button",
             children: content,
           }}
         />
+        <section>{content}</section>
       </div>
     );
   },
 ];
 
-const content =
-  "This is a dialog component used to display modal dialogs. It can be used to show important information or prompt the user for input.";
-
 const meta: Meta<typeof Dialog> = {
-  title: "FP.REACT Components/Dialog",
+  title: "FP.REACT Components/Dialog/Dialogs",
   component: Dialog,
   tags: ["alpha"],
   parameters: {
@@ -66,6 +68,7 @@ export const BasicDialog: Story = {
   args: {
     isAlertDialog: false,
     showDialog: true,
+    dialogTitle: "Basic Dialog",
   },
 } as Story;
 
@@ -77,6 +80,7 @@ export const NonModalDialog: Story = {
   args: {
     showDialog: true,
     isAlertDialog: true,
+    dialogTitle: "Non Modal Dialog",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -92,6 +96,7 @@ export const DialogInteractions: Story = {
   args: {
     isAlertDialog: false,
     showDialog: true,
+    dialogTitle: "Dialog Interactions",
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

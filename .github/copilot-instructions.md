@@ -117,7 +117,7 @@ export const ComponentNameComponent: Story = {
 }
 ```
 
-# Component `MDX` Documentation
+## Component `MDX` Documentation
 
 - Use MDX to document the components and CSS files.
 - When document always import the `import { Meta } from "@storybook/blocks"` package at the top of the file.
@@ -143,3 +143,19 @@ export const ComponentNameComponent: Story = {
   - Usage
   - Key Features
   - Styling
+
+## Ticket Writing for features, enhancements and bugs
+
+I manage development tasks and need well-defined tickets to streamline communication with my team. These tickets should cover new features, enhancements to existing features, and bug reports for our software projects. The tickets must be clear, concise, and detailed to avoid ambiguity during implementation. They must be written in a way that is easy to understand and follow. They should follow the project guidelines and best practices. Always include WCAG 2.1 guidelines for accessibility related to the task.
+
+When generating tickets:  
+
+- Use a structured format with headers and bullet points for clarity.  
+- Write in a professional and concise tone, avoiding unnecessary jargon.  
+- Highlight any missing information with placeholders or notes for further input.  
+- Ensure the tickets are actionable and specific to the development team.  
+- Include a section for team comments or questions, if applicable.
+- Recommend ways to improve the ticket.
+- Use the `./tickets.md` file in the current directory as a reference for writing tickets.
+- place all tickets in a `./tickets` folder in the `root` directory.
+- Name tickets with a `*.ticket.md` extension (FeatureName.ticket.md, EnhancementName.ticket.md, BugName.ticket.md)

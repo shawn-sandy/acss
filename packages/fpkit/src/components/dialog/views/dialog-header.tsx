@@ -9,6 +9,26 @@ export type DialogHeaderProps = {
   onClick: () => void;
 } & React.ComponentProps<typeof Heading>;
 
+/**
+ * DialogHeader component displays the header section of a dialog with a title and close button.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.dialogTitle - The title text to display in the dialog header
+ * @param {() => void} props.onClick - Callback function triggered when close button is clicked
+ * @param {string} [props.type='h3'] - Heading type/level to use for the title
+ * @returns {JSX.Element} A dialog header with title and close button
+ *
+ * @example
+ * ```jsx
+ * <DialogHeader
+ *   dialogTitle="Confirm Action"
+ *   onClick={() => setIsOpen(false)}
+ *   type="h2"
+ * />
+ * ```
+ */
+
 const DialogHeader = ({
   dialogTitle,
   onClick,
