@@ -16,7 +16,9 @@ const meta: Meta<typeof Alert> = {
     },
   },
   args: {
+    title: "Alert Title",
     children: "This is an alert message",
+    dismissible: true,
   },
 } as Meta;
 
