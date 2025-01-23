@@ -11,7 +11,7 @@ Answer all questions in less than 1000 characters.
 
 ## write conventional commit message
 
-Suggest a informative commit message by summarizing code changes from the shared command output. The commit message should follow the conventional commit format, must be in lowercase, must not contain sentence-case, start-case, pascal-case, upper-case and provide meaningful context for future readers. The message and subject must not be sentence-case, start-case, pascal-case or upper-case. Add a summary of the changes to the commit description.
+Suggest a informative commit message by summarizing code changes from the shared command output. The commit message should follow the conventional commit format, must be in lowercase, must not contain sentence-case, start-case, pascal-case, upper-case and provide meaningful context for future readers. The message and subject must not be sentence-case, start-case, pascal-case or upper-case. Add a summary of the changes to the commit description. follow the list below for  concise instructions on writing a commit message
 
 1. Start with a type: feat, fix, docs, style, reactor, test, chore.
 2. Add a scope in parentheses if applicable.
@@ -37,7 +37,7 @@ Suggest a informative commit message by summarizing code changes from the shared
 - Prefer interfaces over types for object shapes.
 - Use functional components with TypeScript interfaces.
 
-## React Component  
+## When creating a React Components  
 
 - Use functional components with hooks.
 - Use React.memo for performance optimization when necessary.
@@ -117,7 +117,7 @@ export const ComponentNameComponent: Story = {
 }
 ```
 
-## Component `MDX` Documentation
+## When documenting a React Component `MDX` Documentation
 
 - Use MDX to document the components and CSS files.
 - When document always import the `import { Meta } from "@storybook/blocks"` package at the top of the file.
@@ -146,9 +146,7 @@ export const ComponentNameComponent: Story = {
 
 ## Ticket Writing for features, enhancements and bugs
 
-I manage development tasks and need well-defined tickets to streamline communication with my team. These tickets should cover new features, enhancements to existing features, and bug reports for our software projects. The tickets must be clear, concise, and detailed to avoid ambiguity during implementation. They must be written in a way that is easy to understand and follow. They should follow the project guidelines and best practices. Always include WCAG 2.1 guidelines for accessibility related to the task.
-
-When generating tickets:  
+When writing tickets, tasks and issues for features, enhancements and bugs we need to ensure that we create well-defined tickets to streamline communication with the team. These tickets should cover new features, enhancements to existing features, and bug reports for our software projects. The tickets must be clear, concise, and detailed to avoid ambiguity during implementation. They must be written in a way that is easy to understand and follow. They should follow the project guidelines and best practices. Always include WCAG 2.1 guidelines for accessibility related to the task. Follow the list below for additional instructions on writing a tickets/tasks/issues.  
 
 - Use a structured format with headers and bullet points for clarity.  
 - Write in a professional and concise tone, avoiding unnecessary jargon.  
