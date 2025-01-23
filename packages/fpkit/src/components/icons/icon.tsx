@@ -23,11 +23,11 @@ import {
   PlaySolid,
   PauseSolid,
   ResumeSolid,
-  StopSolid
-} from './index'
+  StopSolid,
+} from "./index";
 
-import UI from '#components/ui'
-import React from 'react'
+import UI from "#components/ui";
+import React from "react";
 
 /**
  * The default styles object for the Icon component.
@@ -39,14 +39,14 @@ import React from 'react'
  * @property {string} width - Sets width to 'auto' for automatic sizing.
  */
 const defaultStyles = {
-  display: 'inline-flex',
-  direction: 'row',
-  gap: '.2rem',
-  placeItems: 'center',
-  width: 'auto',
-}
+  display: "inline-flex",
+  direction: "row",
+  gap: ".2rem",
+  placeItems: "center",
+  width: "auto",
+};
 
-export type IconProps = React.ComponentProps<typeof UI>
+export type IconProps = React.ComponentProps<typeof UI>;
 
 export const Icon = ({
   id,
@@ -67,34 +67,37 @@ export const Icon = ({
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
-export default Icon
-Icon.displayName = 'Icon'
-Icon.styles = defaultStyles
-Icon.Add = Add
-Icon.ArrowDown = ArrowDown
-Icon.ArrowLeft = ArrowLeft
-Icon.ArrowRight = ArrowRight
-Icon.ArrowUp = ArrowUp
-Icon.Chat = Chat
-Icon.Code = Code
-Icon.Copy = Copy
-Icon.Home = Home
-Icon.Left = Left
-Icon.Minus = Minus
-Icon.Remove = Remove
-Icon.Right = Right
-Icon.Star = Star
-Icon.Up = Up
-Icon.Down = Down
-Icon.User = User
-Icon.Play = Play
-Icon.Pause = Pause
-Icon.Stop = Stop
-Icon.Resume = Resume
-Icon.ResumeSolid = ResumeSolid
-Icon.PlaySolid = PlaySolid
-Icon.PauseSolid = PauseSolid
-Icon.StopSolid = StopSolid
+export default Icon;
+Icon.displayName = "Icon";
+Icon.Add = Add;
+Icon.ArrowDown = ArrowDown;
+Icon.ArrowLeft = ArrowLeft;
+Icon.ArrowRight = ArrowRight;
+Icon.ArrowUp = ArrowUp;
+Icon.Chat = Chat;
+Icon.Code = Code;
+Icon.Copy = Copy;
+Icon.Down = Down;
+Icon.Home = Home;
+Icon.Left = Left;
+Icon.Minus = Minus;
+Icon.Pause = Pause;
+Icon.PauseSolid = PauseSolid;
+Icon.Play = Play;
+Icon.PlaySolid = PlaySolid;
+Icon.Remove = Remove;
+Icon.Resume = Resume;
+Icon.ResumeSolid = ResumeSolid;
+Icon.Right = Right;
+Icon.Star = Star;
+Icon.Stop = Stop;
+Icon.StopSolid = StopSolid;
+Icon.Up = Up;
+Icon.User = User;
+Icon.styles = defaultStyles;
+
+// aliases
+Icon.Close = Icon.Remove;

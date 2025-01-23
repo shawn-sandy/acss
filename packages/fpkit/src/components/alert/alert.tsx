@@ -1,6 +1,7 @@
 import React from "react";
 import UI from "#components/ui";
-import Button from "#components/buttons/button.jsx";
+import Button from "#components/buttons/button";
+import Icon from "#components/icons/icon";
 
 export type AlertProps = {
   /** The severity level of the alert */
@@ -54,11 +55,17 @@ const Alert: React.FC<AlertProps> = ({
       className={`alert alert-${severity}`}
       {...props}
     >
-      <div className="alert-content">
-        <span aria-hidden="true">{severityIcons[severity]}</span>
-        {title && <strong className="alert-title">{title}</strong>}
-        <div>{children}</div>
-      </div>
+      <UI as="div" className="alert-content">
+        <UI as="span" aria-hidden="true">
+          {severityIcons[severity]}
+        </UI>
+        {title && (
+          <UI as="strong" className="alert-title">
+            {title}
+          </UI>
+        )}
+        <UI as="div">{children}</UI>
+      </UI>
 
       {dismissible && (
         <Button
@@ -66,10 +73,11 @@ const Alert: React.FC<AlertProps> = ({
           onClick={handleDismiss}
           aria-label="Close alert"
           className="alert-dismiss"
+          btn-data="icon"
         >
-          <UI as="span" aria-hidden="true">
-            ×
-          </UI>
+          <Icon>
+            <Icon.Close size={16} />
+          </Icon>
         </Button>
       )}
     </UI>
