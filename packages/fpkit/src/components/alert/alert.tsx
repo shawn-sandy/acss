@@ -46,31 +46,17 @@ const Alert: React.FC<AlertProps> = ({
     error: "",
   };
 
-  const severityColors = {
-    info: "#0070f3",
-    success: "#00aa55",
-    warning: "#f5a623",
-    error: "#ff0000",
-  };
-
   return (
     <UI
       as="div"
       role="alert"
       aria-live={severity === "error" ? "assertive" : "polite"}
-      styles={{
-        padding: "1rem",
-        borderRadius: "0.25rem",
-        border: `1px solid ${severityColors[severity]}`,
-        backgroundColor: `${severityColors[severity]}10`,
-        color: severityColors[severity],
-        position: "relative",
-      }}
+      className={`alert alert-${severity}`}
       {...props}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+      <div className="alert-content">
         <span aria-hidden="true">{severityIcons[severity]}</span>
-        {title && <strong style={{ marginRight: "0.5rem" }}>{title}</strong>}
+        {title && <strong className="alert-title">{title}</strong>}
         <div>{children}</div>
       </div>
 
@@ -79,16 +65,7 @@ const Alert: React.FC<AlertProps> = ({
           type="button"
           onClick={handleDismiss}
           aria-label="Close alert"
-          style={{
-            position: "absolute",
-            top: "0.5rem",
-            right: "0.5rem",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: "0.25rem",
-            fontSize: "1.25rem",
-          }}
+          className="alert-dismiss"
         >
           <UI as="span" aria-hidden="true">
             ×
