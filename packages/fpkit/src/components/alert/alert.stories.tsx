@@ -26,6 +26,7 @@ const meta: Meta<typeof Alert> = {
         component: "Alert component description here...",
       },
     },
+    layout: "centered",
   },
   args: {
     title: "Alert Title",
@@ -49,14 +50,27 @@ export const DefaultAlert: Story = {
 export const InteractionTest: Story = {
   args: {},
   decorators: [WithInstructions(instructions, "Test alert interactions")],
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const alert = canvas.getByRole("alert");
-    expect(alert).toBeInTheDocument();
     const dismissButton = canvas.getByRole("button", { name: /close alert/i });
-    expect(dismissButton).toBeInTheDocument();
-    await userEvent.click(dismissButton, { delay: 500 });
-
-    expect(alert).not.toBeInTheDocument();
+    await step(
+      "Check that the alert and button are in the document",
+      async () => {
+        expect(alert).toBeInTheDocument();
+        expect(dismissButton).toBeInTheDocument();
+      }
+    );
+    await step(
+      "Tab through the alert and check if the button gets focused",
+      async () => {
+        userEvent.tab({ delay: 500 });
+        expect(dismissButton).toHaveFocus();
+      }
+    );
+    await step("Click the button to dismiss the alert", async () => {
+      await userEvent.click(dismissButton, { delay: 500 });
+      expect(alert).not.toBeInTheDocument();
+    });
   },
 };

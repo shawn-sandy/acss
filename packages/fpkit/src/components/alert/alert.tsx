@@ -48,12 +48,11 @@ const Alert: React.FC<AlertProps> = ({
       className={`alert alert-${severity}`}
       {...props}
     >
-      <UI as="div" className="alert-icon">
-        {severityIcons[severity]}
-        <Icon>
-          <Icon.Info size={32} />
-        </Icon>
-      </UI>
+      {severityIcons[severity]}
+      <Icon>
+        <Icon.Info size={32} />
+      </Icon>
+
       <UI as="div" className="alert-message">
         {title && (
           <UI as="strong" className="alert-title">
