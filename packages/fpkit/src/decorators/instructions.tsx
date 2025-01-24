@@ -29,7 +29,7 @@ export const WithInstructions =
             display: "flex",
             flexDirection: "column",
             gap: "3rem",
-            width: "80%",
+            width: "min(320px, 90%)",
           }}
         >
           <Story />
