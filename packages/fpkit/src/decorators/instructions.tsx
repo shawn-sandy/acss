@@ -32,12 +32,12 @@ export const WithInstructions =
             width: "80%",
           }}
         >
+          <Story />
           <div>
             <h3>{title || "Story Instructions"}</h3>
             {instructions}
           </div>
         </div>
-        <Story />
       </>
     );
   };
