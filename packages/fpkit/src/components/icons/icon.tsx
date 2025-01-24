@@ -9,6 +9,7 @@ import {
   Copy,
   Down,
   Home,
+  Info,
   Left,
   Minus,
   Remove,
@@ -82,6 +83,7 @@ Icon.Code = Code;
 Icon.Copy = Copy;
 Icon.Down = Down;
 Icon.Home = Home;
+Icon.Info = Info;
 Icon.Left = Left;
 Icon.Minus = Minus;
 Icon.Pause = Pause;

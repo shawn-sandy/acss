@@ -207,3 +207,9 @@ export const StopSolid: Story = {
     children: <Icon.StopSolid />,
   },
 } as Story;
+
+export const Info: Story = {
+  args: {
+    children: <Icon.Info />,
+  },
+} as Story;

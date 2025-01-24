@@ -16,13 +16,6 @@ export type AlertProps = {
   onDismiss?: () => void;
 };
 
-/**
- * Alert component that follows WCAG accessibility standards
- * - Uses appropriate ARIA roles and attributes
- * - Provides visual and semantic indication of severity
- * - Ensures sufficient color contrast
- * - Supports keyboard interaction for dismissible alerts
- */
 const Alert: React.FC<AlertProps> = ({
   severity = "info",
   children,
@@ -55,10 +48,13 @@ const Alert: React.FC<AlertProps> = ({
       className={`alert alert-${severity}`}
       {...props}
     >
-      <UI as="div" className="alert-content">
-        <UI as="span" aria-hidden="true">
-          {severityIcons[severity]}
-        </UI>
+      <UI as="div" className="alert-icon">
+        {severityIcons[severity]}
+        <Icon>
+          <Icon.Info size={32} />
+        </Icon>
+      </UI>
+      <UI as="div" className="alert-message">
         {title && (
           <UI as="strong" className="alert-title">
             {title}
@@ -66,14 +62,13 @@ const Alert: React.FC<AlertProps> = ({
         )}
         <UI as="div">{children}</UI>
       </UI>
-
       {dismissible && (
         <Button
           type="button"
           onClick={handleDismiss}
           aria-label="Close alert"
           className="alert-dismiss"
-          btn-data="icon"
+          data-btn="icon"
         >
           <Icon>
             <Icon.Close size={16} />

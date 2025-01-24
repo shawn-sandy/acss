@@ -1,3 +1,5 @@
+import { StoryFn } from "@storybook/react";
+
 /**
  * A decorator that wraps a Storybook story with instructions and an optional title.
  * This decorator creates a container that displays instructions above the story component.
