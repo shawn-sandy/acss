@@ -353,7 +353,7 @@ ol {
   flex-direction: var(--li-direction, column);
   gap: var(--li-gap, 0.2rem);
   flex-wrap: var(--li-wrap, nowrap);
-  padding-inline-start: var(--li-ps, var(--spc-2));
+  padding-inline-start: var(--li-ps, var(--spc-3));
 }
 ul[role=list], ul[data-list~=unstyled],
 ol[role=list],
