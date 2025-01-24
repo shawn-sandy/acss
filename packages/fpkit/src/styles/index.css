@@ -262,6 +262,7 @@ svg[role=img] {
   --fs-weight: 500;
   --min-w: 20rem;
   --border-radius: 0.25rem;
+  --padding: 1.5rem;
 }
 
 html {
@@ -960,20 +961,17 @@ header,
   background-color: var(--overlay-bg);
   min-width: 20rem;
 }
-
 header > *,
 [data-hero] > *,
 [data-grid~=overlay] > * {
   grid-area: overlay;
 }
-
 header > img,
 [data-hero] > img,
 [data-grid~=overlay] > img {
   width: var(--overlay-w);
   background-size: contain;
 }
-
 header > div,
 header > section,
 [data-hero] > div,
@@ -987,7 +985,6 @@ header > section,
   gap: var(--overlay-gap);
   text-align: center;
 }
-
 header > div p,
 header > section p,
 [data-hero] > div p,
@@ -999,7 +996,6 @@ header > section p,
   font-size: var(--fs-8);
   line-height: 1.4;
 }
-
 header > div > h1,
 header > div > h2,
 header > section > h1,
@@ -1015,7 +1011,6 @@ header > section > h2,
   line-height: var(--header-lh, 1.1);
   font-weight: 500;
 }
-
 header > div > h1,
 header > section > h1,
 [data-hero] > div > h1,
@@ -1024,7 +1019,6 @@ header > section > h1,
 [data-grid~=overlay] > section > h1 {
   font-size: var(--fs-12);
 }
-
 header > div > h2,
 header > section > h2,
 [data-hero] > div > h2,
@@ -1033,7 +1027,6 @@ header > section > h2,
 [data-grid~=overlay] > section > h2 {
   font-size: var(--fs-11);
 }
-
 header > div > h3,
 header > section > h3,
 [data-hero] > div > h3,
@@ -1502,6 +1495,31 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
   text-decoration: none;
 }
 
+[role=alert] {
+  background-color: var(--alert-bg, whitesmoke);
+  border: var(--alert-border);
+  border-radius: var(--alert-border-radius);
+  color: var(--alert-color);
+  padding: var(--alert-padding, var(--spc-4));
+  margin-block-end: var(--alert-margin-block-end);
+  font-size: var(--fs-0);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: var(--alert-border-radius var(--border-radius));
+  gap: var(--alert-gap, var(--spc-4));
+}
+[role=alert] div {
+  margin-block-start: 0;
+  display: flex;
+  align-items: center;
+}
+[role=alert] .alert-message {
+  flex: 1;
+  margin-block-start: 0;
+}
+
 [data-tts] {
   --tts-gap: 0.5rem;
   --tts-bg: #fff;
@@ -1581,11 +1599,9 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
 .transparent {
   background-color: var(--transparent);
 }
-
 .transparent-border {
   border-color: var(--transparent);
 }
-
 .transparent-color {
   color: var(--transparent);
 }

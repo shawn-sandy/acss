@@ -3,11 +3,6 @@ import * as React from "react";
 import { IconProps } from "../types";
 import Svg from "./svg";
 
-const defaultStyles = {
-  ...Svg.styles,
-  fill: "currentColor",
-};
-
 /**
  * Add Icon component
  * @param {string} fill - Icon fill color (default: 'currentColor')
@@ -15,11 +10,11 @@ const defaultStyles = {
  * @param {IconProps} props - Other icon properties
  * @returns {JSX.Element} - Rendered component
  */
-export const Add = ({
+export const Info = ({
   fill = "currentColor",
   size = 24,
   role = "img",
-  alt = "Add icon",
+  alt = "Info icon",
   ...props
 }: Pick<
   IconProps,
@@ -29,7 +24,7 @@ export const Add = ({
     <Svg size={size} role={role} alt={alt} {...props}>
       <g fill={fill}>
         <path
-          d="M17,11h-4V7c0-.553-.447-1-1-1s-1,.447-1,1v4H7c-.553,0-1,.447-1,1s.447,1,1,1h4v4c0,.553,.447,1,1,1s1-.447,1-1v-4h4c.553,0,1-.447,1-1s-.447-1-1-1Z"
+          d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"
           fill={fill}
         />
       </g>
@@ -37,6 +32,5 @@ export const Add = ({
   );
 };
 
-export default Add;
-Add.styles = defaultStyles;
-Add.displayName = "Add";
+export default Info;
+Info.displayName = "Info";

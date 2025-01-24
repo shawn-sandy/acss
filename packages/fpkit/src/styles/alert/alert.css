@@ -1,0 +1,26 @@
+[role=alert] {
+  background-color: var(--alert-bg, whitesmoke);
+  border: var(--alert-border);
+  border-radius: var(--alert-border-radius);
+  color: var(--alert-color);
+  padding: var(--alert-padding, var(--spc-4));
+  margin-block-end: var(--alert-margin-block-end);
+  font-size: var(--fs-0);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: var(--alert-border-radius var(--border-radius));
+  gap: var(--alert-gap, var(--spc-4));
+}
+[role=alert] div {
+  margin-block-start: 0;
+  display: flex;
+  align-items: center;
+}
+[role=alert] .alert-message {
+  flex: 1;
+  margin-block-start: 0;
+}
+
+/*# sourceMappingURL=alert.css.map */

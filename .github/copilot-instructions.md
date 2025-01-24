@@ -5,7 +5,6 @@ Answer all questions in the style of a friendly colleague, using informal langua
 Answer all questions in less than 1000 characters.
 
 ## Convert pixels to rem
-
 - Convert the selected pixel value `*px` to `*rem` units.
 - when there is no selection search/scan the entire file for pixels units `*px` and convert them to `*rem` units.
 
