@@ -74,9 +74,7 @@ const Alert: React.FC<AlertProps> = ({
     >
       {severityIcons[severity]}
       <UI>
-        <Icon>
-          <Icon.Info size={32} />
-        </Icon>
+        <Icon.Info size={32} />
       </UI>
 
       <UI as="div" className="alert-message">

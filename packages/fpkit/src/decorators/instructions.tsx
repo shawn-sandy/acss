@@ -23,23 +23,21 @@ import UI from "#components/ui";
 export const WithInstructions =
   (instructions?: React.ReactNode, title?: string) => (Story: StoryFn) => {
     return (
-      <>
-        <UI
-          style={{
-            paddingBlock: "2rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "3rem",
-            width: "max(320px, 90%)",
-          }}
-        >
-          <Story />
-          <div style={{ paddingInline: "1rem" }}>
-            <h3>{title || "Story Instructions"}</h3>
-            {instructions}
-          </div>
-        </UI>
-      </>
+      <UI
+        style={{
+          paddingBlock: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "3rem",
+          width: "max(320px, 90%)",
+        }}
+      >
+        <Story />
+        <div style={{ paddingInline: "1rem" }}>
+          <h3>{title || "Story Instructions"}</h3>
+          {instructions}
+        </div>
+      </UI>
     );
   };
 

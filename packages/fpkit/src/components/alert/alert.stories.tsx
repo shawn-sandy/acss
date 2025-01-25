@@ -1,8 +1,26 @@
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta, StoryFn } from "@storybook/react";
 import { within, expect, userEvent, fn } from "@storybook/test";
 
 import Alert from "./alert";
 import WithInstructions from "#decorators/instructions.jsx";
+import React from "react";
+
+const ButtonDecorator = (Story: StoryFn) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  return (
+    <div>
+      <button onClick={() => setIsOpen(!isOpen)}>Open Alert</button>
+      <Story
+        args={{
+          open: isOpen,
+          title: "Alert Title",
+          children: "This is an alert message",
+          dismissible: false,
+        }}
+      />
+    </div>
+  );
+};
 
 const instructions = (
   <>
@@ -49,8 +67,14 @@ export const DefaultAlert: Story = {
   },
 } as Story;
 
+export const OpenAlert: Story = {
+  decorators: [ButtonDecorator],
+} as Story;
+
 export const InteractionTest: Story = {
-  args: {},
+  args: {
+    open: true,
+  },
   decorators: [WithInstructions(instructions, "Alert interactions test:")],
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -75,4 +99,4 @@ export const InteractionTest: Story = {
       expect(alert).not.toBeInTheDocument();
     });
   },
-};
+} as Story;
