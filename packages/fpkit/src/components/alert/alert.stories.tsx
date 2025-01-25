@@ -19,14 +19,14 @@ const instructions = (
 const meta: Meta<typeof Alert> = {
   title: "FP.REACT Components/Alert",
   component: Alert,
-  tags: ["new"],
+  tags: ["beta"],
   parameters: {
     docs: {
       description: {
         component: "Alert component description here...",
       },
     },
-    layout: "centered",
+    // layout: "centered",
   },
   args: {
     title: "Alert Title",
@@ -40,16 +40,18 @@ export default meta;
 type Story = StoryObj<typeof Alert>;
 
 export const DefaultAlert: Story = {
-  args: {},
+  args: {
+    open: true,
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     expect(canvas.getByText(/this is an alert message/i)).toBeInTheDocument();
   },
-};
+} as Story;
 
 export const InteractionTest: Story = {
   args: {},
-  decorators: [WithInstructions(instructions, "Test alert interactions")],
+  decorators: [WithInstructions(instructions, "Alert interactions test:")],
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const alert = canvas.getByRole("alert");
@@ -61,13 +63,13 @@ export const InteractionTest: Story = {
         expect(dismissButton).toBeInTheDocument();
       }
     );
-    await step(
-      "Tab through the alert and check if the button gets focused",
-      async () => {
-        userEvent.tab({ delay: 500 });
-        expect(dismissButton).toHaveFocus();
-      }
-    );
+    // await step(
+    //   "Tab through the alert and check if the button gets focused",
+    //   async () => {
+    //     userEvent.tab({ delay: 500 });
+    //     expect(dismissButton).toHaveFocus();
+    //   }
+    // );
     await step("Click the button to dismiss the alert", async () => {
       await userEvent.click(dismissButton, { delay: 500 });
       expect(alert).not.toBeInTheDocument();

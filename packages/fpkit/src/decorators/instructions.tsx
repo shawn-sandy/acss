@@ -1,4 +1,5 @@
 import { StoryFn } from "@storybook/react";
+import UI from "#components/ui";
 
 /**
  * A decorator that wraps a Storybook story with instructions and an optional title.
@@ -23,21 +24,21 @@ export const WithInstructions =
   (instructions?: React.ReactNode, title?: string) => (Story: StoryFn) => {
     return (
       <>
-        <div
+        <UI
           style={{
             paddingBlock: "2rem",
             display: "flex",
             flexDirection: "column",
             gap: "3rem",
-            width: "min(320px, 90%)",
+            width: "max(320px, 90%)",
           }}
         >
           <Story />
-          <div>
+          <div style={{ paddingInline: "1rem" }}>
             <h3>{title || "Story Instructions"}</h3>
             {instructions}
           </div>
-        </div>
+        </UI>
       </>
     );
   };

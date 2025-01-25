@@ -3,20 +3,40 @@ import UI from "#components/ui";
 import Button from "#components/buttons/button";
 import Icon from "#components/icons/icon";
 
+/**
+ * Props for the Alert component.
+ */
 export type AlertProps = {
-  /** The severity level of the alert */
+  /**
+   * Whether the alert is open.
+   */
+  open: boolean;
+  /**
+   * The severity level of the alert.
+   * @default "info"
+   */
   severity?: "info" | "success" | "warning" | "error";
-  /** The main message content */
+  /**
+   * The main message content.
+   */
   children: React.ReactNode;
-  /** Optional title for the alert */
+  /**
+   * Optional title for the alert.
+   */
   title?: string;
-  /** Whether the alert can be dismissed */
+  /**
+   * Whether the alert can be dismissed.
+   * @default false
+   */
   dismissible?: boolean;
-  /** Callback when alert is dismissed */
+  /**
+   * Callback when alert is dismissed.
+   */
   onDismiss?: () => void;
 };
 
 const Alert: React.FC<AlertProps> = ({
+  open,
   severity = "info",
   children,
   title,
@@ -24,7 +44,11 @@ const Alert: React.FC<AlertProps> = ({
   onDismiss,
   ...props
 }) => {
-  const [isVisible, setIsVisible] = React.useState(true);
+  const [isVisible, setIsVisible] = React.useState(open);
+
+  React.useEffect(() => {
+    setIsVisible(open);
+  }, [open]);
 
   const handleDismiss = () => {
     setIsVisible(false);
@@ -49,9 +73,11 @@ const Alert: React.FC<AlertProps> = ({
       {...props}
     >
       {severityIcons[severity]}
-      <Icon>
-        <Icon.Info size={32} />
-      </Icon>
+      <UI>
+        <Icon>
+          <Icon.Info size={32} />
+        </Icon>
+      </UI>
 
       <UI as="div" className="alert-message">
         {title && (
