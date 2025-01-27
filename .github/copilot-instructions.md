@@ -126,11 +126,10 @@ export const ComponentNameComponent: Story = {
 - When document always import the `import { Meta } from "@storybook/blocks"` package at the top of the file.
 - add a `<Meta title="FP.REACT Components/ComponentName/Readme" />` below the import statements.
 - Write documentation for the component.
-- Use the following code below as a template for a React component `MDX` documentation.
+- Use the `./story-readme-example.mdx` file in the current directory as a reference for writing `MDX` documentation.
 - Replace `ComponentName` with the name of the component.
 - Replace the import path with the correct path to the component.
 - Always wrap code examples in the appropriate MD/MDX code block.
-- Use the `./story-readme-example.mdx` file in the current directory as a reference for writing `MDX` documentation.
 - When documenting components, ensure to include the following sections:
   - Summary
   - Features
