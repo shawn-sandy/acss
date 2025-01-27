@@ -1,0 +1,124 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Badge/Readme" />
+
+# Badge Component
+
+A lightweight and flexible badge component for displaying small counts, labels,
+or status indicators. The Badge component renders as a superscript element with
+customizable styling.
+
+## Features
+
+- Renders as a `<sup>` element with nested `<span>`
+- Fully customizable via CSS custom properties
+- Supports rounded and standard variants
+- ARIA-friendly with proper accessibility attributes
+- Integrates with FPKit UI component system
+
+## Props
+
+The Badge component accepts the following props:
+
+- `children: React.ReactNode` - Content to display inside the badge
+- `id?: string` - Optional ID for the badge element
+- `styles?: object` - Custom styles object
+- `classes?: string` - Additional CSS classes
+- `data-badge?: string` - Data attribute for badge variants (e.g. "rounded")
+- All standard HTML attributes supported by `<sup>` element
+
+## Technical Details
+
+- Built using React functional components
+- Uses TypeScript for type safety
+- Styled with CSS custom properties
+- Leverages base UI component from FPKit
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import Badge from "./badge";
+
+function Example() {
+  return (
+    <p>
+      Messages <Badge>3</Badge>
+    </p>
+  );
+}
+```
+
+### Rounded Badge
+
+```tsx
+import Badge from "./badge";
+
+function Example() {
+  return (
+    <p>
+      Status <Badge data-badge="rounded">21</Badge>
+    </p>
+  );
+}
+```
+
+### Custom Styled Badge
+
+```tsx
+import Badge from "./badge";
+
+function Example() {
+  return (
+    <p>
+      Count{" "}
+      <Badge
+        styles={{
+          "--badge-bg": "blue",
+          "--badge-color": "white",
+        }}
+        aria-label="badge count"
+      >
+        5
+      </Badge>
+    </p>
+  );
+}
+```
+
+## Styling
+
+The component uses CSS custom properties for styling:
+
+```css
+--badge-bg: lightgray; /* Background color */
+--badge-color: currentColor; /* Text color */
+--badge-radius: 0.5rem; /* Border radius */
+--badge-padding: 0.3rem; /* Inner padding */
+--badge-v-align: 0.5rem; /* Vertical alignment */
+--badge-fs: var(--fs-1); /* Font size */
+```
+
+For rounded badges, use the `data-badge="rounded"` attribute which sets:
+
+```css
+--badge-radius: 100%;
+--badge-padding: 0.2rem;
+```
+
+## WCAG 2.1 Guidelines
+
+- Ensures sufficient color contrast (1.4.3)
+- Supports text resizing (1.4.4)
+- Maintains spacing on zoom (1.4.12)
+- Uses semantic HTML elements (4.1.1)
+- Provides meaningful content (4.1.2)
+
+## Additional Notes
+
+- Use semantic values for badge content
+- Ensure adequate color contrast when customizing
+- Keep badge content concise
+- Include ARIA labels when needed
+- Test with screen readers and keyboard navigation
