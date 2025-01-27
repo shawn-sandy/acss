@@ -1,0 +1,84 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="ACSS UI" />
+
+# UI Component
+
+A lightweight polymorphic component that serves as a foundation for building
+flexible UI elements.
+
+## Features
+
+- Polymorphic component that can render as any HTML element
+- Type-safe props with TypeScript
+- Supports custom styling through CSS properties and classes
+- Forward ref support
+- Lightweight and performant
+
+## Props
+
+| Prop     | Type                | Description                           |
+| -------- | ------------------- | ------------------------------------- |
+| as       | React.ElementType   | HTML element to render (default: div) |
+| styles   | React.CSSProperties | Inline styles object                  |
+| classes  | string              | CSS class names                       |
+| children | React.ReactNode     | Child elements                        |
+| ...props | any                 | All valid HTML attributes             |
+
+## Technical Details
+
+The component uses advanced TypeScript features to ensure type safety:
+
+- Polymorphic refs
+- Component props with proper type inference
+- Props omission to avoid conflicts
+
+## Usage Examples
+
+### Basic Usage
+
+```tsx
+import UI from '#components/ui'
+
+// Render as a div (default)
+<UI classes="my-class">Content</UI>
+
+// Render as a button
+<UI as="button" classes="btn">Click me</UI>
+
+// With custom styles
+<UI
+  as="section"
+  styles={{ padding: "1rem", background: "#f0f0f0" }}
+>
+  Section content
+</UI>
+```
+
+### Advanced Usage
+
+```tsx
+import UI from "#components/ui";
+
+// With ref forwarding
+const MyComponent = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  return (
+    <UI
+      ref={ref}
+      as="div"
+      styles={{ position: "relative" }}
+      classes="container"
+    >
+      Custom component
+    </UI>
+  );
+};
+```
+
+## Additional Notes
+
+- The component automatically merges default styles with custom styles
+- TypeScript will provide proper type hints for element-specific props
+- Use the `as` prop to change the rendered element while maintaining type safety
