@@ -7,6 +7,7 @@ const config: StorybookConfig = {
     "../packages/fpkit/**/*.mdx",
     "../packages/fpkit/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
+
   addons: [
     "@storybook/addon-onboarding",
     "@storybook/addon-essentials",
@@ -14,14 +15,20 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
     "storybook-addon-tag-badges",
+    "@storybook/addon-mdx-gfm"
   ],
+
   framework: {
     name: "@storybook/react-vite",
     options: {},
   },
+
   docs: {
-    autodocs: true,
-    defaultName: "Interactive Guide",
+    defaultName: "Interactive Guide"
   },
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript"
+  }
 };
 export default config;

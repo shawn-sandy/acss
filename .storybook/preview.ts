@@ -67,6 +67,8 @@ const preview: Preview = {
       viewports: [375, 480, 768, 992, 1280],
     },
   },
+
+  tags: ["autodocs"]
 };
 
 export default preview;
