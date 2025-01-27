@@ -33,7 +33,7 @@ export type AlertProps = {
    * Callback when alert is dismissed.
    */
   onDismiss?: () => void;
-};
+} & React.ComponentProps<typeof UI>;
 
 const Alert: React.FC<AlertProps> = ({
   open,
