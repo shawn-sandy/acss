@@ -1,0 +1,86 @@
+import { Meta } from "@storybook/blocks";
+
+# Alert Component
+
+## Summary
+
+The Alert component is used to display important messages to users. It can be
+dismissible and supports various interaction tests.
+
+## Features
+
+- Display alert messages
+- Dismissible option
+- Customizable title and content
+- Interaction testing support
+
+## Props
+
+| Prop          | Type        | Description                               |
+| ------------- | ----------- | ----------------------------------------- |
+| `title`       | `string`    | The title of the alert                    |
+| `children`    | `ReactNode` | The content of the alert                  |
+| `dismissible` | `boolean`   | Whether the alert can be dismissed        |
+| `onDismiss`   | `function`  | Callback function when alert is dismissed |
+| `open`        | `boolean`   | Whether the alert is visible              |
+| `className`   | `string`    | Additional CSS classes for the alert      |
+
+## Technical Details
+
+The Alert component is built using React functional components and hooks. It
+supports interaction testing using Storybook.
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import React from "react";
+import Alert from "./alert";
+
+const App = () => (
+  <Alert
+    title="Alert Title"
+    dismissible={true}
+    onDismiss={() => console.log("Alert dismissed")}
+  >
+    This is an alert message
+  </Alert>
+);
+
+export default App;
+```
+
+### Advanced Usage
+
+```tsx
+import React, { useState } from "react";
+import Alert from "./alert";
+
+const App = () => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(!isOpen)}>Toggle Alert</button>
+      {isOpen && (
+        <Alert
+          title="Advanced Alert"
+          dismissible={true}
+          onDismiss={() => setIsOpen(false)}
+        >
+          This is an advanced alert message
+        </Alert>
+      )}
+    </div>
+  );
+};
+
+export default App;
+```
+
+### Additional Notes
+
+- Ensure to handle the `onDismiss` callback to manage the alert's visibility
+  state.
+- Customize the alert's appearance using the `className` prop.

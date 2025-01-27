@@ -5,6 +5,7 @@ Answer all questions in the style of a friendly colleague, using informal langua
 Answer all questions in less than 1000 characters.
 
 ## Convert pixels to rem
+
 - Convert the selected pixel value `*px` to `*rem` units.
 - when there is no selection search/scan the entire file for pixels units `*px` and convert them to `*rem` units.
 
@@ -118,8 +119,11 @@ export const ComponentNameComponent: Story = {
 
 ## When documenting a React Component `MDX` Documentation
 
+- When writing a README for a react component us MDX to document the components.
+- Name the component with the `*mdx` extension (ComponentName.mdx).
 - Use MDX to document the components and CSS files.
 - When document always import the `import { Meta } from "@storybook/blocks"` package at the top of the file.
+- add a `<Meta title="FP.REACT Components/ComponentName/Readme" />` below the import statements.
 - Write documentation for the component.
 - Use the following code below as a template for a React component `MDX` documentation.
 - Replace `ComponentName` with the name of the component.
