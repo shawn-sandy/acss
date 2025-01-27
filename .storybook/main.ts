@@ -3,7 +3,6 @@ import type { StorybookConfig } from "@storybook/react-vite";
 const config: StorybookConfig = {
   stories: [
     "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../packages/fpkit/**/*.mdx",
     "../packages/fpkit/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
@@ -15,7 +14,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
     "storybook-addon-tag-badges",
-    "@storybook/addon-mdx-gfm"
+    "@storybook/addon-mdx-gfm",
   ],
 
   framework: {
@@ -24,11 +23,11 @@ const config: StorybookConfig = {
   },
 
   docs: {
-    defaultName: "Interactive Guide"
+    defaultName: "Interactive Guide",
   },
 
   typescript: {
-    reactDocgen: "react-docgen-typescript"
-  }
+    reactDocgen: "react-docgen-typescript",
+  },
 };
 export default config;

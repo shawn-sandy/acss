@@ -120,7 +120,8 @@ export const ComponentNameComponent: Story = {
 ## When documenting a React Component `MDX` Documentation
 
 - When writing a README for a react component us MDX to document the components.
-- Name the component with the `*mdx` extension (ComponentName.mdx).
+- Always store the README in the `src/components/ComponentName` directory.
+- Name the README with the `*mdx` extension (ComponentName.mdx).
 - Use MDX to document the components and CSS files.
 - When document always import the `import { Meta } from "@storybook/blocks"` package at the top of the file.
 - add a `<Meta title="FP.REACT Components/ComponentName/Readme" />` below the import statements.
@@ -139,7 +140,7 @@ export const ComponentNameComponent: Story = {
     - Basic Usage
     - Advanced Usage
     - Additional Notes
-  - When documenting `*.stories.mdx`, ensure to include the following usage examples of each story in the file
+- When documenting `*.stories.mdx`, ensure to include the following usage examples of each story in the file
 - When documenting CSS files, ensure to include the following sections:
   - Summary
   - Features
