@@ -35,7 +35,6 @@ const instructions = (
 );
 
 const meta: Meta<typeof Alert> = {
-  title: "FP.REACT Components/Alert",
   component: Alert,
   tags: ["beta"],
   parameters: {
@@ -74,6 +73,7 @@ export const OpenAlert: Story = {
 export const InteractionTest: Story = {
   args: {
     open: true,
+    className: "my alert",
   },
   decorators: [WithInstructions(instructions, "Alert interactions test:")],
   play: async ({ canvasElement, step }) => {
