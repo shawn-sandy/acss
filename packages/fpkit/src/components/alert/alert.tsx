@@ -73,7 +73,7 @@ const Alert: React.FC<AlertProps> = ({
       {...props}
     >
       {severityIcons[severity]}
-      <UI>
+      <UI aria-hidden="true">
         <Icon.Info size={32} />
       </UI>
 
