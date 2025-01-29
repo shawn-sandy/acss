@@ -3,6 +3,7 @@ import { within, expect, userEvent } from "@storybook/test";
 
 import DialogModal from "./dialog-modal";
 import WithInstructions from "#/decorators/instructions";
+import { waitFor } from "@testing-library/react";
 const meta: Meta<typeof DialogModal> = {
   title: "FP.REACT Components/Dialog/DialogModal",
   component: DialogModal,
@@ -102,9 +103,12 @@ export const ModalInteractions: Story = {
       await userEvent.click(openButton, { delay: 1000 });
       await userEvent.tab();
       expect(openButton).not.toHaveFocus();
+
       const dialog = canvas.getByRole("dialog");
-      await userEvent.keyboard(" ", { delay: 1200 });
-      expect(dialog).not.toBeVisible();
+      await userEvent.keyboard(" "); // Close the dialog with the keyboard
+      await waitFor(() => {
+        expect(dialog).not.toBeVisible();
+      });
     });
   },
 } as Story;
