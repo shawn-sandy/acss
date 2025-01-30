@@ -55,7 +55,7 @@ export type AlertProps = {
  */
 const Alert: React.FC<AlertProps> = ({
   open,
-  severity = "info",
+  severity = "default",
   children,
   title,
   dismissible = false,
