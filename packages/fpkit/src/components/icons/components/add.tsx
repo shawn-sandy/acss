@@ -16,7 +16,7 @@ const defaultStyles = {
  * @returns {JSX.Element} - Rendered component
  */
 export const Add = ({
-  fill = "currentColor",
+  fill = "gray",
   size = 24,
   role = "img",
   alt = "Add icon",
