@@ -1,8 +1,8 @@
 import React from "react";
 import UI from "#components/ui";
-import Button from "#components/buttons/button";
 import Icon from "#components/icons/icon";
 import { IconProps } from "#components/icons/types";
+import DismissButton from "./dismiss-button";
 
 /**
  * Props for the Alert component.
@@ -71,15 +71,26 @@ const Alert: React.FC<AlertProps> = ({
 
   if (!isVisible) return null;
 
-  const handleDismiss = () => {
+  const handleDismiss = (): void => {
     setIsVisible(false);
     onDismiss?.();
   };
 
+  /**
+   * Default props for the Icon component used in the Alert component.
+   * These props set the fill color to white and the size to 32 pixels.
+   */
   const defaultIconProps: IconProps = {
-    fill: "gray",
+    fill: "#fff",
     size: 32,
   };
+
+  const severityType = {
+    info: "polite",
+    success: "polite",
+    warning: "polite",
+    error: "assertive",
+  } as const;
 
   const mergedIconProps = { ...defaultIconProps, ...iconProps };
 
@@ -94,8 +105,10 @@ const Alert: React.FC<AlertProps> = ({
     <UI
       as="div"
       role="alert"
-      aria-live={severity === "error" ? "assertive" : "polite"}
+      aria-live={severityType[severity]}
+      aria-atomic="true"
       className={`alert alert-${severity}`}
+      data-alert={severity}
       {...props}
     >
       <UI aria-hidden="true">{severityIcons[severity]}</UI>
@@ -107,19 +120,7 @@ const Alert: React.FC<AlertProps> = ({
         )}
         <UI as="div">{children}</UI>
       </UI>
-      {dismissible && (
-        <Button
-          type="button"
-          onClick={handleDismiss}
-          aria-label="Close alert"
-          className="alert-dismiss"
-          data-btn="icon"
-        >
-          <Icon>
-            <Icon.Close size={16} />
-          </Icon>
-        </Button>
-      )}
+      {dismissible && <DismissButton onDismiss={handleDismiss} />}
     </UI>
   );
 };
