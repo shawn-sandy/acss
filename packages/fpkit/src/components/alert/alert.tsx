@@ -69,6 +69,8 @@ const Alert: React.FC<AlertProps> = ({
     setIsVisible(open);
   }, [open]);
 
+  if (!isVisible) return null;
+
   const handleDismiss = () => {
     setIsVisible(false);
     onDismiss?.();
@@ -79,16 +81,13 @@ const Alert: React.FC<AlertProps> = ({
     size: 32,
   };
 
-  // combine the default icon props with the icon props passed in
   const mergedIconProps = { ...defaultIconProps, ...iconProps };
 
-  if (!isVisible) return null;
-
   const severityIcons = {
-    info: "",
-    success: "",
-    warning: "",
-    error: "",
+    info: <Icon.Info {...mergedIconProps} />,
+    success: <Icon.Add {...mergedIconProps} />,
+    warning: <Icon.Chat {...mergedIconProps} />,
+    error: <Icon.Close {...mergedIconProps} />,
   };
 
   return (
@@ -99,11 +98,7 @@ const Alert: React.FC<AlertProps> = ({
       className={`alert alert-${severity}`}
       {...props}
     >
-      {severityIcons[severity]}
-      <UI aria-hidden="true">
-        <Icon.Info {...mergedIconProps} />
-      </UI>
-
+      <UI aria-hidden="true">{severityIcons[severity]}</UI>
       <UI as="div" className="alert-message">
         {title && (
           <UI as="strong" className="alert-title">

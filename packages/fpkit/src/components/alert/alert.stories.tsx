@@ -100,3 +100,11 @@ export const InteractionTest: Story = {
     });
   },
 } as Story;
+
+export const InfoAlert: Story = {
+  render: () => (
+    <Alert open data-alert="info">
+      Info Alert
+    </Alert>
+  ),
+} as Story;
