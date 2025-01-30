@@ -1,9 +1,8 @@
 import { StoryObj, Meta } from "@storybook/react";
-import { within, expect, userEvent } from "@storybook/test";
+import { within, expect, userEvent, waitFor } from "@storybook/test";
 
 import DialogModal from "./dialog-modal";
 import WithInstructions from "#/decorators/instructions";
-import { waitFor } from "@testing-library/react";
 const meta: Meta<typeof DialogModal> = {
   title: "FP.REACT Components/Dialog/DialogModal",
   component: DialogModal,
