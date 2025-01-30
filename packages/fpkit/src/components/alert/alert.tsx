@@ -2,7 +2,7 @@ import React from "react";
 import UI from "#components/ui";
 import Icon from "#components/icons/icon";
 import { IconProps } from "#components/icons/types";
-import DismissButton from "./dismiss-button";
+import DismissButton from "./elements/dismiss-button";
 
 /**
  * Props for the Alert component.
