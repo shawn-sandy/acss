@@ -1519,6 +1519,10 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
   flex: 1;
   margin-block-start: 0;
 }
+[role=alert][data-alert~=info] {
+  --alert-bg: rgb(206, 226, 251);
+  --alert-color: #081449;
+}
 
 [data-tts] {
   --tts-gap: 0.5rem;

@@ -22,5 +22,9 @@
   flex: 1;
   margin-block-start: 0;
 }
+[role=alert][data-alert~=info] {
+  --alert-bg: rgb(206, 226, 251);
+  --alert-color: #081449;
+}
 
 /*# sourceMappingURL=alert.css.map */
