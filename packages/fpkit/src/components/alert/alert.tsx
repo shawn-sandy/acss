@@ -2,6 +2,7 @@ import React from "react";
 import UI from "#components/ui";
 import Button from "#components/buttons/button";
 import Icon from "#components/icons/icon";
+import { IconProps } from "#components/icons/types";
 
 /**
  * Props for the Alert component.
@@ -33,8 +34,25 @@ export type AlertProps = {
    * Callback when alert is dismissed.
    */
   onDismiss?: () => void;
+  /**
+   * Additional props to pass to the Icon component.
+   */
+  iconProps?: IconProps;
 } & React.ComponentProps<typeof UI>;
 
+/**
+ * A customizable alert component that displays messages with different severity levels.
+ *
+ * @param props The component props
+ * @param props.open Whether the alert is visible
+ * @param props.severity The severity level of the alert ("info", "success", "warning", "error")
+ * @param props.children The content to be displayed within the alert
+ * @param props.title Optional title text displayed at the top of the alert
+ * @param props.dismissible Whether the alert can be dismissed by the user
+ * @param props.onDismiss Callback function triggered when the alert is dismissed
+ * @param props.iconProps Props to customize the alert's icon
+ * @returns A React alert component
+ */
 const Alert: React.FC<AlertProps> = ({
   open,
   severity = "info",
@@ -42,6 +60,7 @@ const Alert: React.FC<AlertProps> = ({
   title,
   dismissible = false,
   onDismiss,
+  iconProps,
   ...props
 }) => {
   const [isVisible, setIsVisible] = React.useState(open);
@@ -54,6 +73,14 @@ const Alert: React.FC<AlertProps> = ({
     setIsVisible(false);
     onDismiss?.();
   };
+
+  const defaultIconProps: IconProps = {
+    fill: "gray",
+    size: 32,
+  };
+
+  // combine the default icon props with the icon props passed in
+  const mergedIconProps = { ...defaultIconProps, ...iconProps };
 
   if (!isVisible) return null;
 
@@ -74,7 +101,7 @@ const Alert: React.FC<AlertProps> = ({
     >
       {severityIcons[severity]}
       <UI aria-hidden="true">
-        <Icon.Info fill="gray" size={32} />
+        <Icon.Info {...mergedIconProps} />
       </UI>
 
       <UI as="div" className="alert-message">
@@ -101,6 +128,5 @@ const Alert: React.FC<AlertProps> = ({
     </UI>
   );
 };
-
 export default Alert;
 Alert.displayName = "Alert";
