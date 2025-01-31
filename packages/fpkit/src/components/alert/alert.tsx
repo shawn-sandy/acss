@@ -44,19 +44,31 @@ export type AlertProps = {
 } & React.ComponentProps<typeof UI>;
 
 /**
- * A customizable alert component that displays messages with different severity levels.
+ * Alert is a customizable component for displaying status messages with different severity levels.
+ * It supports multiple severity types (default, info, success, warning, error) and can include
+ * optional titles and dismissal functionality.
  *
- * @param props The component props
- * @param props.open Whether the alert is visible
- * @param props.severity The severity level of the alert ("info", "success", "warning", "error")
- * @param props.children The content to be displayed within the alert
- * @param props.title Optional title text displayed at the top of the alert
- * @param props.dismissible Whether the alert can be dismissed by the user
- * @param props.onDismiss Callback function triggered when the alert is dismissed
- * @param props.iconProps Props to customize the alert's icon
- * @returns A React alert component
- */
-const Alert: React.FC<AlertProps> = ({
+ * Features:
+ * - Multiple severity levels with matching visual indicators
+ * - Optional title and dismissible states
+ * - Accessible by default with appropriate ARIA attributes
+ * - Customizable icons through iconProps
+ *
+ * @example
+ * ```tsx
+ * <Alert
+ *   open={true}
+ *   severity="info"
+ *   title="Optional Title"
+ *   dismissible={true}
+ *   onDismiss={() => console.log('Alert dismissed')}
+ * >
+ *   Alert message content
+ * </Alert>
+ * ```
+ *
+ * @see {@link AlertProps} for available configuration options
+ */ const Alert: React.FC<AlertProps> = ({
   open,
   severity = "default",
   children,
