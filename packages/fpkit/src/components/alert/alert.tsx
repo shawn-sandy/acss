@@ -4,6 +4,9 @@ import Icon from "#components/icons/icon";
 import { IconProps } from "#components/icons/types";
 import DismissButton from "./elements/dismiss-button";
 
+// First, define a type for the valid severity values
+type Severity = "default" | "info" | "success" | "warning" | "error";
+
 /**
  * Props for the Alert component.
  */
@@ -14,9 +17,9 @@ export type AlertProps = {
   open: boolean;
   /**
    * The severity level of the alert.
-   * @default "info"
+   * @default "default"
    */
-  severity?: "info" | "success" | "warning" | "error";
+  severity?: Severity;
   /**
    * The main message content.
    */
@@ -85,7 +88,9 @@ const Alert: React.FC<AlertProps> = ({
     size: 32,
   };
 
-  const severityType = {
+  // Update the severityType object with the type
+  const severityType: Record<Severity, "polite" | "assertive"> = {
+    default: "polite",
     info: "polite",
     success: "polite",
     warning: "polite",
@@ -94,11 +99,13 @@ const Alert: React.FC<AlertProps> = ({
 
   const mergedIconProps = { ...defaultIconProps, ...iconProps };
 
-  const severityIcons = {
+  // Update the severityIcons object with the type
+  const severityIcons: Record<Severity, JSX.Element> = {
     info: <Icon.Info {...mergedIconProps} />,
     success: <Icon.Add {...mergedIconProps} />,
     warning: <Icon.Chat {...mergedIconProps} />,
     error: <Icon.Close {...mergedIconProps} />,
+    default: <Icon.Info {...mergedIconProps} />,
   };
 
   return (
