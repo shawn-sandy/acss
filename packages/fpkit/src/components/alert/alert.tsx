@@ -96,7 +96,6 @@ export type AlertProps = {
    * These props set the fill color to white and the size to 32 pixels.
    */
   const defaultIconProps: IconProps = {
-    fill: "#fff",
     size: 32,
   };
 

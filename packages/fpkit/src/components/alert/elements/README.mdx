@@ -1,0 +1,77 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/DismissButton/Readme" />
+
+# DismissButton
+
+## Summary
+
+The `DismissButton` component is a reusable button designed to dismiss alerts.
+It includes an icon and an optional callback function for handling dismiss
+actions.
+
+## Features
+
+- Customizable icon size
+- Callback function for dismiss actions
+- Accessible with `aria-label`
+
+## Props
+
+| Name        | Type         | Default | Description                                      |
+| ----------- | ------------ | ------- | ------------------------------------------------ |
+| `onDismiss` | `() => void` | -       | Callback function when dismiss button is clicked |
+| `iconSize`  | `number`     | `16`    | Size of the close icon in pixels                 |
+
+## Technical Details
+
+The `DismissButton` component uses the `Button` and `Icon` components from the
+`#components` library. It is memoized using `React.memo` for performance
+optimization.
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import React from "react";
+import DismissButton from "#components/alert/elements/dismiss-button";
+
+const handleDismiss = () => {
+  console.log("Alert dismissed");
+};
+
+const AlertComponent = () => (
+  <div className="alert">
+    <span>Alert message</span>
+    <DismissButton onDismiss={handleDismiss} />
+  </div>
+);
+
+export default AlertComponent;
+```
+
+### Advanced Usage
+
+```tsx
+import React from "react";
+import DismissButton from "#components/alert/elements/dismiss-button";
+
+const handleDismiss = () => {
+  // Custom logic for dismissing the alert
+};
+
+const CustomAlert = () => (
+  <div className="custom-alert">
+    <span>Custom alert message</span>
+    <DismissButton onDismiss={handleDismiss} iconSize={24} />
+  </div>
+);
+
+export default CustomAlert;
+```
+
+## Additional Notes
+
+- Ensure the `onDismiss` callback is provided to handle the dismiss action.
+- The `iconSize` prop can be adjusted to fit the design requirements.
