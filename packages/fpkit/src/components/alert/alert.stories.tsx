@@ -35,6 +35,7 @@ const instructions = (
 );
 
 const meta: Meta<typeof Alert> = {
+  title: "FP.REACT Components/Alert",
   component: Alert,
   tags: ["beta"],
   parameters: {
