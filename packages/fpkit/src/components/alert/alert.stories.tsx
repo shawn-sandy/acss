@@ -71,6 +71,35 @@ export const OpenAlert: Story = {
   decorators: [ButtonDecorator],
 } as Story;
 
+export const SuccessAlert: Story = {
+  args: {
+    open: true,
+    severity: "success",
+  },
+} as Story;
+
+export const WarningAlert: Story = {
+  args: {
+    open: true,
+    severity: "warning",
+  },
+} as Story;
+
+export const ErrorAlert: Story = {
+  args: {
+    open: true,
+    severity: "error",
+  },
+} as Story;
+
+export const InfoAlert: Story = {
+  render: () => (
+    <Alert open data-alert="info">
+      Info Alert
+    </Alert>
+  ),
+} as Story;
+
 export const InteractionTest: Story = {
   args: {
     open: true,
@@ -100,12 +129,4 @@ export const InteractionTest: Story = {
       expect(alert).not.toBeInTheDocument();
     });
   },
-} as Story;
-
-export const InfoAlert: Story = {
-  render: () => (
-    <Alert open data-alert="info">
-      Info Alert
-    </Alert>
-  ),
 } as Story;
