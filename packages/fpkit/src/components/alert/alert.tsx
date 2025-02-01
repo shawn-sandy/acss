@@ -96,7 +96,7 @@ export type AlertProps = {
    * These props set the fill color to white and the size to 32 pixels.
    */
   const defaultIconProps: IconProps = {
-    size: 32,
+    size: 24,
   };
 
   // Update the severityType object with the type
@@ -112,11 +112,11 @@ export type AlertProps = {
 
   // Update the severityIcons object with the type
   const severityIcons: Record<Severity, JSX.Element> = {
-    info: <Icon.Info {...mergedIconProps} />,
-    success: <Icon.Add {...mergedIconProps} />,
-    warning: <Icon.Chat {...mergedIconProps} />,
-    error: <Icon.Close {...mergedIconProps} />,
-    default: <Icon.Info {...mergedIconProps} />,
+    info: <Icon.InfoSolid {...mergedIconProps} />,
+    success: <Icon.SuccessSolid {...mergedIconProps} />,
+    warning: <Icon.WarnSolid {...mergedIconProps} />,
+    error: <Icon.AlertSolid {...mergedIconProps} />,
+    default: <Icon.QuestionSolid {...mergedIconProps} />,
   };
 
   return (

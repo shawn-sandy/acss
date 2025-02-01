@@ -28,3 +28,8 @@ export * from "./components/play-solid";
 export * from "./components/pause-solid";
 export * from "./components/resume-solid";
 export * from "./components/info";
+export * from "./components/alert-solid";
+export * from "./components/info-solid";
+export * from "./components/question-solid";
+export * from "./components/warn-solid";
+export * from "./components/success-solid";

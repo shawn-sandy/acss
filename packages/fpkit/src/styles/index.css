@@ -1556,6 +1556,9 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
   --alert-color: var(--alert-success-text);
   border-color: var(--alert-success-border);
 }
+[role=alert] button[data-btn~=icon] {
+  --btn-bg: transparent;
+}
 
 [data-tts] {
   --tts-gap: 0.5rem;

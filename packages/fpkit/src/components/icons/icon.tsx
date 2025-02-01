@@ -25,6 +25,11 @@ import {
   PauseSolid,
   ResumeSolid,
   StopSolid,
+  AlertSolid,
+  InfoSolid,
+  QuestionSolid,
+  WarnSolid,
+  SuccessSolid,
 } from "./index";
 
 import UI from "#components/ui";
@@ -84,6 +89,8 @@ Icon.Copy = Copy;
 Icon.Down = Down;
 Icon.Home = Home;
 Icon.Info = Info;
+Icon.InfoSolid = InfoSolid;
+Icon.AlertSolid = AlertSolid;
 Icon.Left = Left;
 Icon.Minus = Minus;
 Icon.Pause = Pause;
@@ -100,6 +107,9 @@ Icon.StopSolid = StopSolid;
 Icon.Up = Up;
 Icon.User = User;
 Icon.styles = defaultStyles;
+Icon.QuestionSolid = QuestionSolid;
+Icon.WarnSolid = WarnSolid;
+Icon.SuccessSolid = SuccessSolid;
 
 // aliases
 Icon.Close = Icon.Remove;

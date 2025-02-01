@@ -59,5 +59,8 @@
   --alert-color: var(--alert-success-text);
   border-color: var(--alert-success-border);
 }
+[role=alert] button[data-btn~=icon] {
+  --btn-bg: transparent;
+}
 
 /*# sourceMappingURL=alert.css.map */
