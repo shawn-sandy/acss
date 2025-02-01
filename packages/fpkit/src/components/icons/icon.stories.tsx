@@ -213,3 +213,33 @@ export const Info: Story = {
     children: <Icon.Info />,
   },
 } as Story;
+
+export const Alert: Story = {
+  args: {
+    children: <Icon.AlertSolid />,
+  },
+} as Story;
+
+export const InfoSolid: Story = {
+  args: {
+    children: <Icon.InfoSolid />,
+  },
+} as Story;
+
+export const QuestionSolid: Story = {
+  args: {
+    children: <Icon.QuestionSolid />,
+  },
+} as Story;
+
+export const WarnSolid: Story = {
+  args: {
+    children: <Icon.WarnSolid />,
+  },
+} as Story;
+
+export const SuccessSolid: Story = {
+  args: {
+    children: <Icon.SuccessSolid />,
+  },
+} as Story;

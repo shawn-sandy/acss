@@ -67,10 +67,6 @@ export const DefaultAlert: Story = {
   },
 } as Story;
 
-export const OpenAlert: Story = {
-  decorators: [ButtonDecorator],
-} as Story;
-
 export const SuccessAlert: Story = {
   args: {
     open: true,
@@ -98,6 +94,10 @@ export const InfoAlert: Story = {
       Info Alert
     </Alert>
   ),
+} as Story;
+
+export const OpenAlert: Story = {
+  decorators: [ButtonDecorator],
 } as Story;
 
 export const InteractionTest: Story = {
