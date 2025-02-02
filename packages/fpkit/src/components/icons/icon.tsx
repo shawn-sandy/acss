@@ -30,6 +30,7 @@ import {
   QuestionSolid,
   WarnSolid,
   SuccessSolid,
+  AlertSquareSolid,
 } from "./index";
 
 import UI from "#components/ui";
@@ -110,6 +111,6 @@ Icon.styles = defaultStyles;
 Icon.QuestionSolid = QuestionSolid;
 Icon.WarnSolid = WarnSolid;
 Icon.SuccessSolid = SuccessSolid;
-
+Icon.AlertSquareSolid = AlertSquareSolid;
 // aliases
 Icon.Close = Icon.Remove;

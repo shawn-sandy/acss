@@ -33,3 +33,4 @@ export * from "./components/info-solid";
 export * from "./components/question-solid";
 export * from "./components/warn-solid";
 export * from "./components/success-solid";
+export * from "./components/alert-square-solid";

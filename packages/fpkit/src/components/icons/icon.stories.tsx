@@ -243,3 +243,9 @@ export const SuccessSolid: Story = {
     children: <Icon.SuccessSolid />,
   },
 } as Story;
+
+export const AlertSquareSolid: Story = {
+  args: {
+    children: <Icon.AlertSquareSolid />,
+  },
+} as Story;
