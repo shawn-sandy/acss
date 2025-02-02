@@ -41,14 +41,15 @@ const meta: Meta<typeof Alert> = {
   parameters: {
     docs: {
       description: {
-        component: "Alert component description here...",
+        component:
+          "The Alert component is used to display important messages to users. It can be dismissible and supports various interaction tests",
       },
     },
-    // layout: "centered",
   },
   args: {
     title: "Alert Title",
-    children: "This is an alert message",
+    children:
+      "The Alert component is used to display important messages to users.",
     dismissible: true,
     onDismiss: () => fn(),
   },
@@ -89,11 +90,10 @@ export const ErrorAlert: Story = {
 } as Story;
 
 export const InfoAlert: Story = {
-  render: () => (
-    <Alert open data-alert="info">
-      Info Alert
-    </Alert>
-  ),
+  args: {
+    open: true,
+    severity: "info",
+  },
 } as Story;
 
 export const OpenAlert: Story = {

@@ -132,7 +132,7 @@ export type AlertProps = {
       <UI aria-hidden="true">{severityIcons[severity]}</UI>
       <UI as="div" className="alert-message">
         {title && (
-          <UI as="strong" className="alert-title">
+          <UI as="h3" className="alert-title">
             {title}
           </UI>
         )}
