@@ -124,7 +124,7 @@ export type AlertProps = {
     success: <Icon.SuccessSolid {...mergedIconProps} />,
     warning: <Icon.WarnSolid {...mergedIconProps} />,
     error: <Icon.AlertSolid {...mergedIconProps} />,
-    default: <Icon.QuestionSolid {...mergedIconProps} />,
+    default: <Icon.AlertSquareSolid {...mergedIconProps} />,
   };
 
   return (
