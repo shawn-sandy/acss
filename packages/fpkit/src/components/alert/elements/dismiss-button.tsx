@@ -15,7 +15,7 @@ export const DismissButton = React.memo(
       onClick={onDismiss}
       aria-label="Close alert"
       className="alert-dismiss"
-      data-btn="icon"
+      data-btn="icon sm"
     >
       <Icon>
         <Icon.Close size={iconSize} />
