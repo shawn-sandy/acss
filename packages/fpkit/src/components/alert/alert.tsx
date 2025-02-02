@@ -37,6 +37,13 @@ export type AlertProps = {
    * Callback when alert is dismissed.
    */
   onDismiss?: () => void;
+
+  /**
+   * Size of the icon in pixels.
+   * @default 32
+   */
+  iconSize?: number;
+
   /**
    * Additional props to pass to the Icon component.
    */
@@ -75,6 +82,7 @@ export type AlertProps = {
   title,
   dismissible = false,
   onDismiss,
+  iconSize,
   iconProps,
   ...props
 }) => {
@@ -96,7 +104,7 @@ export type AlertProps = {
    * These props set the fill color to white and the size to 32 pixels.
    */
   const defaultIconProps: IconProps = {
-    size: 24,
+    size: iconSize || 32,
   };
 
   // Update the severityType object with the type

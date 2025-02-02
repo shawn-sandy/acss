@@ -1522,7 +1522,6 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
   line-height: 1.6;
   display: flex;
   flex-direction: row;
-  align-items: center;
   border-radius: var(--alert-border-radius, var(--border-radius));
   border: var(--alert-border);
   gap: var(--alert-gap, var(--spc-4));
@@ -1560,6 +1559,7 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
 }
 [role=alert] button[data-btn~=icon] {
   --btn-bg: transparent;
+  max-height: fit-content;
 }
 
 [data-tts] {
