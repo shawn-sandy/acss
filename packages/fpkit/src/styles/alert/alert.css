@@ -32,12 +32,14 @@
 }
 [role=alert] div {
   margin-block-start: 0;
-  display: flex;
   align-items: center;
 }
 [role=alert] .alert-message {
-  flex: 1;
+  flex: 2;
   margin-block-start: 0;
+}
+[role=alert] .alert-message h3 {
+  margin-block-end: 0;
 }
 [role=alert][data-alert~=info] {
   --alert-bg: var(--alert-info-bg);
