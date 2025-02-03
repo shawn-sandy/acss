@@ -104,6 +104,7 @@ export const InteractionTest: Story = {
   args: {
     open: true,
     className: "my alert",
+    severity: "info",
   },
   decorators: [WithInstructions(instructions, "Alert interactions test:")],
   play: async ({ canvasElement, step }) => {
