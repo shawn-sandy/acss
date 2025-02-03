@@ -520,6 +520,7 @@ button[data-btn~=lg] {
 button[data-btn~=icon] {
   padding: unset;
   height: unset;
+  --btn-bg: transparent;
   min-width: 1.5rem;
   min-height: 1.5rem;
   text-align: center;
