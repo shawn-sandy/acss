@@ -1,86 +1,74 @@
 import { Meta } from "@storybook/blocks";
 
+<Meta title="FP.REACT Components/Alert/Readme" />
+
 # Alert Component
 
 ## Summary
 
-The Alert component is used to display important messages to users. It can be
-dismissible and supports various interaction tests.
+The `Alert` component is a customizable component for displaying status messages
+with different severity levels. It supports multiple severity types (default,
+info, success, warning, error) and can include optional titles and dismissal
+functionality.
 
 ## Features
 
-- Display alert messages
-- Dismissible option
-- Customizable title and content
-- Interaction testing support
+- Multiple severity levels with matching visual indicators
+- Optional title and dismissible states
+- Accessible by default with appropriate ARIA attributes
+- Customizable icons through `iconProps`
 
 ## Props
 
-| Prop          | Type        | Description                               |
-| ------------- | ----------- | ----------------------------------------- |
-| `title`       | `string`    | The title of the alert                    |
-| `children`    | `ReactNode` | The content of the alert                  |
-| `dismissible` | `boolean`   | Whether the alert can be dismissed        |
-| `onDismiss`   | `function`  | Callback function when alert is dismissed |
-| `open`        | `boolean`   | Whether the alert is visible              |
-| `className`   | `string`    | Additional CSS classes for the alert      |
+```tsx
+export type AlertProps = {
+  open: boolean;
+  severity?: "default" | "info" | "success" | "warning" | "error";
+  children: React.ReactNode;
+  title?: string;
+  dismissible?: boolean;
+  onDismiss?: () => void;
+  iconProps?: IconProps;
+} & React.ComponentProps<typeof UI>;
+```
 
 ## Technical Details
 
-The Alert component is built using React functional components and hooks. It
-supports interaction testing using Storybook.
+The `Alert` component uses the `UI` component for rendering and supports various
+severity levels with corresponding ARIA attributes for accessibility. It also
+allows for custom icons through the `iconProps` prop.
 
 ## Usage Example
 
 ### Basic Usage
 
 ```tsx
-import React from "react";
-import Alert from "./alert";
+import Alert from "#components/alert";
 
-const App = () => (
-  <Alert
-    title="Alert Title"
-    dismissible={true}
-    onDismiss={() => console.log("Alert dismissed")}
-  >
-    This is an alert message
-  </Alert>
-);
-
-export default App;
+<Alert open={true} severity="info">
+  This is an info alert.
+</Alert>;
 ```
 
 ### Advanced Usage
 
 ```tsx
-import React, { useState } from "react";
-import Alert from "./alert";
+import Alert from "#components/alert";
 
-const App = () => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  return (
-    <div>
-      <button onClick={() => setIsOpen(!isOpen)}>Toggle Alert</button>
-      {isOpen && (
-        <Alert
-          title="Advanced Alert"
-          dismissible={true}
-          onDismiss={() => setIsOpen(false)}
-        >
-          This is an advanced alert message
-        </Alert>
-      )}
-    </div>
-  );
-};
-
-export default App;
+<Alert
+  open={true}
+  severity="error"
+  title="Error"
+  dismissible={true}
+  onDismiss={() => console.log("Alert dismissed")}
+  iconProps={{ fill: "#000", size: 24 }}
+>
+  This is an error alert with a custom icon.
+</Alert>;
 ```
 
 ### Additional Notes
 
-- Ensure to handle the `onDismiss` callback to manage the alert's visibility
-  state.
-- Customize the alert's appearance using the `className` prop.
+- The `Alert` component is designed to be accessible by default.
+- The `dismissible` prop allows the alert to be dismissed by the user.
+- Custom icons can be provided through the `iconProps` prop.
