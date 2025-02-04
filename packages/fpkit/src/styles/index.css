@@ -1560,7 +1560,7 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
 }
 [role=alert] button[data-btn~=icon] {
   --btn-bg: transparent;
-  max-height: fit-content;
+  max-height: 1.5rem;
 }
 
 [data-tts] {

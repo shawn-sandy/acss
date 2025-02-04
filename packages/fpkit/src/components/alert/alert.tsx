@@ -75,7 +75,9 @@ export type AlertProps = {
  * ```
  *
  * @see {@link AlertProps} for available configuration options
- */ const Alert: React.FC<AlertProps> = ({
+ */
+
+const Alert: React.FC<AlertProps> = ({
   open,
   severity = "default",
   children,
