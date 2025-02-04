@@ -1,0 +1,96 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Button/Readme" />
+
+# Button
+
+## Summary
+
+The `Button` component is a versatile and customizable button element that
+supports various types and styles. It is designed to be reusable and accessible.
+
+## Features
+
+- Supports `button`, `submit`, and `reset` types
+- Customizable styles and classes
+- Handles various pointer events
+- Accessible with `aria-disabled` attribute
+
+## Props
+
+| Name             | Type                                                 | Default    | Description                            |
+| ---------------- | ---------------------------------------------------- | ---------- | -------------------------------------- |
+| `type`           | `'button' \| 'submit' \| 'reset'`                    | `'button'` | The button type                        |
+| `styles`         | `React.CSSProperties`                                | -          | Inline styles for the button           |
+| `disabled`       | `boolean`                                            | `false`    | Disables the button when set to `true` |
+| `classes`        | `string`                                             | -          | Additional CSS classes for the button  |
+| `onPointerDown`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer down event        |
+| `onPointerOver`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer over event        |
+| `onPointerLeave` | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer leave event       |
+| `onClick`        | `(e: React.MouseEvent<HTMLButtonElement>) => void`   | -          | Callback for click event               |
+
+## Technical Details
+
+The `Button` component uses the `UI` component from the `#components/ui`
+library. It handles various pointer events and ensures accessibility by using
+the `aria-disabled` attribute.
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import React from "react";
+import Button from "#components/buttons/button";
+
+const handleClick = () => {
+  console.log("Button clicked");
+};
+
+const BasicButton = () => (
+  <Button type="button" onClick={handleClick}>
+    Click Me
+  </Button>
+);
+
+export default BasicButton;
+```
+
+### Advanced Usage
+
+```tsx
+import React from "react";
+import Button from "#components/buttons/button";
+
+const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+  console.log("Pointer down", e);
+};
+
+const handlePointerOver = (e: React.PointerEvent<HTMLButtonElement>) => {
+  console.log("Pointer over", e);
+};
+
+const handlePointerLeave = (e: React.PointerEvent<HTMLButtonElement>) => {
+  console.log("Pointer leave", e);
+};
+
+const AdvancedButton = () => (
+  <Button
+    type="submit"
+    styles={{ backgroundColor: "blue", color: "white" }}
+    onPointerDown={handlePointerDown}
+    onPointerOver={handlePointerOver}
+    onPointerLeave={handlePointerLeave}
+  >
+    Submit
+  </Button>
+);
+
+export default AdvancedButton;
+```
+
+## Additional Notes
+
+- Ensure the `type` prop is set to one of `'button'`, `'submit'`, or `'reset'`.
+- The `styles` prop can be used to apply inline styles to the button.
+- The `disabled` prop can be used to disable the button.
