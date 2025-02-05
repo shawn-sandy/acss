@@ -62,7 +62,6 @@
 }
 [role=alert] button[data-btn~=icon] {
   --btn-bg: transparent;
-  max-height: 1.5rem;
 }
 
 /*# sourceMappingURL=alert.css.map */

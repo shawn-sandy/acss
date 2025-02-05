@@ -9,9 +9,11 @@ button {
   --btn-fs: 0.9375rem;
   --btn-bg: lightgray;
   --btn-width: max-content;
+  --btn-calc-height: var(--btn-height, calc(40rem / 16));
   font-size: var(--btn-fs);
   font-weight: var(--btn-fw, 500);
   height: var(--btn-height, 2.5rem);
+  max-height: var(--btn-calc-height);
   min-height: 1.5rem;
   place-items: var(--btn-place, center);
   padding-inline: var(--btn-px, calc(var(--btn-fs) + 1.1%));
