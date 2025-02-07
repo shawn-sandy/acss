@@ -30,9 +30,6 @@ details {
   transition: var(--summary-transitions);
   max-height: var(--max-h-closed);
   overflow: clip;
-  // border-radius: var(--details-radius);
-
-  // Handle multiple details elements
   & + details {
     border-radius: 0; // remove radius from middle elements
     border-top: none; // optional: remove double borders
