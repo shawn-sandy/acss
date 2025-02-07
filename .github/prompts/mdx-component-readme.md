@@ -1,7 +1,5 @@
 # You are a developer working on a React project. You are given a task to document a React component using MDX. Follow the instructions below to complete the task
 
-## When documenting a React Component `MDX` Documentation
-
 - When writing a README for a react component us MDX to document the components.
 - Always store the README in the in the same directory as the component.
 - Name the document as `README` with the `*mdx` extension (ComponentName.mdx).
