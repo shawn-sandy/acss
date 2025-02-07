@@ -104,7 +104,7 @@ export const ModalInteractions: Story = {
       expect(openButton).not.toHaveFocus();
 
       const dialog = canvas.getByRole("dialog");
-      await userEvent.keyboard(" "); // Close the dialog with the keyboard
+      await userEvent.type(dialog, "{Escape}", { delay: 500 }); // Close the dialog with the keyboard
       await waitFor(() => {
         expect(dialog).not.toBeVisible();
       });
