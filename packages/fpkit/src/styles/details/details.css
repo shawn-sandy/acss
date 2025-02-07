@@ -8,7 +8,7 @@ details {
   --details-gap: 0rem;
   --details-px: 1.5rem;
   --details-py: 1rem;
-  --details-radius: var(--border-radius);
+  --details-radius: 0;
   --summary-cursor: pointer;
   --summary-transitions: all 0.75s ease-in-out;
   --summary-display: flex;
@@ -24,10 +24,11 @@ details {
   gap: var(--details-gap);
   width: var(--details-w);
   border: var(--details-border);
+  border-left: none;
+  border-right: none;
   transition: var(--summary-transitions);
   max-height: var(--max-h-closed);
   overflow: clip;
-  border-radius: var(--details-radius);
 }
 details + details {
   border-radius: 0;
