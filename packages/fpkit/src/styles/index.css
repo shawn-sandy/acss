@@ -823,7 +823,7 @@ details summary::-webkit-details-marker {
 }
 details summary:focus-within {
   outline: none;
-  border-bottom: solid 2px var(--details-border);
+  border-bottom: solid 2px currentColor;
   background-color: whitesmoke;
 }
 details summary:hover {
@@ -831,6 +831,10 @@ details summary:hover {
 }
 details summary > section {
   width: var(--details-w);
+}
+details .list-styles summary {
+  border-left: none;
+  border-right: none;
 }
 details > section {
   padding-inline: var(--details-px);

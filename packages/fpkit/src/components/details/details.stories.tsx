@@ -60,6 +60,12 @@ export const DetailsDropdown: Story = {
   },
 } as Story;
 
+export const DetailsStyles: Story = {
+  args: {
+    classes: "list-style",
+  },
+} as Story;
+
 export const DetailsOpen: Story = {
   args: {
     open: true,
@@ -123,19 +129,41 @@ export const DetailsAccordion: Story = {
 
 export const DetailsInteractionTest: Story = {
   args: {},
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
     // Find the summary element
     const summaryElement = canvas.getByText("Summary Section");
+    // add an open step
+    await step("Open the details", async () => {
+      // Simulate a click on the summary element
+      await userEvent.click(summaryElement, { delay: 500 });
 
-    // Simulate a click on the summary element
-    await userEvent.click(summaryElement);
-
-    // Assert that the details element is open
-    const detailsElement = canvas.getByRole("group", {
-      name: /details dropdown/i,
+      // Assert that the details element is open
+      const detailsElement = canvas.getByRole("group", {
+        name: /details dropdown/i,
+      });
+      expect(detailsElement).toHaveAttribute("open");
     });
-    expect(detailsElement).toHaveAttribute("open");
+
+    await step("Close the detail panel", async () => {
+      await userEvent.click(summaryElement, { delay: 500 });
+
+      expect(summaryElement).not.toHaveAttribute("open");
+    });
+
+    // test if it works with the space bar
+    await step("Open the details with space", async () => {
+      summaryElement.focus();
+      expect(summaryElement).toHaveFocus();
+
+      await userEvent.type(summaryElement, "{space}", { delay: 500 });
+
+      // Assert that the details element is open
+      const detailsElement = canvas.getByRole("group", {
+        name: /details dropdown/i,
+      });
+      expect(detailsElement).toHaveAttribute("open");
+    });
   },
 };
