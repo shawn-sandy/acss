@@ -1,4 +1,4 @@
-You are a developer working on a React project. You are given a task to document a React component using MDX. Follow the instructions below to complete the task.
+# You are a developer working on a React project. You are given a task to document a React component using MDX. Follow the instructions below to complete the task
 
 ## When documenting a React Component `MDX` Documentation
 
