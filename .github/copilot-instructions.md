@@ -37,41 +37,6 @@ Suggest a informative commit message by summarizing code changes from the shared
 - Prefer interfaces over types for object shapes.
 - Use functional components with TypeScript interfaces.
 
-## When creating a React Components  
-
-- Use functional components with hooks.
-- Use React.memo for performance optimization when necessary.
-- Ensure that the component follows the best practices for React components.
-- Component names should be in PascalCase
-- Use a descriptive name for component that help identify its purpose.
-- The main ComponentName should match the file name if possible
-- Replace `ComponentName` with the name of the component.
-- Replace ComponentNameProps with the `ComponentNAmeProps` interface.
-- Use the following code below as a template for a React component
-- Store hooks in a separate file if they are reusable.
-- place hooks in a folder named `hooks` in the `src/component` directory.
-  
-```tsx
-import React from 'react'
-import UI from '#components/ui'
-
-export type ComponentNameProps = {
-    children: React.ReactNode
-}
-
-const ComponentName = ({children, ...props}: ComponentNameProps): JSX.Element => {
-    return (
-        <UI as="div" {...props}>
-            {children}
-        </UI>
-    )
-}
-
-export default ComponentName
-ComponentName.displayName = 'ComponentName'
-
-```
-
 ## React Component Stories
 
 - Use Storybook to document the components.
@@ -116,36 +81,6 @@ export const ComponentNameComponent: Story = {
   },
 }
 ```
-
-## When documenting a React Component `MDX` Documentation
-
-- When writing a README for a react component us MDX to document the components.
-- Always store the README in the in the same directory as the component.
-- Name the document as `README` with the `*mdx` extension (ComponentName.mdx).
-- Use MDX to document the components and CSS files.
-- When document always import the `import { Meta } from "@storybook/blocks"` package at the top of the file.
-- add a `<Meta title="FP.REACT Components/ComponentName/Readme" />` below the import statements.
-- Write documentation for the component.
-- Use the `./story-readme-example.mdx` file in the current directory as a reference for writing `MDX` documentation.
-- Replace `ComponentName` with the name of the component.
-- Replace the import path with the correct path to the component.
-- Always wrap code examples in the appropriate MD/MDX code block.
-- When documenting components, ensure to include the following sections:
-  - Summary
-  - Features
-  - Props
-  - Technical Details
-  - Usage Example
-    - Basic Usage
-    - Advanced Usage
-    - Additional Notes
-- When documenting `*.stories.mdx`, ensure to include the following usage examples of each story in the file
-- When documenting CSS files, ensure to include the following sections:
-  - Summary
-  - Features
-  - Usage
-  - Key Features
-  - Styling
 
 ## Ticket Writing for features, enhancements and bugs
 
