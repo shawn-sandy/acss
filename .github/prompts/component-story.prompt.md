@@ -14,7 +14,7 @@ import { within, expect } from '@storybook/test'
 import ComponentName from 'import_path'
 
 const meta: Meta<typeof ComponentName> = {
-  title: 'FP.REACT Components/ComponentName/ComponentName',
+  title: 'FP.ACSS Components/ComponentName/ComponentName',
   component: ComponentName,
   tags: ['new'],
   parameters: {
