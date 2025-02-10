@@ -45,6 +45,11 @@ export type AlertProps = {
   iconSize?: number;
 
   /**
+   * Whether to hide the icon.
+   */
+  hideIcon?: boolean;
+
+  /**
    * Additional props to pass to the Icon component.
    */
   iconProps?: IconProps;
@@ -75,7 +80,9 @@ export type AlertProps = {
  * ```
  *
  * @see {@link AlertProps} for available configuration options
- */ const Alert: React.FC<AlertProps> = ({
+ */
+
+const Alert: React.FC<AlertProps> = ({
   open,
   severity = "default",
   children,
@@ -84,6 +91,7 @@ export type AlertProps = {
   onDismiss,
   iconSize,
   iconProps,
+  hideIcon,
   ...props
 }) => {
   const [isVisible, setIsVisible] = React.useState(open);
@@ -137,7 +145,7 @@ export type AlertProps = {
       data-alert={severity}
       {...props}
     >
-      <UI aria-hidden="true">{severityIcons[severity]}</UI>
+      {!hideIcon && <UI aria-hidden="true">{severityIcons[severity]}</UI>}
       <UI as="div" className="alert-message">
         {title && (
           <UI as="h3" className="alert-title">

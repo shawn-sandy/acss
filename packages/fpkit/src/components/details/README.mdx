@@ -1,0 +1,101 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Details/Readme" />
+
+# Details Component
+
+## Summary
+
+The `Details` component is a versatile and accessible component that provides a
+collapsible section for displaying content. It is built using functional
+components and hooks, ensuring reusability and performance optimization.
+
+## Features
+
+- Accessible with aria-label support.
+- Customizable with styles and class names.
+- Supports icons and custom summary content.
+- Easy to integrate and use in any React application.
+
+## Props
+
+| Name            | Type                                                  | Description                                       |
+| --------------- | ----------------------------------------------------- | ------------------------------------------------- |
+| `summary`       | `React.ReactNode`                                     | The summary text shown for the details. Required. |
+| `ariaLabel`     | `string`                                              | The aria-label element for accessibility.         |
+| `styles`        | `React.CSSProperties`                                 | CSS styles object.                                |
+| `classes`       | `string`                                              | Classnames string.                                |
+| `open`          | `boolean`                                             | Whether the details is open.                      |
+| `onToggle`      | `(e: React.PointerEvent<HTMLDetailsElement>) => void` | onToggle callback.                                |
+| `onPointerDown` | `(e: React.PointerEvent<HTMLDetailsElement>) => void` | onPointerDown callback.                           |
+| `children`      | `React.ReactNode`                                     | The content inside the details.                   |
+| `ref`           | `React.Ref<any>`                                      | Ref object.                                       |
+| `name`          | `string`                                              | Name attribute for the details element.           |
+
+## Technical Details
+
+The `Details` component is built using TypeScript for type-checking and enhanced
+developer experience. It uses functional components and hooks to ensure
+performance and reusability.
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import React from "react";
+import Details from "./details";
+import Icons from "../icons/icon";
+
+const content = (
+  <>
+    <p>Example content inside the details component.</p>
+  </>
+);
+
+const icon = <Icons.Add />;
+
+const Example = () => (
+  <Details summary="Summary Section" icon={icon} ariaLabel="Details Section">
+    {content}
+  </Details>
+);
+
+export default Example;
+```
+
+### Advanced Usage
+
+```tsx
+import React from "react";
+import Details from "./details";
+import Icons from "../icons/icon";
+
+const content = (
+  <>
+    <p>Advanced example content inside the details component.</p>
+  </>
+);
+
+const icon = <Icons.Add />;
+
+const AdvancedExample = () => (
+  <Details
+    summary="Advanced Summary Section"
+    icon={icon}
+    ariaLabel="Advanced Details Section"
+    open={true}
+    onToggle={(e) => console.log("Toggled", e)}
+  >
+    {content}
+  </Details>
+);
+
+export default AdvancedExample;
+```
+
+### Additional Notes
+
+- Ensure to provide meaningful aria-labels for accessibility.
+- Customize the component using the `styles` and `classes` props.
+- Use the `onToggle` and `onPointerDown` callbacks for custom interactions.

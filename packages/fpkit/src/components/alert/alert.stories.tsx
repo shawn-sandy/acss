@@ -118,13 +118,13 @@ export const InteractionTest: Story = {
         expect(dismissButton).toBeInTheDocument();
       }
     );
-    // await step(
-    //   "Tab through the alert and check if the button gets focused",
-    //   async () => {
-    //     userEvent.tab({ delay: 500 });
-    //     expect(dismissButton).toHaveFocus();
-    //   }
-    // );
+    await step(
+      "Tab through the alert and check if the button gets focused",
+      async () => {
+        await userEvent.tab({ delay: 500 });
+        expect(dismissButton).toHaveFocus();
+      }
+    );
     await step("Click the button to dismiss the alert", async () => {
       await userEvent.click(dismissButton, { delay: 500 });
       expect(alert).not.toBeInTheDocument();

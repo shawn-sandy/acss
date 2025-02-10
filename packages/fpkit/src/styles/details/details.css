@@ -1,22 +1,22 @@
 details {
-  --details-w: 100%;
-  --details-h: max-content;
-  --details-border: 1px solid #dfdfdf;
-  --details-display: flex;
-  --details-justify: flex-start;
+  --details-border: 0.0625rem solid #dfdfdf;
   --details-direction: column;
+  --details-display: flex;
   --details-gap: 0rem;
+  --details-h: max-content;
+  --details-justify: flex-start;
   --details-px: 1.5rem;
   --details-py: 1rem;
-  --details-radius: var(--border-radius);
-  --summary-cursor: pointer;
-  --summary-transitions: all 0.75s ease-in-out;
-  --summary-display: flex;
-  --summary-justify: flex-start;
-  --summary-align: center;
-  --summary-gap: 0.5rem;
+  --details-radius: 0;
+  --details-w: 100%;
   --max-h-closed: 6.25rem;
   --max-h-open: 50rem;
+  --summary-align: center;
+  --summary-cursor: pointer;
+  --summary-display: flex;
+  --summary-gap: 0.5rem;
+  --summary-justify: flex-start;
+  --summary-transitions: all 0.75s ease-in-out;
   interpolate-size: allow-keywords;
   display: var(--details-display);
   flex-direction: var(--details-direction);
@@ -24,10 +24,11 @@ details {
   gap: var(--details-gap);
   width: var(--details-w);
   border: var(--details-border);
+  border-left: none;
+  border-right: none;
   transition: var(--summary-transitions);
   max-height: var(--max-h-closed);
   overflow: clip;
-  border-radius: var(--details-radius);
 }
 details + details {
   border-radius: 0;
@@ -63,7 +64,7 @@ details summary::-webkit-details-marker {
 }
 details summary:focus-within {
   outline: none;
-  border-bottom: solid 2px var(--details-border);
+  border-bottom: solid 2px currentColor;
   background-color: whitesmoke;
 }
 details summary:hover {
@@ -71,6 +72,10 @@ details summary:hover {
 }
 details summary > section {
   width: var(--details-w);
+}
+details .list-styles summary {
+  border-left: none;
+  border-right: none;
 }
 details > section {
   padding-inline: var(--details-px);
