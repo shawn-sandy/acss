@@ -6,7 +6,6 @@
 - Component names should be in PascalCase and define the purpose of the component.
 - Use a descriptive name for component that help identify its purpose.
 - Use TypeScript types to ensure type safety.
-- Use memoization techniques to optimize performance only when necessary.
 - Place hooks in a folder named `hooks` in the `src/component` directory.
 - Use the following code below as a starter template for new React component
 - Replace `ComponentName` with the name of the component.
