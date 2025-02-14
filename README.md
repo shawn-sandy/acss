@@ -24,7 +24,6 @@ The project is organized as follows:
 │   ├── services        # API services
 │   └── styles         # Global styles
 ├── .eslintrc.js        # ESLint configuration
-├── tailwind.config.js  # Tailwind CSS configuration
 ├── tsconfig.json       # TypeScript configuration
 ├── vite.config.ts      # Vite configuration
 └── package.json        # Project dependencies and scripts
