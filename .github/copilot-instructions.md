@@ -107,3 +107,46 @@ This repository uses **Vitest** as the primary testing framework for unit and in
 - Use **snapshot testing** only for stable UI components.
 - Ensure code coverage is maintained by testing critical business logic and UI behaviors.
 - Follow **accessibility best practices** in tests, ensuring components are usable with assistive technologies.
+
+# Custom Instructions for GitHub Copilot
+
+## Documentation Context
+
+This repository follows best practices for **code documentation** to ensure clarity, maintainability, and collaboration. Documentation should:
+
+- Use **JSDoc** (for JavaScript/TypeScript) or **docstrings** (for Python).
+- Provide clear descriptions for **functions, classes, parameters, and return values**.
+- Include **usage examples** where applicable.
+- Maintain consistency with **Markdown syntax** for README files and inline comments.
+
+## Response Guidelines for writing documentation
+
+- Use **JSDoc** format for JavaScript/TypeScript code:
+
+  ```ts
+  /**
+   * Calculates the sum of two numbers.
+   * @param {number} a - The first number.
+   * @param {number} b - The second number.
+   * @returns {number} The sum of a and b.
+   * @example
+   * sum(2, 3); // Returns 5
+   */
+  function sum(a: number, b: number): number {
+    return a + b;
+  }
+
+ 
+
+  /**
+   * Button component for user interactions.
+   * @param {string} label - The text displayed on the button.
+   * @param {() => void} onClick - Callback function triggered on click.
+   * @returns {JSX.Element} The button component.
+   */
+
+const Button: React.FC<{ label: string; onClick: () => void }> = ({ label, onClick }) => (
+  <button onClick={onClick}>{label}</button>
+);
+
+```

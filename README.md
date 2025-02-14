@@ -8,24 +8,26 @@ The project is organized as follows:
 
 ```
 /Users/shawnsandy/devbox/acss
-├── public
-│   └── index.html          # Main HTML file
-├── src
-│   ├── assets              # Static assets (images, fonts, etc.)
-│   ├── components          # Reusable React components
-│   ├── contexts            # React Context for state management
-│   ├── hooks               # Custom React hooks
-│   ├── pages               # Page components for routing
-│   ├── services            # API service functions
-│   ├── styles              # Global and component-specific styles
-│   ├── App.tsx             # Main App component
-│   ├── index.tsx           # Entry point for React
-│   └── vite-env.d.ts       # Vite environment types
-├── .eslintrc.js            # ESLint configuration
-├── tailwind.config.js      # Tailwind CSS configuration
-├── tsconfig.json           # TypeScript configuration
-├── vite.config.ts          # Vite configuration
-└── package.json            # Project dependencies and scripts
+├── apps                    # Application packages
+│   ├── astro-builds       # Astro.js application
+│   └── docs               # Documentation site
+├── packages               # Shared packages and libraries
+│   ├── fpkit             # FPKit component library
+│   └── utils             # Shared utilities
+├── public                # Static assets
+├── src                   # Source code
+│   ├── assets           # Static assets (images, fonts)
+│   ├── components       # Reusable React components
+│   ├── contexts         # React Context providers
+│   ├── hooks           # Custom React hooks
+│   ├── pages           # Page components
+│   ├── services        # API services
+│   └── styles         # Global styles
+├── .eslintrc.js        # ESLint configuration
+├── tailwind.config.js  # Tailwind CSS configuration
+├── tsconfig.json       # TypeScript configuration
+├── vite.config.ts      # Vite configuration
+└── package.json        # Project dependencies and scripts
 ```
 
 ## Setup Instructions
@@ -93,6 +95,55 @@ npm run test
 # or
 yarn test
 ```
+
+## Monorepo Structure
+
+The project uses Lerna to manage the monorepo structure. The key configuration can be found in `lerna.json`:
+
+### Packages
+
+Our monorepo includes the following packages:
+
+```
+packages/
+├── fpkit                  # Core component library
+│   ├── components        # Reusable UI components
+│   ├── hooks            # Shared React hooks
+│   └── utils            # Utility functions
+```
+
+#### FPKit Package
+
+The `fpkit` package contains our core component library:
+
+- Reusable UI components built with React and TypeScript
+- Custom hooks for common functionality
+- Component-specific utilities and types
+
+#### Utils Package
+
+The `utils` package provides shared utilities across applications:
+
+- Helper functions for common operations
+- Shared TypeScript types and interfaces
+- Constants and configuration values
+
+### Package Management
+
+For working with this repo, use standard Lerna commands like:
+
+```bash
+# Add dependencies to specific packages
+lerna add [package] --scope=@acss/[package-name]
+
+# Run commands across all packages
+lerna run [script-name]
+
+# Publish packages
+lerna publish
+```
+
+For working with this repo, use standard Lerna commands like:
 
 ## Additional Resources
 
