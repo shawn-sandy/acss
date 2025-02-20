@@ -1,0 +1,91 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Breadcrumb/Readme" />
+
+# Breadcrumb Component
+
+## Summary
+
+The `Breadcrumb` component is used to display a breadcrumb navigation for the
+current page. It supports custom routes, starting routes, and truncation of long
+breadcrumb names.
+
+## Features
+
+- Customizable routes and starting route
+- Truncation of long breadcrumb names
+- Customizable spacer between breadcrumb items
+- Accessible with ARIA labels
+
+## Props
+
+```ts
+type customRoute = {
+  path?: string;
+  name: string;
+  url?: string;
+};
+
+type BreadcrumbProps = {
+  routes?: customRoute[];
+  startRoute?: React.ReactNode;
+  startRouteUrl?: string;
+  spacer?: React.ReactNode;
+  currentRoute?: string;
+  ariaLabelPrefix?: string;
+  truncateLength?: number;
+  linkProps?: React.ComponentProps<typeof Link>;
+} & React.ComponentProps<typeof UI>;
+```
+
+## Technical Details
+
+The `Breadcrumb` component uses the `UI` and `Link` components for rendering the
+breadcrumb items and links. It also uses the `Truncate` utility to truncate long
+breadcrumb names.
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import Breadcrumb from './breadcrumb'
+
+const routes = [
+  { path: '/home', name: 'Home' },
+  { path: '/about', name: 'About' },
+  { path: '/contact', name: 'Contact' },
+]
+
+<Breadcrumb routes={routes} currentRoute="/about" />
+```
+
+### Advanced Usage
+
+```tsx
+import Breadcrumb from './breadcrumb'
+
+const routes = [
+  { path: '/home', name: 'Home' },
+  { path: '/about', name: 'About Us', url: '/about-us' },
+  { path: '/contact', name: 'Contact Us', url: '/contact-us' },
+]
+
+<Breadcrumb
+  routes={routes}
+  currentRoute="/contact"
+  startRoute="Dashboard"
+  startRouteUrl="/dashboard"
+  spacer={<span className="mx-2">/</span>}
+  ariaLabelPrefix="You are here:"
+  truncateLength={10}
+  linkProps={{ className: 'text-blue-500 hover:underline' }}
+/>
+```
+
+### Additional Notes
+
+- Ensure to provide meaningful names for the routes to enhance accessibility.
+- Customize the `spacer` prop to match your design requirements.
+- Use the `truncateLength` prop to control the maximum length of breadcrumb
+  names.
