@@ -1,35 +1,66 @@
-# Github Copilot Instructions
+# GitHub Copilot Instructions
 
-## Context for writing React components
+## Table of Contents
+
+- [GitHub Copilot Instructions](#github-copilot-instructions)
+  - [Table of Contents](#table-of-contents)
+  - [General Guidelines](#general-guidelines)
+  - [Context for Writing React Components](#context-for-writing-react-components)
+  - [Response Guidelines](#response-guidelines)
+  - [Convert Pixels to Rem](#convert-pixels-to-rem)
+  - [Response Guidelines for Converting Pixels to Rem](#response-guidelines-for-converting-pixels-to-rem)
+  - [Context for Writing CSS](#context-for-writing-css)
+  - [Response Guidelines for Writing CSS](#response-guidelines-for-writing-css)
+  - [TypeScript Context](#typescript-context)
+  - [Response Guidelines for Writing TypeScript](#response-guidelines-for-writing-typescript)
+  - [Context for Writing Tests](#context-for-writing-tests)
+  - [Response Guidelines for Writing Tests](#response-guidelines-for-writing-tests)
+  - [Documentation Context](#documentation-context)
+  - [Response Guidelines for Writing Documentation](#response-guidelines-for-writing-documentation)
+
+## General Guidelines
+
+- Use Markdown for documentation and comments.
+- Use TypeScript for type safety and better code quality.
+- Use React for building UI components.
+- Do not use Tailwind CSS for styling and responsive design.
+- Use CSS Modules or SASS/SCSS for component-specific styles.
+- Use ESLint and Prettier for code formatting and linting.
+- Use Vitest for unit and integration testing.
+- Use Playwright for end-to-end testing.
+- Use JSDoc for documenting functions, classes, and components.
+
+## Context for Writing React Components
 
 This repository is a React project that follows modern best practices. It includes:
 
 - Functional components with React Hooks (no class components).
 - TypeScript for type safety.
-- Tailwind CSS for styling.
+- CSS Modules or SASS/SCSS for styling.
 - State management using React Context, Redux Toolkit, or Zustand.
 - API requests handled with Axios or React Query.
-- Unit testing with Jest and React Testing Library.
+- Unit testing with Vitest and React Testing Library.
 - ESLint and Prettier for code consistency.
 - Performance optimizations like memoization and lazy loading.
+- Documentation with JSDoc for functions, classes, and components.
 
 ## Response Guidelines
 
 - Always use functional components and hooks.
 - Enforce TypeScript types for props, state, and functions.
-- Use Tailwind CSS for styling and suggest appropriate utility classes.
+- Use CSS Modules or SASS/SCSS for styling and suggest appropriate utility classes.
 - Implement navigation using React Router where necessary.
 - Prioritize modular, reusable component patterns.
 - Avoid class components and legacy lifecycle methods.
 - Suggest API handling with Axios or React Query, using async/await.
-- Generate unit tests using Jest and React Testing Library.
+- Generate unit tests using Vitest and React Testing Library.
 - Follow ESLint and Prettier rules for consistency.
 - Optimize performance with `useMemo`, `useCallback`, and lazy loading when performance optimization is necessary.
 - Write reusable components that follow defined props interfaces.
 - Ensure consistent use of TypeScript interfaces and types across components.
 - Maintain clear documentation for prop types and component purposes to aid in collaboration and maintenance.
 
-## Convert pixels to rem
+## Convert Pixels to Rem
 
 - The project uses `rem` units for better accessibility and responsiveness.
 - Whenever you are given a prompt to convert pixels to rem, follow the instructions below.
@@ -37,10 +68,10 @@ This repository is a React project that follows modern best practices. It includ
 ## Response Guidelines for Converting Pixels to Rem
 
 - Use `rem` units instead of `px` for better accessibility and responsiveness.
-- Convert the selected pixel value `*px` to `*rem` units.
+- Convert the selected pixel value `*px` to `*rem` units using a base font size of 16px (e.g., 16px = 1rem).
 - When there is no selection, search/scan the entire file for pixel units `*px` and convert them to `*rem` units.
 
-## Context for writing CSS
+## Context for Writing CSS
 
 This repository follows best practices for writing modern, maintainable, and scalable CSS. The guidelines apply to:
 
@@ -49,7 +80,7 @@ This repository follows best practices for writing modern, maintainable, and sca
 - Accessibility (a11y) best practices, including sufficient color contrast and focus states.
 - Performance optimizations, such as reducing unnecessary styles and using utility classes when appropriate.
 
-## Response Guidelines for writing CSS
+## Response Guidelines for Writing CSS
 
 - Use **CSS Modules** or **SASS/SCSS** for component-specific styles unless otherwise specified.
 - Use CSS variables for consistent units, theming and color management.
@@ -61,7 +92,7 @@ This repository follows best practices for writing modern, maintainable, and sca
 - Optimize animations with `transform` and `opacity` instead of modifying layout properties like `width` or `top`.
 - Use modern pseudo-classes like `:focus-visible` for better keyboard navigation.
 
-## Typescript Context
+## TypeScript Context
 
 This repository follows **TypeScript best practices** to ensure type safety, maintainability, and scalability. The key principles include:
 
@@ -71,7 +102,7 @@ This repository follows **TypeScript best practices** to ensure type safety, mai
 - Use **utility types** (`Partial`, `Readonly`, `Pick`, etc.) to improve reusability.
 - Ensure API response types are well-defined with TypeScript interfaces.
 
-## Response Guidelines for writing TypeScript
+## Response Guidelines for Writing TypeScript
 
 - Always provide explicit **types for function parameters and return values**.
 - Prefer **type aliases** (`type`) for simple structures and **interfaces** (`interface`) for objects/classes.
@@ -84,7 +115,7 @@ This repository follows **TypeScript best practices** to ensure type safety, mai
 - Prefer **Enums and Literal Types** over magic strings for better maintainability.
 - Handle **null and undefined** cases properly using optional chaining (`?.`) and nullish coalescing (`??`).
 
-## Context for writing tests
+## Context for Writing Tests
 
 This repository uses **Vitest** as the primary testing framework for unit and integration tests. The testing approach follows:
 
@@ -94,7 +125,7 @@ This repository uses **Vitest** as the primary testing framework for unit and in
 - Using **JSDOM** for DOM-based tests.
 - Ensuring accessibility best practices are validated in tests.
 
-## Response Guidelines for writing tests
+## Response Guidelines for Writing Tests
 
 - Use **describe/test/it** for structuring test suites.
 - Prefer **expect + matchers** (`expect().toBe()`, `expect().toHaveBeenCalled()`) for assertions.
@@ -108,8 +139,6 @@ This repository uses **Vitest** as the primary testing framework for unit and in
 - Ensure code coverage is maintained by testing critical business logic and UI behaviors.
 - Follow **accessibility best practices** in tests, ensuring components are usable with assistive technologies.
 
-# Custom Instructions for GitHub Copilot
-
 ## Documentation Context
 
 This repository follows best practices for **code documentation** to ensure clarity, maintainability, and collaboration. Documentation should:
@@ -119,7 +148,7 @@ This repository follows best practices for **code documentation** to ensure clar
 - Include **usage examples** where applicable.
 - Maintain consistency with **Markdown syntax** for README files and inline comments.
 
-## Response Guidelines for writing documentation
+## Response Guidelines for Writing Documentation
 
 - Use **JSDoc** format for JavaScript/TypeScript code:
 
@@ -135,18 +164,3 @@ This repository follows best practices for **code documentation** to ensure clar
   function sum(a: number, b: number): number {
     return a + b;
   }
-
- 
-
-  /**
-   * Button component for user interactions.
-   * @param {string} label - The text displayed on the button.
-   * @param {() => void} onClick - Callback function triggered on click.
-   * @returns {JSX.Element} The button component.
-   */
-
-const Button: React.FC<{ label: string; onClick: () => void }> = ({ label, onClick }) => (
-  <button onClick={onClick}>{label}</button>
-);
-
-```
