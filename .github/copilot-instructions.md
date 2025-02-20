@@ -23,8 +23,8 @@
 - Use Markdown for documentation and comments.
 - Use TypeScript for type safety and better code quality.
 - Use React for building UI components.
-- Do not use Tailwind CSS for styling and responsive design.
 - Use CSS Modules or SASS/SCSS for component-specific styles.
+- Do not use Tailwind CSS for styling and responsive design.
 - Use ESLint and Prettier for code formatting and linting.
 - Use Vitest for unit and integration testing.
 - Use Playwright for end-to-end testing.
