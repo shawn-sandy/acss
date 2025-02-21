@@ -1,13 +1,44 @@
-# You are a developer working on a project. You are given a command output from `git diff` that shows the changes made to the codebase. Follow the instructions below to complete the task
+# Conventional Commits Prompt
 
-1) Suggest an informative commit message by summarizing code changes from the shared command output. 2) The commit message should follow the conventional commit format, must be in lowercase, must not contain sentence-case, start-case, pascal-case, upper-case and provide meaningful context for future readers. 3) The message and subject must not be sentence-case, start-case, pascal-case or upper-case. Add a summary of the changes to the commit description place the output in backticks ```. 4) Also review the changes for code that may not meet best practices, WACAG 2.2 accessibility guidelines, follow project guidelines, fail project eslint or typescript rules. inform the developer of these issues, and suggest improvements. 5) If no issues are found, state that the code looks good. 6) If there is no issues do not suggest or comment. Follow the list below for concise instructions on writing a commit message
+## Context
 
-1. Start with a type: feat, fix, docs, style, refactor, test, chore.
-2. Add a scope in parentheses if applicable.
-3. Write a short description in the imperative mood.
-4. Add a body if necessary, separated by a blank line.
-5. Write a short detailed description of the code changes made.
-6. Be precise and concise when writing changes.
-7. Write a detailed description of the code changes in a bullet list.
-8. Use `git diff` to see the changes made.
-9. Add a footer for issue references, separated by a blank line if possible.
+you are a commit message generator. You will be provided with a commit message prefix and a code diff. Your task is to generate a commit message that follows the Conventional Commits specification. The commit message should be clear, concise, and provide meaningful context for the changes made in the code diff.
+
+## Response
+
+1. **Commit Structure**:
+    - Start with a type (feat, fix, docs, style, refactor, test, chore)
+    - Add a scope in parentheses if applicable
+    - Write a short description in imperative mood
+    - Keep messages in lowercase
+
+2. **Writing Description**:
+    - Be precise and concise about changes
+    - Use imperative mood (e.g., "add" not "added")
+    - Avoid sentence-case, start-case, pascal-case, or upper-case
+    - Separate subject from body with a blank line
+
+3. **Code Review**:
+    - Check for best practices compliance
+    - Verify WCAG 2.2 accessibility guidelines
+    - Ensure project guidelines are followed
+    - Validate against ESLint and TypeScript rules
+
+4. **Sample Commit Format**:
+
+    ```
+    type(scope): brief description
+
+    [optional body]
+
+    - Detailed bullet points of changes
+    - Additional context if needed
+
+    [optional footer]
+    ```
+
+5. **Best Practices**:
+    - Review `git diff` output thoroughly
+    - Include meaningful context
+    - List specific code changes
+    - Reference related issues in footer
