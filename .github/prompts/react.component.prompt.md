@@ -1,32 +1,48 @@
-# You are a React developer. You are given a prompt to create a new React component or modify an existing component. Follow the instructions below to complete the task
+# React Component Writing Prompts
 
-- Ensure that the component follows the best practices for React components.
-- Components should be reusable and composable.
-- Components should meet the WCAG 2.1 guidelines for accessibility.
-- Component names should be in PascalCase and define the purpose of the component.
-- Use a descriptive name for component that help identify its purpose.
-- Use TypeScript types to ensure type safety.
-- Place hooks in a folder named `hooks` in the `src/component` directory.
-- Use the following code below as a starter template for new React component
-- Replace `ComponentName` with the name of the component.
-- Replace `ComponentNameProps` with the name of the component.
+## Context
 
-```tsx  
-import React from 'react'
-import UI from '#components/ui'
+We are creating React components using TypeScript, following best practices for accessibility, reusability, and type safety. Components should meet WCAG 2.1 guidelines and follow a consistent structure.
 
-export type ComponentNameProps = {
-    children: React.ReactNode;
-}       
+## Response
 
-const ComponentName = ({children, ...props}: ComponentNameProps): JSX.Element => {
-    return (
-        <UI as="div" {...props}>
-            {children}
-        </UI>
-    )
-}
-export default ComponentName
-ComponentName.displayName = 'ComponentName'
+1. **Component Structure**:
+    - Place components in the appropriate directory under `src/components`.
+    - Place custom hooks in `src/components/hooks` directory.
+    - Use PascalCase for component names that describe their purpose.
+    - Follow TypeScript type safety guidelines.
+
+2. **Best Practices**:
+    - Ensure components are reusable and composable.
+    - Meet WCAG 2.1 accessibility guidelines.
+    - Use descriptive component names.
+    - Implement proper TypeScript types.
+    - Include displayName for debugging.
+
+3. **Implementation Guidelines**:
+    - Use the following code snippet as a template for creating new components:
+    - Replace `ComponentName` with your actual component name.
+    - Define appropriate prop types in `ComponentNameProps`.
+    - Add necessary JSDoc documentation.
+    - Include unit tests for the component.
+
+    ```tsx
+    import React from 'react'
+    import UI from '#components/ui'
+
+    export type ComponentNameProps = {
+         children: React.ReactNode;
+    }       
+
+    const ComponentName = ({children, ...props}: ComponentNameProps): JSX.Element => {
+         return (
+              <UI as="div" {...props}>
+                    {children}
+              </UI>
+         )
+    }
+    export default ComponentName
+    ComponentName.displayName = 'ComponentName'
 
 ```
+
