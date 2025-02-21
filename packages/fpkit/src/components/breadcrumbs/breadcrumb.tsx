@@ -1,38 +1,38 @@
 // Code: Breadcrumb component
-import React from 'react'
-import UI from '#components/ui'
-import { Truncate } from '#libs/content'
-import Link from '#components/link/link'
+import React from "react";
+import UI from "#components/ui";
+import { Truncate } from "#libs/content";
+import Link from "#components/link/link";
 
 // TYPES
 
 type customRoute = {
   /** The path or id for routing */
-  path?: string
+  path?: string;
   /** The display name */
-  name: string
+  name: string;
   /** The url if linking out */
-  url?: string
-}
+  url?: string;
+};
 
 type BreadcrumbProps = {
   /** Array of custom route objects */
-  routes?: customRoute[]
+  routes?: customRoute[];
   /** Starting route node */
-  startRoute?: React.ReactNode
+  startRoute?: React.ReactNode;
   /* Starting route url */
-  startRouteUrl?: string
+  startRouteUrl?: string;
   /** Spacer node between routes */
-  spacer?: React.ReactNode
+  spacer?: React.ReactNode;
   /** String representing current route */
-  currentRoute?: string
+  currentRoute?: string;
   /** Prefix breadcrumb aria-label - "prefix breadcrumb" */
-  ariaLabelPrefix?: string
+  ariaLabelPrefix?: string;
   /** Truncate breadcrumb text after this length */
-  truncateLength?: number
+  truncateLength?: number;
   /** Link props for breadcrumb links */
-  linkProps?: React.ComponentProps<typeof Link>
-} & React.ComponentProps<typeof UI>
+  linkProps?: React.ComponentProps<typeof Link>;
+} & React.ComponentProps<typeof UI>;
 
 // Components
 
@@ -53,11 +53,17 @@ const Items = ({
   ...props
 }: React.ComponentProps<typeof UI>) => {
   return (
-    <li data-list="unstyled inline" {...props}>
+    <li
+      id={id}
+      style={styles}
+      className={classes}
+      data-list="unstyled inline"
+      {...props}
+    >
       {children}
     </li>
-  )
-}
+  );
+};
 
 /**
  * List component.
@@ -70,8 +76,8 @@ const List = ({ children, ...props }: React.ComponentProps<typeof UI>) => {
     <UI as="ol" data-list="unstyled inline" {...props}>
       {children}
     </UI>
-  )
-}
+  );
+};
 
 /**
  * Nav component.
@@ -93,8 +99,8 @@ const Nav = ({
     <UI as="nav" id={id} styles={styles} className={classes} {...props}>
       <List>{children}</List>
     </UI>
-  )
-}
+  );
+};
 
 /**
  * Navigation component for breadcrumbs.
@@ -110,7 +116,7 @@ const Nav = ({
  * @param props.children - Child components.
  */
 export const Breadcrumb = ({
-  startRoute = 'Home',
+  startRoute = "Home",
   startRouteUrl = "/",
   currentRoute,
   spacer = <>&#47;</>,
@@ -123,13 +129,13 @@ export const Breadcrumb = ({
   linkProps,
   ...props
 }: BreadcrumbProps): React.JSX.Element => {
-  const [currentPath, setCurrentPath] = React.useState('')
+  const [currentPath, setCurrentPath] = React.useState("");
   React.useEffect(() => {
-    const path = currentRoute || window.location.pathname
+    const path = currentRoute || window.location.pathname;
     if (path.length) {
-      setCurrentPath(path)
+      setCurrentPath(path);
     }
-  }, [currentRoute])
+  }, [currentRoute]);
 
   /**
    * Gets the path name for the given path segment.
@@ -138,23 +144,22 @@ export const Breadcrumb = ({
    * @returns The path name object for the given path segment.
    */
   const getPathName = (pathSegment: string): customRoute => {
-    const route = routes?.find((route) => route.path === pathSegment)
+    const route = routes?.find((route) => route.path === pathSegment);
 
     return {
       path: route?.path || pathSegment,
       name: route?.name || pathSegment,
       url: route?.url || pathSegment,
-    }
-  }
+    };
+  };
 
   /** Array of path segments from current path */
-  const segments = currentPath.split('/').filter((segment) => segment)
+  const segments = currentPath.split("/").filter((segment) => segment);
   /** Index of last item in segments array */
-  const lastSegment = segments.length - 1
+  const lastSegment = segments.length - 1;
 
   /** Unique id for breadcrumb */
-  const uuid = React.useId()
-
+  const uuid = React.useId();
 
   return currentPath.length ? (
     <Nav
@@ -165,62 +170,62 @@ export const Breadcrumb = ({
       aria-label={ariaLabelPrefix}
     >
       <Items key={`${startRoute}-${uuid}`}>
-        <Link href={startRouteUrl} {...linkProps}>{startRoute}</Link>
+        <Link href={startRouteUrl} {...linkProps}>
+          {startRoute}
+        </Link>
       </Items>
       <>
-      {segments.length ? (
-        segments.map((segment: any, index: number) => {
-          const currentSegment = getPathName(segment)
-          const { name, url, path } = currentSegment
-          return index === lastSegment ? (
-            <>
-              {typeof segments[lastSegment] === 'string' &&
-                segments[lastSegment].length > 3 &&
-                segments[lastSegment] !== segments[lastSegment - 1] && (
-                  <Items  key={`${path || index}-${uuid}`}>
-                     
-                      <span aria-hidden="true">{spacer}</span>
-                      <a
-                      href="#"
-                        aria-current="page"
-                        aria-label={
-                          name.length > truncateLength ? name : undefined
-                        }
-                      >
-                        {Truncate(decodeURIComponent(name), truncateLength)}
-                      </a>
-                     
-                  </Items>
-                )}
-            </>
-          ) : (
-            <Items key={`${currentSegment?.name}-${uuid}`}>
-              <span aria-hidden="true">{spacer}</span>
-              <span>
-                <Link
-                  href={url}
-                  aria-label={name.length > truncateLength ? name : undefined}
-                 {...linkProps}
-                >
-                  {Truncate(decodeURIComponent(name), truncateLength)}
-                </Link>
-              </span>
-            </Items>
-          );
-        })
-      ) : (
-        null
-      )}
+        {segments.length
+          ? segments.map((segment: string, index: number) => {
+              const currentSegment = getPathName(segment);
+              const { name, url, path } = currentSegment;
+              return index === lastSegment ? (
+                <>
+                  {typeof segments[lastSegment] === "string" &&
+                    segments[lastSegment].length > 3 &&
+                    segments[lastSegment] !== segments[lastSegment - 1] && (
+                      <Items key={`${path || index}-${uuid}`}>
+                        <span aria-hidden="true">{spacer}</span>
+                        <a
+                          href="#"
+                          aria-current="page"
+                          aria-label={
+                            name.length > truncateLength ? name : undefined
+                          }
+                        >
+                          {Truncate(decodeURIComponent(name), truncateLength)}
+                        </a>
+                      </Items>
+                    )}
+                </>
+              ) : (
+                <Items key={`${currentSegment?.name}-${uuid}`}>
+                  <span aria-hidden="true">{spacer}</span>
+                  <span>
+                    <Link
+                      href={url}
+                      aria-label={
+                        name.length > truncateLength ? name : undefined
+                      }
+                      {...linkProps}
+                    >
+                      {Truncate(decodeURIComponent(name), truncateLength)}
+                    </Link>
+                  </span>
+                </Items>
+              );
+            })
+          : null}
       </>
     </Nav>
   ) : (
     <></>
-  )
-}
+  );
+};
 
-export default Breadcrumb
+export default Breadcrumb;
 
-Breadcrumb.displayName = 'BreadCrumb'
-Breadcrumb.Nav = Nav
-Breadcrumb.List = List
-Breadcrumb.Items = Items
+Breadcrumb.displayName = "BreadCrumb";
+Breadcrumb.Nav = Nav;
+Breadcrumb.List = List;
+Breadcrumb.Items = Items;
