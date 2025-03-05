@@ -15,18 +15,25 @@ type DetailsProps = {
 } & React.ComponentProps<"details"> &
   Partial<React.ComponentProps<typeof UI>>;
 
-/**3
- * Details component props interface.
+/**
+ * A React component that renders a details element with a summary and content.
  *
- * @param {React.CSSProperties} [styles] - CSS styles object.
- * @param {string} [classes] - Classnames string.
- * @param {boolean} [open] - Whether the details is open.
- * @param {(e: React.PointerEvent<HTMLDetailsElement>) => void} [onToggle] - onToggle callback.
- * @param {(e: React.PointerEvent<HTMLDetailsElement>) => void} [onPointerDown] - onPointerDown callback.
- * @param {ReactNode} children - The content inside the details.
- * @param {string} [ariaLabel] - aria-label for accessibility.
- * @param {React.Ref<any>} [ref] - Ref object.
- * @param {Object} props - Other props.
+ * @param summary - The summary text shown for the details.
+ * @param ariaLabel - The aria-label element for accessibility.
+ * @param icon - An optional icon to display in the summary.
+ * @param styles - Optional styles to apply to the details element.
+ * @param classes - Optional CSS classes to apply to the details element.
+ * @param name - An optional name for the details element.
+ * @param open - Whether the details element should be initially open.
+ * @param onPointerDown - A callback function to be called when the summary is clicked.
+ * @param onToggle - A callback function to be called when the details element is toggled.
+ * @param children - The content to be displayed inside the details element.
+ * @param ref - A ref to the details element.
+ * @param props - Additional props to be passed to the details element.
+ * @example
+ * <Details summary="Details" ariaLabel="Details">
+ *   <p>Details content</p>
+ * </Details>
  */
 export const Details = ({
   summary,
