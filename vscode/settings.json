@@ -18,5 +18,5 @@
         {
             "text": "Use verbose class names that clearly state the test case. Use the AAA pattern for test cases. Arrange, Act, Assert."
         }
-    ],
+    ]
 }
