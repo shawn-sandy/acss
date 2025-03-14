@@ -1,23 +1,5 @@
 # GitHub Copilot Instructions
 
-## Table of Contents
-
-- [GitHub Copilot Instructions](#github-copilot-instructions)
-  - [Table of Contents](#table-of-contents)
-  - [General Guidelines](#general-guidelines)
-  - [Context for Writing React Components](#context-for-writing-react-components)
-  - [Response Guidelines](#response-guidelines)
-  - [Convert Pixels to Rem](#convert-pixels-to-rem)
-  - [Response Guidelines for Converting Pixels to Rem](#response-guidelines-for-converting-pixels-to-rem)
-  - [Context for Writing CSS](#context-for-writing-css)
-  - [Response Guidelines for Writing CSS](#response-guidelines-for-writing-css)
-  - [TypeScript Context](#typescript-context)
-  - [Response Guidelines for Writing TypeScript](#response-guidelines-for-writing-typescript)
-  - [Context for Writing Tests](#context-for-writing-tests)
-  - [Response Guidelines for Writing Tests](#response-guidelines-for-writing-tests)
-  - [Documentation Context](#documentation-context)
-  - [Response Guidelines for Writing Documentation](#response-guidelines-for-writing-documentation)
-
 ## General Guidelines
 
 - Use Markdown for documentation and comments.
