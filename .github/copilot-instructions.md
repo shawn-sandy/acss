@@ -123,6 +123,7 @@ This repository uses **Vitest** as the primary testing framework for unit and in
 
 ## Documentation Context
 
+'
 This repository follows best practices for **code documentation** to ensure clarity, maintainability, and collaboration. Documentation should:
 
 - Use **JSDoc** (for JavaScript/TypeScript) or **docstrings** (for Python).
