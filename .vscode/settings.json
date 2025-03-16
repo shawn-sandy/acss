@@ -6,7 +6,13 @@
     ],
     "github.copilot.chat.commitMessageGeneration.instructions": [
         {
-            "text": "Always write commit messages in the conventional commits format. Write an extremely detailed list of the file changes and the reason for the change in the commit message."
+            "text": "Always write commit messages in the conventional commits format. Write an extremely detailed list of the file changes and the reason for the change in the commit message description."
+        },
+        {
+            "text": "Always add a scope to the commit message."
+        },
+        {
+            "text": "add a footer with a list of all the files changed in the commit."
         }
     ],
     "github.copilot.chat.reviewSelection.instructions": [
