@@ -1,6 +1,10 @@
-// filename: settings.json
-// This file contains settings for the GitHub Copilot Chat extension.
-// Drop into the .vscode folder of your project to apply these settings.
+/**
+ * GitHub Copilot Chat Extension Settings
+ * filename: settings.json
+ * This file contains settings for the GitHub Copilot Chat extension.
+ * Drop into the .vscode folder of your project to apply these settings.
+ * https: //code.visualstudio.com/docs/copilot/copilot-customization
+ */
 {
     "github.copilot.chat.codeGeneration.instructions": [
         {
@@ -83,6 +87,32 @@
         },
         {
             "text": "Use Mock Service Worker (MSW) for mocking API requests."
+        }
+    ],
+    "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
+        {
+            "text": "Include a summary of the pull request changes."
+        },
+        {
+            "text": "Mention any related issues or tickets."
+        },
+        {
+            "text": "Include a checklist of items to be reviewed."
+        },
+        {
+            "text": "Include a list of any breaking changes."
+        },
+        {
+            "text": "Include a list of any new dependencies."
+        },
+        {
+            "text": "Include a list of any deprecated features."
+        },
+        {
+            "text": "Include a list of any performance improvements."
+        },
+        {
+            "text": "Include a list of any security improvements."
         }
     ]
 }
