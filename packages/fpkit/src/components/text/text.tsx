@@ -1,54 +1,53 @@
 // import FP from '../fp'
-import React from 'react'
-import UI from '#components/ui'
+import React from "react";
+import UI from "#components/ui";
 
-type InheritedProps = React.ComponentProps<typeof UI>
+type InheritedProps = React.ComponentProps<typeof UI>;
 
 type TextElements =
-  | 'a'
-  | 'b'
-  | 'blockquote'
-  | 'b'
-  | 'blockquote'
-  | 'cite'
-  | 'code'
-  | 'em'
-  | 'i'
-  | 'em'
-  | 'i'
-  | 'kbd'
-  | 'mark'
-  | 'p'
-  | 's'
-  | 'small'
-  | 'span'
-  | 'span'
-  | 'strong'
-  | 'mark'
-  | 'p'
-  | 's'
-  | 'small'
-  | 'span'
-  | 'span'
-  | 'strong'
-  | 'sub'
-  | 'sup'
-  | 'time'
-  | 'time'
-  | 'u'
+  | "a"
+  | "b"
+  | "blockquote"
+  | "b"
+  | "blockquote"
+  | "cite"
+  | "code"
+  | "em"
+  | "i"
+  | "em"
+  | "i"
+  | "kbd"
+  | "mark"
+  | "p"
+  | "s"
+  | "small"
+  | "span"
+  | "span"
+  | "strong"
+  | "mark"
+  | "p"
+  | "s"
+  | "small"
+  | "span"
+  | "span"
+  | "strong"
+  | "sub"
+  | "sup"
+  | "time"
+  | "time"
+  | "u";
 
 export type TextProps = {
   /**
-   * Text element to to use
-   * Text element to to use
+   * Pass a text element
    */
-  elm?: TextElements
+  elm?: TextElements;
   /** Pass a text element or string */
-  text?: string
-} & InheritedProps
+  text?: string;
+} & InheritedProps;
 
 export const Text = ({
-  elm = 'p',
+  elm = "p",
   id,
   text,
   styles,
@@ -62,18 +61,18 @@ export const Text = ({
         {children || text}
       </UI>
     </UI>
-  )
-}
+  );
+};
 
 type TitleProps = {
   /**
    * HTML headings
    */
-  elm?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-} & InheritedProps
+  elm?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+} & InheritedProps;
 
 export const Title = ({
-  elm = 'h3',
+  elm = "h3",
   id,
   children,
   styles,
@@ -84,10 +83,10 @@ export const Title = ({
     <Text as={elm} id={id} styles={styles} className={classes} {...props}>
       {children}
     </Text>
-  )
-}
+  );
+};
 
-export default Text
+export default Text;
 
-Text.displayName = 'Text'
-Title.displayName = 'Title'
+Text.displayName = "Text";
+Title.displayName = "Title";

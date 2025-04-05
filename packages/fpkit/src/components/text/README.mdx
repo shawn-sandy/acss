@@ -1,0 +1,98 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Text/Readme" />
+
+# Text Component
+
+## Summary
+
+The `Text` component is a flexible wrapper for rendering various text elements
+such as paragraphs, spans, and other inline or block-level elements. It supports
+customization through props like `elm`, `text`, and additional styles or
+classes.
+
+The `Title` component is a specialized version of `Text` for rendering HTML
+headings (`h1` to `h6`).
+
+## Features
+
+- Render any valid HTML text element.
+- Pass text content directly or use children for nested elements.
+- Fully customizable with styles and classes.
+- Supports accessibility with `id` and other attributes.
+
+## Props
+
+### Text Props
+
+| Name       | Type                  | Default | Description                         |
+| ---------- | --------------------- | ------- | ----------------------------------- |
+| `elm`      | `TextElements`        | `'p'`   | The HTML element to render.         |
+| `text`     | `string`              | `''`    | Text content to display.            |
+| `id`       | `string`              | `''`    | Unique identifier for the element.  |
+| `styles`   | `React.CSSProperties` | `null`  | Inline styles for the element.      |
+| `classes`  | `string`              | `''`    | Additional CSS classes for styling. |
+| `children` | `React.ReactNode`     | `null`  | Nested content inside the element.  |
+
+### Title Props
+
+| Name       | Type                                           | Default | Description                         |
+| ---------- | ---------------------------------------------- | ------- | ----------------------------------- |
+| `elm`      | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`  | The HTML heading element to render. |
+| `id`       | `string`                                       | `''`    | Unique identifier for the element.  |
+| `styles`   | `React.CSSProperties`                          | `null`  | Inline styles for the element.      |
+| `classes`  | `string`                                       | `''`    | Additional CSS classes for styling. |
+| `children` | `React.ReactNode`                              | `null`  | Nested content inside the element.  |
+
+## Technical Details
+
+- The `Text` component uses the `UI` component internally to render the
+  specified element.
+- The `Title` component is a wrapper around `Text` with default settings for
+  headings.
+- Both components support additional props inherited from the `UI` component.
+
+## Usage Examples
+
+### Basic Usage
+
+```tsx
+import { Text, Title } from "./text";
+
+const App = () => (
+  <>
+    <Text elm="p" text="This is a paragraph." />
+    <Text elm="span" text="This is a span." />
+    <Title elm="h1">This is a heading</Title>
+  </>
+);
+```
+
+### Advanced Usage
+
+```tsx
+import { Text, Title } from "./text";
+
+const App = () => (
+  <>
+    <Text
+      elm="blockquote"
+      styles={{ fontStyle: "italic", color: "gray" }}
+      text="This is a blockquote."
+    />
+    <Title
+      elm="h2"
+      classes="custom-heading"
+      styles={{ fontWeight: "bold", fontSize: "2rem" }}
+    >
+      Custom Heading
+    </Title>
+  </>
+);
+```
+
+### Additional Notes
+
+- Use the `elm` prop to specify the desired HTML element.
+- Combine `styles` and `classes` for advanced styling.
+- Use `children` for nested content when `text` is not sufficient.

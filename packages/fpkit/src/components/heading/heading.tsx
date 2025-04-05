@@ -11,7 +11,6 @@ export type TitleProps = {
  * A flexible heading component that renders different heading levels.
  *
  * @component
- * @param {Object} props - The component props
  * @param {'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'} [props.type='h3'] - The heading level to render
  * @param {string} [props.id] - Optional ID attribute for the heading
  * @param {React.CSSProperties} [props.styles] - Custom styles to apply to the heading
