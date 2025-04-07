@@ -72,3 +72,14 @@ export const HeadingSix: Story = {
     children: "Heading Six",
   },
 } as Story;
+
+export const HeadingLevel: Story = {
+  args: {
+    level: 2, // This will render as h2
+    children: "Heading with Level 2",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    expect(canvas.getByText(/heading with level 2/i)).toBeInTheDocument();
+  },
+} as Story;

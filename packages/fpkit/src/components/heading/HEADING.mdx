@@ -1,0 +1,105 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="FP.REACT Components/Heading/Readme" />
+
+# Heading Component
+
+## Summary
+
+The `Heading` component is a reusable React component designed for rendering
+headings with consistent styles and accessibility in mind. It supports multiple
+heading levels and custom styling.
+
+## Features
+
+- Supports all HTML heading levels (`h1` to `h6`).
+- Customizable styles via props.
+- Accessibility-friendly with proper semantic tags.
+- Lightweight and easy to use.
+
+## Props
+
+| Name       | Type                                           | Default | Description                                             |
+| ---------- | ---------------------------------------------- | ------- | ------------------------------------------------------- |
+| `level`    | `1 \| 2 \| 3 \| 4 \| 5 \| 6`                   | `1`     | Specifies the heading level (`h1` to `h6`).             |
+| `type`     | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`  | The heading level to render.                            |
+| `id`       | `string`                                       | `null`  | The unique identifier for the heading element.          |
+| `styles`   | `React.CSSProperties`                          | `{}`    | Inline styles for the heading element.                  |
+| `ui`       | `string`                                       | `null`  | Custom UI modifier to be added as a data attribute.     |
+| `children` | `React.ReactNode`                              | `null`  | The content to be displayed inside the heading.         |
+| `...props` | `React.ComponentProps<typeof UI>`              | `null`  | Additional props to be spread onto the heading element. |
+
+## Technical Details
+
+- **Component Path**: `fpkit/src/components/heading/Heading.tsx`
+- **Styling**: Uses CSS Modules for scoped styles.
+- **Dependencies**: React, TypeScript.
+
+## Usage Example
+
+### Basic Usage
+
+```tsx
+import Heading from "./Heading";
+
+const App = () => (
+  <div>
+    <Heading level={1}>This is an H1 Heading</Heading>
+    <Heading level={2}>This is an H2 Heading</Heading>
+  </div>
+);
+
+export default App;
+```
+
+### Advanced Usage
+
+```tsx
+import Heading from "./Heading";
+
+const App = () => (
+  <div>
+    <Heading level={1} className="custom-heading">
+      Custom Styled H1 Heading
+    </Heading>
+  </div>
+);
+
+export default App;
+```
+
+### Using `type` Prop
+
+```tsx
+import Heading from "./Heading";
+
+const App = () => (
+  <div>
+    <Heading type="h1">This is an H1 Heading</Heading>
+    <Heading type="h2">This is an H2 Heading</Heading>
+  </div>
+);
+
+export default App;
+```
+
+### Combining `type` and Additional Props
+
+```tsx
+import Heading from "./Heading";
+
+const App = () => (
+  <div>
+    <Heading type="h3" id="custom-heading" styles={{ color: "blue" }}>
+      Custom Styled H3 Heading
+    </Heading>
+  </div>
+);
+
+export default App;
+```
+
+### Additional Notes
+
+- Ensure to use the correct `level` prop for semantic HTML.
+- Combine with CSS Modules for consistent styling across your project.
