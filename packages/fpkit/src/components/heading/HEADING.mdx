@@ -19,15 +19,21 @@ heading levels and custom styling.
 
 ## Props
 
-| Name       | Type                                           | Default | Description                                             |
-| ---------- | ---------------------------------------------- | ------- | ------------------------------------------------------- |
-| `level`    | `1 \| 2 \| 3 \| 4 \| 5 \| 6`                   | `1`     | Specifies the heading level (`h1` to `h6`).             |
-| `type`     | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`  | The heading level to render.                            |
-| `id`       | `string`                                       | `null`  | The unique identifier for the heading element.          |
-| `styles`   | `React.CSSProperties`                          | `{}`    | Inline styles for the heading element.                  |
-| `ui`       | `string`                                       | `null`  | Custom UI modifier to be added as a data attribute.     |
-| `children` | `React.ReactNode`                              | `null`  | The content to be displayed inside the heading.         |
-| `...props` | `React.ComponentProps<typeof UI>`              | `null`  | Additional props to be spread onto the heading element. |
+| Name       | Type                                           | Default | Description                                                       |
+| ---------- | ---------------------------------------------- | ------- | ----------------------------------------------------------------- |
+| `level`    | `1 \| 2 \| 3 \| 4 \| 5 \| 6`                   | `1`     | Specifies the heading level (`h1` to `h6`).                       |
+| `type`     | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h3'`  | **Deprecated**: The heading level to render. Use `level` instead. |
+| `id`       | `string`                                       | `null`  | The unique identifier for the heading element.                    |
+| `styles`   | `React.CSSProperties`                          | `{}`    | Inline styles for the heading element.                            |
+| `ui`       | `string`                                       | `null`  | Custom UI modifier to be added as a data attribute.               |
+| `children` | `React.ReactNode`                              | `null`  | The content to be displayed inside the heading.                   |
+| `...props` | `React.ComponentProps<typeof UI>`              | `null`  | Additional props to be spread onto the heading element.           |
+
+### Deprecated Prop: `type`
+
+The `type` prop is now deprecated and will be removed in future versions. Please
+use the `level` prop instead for specifying the heading level. A warning will be
+logged in development mode if the `type` prop is used.
 
 ## Technical Details
 
@@ -93,6 +99,21 @@ const App = () => (
     <Heading type="h3" id="custom-heading" styles={{ color: "blue" }}>
       Custom Styled H3 Heading
     </Heading>
+  </div>
+);
+
+export default App;
+```
+
+### Example Using `level` Prop
+
+```tsx
+import Heading from "./Heading";
+
+const App = () => (
+  <div>
+    <Heading level={1}>This is an H1 Heading</Heading>
+    <Heading level={2}>This is an H2 Heading</Heading>
   </div>
 );
 

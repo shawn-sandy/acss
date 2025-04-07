@@ -15,7 +15,7 @@ export type TitleProps = {
  * A flexible heading component that renders different heading levels.
  *
  * @component
- * @param {'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'} [props.type='h3'] - The heading level to render
+ * @param {'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'} [props.type='h3'] - (Deprecated) The heading level to render. Use `level` instead.
  * @param {1 | 2 | 3 | 4 | 5 | 6} [props.level] - Optional level for additional logic
  * @param {string} [props.id] - Optional ID attribute for the heading
  * @param {React.CSSProperties} [props.styles] - Custom styles to apply to the heading
@@ -34,6 +34,12 @@ const Heading = ({
   children,
   ...props
 }: TitleProps) => {
+  if (type && process.env.NODE_ENV === "development") {
+    throw new Error(
+      "[Deprecation Error]: The `type` prop is deprecated and will be removed in future versions. Please use the `level` prop instead."
+    );
+  }
+
   return (
     <UI
       as={type || (level ? `h${level}` : "h3")}
