@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import UI from "#components/ui";
 
 /**
@@ -42,3 +42,4 @@ export const WithInstructions =
   };
 
 export default WithInstructions;
+WithInstructions.displayName = "WithInstructions";

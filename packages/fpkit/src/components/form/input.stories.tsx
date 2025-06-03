@@ -1,5 +1,5 @@
-import { StoryObj, Meta } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { StoryObj, Meta } from "@storybook/react-vite";
+import { within, userEvent, expect } from "storybook/test";
 
 import Input from "./inputs";
 import "./form.scss";

@@ -1,5 +1,5 @@
-import { StoryObj, Meta } from "@storybook/react";
-// import { within, userEvent, screen } from "@storybook/test";
+import { StoryObj, Meta } from "@storybook/react-vite";
+// import { within, userEvent, screen } from "storybook/test";
 
 import PageHeader, { HeaderVariants } from "./page-header.js";
 import { Img } from "#components/images/img";

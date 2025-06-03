@@ -1,5 +1,5 @@
-import { StoryObj, Meta } from "@storybook/react";
-import { within, expect, userEvent, waitFor } from "@storybook/test";
+import { StoryObj, Meta } from "@storybook/react-vite";
+import { within, expect, userEvent, waitFor } from "storybook/test";
 
 import DialogModal from "./dialog-modal";
 import WithInstructions from "#/decorators/instructions";
