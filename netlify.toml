@@ -1,0 +1,18 @@
+[build]
+  publish = "storybook-static"
+  command = "npm run build-storybook"
+
+[build.environment]
+  NODE_VERSION = "20.9.0"
+  NPM_FLAGS = "--production=false"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+[dev]
+  framework = "#custom"
+  command = "npm run storybook"
+  targetPort = 6006
+  port = 8888
+  publish = "storybook-static"
+  autoLaunch = false 
