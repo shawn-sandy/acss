@@ -27,3 +27,4 @@ dist-ssr
 
 packages/fp-kit/libs
 packages/fpkit/libs/*
+storybook-static
