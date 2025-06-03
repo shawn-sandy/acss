@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.9.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "start": "storybook dev -p 6006",
     "dev": "vite",
