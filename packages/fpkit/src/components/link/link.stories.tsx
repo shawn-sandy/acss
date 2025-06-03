@@ -1,6 +1,6 @@
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 
-import { within, expect } from "@storybook/test";
+import { within, expect } from "storybook/test";
 
 import Link from "./link";
 import "../../styles/link/link.css";

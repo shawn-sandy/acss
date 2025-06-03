@@ -1,5 +1,5 @@
-import { StoryObj, Meta, StoryFn } from "@storybook/react";
-import { within, expect, userEvent, fn } from "@storybook/test";
+import { StoryObj, Meta, StoryFn } from "@storybook/react-vite";
+import { within, expect, userEvent, fn } from "storybook/test";
 
 import Alert from "./alert";
 import WithInstructions from "#decorators/instructions.jsx";

@@ -1,5 +1,5 @@
-import { StoryObj, Meta } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import { StoryObj, Meta } from "@storybook/react-vite";
+import { within, expect } from "storybook/test";
 import DismissButton from "./dismiss-button";
 
 const meta: Meta<typeof DismissButton> = {

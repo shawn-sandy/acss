@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { Button } from "./button";
 // import user from '@testing-library/user-event'
 import jest from "jest-mock";
-import { userEvent } from "@storybook/test";
+import { userEvent } from "storybook/test";
 
 describe("Button", () => {
   it("renders a button element with the correct label", () => {

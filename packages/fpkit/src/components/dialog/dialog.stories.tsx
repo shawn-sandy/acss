@@ -1,5 +1,5 @@
-import { StoryObj, Meta, StoryFn } from "@storybook/react";
-import { within, expect, userEvent } from "@storybook/test";
+import { StoryObj, Meta, StoryFn } from "@storybook/react-vite";
+import { within, expect, userEvent } from "storybook/test";
 
 import Dialog from "./dialog";
 import React from "react";

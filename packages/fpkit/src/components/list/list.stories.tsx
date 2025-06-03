@@ -1,8 +1,8 @@
 import React from "react";
 
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 
-// import { within, userEvent } from "@storybook/test";
+// import { within, userEvent } from "storybook/test";
 
 import List from "./list";
 

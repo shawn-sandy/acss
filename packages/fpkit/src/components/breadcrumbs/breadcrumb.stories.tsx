@@ -1,5 +1,5 @@
-import type { StoryObj, Meta } from "@storybook/react";
-import { within, fn, expect } from "@storybook/test";
+import type { StoryObj, Meta } from "@storybook/react-vite";
+import { within, fn, expect } from "storybook/test";
 
 import Breadcrumb from "./breadcrumb";
 

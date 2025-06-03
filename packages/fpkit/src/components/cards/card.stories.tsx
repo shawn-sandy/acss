@@ -1,5 +1,5 @@
-import { StoryObj, Meta } from "@storybook/react";
-// import { within, userEvent, screen } from "@storybook/test";
+import { StoryObj, Meta } from "@storybook/react-vite";
+// import { within, userEvent, screen } from "storybook/test";
 
 import Card from "./card";
 // import './card.scss'
