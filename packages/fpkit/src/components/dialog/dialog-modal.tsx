@@ -108,4 +108,4 @@ export const DialogModal: React.FC<DialogModalProps> = ({
   );
 };
 export default DialogModal;
-DialogModal.displayName = "Dialog Modal";
+DialogModal.displayName = "DialogModal";
