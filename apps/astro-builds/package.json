@@ -1,7 +1,7 @@
 {
   "name": "astro-fpkit",
   "type": "module",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": true,
   "scripts": {
     "dev": "astro dev",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.1.2",
-    "@fpkit/acss": "^0.5.11",
+    "@fpkit/acss": "^0.5.12",
     "astro": "^5.1.1"
   }
 }
