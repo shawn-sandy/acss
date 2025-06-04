@@ -59,6 +59,14 @@ details summary {
   transition: var(--summary-transitions);
   /* This ensures no bullet points are shown */
 }
+@supports (transition-behavior: allow-discrete) {
+  @starting-style {
+    details summary {
+      border-bottom: none;
+      transition: var(--summary-transitions);
+    }
+  }
+}
 details summary::-webkit-details-marker {
   display: none;
 }
