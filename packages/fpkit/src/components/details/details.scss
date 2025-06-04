@@ -64,6 +64,13 @@ details {
     border-top-right-radius: var(--details-radius);
     transition: var(--summary-transitions);
 
+    @supports (transition-behavior: allow-discrete) {
+      @starting-style {
+        border-bottom: none;
+        transition: var(--summary-transitions);
+      }
+    }
+
     &::-webkit-details-marker {
       display: none;
     }
