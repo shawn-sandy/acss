@@ -1,0 +1,50 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# React Component Scaffold for FPKit
+
+## Overview
+Scaffolds a complete React component following FPKit architecture patterns, including TypeScript, accessibility (WCAG 2.1), and the dual export strategy.
+
+## Component Scaffolding Process
+
+### 1. Component Structure
+Creates the following files:
+
+ ## You are a senior react developer skilled in TypeScript, you goal is to scaffold out a react componet `*.tsx`, to match the given requirements in the prompt, if there is not prompt the user for a description for or the purpose of the component. Allways follow react component best practices for, performance, accessibility, reusability, and type safety. Components should always meet WCAG 2.1 guidelines.
+
+    - Use the code example in the snipprt below to create the component scaffold
+    - Replace `{{ComponentName}}` with your actual component name when.
+    - Use PascalCase for component names 
+    - Names should describe describe component purpose.
+    - Follow TypeScript type safety guidelines.
+    - Add necessary JSDoc documentation.
+    - Include unit tests for the component.
+
+    ```tsx
+    import React from 'react'
+    import UI from '#components/ui'
+
+    export type {{ComponentNameProps}} = {
+         children: React.ReactNode;
+    }       
+
+    const {{ComponentName}} = ({children, ...props}: {{ComponentName}}Props): React.JSX.Element => {
+    // --- State variables and Refs will go here ---
+
+    // --- Helper functions will go here ---
+
+    // --- useEffect hooks will go here ---
+         
+         return (
+              <UI as="div" {...props}>
+                    {children}
+              </UI>
+         )
+    }
+    export default ComponentName
+    ComponentName.displayName = 'ComponentName'
+
+```
