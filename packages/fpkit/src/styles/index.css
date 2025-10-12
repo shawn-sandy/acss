@@ -428,9 +428,9 @@ h6:has(span:first-of-type) > span {
 }
 
 button {
-  --btn-xs: 0.6rem;
-  --btn-sm: 0.7rem;
-  --btn-md: 0.85rem;
+  --btn-xs: 0.5rem;
+  --btn-sm: 0.625rem;
+  --btn-md: 0.75rem;
   --btn-lg: 1.3125rem;
   --btn-pill: 100rem;
   --btn-height: 2.5rem;
