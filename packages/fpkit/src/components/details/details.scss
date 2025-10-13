@@ -30,6 +30,12 @@ details {
   transition: var(--summary-transitions);
   max-height: var(--max-h-closed);
   overflow: clip;
+
+  @starting-style {
+    transition: var(--summary-transitions);
+    color: red;
+  }
+
   & + details {
     border-radius: 0; // remove radius from middle elements
     border-top: none; // optional: remove double borders
@@ -105,6 +111,16 @@ details {
     }
     > section {
       max-height: var(--max-h-open);
+      @starting-style {
+        max-height: 0;
+      }
+    }
+  }
+
+  @supports (transition-behavior: allow-discrete) {
+    @starting-style {
+      max-height: 0;
+      transition: var(--summary-transitions);
     }
   }
 }

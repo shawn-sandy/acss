@@ -30,6 +30,12 @@ details {
   max-height: var(--max-h-closed);
   overflow: clip;
 }
+@starting-style {
+  details {
+    transition: var(--summary-transitions);
+    color: red;
+  }
+}
 details + details {
   border-radius: 0;
   border-top: none;
@@ -92,6 +98,19 @@ details[open] > summary {
 }
 details[open] > section {
   max-height: var(--max-h-open);
+}
+@starting-style {
+  details[open] > section {
+    max-height: 0;
+  }
+}
+@supports (transition-behavior: allow-discrete) {
+  @starting-style {
+    details {
+      max-height: 0;
+      transition: var(--summary-transitions);
+    }
+  }
 }
 
 /*# sourceMappingURL=details.css.map */
