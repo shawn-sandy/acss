@@ -428,10 +428,10 @@ h6:has(span:first-of-type) > span {
 }
 
 button {
-  --btn-xs: 0.75rem;
-  --btn-sm: 0.875rem;
-  --btn-md: 1rem;
-  --btn-lg: 1.25rem;
+  --btn-xs: 0.6875rem;
+  --btn-sm: 0.8125rem;
+  --btn-md: 0.9375rem;
+  --btn-lg: 1.125rem;
   --btn-pill: 100rem;
   --btn-fs: var(--btn-md);
   --btn-height: calc(var(--btn-fs) * 2.25);

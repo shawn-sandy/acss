@@ -56,24 +56,28 @@ export const ButtonComponent: Story = {
 export const Xsmall: Story = {
   args: {
     "data-btn": "xs",
+    children: "Click",
   },
 } as Story;
 
 export const Small: Story = {
   args: {
     "data-btn": "sm",
+    children: "Small",
   },
 } as Story;
 
 export const Medium: Story = {
   args: {
     "data-btn": "md",
+    children: "Medium",
   },
 } as Story;
 
 export const Large: Story = {
   args: {
     "data-btn": "lg",
+    children: "Large",
   },
 } as Story;
 
@@ -82,5 +86,6 @@ export const Custom: Story = {
     styles: {
       "--btn-fs": "2rem",
     },
+    children: "Custom",
   },
 } as Story;
