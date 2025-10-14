@@ -1,21 +1,21 @@
 button {
-  --btn-xs: 0.6rem;
-  --btn-sm: 0.7rem;
-  --btn-md: 0.85rem;
+  --btn-xs: 0.7rem;
+  --btn-sm: 0.8rem;
+  --btn-md: 0.95rem;
   --btn-lg: 1.3125rem;
   --btn-pill: 100rem;
-  --btn-height: 2.5rem;
+  --btn-height: 1.8rem;
   --fs: 0.95rem;
   --btn-fs: 0.9375rem;
   --btn-bg: lightgray;
   --btn-width: max-content;
-  --btn-calc-height: var(--btn-height, calc(40rem / 16));
+  --btn-calc-height: var(--btn-height, calc(36rem / 16));
 
   font-size: var(--btn-fs);
   font-weight: var(--btn-fw, 500);
-  height: var(--btn-height, calc(40rem / 16));
+  height: var(--btn-height, calc(24.8rem / 16));
   max-height: var(--btn-calc-height);
-  min-height: 1.5rem;
+  min-height: 0.8rem;
   place-items: var(--btn-place, center);
   padding-inline: var(--btn-px, calc(var(--btn-fs) + 1.1%));
   padding-block: var(--btn-py, calc(var(--btn-fs) + 0.75%));
@@ -94,23 +94,23 @@ button {
   &[data-btn~="xs"] {
     padding-inline: var(--btn-xs);
     --btn-fs: var(--btn-xs);
-    --btn-height: 1.5rem;
+    --btn-height: 0.5rem;
     text-transform: uppercase;
   }
 
   &[data-btn~="sm"] {
     --btn-fs: var(--btn-sm);
-    --btn-height: 1.75rem;
+    --btn-height: 0.8rem;
   }
 
   &[data-btn~="md"] {
     --btn-fs: var(--btn-md);
-    --btn-height: 2rem;
+    --btn-height: 1.3rem;
   }
 
   &[data-btn~="lg"] {
     --btn-fs: var(--btn-lg);
-    --btn-height: 2.5rem;
+    --btn-height: 1.8rem;
   }
 
   &[data-btn~="icon"] {

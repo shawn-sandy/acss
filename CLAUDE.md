@@ -2,93 +2,143 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Repository Structure
+## Project Overview
 
-This is a monorepo using Lerna that builds FPKit (@fpkit/acss), a lightweight React UI component library. The architecture follows a dual export strategy for both convenience and optimization.
+This is a **monorepo** managed by **Lerna** containing:
+- **@fpkit/acss** - A lightweight React UI component library in `packages/fpkit/`
+- **Root Storybook** - Component documentation and development playground
+- **astro-fpkit** - Astro integration demo app in `apps/astro-builds/`
 
-**Key directories:**
-- `packages/fpkit/` - Main UI library package
-- `apps/astro-builds/` - Astro documentation site
-- `.storybook/` - Storybook configuration for component development
+The project follows independent versioning where each package maintains its own version number.
 
-The main package (`packages/fpkit/`) contains:
-- `src/components/` - Component source files (.tsx)
-- `src/styles/` - SCSS styling files
-- `libs/` - Built library output (JS, CSS, TypeScript definitions)
-- Component exports via individual imports (`@fpkit/acss/button`) and barrel imports
+## Key Architecture
+
+### Component Library (@fpkit/acss)
+
+Located in `packages/fpkit/`, this is the main React component library that:
+- Uses **CSS custom properties** for reactive styling (not Tailwind)
+- Built with TypeScript and React 18+
+- Exports components via multiple entry points: main, hooks, icons, styles
+- Generates both ESM (`libs/index.js`) and CJS (`libs/index.cjs`) builds
+- Includes SCSS source files alongside compiled CSS
+
+**Component Organization:**
+- Components live in `packages/fpkit/src/components/`
+- Each component has its own directory with component, styles (.scss), stories, and tests
+- Main exports defined in `packages/fpkit/src/index.ts`
+- Separate exports for hooks (`src/hooks.ts`) and icons (`src/icons.ts`)
+
+**Styling System:**
+- Uses **SASS/SCSS** exclusively (no Tailwind)
+- CSS custom properties for theming
+- Units must be in **rem** (not px) - base 16px = 1rem
+- Component styles in `src/components/` compiled to `libs/components/`
+- Main stylesheet: `src/index.scss` → `libs/index.css`
+
+### Storybook Setup
+
+The root project runs Storybook for component development:
+- Stories located in `packages/fpkit/**/*.stories.tsx`
+- Configured to load from fpkit package
+- Uses addons: a11y, docs, tag-badges, onboarding
+- TypeScript with react-docgen-typescript for prop documentation
 
 ## Common Commands
 
-**Root level commands:**
-- `npm run start` - Start Storybook development server on port 6006
-- `npm run build` - Build TypeScript and Vite bundle
-- `npm run lint` - Run ESLint
-- `npm run storybook` - Start Storybook development server
-- `npm run build-storybook` - Build Storybook for production
-
-**FPKit package commands (run from packages/fpkit/):**
-- `npm run dev` - Start Vite development server
-- `npm run build` - Full build (package, sass, build:sass, build:css)
-- `npm run package` - Build TypeScript and tsup bundle with types
-- `npm run test` - Run Vitest tests
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run test:ui` - Run Vitest UI with coverage
-- `npm run lint` - ESLint for .jsx,.tsx files
-
-**Sass/CSS workflow:**
-- `npm run sass:watch` - Watch SCSS files and compile to src/styles/
-- `npm run build:sass` - Build SCSS to libs/ (compressed)
-
-## Architecture Patterns
-
-**Component Structure:**
-Components follow a standardized pattern using a `UI` wrapper from `#components/ui`. Each component:
-- Uses TypeScript with proper prop types
-- Implements accessibility (WCAG 2.1)
-- Includes JSDoc documentation
-- Has corresponding .stories.tsx and .test.tsx files
-- Uses SCSS for styling in component directories
-
-**Dual Export Strategy:**
-- Barrel imports: `import { Button } from '@fpkit/acss'` (convenience)
-- Individual imports: `import { Button } from '@fpkit/acss/button'` (tree-shaking)
-
-**Key conventions:**
-- PascalCase component names
-- Component files use `displayName` property
-- Props interface named `{ComponentName}Props`
-- SCSS files alongside components, compiled to libs/components/
-- CSS custom properties for theming
-
-**Testing:**
-- Vitest for unit testing
-- React Testing Library for component testing
-- Snapshot testing with `.snap` files
-- Tests located alongside components or in `__snapshots__/`
-
-**Component Scaffold Pattern:**
-```tsx
-import React from 'react'
-import UI from '#components/ui'
-
-export type ComponentNameProps = {
-  children: React.ReactNode;
-}
-
-const ComponentName = ({children, ...props}: ComponentNameProps): React.JSX.Element => {
-  return (
-    <UI as="div" {...props}>
-      {children}
-    </UI>
-  )
-}
-
-export default ComponentName
-ComponentName.displayName = 'ComponentName'
+### Root Project (Storybook)
+```bash
+npm start                # Start Storybook dev server on port 6006
+npm run storybook        # Alternative to start Storybook
+npm run build-storybook  # Build Storybook static site
+npm run lint             # Run ESLint
+npm run build            # Build root project with Vite
 ```
 
-**Development workflow:**
-- SCSS files are compiled and watched during development
-- TypeScript builds generate both ES modules and CommonJS
-- Components are exported individually for tree-shaking
-- Storybook provides component development environment
+### fpkit Package (packages/fpkit/)
+```bash
+# Development
+npm run dev              # Start Vite dev server
+npm start                # Watch mode: builds package + SASS in parallel
+
+# Building
+npm run build            # Full build: TS compile → tsup bundle → SASS → CSS processing
+npm run package          # Build TypeScript with tsup (generates .js, .cjs, .d.ts)
+npm run sass:build       # Compile SCSS to CSS (compressed)
+npm run sass:watch       # Watch and compile SCSS
+
+# Testing
+npm test                 # Run Vitest tests
+npm run test:ui          # Run tests with UI and coverage
+npm run test:coverage    # Generate coverage report
+npm run test:snapshot    # Update snapshots
+
+# Linting
+npm run lint             # Run ESLint on .jsx and .tsx files
+npm run lint-fix         # Auto-fix ESLint issues
+```
+
+### Astro Demo (apps/astro-builds/)
+```bash
+npm run dev              # Start Astro dev server
+npm run build            # Build Astro site
+npm run preview          # Preview production build
+```
+
+## Development Workflow
+
+### Working on Components
+
+1. **Component files** go in `packages/fpkit/src/components/{component-name}/`
+2. Create component with TypeScript and proper JSDoc comments
+3. Add corresponding `.scss` file using rem units
+4. Export from `packages/fpkit/src/index.ts` (or appropriate entry point)
+5. Create `.stories.tsx` file for Storybook documentation
+6. Add tests with `.test.tsx` using Vitest + React Testing Library
+
+### Style Guidelines
+
+- Use **rem units only** (convert px/16 = rem)
+- Leverage CSS custom properties for theming
+- SCSS files should be modular and component-scoped
+- Follow BEM-like naming or component-scoped class names
+- Avoid inline styles unless necessary for dynamic CSS properties
+
+### Testing
+
+- Tests use Vitest with happy-dom or jsdom
+- React Testing Library for component testing
+- Test files use `.test.tsx` extension
+- Setup files: `packages/fpkit/src/test/setup.ts`
+
+### TypeScript
+
+- Strict typing enforced
+- Component props in `src/types/` directory
+- Use interfaces for component props
+- Import aliases: `#*` for `./src/*`, `#decorators` for `./src/decorators/*`
+- tsconfig uses project references (app + node configs)
+
+## Build Output
+
+- **fpkit package**:
+  - Compiled JS: `packages/fpkit/libs/`
+  - Compiled CSS: `packages/fpkit/libs/index.css` and `libs/components/`
+  - Type definitions: `packages/fpkit/libs/*.d.ts`
+- **Storybook**: `storybook-static/` (gitignored)
+
+## Git Hooks
+
+- **Husky** configured via `npm run prepare`
+- **lint-staged** runs ESLint on staged `.js,.jsx,.ts,.tsx` files
+
+## Publishing
+
+- fpkit package published to npm as `@fpkit/acss`
+- Uses independent versioning through Lerna
+- Publish command: `npm run release` (from fpkit directory)
+- Public npm package (not private)
+
+## Node Version
+
+- Requires Node.js >= 20.9.0 (enforced in package.json engines)
+- `.nvmrc` specifies 20.9.0

@@ -2,7 +2,7 @@
   "name": "@fpkit/acss",
   "description": "A lightweight React UI library for building modern and accessible components that leverage CSS custom properties for reactive Styles.",
   "private": false,
-  "version": "0.5.12",
+  "version": "0.5.11",
   "engines": {
     "node": ">=20.9.0",
     "npm": ">=8.0.0"
@@ -11,7 +11,6 @@
     "start": "run-p package:watch sass:watch",
     "dev": "vite --open",
     "build": "run-s package sass build:sass build:css",
-    "build:components": "tsup --config tsup.components.config.cjs",
     "package": "tsc && tsup --dts",
     "package:watch": "tsc && tsup --watch --dts",
     "build::css": "postcss ./libs/components/**/*.css --base libs/components/  --use autoprefixer -d ./libs/components/ --ext min.css",
@@ -81,86 +80,6 @@
       "import": "./libs/index.js",
       "require": "./libs/index.cjs",
       "default": "./libs/index.js"
-    },
-    "./button": {
-      "import": "./libs/components/button.js",
-      "require": "./libs/components/button.cjs",
-      "default": "./libs/components/button.js"
-    },
-    "./card": {
-      "import": "./libs/components/card.js",
-      "require": "./libs/components/card.cjs",
-      "default": "./libs/components/card.js"
-    },
-    "./modal": {
-      "import": "./libs/components/modal.js",
-      "require": "./libs/components/modal.cjs",
-      "default": "./libs/components/modal.js"
-    },
-    "./input": {
-      "import": "./libs/components/input.js",
-      "require": "./libs/components/input.cjs",
-      "default": "./libs/components/input.js"
-    },
-    "./link": {
-      "import": "./libs/components/link.js",
-      "require": "./libs/components/link.cjs",
-      "default": "./libs/components/link.js"
-    },
-    "./list": {
-      "import": "./libs/components/list.js",
-      "require": "./libs/components/list.cjs",
-      "default": "./libs/components/list.js"
-    },
-    "./icon": {
-      "import": "./libs/components/icon.js",
-      "require": "./libs/components/icon.cjs",
-      "default": "./libs/components/icon.js"
-    },
-    "./table": {
-      "import": "./libs/components/table.js",
-      "require": "./libs/components/table.cjs",
-      "default": "./libs/components/table.js"
-    },
-    "./dialog": {
-      "import": "./libs/components/dialog.js",
-      "require": "./libs/components/dialog.cjs",
-      "default": "./libs/components/dialog.js"
-    },
-    "./nav": {
-      "import": "./libs/components/nav.js",
-      "require": "./libs/components/nav.cjs",
-      "default": "./libs/components/nav.js"
-    },
-    "./popover": {
-      "import": "./libs/components/popover.js",
-      "require": "./libs/components/popover.cjs",
-      "default": "./libs/components/popover.js"
-    },
-    "./text": {
-      "import": "./libs/components/text.js",
-      "require": "./libs/components/text.cjs",
-      "default": "./libs/components/text.js"
-    },
-    "./heading": {
-      "import": "./libs/components/heading.js",
-      "require": "./libs/components/heading.cjs",
-      "default": "./libs/components/heading.js"
-    },
-    "./breadcrumb": {
-      "import": "./libs/components/breadcrumb.js",
-      "require": "./libs/components/breadcrumb.cjs",
-      "default": "./libs/components/breadcrumb.js"
-    },
-    "./textarea": {
-      "import": "./libs/components/textarea.js",
-      "require": "./libs/components/textarea.cjs",
-      "default": "./libs/components/textarea.js"
-    },
-    "./field": {
-      "import": "./libs/components/field.js",
-      "require": "./libs/components/field.cjs",
-      "default": "./libs/components/field.js"
     },
     "./hooks": {
       "import": "./libs/hooks.js",
