@@ -53,6 +53,36 @@ export const ButtonComponent: Story = {
   },
 } as Story;
 
+/**
+ * Create a submit button
+ */
+export const Submit: Story = {
+  args: {
+    type: "submit",
+    children: "Submit",
+  },
+} as Story;
+
+/**
+ * A reset button
+ */
+export const Reset: Story = {
+  args: {
+    type: "reset",
+    children: "Reset",
+  },
+} as Story;
+
+/**
+ * A cancel button
+ */
+export const Cancel: Story = {
+  args: {
+    type: "button",
+    children: "Cancel",
+  },
+} as Story;
+
 export const Xsmall: Story = {
   args: {
     "data-btn": "xs",
