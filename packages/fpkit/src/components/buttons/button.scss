@@ -87,24 +87,29 @@ button {
     border-radius: var(--btn-pill, 100rem);
   }
 
-  &[data-btn~="xs"] {
+  &[data-btn~="xs"],
+  .btn-xs {
     --btn-fs: var(--btn-xs);
     text-transform: uppercase;
   }
 
-  &[data-btn~="sm"] {
+  &[data-btn~="sm"],
+  .btn-sm {
     --btn-fs: var(--btn-sm);
   }
 
-  &[data-btn~="md"] {
+  &[data-btn~="md"],
+  .btn-md {
     --btn-fs: var(--btn-md);
   }
 
-  &[data-btn~="lg"] {
+  &[data-btn~="lg"],
+  .btn-lg {
     --btn-fs: var(--btn-lg);
   }
 
-  &[data-btn~="icon"] {
+  &[data-btn~="icon"],
+  .btn-icon {
     padding: unset;
     height: unset;
     --btn-bg: transparent;
@@ -116,7 +121,8 @@ button {
     justify-content: center;
   }
 
-  &[data-btn~="text"] {
+  &[data-btn~="text"],
+  .btn-text {
     --btn-bg: transparent;
     --btn-cl: currentColor;
     --btn-bdr: none;
