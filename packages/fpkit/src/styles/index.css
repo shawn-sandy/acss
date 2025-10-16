@@ -474,14 +474,16 @@ button[disabled]:is(:hover, :focus), button[aria-disabled=true]:is(:hover, :focu
   transform: none;
 }
 button:is(:hover, :focus) {
-  background-color: var(--btn-bg, var(--btn, lightgray));
-  filter: invert(1) hue-rotate 180deg;
-  transform: scale(0.95) var(--line-style, solid);
+  filter: var(--btn-hover-filter, brightness(0.85));
+  transform: var(--btn-hover-transform, scale(1.05));
+  outline: var(--btn-hover-outline, 2px);
+  outline-style: var(--line-style, solid);
   outline-offset: var(--line-offset, 1px);
 }
 button:is(:hover, :focus)[aria-disabled=true] {
   transform: none;
   opacity: var(--btn-opacity, 0.5);
+  filter: none;
 }
 button[type=reset] {
   --btn-bg: transparent;
@@ -497,20 +499,25 @@ button[type=submit] {
 button[data-fp-btn~=pill], button[data-btn~=pill], button[data-style~=pill] {
   border-radius: var(--btn-pill, 100rem);
 }
-button[data-btn~=xs] {
+button[data-btn~=xs],
+button .btn-xs {
   --btn-fs: var(--btn-xs);
   text-transform: uppercase;
 }
-button[data-btn~=sm] {
+button[data-btn~=sm],
+button .btn-sm {
   --btn-fs: var(--btn-sm);
 }
-button[data-btn~=md] {
+button[data-btn~=md],
+button .btn-md {
   --btn-fs: var(--btn-md);
 }
-button[data-btn~=lg] {
+button[data-btn~=lg],
+button .btn-lg {
   --btn-fs: var(--btn-lg);
 }
-button[data-btn~=icon] {
+button[data-btn~=icon],
+button .btn-icon {
   padding: unset;
   height: unset;
   --btn-bg: transparent;
@@ -521,7 +528,8 @@ button[data-btn~=icon] {
   align-items: center;
   justify-content: center;
 }
-button[data-btn~=text] {
+button[data-btn~=text],
+button .btn-text {
   --btn-bg: transparent;
   --btn-cl: currentColor;
   --btn-bdr: none;
@@ -530,10 +538,12 @@ button[data-btn~=text] {
   --btn-py: 0.75rem;
   --btn-px: 0.75rem;
 }
-button[data-btn~=text]:is(:hover, :focus) {
-  background-color: transparent;
-  outline: 0.07rem solid var(--btn-cl);
+button[data-btn~=text]:is(:hover, :focus),
+button .btn-text:is(:hover, :focus) {
+  background-color: color-mix(in srgb, var(--btn-cl) 10%, transparent);
+  outline: 0.025rem solid var(--btn-cl);
   outline-offset: 0;
+  filter: none;
 }
 
 p[role=note],

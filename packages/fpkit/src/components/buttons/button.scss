@@ -56,15 +56,17 @@ button {
 
   // TODO: add hover/focus with :if()
   &:is(:hover, :focus) {
-    // --btn-bg: lightgray;
-    background-color: var(--btn-bg, var(--btn, lightgray));
-    filter: invert(1) hue-rotate (180deg);
-    transform: scale(0.95) var(--line-style, solid);
+    // Darken the background on hover by reducing brightness
+    filter: var(--btn-hover-filter, brightness(0.85));
+    transform: var(--btn-hover-transform, scale(1.05));
+    outline: var(--btn-hover-outline, 2px);
+    outline-style: var(--line-style, solid);
     outline-offset: var(--line-offset, 1px);
 
     &[aria-disabled="true"] {
       transform: none;
       opacity: var(--btn-opacity, 0.5);
+      filter: none;
     }
   }
 
@@ -131,9 +133,10 @@ button {
     --btn-py: 0.75rem;
     --btn-px: 0.75rem;
     &:is(:hover, :focus) {
-      background-color: transparent;
-      outline: 0.07rem solid var(--btn-cl);
+      background-color: color-mix(in srgb, var(--btn-cl) 10%, transparent);
+      outline: 0.025rem solid var(--btn-cl);
       outline-offset: 0;
+      filter: none; // Override parent filter
     }
   }
 }
