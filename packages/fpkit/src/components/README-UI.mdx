@@ -1,0 +1,416 @@
+# UI Component
+
+> A polymorphic React component that can render as any HTML element with full TypeScript type safety.
+
+## Overview
+
+The **UI component** is a foundational primitive used throughout the fpkit library to create flexible, type-safe components. It implements the polymorphic component pattern, enabling a single component to render as different HTML elements while maintaining complete TypeScript type safety for element-specific props.
+
+This component serves as the building block for 25+ components across fpkit, including Button, Badge, Tag, Heading, Text, and more.
+
+## Features
+
+- **Polymorphic Rendering** - Render as any valid HTML element using the `as` prop
+- **Full Type Safety** - TypeScript infers correct props based on the chosen element
+- **Style Merging** - Intelligent merging of `defaultStyles` and `styles` props
+- **Ref Forwarding** - Properly typed ref support for all element types
+- **Prop Spreading** - All native element props are forwarded with type checking
+- **Zero Runtime Overhead** - Thin wrapper with minimal performance cost
+
+## Props
+
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `React.ElementType` | `'div'` | The HTML element type to render (e.g., 'button', 'span', 'a') |
+| `styles` | `React.CSSProperties` | `undefined` | Inline styles to apply. Overrides `defaultStyles`. |
+| `classes` | `string` | `undefined` | CSS class names to apply to the element |
+| `defaultStyles` | `React.CSSProperties` | `undefined` | Base styles that can be overridden by `styles` prop |
+| `children` | `React.ReactNode` | `undefined` | Child elements to render inside the component |
+| `ref` | `React.Ref<Element>` | `undefined` | Forwarded ref with proper typing for the element type |
+| `renderStyles` | `boolean` | - | **Deprecated**: Reserved for future use. Currently has no effect. |
+| `...props` | Element-specific | - | All native element props are forwarded (onClick, href, disabled, etc.) |
+
+## Usage Examples
+
+### Basic Usage
+
+By default, the UI component renders as a `div`:
+
+```tsx
+import UI from '@fpkit/acss';
+
+function Example() {
+  return <UI>Hello World</UI>;
+}
+// Renders: <div>Hello World</div>
+```
+
+### Polymorphic Rendering
+
+Use the `as` prop to render as different HTML elements:
+
+```tsx
+// Render as a button
+<UI as="button" onClick={handleClick}>
+  Click me
+</UI>
+
+// Render as a link with href (TypeScript knows href is valid!)
+<UI as="a" href="/home" target="_blank">
+  Go Home
+</UI>
+
+// Render as a semantic section
+<UI as="section" aria-label="Main Content">
+  <h2>Section Title</h2>
+  <p>Section content...</p>
+</UI>
+
+// Render as a span
+<UI as="span" style={{ fontWeight: 'bold' }}>
+  Bold Text
+</UI>
+```
+
+### Style Customization
+
+The UI component supports both `defaultStyles` (base styles) and `styles` (override styles):
+
+```tsx
+// defaultStyles provide a base layer
+<UI
+  defaultStyles={{
+    padding: '1rem',
+    backgroundColor: 'lightblue',
+    color: 'blue'
+  }}
+>
+  Blue text with padding
+</UI>
+
+// styles override defaultStyles
+<UI
+  defaultStyles={{
+    padding: '1rem',
+    color: 'blue'
+  }}
+  styles={{
+    color: 'red' // This overrides the blue color
+  }}
+>
+  Red text with padding (color overridden)
+</UI>
+
+// Using CSS custom properties
+<UI
+  styles={{
+    '--button-bg': '#007bff',
+    '--button-color': 'white',
+    padding: '0.5rem 1rem',
+    backgroundColor: 'var(--button-bg)',
+    color: 'var(--button-color)'
+  } as React.CSSProperties}
+>
+  Themed Button
+</UI>
+```
+
+### Ref Forwarding
+
+The UI component properly forwards refs with correct typing:
+
+```tsx
+import { useRef, useEffect } from 'react';
+
+function FocusExample() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    // TypeScript knows this is an HTMLButtonElement
+    buttonRef.current?.focus();
+  }, []);
+
+  return (
+    <UI as="button" ref={buttonRef}>
+      Auto-focused Button
+    </UI>
+  );
+}
+```
+
+### Type-Safe Props
+
+TypeScript automatically infers the correct props based on the `as` prop:
+
+```tsx
+// Button-specific props are available
+<UI as="button" type="submit" disabled>
+  Submit
+</UI>
+
+// Anchor-specific props are available
+<UI as="a" href="/link" target="_blank" rel="noopener">
+  External Link
+</UI>
+
+// Form-specific props are available
+<UI as="form" onSubmit={handleSubmit} method="POST">
+  <input type="text" />
+</UI>
+
+// TypeScript will error on invalid prop combinations!
+// ❌ This will cause a TypeScript error:
+// <UI as="button" href="/link">Invalid</UI>
+```
+
+### Building Higher-Level Components
+
+The UI component is designed to be a primitive for building other components:
+
+```tsx
+// Example: Building a Button component
+interface ButtonProps {
+  variant?: 'primary' | 'secondary';
+  children: React.ReactNode;
+}
+
+const Button = ({ variant = 'primary', ...props }: ButtonProps) => {
+  const variantStyles = {
+    primary: {
+      backgroundColor: '#007bff',
+      color: 'white',
+      border: 'none'
+    },
+    secondary: {
+      backgroundColor: 'transparent',
+      color: '#007bff',
+      border: '1px solid #007bff'
+    }
+  };
+
+  return (
+    <UI
+      as="button"
+      defaultStyles={{
+        padding: '0.5rem 1rem',
+        borderRadius: '0.25rem',
+        cursor: 'pointer',
+        ...variantStyles[variant]
+      }}
+      {...props}
+    />
+  );
+};
+
+// Usage
+<Button variant="primary" onClick={handleClick}>
+  Primary Button
+</Button>
+```
+
+## Technical Details
+
+### Type System Architecture
+
+The UI component uses a sophisticated type system to achieve polymorphic behavior:
+
+```
+FPComponent (function signature)
+    ↓
+FPProps<C> (merged props with ref)
+    ↓
+PolymorphicComponentPropWithRef<C, Props>
+    ↓
+PolymorphicComponentProp<C, Props> (props without ref)
+    ↓
+PropsWithChildren<Props & AsProp<C>> & Omit<ComponentPropsWithoutRef<C>, ...>
+```
+
+**How it works:**
+
+1. **Generic Parameter**: The component accepts a generic `C extends React.ElementType` representing the element type
+2. **Prop Inference**: TypeScript uses `React.ComponentPropsWithoutRef<C>` to extract native props for that element
+3. **Prop Merging**: Custom props (`styles`, `classes`, etc.) are merged with native props
+4. **Conflict Resolution**: The `PropsToOmit` type removes conflicting keys to prevent type errors
+5. **Ref Typing**: The `PolymorphicRef` type extracts the correct ref type for the element
+
+### Style Merging Behavior
+
+The component merges styles using JavaScript object spread:
+
+```typescript
+const styleObj: React.CSSProperties = { ...defaultStyles, ...styles };
+```
+
+**Precedence:**
+- `defaultStyles` is applied first (base layer)
+- `styles` is applied second (override layer)
+- Properties in `styles` always override matching properties in `defaultStyles`
+
+**Example:**
+```tsx
+<UI
+  defaultStyles={{ padding: '1rem', color: 'blue', fontSize: '16px' }}
+  styles={{ color: 'red' }}
+/>
+// Result: { padding: '1rem', color: 'red', fontSize: '16px' }
+```
+
+## Common Patterns
+
+### How fpkit Components Use UI
+
+Many fpkit components are built on the UI primitive:
+
+**Button Component:**
+```tsx
+<UI
+  as="button"
+  defaultStyles={{ padding: '0.5rem 1rem', borderRadius: '0.25rem' }}
+  {...props}
+/>
+```
+
+**Badge Component:**
+```tsx
+<UI
+  as="span"
+  defaultStyles={{
+    display: 'inline-block',
+    padding: '0.25rem 0.5rem',
+    fontSize: '0.75rem',
+    borderRadius: '0.25rem'
+  }}
+  {...props}
+/>
+```
+
+**Tag Component:**
+```tsx
+<UI
+  as="span"
+  defaultStyles={{
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '0.25rem'
+  }}
+  {...props}
+/>
+```
+
+## FP vs UI
+
+The fpkit codebase contains two similar polymorphic components:
+
+| Feature | UI Component | FP Component |
+|---------|-------------|--------------|
+| File | `ui.tsx` | `fp.tsx` |
+| Usage | Used by 25+ components | Standalone usage |
+| `defaultStyles` | ✅ Supported | ✅ Supported |
+| `renderStyles` | ⚠️ Defined but not implemented | ⚠️ Defined but not implemented |
+| Tests | 📝 Being added | ✅ Has tests |
+| Default Element | `div` | `div` |
+
+**When to use UI:**
+- When building components within the fpkit library
+- When you need the established patterns used by Button, Badge, etc.
+- When `defaultStyles` merging is important
+
+**When to use FP:**
+- For standalone polymorphic rendering
+- When you want a tested primitive
+- For quick prototyping
+
+> **Note**: These components may be consolidated in a future version. Check the documentation for updates.
+
+## Accessibility Notes
+
+The UI component is a low-level primitive that doesn't enforce accessibility features. It's your responsibility to:
+
+- **Choose semantic HTML elements** - Use `as="button"` for clickable actions, `as="a"` for navigation, etc.
+- **Avoid generic divs for interactive elements** - Don't use `<UI as="div" onClick={...}>` for buttons
+- **Use proper ARIA attributes** - Add `aria-label`, `role`, etc. when needed
+- **Ensure keyboard accessibility** - Native elements provide this for free (button, a, etc.)
+
+**Good examples:**
+```tsx
+// ✅ Semantic button
+<UI as="button" onClick={handleClick}>Click me</UI>
+
+// ✅ Semantic navigation link
+<UI as="nav" aria-label="Main navigation">...</UI>
+
+// ✅ Semantic article with heading
+<UI as="article">
+  <UI as="h2">Article Title</UI>
+</UI>
+```
+
+**Bad examples:**
+```tsx
+// ❌ Div used as button (not keyboard accessible)
+<UI as="div" onClick={handleClick}>Click me</UI>
+
+// ❌ Span used as link (not accessible)
+<UI as="span" onClick={navigate}>Go to page</UI>
+```
+
+## Additional Notes
+
+### Performance Considerations
+
+The UI component has minimal performance overhead:
+- Single object spread for style merging
+- No hooks or state
+- Thin wrapper around native elements
+- Ref forwarding with no additional rendering
+
+### TypeScript IntelliSense
+
+One of the biggest benefits of the UI component is enhanced developer experience:
+
+- **Autocomplete** - Your IDE will suggest valid props based on the `as` prop
+- **Type Errors** - Invalid prop combinations are caught at compile time
+- **Documentation** - Hover over props to see JSDoc comments
+- **Refactoring** - Change the `as` prop and see prop types update instantly
+
+### Gotchas and Best Practices
+
+**Style Object Creation:**
+```tsx
+// ❌ Bad: Creates new object on every render
+<UI styles={{ padding: '1rem' }}>Text</UI>
+
+// ✅ Good: Memoize style objects
+const styles = useMemo(() => ({ padding: '1rem' }), []);
+<UI styles={styles}>Text</UI>
+
+// ✅ Also good: Define outside component if static
+const STATIC_STYLES = { padding: '1rem' };
+<UI styles={STATIC_STYLES}>Text</UI>
+```
+
+**Ref Type Safety:**
+```tsx
+// ✅ Good: Ref type matches element
+const buttonRef = useRef<HTMLButtonElement>(null);
+<UI as="button" ref={buttonRef}>Button</UI>
+
+// ❌ Bad: Ref type mismatch
+const divRef = useRef<HTMLDivElement>(null);
+<UI as="button" ref={divRef}>Button</UI> // Type error!
+```
+
+## Related Components
+
+- **FP Component** - Alternative polymorphic primitive
+- **Button** - Interactive button component built with UI
+- **Badge** - Small label component built with UI
+- **Tag** - Dismissible tag component built with UI
+- **Heading** - Semantic heading component built with UI
+
+## See Also
+
+- [React Polymorphic Components](https://www.benmvp.com/blog/polymorphic-react-components-typescript/)
+- [TypeScript Advanced Types](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html)
+- [React forwardRef](https://react.dev/reference/react/forwardRef)
