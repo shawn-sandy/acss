@@ -1,14 +1,6 @@
 import React from "react";
-import UI from "#components/ui";
 import { IconProps } from "#components/icons/types";
-import DismissButton from "./elements/dismiss-button";
-import {
-  AlertScreenReaderText,
-  AlertIcon,
-  AlertTitle,
-  AlertContent,
-  AlertActions,
-} from "./views";
+import { AlertView } from "./views";
 
 // ============================================================================
 // TYPES & CONFIGURATION
@@ -19,19 +11,6 @@ import {
  * Each severity has associated colors, icons, and ARIA attributes.
  */
 type Severity = "default" | "info" | "success" | "warning" | "error";
-
-/**
- * Maps severity levels to ARIA live region types.
- * - "polite": Waits for screen reader to finish current announcement
- * - "assertive": Interrupts screen reader immediately (used for errors)
- */
-const SEVERITY_ARIA_LIVE: Record<Severity, "polite" | "assertive"> = {
-  default: "polite",
-  info: "polite",
-  success: "polite",
-  warning: "polite",
-  error: "assertive",
-} as const;
 
 
 /**
@@ -191,7 +170,7 @@ export type AlertProps = {
    * ```
    */
   contentType?: "text" | "node";
-} & React.ComponentProps<typeof UI>;
+} & Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'children'>;
 
 /**
  * Alert is a fully accessible component for displaying status messages with different severity levels.
@@ -422,32 +401,26 @@ const Alert: React.FC<AlertProps> = ({
   };
 
   return (
-    <UI
-      as="div"
+    <AlertView
       ref={alertRef}
-      role="alert"
-      aria-live={SEVERITY_ARIA_LIVE[severity]}
-      aria-atomic="true"
-      className={`alert alert-${severity}`}
-      data-alert={severity}
-      data-visible={isVisible}
-      data-variant={variant}
-      tabIndex={autoFocus ? -1 : undefined}
-      onMouseEnter={handleInteractionStart}
-      onMouseLeave={handleInteractionEnd}
-      onFocus={handleInteractionStart}
-      onBlur={handleInteractionEnd}
+      severity={severity}
+      variant={variant}
+      isVisible={isVisible}
+      dismissible={dismissible}
+      onDismiss={handleDismiss}
+      onInteractionStart={handleInteractionStart}
+      onInteractionEnd={handleInteractionEnd}
+      autoFocus={autoFocus}
+      title={title}
+      titleLevel={titleLevel}
+      contentType={contentType}
+      actions={actions}
+      hideIcon={hideIcon}
+      iconProps={mergedIconProps}
       {...props}
     >
-      <AlertScreenReaderText severity={severity} />
-      <AlertIcon severity={severity} iconProps={mergedIconProps} hideIcon={hideIcon} />
-      <UI as="div" className="alert-message">
-        <AlertTitle title={title} titleLevel={titleLevel} />
-        <AlertContent contentType={contentType}>{children}</AlertContent>
-        <AlertActions actions={actions} />
-      </UI>
-      {dismissible && <DismissButton onDismiss={handleDismiss} />}
-    </UI>
+      {children}
+    </AlertView>
   );
 };
 export default Alert;
