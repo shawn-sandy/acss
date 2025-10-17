@@ -1,8 +1,14 @@
 import React from "react";
 import UI from "#components/ui";
-import Icon from "#components/icons/icon";
 import { IconProps } from "#components/icons/types";
 import DismissButton from "./elements/dismiss-button";
+import {
+  AlertScreenReaderText,
+  AlertIcon,
+  AlertTitle,
+  AlertContent,
+  AlertActions,
+} from "./views";
 
 // ============================================================================
 // TYPES & CONFIGURATION
@@ -27,40 +33,6 @@ const SEVERITY_ARIA_LIVE: Record<Severity, "polite" | "assertive"> = {
   error: "assertive",
 } as const;
 
-/**
- * Screen reader announcement text for each severity level.
- * Provides context about the type of message being displayed.
- * Empty string for "default" to avoid redundant announcements.
- */
-const SEVERITY_SCREEN_READER_TEXT: Record<Severity, string> = {
-  default: "",
-  info: "Information: ",
-  success: "Success: ",
-  warning: "Warning: ",
-  error: "Error: ",
-} as const;
-
-/**
- * Pure function to get the appropriate icon for a severity level.
- * Replaces useMemo - pure functions are simpler with no memoization overhead.
- *
- * @param severity - The alert severity level
- * @param iconProps - Props to pass to the Icon component
- * @returns The icon element for the severity
- */
-const getSeverityIcon = (
-  severity: Severity,
-  iconProps: IconProps
-): JSX.Element => {
-  const severityIcons: Record<Severity, JSX.Element> = {
-    info: <Icon.InfoSolid {...iconProps} />,
-    success: <Icon.SuccessSolid {...iconProps} />,
-    warning: <Icon.WarnSolid {...iconProps} />,
-    error: <Icon.AlertSolid {...iconProps} />,
-    default: <Icon.AlertSquareSolid {...iconProps} />,
-  };
-  return severityIcons[severity];
-};
 
 /**
  * Props for the Alert component.
@@ -449,12 +421,6 @@ const Alert: React.FC<AlertProps> = ({
     ...iconProps,
   };
 
-  // Get severity icon using pure function
-  const severityIcon = getSeverityIcon(severity, mergedIconProps);
-
-  // Dynamic title element based on titleLevel prop
-  const TitleElement = titleLevel ? (`h${titleLevel}` as const) : "strong";
-
   return (
     <UI
       as="div"
@@ -473,31 +439,12 @@ const Alert: React.FC<AlertProps> = ({
       onBlur={handleInteractionEnd}
       {...props}
     >
-      {/* Visually hidden severity text for screen readers */}
-      {SEVERITY_SCREEN_READER_TEXT[severity] && (
-        <span className="sr-only">{SEVERITY_SCREEN_READER_TEXT[severity]}</span>
-      )}
-      {!hideIcon && (
-        <UI aria-hidden="true" className="alert-icon">
-          {severityIcon}
-        </UI>
-      )}
+      <AlertScreenReaderText severity={severity} />
+      <AlertIcon severity={severity} iconProps={mergedIconProps} hideIcon={hideIcon} />
       <UI as="div" className="alert-message">
-        {title && (
-          <UI as={TitleElement} className="alert-title">
-            {title}
-          </UI>
-        )}
-        {contentType === "node" ? (
-          children
-        ) : (
-          <UI as="p">{children}</UI>
-        )}
-        {actions && (
-          <UI as="div" className="alert-actions">
-            {actions}
-          </UI>
-        )}
+        <AlertTitle title={title} titleLevel={titleLevel} />
+        <AlertContent contentType={contentType}>{children}</AlertContent>
+        <AlertActions actions={actions} />
       </UI>
       {dismissible && <DismissButton onDismiss={handleDismiss} />}
     </UI>
