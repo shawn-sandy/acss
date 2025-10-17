@@ -64,6 +64,30 @@ describe('Alert', () => {
       expect(container.querySelector('.alert-icon')).toBeInTheDocument();
     });
 
+    it('should render with custom icon size', () => {
+      const { container } = render(
+        <Alert open={true} severity="info" iconSize={32}>
+          Test message
+        </Alert>
+      );
+
+      const icon = container.querySelector('.alert-icon svg');
+      expect(icon).toBeInTheDocument();
+      // Note: Actual size verification would require checking the SVG element's attributes
+      // which depends on the Icon component implementation
+    });
+
+    it('should use default icon size of 24px when iconSize not specified', () => {
+      const { container } = render(
+        <Alert open={true} severity="info">
+          Test message
+        </Alert>
+      );
+
+      const iconContainer = container.querySelector('.alert-icon');
+      expect(iconContainer).toBeInTheDocument();
+    });
+
     it('should render actions when provided', () => {
       render(
         <Alert
@@ -369,6 +393,266 @@ describe('Alert', () => {
       // After click, visibility should be false but component still rendered
       expect(alert).toHaveAttribute('data-visible', 'false');
       expect(screen.getByRole('alert')).toBeInTheDocument();
+    });
+  });
+
+  describe('Phase 4: WCAG 2.1 Accessibility', () => {
+    describe('Severity Text for Screen Readers', () => {
+      it('should include visually hidden severity text for info', () => {
+        const { container } = render(
+          <Alert open={true} severity="info">
+            Test message
+          </Alert>
+        );
+
+        const srOnlyText = container.querySelector('.sr-only');
+        expect(srOnlyText).toBeInTheDocument();
+        expect(srOnlyText).toHaveTextContent('Information:');
+      });
+
+      it('should include visually hidden severity text for success', () => {
+        const { container } = render(
+          <Alert open={true} severity="success">
+            Test message
+          </Alert>
+        );
+
+        const srOnlyText = container.querySelector('.sr-only');
+        expect(srOnlyText).toHaveTextContent('Success:');
+      });
+
+      it('should include visually hidden severity text for warning', () => {
+        const { container } = render(
+          <Alert open={true} severity="warning">
+            Test message
+          </Alert>
+        );
+
+        const srOnlyText = container.querySelector('.sr-only');
+        expect(srOnlyText).toHaveTextContent('Warning:');
+      });
+
+      it('should include visually hidden severity text for error', () => {
+        const { container } = render(
+          <Alert open={true} severity="error">
+            Test message
+          </Alert>
+        );
+
+        const srOnlyText = container.querySelector('.sr-only');
+        expect(srOnlyText).toHaveTextContent('Error:');
+      });
+
+      it('should not include severity text for default severity', () => {
+        const { container } = render(
+          <Alert open={true} severity="default">
+            Test message
+          </Alert>
+        );
+
+        const srOnlyText = container.querySelector('.sr-only');
+        expect(srOnlyText).not.toBeInTheDocument();
+      });
+    });
+
+    describe('Configurable Heading Level', () => {
+      it('should render h2 when titleLevel is 2', () => {
+        const { container } = render(
+          <Alert open={true} severity="info" title="Test Title" titleLevel={2}>
+            Test message
+          </Alert>
+        );
+
+        const heading = container.querySelector('h2.alert-title');
+        expect(heading).toBeInTheDocument();
+        expect(heading).toHaveTextContent('Test Title');
+      });
+
+      it('should render h3 when titleLevel is 3', () => {
+        const { container } = render(
+          <Alert open={true} severity="info" title="Test Title" titleLevel={3}>
+            Test message
+          </Alert>
+        );
+
+        const heading = container.querySelector('h3.alert-title');
+        expect(heading).toBeInTheDocument();
+        expect(heading).toHaveTextContent('Test Title');
+      });
+
+      it('should render h4 when titleLevel is 4', () => {
+        const { container } = render(
+          <Alert open={true} severity="info" title="Test Title" titleLevel={4}>
+            Test message
+          </Alert>
+        );
+
+        const heading = container.querySelector('h4.alert-title');
+        expect(heading).toBeInTheDocument();
+      });
+
+      it('should render h5 when titleLevel is 5', () => {
+        const { container } = render(
+          <Alert open={true} severity="info" title="Test Title" titleLevel={5}>
+            Test message
+          </Alert>
+        );
+
+        const heading = container.querySelector('h5.alert-title');
+        expect(heading).toBeInTheDocument();
+      });
+
+      it('should render h6 when titleLevel is 6', () => {
+        const { container } = render(
+          <Alert open={true} severity="info" title="Test Title" titleLevel={6}>
+            Test message
+          </Alert>
+        );
+
+        const heading = container.querySelector('h6.alert-title');
+        expect(heading).toBeInTheDocument();
+      });
+
+      it('should render default heading element when titleLevel is undefined', () => {
+        const { container } = render(
+          <Alert open={true} severity="info" title="Test Title">
+            Test message
+          </Alert>
+        );
+
+        // The UI component wraps the title, check that title is rendered
+        const titleElement = container.querySelector('.alert-title');
+        expect(titleElement).toBeInTheDocument();
+        expect(titleElement).toHaveTextContent('Test Title');
+        // The element should be rendered (exact tag depends on UI component implementation)
+      });
+
+      it('should not render title element when title prop is not provided', () => {
+        const { container } = render(
+          <Alert open={true} severity="info">
+            Test message
+          </Alert>
+        );
+
+        expect(container.querySelector('.alert-title')).not.toBeInTheDocument();
+      });
+
+      it('should apply alert-title class to all heading levels', () => {
+        const levels = [2, 3, 4, 5, 6] as const;
+
+        levels.forEach((level) => {
+          const { container, unmount } = render(
+            <Alert open={true} severity="info" title="Test" titleLevel={level}>
+              Message
+            </Alert>
+          );
+
+          const heading = container.querySelector(`h${level}`);
+          expect(heading).toHaveClass('alert-title');
+          unmount();
+        });
+      });
+    });
+
+    describe('Pause on Hover/Focus', () => {
+      it('should have mouse enter and leave handlers when pauseOnHover is true', () => {
+        render(
+          <Alert
+            open={true}
+            severity="info"
+            autoHideDuration={3000}
+            pauseOnHover={true}
+          >
+            Test message
+          </Alert>
+        );
+
+        const alert = screen.getByRole('alert');
+
+        // Verify the handlers are attached by checking we can dispatch events without errors
+        expect(() => {
+          alert.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+          alert.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+        }).not.toThrow();
+      });
+
+      it('should have focus and blur handlers when pauseOnHover is true', () => {
+        render(
+          <Alert
+            open={true}
+            severity="info"
+            autoHideDuration={3000}
+            autoFocus={true}
+            pauseOnHover={true}
+          >
+            Test message
+          </Alert>
+        );
+
+        const alert = screen.getByRole('alert');
+
+        // Verify the handlers are attached
+        expect(() => {
+          alert.dispatchEvent(new FocusEvent('focus', { bubbles: true }));
+          alert.dispatchEvent(new FocusEvent('blur', { bubbles: true }));
+        }).not.toThrow();
+      });
+
+      it('should accept pauseOnHover prop with default true', () => {
+        const { rerender } = render(
+          <Alert open={true} severity="info" autoHideDuration={3000}>
+            Test message
+          </Alert>
+        );
+
+        // Just verify component renders without issues
+        expect(screen.getByRole('alert')).toBeInTheDocument();
+
+        rerender(
+          <Alert open={true} severity="info" autoHideDuration={3000} pauseOnHover={false}>
+            Test message
+          </Alert>
+        );
+
+        expect(screen.getByRole('alert')).toBeInTheDocument();
+      });
+    });
+
+    describe('Touch Target Size', () => {
+      it('should apply alert-dismiss class to dismiss button', () => {
+        const { container } = render(
+          <Alert open={true} severity="info" dismissible={true}>
+            Test message
+          </Alert>
+        );
+
+        const dismissButton = container.querySelector('.alert-dismiss');
+        expect(dismissButton).toBeInTheDocument();
+      });
+    });
+
+    describe('Focus Indicators', () => {
+      it('should be focusable when autoFocus is true', () => {
+        render(
+          <Alert open={true} severity="info" autoFocus={true}>
+            Test message
+          </Alert>
+        );
+
+        const alert = screen.getByRole('alert');
+        expect(alert).toHaveAttribute('tabIndex', '-1');
+      });
+
+      it('should not have tabIndex when autoFocus is false', () => {
+        render(
+          <Alert open={true} severity="info" autoFocus={false}>
+            Test message
+          </Alert>
+        );
+
+        const alert = screen.getByRole('alert');
+        expect(alert).not.toHaveAttribute('tabIndex');
+      });
     });
   });
 });

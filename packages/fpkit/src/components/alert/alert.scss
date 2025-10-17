@@ -1,3 +1,16 @@
+/* Screen reader only utility class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 [role="alert"] {
   /* Success colors */
   --alert-success-bg: #e6f4ea;
@@ -37,8 +50,9 @@
   gap: var(--alert-gap, var(--spc-4));
 
   /* Exit animations */
-  transition: opacity var(--alert-transition-duration) ease,
-              transform var(--alert-transition-duration) ease;
+  transition:
+    opacity var(--alert-transition-duration) ease,
+    transform var(--alert-transition-duration) ease;
   opacity: 1;
   transform: translateY(0);
 
@@ -51,6 +65,17 @@
     transition-duration: 0.01ms;
   }
 
+  /* Focus indicators for keyboard navigation (WCAG 2.4.7) */
+  &:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* Hide focus outline for mouse clicks, keep for keyboard */
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
   .alert-icon {
     margin-block-start: 0;
     align-items: center;
@@ -59,16 +84,27 @@
   .alert-message {
     flex: 2;
     margin-block-start: 0;
-    h3 {
-      margin-block-end: 0;
-    }
-  }
 
-  .alert-actions {
-    margin-block-start: var(--spc-2);
-    display: flex;
-    gap: var(--spc-2);
-    flex-wrap: wrap;
+    /* Title styles for both heading and strong elements */
+    .alert-title {
+      margin-block-end: var(--spc-1, 0.25rem);
+      margin-block-start: 0;
+      font-weight: var(--alert-title-weight, 600);
+      font-size: var(--alert-title-size, inherit);
+      line-height: 1.4;
+    }
+
+    /* Reset heading-specific styles */
+    h2.alert-title,
+    h3.alert-title,
+    h4.alert-title,
+    h5.alert-title,
+    h6.alert-title {
+      margin: 0;
+      margin-block-end: var(--spc-1, 0.25rem);
+      font-size: inherit;
+      font-weight: var(--alert-title-weight, 600);
+    }
   }
 
   &[data-alert~="info"] {
@@ -99,6 +135,10 @@
     &[data-btn~="icon"] {
       --btn-bg: transparent;
     }
+  }
+
+  * + div {
+    margin-block-start: var(--spc-1);
   }
 
   /* Variant: Filled - Solid colored background */
@@ -139,5 +179,9 @@
   /* Variant: Outlined - Default with border (no additional styles needed) */
   &[data-variant="outlined"] {
     /* This is the default variant, styles already applied above */
+  }
+
+  p {
+    font-size: smaller;
   }
 }

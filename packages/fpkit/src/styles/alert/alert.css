@@ -1,3 +1,16 @@
+/* Screen reader only utility class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 [role=alert] {
   /* Success colors */
   --alert-success-bg: #e6f4ea;
@@ -33,6 +46,8 @@
   transition: opacity var(--alert-transition-duration) ease, transform var(--alert-transition-duration) ease;
   opacity: 1;
   transform: translateY(0);
+  /* Focus indicators for keyboard navigation (WCAG 2.4.7) */
+  /* Hide focus outline for mouse clicks, keep for keyboard */
   /* Variant: Filled - Solid colored background */
   /* Variant: Soft - No border, subtle background */
   /* Variant: Outlined - Default with border (no additional styles needed) */
@@ -46,6 +61,13 @@
     transition-duration: 0.01ms;
   }
 }
+[role=alert]:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+[role=alert]:focus:not(:focus-visible) {
+  outline: none;
+}
 [role=alert] .alert-icon {
   margin-block-start: 0;
   align-items: center;
@@ -53,15 +75,25 @@
 [role=alert] .alert-message {
   flex: 2;
   margin-block-start: 0;
+  /* Title styles for both heading and strong elements */
+  /* Reset heading-specific styles */
 }
-[role=alert] .alert-message h3 {
-  margin-block-end: 0;
+[role=alert] .alert-message .alert-title {
+  margin-block-end: var(--spc-1, 0.25rem);
+  margin-block-start: 0;
+  font-weight: var(--alert-title-weight, 600);
+  font-size: var(--alert-title-size, inherit);
+  line-height: 1.4;
 }
-[role=alert] .alert-actions {
-  margin-block-start: var(--spc-2);
-  display: flex;
-  gap: var(--spc-2);
-  flex-wrap: wrap;
+[role=alert] .alert-message h2.alert-title,
+[role=alert] .alert-message h3.alert-title,
+[role=alert] .alert-message h4.alert-title,
+[role=alert] .alert-message h5.alert-title,
+[role=alert] .alert-message h6.alert-title {
+  margin: 0;
+  margin-block-end: var(--spc-1, 0.25rem);
+  font-size: inherit;
+  font-weight: var(--alert-title-weight, 600);
 }
 [role=alert][data-alert~=info] {
   --alert-bg: var(--alert-info-bg);
@@ -85,6 +117,9 @@
 }
 [role=alert] button[data-btn~=icon] {
   --btn-bg: transparent;
+}
+[role=alert] * + div {
+  margin-block-start: var(--spc-1);
 }
 [role=alert][data-variant=filled] {
   border: none;
@@ -114,6 +149,9 @@
 }
 [role=alert][data-variant=outlined] {
   /* This is the default variant, styles already applied above */
+}
+[role=alert] p {
+  font-size: smaller;
 }
 
 /*# sourceMappingURL=alert.css.map */
