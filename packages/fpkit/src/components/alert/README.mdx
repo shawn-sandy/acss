@@ -6,39 +6,132 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 ## Summary
 
-The `Alert` component is a customizable component for displaying status messages
-with different severity levels. It supports multiple severity types (default,
-info, success, warning, error) and can include optional titles and dismissal
-functionality.
+The `Alert` component is a highly customizable and accessible component for displaying status messages with different severity levels. It supports multiple severity types (default, info, success, warning, error), visual variants, auto-dismiss functionality, exit animations, and optional action buttons.
 
 ## Features
 
-- Multiple severity levels with matching visual indicators
-- Optional title and dismissible states
-- Accessible by default with appropriate ARIA attributes
-- Customizable icons through `iconProps`
+- **Multiple Severity Levels** - Info, success, warning, error, and default states with matching visual indicators
+- **Visual Variants** - Choose from outlined (default), filled, or soft styles
+- **Exit Animations** - Smooth fade-out and slide-up transitions using CSS
+- **Auto-Dismiss** - Optional automatic dismissal after a configurable duration
+- **Keyboard Support** - ESC key dismisses dismissible alerts
+- **Custom Actions** - Add custom action buttons alongside the message
+- **Icon Customization** - Adjust icon size or hide icons completely
+- **Auto-Focus** - Automatically focus critical alerts for accessibility
+- **Fully Accessible** - Proper ARIA attributes, keyboard navigation, and screen reader support
 
 ## Props
 
 ```tsx
 export type AlertProps = {
+  /**
+   * Whether the alert is open.
+   */
   open: boolean;
+
+  /**
+   * The severity level of the alert.
+   * @default "default"
+   */
   severity?: "default" | "info" | "success" | "warning" | "error";
+
+  /**
+   * The main message content.
+   */
   children: React.ReactNode;
+
+  /**
+   * Optional title for the alert.
+   */
   title?: string;
+
+  /**
+   * Whether the alert can be dismissed.
+   * @default false
+   */
   dismissible?: boolean;
+
+  /**
+   * Callback when alert is dismissed.
+   */
   onDismiss?: () => void;
+
+  /**
+   * Size of the icon in pixels.
+   * @default 32
+   */
+  iconSize?: number;
+
+  /**
+   * Whether to hide the icon.
+   */
+  hideIcon?: boolean;
+
+  /**
+   * Additional props to pass to the Icon component.
+   */
   iconProps?: IconProps;
+
+  /**
+   * Duration in milliseconds before the alert automatically dismisses.
+   * Set to 0 or undefined to disable auto-dismiss.
+   * @default undefined
+   */
+  autoHideDuration?: number;
+
+  /**
+   * Custom action buttons to display in the alert.
+   */
+  actions?: React.ReactNode;
+
+  /**
+   * Whether to automatically focus the alert when it becomes visible.
+   * Useful for critical alerts that require immediate attention.
+   * @default false
+   */
+  autoFocus?: boolean;
+
+  /**
+   * Visual variant of the alert.
+   * - outlined: Border with lighter background (default)
+   * - filled: Solid colored background
+   * - soft: No border, subtle background
+   * @default "outlined"
+   */
+  variant?: "outlined" | "filled" | "soft";
 } & React.ComponentProps<typeof UI>;
 ```
 
 ## Technical Details
 
-The `Alert` component uses the `UI` component for rendering and supports various
-severity levels with corresponding ARIA attributes for accessibility. It also
-allows for custom icons through the `iconProps` prop.
+### Component Architecture
 
-## Usage Example
+The `Alert` component uses the `UI` component for rendering and includes:
+
+- **Animation State Management** - Separate `isVisible` and `shouldRender` states for smooth exit animations
+- **Auto-Dismiss Timer** - Automatic cleanup of setTimeout when component unmounts or alert is dismissed
+- **Keyboard Event Handler** - ESC key support with proper cleanup
+- **Memoized Icons** - Performance-optimized icon rendering using `useMemo`
+- **ARIA Attributes** - Proper `role="alert"`, `aria-live`, and `aria-atomic` for screen readers
+
+### Accessibility Features
+
+- **ARIA Roles** - Uses `role="alert"` for proper screen reader announcements
+- **Live Regions** - `aria-live="polite"` for info/success/warning, `aria-live="assertive"` for errors
+- **Keyboard Navigation** - ESC key dismisses alerts when `dismissible` is true
+- **Focus Management** - Optional auto-focus for critical alerts via `autoFocus` prop
+- **Semantic HTML** - Uses `<h3>` for titles and proper heading hierarchy
+
+### Animation Behavior
+
+Exit animations use CSS transitions (300ms duration) for smooth fade-out and slide-up effects. The component:
+
+1. Sets `isVisible` to `false` when dismissed
+2. Waits for CSS transition to complete (300ms)
+3. Removes component from DOM by setting `shouldRender` to `false`
+4. Calls `onDismiss` callback after animation completes
+
+## Usage Examples
 
 ### Basic Usage
 
@@ -50,7 +143,7 @@ import Alert from "#components/alert";
 </Alert>;
 ```
 
-### Advanced Usage
+### With Title and Dismissal
 
 ```tsx
 import Alert from "#components/alert";
@@ -61,14 +154,212 @@ import Alert from "#components/alert";
   title="Error"
   dismissible={true}
   onDismiss={() => console.log("Alert dismissed")}
-  iconProps={{ fill: "#000", size: 24 }}
 >
-  This is an error alert with a custom icon.
+  This is an error alert with a title and dismiss button.
 </Alert>;
 ```
 
-### Additional Notes
+### Auto-Dismiss Alert
 
-- The `Alert` component is designed to be accessible by default.
-- The `dismissible` prop allows the alert to be dismissed by the user.
-- Custom icons can be provided through the `iconProps` prop.
+Automatically dismiss the alert after 5 seconds:
+
+```tsx
+import Alert from "#components/alert";
+
+<Alert
+  open={true}
+  severity="success"
+  title="Success"
+  autoHideDuration={5000}
+  onDismiss={() => console.log("Auto-dismissed after 5 seconds")}
+>
+  Your changes have been saved successfully!
+</Alert>;
+```
+
+### Alert with Custom Actions
+
+Add custom action buttons for user interactions:
+
+```tsx
+import Alert from "#components/alert";
+import Button from "#components/buttons/button";
+
+<Alert
+  open={true}
+  severity="warning"
+  title="Unsaved Changes"
+  actions={
+    <>
+      <Button size="sm" onClick={handleSave}>
+        Save
+      </Button>
+      <Button size="sm" onClick={handleDiscard}>
+        Discard
+      </Button>
+    </>
+  }
+>
+  You have unsaved changes that will be lost.
+</Alert>;
+```
+
+### Visual Variants
+
+Use different visual styles for the alert:
+
+```tsx
+import Alert from "#components/alert";
+
+// Outlined (default) - border with lighter background
+<Alert open={true} variant="outlined" severity="info">
+  Outlined variant with border
+</Alert>;
+
+// Filled - solid colored background
+<Alert open={true} variant="filled" severity="success">
+  Filled variant with solid background
+</Alert>;
+
+// Soft - no border, subtle background
+<Alert open={true} variant="soft" severity="warning">
+  Soft variant with subtle styling
+</Alert>;
+```
+
+### Hidden Icon
+
+Hide the severity icon when needed:
+
+```tsx
+import Alert from "#components/alert";
+
+<Alert open={true} hideIcon severity="info">
+  This alert has no icon.
+</Alert>;
+```
+
+### Custom Icon Size
+
+Adjust the icon size:
+
+```tsx
+import Alert from "#components/alert";
+
+<Alert open={true} iconSize={48} severity="error">
+  This alert has a larger icon (48px).
+</Alert>;
+```
+
+### Critical Alert with Auto-Focus
+
+Automatically focus critical alerts for accessibility:
+
+```tsx
+import Alert from "#components/alert";
+
+<Alert
+  open={true}
+  severity="error"
+  title="Critical Error"
+  autoFocus={true}
+  dismissible={true}
+>
+  A critical error occurred. Please contact support.
+</Alert>;
+```
+
+### Advanced Example
+
+Combine multiple features:
+
+```tsx
+import Alert from "#components/alert";
+import Button from "#components/buttons/button";
+
+<Alert
+  open={true}
+  severity="warning"
+  title="Session Expiring Soon"
+  variant="filled"
+  autoFocus={true}
+  dismissible={true}
+  autoHideDuration={30000}
+  onDismiss={() => console.log("Alert dismissed")}
+  iconSize={40}
+  actions={
+    <Button size="sm" onClick={handleExtendSession}>
+      Extend Session
+    </Button>
+  }
+>
+  Your session will expire in 5 minutes. Save your work or extend your session.
+</Alert>;
+```
+
+## Keyboard Interactions
+
+| Key   | Action                                         |
+| ----- | ---------------------------------------------- |
+| `ESC` | Dismisses the alert (when `dismissible=true`)  |
+| `Tab` | Moves focus to dismiss button or action buttons|
+
+## Visual Variants
+
+### Outlined (Default)
+- Border with background color
+- Icon in severity color
+- Default variant for most use cases
+
+### Filled
+- Solid background in severity color
+- White text and icon
+- High visual emphasis
+- Best for critical alerts
+
+### Soft
+- No border
+- Subtle background color
+- Low visual weight
+- Best for informational messages
+
+## Best Practices
+
+### When to Use Each Severity
+
+- **Default** - Generic notifications without specific status
+- **Info** - Informational messages that don't require action
+- **Success** - Confirmation of successful actions
+- **Warning** - Alerts requiring attention but not critical
+- **Error** - Critical errors requiring immediate attention
+
+### Auto-Dismiss Guidelines
+
+- Use for **success** and **info** alerts (non-critical)
+- Avoid for **error** and **warning** alerts (user should explicitly dismiss)
+- Recommended duration: 5000-7000ms for readable messages
+- Always provide `onDismiss` callback for cleanup
+
+### Accessibility Guidelines
+
+- Use `autoFocus` only for critical errors that require immediate attention
+- Always provide meaningful titles for better screen reader experience
+- Ensure action buttons have descriptive labels
+- Test with keyboard-only navigation
+
+### Action Buttons
+
+- Limit to 2-3 action buttons for clarity
+- Use small button sizes (`size="sm"`)
+- Primary action first, secondary actions after
+- Always include dismiss option for dismissible alerts
+
+## Additional Notes
+
+- The `Alert` component is designed to be accessible by default with proper ARIA attributes
+- Exit animations use CSS transitions and are GPU-accelerated for smooth performance
+- Auto-dismiss timers are automatically cleaned up when the component unmounts
+- ESC key listener is only active when `dismissible=true` and automatically cleaned up
+- Severity icons are memoized for optimal performance
+- The component respects `prefers-reduced-motion` media query for animations
+- Custom icons can be provided through the `iconProps` prop for advanced use cases
