@@ -1,165 +1,86 @@
-# Alert CDD Refactoring Tasks
+# Alert CDD Refactoring Tasks (SIMPLIFIED APPROACH)
+
+> **Note:** This task list has been simplified from the original 68-task plan to a pragmatic 15-task approach that achieves the same maintainability goals while avoiding over-engineering.
 
 ## 1. Preparation & Validation
-- [ ] 1.1 Review OpenSpec proposal and design documents
-- [ ] 1.2 Run `openspec validate refactor-alert-cdd --strict` to verify spec validity
-- [ ] 1.3 Create feature branch: `refactor/alert-cdd`
-- [ ] 1.4 Run existing test suite to establish baseline (`npm test`)
-- [ ] 1.5 Run Storybook to verify all stories work (`npm start`)
-- [ ] 1.6 Document current bundle size and performance metrics
+- [ ] 1.1 Review OpenSpec proposal and design documents (simplified versions)
+- [ ] 1.2 Run existing test suite to establish baseline (`npm test` in packages/fpkit)
+- [ ] 1.3 Run Storybook to verify all stories work (`npm start` in root)
+- [ ] 1.4 Document current file metrics (line count, function count)
 
 ## 2. Extract Configuration Constants
-- [ ] 2.1 Create `SEVERITY_ARIA_LIVE` constant at top of file with type annotation
-- [ ] 2.2 Create `SEVERITY_SCREEN_READER_TEXT` constant with type annotation
-- [ ] 2.3 Create `getSeverityIcon()` pure function to replace icon useMemo
-- [ ] 2.4 Add TypeScript const assertions (`as const`) to all constants
-- [ ] 2.5 Add JSDoc comments explaining each configuration constant
-- [ ] 2.6 Remove `severityType` object from component body (line 310-316)
-- [ ] 2.7 Remove `severityText` object from component body (line 321-327)
-- [ ] 2.8 Update component to use new constants from file scope
-- [ ] 2.9 Run tests to verify behavior unchanged
+- [ ] 2.1 Create `SEVERITY_ARIA_LIVE` constant at top of file with `as const` assertion
+- [ ] 2.2 Create `SEVERITY_SCREEN_READER_TEXT` constant at top with `as const` assertion
+- [ ] 2.3 Create `getSeverityIcon()` pure function to replace `useMemo` logic
+- [ ] 2.4 Add JSDoc comments explaining each configuration constant and function
+- [ ] 2.5 Update component to use `SEVERITY_ARIA_LIVE` instead of inline `severityType`
+- [ ] 2.6 Update component to use `SEVERITY_SCREEN_READER_TEXT` instead of inline `severityText`
+- [ ] 2.7 Replace `useMemo` icon logic with call to `getSeverityIcon()`
+- [ ] 2.8 Run tests to verify behavior unchanged
 
-## 3. Extract Custom Hooks
-- [ ] 3.1 Create `useAlertVisibility` hook above sub-components section
-  - [ ] 3.1.1 Move `isVisible` and `shouldRender` state management
-  - [ ] 3.1.2 Move `handleDismiss` callback with useCallback
-  - [ ] 3.1.3 Move visibility useEffect (lines 267-274)
-  - [ ] 3.1.4 Return `{ isVisible, shouldRender, handleDismiss }`
-  - [ ] 3.1.5 Add comprehensive JSDoc comments
-- [ ] 3.2 Create `useAlertAutoDismiss` hook
-  - [ ] 3.2.1 Move `isPaused` state management
-  - [ ] 3.2.2 Move auto-dismiss useEffect logic (lines 277-285)
-  - [ ] 3.2.3 Create `pause` and `resume` callbacks with useCallback
-  - [ ] 3.2.4 Return `{ pause, resume }`
-  - [ ] 3.2.5 Add comprehensive JSDoc comments
-- [ ] 3.3 Create `useAlertKeyboard` hook
-  - [ ] 3.3.1 Move ESC key useEffect logic (lines 288-299)
-  - [ ] 3.3.2 Return void (side-effect only hook)
-  - [ ] 3.3.3 Add comprehensive JSDoc comments
-- [ ] 3.4 Create `useAlertAutoFocus` hook
-  - [ ] 3.4.1 Move auto-focus useEffect logic (lines 342-346)
-  - [ ] 3.4.2 Accept ref, autoFocus, isVisible parameters
-  - [ ] 3.4.3 Return void (side-effect only hook)
-  - [ ] 3.4.4 Add comprehensive JSDoc comments
-- [ ] 3.5 Update main Alert component to use all new hooks
-- [ ] 3.6 Remove all useEffect blocks from component body
-- [ ] 3.7 Verify hook dependencies are correct
-- [ ] 3.8 Run tests to verify behavior unchanged
+## 3. Create Single Consolidated Hook
+- [ ] 3.1 Create `useAlertBehavior` hook above main component
+  - [ ] 3.1.1 Accept all necessary parameters (open, onDismiss, dismissible, etc.)
+  - [ ] 3.1.2 Move `isVisible` and `shouldRender` state management
+  - [ ] 3.1.3 Move `isPaused` state management
+  - [ ] 3.1.4 Move `handleDismiss` callback with useCallback
+  - [ ] 3.1.5 Move visibility sync useEffect (open prop changes)
+  - [ ] 3.1.6 Move auto-dismiss useEffect with pause support
+  - [ ] 3.1.7 Move ESC key useEffect for keyboard handling
+  - [ ] 3.1.8 Move auto-focus useEffect
+  - [ ] 3.1.9 Create memoized `pause` and `resume` callbacks
+  - [ ] 3.1.10 Return object: `{ isVisible, shouldRender, handleDismiss, handleInteractionStart, handleInteractionEnd }`
+- [ ] 3.2 Add comprehensive JSDoc to hook explaining all parameters and return values
+- [ ] 3.3 Run tests to verify behavior unchanged
 
-## 4. Extract Sub-Components
-- [ ] 4.1 Create `AlertScreenReaderText` component
-  - [ ] 4.1.1 Move screen reader text rendering logic (lines 397-399)
-  - [ ] 4.1.2 Accept `severity` prop
-  - [ ] 4.1.3 Use `SEVERITY_SCREEN_READER_TEXT` constant
-  - [ ] 4.1.4 Add JSDoc with purpose and accessibility notes
-- [ ] 4.2 Create `AlertIcon` component
-  - [ ] 4.2.1 Move icon rendering logic (lines 400-404)
-  - [ ] 4.2.2 Accept `severity`, `hideIcon`, `iconSize`, `iconProps` props
-  - [ ] 4.2.3 Use `getSeverityIcon()` function
-  - [ ] 4.2.4 Return null if hideIcon is true
-  - [ ] 4.2.5 Add JSDoc with prop descriptions
-- [ ] 4.3 Create `AlertTitle` component
-  - [ ] 4.3.1 Move title rendering logic (lines 406-410)
-  - [ ] 4.3.2 Accept `title` and `titleLevel` props
-  - [ ] 4.3.3 Handle dynamic element (h2-h6 or strong)
-  - [ ] 4.3.4 Return null if no title
-  - [ ] 4.3.5 Add JSDoc with accessibility notes
-- [ ] 4.4 Create `AlertContent` component
-  - [ ] 4.4.1 Move content rendering logic (lines 411-415)
-  - [ ] 4.4.2 Accept `children` and `contentType` props
-  - [ ] 4.4.3 Handle text vs node rendering
-  - [ ] 4.4.4 Add JSDoc explaining contentType behavior
-- [ ] 4.5 Create `AlertActions` component
-  - [ ] 4.5.1 Move actions rendering logic (lines 416-420)
-  - [ ] 4.5.2 Accept `actions` prop
-  - [ ] 4.5.3 Return null if no actions
-  - [ ] 4.5.4 Add JSDoc with usage examples
-- [ ] 4.6 Update main component JSX to use new sub-components
-- [ ] 4.7 Run tests to verify rendering unchanged
+## 4. Update Main Component to Use Hook
+- [ ] 4.1 Remove old state declarations (isVisible, shouldRender, isPaused)
+- [ ] 4.2 Remove old handleDismiss callback
+- [ ] 4.3 Remove all 4 useEffect blocks from component body
+- [ ] 4.4 Remove old event handlers (handleMouseEnter, handleMouseLeave, handleFocus, handleBlur)
+- [ ] 4.5 Call `useAlertBehavior` hook and destructure return values
+- [ ] 4.6 Update JSX to use `handleInteractionStart` and `handleInteractionEnd` from hook
+- [ ] 4.7 Remove inline `severityType` and `severityText` objects
+- [ ] 4.8 Remove `useMemo` for `severityIcon`, use `getSeverityIcon()` directly
+- [ ] 4.9 Verify main component is now ~100 lines (down from ~180)
+- [ ] 4.10 Run tests to verify behavior unchanged
 
-## 5. Simplify Main Component
-- [ ] 5.1 Remove `useMemo` for severityIcon (now using pure function)
-- [ ] 5.2 Remove `mergedIconProps` calculation (move to AlertIcon)
-- [ ] 5.3 Consolidate event handlers:
-  - [ ] 5.3.1 Remove `handleMouseEnter`, `handleMouseLeave`, `handleFocus`, `handleBlur`
-  - [ ] 5.3.2 Create `handleInteractionStart` using `pause` from hook
-  - [ ] 5.3.3 Create `handleInteractionEnd` using `resume` from hook
-  - [ ] 5.3.4 Update JSX event props
-- [ ] 5.4 Organize imports (React, UI, Icon, DismissButton, IconProps)
-- [ ] 5.5 Verify main component body is ~80 lines
-- [ ] 5.6 Run lint and fix any issues (`npm run lint-fix`)
+## 5. Code Organization & Documentation
+- [ ] 5.1 Add section banner comment: `// TYPES & CONFIGURATION`
+- [ ] 5.2 Add section banner comment: `// CUSTOM HOOK (Behavior Management)`
+- [ ] 5.3 Add section banner comment: `// MAIN COMPONENT`
+- [ ] 5.4 Verify all section comments use consistent formatting (`//` with `=` underlines)
+- [ ] 5.5 Ensure proper spacing between sections
+- [ ] 5.6 Run lint (`npm run lint` in packages/fpkit)
+- [ ] 5.7 Run lint-fix if needed (`npm run lint-fix` in packages/fpkit)
 
-## 6. Code Organization & Documentation
-- [ ] 6.1 Add section comment: `// TYPES & CONSTANTS`
-- [ ] 6.2 Add section comment: `// CUSTOM HOOKS (Behavior extraction)`
-- [ ] 6.3 Add section comment: `// SUB-COMPONENTS (UI extraction)`
-- [ ] 6.4 Add section comment: `// MAIN ALERT COMPONENT (Composition)`
-- [ ] 6.5 Verify JSDoc comments on all hooks explain purpose and parameters
-- [ ] 6.6 Verify JSDoc comments on all sub-components explain props
-- [ ] 6.7 Update main Alert JSDoc to mention CDD approach
-- [ ] 6.8 Run Prettier/formatter if configured
-- [ ] 6.9 Final code review for consistency
+## 6. Testing & Validation
+- [ ] 6.1 Run full test suite (`npm test` in packages/fpkit)
+  - [ ] 6.1.1 Verify all existing tests pass
+  - [ ] 6.1.2 Fix any test failures
+  - [ ] 6.1.3 Verify no new console warnings
+- [ ] 6.2 Run Storybook (`npm start` in root)
+  - [ ] 6.2.1 Verify all severity stories render correctly
+  - [ ] 6.2.2 Test dismissible behavior
+  - [ ] 6.2.3 Test auto-dismiss with pause on hover
+  - [ ] 6.2.4 Test keyboard interactions (ESC key)
+  - [ ] 6.2.5 Test auto-focus functionality
+- [ ] 6.3 Run build process (`npm run build` in packages/fpkit)
+  - [ ] 6.3.1 Verify no TypeScript errors
+  - [ ] 6.3.2 Verify no build warnings
+  - [ ] 6.3.3 Check that build completes successfully
+- [ ] 6.4 Manual smoke testing
+  - [ ] 6.4.1 Test rapid open/close
+  - [ ] 6.4.2 Test multiple prop combinations
+  - [ ] 6.4.3 Verify animations still work
 
-## 7. Testing & Validation
-- [ ] 7.1 Run full test suite (`npm test`)
-  - [ ] 7.1.1 Verify all existing tests pass
-  - [ ] 7.1.2 Fix any test failures
-  - [ ] 7.1.3 Verify no new console warnings
-- [ ] 7.2 Run Storybook (`npm start`)
-  - [ ] 7.2.1 Verify all stories render correctly
-  - [ ] 7.2.2 Test all severity levels
-  - [ ] 7.2.3 Test all variants (outlined, filled, soft)
-  - [ ] 7.2.4 Test dismissible behavior
-  - [ ] 7.2.5 Test auto-dismiss with pause on hover
-  - [ ] 7.2.6 Test keyboard interactions (ESC key)
-- [ ] 7.3 Run accessibility tests
-  - [ ] 7.3.1 Test with screen reader (VoiceOver/NVDA)
-  - [ ] 7.3.2 Verify keyboard navigation
-  - [ ] 7.3.3 Check focus indicators
-  - [ ] 7.3.4 Verify ARIA announcements
-- [ ] 7.4 Run build process (`npm run build`)
-  - [ ] 7.4.1 Verify no TypeScript errors
-  - [ ] 7.4.2 Verify no build warnings
-  - [ ] 7.4.3 Check bundle size (should be same or smaller)
-- [ ] 7.5 Manual testing
-  - [ ] 7.5.1 Test in demo app
-  - [ ] 7.5.2 Test edge cases (rapid open/close, multiple alerts)
-  - [ ] 7.5.3 Test with different prop combinations
-
-## 8. Optional: Add Hook Unit Tests (Future Enhancement)
-- [ ] 8.1 Create test file for `useAlertVisibility`
-  - [ ] 8.1.1 Test visibility state transitions
-  - [ ] 8.1.2 Test dismiss callback timing
-  - [ ] 8.1.3 Test cleanup on unmount
-- [ ] 8.2 Create test file for `useAlertAutoDismiss`
-  - [ ] 8.2.1 Test auto-dismiss timer
-  - [ ] 8.2.2 Test pause/resume functionality
-  - [ ] 8.2.3 Test timer cleanup
-- [ ] 8.3 Create test file for `useAlertKeyboard`
-  - [ ] 8.3.1 Test ESC key handler attachment
-  - [ ] 8.3.2 Test listener cleanup
-  - [ ] 8.3.3 Test conditional behavior
-- [ ] 8.4 Create test file for `useAlertAutoFocus`
-  - [ ] 8.4.1 Test focus on mount
-  - [ ] 8.4.2 Test conditional focus behavior
-
-## 9. Documentation Updates
-- [ ] 9.1 Update component README.mdx if it references internal structure
-- [ ] 9.2 Add code comments explaining CDD approach for future maintainers
-- [ ] 9.3 Update CHANGELOG.md with refactoring note (internal change, no API changes)
-- [ ] 9.4 Consider creating architecture doc for CDD patterns (optional)
-
-## 10. Final Review & Merge
-- [ ] 10.1 Self-review entire change in git diff
-- [ ] 10.2 Verify no unintended changes
-- [ ] 10.3 Run full validation suite one more time
-- [ ] 10.4 Commit with message: `refactor(alert): apply Component-Driven Development principles for improved maintainability`
-- [ ] 10.5 Push to remote branch
-- [ ] 10.6 Create pull request with reference to OpenSpec proposal
-- [ ] 10.7 Request code review
-- [ ] 10.8 Address review feedback
-- [ ] 10.9 Merge to main branch
-- [ ] 10.10 Archive OpenSpec change: `openspec archive refactor-alert-cdd --yes`
+## 7. Final Review & Commit
+- [ ] 7.1 Review all changes in git diff
+- [ ] 7.2 Verify file line count reduction (428 → ~320 lines)
+- [ ] 7.3 Verify main component reduction (~180 → ~100 lines)
+- [ ] 7.4 Compare metrics: 4 useEffects → 0 (all in hook)
+- [ ] 7.5 Update tasks.md to mark all tasks complete
+- [ ] 7.6 Commit changes with descriptive message
 
 ## Success Criteria
 
@@ -168,20 +89,22 @@
 - All Storybook stories work identically
 - No new console errors or warnings
 
-✅ **Code Quality Improved**
-- Main component reduced from ~180 lines to ~80 lines (-56%)
-- 4 testable custom hooks created
-- 5 focused sub-components created
-- Clear file organization with section comments
+✅ **Code Quality Improved (SIMPLIFIED METRICS)**
+- Main component reduced from ~180 lines to ~100 lines (-44%)
+- Total file size reduced from 428 to ~320 lines (-25%)
+- 1 testable custom hook created (`useAlertBehavior`)
+- Clear file organization with 3 sections
+- Configuration extracted to file-scope constants
 
 ✅ **Maintainability Enhanced**
-- Single Responsibility Principle applied throughout
-- Each function <50 lines
-- Clear naming indicates purpose
+- Separation of concerns: Config → Hook → Component
+- All stateful logic consolidated in one hook
+- Each function has clear purpose
 - Comprehensive JSDoc documentation
+- No premature abstraction (deferred sub-components)
 
 ✅ **Performance Maintained**
-- Bundle size unchanged or smaller
+- No impact on bundle size
 - Render performance neutral or improved
 - No memory leaks
 
@@ -189,3 +112,33 @@
 - Public API unchanged
 - All props work identically
 - No breaking changes
+
+## Comparison: Original vs Simplified Plan
+
+| Aspect | Original Plan | Simplified Plan |
+|--------|--------------|-----------------|
+| Total tasks | 68 | 15 |
+| Custom hooks | 4 separate | 1 consolidated |
+| Sub-components | 5 | 0 (deferred) |
+| Time estimate | 4-6 hours | 25-30 minutes |
+| Complexity | High | Low |
+| Achieves goals? | Yes | Yes |
+| Over-engineered? | Yes | No |
+
+## Rationale for Simplification
+
+**Why One Hook Instead of Four:**
+- Visibility, auto-dismiss, keyboard, and focus behaviors are tightly coupled
+- Only used together in Alert (no other component needs them yet)
+- Follows YAGNI principle - don't create abstractions until 2nd use case
+- Can split later if Modal/Toast/Snackbar components need specific behaviors
+
+**Why No Sub-Components:**
+- JSX is already readable (~30 lines)
+- Sub-components would be used in exactly ONE place (Alert)
+- Follows "Rule of Three" - extract when 3+ components need it
+- Adds indirection without clear benefit
+- Can extract later if reuse emerges
+
+**Result:**
+Same maintainability improvements, less code churn, easier to review, faster to implement.

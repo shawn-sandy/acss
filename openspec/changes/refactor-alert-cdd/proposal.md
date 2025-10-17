@@ -31,73 +31,74 @@ The Alert component has grown to 428 lines with complex internal structure that 
 
 Refactor the Alert component using Component-Driven Development principles to improve maintainability, testability, and code clarity **without changing external behavior or breaking the public API**.
 
-### Internal Structural Changes
+### Internal Structural Changes (SIMPLIFIED APPROACH)
 
 **1. Extract Configuration Constants** (Move to top of file)
 - `SEVERITY_ARIA_LIVE` - ARIA live region type mappings
 - `SEVERITY_SCREEN_READER_TEXT` - Screen reader announcement text
 - `getSeverityIcon()` - Pure function for icon mapping (replaces useMemo)
 
-**2. Extract Custom Hooks** (Single Responsibility Principle)
-- `useAlertVisibility()` - Manages visible/shouldRender state and dismiss animations
-- `useAlertAutoDismiss()` - Handles auto-dismiss timer with pause/resume logic
-- `useAlertKeyboard()` - ESC key event listener lifecycle
-- `useAlertAutoFocus()` - Focus management for critical alerts
+**2. Consolidate into Single Behavior Hook** (Pragmatic Approach)
+- `useAlertBehavior()` - Manages ALL stateful behavior in one cohesive hook:
+  - Visibility state (isVisible, shouldRender) and dismiss animations
+  - Auto-dismiss timer with pause/resume logic
+  - ESC key event listener lifecycle
+  - Focus management for critical alerts
+  - Returns: `{ isVisible, shouldRender, handleDismiss, handleInteractionStart, handleInteractionEnd }`
 
-**3. Extract Sub-Components** (UI Composition)
-- `AlertScreenReaderText` - Visually hidden severity announcements
-- `AlertIcon` - Severity icon rendering with props
-- `AlertTitle` - Title with dynamic heading level
-- `AlertContent` - Message content wrapper (text vs node)
-- `AlertActions` - Action buttons container
+**Rationale:** These behaviors are tightly coupled and only used together in Alert. Splitting into 4 separate hooks violates YAGNI (You Aren't Gonna Need It). We can extract later if another component needs specific behaviors.
 
-**4. Simplify Main Component** (Composition Layer)
-- Reduce from ~180 lines to ~80 lines
-- Use extracted hooks for behavior
-- Compose sub-components for UI
-- Consolidate duplicate event handlers (mouse/focus interactions)
-- Remove unnecessary memoization (now handled by pure functions)
+**3. Consolidate Event Handlers** (Reduce Duplication)
+- Replace 4 separate handlers with 2 generic ones:
+  - `handleInteractionStart` - Combines onMouseEnter + onFocus (pause timer)
+  - `handleInteractionEnd` - Combines onMouseLeave + onBlur (resume timer)
+
+**4. Skip Sub-Component Extraction** (Avoid Premature Abstraction)
+- The JSX in Alert is already readable (~30 lines)
+- Sub-components would be used in exactly one place
+- Follow "Rule of Three" - extract when 3+ components need it, not before
+- Can extract later if reuse emerges (AlertIcon, AlertTitle, etc.)
+
+**5. Simplify Main Component** (Composition with Hook)
+- Reduce from ~180 lines to ~100 lines
+- Use single `useAlertBehavior` hook for all stateful logic
+- Remove 4 separate useEffect blocks
+- Remove inline object definitions (use constants)
+- Remove unnecessary memoization (now pure functions)
 
 ### Code Organization
 
 ```typescript
-// File structure after refactoring:
+// File structure after refactoring (SIMPLIFIED):
 
-// 1. TYPES & CONSTANTS (Lines 1-40)
+// 1. TYPES & CONFIGURATION (Lines 1-65)
 //    - Severity type definition
 //    - SEVERITY_ARIA_LIVE mapping
 //    - SEVERITY_SCREEN_READER_TEXT mapping
-//    - getSeverityIcon() function
+//    - getSeverityIcon() pure function
 
-// 2. CUSTOM HOOKS (Lines 42-130)
-//    - useAlertVisibility
-//    - useAlertAutoDismiss
-//    - useAlertKeyboard
-//    - useAlertAutoFocus
+// 2. COMPONENT PROPS TYPE (Lines 67-170)
+//    - AlertProps type definition
 
-// 3. SUB-COMPONENTS (Lines 132-220)
-//    - AlertScreenReaderText
-//    - AlertIcon
-//    - AlertTitle
-//    - AlertContent
-//    - AlertActions
+// 3. CUSTOM HOOK (Lines 172-250)
+//    - useAlertBehavior (single hook for all behaviors)
 
-// 4. MAIN COMPONENT (Lines 222-300)
-//    - AlertProps type
-//    - Alert component (composition)
+// 4. MAIN COMPONENT (Lines 252-320)
+//    - Alert component (uses hook + renders UI)
 //    - Export and displayName
 ```
 
-### Metrics
+### Metrics (SIMPLIFIED APPROACH)
 
 | Aspect | Before | After | Improvement |
 |--------|--------|-------|-------------|
-| Total file lines | 428 | ~350 | -18% |
-| Main component lines | ~180 | ~80 | -56% |
-| Largest function | 180 | 50 | -72% |
-| Testable units | 1 | 9 | +800% |
-| Reusable hooks | 0 | 4 | +∞ |
-| useEffect blocks | 4 | 0 (in hooks) | Isolated |
+| Total file lines | 428 | ~320 | -25% |
+| Main component lines | ~180 | ~100 | -44% |
+| Largest function | 180 | 80 | -56% |
+| Testable units | 1 | 2 | +100% (hook + component) |
+| Reusable hooks | 0 | 1 | Can extract later if needed |
+| useEffect blocks | 4 | 0 (in hook) | Consolidated |
+| Sub-components | 0 | 0 | Deferred until reuse emerges |
 
 ## Impact
 
