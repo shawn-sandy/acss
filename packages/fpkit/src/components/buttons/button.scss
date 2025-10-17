@@ -23,7 +23,10 @@ button {
   gap: var(--btn-gap, 0.2rem);
   white-space: var(--btn-wspc, inherit);
   margin: var(--btn-spc, 0);
-  transition: var(--tran-all);
+  transition: var(
+    --btn-transition,
+    var(--tran-all, all 0.3s cubic-bezier(0.4, 0, 0.2, 1))
+  );
   background-color: var(--btn-bg, var(--btn));
   outline: none;
   width: var(--btn-width);
@@ -58,10 +61,10 @@ button {
   &:is(:hover, :focus) {
     // Darken the background on hover by reducing brightness
     filter: var(--btn-hover-filter, brightness(0.85));
-    transform: var(--btn-hover-transform, scale(1.05));
-    outline: var(--btn-hover-outline, 2px);
-    outline-style: var(--line-style, solid);
+    transform: var(--btn-hover-transform, scale(1.03));
+    outline: var(--btn-hover-outline, thin);
     outline-offset: var(--line-offset, 1px);
+    // outline-style: var(--line-style, solid);
 
     &[aria-disabled="true"] {
       transform: none;
