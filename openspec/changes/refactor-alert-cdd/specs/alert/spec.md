@@ -5,26 +5,29 @@
 ### Requirement: Component Maintainability
 The Alert component SHALL follow Component-Driven Development (CDD) principles with clear separation of concerns to ensure long-term maintainability and code clarity.
 
+**Implementation Note (SIMPLIFIED APPROACH):** Uses a single `useAlertBehavior` hook to consolidate all stateful logic. Sub-components are NOT extracted to avoid premature abstraction (deferred until reuse emerges in other components).
+
 #### Scenario: Single Responsibility Principle
 - **WHEN** reviewing component code structure
-- **THEN** each function (hook or sub-component) has one clear, well-defined purpose
+- **THEN** each function (hook, pure function) has one clear, well-defined purpose
 - **AND** functions are named to clearly communicate their responsibility
-- **AND** no single function exceeds 50 lines of code (excluding types/comments)
-- **AND** complex logic is broken down into composable smaller functions
+- **AND** no single function exceeds 80 lines of code (excluding types/comments)
+- **AND** complex logic is broken down when needed (not prematurely)
 
-#### Scenario: Hook Extraction for Behavior
+#### Scenario: Hook Consolidation for Behavior (SIMPLIFIED)
 - **WHEN** component manages stateful behavior
-- **THEN** behavior is extracted into dedicated custom hooks
-- **AND** each hook manages a single concern (visibility, auto-dismiss, keyboard, focus)
-- **AND** hooks return focused interfaces with clear inputs and outputs
-- **AND** hooks can be tested independently without rendering the full component
+- **THEN** behavior is extracted into ONE cohesive custom hook (`useAlertBehavior`)
+- **AND** the hook manages all related concerns (visibility, auto-dismiss, keyboard, focus)
+- **AND** hook returns focused interface with clear inputs and outputs
+- **AND** hook can be tested independently without rendering the full component
+- **AND** hook behaviors can be split later if reuse emerges in other components
 
-#### Scenario: Sub-component Composition for UI
+#### Scenario: UI Rendering (No Sub-components Yet)
 - **WHEN** component renders UI elements
-- **THEN** UI is composed from smaller, focused sub-components
-- **AND** each sub-component handles one visual concern
-- **AND** sub-components accept minimal, focused prop interfaces
-- **AND** sub-components are pure presentation components when possible
+- **THEN** JSX remains in main component body (readable ~30 lines)
+- **AND** rendering logic is straightforward and maintainable
+- **AND** sub-components can be extracted later if 2+ components need them
+- **AND** follows YAGNI principle (don't create abstractions prematurely)
 
 #### Scenario: Configuration Separation
 - **WHEN** component uses static mappings, constants, or configuration
@@ -33,61 +36,68 @@ The Alert component SHALL follow Component-Driven Development (CDD) principles w
 - **AND** functions accessing constants are implemented as pure functions
 - **AND** configuration is easy to locate and modify
 
-#### Scenario: Code Organization Structure
+#### Scenario: Code Organization Structure (SIMPLIFIED)
 - **WHEN** opening the component file
 - **THEN** code follows clear organizational sections in order:
-  1. Types and interfaces
-  2. Configuration constants
-  3. Custom hooks
-  4. Sub-components
-  5. Main component
-- **AND** each section is clearly delineated with comments
+  1. Types & Configuration (severity types, ARIA mappings, pure functions)
+  2. Component Props (AlertProps type definition)
+  3. Custom Hook (useAlertBehavior - single consolidated hook)
+  4. Main Component (Alert component using hook)
+- **AND** each section is clearly delineated with comment banners
 - **AND** related code is grouped together logically
 
 ### Requirement: Component Testability
 The Alert component SHALL be structured to enable comprehensive unit testing of individual behaviors in isolation.
 
-#### Scenario: Hook Unit Testing
+**Implementation Note (SIMPLIFIED):** Single `useAlertBehavior` hook can be tested independently. UI rendering tests use full component (no sub-components).
+
+#### Scenario: Hook Unit Testing (SIMPLIFIED)
 - **WHEN** testing component behavior
-- **THEN** custom hooks can be tested in isolation using @testing-library/react-hooks or renderHook
-- **AND** hook tests don't require rendering the full component
-- **AND** hook tests verify single responsibility behavior with focused assertions
-- **AND** hook tests cover edge cases (cleanup, dependencies, re-renders)
+- **THEN** `useAlertBehavior` hook can be tested in isolation using @testing-library/react-hooks or renderHook
+- **AND** hook tests don't require rendering the full Alert component
+- **AND** hook tests verify all behaviors (visibility, auto-dismiss, keyboard, focus) together
+- **AND** hook tests cover edge cases (cleanup, dependencies, re-renders, pause/resume)
+- **AND** if specific behaviors need isolation later, hook can be split
 
-#### Scenario: Sub-component Unit Testing
+#### Scenario: UI Rendering Testing (No Sub-components)
 - **WHEN** testing UI rendering
-- **THEN** sub-components can be rendered and tested independently
-- **AND** sub-component tests verify prop handling and conditional rendering logic
-- **AND** sub-component tests are fast (no complex setup required)
-- **AND** sub-component tests focus on presentation logic only
+- **THEN** tests render the full Alert component (JSX is maintainable in one place)
+- **AND** tests verify prop handling and conditional rendering logic
+- **AND** tests remain fast (Alert component is not overly complex)
+- **AND** sub-components can be extracted later if testing becomes unwieldy
 
-#### Scenario: Integration Testing
+#### Scenario: Integration Testing (SIMPLIFIED)
 - **WHEN** testing full component functionality
-- **THEN** integration tests verify hooks and sub-components work together correctly
+- **THEN** integration tests verify hook and component UI work together correctly
 - **AND** integration tests cover complete user workflows
 - **AND** integration tests maintain current coverage levels (no regression)
 - **AND** integration tests use the component's public API only
 
-#### Scenario: Test Isolation Benefits
+#### Scenario: Test Isolation Benefits (SIMPLIFIED)
 - **WHEN** a specific behavior has a bug
-- **THEN** the bug can be reproduced with a focused hook or sub-component test
-- **AND** the fix can be verified without testing unrelated functionality
-- **AND** test failures clearly indicate which piece is broken
+- **THEN** behavior bugs can be reproduced with focused `useAlertBehavior` hook test
+- **AND** UI bugs can be reproduced with focused component rendering test
+- **AND** the fix can be verified at appropriate level (hook vs component)
+- **AND** test failures clearly indicate which piece is broken (behavior vs rendering)
 
 ### Requirement: Code Reusability
 The Alert component SHALL extract common patterns into reusable pieces that can benefit other components in the library.
 
-#### Scenario: Hook Reusability
-- **WHEN** implementing other components with similar behavior (modals, toasts, snackbars)
-- **THEN** extracted hooks (visibility management, auto-dismiss, keyboard handling) can be reused
-- **AND** hooks work correctly in different component contexts
-- **AND** hooks are documented with JSDoc for usage guidance
+**Implementation Note (PRAGMATIC):** Follows "Rule of Three" - extract for reuse when 2+ components need it, not before. Currently extracted: configuration constants and `useAlertBehavior` hook (can be split later if specific behaviors are needed elsewhere).
 
-#### Scenario: Sub-component Reusability
-- **WHEN** other components need similar UI elements
-- **THEN** sub-components can potentially be used standalone or composed differently
-- **AND** sub-components don't have hard dependencies on Alert-specific logic
-- **AND** sub-components can be extracted to shared components if patterns emerge
+#### Scenario: Hook Reusability (DEFERRED)
+- **WHEN** implementing other components with similar behavior (modals, toasts, snackbars)
+- **THEN** `useAlertBehavior` hook CAN be reused as-is OR specific behaviors can be extracted
+- **AND** if Modal needs only auto-dismiss, extract `useAutoDismiss` from `useAlertBehavior`
+- **AND** if Toast needs only visibility, extract `useVisibility` from `useAlertBehavior`
+- **AND** hooks are documented with JSDoc for usage guidance
+- **AND** extraction happens when second use case emerges, not speculatively
+
+#### Scenario: Configuration Reusability (IMMEDIATE)
+- **WHEN** other components need severity-based ARIA or icon mappings
+- **THEN** `SEVERITY_ARIA_LIVE` and `getSeverityIcon()` can be extracted to shared constants
+- **AND** configuration uses TypeScript const assertions for type safety
+- **AND** pure functions work in any component context
 
 #### Scenario: Pattern Consistency
 - **WHEN** refactoring other complex components

@@ -43,70 +43,77 @@ The Alert component is a production component with comprehensive accessibility f
 
 ## Decisions
 
-### Decision 1: Extract Hooks for Behavior Separation
+### Decision 1: Consolidate into Single Behavior Hook (REVISED - SIMPLIFIED)
 
-**What:** Create 4 custom hooks to separate different behavioral concerns:
-- `useAlertVisibility` - Render lifecycle & dismiss animation timing
-- `useAlertAutoDismiss` - Auto-dismiss timer with pause/resume
-- `useAlertKeyboard` - ESC key event listener management
-- `useAlertAutoFocus` - Focus management for critical alerts
+**What:** Create ONE custom hook that manages all behavioral concerns:
+- `useAlertBehavior` - Consolidates visibility, auto-dismiss, keyboard, and focus logic
 
 **Why:**
-- Each hook has single, clear responsibility
-- Hooks can be tested independently with @testing-library/react-hooks
-- Reduces cognitive load when reading main component
-- Patterns can be reused in other components (modals, toasts)
-- Follows React best practices for custom hooks
+- These behaviors are tightly coupled and only used together in Alert
+- Follows YAGNI principle - don't create abstractions until 2nd use case
+- Simpler to understand and review
+- Still testable in isolation with @testing-library/react-hooks
+- Can extract specific hooks later if other components need them
 
 **Alternatives Considered:**
 - **Alternative 1:** Keep all logic in component body
   - ❌ Rejected: Maintains current complexity issues
-- **Alternative 2:** Extract to separate hook files immediately
-  - ❌ Rejected: Premature optimization; harder to review as one change
-  - ✅ Can be done later if hooks are used across multiple components
-- **Alternative 3:** Create single `useAlert()` hook with all logic
-  - ❌ Rejected: Defeats purpose of separation; still complex to test
+- **Alternative 2:** Create 4 separate hooks
+  - ❌ Rejected: Over-engineering - violates YAGNI (these aren't reused yet)
+  - ❌ More complex to maintain 4 interdependent hooks
+  - ✅ Can be done later if hooks are needed across multiple components
+- **Alternative 3:** Extract to separate hook file immediately
+  - ❌ Rejected: Premature optimization; keep in same file for now
 
 **Implementation Notes:**
 ```typescript
-// Each hook returns focused interface
-useAlertVisibility(open, onDismiss) → { isVisible, shouldRender, handleDismiss }
-useAlertAutoDismiss(duration, isVisible, onDismiss) → { pause, resume }
-useAlertKeyboard(dismissible, isVisible, onDismiss) → void
-useAlertAutoFocus(ref, autoFocus, isVisible) → void
+// Single cohesive hook with all behaviors
+useAlertBehavior({
+  open,
+  onDismiss,
+  dismissible,
+  autoHideDuration,
+  pauseOnHover,
+  autoFocus,
+  alertRef
+}) → {
+  isVisible,
+  shouldRender,
+  handleDismiss,
+  handleInteractionStart,
+  handleInteractionEnd
+}
 ```
 
-### Decision 2: Extract Sub-Components for UI Composition
+### Decision 2: Skip Sub-Component Extraction (REVISED - SIMPLIFIED)
 
-**What:** Create 5 presentational components for different UI sections:
-- `AlertScreenReaderText` - Accessibility announcements
-- `AlertIcon` - Severity icon rendering
-- `AlertTitle` - Title with heading level logic
-- `AlertContent` - Message content wrapper
-- `AlertActions` - Action buttons container
+**What:** Do NOT extract sub-components at this time
 
 **Why:**
-- Each sub-component handles one visual concern
-- Easy to test rendering logic independently
-- Visually clear what each part of the UI does
-- Sub-components can potentially be used standalone
-- Makes main component read like composition blueprint
+- The JSX in Alert is already readable (~30 lines of rendering)
+- Sub-components would only be used in one place (Alert)
+- Follows "Rule of Three" - extract when 3+ components need it
+- Avoids premature abstraction and indirection
+- Can extract later if reuse emerges (AlertIcon, AlertTitle, etc.)
 
 **Alternatives Considered:**
 - **Alternative 1:** Keep all rendering in main component
-  - ❌ Rejected: Doesn't improve readability or testability
-- **Alternative 2:** Extract only complex parts (like icon logic)
-  - ❌ Rejected: Inconsistent approach; half-measure
-- **Alternative 3:** Create separate files for each sub-component
-  - ❌ Rejected: Overkill for components only used in Alert
-  - ✅ Can be done later if components are reused elsewhere
+  - ✅ **SELECTED:** JSX is already clear and maintainable
+  - Alert-specific UI logic stays with Alert
+  - Simpler to understand the complete component flow
+- **Alternative 2:** Extract 5 sub-components now
+  - ❌ Rejected: Over-engineering - these aren't reused yet
+  - ❌ Adds indirection without clear benefit
+  - ✅ Can be done later if another component needs AlertIcon, etc.
+- **Alternative 3:** Extract only complex parts (like icon logic)
+  - ❌ Rejected: Icon logic already extracted to `getSeverityIcon()` pure function
 
-**Implementation Notes:**
+**Future Path:**
+If we later build Modal, Toast, or Snackbar components that need similar UI elements, THEN extract:
 ```typescript
-// Sub-components are simple, focused functions
+// Future: Extract when 2nd component needs it
 const AlertIcon: React.FC<{...}> = ({ severity, hideIcon, ... }) => { ... }
 const AlertTitle: React.FC<{...}> = ({ title, titleLevel }) => { ... }
-// etc.
 ```
 
 ### Decision 3: Move Configuration to Top of File
@@ -144,7 +151,7 @@ const getSeverityIcon = (severity: Severity, props: IconProps): JSX.Element => {
 };
 ```
 
-### Decision 4: Keep All Code in Single File
+### Decision 4: Keep All Code in Single File (UNCHANGED)
 
 **What:** Perform entire refactoring within `alert.tsx` file
 
@@ -154,22 +161,24 @@ const getSeverityIcon = (severity: Severity, props: IconProps): JSX.Element => {
 - Avoids premature file proliferation
 - Can extract later if patterns prove reusable
 - Simpler mental model during transition
+- **SIMPLIFIED APPROACH:** Only 1 hook + config constants, not multiple files
 
 **Alternatives Considered:**
 - **Alternative 1:** Create `alert/` directory with separate files
   - ❌ Rejected: More complex change; harder to review
+  - ❌ Even less justified with simplified approach (1 hook, no sub-components)
   - ✅ Can be done as follow-up if needed
-- **Alternative 2:** Extract hooks to `hooks/` directory immediately
-  - ❌ Rejected: Unclear if hooks will be used elsewhere yet
+- **Alternative 2:** Extract hook to `hooks/` directory immediately
+  - ❌ Rejected: Unclear if `useAlertBehavior` will be used elsewhere yet
   - ✅ Wait for second use case before extracting
 
-**Migration Path:**
-If patterns prove useful across components:
-1. Move hooks to `packages/fpkit/src/hooks/alert-hooks.ts`
-2. Move sub-components to `packages/fpkit/src/components/alert/elements/`
-3. Move constants to `packages/fpkit/src/components/alert/constants.ts`
+**Migration Path (if needed in future):**
+If `useAlertBehavior` proves useful in other components (Modal, Toast, Snackbar):
+1. Move hook to `packages/fpkit/src/hooks/useAlertBehavior.ts`
+2. Move constants to `packages/fpkit/src/constants/alert-constants.ts` (optional)
+3. Keep component in `alert.tsx` as-is
 
-### Decision 5: Consolidate Event Handlers
+### Decision 5: Consolidate Event Handlers (UNCHANGED - Still Applies)
 
 **What:** Replace 4 separate event handlers with 2 generic handlers:
 - `handleInteractionStart` - Combines onMouseEnter + onFocus
@@ -180,19 +189,20 @@ If patterns prove useful across components:
 - Reduces code duplication
 - Simpler mental model
 - Fewer functions to maintain
+- **Works perfectly with simplified `useAlertBehavior` hook**
 
 **Implementation:**
 ```typescript
-// Before: 4 handlers
+// Before: 4 handlers in component body
 const handleMouseEnter = () => { if (pauseOnHover && autoHideDuration) setIsPaused(true); };
 const handleMouseLeave = () => { if (pauseOnHover && autoHideDuration) setIsPaused(false); };
 const handleFocus = () => { if (pauseOnHover && autoHideDuration) setIsPaused(true); };
 const handleBlur = () => { if (pauseOnHover && autoHideDuration) setIsPaused(false); };
 
-// After: 2 handlers
-const { pause, resume } = useAlertAutoDismiss(autoHideDuration, isVisible, handleDismiss);
-const handleInteractionStart = pauseOnHover && autoHideDuration ? pause : undefined;
-const handleInteractionEnd = pauseOnHover && autoHideDuration ? resume : undefined;
+// After: 2 handlers from hook (SIMPLIFIED)
+const { handleInteractionStart, handleInteractionEnd } = useAlertBehavior({...});
+// Hook returns memoized pause/resume callbacks
+// Component just uses them directly - no conditional logic needed
 ```
 
 ## Risks / Trade-offs
@@ -246,33 +256,38 @@ const handleInteractionEnd = pauseOnHover && autoHideDuration ? resume : undefin
 - Code clarity more important than premature optimization
 - Can add memoization back if profiling shows need
 
-## Migration Plan
+## Migration Plan (SIMPLIFIED)
 
-### Phase 1: Extract Configuration (Low Risk)
-1. Move severity mappings to top of file
-2. Create pure `getSeverityIcon()` function
-3. Remove inline object definitions
-4. Run tests to verify behavior unchanged
+### Phase 1: Extract Configuration (Low Risk) - 5 minutes
+1. Move `severityType` → `SEVERITY_ARIA_LIVE` constant at top
+2. Move `severityText` → `SEVERITY_SCREEN_READER_TEXT` constant at top
+3. Replace `useMemo` icon logic with `getSeverityIcon()` pure function
+4. Add TypeScript const assertions
+5. Run tests to verify behavior unchanged
 
-### Phase 2: Extract Hooks (Medium Risk)
-1. Create `useAlertVisibility` hook
-2. Update component to use new hook, remove old useEffect
-3. Test and verify
-4. Repeat for other hooks one at a time
-5. Remove all useEffect blocks from component body
+### Phase 2: Create Single Behavior Hook (Medium Risk) - 10 minutes
+1. Create `useAlertBehavior` hook combining all behaviors:
+   - Move visibility state management (isVisible, shouldRender)
+   - Move auto-dismiss timer logic with pause/resume
+   - Move ESC key event listener
+   - Move auto-focus logic
+2. Return memoized handlers (pause/resume)
+3. Test and verify all behaviors work
 
-### Phase 3: Extract Sub-Components (Low Risk)
-1. Create sub-component functions
-2. Update main component JSX to use sub-components
-3. Verify rendering identical
-4. Run accessibility tests
+### Phase 3: Update Main Component (Low Risk) - 5 minutes
+1. Replace component body logic with hook usage
+2. Remove 4 separate useEffect blocks
+3. Remove old state management code
+4. Remove inline object definitions
+5. Use hook's `handleInteractionStart`/`handleInteractionEnd` directly
 
-### Phase 4: Cleanup & Optimization (Low Risk)
-1. Consolidate event handlers
-2. Add organizational comments
-3. Add JSDoc to all functions
-4. Final lint and format
-5. Full test suite run
+### Phase 4: Documentation & Cleanup (Low Risk) - 5 minutes
+1. Add section comments (Types & Config, Hook, Main Component)
+2. Add comprehensive JSDoc to hook
+3. Final lint and format
+4. Full test suite run
+
+**Total Time: ~25-30 minutes vs. hours for original plan**
 
 ### Rollback Plan
 If issues discovered:
