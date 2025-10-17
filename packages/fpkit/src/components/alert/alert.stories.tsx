@@ -131,3 +131,96 @@ export const InteractionTest: Story = {
     });
   },
 } as Story;
+
+export const AutoDismissAlert: Story = {
+  args: {
+    open: true,
+    severity: "success",
+    autoHideDuration: 5000,
+    title: "Auto-Dismiss Alert",
+    children: "This alert will automatically dismiss after 5 seconds",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with automatic dismissal after 5 seconds. Useful for temporary success messages.",
+      },
+    },
+  },
+} as Story;
+
+export const WithActions: Story = {
+  args: {
+    open: true,
+    severity: "warning",
+    title: "Unsaved Changes",
+    children: "You have unsaved changes. What would you like to do?",
+    actions: (
+      <>
+        <button style={{ marginRight: '8px' }}>Save</button>
+        <button>Discard</button>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with custom action buttons for user interactions.",
+      },
+    },
+  },
+} as Story;
+
+export const FilledVariant: Story = {
+  args: {
+    open: true,
+    severity: "error",
+    variant: "filled",
+    title: "Error",
+    children: "An error occurred while processing your request.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with filled variant - solid colored background for high emphasis.",
+      },
+    },
+  },
+} as Story;
+
+export const SoftVariant: Story = {
+  args: {
+    open: true,
+    severity: "info",
+    variant: "soft",
+    title: "Information",
+    children: "This is an informational message with soft variant styling.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with soft variant - subtle background without border.",
+      },
+    },
+  },
+} as Story;
+
+export const AutoFocusAlert: Story = {
+  args: {
+    open: true,
+    severity: "error",
+    autoFocus: true,
+    title: "Critical Error",
+    children: "This is a critical alert that automatically receives focus for screen readers.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with autoFocus enabled - useful for critical alerts that need immediate attention.",
+      },
+    },
+  },
+} as Story;

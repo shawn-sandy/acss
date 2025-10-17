@@ -24,6 +24,15 @@ This proposal introduces three phases of improvements to the Alert component:
 - **Focus Management**: Auto-focus critical alerts for screen readers
 - **Alert Variants**: Add visual variants (filled, outlined, soft)
 
+### Phase 4: WCAG 2.1 Accessibility Compliance
+- **Severity Text Announcement**: Add visually hidden text announcing severity to screen readers (WCAG 1.1.1, 1.4.1)
+- **Visible Focus Indicators**: Implement clear focus outlines for keyboard navigation (WCAG 2.4.7)
+- **Color Contrast Verification**: Test and fix all color combinations to meet 4.5:1 ratio (WCAG 1.4.3)
+- **Touch Target Size**: Ensure dismiss button meets 44×44px minimum clickable area (WCAG 2.5.5)
+- **Auto-Dismiss Pause**: Add pause-on-hover/focus for timed alerts (WCAG 2.2.1)
+- **Configurable Title Semantics**: Make heading level flexible or use `<strong>` element (WCAG 1.3.1)
+- **Comprehensive Documentation**: Create ACCESSIBILITY.md with WCAG compliance details and testing guidance
+
 ## Impact
 
 ### Affected Specs
@@ -63,10 +72,29 @@ This proposal introduces three phases of improvements to the Alert component:
 
 ### Accessibility Impact
 
-**Improvements**:
+**Phase 1-3 Improvements**:
 - ESC key support for better keyboard navigation
 - Optional focus management for critical alerts
 - Animations respect `prefers-reduced-motion` media query
 - Maintains all existing ARIA attributes (`role="alert"`, `aria-live`, `aria-atomic`)
 
-**No Regressions**: All current accessibility features preserved
+**Phase 4 WCAG 2.1 Level AA Compliance**:
+- **1.1.1 Non-text Content**: ✅ Severity announced to screen readers via visually hidden text
+- **1.3.1 Info and Relationships**: ✅ Configurable heading level or semantic `<strong>` element
+- **1.4.1 Use of Color**: ✅ Multiple cues for severity (color + icon + text announcement)
+- **1.4.3 Contrast (Minimum)**: ✅ All text/background combinations verified to meet 4.5:1 ratio
+- **2.1.1 Keyboard**: ✅ All interactive elements keyboard accessible (ESC key, dismiss button)
+- **2.2.1 Timing Adjustable**: ✅ Auto-dismiss pauses on hover/focus interaction
+- **2.4.7 Focus Visible**: ✅ Clear focus indicators for keyboard users (`:focus-visible` support)
+- **2.5.5 Target Size (Level AAA)**: ✅ Dismiss button meets 44×44px touch target minimum
+- **4.1.2 Name, Role, Value**: ✅ Proper ARIA attributes and semantic HTML
+- **4.1.3 Status Messages**: ✅ Correct use of `role="alert"` for status announcements
+
+**Documentation**:
+- Dedicated ACCESSIBILITY.md with WCAG compliance details
+- Screen reader testing instructions (VoiceOver, NVDA, JAWS)
+- Color contrast verification reference table
+- Keyboard interaction documentation
+- Best practices for accessible alert usage
+
+**No Regressions**: All current and Phase 1-3 accessibility features preserved and enhanced

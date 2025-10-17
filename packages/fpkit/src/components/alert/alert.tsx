@@ -53,6 +53,44 @@ export type AlertProps = {
    * Additional props to pass to the Icon component.
    */
   iconProps?: IconProps;
+
+  /**
+   * Duration in milliseconds before the alert automatically dismisses.
+   * Set to 0 or undefined to disable auto-dismiss.
+   * @default undefined
+   * @example
+   * ```tsx
+   * <Alert autoHideDuration={5000}>Success message</Alert>
+   * ```
+   */
+  autoHideDuration?: number;
+
+  /**
+   * Custom action buttons to display in the alert.
+   * @example
+   * ```tsx
+   * <Alert actions={<><Button>Undo</Button><Button>Dismiss</Button></>}>
+   *   File deleted
+   * </Alert>
+   * ```
+   */
+  actions?: React.ReactNode;
+
+  /**
+   * Whether to automatically focus the alert when it becomes visible.
+   * Useful for critical alerts that require immediate attention.
+   * @default false
+   */
+  autoFocus?: boolean;
+
+  /**
+   * Visual variant of the alert.
+   * - outlined: Border with lighter background (default)
+   * - filled: Solid colored background
+   * - soft: No border, subtle background
+   * @default "outlined"
+   */
+  variant?: "outlined" | "filled" | "soft";
 } & React.ComponentProps<typeof UI>;
 
 /**
@@ -92,20 +130,58 @@ const Alert: React.FC<AlertProps> = ({
   iconSize,
   iconProps,
   hideIcon,
+  autoHideDuration,
+  actions,
+  autoFocus = false,
+  variant = "outlined",
   ...props
 }) => {
   const [isVisible, setIsVisible] = React.useState(open);
+  const [shouldRender, setShouldRender] = React.useState(open);
+  const alertRef = React.useRef<HTMLDivElement>(null);
+
+  const handleDismiss = React.useCallback((): void => {
+    setIsVisible(false);
+    // Wait for animation to complete before unmounting
+    setTimeout(() => {
+      setShouldRender(false);
+      onDismiss?.();
+    }, 300); // Match CSS transition duration
+  }, [onDismiss]);
 
   React.useEffect(() => {
-    setIsVisible(open);
+    if (open) {
+      setShouldRender(true);
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
   }, [open]);
 
-  if (!isVisible) return null;
+  // Auto-dismiss functionality
+  React.useEffect(() => {
+    if (!autoHideDuration || !isVisible) return;
 
-  const handleDismiss = (): void => {
-    setIsVisible(false);
-    onDismiss?.();
-  };
+    const timer = setTimeout(() => {
+      handleDismiss();
+    }, autoHideDuration);
+
+    return () => clearTimeout(timer);
+  }, [autoHideDuration, isVisible, handleDismiss]);
+
+  // ESC key support for dismissible alerts
+  React.useEffect(() => {
+    if (!dismissible || !isVisible) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleDismiss();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [dismissible, isVisible, handleDismiss]);
 
   /**
    * Default props for the Icon component used in the Alert component.
@@ -126,26 +202,42 @@ const Alert: React.FC<AlertProps> = ({
 
   const mergedIconProps = { ...defaultIconProps, ...iconProps };
 
-  // Update the severityIcons object with the type
-  const severityIcons: Record<Severity, JSX.Element> = {
-    info: <Icon.InfoSolid {...mergedIconProps} />,
-    success: <Icon.SuccessSolid {...mergedIconProps} />,
-    warning: <Icon.WarnSolid {...mergedIconProps} />,
-    error: <Icon.AlertSolid {...mergedIconProps} />,
-    default: <Icon.AlertSquareSolid {...mergedIconProps} />,
-  };
+  // Memoize severity icon to prevent recreation on every render
+  const severityIcon = React.useMemo(() => {
+    const severityIcons: Record<Severity, JSX.Element> = {
+      info: <Icon.InfoSolid {...mergedIconProps} />,
+      success: <Icon.SuccessSolid {...mergedIconProps} />,
+      warning: <Icon.WarnSolid {...mergedIconProps} />,
+      error: <Icon.AlertSolid {...mergedIconProps} />,
+      default: <Icon.AlertSquareSolid {...mergedIconProps} />,
+    };
+    return severityIcons[severity];
+  }, [severity, mergedIconProps]);
+
+  // Auto-focus functionality for critical alerts
+  React.useEffect(() => {
+    if (autoFocus && isVisible && alertRef.current) {
+      alertRef.current.focus();
+    }
+  }, [autoFocus, isVisible]);
+
+  if (!shouldRender) return null;
 
   return (
     <UI
       as="div"
+      ref={alertRef}
       role="alert"
       aria-live={severityType[severity]}
       aria-atomic="true"
       className={`alert alert-${severity}`}
       data-alert={severity}
+      data-visible={isVisible}
+      data-variant={variant}
+      tabIndex={autoFocus ? -1 : undefined}
       {...props}
     >
-      {!hideIcon && <UI aria-hidden="true">{severityIcons[severity]}</UI>}
+      {!hideIcon && <UI aria-hidden="true" className="alert-icon">{severityIcon}</UI>}
       <UI as="div" className="alert-message">
         {title && (
           <UI as="h3" className="alert-title">
@@ -153,6 +245,7 @@ const Alert: React.FC<AlertProps> = ({
           </UI>
         )}
         <UI as="div">{children}</UI>
+        {actions && <UI as="div" className="alert-actions">{actions}</UI>}
       </UI>
       {dismissible && <DismissButton onDismiss={handleDismiss} />}
     </UI>

@@ -19,6 +19,9 @@
   --alert-info-border: #0288d1;
   --alert-info-text: #084154;
 
+  /* Animation */
+  --alert-transition-duration: 0.3s;
+
   --alert-border: thin solid currentColor;
 
   background-color: var(--alert-bg, whitesmoke);
@@ -30,11 +33,25 @@
   line-height: 1.6;
   display: flex;
   flex-direction: row;
-  // align-items: center;
   border-radius: var(--alert-border-radius, var(--border-radius));
-  border: var(--alert-border);
   gap: var(--alert-gap, var(--spc-4));
-  div {
+
+  /* Exit animations */
+  transition: opacity var(--alert-transition-duration) ease,
+              transform var(--alert-transition-duration) ease;
+  opacity: 1;
+  transform: translateY(0);
+
+  &:not([data-visible="true"]) {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.01ms;
+  }
+
+  .alert-icon {
     margin-block-start: 0;
     align-items: center;
   }
@@ -45,6 +62,13 @@
     h3 {
       margin-block-end: 0;
     }
+  }
+
+  .alert-actions {
+    margin-block-start: var(--spc-2);
+    display: flex;
+    gap: var(--spc-2);
+    flex-wrap: wrap;
   }
 
   &[data-alert~="info"] {
@@ -74,7 +98,46 @@
   button {
     &[data-btn~="icon"] {
       --btn-bg: transparent;
-      // max-height: 1.5rem;
     }
+  }
+
+  /* Variant: Filled - Solid colored background */
+  &[data-variant="filled"] {
+    border: none;
+
+    &[data-alert~="info"] {
+      --alert-bg: var(--alert-info-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="warning"] {
+      --alert-bg: var(--alert-warning-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="error"] {
+      --alert-bg: var(--alert-error-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="success"] {
+      --alert-bg: var(--alert-success-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="default"] {
+      --alert-bg: #757575;
+      --alert-color: white;
+    }
+  }
+
+  /* Variant: Soft - No border, subtle background */
+  &[data-variant="soft"] {
+    border: none;
+  }
+
+  /* Variant: Outlined - Default with border (no additional styles needed) */
+  &[data-variant="outlined"] {
+    /* This is the default variant, styles already applied above */
   }
 }
