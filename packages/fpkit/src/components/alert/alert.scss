@@ -1,3 +1,16 @@
+/* Screen reader only utility class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 [role="alert"] {
   /* Success colors */
   --alert-success-bg: #e6f4ea;
@@ -19,6 +32,9 @@
   --alert-info-border: #0288d1;
   --alert-info-text: #084154;
 
+  /* Animation */
+  --alert-transition-duration: 0.3s;
+
   --alert-border: thin solid currentColor;
 
   background-color: var(--alert-bg, whitesmoke);
@@ -30,11 +46,37 @@
   line-height: 1.6;
   display: flex;
   flex-direction: row;
-  // align-items: center;
   border-radius: var(--alert-border-radius, var(--border-radius));
-  border: var(--alert-border);
   gap: var(--alert-gap, var(--spc-4));
-  div {
+
+  /* Exit animations */
+  transition:
+    opacity var(--alert-transition-duration) ease,
+    transform var(--alert-transition-duration) ease;
+  opacity: 1;
+  transform: translateY(0);
+
+  &:not([data-visible="true"]) {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0.01ms;
+  }
+
+  /* Focus indicators for keyboard navigation (WCAG 2.4.7) */
+  &:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* Hide focus outline for mouse clicks, keep for keyboard */
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  .alert-icon {
     margin-block-start: 0;
     align-items: center;
   }
@@ -42,8 +84,26 @@
   .alert-message {
     flex: 2;
     margin-block-start: 0;
-    h3 {
-      margin-block-end: 0;
+
+    /* Title styles for both heading and strong elements */
+    .alert-title {
+      margin-block-end: var(--spc-1, 0.25rem);
+      margin-block-start: 0;
+      font-weight: var(--alert-title-weight, 600);
+      font-size: var(--alert-title-size, inherit);
+      line-height: 1.4;
+    }
+
+    /* Reset heading-specific styles */
+    h2.alert-title,
+    h3.alert-title,
+    h4.alert-title,
+    h5.alert-title,
+    h6.alert-title {
+      margin: 0;
+      margin-block-end: var(--spc-1, 0.25rem);
+      font-size: inherit;
+      font-weight: var(--alert-title-weight, 600);
     }
   }
 
@@ -74,7 +134,54 @@
   button {
     &[data-btn~="icon"] {
       --btn-bg: transparent;
-      // max-height: 1.5rem;
     }
+  }
+
+  * + div {
+    margin-block-start: var(--spc-1);
+  }
+
+  /* Variant: Filled - Solid colored background */
+  &[data-variant="filled"] {
+    border: none;
+
+    &[data-alert~="info"] {
+      --alert-bg: var(--alert-info-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="warning"] {
+      --alert-bg: var(--alert-warning-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="error"] {
+      --alert-bg: var(--alert-error-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="success"] {
+      --alert-bg: var(--alert-success-border);
+      --alert-color: white;
+    }
+
+    &[data-alert~="default"] {
+      --alert-bg: #757575;
+      --alert-color: white;
+    }
+  }
+
+  /* Variant: Soft - No border, subtle background */
+  &[data-variant="soft"] {
+    border: none;
+  }
+
+  /* Variant: Outlined - Default with border (no additional styles needed) */
+  &[data-variant="outlined"] {
+    /* This is the default variant, styles already applied above */
+  }
+
+  p {
+    font-size: 0.875rem;
   }
 }

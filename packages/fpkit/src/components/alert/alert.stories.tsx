@@ -131,3 +131,375 @@ export const InteractionTest: Story = {
     });
   },
 } as Story;
+
+export const AutoDismissAlert: Story = {
+  args: {
+    open: true,
+    severity: "success",
+    autoHideDuration: 5000,
+    title: "Auto-Dismiss Alert",
+    children: "This alert will automatically dismiss after 5 seconds",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with automatic dismissal after 5 seconds. Useful for temporary success messages.",
+      },
+    },
+  },
+} as Story;
+
+export const WithActions: Story = {
+  args: {
+    open: true,
+    severity: "warning",
+    title: "Unsaved Changes",
+    children: "You have unsaved changes. What would you like to do?",
+    actions: (
+      <>
+        <button style={{ marginRight: '8px' }}>Save</button>
+        <button>Discard</button>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with custom action buttons for user interactions.",
+      },
+    },
+  },
+} as Story;
+
+export const FilledVariant: Story = {
+  args: {
+    open: true,
+    severity: "error",
+    variant: "filled",
+    title: "Error",
+    children: "An error occurred while processing your request.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with filled variant - solid colored background for high emphasis.",
+      },
+    },
+  },
+} as Story;
+
+export const SoftVariant: Story = {
+  args: {
+    open: true,
+    severity: "info",
+    variant: "soft",
+    title: "Information",
+    children: "This is an informational message with soft variant styling.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with soft variant - subtle background without border.",
+      },
+    },
+  },
+} as Story;
+
+export const AutoFocusAlert: Story = {
+  args: {
+    open: true,
+    severity: "error",
+    autoFocus: true,
+    title: "Critical Error",
+    children: "This is a critical alert that automatically receives focus for screen readers.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with autoFocus enabled - useful for critical alerts that need immediate attention.",
+      },
+    },
+  },
+} as Story;
+
+export const WithHeadingLevel: Story = {
+  args: {
+    open: true,
+    severity: "info",
+    title: "Section Alert",
+    titleLevel: 2,
+    children: "This alert uses an h2 heading for proper document structure. Use titleLevel to maintain heading hierarchy.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with configurable heading level (WCAG 1.3.1). Use titleLevel prop (2-6) to maintain proper heading hierarchy in your page structure.",
+      },
+    },
+  },
+} as Story;
+
+export const WithPauseOnHover: Story = {
+  args: {
+    open: true,
+    severity: "success",
+    autoHideDuration: 5000,
+    pauseOnHover: true,
+    title: "Hover to Pause",
+    children: "This alert will pause auto-dismiss when you hover over it or focus on it (WCAG 2.2.1).",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Alert with pause on hover/focus enabled. Hovering over or focusing the alert pauses the auto-dismiss timer, allowing users more time to read the content.",
+      },
+    },
+  },
+} as Story;
+
+export const CustomIconSizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Alert
+        open={true}
+        severity="info"
+        iconSize={16}
+        title="Small Icon (16px)"
+        dismissible={true}
+      >
+        Compact alert with smaller icon, useful for dense layouts or secondary messages.
+      </Alert>
+      <Alert
+        open={true}
+        severity="warning"
+        iconSize={24}
+        title="Default Icon (24px)"
+        dismissible={true}
+      >
+        Standard alert with default icon size, balanced for most use cases.
+      </Alert>
+      <Alert
+        open={true}
+        severity="error"
+        iconSize={32}
+        title="Large Icon (32px)"
+        dismissible={true}
+      >
+        Prominent alert with larger icon for high-priority messages or larger viewports.
+      </Alert>
+      <Alert
+        open={true}
+        severity="success"
+        iconSize={48}
+        title="Extra Large Icon (48px)"
+        dismissible={true}
+      >
+        Eye-catching alert with extra-large icon for critical success confirmations.
+      </Alert>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Demonstration of customizable icon sizes. Use the `iconSize` prop to adjust the severity icon size based on your design needs and context.",
+      },
+    },
+  },
+} as Story;
+
+export const AccessibilityShowcase: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Alert
+        open={true}
+        severity="error"
+        title="Error Alert"
+        titleLevel={2}
+        autoFocus={true}
+        dismissible={true}
+      >
+        Screen readers will announce "Error:" before the message. This alert is automatically focused.
+      </Alert>
+      <Alert
+        open={true}
+        severity="success"
+        title="Success Alert"
+        titleLevel={3}
+        autoHideDuration={8000}
+        pauseOnHover={true}
+        dismissible={true}
+      >
+        This alert auto-dismisses in 8 seconds but pauses when hovered or focused.
+      </Alert>
+      <Alert
+        open={true}
+        severity="info"
+        variant="filled"
+        title="Info Alert"
+        dismissible={true}
+      >
+        All dismiss buttons meet 44×44px touch target size (WCAG 2.5.5).
+      </Alert>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Showcase of WCAG 2.1 Level AA accessibility features: screen reader announcements, configurable heading levels, pause on interaction, proper focus indicators, and adequate touch targets.",
+      },
+    },
+  },
+} as Story;
+
+export const SimpleTextContent: Story = {
+  args: {
+    open: true,
+    severity: "info",
+    title: "Simple Text Alert",
+    children: "This is a simple text message that will be wrapped in a paragraph tag automatically.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Default content type ('text') automatically wraps simple text content in a paragraph tag for proper semantic HTML.",
+      },
+    },
+  },
+} as Story;
+
+export const ComplexContentWithList: Story = {
+  args: {
+    open: true,
+    severity: "warning",
+    title: "Action Required",
+    contentType: "node",
+    children: (
+      <>
+        <p>Please complete the following steps to secure your account:</p>
+        <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
+          <li>Review your recent login activity</li>
+          <li>Update your password to a strong, unique passphrase</li>
+          <li>Enable two-factor authentication</li>
+          <li>Add a recovery email address</li>
+        </ul>
+      </>
+    ),
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Using contentType='node' allows complex content structures like lists, multiple paragraphs, or custom layouts without automatic paragraph wrapping.",
+      },
+    },
+  },
+} as Story;
+
+export const CustomLayoutContent: Story = {
+  args: {
+    open: true,
+    severity: "success",
+    title: "Deployment Complete",
+    contentType: "node",
+    children: (
+      <div>
+        <p>Your application has been successfully deployed to production.</p>
+        <div style={{
+          display: 'flex',
+          gap: '1rem',
+          marginTop: '0.75rem',
+          padding: '0.5rem',
+          background: 'rgba(0,0,0,0.05)',
+          borderRadius: '4px'
+        }}>
+          <div>
+            <strong>Build #:</strong> 1234
+          </div>
+          <div>
+            <strong>Duration:</strong> 2m 34s
+          </div>
+          <div>
+            <strong>Environment:</strong> Production
+          </div>
+        </div>
+      </div>
+    ),
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "contentType='node' enables custom component layouts with complex structures, flexbox layouts, or styled components.",
+      },
+    },
+  },
+} as Story;
+
+export const MultiParagraphContent: Story = {
+  args: {
+    open: true,
+    severity: "info",
+    title: "Important Update",
+    contentType: "node",
+    children: (
+      <>
+        <p style={{ marginBottom: '0.5rem' }}>
+          We've made significant improvements to our privacy policy to better protect your data and give you more control over your information.
+        </p>
+        <p style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+          Please take a moment to review the changes. The new policy will take effect on January 1, 2026.
+        </p>
+      </>
+    ),
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Multiple paragraphs can be rendered when using contentType='node', allowing for more detailed alert messages.",
+      },
+    },
+  },
+} as Story;
+
+export const ContentTypeComparison: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Alert
+        open={true}
+        severity="info"
+        title="Text Mode (Default)"
+        dismissible={true}
+      >
+        This simple text is automatically wrapped in a paragraph tag.
+      </Alert>
+      <Alert
+        open={true}
+        severity="warning"
+        title="Node Mode"
+        contentType="node"
+        dismissible={true}
+      >
+        <p>This content uses node mode for custom structure.</p>
+        <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
+          <li>Supports lists</li>
+          <li>Multiple elements</li>
+          <li>Custom layouts</li>
+        </ul>
+      </Alert>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Side-by-side comparison of text mode (default) vs node mode for rendering alert content.",
+      },
+    },
+  },
+} as Story;
