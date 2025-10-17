@@ -355,3 +355,151 @@ export const AccessibilityShowcase: Story = {
     },
   },
 } as Story;
+
+export const SimpleTextContent: Story = {
+  args: {
+    open: true,
+    severity: "info",
+    title: "Simple Text Alert",
+    children: "This is a simple text message that will be wrapped in a paragraph tag automatically.",
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Default content type ('text') automatically wraps simple text content in a paragraph tag for proper semantic HTML.",
+      },
+    },
+  },
+} as Story;
+
+export const ComplexContentWithList: Story = {
+  args: {
+    open: true,
+    severity: "warning",
+    title: "Action Required",
+    contentType: "node",
+    children: (
+      <>
+        <p>Please complete the following steps to secure your account:</p>
+        <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
+          <li>Review your recent login activity</li>
+          <li>Update your password to a strong, unique passphrase</li>
+          <li>Enable two-factor authentication</li>
+          <li>Add a recovery email address</li>
+        </ul>
+      </>
+    ),
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Using contentType='node' allows complex content structures like lists, multiple paragraphs, or custom layouts without automatic paragraph wrapping.",
+      },
+    },
+  },
+} as Story;
+
+export const CustomLayoutContent: Story = {
+  args: {
+    open: true,
+    severity: "success",
+    title: "Deployment Complete",
+    contentType: "node",
+    children: (
+      <div>
+        <p>Your application has been successfully deployed to production.</p>
+        <div style={{
+          display: 'flex',
+          gap: '1rem',
+          marginTop: '0.75rem',
+          padding: '0.5rem',
+          background: 'rgba(0,0,0,0.05)',
+          borderRadius: '4px'
+        }}>
+          <div>
+            <strong>Build #:</strong> 1234
+          </div>
+          <div>
+            <strong>Duration:</strong> 2m 34s
+          </div>
+          <div>
+            <strong>Environment:</strong> Production
+          </div>
+        </div>
+      </div>
+    ),
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "contentType='node' enables custom component layouts with complex structures, flexbox layouts, or styled components.",
+      },
+    },
+  },
+} as Story;
+
+export const MultiParagraphContent: Story = {
+  args: {
+    open: true,
+    severity: "info",
+    title: "Important Update",
+    contentType: "node",
+    children: (
+      <>
+        <p style={{ marginBottom: '0.5rem' }}>
+          We've made significant improvements to our privacy policy to better protect your data and give you more control over your information.
+        </p>
+        <p style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+          Please take a moment to review the changes. The new policy will take effect on January 1, 2026.
+        </p>
+      </>
+    ),
+    dismissible: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Multiple paragraphs can be rendered when using contentType='node', allowing for more detailed alert messages.",
+      },
+    },
+  },
+} as Story;
+
+export const ContentTypeComparison: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <Alert
+        open={true}
+        severity="info"
+        title="Text Mode (Default)"
+        dismissible={true}
+      >
+        This simple text is automatically wrapped in a paragraph tag.
+      </Alert>
+      <Alert
+        open={true}
+        severity="warning"
+        title="Node Mode"
+        contentType="node"
+        dismissible={true}
+      >
+        <p>This content uses node mode for custom structure.</p>
+        <ul style={{ marginTop: '0.5rem', marginBottom: 0, paddingLeft: '1.5rem' }}>
+          <li>Supports lists</li>
+          <li>Multiple elements</li>
+          <li>Custom layouts</li>
+        </ul>
+      </Alert>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Side-by-side comparison of text mode (default) vs node mode for rendering alert content.",
+      },
+    },
+  },
+} as Story;

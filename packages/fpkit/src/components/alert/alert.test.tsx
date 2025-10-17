@@ -654,5 +654,103 @@ describe('Alert', () => {
         expect(alert).not.toHaveAttribute('tabIndex');
       });
     });
+
+    describe('Content Type', () => {
+      it('should wrap children in paragraph tag when contentType is "text" (default)', () => {
+        const { container } = render(
+          <Alert open={true} severity="info">
+            Simple text content
+          </Alert>
+        );
+
+        const paragraph = container.querySelector('.alert-message p');
+        expect(paragraph).toBeInTheDocument();
+        expect(paragraph).toHaveTextContent('Simple text content');
+      });
+
+      it('should wrap children in paragraph tag when contentType is explicitly set to "text"', () => {
+        const { container } = render(
+          <Alert open={true} severity="warning" contentType="text">
+            Explicit text content
+          </Alert>
+        );
+
+        const paragraph = container.querySelector('.alert-message p');
+        expect(paragraph).toBeInTheDocument();
+        expect(paragraph).toHaveTextContent('Explicit text content');
+      });
+
+      it('should render children directly without paragraph wrapper when contentType is "node"', () => {
+        const { container } = render(
+          <Alert open={true} severity="error" contentType="node">
+            <div className="custom-content">Custom layout</div>
+          </Alert>
+        );
+
+        // Should not have a paragraph wrapper
+        const paragraph = container.querySelector('.alert-message > p');
+        expect(paragraph).not.toBeInTheDocument();
+
+        // Should have direct custom content
+        const customContent = container.querySelector('.alert-message .custom-content');
+        expect(customContent).toBeInTheDocument();
+        expect(customContent).toHaveTextContent('Custom layout');
+      });
+
+      it('should render complex content with lists when contentType is "node"', () => {
+        const { container } = render(
+          <Alert open={true} severity="warning" contentType="node">
+            <ul>
+              <li>First item</li>
+              <li>Second item</li>
+              <li>Third item</li>
+            </ul>
+          </Alert>
+        );
+
+        const list = container.querySelector('.alert-message ul');
+        expect(list).toBeInTheDocument();
+
+        const listItems = container.querySelectorAll('.alert-message li');
+        expect(listItems).toHaveLength(3);
+        expect(listItems[0]).toHaveTextContent('First item');
+        expect(listItems[1]).toHaveTextContent('Second item');
+        expect(listItems[2]).toHaveTextContent('Third item');
+      });
+
+      it('should render multiple child elements when contentType is "node"', () => {
+        const { container } = render(
+          <Alert open={true} severity="success" contentType="node">
+            <p>First paragraph</p>
+            <p>Second paragraph</p>
+            <div>Additional content</div>
+          </Alert>
+        );
+
+        const messageDiv = container.querySelector('.alert-message');
+        const paragraphs = messageDiv?.querySelectorAll('p') || [];
+        const divs = messageDiv?.querySelectorAll('div') || [];
+
+        expect(paragraphs.length).toBeGreaterThanOrEqual(2);
+        expect(divs.length).toBeGreaterThanOrEqual(1);
+      });
+
+      it('should maintain accessibility with contentType="node"', () => {
+        render(
+          <Alert open={true} severity="info" contentType="node">
+            <div>
+              <p>Complex content structure</p>
+              <ul>
+                <li>Item 1</li>
+              </ul>
+            </div>
+          </Alert>
+        );
+
+        const alert = screen.getByRole('alert');
+        expect(alert).toHaveAttribute('aria-live', 'polite');
+        expect(alert).toHaveAttribute('aria-atomic', 'true');
+      });
+    });
   });
 });

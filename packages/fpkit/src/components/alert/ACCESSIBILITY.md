@@ -226,6 +226,52 @@ All alert variants have been tested with WebAIM Contrast Checker:
 - Use **filled** variant for high-emphasis alerts
 - Use **soft** variant for subtle, low-priority messages
 
+### Content Type Selection
+
+The `contentType` prop determines how alert children are rendered and affects semantic HTML structure:
+
+**Use contentType="text" (default) when:**
+- ✓ Displaying simple text messages (single sentence or paragraph)
+- ✓ Content is purely informational without complex structure
+- ✓ You want automatic paragraph wrapping for semantic correctness
+
+**Use contentType="node" when:**
+- ✓ Displaying lists (ordered or unordered)
+- ✓ Including multiple paragraphs with different styling
+- ✓ Rendering custom components or complex layouts
+- ✓ Need fine-grained control over HTML structure
+- ✓ Content includes interactive elements beyond actions
+
+**Examples:**
+
+```tsx
+// Simple text - use default "text" mode
+<Alert severity="info">
+  Your session will expire in 5 minutes.
+</Alert>
+
+// Complex content with list - use "node" mode
+<Alert severity="warning" contentType="node">
+  <p>Complete these steps:</p>
+  <ul>
+    <li>Update your password</li>
+    <li>Enable 2FA</li>
+  </ul>
+</Alert>
+
+// Multiple paragraphs - use "node" mode
+<Alert severity="info" contentType="node">
+  <p>We've updated our privacy policy.</p>
+  <p>Review the changes by January 1, 2026.</p>
+</Alert>
+```
+
+**Accessibility Considerations:**
+- Both modes maintain proper ARIA structure and screen reader compatibility
+- `contentType="node"` allows for better semantic HTML when content is complex
+- Use meaningful headings within node content for screen reader navigation
+- Ensure custom layouts maintain logical reading order
+
 ## Testing Checklist
 
 Use this checklist when implementing or modifying the Alert component:

@@ -126,6 +126,44 @@ export type AlertProps = {
    * @default "outlined"
    */
   variant?: "outlined" | "filled" | "soft";
+
+  /**
+   * Content rendering mode for alert children.
+   * Determines how the children content is wrapped in the alert message area.
+   * - "text": Wraps children in a paragraph tag (default, for simple text content)
+   * - "node": Renders children directly without wrapper (for complex layouts, lists, or custom components)
+   * @default "text"
+   * @example Simple text content (uses default "text" mode)
+   * ```tsx
+   * <Alert severity="info">
+   *   This is a simple text message that will be wrapped in a paragraph.
+   * </Alert>
+   * ```
+   * @example Complex content with list
+   * ```tsx
+   * <Alert severity="warning" contentType="node">
+   *   <p>Please review the following items:</p>
+   *   <ul>
+   *     <li>Check your email settings</li>
+   *     <li>Update your password</li>
+   *     <li>Enable two-factor authentication</li>
+   *   </ul>
+   * </Alert>
+   * ```
+   * @example Custom component layout
+   * ```tsx
+   * <Alert severity="success" contentType="node">
+   *   <div className="custom-layout">
+   *     <p>Operation completed successfully!</p>
+   *     <div className="stats">
+   *       <span>Items processed: 150</span>
+   *       <span>Time elapsed: 2.5s</span>
+   *     </div>
+   *   </div>
+   * </Alert>
+   * ```
+   */
+  contentType?: "text" | "node";
 } & React.ComponentProps<typeof UI>;
 
 /**
@@ -209,6 +247,7 @@ const Alert: React.FC<AlertProps> = ({
   actions,
   autoFocus = false,
   variant = "outlined",
+  contentType = "text",
   ...props
 }) => {
   const [isVisible, setIsVisible] = React.useState(open);
@@ -369,7 +408,11 @@ const Alert: React.FC<AlertProps> = ({
             {title}
           </UI>
         )}
-        <UI as="p">{children}</UI>
+        {contentType === "node" ? (
+          children
+        ) : (
+          <UI as="p">{children}</UI>
+        )}
         {actions && (
           <UI as="div" className="alert-actions">
             {actions}
