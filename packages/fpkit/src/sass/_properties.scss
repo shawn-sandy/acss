@@ -13,6 +13,7 @@
   --placeholder-style: italic;
   --placeholder-fs: smaller;
   --transition: all 0.25s linear;
+  --tran-all: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   // * responsive fonts sizes
   --fs-0: clamp(.9rem, 4vw - 1rem, 1.12rem); // 16px default
