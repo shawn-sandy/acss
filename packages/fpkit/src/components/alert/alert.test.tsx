@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Alert from './alert';
 
@@ -216,6 +216,7 @@ describe('Alert', () => {
     });
 
     afterEach(() => {
+      vi.useRealTimers();
       vi.restoreAllMocks();
     });
 
@@ -234,12 +235,17 @@ describe('Alert', () => {
         </Alert>
       );
 
-      // Fast-forward time by 3000ms + 300ms animation
-      await vi.advanceTimersByTimeAsync(3300);
-
-      await waitFor(() => {
-        expect(onDismiss).toHaveBeenCalledTimes(1);
+      // Fast-forward time by 3000ms (auto-hide duration)
+      act(() => {
+        vi.advanceTimersByTime(3000);
       });
+
+      // Fast-forward by 300ms for animation
+      await act(async () => {
+        vi.advanceTimersByTime(300);
+      });
+
+      expect(onDismiss).toHaveBeenCalledTimes(1);
     });
 
     it('should not auto-dismiss when autoHideDuration is 0', async () => {
