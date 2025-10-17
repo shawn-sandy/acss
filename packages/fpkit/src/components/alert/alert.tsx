@@ -4,8 +4,63 @@ import Icon from "#components/icons/icon";
 import { IconProps } from "#components/icons/types";
 import DismissButton from "./elements/dismiss-button";
 
-// First, define a type for the valid severity values
+// ============================================================================
+// TYPES & CONFIGURATION
+// ============================================================================
+
+/**
+ * Valid severity levels for alerts.
+ * Each severity has associated colors, icons, and ARIA attributes.
+ */
 type Severity = "default" | "info" | "success" | "warning" | "error";
+
+/**
+ * Maps severity levels to ARIA live region types.
+ * - "polite": Waits for screen reader to finish current announcement
+ * - "assertive": Interrupts screen reader immediately (used for errors)
+ */
+const SEVERITY_ARIA_LIVE: Record<Severity, "polite" | "assertive"> = {
+  default: "polite",
+  info: "polite",
+  success: "polite",
+  warning: "polite",
+  error: "assertive",
+} as const;
+
+/**
+ * Screen reader announcement text for each severity level.
+ * Provides context about the type of message being displayed.
+ * Empty string for "default" to avoid redundant announcements.
+ */
+const SEVERITY_SCREEN_READER_TEXT: Record<Severity, string> = {
+  default: "",
+  info: "Information: ",
+  success: "Success: ",
+  warning: "Warning: ",
+  error: "Error: ",
+} as const;
+
+/**
+ * Pure function to get the appropriate icon for a severity level.
+ * Replaces useMemo - pure functions are simpler with no memoization overhead.
+ *
+ * @param severity - The alert severity level
+ * @param iconProps - Props to pass to the Icon component
+ * @returns The icon element for the severity
+ */
+const getSeverityIcon = (
+  severity: Severity,
+  iconProps: IconProps
+): JSX.Element => {
+  const severityIcons: Record<Severity, JSX.Element> = {
+    info: <Icon.InfoSolid {...iconProps} />,
+    success: <Icon.SuccessSolid {...iconProps} />,
+    warning: <Icon.WarnSolid {...iconProps} />,
+    error: <Icon.AlertSolid {...iconProps} />,
+    default: <Icon.AlertSquareSolid {...iconProps} />,
+  };
+  return severityIcons[severity];
+};
 
 /**
  * Props for the Alert component.
@@ -231,30 +286,45 @@ export type AlertProps = {
  * @see {@link AlertProps} for available configuration options
  */
 
-const Alert: React.FC<AlertProps> = ({
+// ============================================================================
+// CUSTOM HOOK (Behavior Management)
+// ============================================================================
+
+/**
+ * Custom hook that manages all Alert component behavior in one cohesive unit.
+ * Consolidates visibility, auto-dismiss, keyboard, and focus management.
+ *
+ * @param open - Whether the alert should be open
+ * @param onDismiss - Callback when alert is dismissed
+ * @param dismissible - Whether the alert can be dismissed
+ * @param autoHideDuration - Duration before auto-dismiss (ms)
+ * @param pauseOnHover - Whether to pause auto-dismiss on hover/focus
+ * @param autoFocus - Whether to auto-focus the alert
+ * @param alertRef - Ref to the alert DOM element
+ * @returns Object with visibility state, handlers, and event callbacks
+ */
+const useAlertBehavior = ({
   open,
-  severity = "default",
-  children,
-  title,
-  dismissible = false,
   onDismiss,
-  iconSize,
-  iconProps,
-  hideIcon,
+  dismissible,
   autoHideDuration,
-  pauseOnHover = true,
-  titleLevel = 3,
-  actions,
-  autoFocus = false,
-  variant = "outlined",
-  contentType = "text",
-  ...props
+  pauseOnHover,
+  autoFocus,
+  alertRef,
+}: {
+  open: boolean;
+  onDismiss?: () => void;
+  dismissible: boolean;
+  autoHideDuration?: number;
+  pauseOnHover: boolean;
+  autoFocus: boolean;
+  alertRef: React.RefObject<HTMLDivElement>;
 }) => {
   const [isVisible, setIsVisible] = React.useState(open);
   const [shouldRender, setShouldRender] = React.useState(open);
   const [isPaused, setIsPaused] = React.useState(false);
-  const alertRef = React.useRef<HTMLDivElement>(null);
 
+  // Dismiss handler with animation timing
   const handleDismiss = React.useCallback((): void => {
     setIsVisible(false);
     // Wait for animation to complete before unmounting
@@ -264,6 +334,7 @@ const Alert: React.FC<AlertProps> = ({
     }, 300); // Match CSS transition duration
   }, [onDismiss]);
 
+  // Visibility management - sync with open prop
   React.useEffect(() => {
     if (open) {
       setShouldRender(true);
@@ -273,7 +344,7 @@ const Alert: React.FC<AlertProps> = ({
     }
   }, [open]);
 
-  // Auto-dismiss functionality with pause support
+  // Auto-dismiss timer with pause support
   React.useEffect(() => {
     if (!autoHideDuration || !isVisible || isPaused) return;
 
@@ -298,104 +369,113 @@ const Alert: React.FC<AlertProps> = ({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [dismissible, isVisible, handleDismiss]);
 
-  /**
-   * Default props for the Icon component used in the Alert component.
-   * Sets the icon size to the user-provided value or 24 pixels by default.
-   */
-  const defaultIconProps: IconProps = {
-    size: iconSize || 16,
-  };
-
-  // Update the severityType object with the type
-  const severityType: Record<Severity, "polite" | "assertive"> = {
-    default: "polite",
-    info: "polite",
-    success: "polite",
-    warning: "polite",
-    error: "assertive",
-  } as const;
-
-  const mergedIconProps = { ...defaultIconProps, ...iconProps };
-
-  // Severity text for screen readers (WCAG 1.1.1, 1.4.1)
-  const severityText: Record<Severity, string> = {
-    default: "",
-    info: "Information: ",
-    success: "Success: ",
-    warning: "Warning: ",
-    error: "Error: ",
-  };
-
-  // Memoize severity icon to prevent recreation on every render
-  const severityIcon = React.useMemo(() => {
-    const severityIcons: Record<Severity, JSX.Element> = {
-      info: <Icon.InfoSolid {...mergedIconProps} />,
-      success: <Icon.SuccessSolid {...mergedIconProps} />,
-      warning: <Icon.WarnSolid {...mergedIconProps} />,
-      error: <Icon.AlertSolid {...mergedIconProps} />,
-      default: <Icon.AlertSquareSolid {...mergedIconProps} />,
-    };
-    return severityIcons[severity];
-  }, [severity, mergedIconProps]);
-
-  // Auto-focus functionality for critical alerts
+  // Auto-focus for critical alerts
   React.useEffect(() => {
     if (autoFocus && isVisible && alertRef.current) {
       alertRef.current.focus();
     }
-  }, [autoFocus, isVisible]);
+  }, [autoFocus, isVisible, alertRef]);
 
+  // Pause/resume handlers (memoized for stable references)
+  const pause = React.useCallback(() => {
+    if (pauseOnHover && autoHideDuration) {
+      setIsPaused(true);
+    }
+  }, [pauseOnHover, autoHideDuration]);
+
+  const resume = React.useCallback(() => {
+    if (pauseOnHover && autoHideDuration) {
+      setIsPaused(false);
+    }
+  }, [pauseOnHover, autoHideDuration]);
+
+  return {
+    isVisible,
+    shouldRender,
+    handleDismiss,
+    handleInteractionStart: pause,
+    handleInteractionEnd: resume,
+  };
+};
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
+
+const Alert: React.FC<AlertProps> = ({
+  open,
+  severity = "default",
+  children,
+  title,
+  dismissible = false,
+  onDismiss,
+  iconSize,
+  iconProps,
+  hideIcon,
+  autoHideDuration,
+  pauseOnHover = true,
+  titleLevel = 3,
+  actions,
+  autoFocus = false,
+  variant = "outlined",
+  contentType = "text",
+  ...props
+}) => {
+  const alertRef = React.useRef<HTMLDivElement>(null);
+
+  // Use consolidated behavior hook
+  const {
+    isVisible,
+    shouldRender,
+    handleDismiss,
+    handleInteractionStart,
+    handleInteractionEnd,
+  } = useAlertBehavior({
+    open,
+    onDismiss,
+    dismissible,
+    autoHideDuration,
+    pauseOnHover,
+    autoFocus,
+    alertRef,
+  });
+
+  // Early return if component shouldn't render
   if (!shouldRender) return null;
+
+  // Merge icon props with defaults
+  const mergedIconProps: IconProps = {
+    size: iconSize || 16,
+    ...iconProps,
+  };
+
+  // Get severity icon using pure function
+  const severityIcon = getSeverityIcon(severity, mergedIconProps);
 
   // Dynamic title element based on titleLevel prop
   const TitleElement = titleLevel ? (`h${titleLevel}` as const) : "strong";
-
-  // Pause/resume handlers for auto-dismiss (WCAG 2.2.1)
-  const handleMouseEnter = () => {
-    if (pauseOnHover && autoHideDuration) {
-      setIsPaused(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (pauseOnHover && autoHideDuration) {
-      setIsPaused(false);
-    }
-  };
-
-  const handleFocus = () => {
-    if (pauseOnHover && autoHideDuration) {
-      setIsPaused(true);
-    }
-  };
-
-  const handleBlur = () => {
-    if (pauseOnHover && autoHideDuration) {
-      setIsPaused(false);
-    }
-  };
 
   return (
     <UI
       as="div"
       ref={alertRef}
       role="alert"
-      aria-live={severityType[severity]}
+      aria-live={SEVERITY_ARIA_LIVE[severity]}
       aria-atomic="true"
       className={`alert alert-${severity}`}
       data-alert={severity}
       data-visible={isVisible}
       data-variant={variant}
       tabIndex={autoFocus ? -1 : undefined}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+      onMouseEnter={handleInteractionStart}
+      onMouseLeave={handleInteractionEnd}
+      onFocus={handleInteractionStart}
+      onBlur={handleInteractionEnd}
       {...props}
     >
       {/* Visually hidden severity text for screen readers */}
-      {severityText[severity] && (
-        <span className="sr-only">{severityText[severity]}</span>
+      {SEVERITY_SCREEN_READER_TEXT[severity] && (
+        <span className="sr-only">{SEVERITY_SCREEN_READER_TEXT[severity]}</span>
       )}
       {!hideIcon && (
         <UI aria-hidden="true" className="alert-icon">
