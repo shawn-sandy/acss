@@ -1676,7 +1676,7 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
   /* This is the default variant, styles already applied above */
 }
 [role=alert] p {
-  font-size: smaller;
+  font-size: 0.875rem;
 }
 
 [data-tts] {
