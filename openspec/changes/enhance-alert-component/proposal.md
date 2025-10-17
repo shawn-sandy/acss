@@ -49,6 +49,7 @@ This proposal introduces three phases of improvements to the Alert component:
 
 - **Documentation**:
   - `packages/fpkit/src/components/alert/alert.stories.tsx` - Storybook stories update
+  - `packages/fpkit/src/components/alert/README.mdx` - Component documentation update
 
 ### Breaking Changes
 

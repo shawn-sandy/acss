@@ -96,7 +96,10 @@
 - [x] 12.2 Add code examples in JSDoc
 - [x] 12.3 Document CSS custom properties
 - [ ] 12.4 Create migration guide (if needed) - Not needed (no breaking changes)
-- [ ] 12.5 Update component README (if exists) - No component README exists
+- [ ] 12.5 Update component README.mdx with Phase 1-3 props and features
+- [ ] 12.6 Update README.mdx Props section with Phase 1-3 props (autoHideDuration, variant, actions, autoFocus)
+- [ ] 12.7 Add usage examples to README.mdx for auto-dismiss, keyboard support, and variants
+- [ ] 12.8 Update README.mdx Features list with new Phase 1-3 capabilities
 
 ### 13. Final Validation
 - [x] 13.1 Run all unit tests and achieve target coverage (22/24 passing, 91.7% coverage)
@@ -207,6 +210,15 @@
 - [ ] 20.11 Update main component JSDoc with accessibility overview
 - [ ] 20.12 Add accessibility section to Storybook documentation
 - [ ] 20.13 Create accessibility test checklist for developers
+- [ ] 20.14 Update README.mdx Summary section to mention Phase 4 accessibility features
+- [ ] 20.15 Update README.mdx Features list with new capabilities (variants, auto-dismiss, keyboard support)
+- [ ] 20.16 Add comprehensive Props table to README.mdx with all new Phase 2-4 props
+- [ ] 20.17 Add titleLevel prop documentation with usage examples in README.mdx
+- [ ] 20.18 Add pauseOnHover prop documentation in README.mdx
+- [ ] 20.19 Create "Accessibility Features" section in README.mdx
+- [ ] 20.20 Add keyboard shortcuts documentation to README.mdx
+- [ ] 20.21 Document WCAG compliance summary in README.mdx
+- [ ] 20.22 Add migration notes to README.mdx for breaking changes (if any)
 
 ### 21. Accessibility Testing & Validation
 - [ ] 21.1 Run automated accessibility audit with Storybook a11y addon

@@ -808,9 +808,17 @@ ACCESSIBILITY.md
 - ✅ How to test accessibility (tools and techniques)
 - ✅ Links to W3C ARIA practices and WCAG documentation
 
+**README.mdx Updates**:
+- Located at `packages/fpkit/src/components/alert/README.mdx`
+- MDX format enables interactive Storybook integration
+- Must update Props section with new props: `titleLevel`, `autoHideDuration`, `variant`, `actions`, `autoFocus`, `pauseOnHover`
+- Add usage examples for new features (auto-dismiss, keyboard support, variants, heading levels)
+- Document accessibility features and WCAG compliance
+- Include migration notes for breaking changes (if any)
+
 **Documentation Maintenance**:
-- Update when adding new features
-- Keep contrast ratios current if colors change
+- Update README.mdx when adding new features
+- Keep ACCESSIBILITY.md contrast ratios current if colors change
 - Document any WCAG exceptions or known limitations
 - Include version number for documentation tracking
 
