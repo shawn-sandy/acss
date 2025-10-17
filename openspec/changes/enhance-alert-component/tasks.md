@@ -167,17 +167,31 @@
 - [ ] 18.11 Document pause behavior in component JSDoc
 
 ### 19. Configurable Heading Level (WCAG 1.3.1)
-- [ ] 19.1 Decide on approach: configurable heading level OR strong element
-- [ ] 19.2 If configurable: Add `titleLevel` prop (2 | 3 | 4 | 5 | 6)
-- [ ] 19.3 If configurable: Update TSX to use dynamic heading element
-- [ ] 19.4 If strong: Replace h3 with strong element in TSX
-- [ ] 19.5 Update TypeScript AlertProps type definition
-- [ ] 19.6 Test title rendering with different configurations
-- [ ] 19.7 Verify screen reader identification of title
-- [ ] 19.8 Update all Storybook stories with appropriate title usage
-- [ ] 19.9 Write unit tests for title heading level/element
-- [ ] 19.10 Document heading hierarchy guidance in JSDoc
-- [ ] 19.11 Add migration note if changing default behavior
+- [ ] 19.1 Add `titleLevel?: 2 | 3 | 4 | 5 | 6` to AlertProps interface in alert.tsx
+- [ ] 19.2 Implement dynamic element rendering logic using `as` prop pattern or createElement
+- [ ] 19.3 Set default behavior: use `<strong>` when titleLevel is undefined
+- [ ] 19.4 Update TSX to conditionally render heading or strong element
+- [ ] 19.5 Add TypeScript type guards to ensure type safety for dynamic elements
+- [ ] 19.6 Update `.alert-title` SCSS to work with both headings and strong element
+- [ ] 19.7 Add CSS resets for heading margins and font sizes
+- [ ] 19.8 Ensure consistent styling via CSS custom properties (--alert-title-size, --alert-title-weight)
+- [ ] 19.9 Test title rendering with titleLevel 2, 3, 4, 5, and 6
+- [ ] 19.10 Test default behavior (no titleLevel prop) uses strong element
+- [ ] 19.11 Test that no title prop renders nothing (no empty elements)
+- [ ] 19.12 Verify screen reader announces heading levels correctly (VoiceOver, NVDA)
+- [ ] 19.13 Test heading navigation with screen reader (h key navigation)
+- [ ] 19.14 Update all Storybook stories to show titleLevel variations
+- [ ] 19.15 Create Storybook story demonstrating heading hierarchy
+- [ ] 19.16 Write unit tests: renders h2 when titleLevel={2}
+- [ ] 19.17 Write unit tests: renders h3 when titleLevel={3}
+- [ ] 19.18 Write unit tests: renders strong when titleLevel undefined
+- [ ] 19.19 Write unit tests: renders nothing when no title prop
+- [ ] 19.20 Write unit tests: applies .alert-title class to all element types
+- [ ] 19.21 Update JSDoc with @param documentation for titleLevel prop
+- [ ] 19.22 Add code examples in JSDoc showing heading level usage
+- [ ] 19.23 Document heading hierarchy best practices in JSDoc
+- [ ] 19.24 Add migration guide in component documentation if changing from h3
+- [ ] 19.25 Consider deprecation warning if breaking from fixed h3 (optional)
 
 ### 20. Accessibility Documentation
 - [ ] 20.1 Create ACCESSIBILITY.md file in alert component directory

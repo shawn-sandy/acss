@@ -260,10 +260,29 @@ The Alert component SHALL implement comprehensive WCAG 2.1 Level AA accessibilit
 - **OR** the title uses semantic `<strong>` element instead of fixed heading
 - **AND** the heading hierarchy doesn't break document outline
 
+#### Scenario: Heading level flexibility
+- **WHEN** Alert has `titleLevel` prop set to 2, 3, 4, 5, or 6
+- **THEN** the title is rendered as the corresponding heading element (h2, h3, h4, h5, or h6)
+- **AND** the heading level matches the document's semantic structure
+- **AND** the component applies consistent styling regardless of heading level
+
+#### Scenario: Default title behavior
+- **WHEN** Alert has a `title` prop but no `titleLevel` prop
+- **THEN** the title defaults to a `<strong>` element
+- **AND** the title receives appropriate styling to maintain visual hierarchy
+- **AND** no heading is created that could break document outline
+
 #### Scenario: Alternative semantic title
 - **WHEN** Alert uses `<strong>` element for title
 - **THEN** the title is visually emphasized without creating heading hierarchy issues
 - **AND** screen readers still identify the title as important alert content
+- **AND** the component maintains proper information relationships
+
+#### Scenario: Heading accessibility verification
+- **WHEN** Alert title is rendered with any heading level
+- **THEN** screen readers correctly identify and announce the heading level
+- **AND** the heading can be navigated using screen reader heading navigation commands
+- **AND** the visual presentation matches the semantic importance
 
 ### Requirement: Accessibility Documentation
 The Alert component SHALL provide comprehensive accessibility documentation for developers.

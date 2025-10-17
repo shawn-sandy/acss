@@ -30,7 +30,7 @@ This proposal introduces three phases of improvements to the Alert component:
 - **Color Contrast Verification**: Test and fix all color combinations to meet 4.5:1 ratio (WCAG 1.4.3)
 - **Touch Target Size**: Ensure dismiss button meets 44×44px minimum clickable area (WCAG 2.5.5)
 - **Auto-Dismiss Pause**: Add pause-on-hover/focus for timed alerts (WCAG 2.2.1)
-- **Configurable Title Semantics**: Make heading level flexible or use `<strong>` element (WCAG 1.3.1)
+- **Configurable Heading Levels**: Add `titleLevel` prop (2-6) with fallback to `<strong>` element for proper document structure (WCAG 1.3.1)
 - **Comprehensive Documentation**: Create ACCESSIBILITY.md with WCAG compliance details and testing guidance
 
 ## Impact

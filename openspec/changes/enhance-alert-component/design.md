@@ -675,48 +675,108 @@ useEffect(() => {
 - Fixed `<h3>` creates heading hierarchy issues in many contexts
 - Developers know their document outline better than library
 - Fallback to `<strong>` prevents hierarchy problems when heading level is unknown
+- Supports both semantic heading navigation and non-breaking alternatives
 
-**Implementation Options**:
+**Implementation**:
 
-**Option A: Configurable Heading Level** (Recommended)
 ```tsx
-titleLevel?: 2 | 3 | 4 | 5 | 6 | null;
+// TypeScript type definition
+interface AlertProps {
+  title?: string;
+  titleLevel?: 2 | 3 | 4 | 5 | 6;
+  // ... other props
+}
 
-// Usage
-{title && (
-  titleLevel ? (
-    <UI as={`h${titleLevel}`} className="alert-title">
-      {title}
+// Component implementation
+const Alert: React.FC<AlertProps> = ({ title, titleLevel, ...props }) => {
+  // Determine title element type
+  const TitleElement = titleLevel ? `h${titleLevel}` : 'strong';
+
+  return (
+    <UI role="alert" {...props}>
+      {title && (
+        <UI as={TitleElement} className="alert-title">
+          {title}
+        </UI>
+      )}
+      {/* rest of alert content */}
     </UI>
-  ) : (
-    <UI as="strong" className="alert-title">
-      {title}
-    </UI>
-  )
-)}
+  );
+};
 ```
 
-**Option B: Always Strong** (Simpler)
-```tsx
-{title && (
-  <UI as="strong" className="alert-title">
-    {title}
-  </UI>
-)}
-```
+**Implementation Details**:
+1. **Prop Definition**: `titleLevel?: 2 | 3 | 4 | 5 | 6` (h1 excluded - alerts shouldn't be page titles)
+2. **Default Behavior**: When `titleLevel` is undefined, use `<strong>` element
+3. **Dynamic Element**: Use React's `as` prop pattern or `createElement` for dynamic element type
+4. **Type Safety**: TypeScript ensures only valid heading levels are accepted
+5. **Class Name**: Single `.alert-title` class applies regardless of element type
 
-**Recommendation**: Start with Option B (simpler, no breaking change), add Option A if developers request it.
+**Usage Examples**:
+
+```tsx
+// Default: uses <strong> element
+<Alert title="Success" message="Operation completed" />
+
+// Heading level 2: uses <h2> element
+<Alert title="Success" titleLevel={2} message="Operation completed" />
+
+// Heading level 4: uses <h4> element
+<Alert title="Warning" titleLevel={4} severity="warning" />
+
+// No title: no heading or strong element rendered
+<Alert message="Simple notification" />
+```
 
 **CSS Considerations**:
-- `.alert-title` styles should work regardless of element type
-- Ensure visual weight is appropriate for `<strong>` element
-- Test with all heading levels if implementing Option A
+- `.alert-title` styles must work for both headings (h2-h6) and `<strong>`
+- Reset browser default heading margins and font sizes
+- Apply consistent font size, weight, and spacing via CSS custom properties
+- Ensure visual hierarchy through size/weight, not element type
+
+```scss
+.alert-title {
+  // Reset heading defaults
+  margin: 0;
+  font-size: var(--alert-title-size, 1rem);
+  font-weight: var(--alert-title-weight, 600);
+  line-height: var(--alert-title-line-height, 1.5);
+
+  // Spacing
+  margin-block-end: var(--spc-1, 0.25rem);
+
+  // Works for both h2-h6 and strong
+  display: block;
+}
+```
+
+**Accessibility Benefits**:
+- **Screen Reader Navigation**: When using heading elements, users can navigate alerts using heading shortcuts
+- **Document Outline**: Configurable levels prevent broken heading hierarchy
+- **Semantic Flexibility**: `<strong>` provides emphasis without structural implications
+- **Information Relationships**: Proper semantic markup per WCAG 1.3.1
+- **Programmatic Determination**: Element type is programmatically determined and announced
+
+**Edge Cases Handled**:
+- **No title prop**: Nothing rendered, no empty elements
+- **titleLevel without title**: titleLevel ignored (no effect without title)
+- **Invalid titleLevel**: TypeScript prevents at compile time
+- **titleLevel=1**: Not supported (h1 reserved for page titles)
 
 **Migration Notes**:
-- Changing from `<h3>` to `<strong>` is technically breaking
-- Document in changelog with rationale
-- Provide migration guide for developers who relied on heading
-- Consider deprecation period with console warning
+- Changing from fixed `<h3>` to configurable is technically breaking
+- Migration path: Add `titleLevel={3}` to maintain current behavior
+- Default to `<strong>` is non-breaking for document structure
+- Document in changelog with clear examples
+- Provide migration guide for developers who relied on h3
+- Consider deprecation warning in console if needed
+
+**Alternatives Considered**:
+- ❌ Always use heading: Breaks document outline in many contexts
+- ❌ Always use `<strong>`: Loses semantic heading navigation benefits
+- ❌ Fixed h3: Current problem we're solving
+- ❌ String prop "h2"|"h3"|...: Less type-safe than number literal types
+- ✅ Current approach: Best balance of flexibility and safety
 
 ### 7. Accessibility Documentation: Comprehensive Developer Guide
 
