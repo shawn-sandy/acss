@@ -17,6 +17,95 @@ A lightweight React UI library for building modern and accessible components tha
 - **⚡ TypeScript**: Full type safety and excellent DX
 - **🔧 Headless**: Minimal styling, maximum customization
 
+## ♿ Accessibility
+
+FPKit is built with accessibility as a core principle, following WCAG 2.1 AA standards. All components support ARIA attributes and provide guidance for creating accessible applications.
+
+### Accessibility Features
+
+- **Semantic HTML** - Components use appropriate semantic elements by default
+- **ARIA Support** - Full support for ARIA attributes on all components
+- **Keyboard Navigation** - All interactive elements are keyboard accessible
+- **Screen Reader Friendly** - Proper labeling and announcements for assistive technologies
+- **Focus Management** - Visible focus indicators and programmatic focus control
+
+### Testing for Accessibility
+
+We recommend the following tools for testing accessibility in your applications:
+
+#### Automated Testing
+
+```bash
+# Install recommended packages
+npm install --save-dev eslint-plugin-jsx-a11y jest-axe @testing-library/react
+```
+
+**ESLint Plugin** - Catch accessibility issues during development:
+
+```js
+// .eslintrc.js
+{
+  "extends": ["plugin:jsx-a11y/recommended"],
+  "plugins": ["jsx-a11y"]
+}
+```
+
+**jest-axe** - Automated accessibility testing in unit tests:
+
+```tsx
+import { render } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import { Button } from '@fpkit/acss/button';
+
+expect.extend(toHaveNoViolations);
+
+test('Button should have no accessibility violations', async () => {
+  const { container } = render(
+    <Button type="button" aria-label="Submit form">
+      Submit
+    </Button>
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+#### Manual Testing Checklist
+
+When building components with FPKit, verify:
+
+- [ ] **Keyboard Navigation** - All interactive elements are reachable and operable via keyboard
+- [ ] **Screen Reader** - Test with VoiceOver (macOS), NVDA (Windows), or JAWS
+- [ ] **Focus Indicators** - Visible focus states meet 3:1 contrast ratio (WCAG 2.4.7)
+- [ ] **Accessible Names** - All interactive elements have accessible names (via text, `aria-label`, or `aria-labelledby`)
+- [ ] **Color Contrast** - Text meets 4.5:1 contrast ratio for normal text, 3:1 for large text
+- [ ] **Semantic Structure** - Proper heading hierarchy and landmark regions
+
+### UI Component Accessibility
+
+The foundational [UI component](https://fpkit.netlify.app/?path=/story/fp-ui--accessible-interactive-elements) demonstrates best practices:
+
+```tsx
+import { UI } from '@fpkit/acss';
+
+// ✅ Good: Accessible button with aria-label
+<UI as="button" aria-label="Close dialog" onClick={handleClose}>
+  <CloseIcon />
+</UI>
+
+// ✅ Good: Semantic link with descriptive text
+<UI as="a" href="/products">
+  View all products
+</UI>
+
+// ❌ Bad: Button without accessible name
+<UI as="button" onClick={handleClose}>
+  <CloseIcon />
+</UI>
+```
+
+See the [UI component Storybook stories](https://fpkit.netlify.app/?path=/story/fp-ui--accessibility-patterns) for more examples and anti-patterns to avoid.
+
 ## 📦 Installation
 
 ```bash
