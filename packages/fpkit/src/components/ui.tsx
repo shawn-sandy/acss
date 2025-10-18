@@ -94,7 +94,7 @@ type PolymorphicComponentPropWithRef<
  * @property {string} [id] - HTML id attribute
  * @property {React.ReactNode} [children] - Child elements to render
  */
-type FPProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
+type UIProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
   C,
   {
     /** @deprecated Reserved for future use. Currently has no effect. Styles are always rendered. */
@@ -114,7 +114,7 @@ type FPProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
  * maintaining full TypeScript type safety for element-specific props.
  *
  * @typeParam C - The HTML element type to render (defaults to 'span')
- * @param {FPProps<C>} props - Component props including 'as', styles, and native element props
+ * @param {UIProps<C>} props - Component props including 'as', styles, and native element props
  * @returns {React.ReactElement} A React element of the specified type
  * @example
  * ```typescript
@@ -123,9 +123,9 @@ type FPProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
  * <UI>Default div</UI>
  * ```
  */
-type FPComponent = <C extends React.ElementType = "span">(
-  props: FPProps<C>
-) => React.ReactElement | (any & { displayName?: String });
+type UIComponent = (<C extends React.ElementType = "span">(
+  props: UIProps<C>
+) => React.ReactElement | any) & { displayName?: string };
 
 /**
  * UI - A polymorphic React component that can render as any HTML element.
@@ -182,9 +182,9 @@ type FPComponent = <C extends React.ElementType = "span">(
  *   />
  * );
  */
-const FP: FPComponent = React.forwardRef(
+const UI: UIComponent = React.forwardRef(
   <C extends React.ElementType>(
-    { as, styles, classes, children, defaultStyles, ...props }: FPProps<C>,
+    { as, styles, classes, children, defaultStyles, ...props }: UIProps<C>,
     ref?: PolymorphicRef<C>
   ) => {
     const Component = as ?? "div";
@@ -199,6 +199,5 @@ const FP: FPComponent = React.forwardRef(
   }
 );
 
-export default FP;
-// @ts-expect-error -- React component displayName
-FP.displayName = "UI";
+export default UI;
+UI.displayName = "UI";
