@@ -43,6 +43,7 @@ export * from "./components/heading/heading";
 export * from "./components/form/textarea";
 
 // UI elements
+export { Badge, type BadgeProps } from "./components/badge/badge";
 export * from "./components/tag/tag";
 export * from "./components/tables/table-elements";
 export * from "./components/details/details";

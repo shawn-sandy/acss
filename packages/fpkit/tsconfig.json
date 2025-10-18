@@ -35,6 +35,11 @@
     "src",
     "src/setupTest.ts"
   ],
+  "exclude": [
+    "**/*.stories.tsx",
+    "**/*.test.tsx",
+    "**/*.spec.tsx"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
