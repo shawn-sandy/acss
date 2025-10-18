@@ -70,10 +70,24 @@ type PolymorphicComponentProp<
  * Extends PolymorphicComponentProp to include properly-typed ref support.
  *
  * This is the final type in the polymorphic type chain, adding ref forwarding
- * with the correct ref type for the chosen element.
+ * with the correct ref type for the chosen element. The ref is properly typed
+ * to match the element being rendered, enabling focus management and direct
+ * DOM access for accessibility features like programmatic focus control.
  *
  * @typeParam C - The HTML element type
  * @typeParam Props - The custom props to add
+ *
+ * @example
+ * ```typescript
+ * // Using ref for focus management (important for accessibility)
+ * const buttonRef = useRef<HTMLButtonElement>(null);
+ * useEffect(() => {
+ *   // Programmatically focus for keyboard navigation
+ *   buttonRef.current?.focus();
+ * }, []);
+ *
+ * return <UI as="button" ref={buttonRef}>Accessible Button</UI>;
+ * ```
  */
 type PolymorphicComponentPropWithRef<
   C extends React.ElementType,
@@ -85,6 +99,14 @@ type PolymorphicComponentPropWithRef<
 /**
  * Props for the UI component, extending polymorphic props with style and class support.
  *
+ * The UI component automatically forwards all ARIA attributes and native HTML props
+ * to the rendered element, ensuring full accessibility support. This includes:
+ * - `aria-label`, `aria-labelledby` - Accessible names for screen readers
+ * - `aria-describedby` - Additional descriptive text references
+ * - `aria-expanded`, `aria-controls` - Interactive widget states
+ * - `role` - Semantic role override when needed
+ * - All other ARIA attributes and HTML props
+ *
  * @typeParam C - The HTML element type to render
  * @property {boolean} [renderStyles] - Reserved for future use. Currently has no effect.
  *   Styles are always rendered regardless of this prop value.
@@ -93,6 +115,14 @@ type PolymorphicComponentPropWithRef<
  * @property {string} [classes] - CSS class names to apply to the element
  * @property {string} [id] - HTML id attribute
  * @property {React.ReactNode} [children] - Child elements to render
+ *
+ * @example
+ * ```typescript
+ * // All ARIA attributes are automatically forwarded
+ * <UI as="button" aria-label="Close dialog" aria-expanded={isOpen}>
+ *   <CloseIcon />
+ * </UI>
+ * ```
  */
 type UIProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
   C,
@@ -113,7 +143,7 @@ type UIProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
  * Defines the polymorphic component that can render as any HTML element while
  * maintaining full TypeScript type safety for element-specific props.
  *
- * @typeParam C - The HTML element type to render (defaults to 'span')
+ * @typeParam C - The HTML element type to render (defaults to 'div')
  * @param {UIProps<C>} props - Component props including 'as', styles, and native element props
  * @returns {React.ReactElement} A React element of the specified type
  * @example
@@ -123,7 +153,7 @@ type UIProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
  * <UI>Default div</UI>
  * ```
  */
-type UIComponent = (<C extends React.ElementType = "span">(
+type UIComponent = (<C extends React.ElementType = "div">(
   props: UIProps<C>
 ) => React.ReactElement | any) & { displayName?: string };
 
@@ -134,6 +164,19 @@ type UIComponent = (<C extends React.ElementType = "span">(
  * flexible, type-safe components. It implements the polymorphic component pattern,
  * allowing a single component to render as different HTML elements while maintaining
  * full TypeScript type safety for element-specific props.
+ *
+ * ## Accessibility Considerations
+ *
+ * The UI component forwards all ARIA attributes and native HTML props, placing
+ * accessibility responsibility on the consumer. When creating interactive elements,
+ * you MUST ensure WCAG 2.1 AA compliance:
+ *
+ * - **Accessible Names**: All interactive elements need an accessible name via
+ *   `aria-label`, `aria-labelledby`, or visible text content
+ * - **Semantic HTML**: Prefer semantic elements (`button`, `a`, `nav`) over
+ *   generic containers (`div`, `span`) with ARIA roles when possible
+ * - **Focus Indicators**: Ensure focus indicators meet WCAG 2.4.7 (3:1 contrast)
+ * - **Keyboard Support**: Interactive elements must be keyboard accessible
  *
  * @typeParam C - The HTML element type to render (e.g., 'button', 'div', 'a')
  *
@@ -158,6 +201,56 @@ type UIComponent = (<C extends React.ElementType = "span">(
  * </UI>
  *
  * @example
+ * // ✅ GOOD: Accessible button with aria-label for icon-only button
+ * <UI as="button" aria-label="Close dialog" onClick={handleClose}>
+ *   <CloseIcon />
+ * </UI>
+ *
+ * @example
+ * // ✅ GOOD: Accessible link with descriptive text
+ * <UI as="a" href="/products">
+ *   View all products
+ * </UI>
+ *
+ * @example
+ * // ✅ GOOD: Interactive element with proper role and keyboard support
+ * <UI
+ *   as="div"
+ *   role="button"
+ *   tabIndex={0}
+ *   aria-label="Toggle menu"
+ *   onClick={handleToggle}
+ *   onKeyDown={(e) => e.key === 'Enter' && handleToggle()}
+ * >
+ *   Menu
+ * </UI>
+ *
+ * @example
+ * // ❌ BAD: Button without accessible name (screen readers can't identify it)
+ * <UI as="button" onClick={handleClose}>
+ *   <CloseIcon />
+ * </UI>
+ *
+ * @example
+ * // ❌ BAD: Non-semantic div with click handler (not keyboard accessible)
+ * <UI as="div" onClick={handleClick}>
+ *   Click me
+ * </UI>
+ *
+ * @example
+ * // ✅ GOOD: Custom focus indicator with WCAG 2.4.7 compliant contrast
+ * <UI
+ *   as="button"
+ *   styles={{
+ *     outline: '2px solid transparent',
+ *     outlineOffset: '2px',
+ *   }}
+ *   classes="focus:outline-blue-500"
+ * >
+ *   Accessible Button
+ * </UI>
+ *
+ * @example
  * // Style merging - defaultStyles provide base, styles override
  * <UI
  *   as="span"
@@ -168,18 +261,43 @@ type UIComponent = (<C extends React.ElementType = "span">(
  * </UI>
  *
  * @example
- * // Ref forwarding with proper typing
+ * // Ref forwarding for focus management
  * const buttonRef = useRef<HTMLButtonElement>(null);
- * <UI as="button" ref={buttonRef}>Button with ref</UI>
+ * useEffect(() => {
+ *   // Programmatically focus for keyboard navigation
+ *   buttonRef.current?.focus();
+ * }, []);
+ * <UI as="button" ref={buttonRef}>Auto-focused Button</UI>
  *
  * @example
- * // Building higher-level components
- * const Button = ({ variant, ...props }) => (
- *   <UI
- *     as="button"
- *     defaultStyles={{ padding: '0.5rem 1rem', borderRadius: '0.25rem' }}
- *     {...props}
- *   />
+ * // Building accessible higher-level components with TypeScript
+ * interface AccessibleButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+ *   variant?: 'primary' | 'secondary';
+ *   // Require either aria-label or children for accessibility
+ *   'aria-label'?: string;
+ *   children?: React.ReactNode;
+ * }
+ *
+ * const AccessibleButton = React.forwardRef<HTMLButtonElement, AccessibleButtonProps>(
+ *   ({ variant = 'primary', ...props }, ref) => {
+ *     // Runtime check: ensure accessible name is provided
+ *     if (!props['aria-label'] && !props.children) {
+ *       console.warn('AccessibleButton requires either aria-label or children');
+ *     }
+ *
+ *     return (
+ *       <UI
+ *         as="button"
+ *         ref={ref}
+ *         defaultStyles={{
+ *           padding: '0.5rem 1rem',
+ *           borderRadius: '0.25rem',
+ *           backgroundColor: variant === 'primary' ? '#007bff' : '#6c757d',
+ *         }}
+ *         {...props}
+ *       />
+ *     );
+ *   }
  * );
  */
 const UI: UIComponent = React.forwardRef(
