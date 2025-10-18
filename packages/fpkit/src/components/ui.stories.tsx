@@ -15,7 +15,7 @@ import UI from "./ui";
  * - Zero runtime overhead
  */
 const meta = {
-  title: "UI",
+  title: "FP.UI",
   component: UI,
   tags: ["autodocs", "primitive"],
   parameters: {
