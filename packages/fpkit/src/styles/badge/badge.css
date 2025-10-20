@@ -19,19 +19,23 @@ sup:has(> span)[data-badge~=rounded] {
   --badge-radius: 50%;
   --badge-padding: 0;
   --badge-size: 1.5625rem;
-  --badge-padding-inline: 0.1875rem;
-  min-width: var(--badge-size);
+  width: var(--badge-size);
   height: var(--badge-size);
-  padding-inline: var(--badge-padding-inline);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  white-space: nowrap;
+  overflow: hidden;
   box-sizing: border-box;
+}
+sup:has(> span)[data-badge~=rounded] span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  padding: 0 0.125rem;
 }
 
 /*# sourceMappingURL=badge.css.map */

@@ -115,53 +115,59 @@ export const MultipleBadges: Story = {
 } as Story;
 
 /**
- * Auto-scaling rounded badges - demonstrates how badges scale based on character count
- * Single digits render as perfect circles, while longer content becomes pill-shaped
+ * Rounded badges with fixed circular shape - demonstrates perfect circles with ellipsis truncation
+ * All rounded badges maintain a fixed size (1.5625rem), with content truncated using ellipsis if too long
  */
-export const AutoScaling: Story = {
+export const RoundedCircles: Story = {
   render: () => {
     return (
       <div style={{ display: "flex", gap: "1.5rem", flexDirection: "column" }}>
         <p>
-          Single digit (circle)
+          Single digit (perfect circle)
           <Badge variant="rounded" aria-label="1 notification">
             1
           </Badge>
         </p>
         <p>
-          Single digit (circle)
+          Single digit (perfect circle)
           <Badge variant="rounded" aria-label="9 notifications">
             9
           </Badge>
         </p>
         <p>
-          Double digits (circle-ish)
+          Double digits (perfect circle)
           <Badge variant="rounded" aria-label="12 notifications">
             12
           </Badge>
         </p>
         <p>
-          Double digits (circle-ish)
+          Double digits (perfect circle)
           <Badge variant="rounded" aria-label="99 notifications">
             99
           </Badge>
         </p>
         <p>
-          Three+ characters (pill)
+          ✅ Good: Formatted by developer
           <Badge variant="rounded" aria-label="More than 99 notifications">
             99+
           </Badge>
         </p>
         <p>
-          Four+ characters (pill)
+          ⚠️ Will truncate: Too many characters
           <Badge variant="rounded" aria-label="More than 999 notifications">
             999+
           </Badge>
         </p>
         <p>
-          Text content (pill)
+          ⚠️ Will truncate: Text content
           <Badge variant="rounded" aria-label="New feature available">
             NEW
+          </Badge>
+        </p>
+        <p>
+          ⚠️ Will truncate: Very long text
+          <Badge variant="rounded" aria-label="Multiple notifications">
+            Multiple
           </Badge>
         </p>
       </div>
