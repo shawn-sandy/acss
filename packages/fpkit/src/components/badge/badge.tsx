@@ -8,7 +8,7 @@ import React from 'react'
  * @property {string} [id] - Optional HTML id attribute for the badge element
  * @property {React.CSSProperties} [styles] - Inline styles to apply to the badge
  * @property {string} [classes] - CSS class names to apply to the badge
- * @property {'rounded'} [variant] - Visual variant of the badge. Use 'rounded' for circular badges
+ * @property {'rounded'} [variant] - Visual variant of the badge. Use 'rounded' for circular badges (fixed size with ellipsis for overflow)
  * @property {string} [aria-label] - Accessible label for screen readers. Required for icon-only or number-only badges
  * @property {'status' | 'note'} [role] - ARIA role for the badge. Defaults to 'status' for dynamic content
  */
@@ -37,6 +37,12 @@ export type BadgeProps = {
  * for the SCSS styling system. The outer `<sup>` element provides positioning context,
  * while the inner `<span>` receives the visual styling (background, padding, border-radius).
  *
+ * ## Rounded Variant Behavior
+ *
+ * The `rounded` variant creates a perfect circular badge with fixed dimensions (1.5625rem).
+ * Content that exceeds the available space will be truncated with an ellipsis (...).
+ * **Best practice**: Format large numbers yourself (e.g., pass "99+" instead of "999").
+ *
  * ## Accessibility Considerations
  *
  * - **Semantic HTML**: Uses `<sup>` (superscript) element for proper positioning context
@@ -56,10 +62,10 @@ export type BadgeProps = {
  * </p>
  *
  * @example
- * // Rounded badge variant
+ * // Rounded badge variant (perfect circle)
  * <p>
  *   Notifications
- *   <Badge variant="rounded" aria-label="5 new notifications">5</Badge>
+ *   <Badge variant="rounded" aria-label="99 or more notifications">99+</Badge>
  * </p>
  *
  * @example
@@ -70,8 +76,12 @@ export type BadgeProps = {
  * </p>
  *
  * @example
- * // ✅ GOOD: Accessible badge with descriptive label
- * <Badge aria-label="12 items in cart">12</Badge>
+ * // ✅ GOOD: Accessible badge with descriptive label and formatted content
+ * <Badge variant="rounded" aria-label="12 items in cart">12</Badge>
+ *
+ * @example
+ * // ✅ GOOD: Large numbers formatted by developer
+ * <Badge variant="rounded" aria-label="More than 99 notifications">99+</Badge>
  *
  * @example
  * // ❌ BAD: Number-only badge without context for screen readers

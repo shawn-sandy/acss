@@ -6,59 +6,103 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 A lightweight and flexible badge component for displaying small counts, labels,
 or status indicators. The Badge component renders as a superscript element with
-customizable styling.
+customizable styling and comprehensive accessibility features.
 
 ## Features
 
-- Renders as a `<sup>` element with nested `<span>`
+- Renders as a `<sup>` element with nested `<span>` for proper styling architecture
 - Fully customizable via CSS custom properties
-- Supports rounded and standard variants
-- ARIA-friendly with proper accessibility attributes
+- Supports `rounded` variant for perfect circular badges
+- Auto-scaling with fixed dimensions for rounded badges (1.5625rem)
+- Content truncation with ellipsis for overflow text
+- ARIA-friendly with `role="status"` for live region announcements
+- Built-in accessibility support with aria-label prop
 - Integrates with FPKit UI component system
+- Comprehensive TypeScript support with full JSDoc documentation
 
 ## Props
 
-The Badge component accepts the following props:
+The Badge component accepts the following props (extends `BadgeProps`):
 
-- `children: React.ReactNode` - Content to display inside the badge
-- `id?: string` - Optional ID for the badge element
-- `styles?: object` - Custom styles object
-- `classes?: string` - Additional CSS classes
-- `data-badge?: string` - Data attribute for badge variants (e.g. "rounded")
+- `children?: React.ReactNode` - Content to display inside the badge (typically numbers or short text)
+- `id?: string` - Optional HTML id attribute for the badge element
+- `styles?: React.CSSProperties` - Inline styles to apply to the badge
+- `classes?: string` - CSS class names to apply to the badge
+- `variant?: 'rounded'` - Visual variant of the badge. Use 'rounded' for circular badges with fixed size
+- `aria-label?: string` - Accessible label for screen readers (required for icon-only or number-only badges)
+- `role?: 'status' | 'note'` - ARIA role for the badge (defaults to 'status' for dynamic content)
 - All standard HTML attributes supported by `<sup>` element
 
 ## Technical Details
 
-- Built using React functional components
-- Uses TypeScript for type safety
-- Styled with CSS custom properties
+- Built using React functional components with TypeScript
+- Uses TypeScript with comprehensive JSDoc comments for enhanced IDE support
+- Styled with SCSS/CSS custom properties (units in rem)
 - Leverages base UI component from FPKit
+- Exports `BadgeProps` type for external usage
+- Component display name: 'Badge'
 
-## Usage Example
+## Styling Architecture
 
-### Basic Usage
+The Badge uses a **nested structure** (`<sup><span>content</span></sup>`) which is required
+for the SCSS styling system:
+
+- **Outer `<sup>` element**: Provides positioning context and base styling
+- **Inner `<span>` element**: Receives visual styling (background, padding, border-radius)
+
+This architecture ensures proper styling isolation and allows the badge to work correctly
+when positioned alongside other content.
+
+## Rounded Variant Behavior
+
+The `rounded` variant creates a **perfect circular badge** with fixed dimensions (1.5625rem).
+Key characteristics:
+
+- **Fixed size**: 1.5625rem × 1.5625rem (25px × 25px at base font size)
+- **Perfect circle**: 50% border-radius
+- **Content overflow**: Text exceeding available space is truncated with clip (no ellipsis visible)
+- **Font weight**: Bold (700) for better readability
+- **Font size**: 0.6875rem (11px at base font size)
+
+### Best Practices for Rounded Badges
+
+✅ **GOOD**: Format large numbers yourself
+```tsx
+<Badge variant="rounded" aria-label="More than 99 notifications">99+</Badge>
+```
+
+❌ **BAD**: Let unformatted numbers overflow
+```tsx
+<Badge variant="rounded">999</Badge> {/* Will be truncated */}
+```
+
+## Usage Examples
+
+### Basic Usage with Accessibility
 
 ```tsx
-import Badge from "./badge";
+import { Badge } from "@fpkit/acss";
 
 function Example() {
   return (
     <p>
-      Messages <Badge>3</Badge>
+      Messages
+      <Badge aria-label="3 unread messages">3</Badge>
     </p>
   );
 }
 ```
 
-### Rounded Badge
+### Rounded Badge Variant
 
 ```tsx
-import Badge from "./badge";
+import { Badge } from "@fpkit/acss";
 
 function Example() {
   return (
     <p>
-      Status <Badge data-badge="rounded">21</Badge>
+      Notifications
+      <Badge variant="rounded" aria-label="99 or more notifications">99+</Badge>
     </p>
   );
 }
@@ -67,58 +111,151 @@ function Example() {
 ### Custom Styled Badge
 
 ```tsx
-import Badge from "./badge";
+import { Badge } from "@fpkit/acss";
 
 function Example() {
   return (
     <p>
-      Count{" "}
+      Active Users
       <Badge
-        styles={{
-          "--badge-bg": "blue",
-          "--badge-color": "white",
-        }}
-        aria-label="badge count"
+        styles={{ backgroundColor: "green", color: "white" }}
+        aria-label="21 active users"
       >
-        5
+        21
       </Badge>
     </p>
   );
 }
 ```
 
+### Multiple Badges
+
+```tsx
+import { Badge } from "@fpkit/acss";
+
+function Dashboard() {
+  return (
+    <div>
+      <p>
+        Inbox
+        <Badge variant="rounded" aria-label="12 unread emails">12</Badge>
+      </p>
+      <p>
+        Tasks
+        <Badge variant="rounded" aria-label="5 pending tasks">5</Badge>
+      </p>
+      <p>
+        Alerts
+        <Badge variant="rounded" aria-label="1 new alert">1</Badge>
+      </p>
+    </div>
+  );
+}
+```
+
 ## Styling
 
-The component uses CSS custom properties for styling:
+The component uses CSS custom properties for full customization:
+
+### Standard Badge CSS Variables
 
 ```css
---badge-bg: lightgray; /* Background color */
---badge-color: currentColor; /* Text color */
---badge-radius: 0.5rem; /* Border radius */
---badge-padding: 0.3rem; /* Inner padding */
---badge-v-align: 0.5rem; /* Vertical alignment */
---badge-fs: var(--fs-1); /* Font size */
+--badge-bg: lightgray;        /* Background color */
+--badge-color: currentColor;  /* Text color */
+--badge-radius: 0.5rem;       /* Border radius */
+--badge-padding: 0.3rem;      /* Inner padding */
+--badge-v-align: 0.5rem;      /* Vertical alignment */
+--badge-fs: var(--fs-1);      /* Font size */
 ```
 
-For rounded badges, use the `data-badge="rounded"` attribute which sets:
+### Rounded Badge CSS Variables
+
+When using `variant="rounded"`, these additional variables are set:
 
 ```css
---badge-radius: 100%;
---badge-padding: 0.2rem;
+--badge-radius: 50%;          /* Perfect circle */
+--badge-padding: 0;           /* No padding (uses width/height instead) */
+--badge-size: 1.5625rem;      /* Fixed dimensions for circle */
 ```
 
-## WCAG 2.1 Guidelines
+### Customizing Badge Styles
 
-- Ensures sufficient color contrast (1.4.3)
-- Supports text resizing (1.4.4)
-- Maintains spacing on zoom (1.4.12)
-- Uses semantic HTML elements (4.1.1)
-- Provides meaningful content (4.1.2)
+You can override CSS variables using inline styles:
+
+```tsx
+<Badge
+  styles={{
+    "--badge-bg": "#3b82f6",
+    "--badge-color": "white",
+    "--badge-padding": "0.5rem",
+  } as React.CSSProperties}
+>
+  Custom
+</Badge>
+```
+
+Or using standard CSS properties:
+
+```tsx
+<Badge styles={{ backgroundColor: "#10b981", color: "white" }}>
+  NEW
+</Badge>
+```
+
+## Accessibility Features
+
+The Badge component follows WCAG 2.1 Level AA guidelines and includes:
+
+### Built-in Accessibility
+
+- **Semantic HTML**: Uses `<sup>` element for proper positioning context
+- **ARIA Role**: Defaults to `role="status"` for dynamic content, making it a live region
+- **Live Regions**: Screen readers automatically announce changes to badge content
+- **Accessible Names**: `aria-label` prop provides context for screen readers
+
+### WCAG 2.1 Compliance
+
+- **1.4.3 Contrast (Minimum)**: Ensures sufficient color contrast with customizable colors
+- **1.4.4 Resize Text**: Supports text resizing up to 200% using rem units
+- **1.4.12 Text Spacing**: Maintains proper spacing on zoom and text spacing adjustments
+- **4.1.1 Parsing**: Uses semantic HTML elements (`<sup>`, `<span>`)
+- **4.1.2 Name, Role, Value**: Provides meaningful ARIA labels and roles
+
+### Accessibility Best Practices
+
+✅ **GOOD**: Descriptive aria-label with context
+```tsx
+<Badge variant="rounded" aria-label="12 items in cart">12</Badge>
+```
+
+✅ **GOOD**: Format numbers and provide full context
+```tsx
+<Badge variant="rounded" aria-label="More than 99 notifications">99+</Badge>
+```
+
+❌ **BAD**: Number-only badge without context
+```tsx
+<Badge>12</Badge> {/* Screen reader only hears "12" without context */}
+```
+
+❌ **BAD**: Missing aria-label for icon-only badges
+```tsx
+<Badge variant="rounded">!</Badge> {/* What does "!" mean? */}
+```
+
+### Testing Recommendations
+
+- Test with screen readers (NVDA, JAWS, VoiceOver)
+- Verify keyboard navigation and focus management
+- Check color contrast ratios (minimum 4.5:1 for normal text)
+- Test with 200% zoom and custom text spacing
+- Validate that badge updates are announced by screen readers
 
 ## Additional Notes
 
-- Use semantic values for badge content
-- Ensure adequate color contrast when customizing
-- Keep badge content concise
-- Include ARIA labels when needed
-- Test with screen readers and keyboard navigation
+- **Keep content concise**: Badges work best with 1-3 characters
+- **Format large numbers**: Use "99+" instead of "999" for better UX
+- **Color contrast**: Ensure adequate contrast when customizing colors
+- **Semantic values**: Use meaningful, descriptive content
+- **ARIA labels**: Always include aria-label for number-only or icon-only badges
+- **Units**: All sizing uses rem units (base 16px = 1rem) for better accessibility
