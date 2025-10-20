@@ -18,12 +18,13 @@
 > * **Functional component** best practices (React hooks, prop typing, etc.)
 > * **Performance** optimizations (memoization, lazy loading, efficient rendering)
 > * **Separation of concerns** (UI vs. logic vs. data fetching)
-> * **Accessibility** (ARIA, keyboard navigation, etc.)
+> * **Accessibility** WCAG 2.1 compliance (ARIA, keyboard navigation, etc.)
 > * **Testability** (clear props, minimal side effects, deterministic outputs)
 
 ---
 
 ### 🧱 **Expected Output**
 
-1. **Refactored Code:** Optimized, production-ready React component.
-2. **Explanation:** Brief, structured summary of what was improved and why — focusing on performance, structure, and CDD compliance.
+1. **Plan outline:** Step-by-step breakdown of the refactoring approach.
+2. **Explanation:** Brief, structured summary of what was improved and why
+3. **Accessibility** — focusing on performance, structure, and CDD compliance.
