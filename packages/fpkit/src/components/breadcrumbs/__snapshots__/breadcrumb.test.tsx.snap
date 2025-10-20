@@ -1,0 +1,152 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Breadcrumb > Snapshot Tests > matches snapshot for simple breadcrumb 1`] = `
+<div>
+  <nav
+    aria-label="Breadcrumb"
+  >
+    <ol
+      data-list="unstyled inline"
+    >
+      <li
+        data-list="unstyled inline"
+      >
+        <a
+          href="/"
+        >
+          Home
+        </a>
+      </li>
+      <li
+        data-list="unstyled inline"
+      >
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <a
+          href="products"
+        >
+          products
+        </a>
+      </li>
+      <li
+        data-list="unstyled inline"
+      >
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <span
+          aria-current="page"
+        >
+          shirts
+        </span>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb > Snapshot Tests > matches snapshot with custom routes 1`] = `
+<div>
+  <nav
+    aria-label="Breadcrumb"
+  >
+    <ol
+      data-list="unstyled inline"
+    >
+      <li
+        data-list="unstyled inline"
+      >
+        <a
+          href="/"
+        >
+          Home
+        </a>
+      </li>
+      <li
+        data-list="unstyled inline"
+      >
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <a
+          href="/products"
+        >
+          All Products
+        </a>
+      </li>
+      <li
+        data-list="unstyled inline"
+      >
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <span
+          aria-current="page"
+        >
+          shirts
+        </span>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;
+
+exports[`Breadcrumb > Snapshot Tests > matches snapshot with truncation 1`] = `
+<div>
+  <nav
+    aria-label="Breadcrumb"
+  >
+    <ol
+      data-list="unstyled inline"
+    >
+      <li
+        data-list="unstyled inline"
+      >
+        <a
+          href="/"
+        >
+          Home
+        </a>
+      </li>
+      <li
+        data-list="unstyled inline"
+      >
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <a
+          href="products"
+        >
+          products
+        </a>
+      </li>
+      <li
+        data-list="unstyled inline"
+      >
+        <span
+          aria-hidden="true"
+        >
+          /
+        </span>
+        <span
+          aria-current="page"
+          aria-label="verylongproductname"
+        >
+          verylongpr...
+        </span>
+      </li>
+    </ol>
+  </nav>
+</div>
+`;

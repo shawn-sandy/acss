@@ -8,17 +8,21 @@ const linkClicked = fn();
 const meta: Meta<typeof Breadcrumb> = {
   title: "FP.REACT Components/Breadcrumb",
   component: Breadcrumb,
-  tags: ["beta"],
+  tags: ["autodocs"],
   parameters: {
     actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
-        component: "Breadcrumb description here...",
+        component: `A WCAG 2.1 AA compliant breadcrumb navigation component that helps users understand their current location within a site hierarchy.
+
+**Features:** Automatic path parsing, custom route naming, text truncation, full accessibility support, and performance optimized with memoization.
+
+**Accessibility:** Semantic HTML (\`<nav>\`, \`<ol>\`), proper ARIA labels, current page marked with \`aria-current="page"\`, and truncated text includes full text in \`aria-label\`.`,
       },
     },
   },
   args: {
-    children: "Link",
+    currentRoute: "/products/shirts",
   },
 } as Meta;
 
