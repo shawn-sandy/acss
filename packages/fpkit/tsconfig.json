@@ -20,6 +20,7 @@
     "strict": true,
     "target": "ES2022",
     "useDefineForClassFields": true,
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -32,13 +33,10 @@
     }
   },
   "include": [
-    "src",
-    "src/setupTest.ts"
+    "src"
   ],
   "exclude": [
-    "**/*.stories.tsx",
-    "**/*.test.tsx",
-    "**/*.spec.tsx"
+    "**/*.stories.tsx"
   ],
   "references": [
     {
