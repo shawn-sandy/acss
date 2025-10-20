@@ -1302,8 +1302,22 @@ sup:has(> span) span {
   color: inherit;
 }
 sup:has(> span)[data-badge~=rounded] {
-  --badge-radius: 100%;
-  --badge-padding: 0.2rem;
+  --badge-radius: 50%;
+  --badge-padding: 0;
+  --badge-size: 1.5625rem;
+  --badge-padding-inline: 0.1875rem;
+  min-width: var(--badge-size);
+  height: var(--badge-size);
+  padding-inline: var(--badge-padding-inline);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 body > nav,
