@@ -1,0 +1,452 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Title/Readme" />
+
+# Title
+
+A semantic heading component for document structure and hierarchy.
+
+## Overview
+
+The `Title` component renders semantic HTML headings (h1-h6) with proper accessibility support, ensuring WCAG 2.1 AA compliance by maintaining semantic document structure for screen readers and assistive technologies.
+
+---
+
+## Features
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Semantic HTML</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>Renders actual heading elements (h1-h6) for proper document outline</p>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Accessibility</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>Full ARIA support and proper heading hierarchy</p>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Type Safety</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>Fully typed with TypeScript for excellent DX</p>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Performance</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>Memoized to prevent unnecessary re-renders</p>
+  </div>
+</div>
+
+---
+
+## Installation
+
+```bash
+npm install @fpkit/acss
+```
+
+---
+
+## Basic Usage
+
+```tsx
+import { Title } from '@fpkit/acss';
+
+function MyComponent() {
+  return (
+    <>
+      <Title level="h1">Page Title</Title>
+      <Title level="h2">Section Heading</Title>
+      <Title level="h3">Subsection Heading</Title>
+    </>
+  );
+}
+```
+
+> **Note**: The default heading level is `h2` when no `level` prop is provided.
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `level` | `"h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "h6"` | `"h2"` | The semantic heading level to render |
+| `children` | `React.ReactNode` | *required* | The content to display in the heading |
+| `id` | `string` | - | Unique identifier (useful for anchor links) |
+| `ui` | `string` | - | Data attribute for fpkit styling hooks |
+| `className` | `string` | - | CSS class names to apply |
+| `styles` | `React.CSSProperties` | - | Inline styles to apply |
+| `ref` | `React.Ref<HTMLHeadingElement>` | - | Forwarded ref to the heading element |
+
+The component also accepts all standard HTML heading attributes and ARIA properties.
+
+---
+
+## Examples
+
+### All Heading Levels
+
+The component supports all six semantic heading levels:
+
+```tsx
+// Page title (use once per page)
+<Title level="h1">Main Page Title</Title>
+
+// Major sections
+<Title level="h2">Section Heading</Title>
+
+// Subsections
+<Title level="h3">Subsection Heading</Title>
+
+// Deeper nesting
+<Title level="h4">Level Four Heading</Title>
+<Title level="h5">Level Five Heading</Title>
+<Title level="h6">Level Six Heading</Title>
+```
+
+### With Anchor Links
+
+Use the `id` prop to create anchor links for navigation:
+
+```tsx
+<Title level="h2" id="getting-started">
+  Getting Started
+</Title>
+
+{/* Link to this section */}
+<a href="#getting-started">Jump to Getting Started</a>
+```
+
+### Custom Styling
+
+The Title component supports multiple styling approaches:
+
+#### Using fpkit's UI System
+
+```tsx
+<Title level="h2" ui="section-title">
+  Styled Section Title
+</Title>
+```
+
+#### Using CSS Classes
+
+```tsx
+<Title level="h2" className="text-primary font-bold">
+  Custom Styled Title
+</Title>
+```
+
+#### Using Inline Styles
+
+```tsx
+<Title
+  level="h2"
+  styles={{ color: '#0066cc', marginBottom: '1rem' }}
+>
+  Inline Styled Title
+</Title>
+```
+
+---
+
+## Accessibility
+
+### WCAG 2.1 AA Compliance
+
+The Title component helps you comply with:
+
+- **1.3.1 Info and Relationships (Level A)** - Semantic heading elements preserve document structure
+- **2.4.6 Headings and Labels (Level AA)** - Headings should be descriptive and properly ordered
+- **2.4.10 Section Headings (Level AAA)** - Use headings to organize content
+
+### Proper Heading Hierarchy
+
+**✅ GOOD: Proper heading hierarchy**
+
+```tsx
+<div>
+  <Title level="h1">Page Title</Title>
+  <p>Introduction paragraph...</p>
+
+  <Title level="h2">First Major Section</Title>
+  <p>Section content...</p>
+
+  <Title level="h3">Subsection 1.1</Title>
+  <p>Subsection content...</p>
+
+  <Title level="h3">Subsection 1.2</Title>
+  <p>Subsection content...</p>
+
+  <Title level="h2">Second Major Section</Title>
+  <p>Section content...</p>
+
+  <Title level="h3">Subsection 2.1</Title>
+  <p>Subsection content...</p>
+
+  <Title level="h4">Sub-subsection 2.1.1</Title>
+  <p>Deep nested content...</p>
+</div>
+```
+
+This example demonstrates correct heading hierarchy:
+- One h1 for the page title
+- h2 for major sections
+- h3 for subsections
+- h4 for nested subsections
+- No skipped levels
+
+This structure helps screen reader users navigate the page effectively and improves SEO.
+
+### Improper Hierarchy (Anti-Pattern)
+
+**❌ BAD: Improper heading hierarchy**
+
+```tsx
+<div>
+  <Title level="h1">Page Title</Title>
+  <p>Introduction...</p>
+
+  {/* ❌ BAD: Skipping from h1 to h4 */}
+  <Title level="h4">Skipped h2 and h3</Title>
+  <p>This violates WCAG guidelines...</p>
+</div>
+```
+
+Skipping from h1 to h4 without h2 or h3 in between:
+- Confuses screen reader users
+- Violates WCAG 2.4.6 (Headings and Labels)
+- Creates poor document structure
+
+**Solution:** Always maintain sequential heading levels.
+
+### ARIA Attributes
+
+Enhanced accessibility with ARIA labels:
+
+```tsx
+<Title level="h2" aria-label="User dashboard statistics overview">
+  Dashboard
+</Title>
+```
+
+Use `aria-label` when the visible text doesn't provide enough context for screen reader users.
+
+---
+
+## Best Practices
+
+### ✅ DO: Maintain Proper Heading Hierarchy
+
+```tsx
+<Title level="h1">Page Title</Title>
+<Title level="h2">Main Section</Title>
+<Title level="h3">Subsection</Title>
+<Title level="h4">Sub-subsection</Title>
+```
+
+**Why?** Screen readers use heading hierarchy to build a document outline for navigation.
+
+### ❌ DON'T: Skip Heading Levels
+
+```tsx
+{/* ❌ BAD: Skipping from h1 to h4 */}
+<Title level="h1">Page Title</Title>
+<Title level="h4">Skipped h2 and h3</Title>
+```
+
+**Why?** This confuses screen reader users and violates WCAG guidelines.
+
+### ✅ DO: Use One h1 Per Page
+
+```tsx
+<Title level="h1">Main Page Title</Title>
+{/* Only one h1 per page */}
+<Title level="h2">Section 1</Title>
+<Title level="h2">Section 2</Title>
+```
+
+**Why?** Multiple h1 elements can confuse users about the page's main purpose.
+
+### ✅ DO: Make Headings Descriptive
+
+```tsx
+{/* ✅ GOOD: Descriptive */}
+<Title level="h2">User Account Settings</Title>
+
+{/* ❌ BAD: Vague */}
+<Title level="h2">Settings</Title>
+```
+
+**Why?** Users navigating by headings need context to understand each section.
+
+### ✅ DO: Avoid Empty or Meaningless Headings
+
+```tsx
+{/* ❌ BAD: No meaningful content */}
+<Title level="h2"> </Title>
+
+{/* ✅ GOOD: Clear content */}
+<Title level="h2">Contact Information</Title>
+```
+
+---
+
+## Advanced Usage
+
+### Ref Forwarding for Focus Management
+
+```tsx
+import { useRef, useEffect } from 'react';
+
+function AutoFocusTitle() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    // Focus the title on mount (useful for accessibility)
+    titleRef.current?.focus();
+  }, []);
+
+  return (
+    <Title ref={titleRef} tabIndex={-1} level="h2">
+      This title receives focus
+    </Title>
+  );
+}
+```
+
+### Complex Content
+
+```tsx
+import { Icon } from '@fpkit/acss';
+
+<Title level="h2">
+  <Icon name="chart" aria-hidden="true" />
+  <span>Statistics Dashboard</span>
+</Title>
+```
+
+### TypeScript
+
+The component is fully typed with comprehensive TypeScript support:
+
+```tsx
+import { Title, type TitleProps, type HeadingLevel } from '@fpkit/acss';
+
+// Custom wrapper with additional props
+interface SectionTitleProps extends TitleProps {
+  highlighted?: boolean;
+}
+
+function SectionTitle({ highlighted, ...props }: SectionTitleProps) {
+  return (
+    <Title
+      {...props}
+      className={highlighted ? 'highlighted' : ''}
+    />
+  );
+}
+
+// Type-safe heading level
+const level: HeadingLevel = 'h2';
+<Title level={level}>Typed Title</Title>
+```
+
+---
+
+## Performance
+
+The Title component is wrapped with `React.memo`, which prevents re-renders when parent components update if the props haven't changed.
+
+```tsx
+// This will only re-render when `title` prop changes
+function ParentComponent({ title, someOtherState }) {
+  return (
+    <>
+      <Title level="h2">{title}</Title>
+      <p>{someOtherState}</p>
+    </>
+  );
+}
+```
+
+---
+
+## Migration from Heading Component
+
+> **Note**: If you're using the deprecated `Heading` component, please migrate to `Title`.
+
+### Quick Migration Guide
+
+```tsx
+// Before (deprecated):
+import { Heading } from '@fpkit/acss';
+<Heading type="h2">Section Title</Heading>
+
+// After:
+import { Title } from '@fpkit/acss';
+<Title level="h2">Section Title</Title>
+```
+
+### Key Changes
+
+1. **Component Name**: `Heading` → `Title`
+2. **Prop Name**: `type` → `level`
+3. **Default Level**: Changed from `h3` to `h2`
+
+### Why Migrate?
+
+- **Better API**: `level` is more semantic than `type`
+- **Improved Accessibility**: Enhanced WCAG 2.1 compliance
+- **Better Documentation**: Comprehensive JSDoc comments
+- **Performance**: Memoization to prevent unnecessary re-renders
+
+The `Heading` component will be removed in **v3.0.0**.
+
+---
+
+## Related Components
+
+- **Text** - For body text and paragraphs
+- **UI** - The underlying polymorphic component
+
+---
+
+## Accessibility Checklist
+
+When using the Title component, ensure:
+
+- [ ] One h1 per page for the main title
+- [ ] Sequential heading levels (don't skip levels)
+- [ ] Descriptive heading text that summarizes the following content
+- [ ] ARIA labels when visible text lacks context
+- [ ] Proper document outline for screen reader navigation
+
+---
+
+## Resources
+
+- [WCAG 2.1 - Info and Relationships (1.3.1)](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html)
+- [WCAG 2.1 - Headings and Labels (2.4.6)](https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html)
+- [MDN - Heading elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements)
+- [WebAIM - Semantic Structure](https://webaim.org/techniques/semanticstructure/)
+
+---
+
+## Support
+
+For issues, questions, or contributions:
+
+- **GitHub**: [fpkit/acss](https://github.com/fpkit/acss)
+- **Documentation**: [fpkit.dev](https://fpkit.dev)
+
+---
+
+<div style={{ padding: '1rem', background: '#f0f9ff', border: '1px solid #0ea5e9', borderRadius: '0.5rem', marginTop: '2rem' }}>
+  <strong>💡 Pro Tip:</strong> Use browser extensions like{' '}
+  <a href="https://www.tpgi.com/arc-platform/arc-toolkit/" target="_blank" rel="noopener noreferrer">
+    Arc Toolkit
+  </a>{' '}
+  or{' '}
+  <a href="https://www.deque.com/axe/browser-extensions/" target="_blank" rel="noopener noreferrer">
+    axe DevTools
+  </a>{' '}
+  to validate your heading structure and ensure proper accessibility.
+</div>
