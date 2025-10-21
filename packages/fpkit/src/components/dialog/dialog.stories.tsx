@@ -15,8 +15,8 @@ const buttonDecorator = [
         <button onClick={() => setIsOpen(true)}>Open Dialog</button>
         <Story
           args={{
-            showDialog: isOpen,
-            onClose: () => setIsOpen(false),
+            isOpen: isOpen,
+            onOpenChange: setIsOpen,
             dialogTitle: "Dialog Button",
             children: content,
           }}
@@ -67,18 +67,20 @@ type Story = StoryObj<typeof Dialog>;
 export const BasicDialog: Story = {
   args: {
     isAlertDialog: false,
-    showDialog: true,
+    isOpen: true,
+    onOpenChange: () => {},
     dialogTitle: "Basic Dialog",
   },
 } as Story;
 
 /**
- * Show the dialog by default
- * set the showDialog prop to true
+ * Non-modal inline alert dialog
+ * Uses dialog.show() instead of dialog.showModal()
  */
 export const NonModalDialog: Story = {
   args: {
-    showDialog: true,
+    isOpen: true,
+    onOpenChange: () => {},
     isAlertDialog: true,
     dialogTitle: "Non Modal Dialog",
   },
@@ -95,7 +97,8 @@ export const DialogWithButton: Story = {
 export const DialogInteractions: Story = {
   args: {
     isAlertDialog: false,
-    showDialog: true,
+    isOpen: true,
+    onOpenChange: () => {},
     dialogTitle: "Dialog Interactions",
   },
   play: async ({ canvasElement, step }) => {
