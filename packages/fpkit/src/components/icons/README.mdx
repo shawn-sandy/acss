@@ -1,0 +1,332 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Icons/Readme" />
+
+# Icon Component
+
+## Summary
+
+The `Icon` component is an accessibility-first wrapper for SVG icons that enforces WCAG 2.1 Level AA compliance by hiding decorative icons from screen readers by default. It provides a flexible, type-safe API for both decorative and semantic icon usage patterns.
+
+## Features
+
+- **Accessibility by Default** - Icons are hidden from screen readers (`aria-hidden="true"`) by default
+- **Decorative vs. Semantic Patterns** - Clear distinction between decorative and meaningful icons
+- **Type-Safe Props** - Full TypeScript support with comprehensive prop definitions
+- **Rich Icon Library** - 30+ pre-built SVG icons (arrows, actions, alerts, media controls)
+- **Customizable Styling** - Control size, color, stroke, and fill properties
+- **Compound Component Pattern** - Access icons via `Icon.Code`, `Icon.Home`, etc.
+- **WCAG 2.1 AA Compliant** - Follows accessibility best practices out of the box
+- **Backward Compatible** - Deprecated `alt` prop maintained for legacy code
+
+## Key Accessibility Principle
+
+> **Decorative images must be hidden from assistive technology** (WCAG 1.1.1)
+
+Most icons in user interfaces are **decorative** — they accompany visible text labels (e.g., a save icon next to "Save Changes"). Screen readers should not announce these redundantly.
+
+When icons are **semantic** (standalone without text), developers must explicitly:
+1. Set `aria-hidden={false}` to expose the icon
+2. Provide `aria-label` for an accessible name
+
+## Props
+
+### Icon Wrapper Props
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `aria-hidden` | `boolean` | `true` | Controls screen reader visibility. `true` = decorative, `false` = semantic |
+| `aria-label` | `string` | - | Accessible label (required for standalone semantic icons) |
+| `role` | `string` | - | ARIA role override (use `"img"` for complex semantic SVGs) |
+| `styles` | `React.CSSProperties` | - | Inline styles for the wrapper span |
+| `classes` | `string` | - | CSS class names |
+| `children` | `React.ReactNode` | - | Icon SVG component(s) to render |
+
+### Individual Icon Props
+
+Props for individual icon components (e.g., `Icon.Code`, `Icon.Home`):
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `number` | `16` | Icon size in pixels (sets both width and height) |
+| `fill` | `string` | `'none'` | SVG fill color (CSS color value) |
+| `strokeColor` | `string` | `'currentColor'` | SVG stroke color (CSS color value) |
+| `strokeWidth` | `string` | `'2'` | SVG stroke width |
+| `width` | `number` | - | Explicit width in pixels (overrides size) |
+| `height` | `number` | - | Explicit height in pixels (overrides size) |
+| `alt` | `string` | - | **@deprecated** Use `aria-label` instead |
+
+## Available Icons
+
+### Action Icons
+- `Icon.Add`, `Icon.Minus`, `Icon.Remove` (Close), `Icon.Copy`, `Icon.Star`
+
+### Navigation Icons
+- `Icon.ArrowUp`, `Icon.ArrowDown`, `Icon.ArrowLeft`, `Icon.ArrowRight`
+- `Icon.Up`, `Icon.Down`, `Icon.Left`, `Icon.Right`
+- `Icon.Home`
+
+### Media Control Icons
+- `Icon.Play`, `Icon.Pause`, `Icon.Stop`, `Icon.Resume`
+- `Icon.PlaySolid`, `Icon.PauseSolid`, `Icon.StopSolid`, `Icon.ResumeSolid`
+
+### Status/Alert Icons
+- `Icon.Info`, `Icon.InfoSolid`
+- `Icon.AlertSolid`, `Icon.AlertSquareSolid`
+- `Icon.WarnSolid`, `Icon.SuccessSolid`, `Icon.QuestionSolid`
+
+### Other Icons
+- `Icon.Code`, `Icon.Chat`, `Icon.User`
+
+### Aliases
+- `Icon.Close` → `Icon.Remove`
+
+## Usage Examples
+
+### ✅ Decorative Icon with Text (Default, Recommended)
+
+When icons accompany visible text, they are decorative and should be hidden from screen readers:
+
+```tsx
+import { Button } from "@fpkit/acss";
+import { Icon } from "@fpkit/acss";
+
+// Screen reader announces: "Save Changes, button"
+const SaveButton = () => (
+  <Button type="button" onClick={handleSave}>
+    <Icon>
+      <Icon.Code />
+    </Icon>
+    Save Changes
+  </Button>
+);
+```
+
+**Why this works:**
+- Icon is decorative (accompanies "Save Changes" text)
+- `aria-hidden="true"` is applied by default
+- Screen reader users hear only "Save Changes, button" (no redundancy)
+
+---
+
+### ✅ Semantic Icon-Only Button (Explicit Pattern)
+
+When icons stand alone without visible text, they must be exposed to screen readers:
+
+```tsx
+import { Button } from "@fpkit/acss";
+import { Icon } from "@fpkit/acss";
+
+// Screen reader announces: "Close dialog, button"
+const CloseButton = () => (
+  <Button type="button" aria-label="Close dialog" onClick={handleClose}>
+    <Icon aria-hidden={false}>
+      <Icon.Remove />
+    </Icon>
+  </Button>
+);
+```
+
+**Why this works:**
+- Icon is semantic (no visible text)
+- `aria-hidden={false}` exposes icon to screen readers
+- `aria-label` on the button provides accessible name
+- Meets WCAG 4.1.2 (Name, Role, Value)
+
+---
+
+### ✅ Semantic Icon with role="img"
+
+For complex SVG icons that convey meaning, use `role="img"`:
+
+```tsx
+import { Icon } from "@fpkit/acss";
+
+// Screen reader announces: "Code snippet, image"
+const CodeIcon = () => (
+  <Icon
+    aria-hidden={false}
+    aria-label="Code snippet"
+    role="img"
+  >
+    <Icon.Code size={32} />
+  </Icon>
+);
+```
+
+**Why this works:**
+- `role="img"` tells screen readers this is a meaningful image
+- `aria-label` provides the image description
+- Follows WCAG 1.1.1 (Non-text Content)
+
+---
+
+### ✅ Custom Styling
+
+Icons inherit text color by default (`strokeColor="currentColor"`):
+
+```tsx
+import { Icon } from "@fpkit/acss";
+
+const StyledIcon = () => (
+  <div style={{ color: "blue" }}>
+    <Icon>
+      <Icon.Star size={24} fill="gold" strokeColor="orange" />
+    </Icon>
+    Favorite
+  </div>
+);
+```
+
+---
+
+### ❌ Anti-Pattern: Icon-Only Button Without Label
+
+**This violates WCAG 4.1.2 (Name, Role, Value):**
+
+```tsx
+// ❌ BAD: Screen reader cannot identify button purpose
+const BadButton = () => (
+  <Button type="button" onClick={handleClose}>
+    <Icon>
+      <Icon.Remove />
+    </Icon>
+  </Button>
+);
+```
+
+**Why this fails:**
+- Icon-only button with no accessible name
+- Screen reader announces only "button" (no context)
+- Users cannot determine what the button does
+
+**Fix:**
+```tsx
+// ✅ GOOD: Add aria-label to button
+<Button type="button" aria-label="Close" onClick={handleClose}>
+  <Icon aria-hidden={false}>
+    <Icon.Remove />
+  </Icon>
+</Button>
+```
+
+---
+
+## Technical Details
+
+### Component Architecture
+
+The Icon component uses a **compound component pattern**:
+- `Icon` - Wrapper component handling accessibility
+- `Icon.Code`, `Icon.Home`, etc. - Individual SVG icon components
+- `Svg` - Base SVG component used by all icons
+
+### Polymorphic UI Component
+
+The Icon wrapper uses the polymorphic `UI` component from `#components/ui`, which:
+- Supports ref forwarding for focus management
+- Accepts all native HTML span attributes
+- Merges default and custom styles
+
+### Type Safety
+
+The component is fully typed with TypeScript:
+
+```tsx
+export type IconProps = React.ComponentProps<typeof UI> & {
+  "aria-hidden"?: boolean;
+  "aria-label"?: string;
+  role?: string;
+};
+```
+
+Individual icon props extend `IconProps` from `types.ts` with visual styling properties.
+
+---
+
+## Accessibility Checklist
+
+When using icons, ensure:
+
+- [ ] **Decorative icons** (with text) use default `aria-hidden="true"`
+- [ ] **Semantic icons** (standalone) have `aria-hidden={false}`
+- [ ] **Semantic icons** have `aria-label` or `aria-labelledby`
+- [ ] **Icon-only buttons** have `aria-label` on the button element
+- [ ] **Icon color contrast** meets WCAG 1.4.11 (3:1 for UI components)
+- [ ] **Touch targets** are at least 44×44 CSS pixels (WCAG 2.5.5)
+
+---
+
+## Migration Guide
+
+### Deprecation: `alt` Prop
+
+The `alt` prop is deprecated because it's only valid for `<img>` elements, not SVG.
+
+**Before:**
+```tsx
+<Icon.Code alt="Code icon" />
+```
+
+**After:**
+```tsx
+<Icon aria-hidden={false} aria-label="Code icon">
+  <Icon.Code />
+</Icon>
+```
+
+### Adding aria-hidden to Existing Icons
+
+If you have existing icon usage without explicit accessibility attributes:
+
+**Before:**
+```tsx
+<button>
+  <Icon><Icon.Remove /></Icon>
+  Close
+</button>
+```
+
+**After (no change needed):**
+```tsx
+// Icons are now hidden by default - existing code is more accessible!
+<button>
+  <Icon><Icon.Remove /></Icon>
+  Close
+</button>
+```
+
+For icon-only buttons, update to:
+
+```tsx
+<button aria-label="Close">
+  <Icon aria-hidden={false}>
+    <Icon.Remove />
+  </Icon>
+</button>
+```
+
+---
+
+## Additional Notes
+
+- **Color inheritance**: Icons use `strokeColor="currentColor"` by default, inheriting parent text color
+- **Size units**: Icon sizes are in pixels (e.g., `size={24}` = 24px)
+- **Performance**: SVG icons are lightweight and render efficiently
+- **Bundle size**: Icons are tree-shakeable when using named imports
+- **Browser support**: Works in all modern browsers supporting SVG
+
+---
+
+## Related Components
+
+- [Button](/docs/fp-react-components-buttons-readme--docs) - Learn about accessible button patterns
+- [Alert](/docs/fp-react-components-alert-readme--docs) - Uses icons for severity indicators
+
+---
+
+## Further Reading
+
+- [WCAG 1.1.1: Non-text Content](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)
+- [WCAG 4.1.2: Name, Role, Value](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html)
+- [Accessible Icon Buttons (Sara Soueidan)](https://www.sarasoueidan.com/blog/accessible-icon-buttons/)
