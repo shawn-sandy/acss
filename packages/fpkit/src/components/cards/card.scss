@@ -43,3 +43,25 @@
   }
 }
 
+// Interactive card styles - WCAG 2.4.7 compliant focus indicators
+[data-card="interactive"] {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  }
+
+  // Visible focus indicator with 3:1 minimum contrast (WCAG 2.4.7)
+  &:focus-visible {
+    outline: 0.125rem solid var(--focus-color, #0066CC);
+    outline-offset: 0.125rem;
+  }
+
+  // Hide outline for mouse users (modern browsers)
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
