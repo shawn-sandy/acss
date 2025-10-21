@@ -4,184 +4,587 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Dialog Components
 
-A flexible Dialog component system for building accessible modal dialogs in
-React applications. The component supports:
+A modern, accessible dialog component system built with React and TypeScript, leveraging the native HTML `<dialog>` element for optimal performance and built-in accessibility features.
 
-- Controlled modal behavior with built-in state management
-- Full ARIA accessibility support out of the box
-- Customizable headers and content layout
-- Multiple variants including standard dialogs and alert dialogs
-- Event handling for open, close, and cancel actions
-- Responsive design with inline rendering option
-- Modal and non-modal dialog variants via `isAlertDialog`
-- Built-in header with close functionality
-- Configurable footer with confirm/cancel actions
-- Click-outside-to-close behavior
-- Focus management and keyboard navigation
+## Features
 
-Built with TypeScript and React, this component follows modern best practices
-and provides a developer-friendly API for implementing modal dialogs in your web
-applications.
+✅ **Controlled Component Pattern** - Full React state control with `isOpen`/`onOpenChange`
+✅ **WCAG 2.1 AA Compliant** - Proper ARIA attributes, focus management, keyboard navigation
+✅ **Native Dialog API** - Leverages browser's built-in focus trap and escape key handling
+✅ **TypeScript Support** - Comprehensive type definitions with full IntelliSense
+✅ **Two Modes** - Modal dialogs (overlay) and inline alert dialogs
+✅ **Focus Management** - Automatic focus restoration to trigger element
+✅ **Flexible API** - Controlled `Dialog` or uncontrolled `DialogModal` wrapper
+✅ **Customizable** - CSS custom properties for theming
+✅ **Keyboard Accessible** - `:focus-visible` styles, Escape key support
+✅ **High Contrast Mode** - Supports `prefers-contrast: high` media query
 
-## Overview
+---
 
-The dialog component system consists of the following key parts:
-
-### Dialog Component
+## Component Architecture
 
 The dialog system consists of:
 
-- `Dialog`: Main modal component
-- `DialogHeader`: Header with title and close button
-- `DialogFooter`: Footer with confirm/cancel actions
+| Component | Purpose | Usage |
+|-----------|---------|-------|
+| **`Dialog`** | Controlled modal/alert dialog | When you need full state control |
+| **`DialogModal`** | Uncontrolled wrapper with trigger button | For simple use cases |
+| **`DialogHeader`** | Header with title and close button | Internal (auto-rendered) |
+| **`DialogFooter`** | Footer with confirm/cancel actions | Internal (auto-rendered) |
 
-### Props
+---
 
-The Dialog component accepts two types of props - required core props and
-optional configuration props.
+## Quick Start
 
-#### Required Props
+### Option 1: Controlled Dialog (Recommended)
 
-- `dialogTitle` (`string`): Title text displayed in dialog header
-- `children` (`React.ReactNode`): Content rendered inside dialog body
-- `showDialog` (`boolean`): Controls dialog visibility state
-
-#### Optional Props
-
-- `isAlertDialog` (`boolean`, default: `false`): Renders as non-modal alert
-  dialog
-- `onClose` (`() => void`): Callback when dialog closes
-- `onConfirm` (`() => void | Promise<void>`): Confirmation action callback
-- `confirmLabel` (`string`, default: "Confirm"): Custom confirm button text
-- `cancelLabel` (`string`, default: "Cancel"): Custom cancel button text
-- `className` (`string`, default: ""): Additional CSS classes
-
-The component also inherits props from:
-
-- `React.ComponentProps<typeof UI>`
-- `React.ComponentProps<dialog>`
-
-### Usage Examples
+Use this when you need to control the dialog state from your component.
 
 ```tsx
-// Basic usage
-import { Dialog } from "./dialog";
+import { Dialog } from "@fpkit/acss";
+import { useState } from "react";
 
 function MyComponent() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <button onClick={() => setIsOpen(true)}>Open Dialog</button>
+
       <Dialog
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        dialogTitle="My Dialog"
-        dialogId="example-dialog"
+        onOpenChange={setIsOpen}
+        dialogTitle="Confirm Action"
       >
-        <div>Dialog content goes here</div>
+        <p>Are you sure you want to proceed?</p>
       </Dialog>
     </>
   );
 }
 ```
 
-## Alert Dialog Example
+### Option 2: Uncontrolled DialogModal (Simple)
 
-A basic example of an Alert Dialog component implementation. Alert dialogs are
-used to show important messages that require user acknowledgment or
-confirmation.
-
-### Features
-
-- Uses the `Dialog` component with `isAlertDialog` prop set to true
-- Displays a warning message with a confirmation button
-- Custom dialog title "Warning"
-- Unique dialog identifier "alert-dialog"
-
-### Usage
+Use this when you want a dialog with a built-in trigger button and automatic state management.
 
 ```tsx
+import { DialogModal } from "@fpkit/acss";
+
+function MyComponent() {
+  return (
+    <DialogModal
+      dialogTitle="Delete Item"
+      btnLabel="Delete"
+      btnSize="md"
+      onConfirm={async () => {
+        await deleteItem();
+      }}
+      confirmLabel="Delete"
+      cancelLabel="Cancel"
+    >
+      <p>This action cannot be undone. Are you sure?</p>
+    </DialogModal>
+  );
+}
+```
+
+---
+
+## API Reference
+
+### Dialog Props (Controlled)
+
+#### Required Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `isOpen` | `boolean` | Controls whether the dialog is currently open |
+| `onOpenChange` | `(open: boolean) => void` | Callback fired when dialog open state changes |
+| `dialogTitle` | `string` | Title displayed in the dialog header |
+| `children` | `ReactNode` | Content to display inside the dialog body |
+
+#### Optional Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `isAlertDialog` | `boolean` | `false` | If true, renders as non-modal inline alert using `dialog.show()` |
+| `onClose` | `() => void` | - | **Deprecated:** Use `onOpenChange`. Called when dialog closes. |
+| `onConfirm` | `() => void \| Promise<void>` | - | Callback fired when confirm button is clicked |
+| `confirmLabel` | `string` | `"Confirm"` | Text label for the confirm button |
+| `cancelLabel` | `string` | `"Cancel"` | Text label for the cancel button |
+| `hideFooter` | `boolean` | `false` | If true, hides the footer with action buttons |
+| `className` | `string` | `""` | Additional CSS classes to apply to the dialog |
+| `dialogLabel` | `string` | - | Optional `aria-label` for the dialog |
+| `styles` | `CSSProperties` | - | Inline styles to apply to the dialog element |
+
+---
+
+### DialogModal Props (Uncontrolled)
+
+All `Dialog` props plus:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `btnLabel` | `string` | `"Open Dialog"` | Text label for the trigger button |
+| `btnSize` | `"sm" \| "md" \| "lg"` | `"sm"` | Size variant for the trigger button |
+| `btnOnClick` | `() => void` | - | Callback fired when trigger button is clicked (before opening) |
+| `btnProps` | `Record<string, unknown>` | - | Additional props to pass to the trigger button |
+
+**Note:** `DialogModal` manages its own state internally, so you don't need `isOpen`/`onOpenChange`.
+
+---
+
+## Usage Examples
+
+### Basic Modal Dialog
+
+```tsx
+import { Dialog } from "@fpkit/acss";
+import { useState } from "react";
+
+function BasicExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Show Info</button>
+
+      <Dialog
+        isOpen={open}
+        onOpenChange={setOpen}
+        dialogTitle="Information"
+        hideFooter
+      >
+        <p>This is a simple informational dialog.</p>
+        <p>Click the X or press Escape to close.</p>
+      </Dialog>
+    </>
+  );
+}
+```
+
+### Confirmation Dialog with Actions
+
+```tsx
+import { Dialog } from "@fpkit/acss";
+import { useState } from "react";
+
+function ConfirmationExample() {
+  const [open, setOpen] = useState(false);
+
+  const handleDelete = async () => {
+    await deleteItem();
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Delete Item</button>
+
+      <Dialog
+        isOpen={open}
+        onOpenChange={setOpen}
+        dialogTitle="Confirm Deletion"
+        onConfirm={handleDelete}
+        confirmLabel="Delete"
+        cancelLabel="Keep"
+      >
+        <p>Are you sure you want to delete this item?</p>
+        <p>This action cannot be undone.</p>
+      </Dialog>
+    </>
+  );
+}
+```
+
+### Inline Alert Dialog (Non-Modal)
+
+```tsx
+import { Dialog } from "@fpkit/acss";
+import { useState } from "react";
+
 function AlertExample() {
+  const [showAlert, setShowAlert] = useState(false);
+
   return (
-    <Dialog isAlertDialog dialogTitle="Warning" dialogId="alert-dialog">
-      <p>This action cannot be undone. Continue?</p>
-      <button onClick={() => {}}>Confirm</button>
-    </Dialog>
+    <div>
+      <button onClick={() => setShowAlert(true)}>Show Alert</button>
+
+      {/* Non-modal: page remains interactive */}
+      <Dialog
+        isOpen={showAlert}
+        onOpenChange={setShowAlert}
+        dialogTitle="Warning"
+        isAlertDialog={true}
+        hideFooter
+      >
+        <p>⚠️ Your session will expire in 5 minutes.</p>
+      </Dialog>
+
+      <p>This content remains interactive even when alert is shown.</p>
+    </div>
   );
 }
 ```
 
-### Custom header dialog example
+### DialogModal with Simple API
 
 ```tsx
-// Custom header dialog
-function CustomDialog() {
+import { DialogModal } from "@fpkit/acss";
+
+function SimpleExample() {
   return (
-    <Dialog hideDialogHeader dialogId="custom-dialog">
-      <h2>Custom Header</h2>
-      <div>Content with custom header</div>
+    <DialogModal
+      dialogTitle="Subscribe to Newsletter"
+      btnLabel="Subscribe"
+      btnSize="lg"
+      onConfirm={async () => {
+        await subscribe();
+      }}
+      confirmLabel="Sign Up"
+      cancelLabel="Maybe Later"
+    >
+      <p>Get weekly updates and exclusive content!</p>
+      <input type="email" placeholder="your@email.com" />
+    </DialogModal>
+  );
+}
+```
+
+### Custom Styling
+
+```tsx
+import { Dialog } from "@fpkit/acss";
+import { useState } from "react";
+
+function StyledExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog
+      isOpen={open}
+      onOpenChange={setOpen}
+      dialogTitle="Custom Styled Dialog"
+      className="my-custom-dialog"
+      styles={{ maxWidth: "600px", borderRadius: "1rem" }}
+    >
+      <p>This dialog has custom styles applied.</p>
     </Dialog>
   );
 }
 ```
 
-## Styles
+---
 
-This `dialog.scss` file defines the styling for a dialog component with
-customizable properties using CSS variables.
+## Modal vs Non-Modal Behavior
 
-## CSS Custom Properties
+### Modal Dialog (Default)
 
-### Dialog Dimensions and Spacing
+Uses `dialog.showModal()` which provides:
+- ✅ Full-page overlay with backdrop
+- ✅ Automatic focus trap (Tab cycles within dialog)
+- ✅ Escape key closes dialog (native behavior)
+- ✅ Backdrop click closes dialog
+- ✅ Background becomes inert (non-interactive)
 
-- `--dialog-min-w`: Minimum width of the dialog (320px)
-- `--dialog-gap`: Spacing between dialog elements (0.75rem)
-- `--dialog-padding`: General padding inside dialog (0.75rem)
-- `--dialog-padding-inline`: Horizontal padding inside dialog (1rem)
+```tsx
+<Dialog
+  isOpen={open}
+  onOpenChange={setOpen}
+  dialogTitle="Modal Dialog"
+>
+  Content here - page is blocked
+</Dialog>
+```
 
-### Border Properties
+### Inline Alert Dialog (`isAlertDialog={true}`)
 
-- `--dialog-border-color`: Color of dialog border (lightgray)
-- `--dialog-border-width`: Width of dialog border (thin)
-- `--dialog-border-style`: Style of dialog border (solid)
-- `--dialog-border-radius`: Border radius of dialog corners (0.5rem)
+Uses `dialog.show()` for non-modal inline alerts:
+- ✅ Positioned inline in page flow
+- ❌ No focus trap (page remains interactive)
+- ❌ No escape key behavior
+- ❌ No backdrop
+- ✅ User can interact with page content
 
-### Dialog Button Styles
+```tsx
+<Dialog
+  isOpen={showAlert}
+  onOpenChange={setShowAlert}
+  dialogTitle="Alert"
+  isAlertDialog={true}
+>
+  Warning message - page stays interactive
+</Dialog>
+```
 
-- `--dialog-button-bg`: Background color for dialog buttons (transparent)
-- `--dialog-button-border`: Border style for dialog buttons (transparent thin
-  solid)
-- `--dialog-button-hover-bg`: Background color for button hover state
-  (whitesmoke)
-- `--dialog-close-color`: Color for close button (gray)
+---
 
-### Layout Properties
+## Accessibility Features
 
-- `--dialog-display`: Display property for dialog (flex)
-- `--dialog-flex-direction`: Flex direction for dialog layout (column)
+### WCAG 2.1 AA Compliance
 
-## Component Structure
+#### ARIA Attributes
+- `aria-labelledby` - Links dialog to title using unique ID
+- `aria-describedby` - Links dialog to content description
+- `aria-modal="true"` - Indicates modal dialogs
+- `aria-label` - Custom accessible label support
+- `role="dialog"` or `role="alertdialog"` - Semantic roles
 
-### Base Dialog
+#### Keyboard Navigation
+- **Escape key** - Closes modal dialogs (native `<dialog>` behavior)
+- **Tab** - Cycles through focusable elements within dialog (focus trap)
+- **Enter/Space** - Activates buttons
+- `:focus-visible` styles for keyboard users
 
-- Sets minimum width and spacing
-- Applies border and padding styles
-- Implements flex layout when dialog is open
+#### Focus Management
+- **Auto-focus** - Dialog close button receives focus when opened
+- **Focus restoration** - Focus returns to trigger button when closed
+- **Focus trap** - Tab navigation stays within modal dialog
 
-### Dialog Header
+#### Screen Reader Support
+- Semantic HTML structure
+- Proper heading hierarchy
+- Clear button labels
+- Accessible close button ("Close dialog")
 
-- Implements a flex layout with space-between alignment
-- Contains title (h3) and close button
-- Custom button styling with hover states
+### High Contrast Mode
 
-### Alert Dialog Actions
+```scss
+@media (prefers-contrast: high) {
+  dialog {
+    --dialog-border-color: currentColor;
+    --dialog-border-width: 0.125rem;
+    --dialog-focus-width: 0.1875rem;
+  }
+}
+```
 
-- Container for dialog action buttons
-- Uses flex layout with left alignment
-- Includes gap spacing between buttons
+---
 
-## Usage
+## Styling & Customization
 
-To customize the dialog appearance, override the CSS custom properties in your
-stylesheet.
+### CSS Custom Properties
+
+Override these variables to customize the dialog appearance:
+
+```css
+:root {
+  /* Dimensions */
+  --dialog-min-w: max(20rem, 80%);
+  --dialog-gap: 0.625rem;
+  --dialog-padding: 1.5rem;
+  --dialog-padding-inline: 1rem;
+
+  /* Borders */
+  --dialog-border-color: lightgray;
+  --dialog-border-width: thin;
+  --dialog-border-radius: var(--border-radius);
+
+  /* Buttons */
+  --dialog-button-bg: transparent;
+  --dialog-button-hover-bg: whitesmoke;
+  --dialog-close-color: gray;
+
+  /* Focus (Accessibility) */
+  --dialog-focus-color: #0066cc;
+  --dialog-focus-width: 0.125rem;
+  --dialog-focus-offset: 0.125rem;
+
+  /* Layout */
+  --dialog-display: flex;
+  --dialog-flex-direction: column;
+}
+```
+
+### Example: Custom Theme
+
+```scss
+// Dark theme dialog
+.dark-theme-dialog {
+  --dialog-border-color: #444;
+  --dialog-button-hover-bg: #333;
+  --dialog-close-color: #ccc;
+  background: #1a1a1a;
+  color: #fff;
+}
+```
+
+---
+
+## TypeScript Support
+
+### Import Types
+
+```tsx
+import type {
+  DialogProps,
+  DialogModalProps,
+  DialogHeaderProps,
+  DialogFooterProps,
+} from "@fpkit/acss";
+```
+
+### Type Definitions
+
+All components are fully typed with comprehensive JSDoc comments:
+
+```tsx
+interface DialogProps extends BaseDialogProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  isAlertDialog?: boolean;
+  onClose?: () => void; // Deprecated
+  onConfirm?: () => void | Promise<void>;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  hideFooter?: boolean;
+}
+```
+
+---
+
+## Migration Guide
+
+### Upgrading from Old API
+
+**Before (Old API):**
+```tsx
+<Dialog
+  showDialog={isOpen}
+  onClose={() => setIsOpen(false)}
+  dialogTitle="Old API"
+>
+  Content
+</Dialog>
+```
+
+**After (New API):**
+```tsx
+<Dialog
+  isOpen={isOpen}
+  onOpenChange={setIsOpen}
+  dialogTitle="New API"
+>
+  Content
+</Dialog>
+```
+
+**Backward Compatible (Temporary):**
+```tsx
+<Dialog
+  isOpen={isOpen}
+  onOpenChange={setIsOpen}
+  onClose={() => console.log('Still works!')} // Deprecated but functional
+  dialogTitle="Hybrid"
+>
+  Content
+</Dialog>
+```
+
+### Breaking Changes
+
+| Old Prop | New Prop | Migration |
+|----------|----------|-----------|
+| `showDialog` | `isOpen` | Rename prop |
+| `onClose` | `onOpenChange` | Change signature from `() => void` to `(open: boolean) => void` |
+| `dialogId` | *(removed)* | Use auto-generated IDs via `useId()` |
+
+---
+
+## Best Practices
+
+### ✅ Do
+
+```tsx
+// Use controlled pattern for complex flows
+const [step, setStep] = useState(1);
+<Dialog isOpen={step === 2} onOpenChange={(open) => !open && setStep(1)}>
+  Multi-step content
+</Dialog>
+
+// Provide clear button labels
+<Dialog confirmLabel="Delete Forever" cancelLabel="Keep Item">
+
+// Use DialogModal for simple cases
+<DialogModal dialogTitle="Quick Action" btnLabel="Go">
+```
+
+### ❌ Don't
+
+```tsx
+// Don't manage state twice
+const [open, setOpen] = useState(false);
+<Dialog isOpen={open} onOpenChange={setOpen} onClose={() => setOpen(false)}>
+  // onClose is redundant with onOpenChange
+
+// Don't use inline alerts for critical actions
+<Dialog isAlertDialog={true} onConfirm={deleteAllData}>
+  // Use modal for destructive actions!
+
+// Don't skip ARIA labels for custom content
+<Dialog hideFooter>
+  <button>Close</button> {/* Missing aria-label */}
+</Dialog>
+```
+
+---
+
+## Performance Considerations
+
+The dialog component is optimized with:
+- ✅ `React.memo` on subcomponents (DialogHeader, DialogFooter)
+- ✅ `useCallback` for event handlers
+- ✅ Minimal re-renders via proper dependency arrays
+- ✅ Native `<dialog>` API (no JavaScript focus trap)
+
+---
+
+## Browser Support
+
+Requires browsers with native `<dialog>` element support:
+- ✅ Chrome 37+
+- ✅ Edge 79+
+- ✅ Firefox 98+
+- ✅ Safari 15.4+
+
+For older browsers, consider using a polyfill like [`dialog-polyfill`](https://github.com/GoogleChrome/dialog-polyfill).
+
+---
+
+## Testing
+
+The dialog component has comprehensive test coverage:
+- ✓ 24 tests covering all scenarios
+- ✓ Controlled vs uncontrolled behavior
+- ✓ Modal vs non-modal rendering
+- ✓ ARIA attributes validation
+- ✓ Focus restoration
+- ✓ Keyboard interactions
+
+Run tests:
+```bash
+npm test -- dialog.test.tsx
+```
+
+---
+
+## Related Components
+
+- **DialogHeader** - Header with title and close button (internal)
+- **DialogFooter** - Footer with confirm/cancel buttons (internal)
+- **Button** - Used for trigger and action buttons
+- **Icon** - Used for close button icon
+
+---
+
+## Resources
+
+- [MDN: `<dialog>` Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
+- [ARIA: Dialog Role](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+
+---
+
+## License
+
+Part of the `@fpkit/acss` component library.
