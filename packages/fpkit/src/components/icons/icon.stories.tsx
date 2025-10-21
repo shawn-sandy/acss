@@ -53,9 +53,14 @@ export const IconButton = {
   },
 };
 
+/**
+ * Decorative icon (default behavior).
+ * Icon is hidden from screen readers via aria-hidden="true".
+ * Use when icon accompanies visible text.
+ */
 export const Code: Story = {
   args: {
-    children: <Icon.Code role="img" aria-label="code icon" />,
+    children: <Icon.Code />,
   },
 } as Story;
 
@@ -248,4 +253,72 @@ export const AlertSquareSolid: Story = {
   args: {
     children: <Icon.AlertSquareSolid />,
   },
+} as Story;
+
+/**
+ * ✅ ACCESSIBLE PATTERN: Decorative icon with visible text.
+ * Icon is hidden from screen readers (default aria-hidden="true").
+ * Screen readers announce only "Save Changes".
+ */
+export const DecorativeIconWithText: Story = {
+  args: {},
+  render: () => (
+    <Button type="button">
+      <Icon>
+        <Icon.Code />
+      </Icon>
+      Save Changes
+    </Button>
+  ),
+} as Story;
+
+/**
+ * ✅ ACCESSIBLE PATTERN: Semantic icon-only button.
+ * Icon is exposed to screen readers with aria-hidden={false}.
+ * aria-label provides accessible name for screen readers.
+ */
+export const SemanticIconOnlyButton: Story = {
+  args: {},
+  render: () => (
+    <Button type="button" aria-label="Close dialog">
+      <Icon aria-hidden={false}>
+        <Icon.Remove />
+      </Icon>
+    </Button>
+  ),
+} as Story;
+
+/**
+ * ✅ ACCESSIBLE PATTERN: Icon with role="img" for semantic meaning.
+ * Use when icon conveys information beyond decoration.
+ * Requires aria-label for accessible name.
+ */
+export const SemanticIconWithRole: Story = {
+  args: {
+    "aria-hidden": false,
+    "aria-label": "Code snippet",
+    role: "img",
+    children: <Icon.Code />,
+  },
+} as Story;
+
+/**
+ * ❌ ANTI-PATTERN: Icon-only button without accessible name.
+ * This will fail WCAG 4.1.2 (Name, Role, Value).
+ * Screen readers cannot identify the button's purpose.
+ */
+export const IconOnlyButtonNoLabel: Story = {
+  args: {},
+  render: () => (
+    <div style={{ opacity: 0.5, border: "2px dashed red", padding: "1rem" }}>
+      <p style={{ color: "red", marginBottom: "0.5rem" }}>
+        ❌ BAD: No accessible name
+      </p>
+      <Button type="button">
+        <Icon>
+          <Icon.Remove />
+        </Icon>
+      </Button>
+    </div>
+  ),
 } as Story;
