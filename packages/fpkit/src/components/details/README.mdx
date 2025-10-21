@@ -4,98 +4,466 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Details Component
 
+A WCAG 2.1 AA compliant progressive disclosure component that leverages native HTML `<details>` and `<summary>` elements for accessible, semantic expand/collapse functionality.
+
 ## Summary
 
-The `Details` component is a versatile and accessible component that provides a
-collapsible section for displaying content. It is built using functional
-components and hooks, ensuring reusability and performance optimization.
+The `Details` component provides a native, accessible way to show and hide content. Built on the HTML5 `<details>` element, it includes built-in keyboard support, automatic ARIA semantics, and support for accordion-style grouping where only one item can be open at a time.
+
+**Latest Version:** v0.5.11+ (Refactored with breaking changes)
 
 ## Features
 
-- Accessible with aria-label support.
-- Customizable with styles and class names.
-- Supports icons and custom summary content.
-- Easy to integrate and use in any React application.
+- 🎯 **Semantic HTML** - Uses native `<details>` and `<summary>` elements
+- ⌨️ **Built-in keyboard support** - Space/Enter toggle without custom JavaScript
+- ♿ **WCAG 2.1 AA compliant** - A- rating with excellent accessibility
+- 🎪 **Accordion mode** - Group multiple details with `name` attribute
+- 🔄 **Auto-managed state** - Browser handles `aria-expanded` automatically
+- ⚡ **Performance optimized** - React.forwardRef and useCallback for efficiency
+- 🎨 **Fully customizable** - Supports icons, custom styles, and event handlers
+- 🧪 **Comprehensive testing** - Includes automated accessibility testing with axe-core
+
+## Accessibility
+
+- ✅ Native `<details>` element with semantic screen reader announcements
+- ✅ Built-in keyboard navigation (Space, Enter to toggle)
+- ✅ Automatic `aria-expanded` state management by browser
+- ✅ Screen readers announce as "disclosure" or "expandable" widget
+- ✅ Focus indicators with visible styling
+- ✅ No keyboard traps
+- ✅ Ref forwarding for programmatic focus management
+- ✅ Optional `aria-label` support for additional context
+
+**Accessibility Rating:** ✅ A- (Excellent) - WCAG 2.1 Level AA
+
+See [ACCESSIBILITY-REVIEW.md](./ACCESSIBILITY-REVIEW.md) for detailed compliance analysis.
 
 ## Props
 
-| Name            | Type                                                  | Description                                       |
-| --------------- | ----------------------------------------------------- | ------------------------------------------------- |
-| `summary`       | `React.ReactNode`                                     | The summary text shown for the details. Required. |
-| `ariaLabel`     | `string`                                              | The aria-label element for accessibility.         |
-| `styles`        | `React.CSSProperties`                                 | CSS styles object.                                |
-| `classes`       | `string`                                              | Classnames string.                                |
-| `open`          | `boolean`                                             | Whether the details is open.                      |
-| `onToggle`      | `(e: React.PointerEvent<HTMLDetailsElement>) => void` | onToggle callback.                                |
-| `onPointerDown` | `(e: React.PointerEvent<HTMLDetailsElement>) => void` | onPointerDown callback.                           |
-| `children`      | `React.ReactNode`                                     | The content inside the details.                   |
-| `ref`           | `React.Ref<any>`                                      | Ref object.                                       |
-| `name`          | `string`                                              | Name attribute for the details element.           |
+```ts
+type DetailsProps = {
+  /** The summary text or element shown in the clickable header (required) */
+  summary: React.ReactNode;
 
-## Technical Details
+  /** Optional icon displayed before the summary text */
+  icon?: React.ReactNode;
 
-The `Details` component is built using TypeScript for type-checking and enhanced
-developer experience. It uses functional components and hooks to ensure
-performance and reusability.
+  /** Accessible label for screen readers (rarely needed with native semantics) */
+  ariaLabel?: string;
 
-## Usage Example
+  /** Groups multiple details into an accordion (only one open at a time) */
+  name?: string;
+
+  /** Custom CSS styles */
+  styles?: React.CSSProperties;
+
+  /** Custom CSS classes */
+  classes?: string;
+
+  /** Whether the details is initially open */
+  open?: boolean;
+
+  /** Callback fired when details is toggled */
+  onToggle?: (e: React.SyntheticEvent<HTMLDetailsElement>) => void;
+
+  /** Callback fired on pointer down on summary */
+  onPointerDown?: (e: React.PointerEvent<HTMLDetailsElement>) => void;
+
+  /** Content to display when expanded */
+  children: React.ReactNode;
+} & React.ComponentProps<"details"> & Partial<React.ComponentProps<typeof UI>>;
+```
+
+### Default Values
+
+| Prop | Default | Description |
+|------|---------|-------------|
+| `open` | `false` | Details start collapsed |
+| `icon` | `undefined` | No icon by default |
+| `ariaLabel` | `undefined` | Native semantics used |
+| `name` | `undefined` | Independent behavior (not grouped) |
+
+## Usage Examples
 
 ### Basic Usage
 
-```tsx
-import React from "react";
-import Details from "./details";
-import Icons from "../icons/icon";
-
-const content = (
-  <>
-    <p>Example content inside the details component.</p>
-  </>
-);
-
-const icon = <Icons.Add />;
-
-const Example = () => (
-  <Details summary="Summary Section" icon={icon} ariaLabel="Details Section">
-    {content}
-  </Details>
-);
-
-export default Example;
-```
-
-### Advanced Usage
+Simple expand/collapse section:
 
 ```tsx
-import React from "react";
-import Details from "./details";
-import Icons from "../icons/icon";
+import { Details } from '@fpkit/acss';
 
-const content = (
-  <>
-    <p>Advanced example content inside the details component.</p>
-  </>
-);
-
-const icon = <Icons.Add />;
-
-const AdvancedExample = () => (
-  <Details
-    summary="Advanced Summary Section"
-    icon={icon}
-    ariaLabel="Advanced Details Section"
-    open={true}
-    onToggle={(e) => console.log("Toggled", e)}
-  >
-    {content}
-  </Details>
-);
-
-export default AdvancedExample;
+function ShippingInfo() {
+  return (
+    <Details summary="Shipping Information">
+      <p>Ships within 2-3 business days</p>
+      <p>Free shipping on orders over $50</p>
+    </Details>
+  );
+}
 ```
 
-### Additional Notes
+### With Icon
 
-- Ensure to provide meaningful aria-labels for accessibility.
-- Customize the component using the `styles` and `classes` props.
-- Use the `onToggle` and `onPointerDown` callbacks for custom interactions.
+Add a chevron or custom icon indicator:
+
+```tsx
+import { Details } from '@fpkit/acss';
+import { ChevronDownIcon } from '../icons';
+
+function ProductDetails() {
+  return (
+    <Details
+      summary="Product Specifications"
+      icon={<ChevronDownIcon aria-hidden="true" />}
+    >
+      <ul>
+        <li>Material: 100% Cotton</li>
+        <li>Weight: 200g</li>
+        <li>Dimensions: 10x15x5 cm</li>
+      </ul>
+    </Details>
+  );
+}
+```
+
+### Accordion Mode (Exclusive Opening)
+
+Only one details can be open at a time using the `name` attribute:
+
+```tsx
+import { Details } from '@fpkit/acss';
+
+function FAQ() {
+  return (
+    <section>
+      <h2>Frequently Asked Questions</h2>
+
+      <Details name="faq-accordion" summary="What is your return policy?">
+        <p>We accept returns within 30 days of purchase.</p>
+      </Details>
+
+      <Details name="faq-accordion" summary="How long does shipping take?">
+        <p>Standard shipping takes 3-5 business days.</p>
+      </Details>
+
+      <Details name="faq-accordion" summary="Do you ship internationally?">
+        <p>Yes, we ship to over 100 countries worldwide.</p>
+      </Details>
+    </section>
+  );
+}
+```
+
+### Controlled State with Event Handlers
+
+Track open/closed state and respond to changes:
+
+```tsx
+import { Details } from '@fpkit/acss';
+import { useState } from 'react';
+
+function AnalyticsExample() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleToggle = (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+    const newState = e.currentTarget.open;
+    setIsOpen(newState);
+
+    // Track analytics
+    console.log('Details toggled:', newState ? 'opened' : 'closed');
+  };
+
+  return (
+    <Details
+      summary="View Details"
+      open={isOpen}
+      onToggle={handleToggle}
+    >
+      <p>Content that can be tracked when opened/closed</p>
+    </Details>
+  );
+}
+```
+
+### With Custom Styling
+
+Apply custom styles and classes:
+
+```tsx
+import { Details } from '@fpkit/acss';
+
+function StyledDetails() {
+  return (
+    <Details
+      summary="Custom Styled Section"
+      classes="my-custom-details"
+      styles={{
+        '--details-border-color': '#0066cc',
+        '--details-bg-color': '#f5f5f5',
+      } as React.CSSProperties}
+    >
+      <p>Content with custom styling using CSS variables</p>
+    </Details>
+  );
+}
+```
+
+### With Dynamic Content Loading
+
+Load content when details is opened:
+
+```tsx
+import { Details } from '@fpkit/acss';
+import { useState } from 'react';
+
+function DynamicContent() {
+  const [data, setData] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleToggle = async (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+    if (e.currentTarget.open && !data) {
+      setLoading(true);
+      const response = await fetch('/api/data');
+      const result = await response.text();
+      setData(result);
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Details summary="Load More Data" onToggle={handleToggle}>
+      {loading ? (
+        <div role="status" aria-live="polite">
+          Loading...
+        </div>
+      ) : (
+        <div>{data || 'Click to load data'}</div>
+      )}
+    </Details>
+  );
+}
+```
+
+### With Ref Forwarding
+
+Access the underlying details element:
+
+```tsx
+import { Details } from '@fpkit/acss';
+import { useRef } from 'react';
+
+function RefExample() {
+  const detailsRef = useRef<HTMLDetailsElement>(null);
+
+  const openProgrammatically = () => {
+    if (detailsRef.current) {
+      detailsRef.current.open = true;
+      detailsRef.current.focus();
+    }
+  };
+
+  return (
+    <>
+      <button onClick={openProgrammatically}>
+        Open Details
+      </button>
+
+      <Details ref={detailsRef} summary="Programmatically Controlled">
+        <p>This can be opened via ref</p>
+      </Details>
+    </>
+  );
+}
+```
+
+## Styling
+
+The component includes default SCSS styles with CSS custom properties for theming.
+
+### CSS Custom Properties
+
+```css
+details {
+  --details-border-color: currentColor;
+  --details-bg-color: transparent;
+  --details-padding: 1rem;
+  --details-border-radius: 0.25rem;
+}
+```
+
+### SCSS Classes
+
+The component applies the following structure:
+
+```html
+<details class="your-classes">
+  <summary>
+    <!-- icon (if provided) -->
+    <!-- summary content -->
+  </summary>
+  <section>
+    <!-- children content -->
+  </section>
+</details>
+```
+
+## Breaking Changes from Previous Version
+
+### Component Refactoring (v0.5.11+)
+
+1. **TypeScript Types Extracted**
+   - Props now defined in separate `details.types.ts` file
+   - Better type inference and documentation
+
+2. **Event Handler Fixes**
+   - Fixed duplicate `onPointerDown` calls
+   - Corrected `onToggle` event type from `PointerEvent` to `SyntheticEvent`
+
+3. **Performance Improvements**
+   - Added `React.forwardRef` for proper ref forwarding
+   - Implemented `useCallback` for event handlers
+   - Added `displayName` for better debugging
+
+4. **Removed Default ARIA Label**
+   - Previously defaulted to `"Details dropdown"`
+   - Now relies on native semantics unless explicitly provided
+
+## Technical Details
+
+### Component Architecture
+
+- **Functional Component** with React.forwardRef
+- **Performance Optimized** with useCallback for event handlers
+- **Type-Safe** with extracted TypeScript definitions
+- **Accessible** by leveraging native HTML5 elements
+
+### Browser Support
+
+The `<details>` element is supported in all modern browsers:
+- Chrome 12+
+- Firefox 49+
+- Safari 6+
+- Edge 79+
+
+For older browsers, consider using a polyfill or alternative disclosure pattern.
+
+### Native `<details>` Accordion Feature
+
+The `name` attribute for accordion behavior is a modern HTML feature:
+- Supported in Chrome 120+, Edge 120+
+- Progressive enhancement: older browsers treat details as independent
+- No JavaScript required for accordion functionality
+
+## Testing
+
+### Automated Testing
+
+The component includes comprehensive tests:
+
+```bash
+npm test -- details.test.tsx
+```
+
+Tests cover:
+- ✅ Basic rendering
+- ✅ Keyboard interaction (Space, Enter)
+- ✅ Props and attributes
+- ✅ Event handlers (onToggle, onPointerDown)
+- ✅ Accordion mode with `name` attribute
+- ✅ Ref forwarding
+- ✅ Accessibility with axe-core
+
+### Manual Testing Checklist
+
+#### Keyboard Navigation
+- [ ] Tab to summary - should receive focus with visible indicator
+- [ ] Press Space - should toggle open/closed
+- [ ] Press Enter - should toggle open/closed
+- [ ] No keyboard traps
+
+#### Screen Reader Testing (NVDA/VoiceOver/JAWS)
+- [ ] Announces as "disclosure" or "expandable"
+- [ ] Announces current state (expanded/collapsed)
+- [ ] State changes announced when toggling
+
+#### Visual Testing
+- [ ] Focus indicator visible with sufficient contrast
+- [ ] Works at 200% browser zoom
+- [ ] Content reflows at 320px viewport width
+
+See [ACCESSIBILITY-REVIEW.md](./ACCESSIBILITY-REVIEW.md) for complete testing guide.
+
+## Migration Guide
+
+### From Previous Version
+
+```tsx
+// Before (v0.5.10 and earlier)
+<Details
+  summary="My Summary"
+  ariaLabel="Details dropdown"  // Had default value
+  onToggle={(e: PointerEvent) => {}}  // Wrong event type
+>
+  {content}
+</Details>
+
+// After (v0.5.11+)
+<Details
+  summary="My Summary"
+  ariaLabel="My custom label"  // Optional, no default
+  onToggle={(e: SyntheticEvent<HTMLDetailsElement>) => {}}  // Correct type
+>
+  {content}
+</Details>
+```
+
+## Best Practices
+
+### Accessibility
+
+1. **Don't override native semantics** - The `ariaLabel` prop is rarely needed
+2. **Hide decorative icons** - Use `aria-hidden="true"` on chevron icons
+3. **Provide meaningful summaries** - Summary text should describe the content
+4. **Use accordion mode wisely** - Only when one section should be open at a time
+
+### Performance
+
+1. **Memoize callbacks** - Wrap `onToggle` handlers in `useCallback`
+2. **Avoid complex summary content** - Keep summaries simple for better performance
+3. **Use ref forwarding** - Access the element directly when needed
+
+### Styling
+
+1. **Use rem units** - All spacing should use rem for accessibility
+2. **Test color contrast** - Ensure focus indicators meet 3:1 contrast ratio
+3. **Support dark mode** - Use CSS custom properties for theming
+
+## Related Components
+
+- **Accordion** - For more complex accordion implementations
+- **Tabs** - Alternative pattern for organizing content
+- **Modal** - For overlay content disclosure
+
+## Resources
+
+- [MDN: Details Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)
+- [ARIA Authoring Practices: Disclosure Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Component Accessibility Review](./ACCESSIBILITY-REVIEW.md)
+
+## Changelog
+
+### v0.5.11 (Latest)
+- ✨ Refactored with TypeScript types in separate file
+- ✨ Added React.forwardRef for proper ref handling
+- ✨ Implemented useCallback for performance optimization
+- 🐛 Fixed duplicate onPointerDown calls
+- 🐛 Fixed onToggle event type (PointerEvent → SyntheticEvent)
+- 📝 Comprehensive JSDoc documentation
+- 📝 Complete WCAG 2.1 AA accessibility review
+- 🧪 Added comprehensive test suite with axe-core
+- ♿ Accessibility rating: A- (Excellent)
+
+---
+
+**Need Help?** Check the [Storybook examples](./?path=/docs/fp-react-components-details--docs) or review the [accessibility guide](./ACCESSIBILITY-REVIEW.md).
