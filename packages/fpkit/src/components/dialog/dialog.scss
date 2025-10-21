@@ -39,7 +39,7 @@ dialog {
   border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
   padding: var(--dialog-padding);
-  padding-block-start: calc(var(--dialog-padding) - 0rem);
+  padding-block-start: var(--dialog-padding);
 
   /* Focus visible for keyboard navigation */
   &:focus-visible {
