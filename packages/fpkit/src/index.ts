@@ -37,7 +37,13 @@ export * from "./components/nav/nav";
 
 // Typography components
 export * from "./components/text/text";
-export * from "./components/heading/heading";
+
+// Title component (primary export)
+export { default as Title, type TitleProps, type HeadingLevel } from "./components/title/title";
+
+// Heading component (deprecated - use Title instead)
+/** @deprecated Use Title component instead. Will be removed in v3.0.0 */
+export { default as Heading } from "./components/heading/heading";
 
 // Form components
 export * from "./components/form/textarea";
