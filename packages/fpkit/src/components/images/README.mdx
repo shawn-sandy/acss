@@ -1,43 +1,359 @@
-# Images Directory
+# Image Components
 
-This directory contains React components and utilities related to rendering images in a web application. The key files and their purposes are as follows:
+Modern, accessible, and performant React image components with built-in support for responsive images, lazy loading, and WCAG 2.1 AA compliance.
 
-## img.tsx
+---
 
-The `Img` component is a React component that renders an `<img>` element with additional props and functionality. It provides options to customize the image's source, alt text, dimensions, loading behavior, placeholder, fetch priority, and decoding method. It also supports callbacks for image load and error events.
+## Overview
 
-## img.scss
+This directory contains:
 
-This file contains CSS styles for the `<img>` element and the `<figure>` element that can contain an image. It sets default styles for image sizing, aspect ratio, object fit, and positioning. It also styles the `<figure>` element to display the image and caption in a flex layout with a background color.
+- **`<Img />`** - Type-safe image component with responsive image support and error handling
+- **`<Figure />`** - Semantic figure component with image and caption
+- **CSS custom properties** - Flexible theming system using SCSS
+- **Comprehensive tests** - 25+ tests covering accessibility, performance, and edge cases
 
-## figure.tsx
+---
 
-The `Figure` component is a React component that renders a `<figure>` element with an image and an optional caption. It uses the `Img` component to render the image and provides props to set the image source, dimensions, and alt text, as well as the caption text.
+## Quick Start
 
-## img.test.tsx
+```tsx
+import { Img } from '@fpkit/acss'
 
-This file contains unit tests for the `Img` component, ensuring it renders correctly with various props and handles image load and error events as expected.
+// Basic usage
+<Img src="/photo.jpg" alt="Beautiful landscape" width={800} />
 
-## img.stories.tsx and figure.stories.tsx
+// Decorative image
+<Img src="/border.png" alt="" />
 
-These files contain Storybook stories for the `Img` and `Figure` components, respectively. They provide examples and documentation for how to use the components with different props and configurations.
+// Responsive image
+<Img
+  src="/photo.jpg"
+  srcSet="/photo-320w.jpg 320w, /photo-640w.jpg 640w, /photo-1024w.jpg 1024w"
+  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
+  alt="Team photo"
+/>
+```
 
-## Usage
+---
 
-To use the `Img` or `Figure` components in your React application, import them from this directory and pass in the required props. For example:
+## Accessibility (WCAG 2.1 AA)
 
-```jsx
-import Img from './components/images/img';
-import Figure from './components/images/figure';
+### Decorative Images
 
-function MyComponent() {
-return (
-<div>
-<Img src="/path/to/image.jpg" alt="My Image" width={300} height={200} />
-<Figure src="/path/to/image.jpg" alt="My Image" width={300} height={200} caption="This is a caption" />
+Images that are purely visual decoration should use an empty `alt` attribute:
+
+```tsx
+// ✅ GOOD: Decorative border
+<Img src="/decorative-border.png" alt="" />
+
+// ✅ GOOD: Background pattern
+<Img src="/pattern.svg" alt="" />
+```
+
+### Semantic Images
+
+Images that convey meaning must have descriptive alt text:
+
+```tsx
+// ✅ GOOD: Informative chart
+<Img
+  src="/sales-chart.png"
+  alt="Sales chart showing 30% revenue growth in Q4 2024"
+/>
+
+// ✅ GOOD: Product photo
+<Img
+  src="/laptop.jpg"
+  alt="Silver MacBook Pro 14-inch on wooden desk"
+/>
+
+// ❌ BAD: Generic or missing alt text
+<Img src="/chart.png" alt="chart" />
+<Img src="/photo.jpg" />
+```
+
+---
+
+## Performance Optimization
+
+### Lazy Loading (Default)
+
+By default, images use lazy loading to improve page load performance:
+
+```tsx
+// Lazy loaded automatically
+<Img src="/photo.jpg" alt="Photo" />
+
+// Explicit lazy loading
+<Img src="/photo.jpg" alt="Photo" loading="lazy" />
+```
+
+### Eager Loading for Hero Images
+
+Use eager loading for above-the-fold images:
+
+```tsx
+<Img
+  src="/hero.jpg"
+  alt="Hero banner"
+  loading="eager"
+  fetchpriority="high"
+/>
+```
+
+### Responsive Images
+
+Use `srcSet` and `sizes` for responsive images:
+
+```tsx
+<Img
+  src="/photo.jpg"
+  srcSet="
+    /photo-320w.jpg 320w,
+    /photo-640w.jpg 640w,
+    /photo-1024w.jpg 1024w
+  "
+  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 800px"
+  alt="Responsive image adapts to viewport"
+/>
+```
+
+### Async Decoding
+
+Prevent blocking the main thread during image decoding:
+
+```tsx
+<Img src="/large-photo.jpg" alt="Large photo" decoding="async" />
+```
+
+---
+
+## Error Handling
+
+### Default Placeholder
+
+The component automatically falls back to a placeholder on error:
+
+```tsx
+<Img src="/might-fail.jpg" alt="Photo" />
+// Falls back to default placeholder if image fails
+```
+
+### Custom Placeholder
+
+Provide a custom fallback image:
+
+```tsx
+<Img
+  src="/photo.jpg"
+  placeholder="/fallback.png"
+  alt="Profile photo"
+/>
+```
+
+### Custom Error Handler
+
+Handle errors with custom logic:
+
+```tsx
+<Img
+  src="/photo.jpg"
+  alt="Photo"
+  onError={(e) => {
+    console.error('Image failed:', e.currentTarget.src)
+    // Log to analytics, show notification, etc.
+  }}
+/>
+```
+
+---
+
+## Common Use Cases
+
+### Profile/Avatar Images
+
+```tsx
+<Img
+  src="/avatar.jpg"
+  alt="User profile photo"
+  width={150}
+  height={150}
+  loading="eager"
+  styles={{ borderRadius: '50%' }}
+/>
+```
+
+### Gallery Images
+
+```tsx
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+  <Img src="/photo1.jpg" alt="Gallery image 1" width={400} />
+  <Img src="/photo2.jpg" alt="Gallery image 2" width={400} />
+  <Img src="/photo3.jpg" alt="Gallery image 3" width={400} />
 </div>
-);
+```
+
+### Figure with Caption
+
+```tsx
+import { Figure } from '@fpkit/acss'
+
+<Figure
+  src="/chart.jpg"
+  alt="Q4 sales performance chart"
+  caption="Sales increased by 30% in Q4 2024"
+/>
+```
+
+---
+
+## API Reference
+
+### Img Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | `"//"` | Image source URL |
+| `alt` | `string` | `undefined` | Alternative text (empty for decorative, descriptive for semantic) |
+| `width` | `number \| string` | `480` | Image width |
+| `height` | `number \| string` | `"auto"` | Image height |
+| `loading` | `"lazy" \| "eager"` | `"lazy"` | Loading strategy |
+| `srcSet` | `string` | `undefined` | Responsive image sources |
+| `sizes` | `string` | `undefined` | Media conditions for responsive images |
+| `placeholder` | `string` | Auto-generated | Fallback image URL |
+| `fetchpriority` | `"low" \| "high" \| "auto"` | `"low"` | Fetch priority hint |
+| `decoding` | `"sync" \| "async" \| "auto"` | `"auto"` | Decoding hint |
+| `onError` | `function` | `undefined` | Error event handler |
+| `onLoad` | `function` | `undefined` | Load event handler |
+| `styles` | `CSSProperties` | `undefined` | Inline styles |
+
+All native `<img>` attributes are supported via spread props.
+
+---
+
+## Styling with CSS Custom Properties
+
+The component uses CSS custom properties for theming:
+
+```scss
+img[alt] {
+  /* Override these in your CSS */
+  --img-max-width: 100%;
+  --img-height: auto;
+  --img-object-fit: cover;
+  --img-object-position: center;
+  --img-aspect-ratio: auto 2/3;
+  --img-display: inline-block;
 }
 ```
 
-The components provide a consistent and extensible way to render images in your application, with additional features like placeholders, loading behavior, and error handling.
+Example customization:
+
+```tsx
+<Img
+  src="/photo.jpg"
+  alt="Photo"
+  styles={{
+    '--img-object-fit': 'contain',
+    '--img-aspect-ratio': '16/9',
+  }}
+/>
+```
+
+---
+
+## Migration from v1.x
+
+### Breaking Changes
+
+**Event handler props renamed:**
+
+```tsx
+// ❌ Old API (v1.x)
+<Img imgError={handleError} imgLoaded={handleLoad} />
+
+// ✅ New API (v2.x)
+<Img onError={handleError} onLoad={handleLoad} />
+```
+
+**Type export renamed:**
+
+```tsx
+// ❌ Old import
+import { ImageProps } from '@fpkit/acss'
+
+// ✅ New import
+import type { ImgProps } from '@fpkit/acss'
+```
+
+---
+
+## Files in This Directory
+
+### Component Files
+
+- **`img.tsx`** - Main Img component with responsive image support
+- **`img.types.ts`** - TypeScript type definitions and interfaces
+- **`figure.tsx`** - Figure component for images with captions
+
+### Styling
+
+- **`img.scss`** - SCSS source with CSS custom properties
+- Compiled to `libs/components/images/img.css` during build
+
+### Testing & Documentation
+
+- **`img.test.tsx`** - 25 comprehensive unit tests
+- **`img.stories.tsx`** - 11 Storybook stories with examples
+- **`figure.stories.tsx`** - Figure component stories
+
+---
+
+## TypeScript Support
+
+Full TypeScript support with comprehensive type definitions:
+
+```tsx
+import { Img, type ImgProps } from '@fpkit/acss'
+
+// Custom component extending Img
+interface CustomImgProps extends ImgProps {
+  caption?: string
+}
+
+const CustomImg: React.FC<CustomImgProps> = ({ caption, ...props }) => (
+  <figure>
+    <Img {...props} />
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+)
+```
+
+---
+
+## Testing
+
+Run tests for the Img component:
+
+```bash
+npm test -- img.test.tsx
+```
+
+All 25 tests should pass ✅
+
+---
+
+## Related Components
+
+- **`<Figure />`** - Semantic figure with caption support
+- **`<UI />`** - Base polymorphic component used internally
+
+---
+
+## Resources
+
+- [WCAG 2.1 Non-text Content Guidelines](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)
+- [MDN: Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
+- [MDN: Image loading attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#loading)
+- [Component Storybook](../../stories) - View all examples in Storybook
