@@ -1,21 +1,33 @@
+/**
+ * Image component styles
+ *
+ * Applies to all images with alt attribute (both decorative alt="" and semantic).
+ * Uses CSS custom properties for flexible theming and responsive behavior.
+ */
 img[alt] {
+  /* CSS Custom Properties - Override these for customization */
   --img-max-width: 100%;
   --img-height: auto;
   --img-object-fit: cover;
   --img-object-position: center;
   --img-aspect-ratio: auto 2/3;
   --img-display: inline-block;
+  /* Layout - Responsive by default */
   max-width: var(--img-max-width);
-  max-inline-size: var(--img-max-width);
+  max-inline-size: var(--img-max-width); /* Logical property for i18n */
   block-size: var(--img-height);
+  display: var(--img-display);
+  vertical-align: middle;
+  /* Object fitting for responsive images */
   object-fit: var(--img-object-fit);
   object-position: var(--img-object-position);
   aspect-ratio: var(--img-aspect-ratio);
-  display: var(--img-display);
-  vertical-align: middle;
+  /* Accessibility - Italic font for broken image alt text */
   font-style: italic;
+  /* Background for loading state */
   background-size: cover;
   background-repeat: no-repeat;
+  /* Shape margin for text wrapping */
   shape-margin: var(--spc-3);
 }
 

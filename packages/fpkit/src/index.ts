@@ -20,7 +20,8 @@ export {
 export { Field, type FieldProps } from "./components/form/fields";
 export { Input, type InputProps } from "./components/form/inputs";
 export { Icon, type IconProps } from "./components/icons/icon";
-export { Img, type ImageProps } from "./components/images/img";
+export { Img } from "./components/images/img";
+export type { ImgProps } from "./components/images/img.types";
 export { Link, type LinkProps } from "./components/link/link";
 export { List, type ListItemProps } from "./components/list/list";
 export { Modal, type ModalProps } from "./components/modal/modal";
