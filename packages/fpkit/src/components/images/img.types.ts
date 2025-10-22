@@ -166,15 +166,27 @@ export interface ImgProps
 
   /**
    * Callback fired when the image fails to load.
-   * If not provided, falls back to placeholder image.
+   * The default SVG placeholder is still applied after calling this handler.
+   * Call `event.preventDefault()` to prevent the default fallback behavior.
    *
    * @param event - The error event
    *
    * @example
    * ```tsx
+   * // Log error and show default placeholder
    * <Img
    *   src="/photo.jpg"
    *   onError={(e) => console.error('Image failed to load', e)}
+   *   alt="Photo"
+   * />
+   *
+   * // Prevent default and use custom fallback
+   * <Img
+   *   src="/photo.jpg"
+   *   onError={(e) => {
+   *     e.preventDefault()
+   *     e.currentTarget.src = '/custom-fallback.jpg'
+   *   }}
    *   alt="Photo"
    * />
    * ```

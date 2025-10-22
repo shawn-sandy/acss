@@ -162,18 +162,23 @@ export const Img = ({
 
   /**
    * Handles image load errors.
-   * If custom error handler provided, calls it. Otherwise, falls back to placeholder.
+   * Calls custom error handler if provided, then applies fallback placeholder.
+   * The custom handler can prevent the default fallback by calling e.preventDefault().
    */
   const handleImgError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>
   ): void => {
+    // Call custom error handler first (for logging, analytics, etc.)
     if (onError) {
       onError(e);
-      return;
     }
-    // Avoid infinite error loop by checking if already showing placeholder
-    if (e.currentTarget.src !== fallbackPlaceholder) {
-      e.currentTarget.src = fallbackPlaceholder;
+
+    // Apply fallback unless preventDefault() was called
+    if (!e.defaultPrevented) {
+      // Avoid infinite error loop by checking if already showing placeholder
+      if (e.currentTarget.src !== fallbackPlaceholder) {
+        e.currentTarget.src = fallbackPlaceholder;
+      }
     }
   };
 
