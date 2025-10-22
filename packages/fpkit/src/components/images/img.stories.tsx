@@ -161,13 +161,35 @@ export const HeroImage: Story = {
 }
 
 /**
+ * Default SVG gradient placeholder (automatic fallback).
+ * Demonstrates the built-in SVG placeholder that appears when images fail to load.
+ */
+export const DefaultSvgPlaceholder: Story = {
+  args: {
+    src: 'https://invalid-url-will-fail.com/image.jpg',
+    alt: 'Failed image with default SVG placeholder',
+    width: 800,
+    height: 600,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When an image fails to load and no custom placeholder is provided, a beautiful SVG gradient placeholder is displayed automatically. The SVG is inline (no network requests), responsive, and shows the image dimensions for debugging.',
+      },
+    },
+  },
+}
+
+/**
  * Image with custom placeholder fallback.
  * Displays custom image when primary source fails to load.
  */
 export const CustomPlaceholder: Story = {
   args: {
     src: 'https://invalid-url-that-will-fail.com/image.jpg',
-    placeholder: 'https://via.placeholder.com/400x300?text=Image+Not+Available',
+    placeholder:
+      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23ef4444" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle" fill="white" font-family="system-ui" font-size="20"%3ECustom Placeholder%3C/text%3E%3C/svg%3E',
     alt: 'Product photo',
     width: 400,
     height: 300,
@@ -176,7 +198,7 @@ export const CustomPlaceholder: Story = {
     docs: {
       description: {
         story:
-          'When an image fails to load, a custom placeholder can be displayed. If no placeholder is provided, a default placeholder is used.',
+          'When an image fails to load, a custom placeholder can be displayed. This example uses a custom SVG placeholder with a red background.',
       },
     },
   },
@@ -271,6 +293,61 @@ export const AsyncDecoding: Story = {
       description: {
         story:
           'Async decoding prevents image decoding from blocking the main thread, improving perceived performance especially for large images.',
+      },
+    },
+  },
+}
+
+/**
+ * SVG Placeholder Gallery - Different Dimensions.
+ * Demonstrates how the SVG placeholder adapts to various image sizes.
+ */
+export const PlaceholderGallery: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+      <Img
+        src="https://will-fail-1.jpg"
+        alt="Square placeholder"
+        width={400}
+        height={400}
+      />
+      <Img
+        src="https://will-fail-2.jpg"
+        alt="Landscape placeholder"
+        width={600}
+        height={400}
+      />
+      <Img
+        src="https://will-fail-3.jpg"
+        alt="Portrait placeholder"
+        width={400}
+        height={600}
+      />
+      <Img
+        src="https://will-fail-4.jpg"
+        alt="Wide placeholder"
+        width={800}
+        height={400}
+      />
+      <Img
+        src="https://will-fail-5.jpg"
+        alt="Small placeholder"
+        width={200}
+        height={200}
+      />
+      <Img
+        src="https://will-fail-6.jpg"
+        alt="Tall placeholder"
+        width={300}
+        height={500}
+      />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Gallery of failed images showing the default SVG placeholder at various dimensions. The SVG gradient and elements scale proportionally for each size, demonstrating perfect responsiveness.',
       },
     },
   },
