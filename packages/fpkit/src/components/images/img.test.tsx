@@ -128,15 +128,38 @@ describe('Img', () => {
   })
 
   describe('Error Handling', () => {
-    it('should call onError callback when provided', () => {
+    it('should call onError callback and apply fallback placeholder', () => {
       const onError = vi.fn()
       render(<Img src="bad.jpg" alt="Test" onError={onError} />)
 
-      const img = screen.getByRole('img')
+      const img = screen.getByRole('img') as HTMLImageElement
       fireEvent.error(img)
 
+      // Should call custom handler
       expect(onError).toHaveBeenCalledTimes(1)
       expect(onError).toHaveBeenCalledWith(expect.any(Object))
+
+      // Should still apply default fallback
+      expect(img.src).toContain('data:image/svg+xml')
+    })
+
+    it('should prevent default fallback when preventDefault is called', () => {
+      const customSrc = 'https://custom-fallback.jpg'
+      const onError = vi.fn((e) => {
+        e.preventDefault()
+        e.currentTarget.src = customSrc
+      })
+      render(<Img src="bad.jpg" alt="Test" onError={onError} />)
+
+      const img = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img)
+
+      // Should call custom handler
+      expect(onError).toHaveBeenCalledTimes(1)
+
+      // Should use custom fallback, not default SVG
+      expect(img.src).toContain(customSrc)
+      expect(img.src).not.toContain('data:image/svg+xml')
     })
 
     it('should fallback to placeholder when error occurs and no onError handler', () => {

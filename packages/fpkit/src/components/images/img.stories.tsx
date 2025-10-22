@@ -206,7 +206,7 @@ export const CustomPlaceholder: Story = {
 
 /**
  * Image with custom error handler.
- * Allows custom logic when image loading fails.
+ * Demonstrates error logging while still showing the default fallback.
  */
 export const CustomErrorHandler: Story = {
   args: {
@@ -216,14 +216,44 @@ export const CustomErrorHandler: Story = {
     onError: (e) => {
       // eslint-disable-next-line no-console
       console.error('Image failed to load:', e.currentTarget.src)
-      // Custom error handling logic here
+      // Log to analytics, show notification, etc.
+      // The default SVG placeholder will still be applied automatically
     },
   },
   parameters: {
     docs: {
       description: {
         story:
-          'Custom error handlers can be provided via the onError prop for logging, analytics, or custom fallback behavior.',
+          'Custom error handlers can be provided via the onError prop for logging, analytics, or notifications. The default SVG placeholder is still applied automatically. Call e.preventDefault() in your handler if you want to prevent the default fallback.',
+      },
+    },
+  },
+}
+
+/**
+ * Image with custom error handler that prevents default fallback.
+ * Demonstrates full control over error handling.
+ */
+export const CustomErrorHandlerWithPreventDefault: Story = {
+  args: {
+    src: 'https://invalid-url.com/image.jpg',
+    alt: 'Failed image with custom fallback',
+    width: 400,
+    onError: (e) => {
+      // eslint-disable-next-line no-console
+      console.error('Image failed to load:', e.currentTarget.src)
+
+      // Prevent default fallback and use custom image
+      e.preventDefault()
+      const customFallback = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"%3E%3Crect fill="%23f59e0b" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle" fill="white" font-family="system-ui" font-size="18"%3ECustom Error Handler%3C/text%3E%3C/svg%3E`
+      e.currentTarget.src = customFallback
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'When you call e.preventDefault() in the onError handler, the default SVG placeholder is not applied, giving you full control over the fallback behavior. This example shows a custom amber/orange placeholder.',
       },
     },
   },
