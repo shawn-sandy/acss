@@ -248,4 +248,102 @@ describe('Img', () => {
       expect(img).toHaveAttribute('height', '200')
     })
   })
+
+  describe('SVG Placeholder', () => {
+    it('should generate SVG placeholder with correct dimensions', () => {
+      render(<Img src="bad.jpg" alt="Test" width={800} height={600} />)
+
+      const img = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img)
+
+      // Should be SVG data URI
+      expect(img.src).toContain('data:image/svg+xml')
+      // Should contain both dimensions in the text
+      expect(img.src).toContain('800')
+      expect(img.src).toContain('600')
+    })
+
+    it('should generate SVG with 4:3 aspect ratio when height not provided', () => {
+      render(<Img src="bad.jpg" alt="Test" width={400} />)
+
+      const img = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img)
+
+      expect(img.src).toContain('data:image/svg+xml')
+      // 400 * 0.75 = 300
+      expect(img.src).toContain('400')
+      expect(img.src).toContain('300')
+    })
+
+    it('should generate SVG with gradient elements', () => {
+      render(<Img src="bad.jpg" alt="Test" width={500} />)
+
+      const img = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img)
+
+      const decodedSvg = decodeURIComponent(img.src.replace('data:image/svg+xml,', ''))
+
+      // Should contain gradient definition
+      expect(decodedSvg).toContain('linearGradient')
+      expect(decodedSvg).toContain('#6366f1') // Indigo
+      expect(decodedSvg).toContain('#8b5cf6') // Purple
+      expect(decodedSvg).toContain('#ec4899') // Pink
+
+      // Should contain decorative elements
+      expect(decodedSvg).toContain('circle') // Sun
+      expect(decodedSvg).toContain('path') // Mountain wave
+      expect(decodedSvg).toContain('text') // Dimension text
+    })
+
+    it('should generate unique gradient IDs for different dimensions', () => {
+      const { rerender } = render(<Img src="bad1.jpg" alt="Test" width={400} height={300} />)
+      const img1 = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img1)
+      const svg1 = decodeURIComponent(img1.src.replace('data:image/svg+xml,', ''))
+
+      rerender(<Img src="bad2.jpg" alt="Test" width={800} height={600} />)
+      const img2 = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img2)
+      const svg2 = decodeURIComponent(img2.src.replace('data:image/svg+xml,', ''))
+
+      // Different gradient IDs to prevent conflicts
+      expect(svg1).toContain('grad-400-300')
+      expect(svg2).toContain('grad-800-600')
+    })
+
+    it('should handle string width by defaulting to 480', () => {
+      render(<Img src="bad.jpg" alt="Test" width="100%" />)
+
+      const img = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img)
+
+      expect(img.src).toContain('data:image/svg+xml')
+      // Should default to 480 when width is string
+      expect(img.src).toContain('480')
+    })
+
+    it('should be smaller than external placeholder', () => {
+      render(<Img src="bad.jpg" alt="Test" width={800} />)
+
+      const img = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img)
+
+      // SVG data URI should be relatively small (< 2KB)
+      expect(img.src.length).toBeLessThan(2000)
+      // Should start with data URI scheme
+      expect(img.src).toMatch(/^data:image\/svg\+xml,/)
+    })
+
+    it('should contain viewBox for responsiveness', () => {
+      render(<Img src="bad.jpg" alt="Test" width={600} height={400} />)
+
+      const img = screen.getByRole('img') as HTMLImageElement
+      fireEvent.error(img)
+
+      const decodedSvg = decodeURIComponent(img.src.replace('data:image/svg+xml,', ''))
+
+      // Should have viewBox for perfect scaling
+      expect(decodedSvg).toContain('viewBox="0 0 600 400"')
+    })
+  })
 })

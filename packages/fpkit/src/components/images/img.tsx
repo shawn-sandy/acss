@@ -1,6 +1,6 @@
-import UI from '../ui'
-import React, { useMemo } from 'react'
-import type { ImgProps } from './img.types'
+import UI from "../ui";
+import React, { useMemo } from "react";
+import type { ImgProps } from "./img.types";
 
 /**
  * Img - A semantic image component with accessibility and performance best practices.
@@ -109,15 +109,15 @@ import type { ImgProps } from './img.types'
  * @see https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html
  */
 export const Img = ({
-  src = '//',
+  src = "//",
   alt,
   width = 480,
   height,
   styles,
-  loading = 'lazy',
+  loading = "lazy",
   placeholder,
-  fetchpriority = 'low',
-  decoding = 'auto',
+  fetchpriority = "low",
+  decoding = "auto",
   srcSet,
   sizes,
   onError,
@@ -137,8 +137,8 @@ export const Img = ({
    * - Dimension text for debugging
    */
   const defaultPlaceholder = useMemo(() => {
-    const w = typeof width === 'number' ? width : 480
-    const h = typeof height === 'number' ? height : Math.round(w * 0.75)
+    const w = typeof width === "number" ? width : 480;
+    const h = typeof height === "number" ? height : Math.round(w * 0.75);
 
     // Responsive SVG with attractive gradient and dimension text
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}">
@@ -153,39 +153,39 @@ export const Img = ({
       <circle cx="${w * 0.15}" cy="${h * 0.2}" r="${Math.min(w, h) * 0.08}" fill="rgba(255,255,255,0.2)"/>
       <path d="M0,${h * 0.75} Q${w * 0.25},${h * 0.65} ${w * 0.5},${h * 0.75} T${w},${h * 0.75} L${w},${h} L0,${h} Z" fill="rgba(0,0,0,0.15)"/>
       <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="${Math.max(16, Math.min(w, h) * 0.05)}" font-weight="500" fill="rgba(255,255,255,0.9)">${w}×${h}</text>
-    </svg>`
+    </svg>`;
 
-    return `data:image/svg+xml,${encodeURIComponent(svg)}`
-  }, [width, height])
+    return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  }, [width, height]);
 
-  const fallbackPlaceholder = placeholder ?? defaultPlaceholder
+  const fallbackPlaceholder = placeholder ?? defaultPlaceholder;
 
   /**
    * Handles image load errors.
    * If custom error handler provided, calls it. Otherwise, falls back to placeholder.
    */
   const handleImgError = (
-    e: React.SyntheticEvent<HTMLImageElement, Event>,
+    e: React.SyntheticEvent<HTMLImageElement, Event>
   ): void => {
     if (onError) {
-      onError(e)
-      return
+      onError(e);
+      return;
     }
     // Avoid infinite error loop by checking if already showing placeholder
     if (e.currentTarget.src !== fallbackPlaceholder) {
-      e.currentTarget.src = fallbackPlaceholder
+      e.currentTarget.src = fallbackPlaceholder;
     }
-  }
+  };
 
   /**
    * Handles successful image load.
    * Calls custom load handler if provided.
    */
   const handleImgLoad = (
-    e: React.SyntheticEvent<HTMLImageElement, Event>,
+    e: React.SyntheticEvent<HTMLImageElement, Event>
   ): void => {
-    onLoad?.(e)
-  }
+    onLoad?.(e);
+  };
 
   return (
     <UI
@@ -193,7 +193,7 @@ export const Img = ({
       src={src}
       alt={alt}
       width={width}
-      height={height || 'auto'}
+      height={height || "auto"}
       loading={loading}
       style={styles}
       srcSet={srcSet}
@@ -204,8 +204,8 @@ export const Img = ({
       {...props}
       {...(fetchpriority && { fetchpriority })}
     />
-  )
-}
+  );
+};
 
-export default Img
-Img.displayName = 'Img'
+export default Img;
+Img.displayName = "Img";
