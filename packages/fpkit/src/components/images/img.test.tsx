@@ -148,14 +148,15 @@ describe('Img', () => {
       expect(img.src).toContain('fallback.png')
     })
 
-    it('should use default placeholder when none provided', () => {
+    it('should use default SVG placeholder when none provided', () => {
       render(<Img src="bad.jpg" alt="Test" width={300} />)
 
       const img = screen.getByRole('img') as HTMLImageElement
       fireEvent.error(img)
 
-      expect(img.src).toContain('placeholder.com')
-      expect(img.src).toContain('300')
+      // Should use SVG data URI placeholder
+      expect(img.src).toContain('data:image/svg+xml')
+      expect(img.src).toContain('300') // Width in dimension text
     })
 
     it('should not enter infinite loop when placeholder also fails', () => {
