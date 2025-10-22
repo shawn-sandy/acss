@@ -13,8 +13,23 @@
   --dialog-button-hover-bg: whitesmoke;
   --dialog-display: flex;
   --dialog-flex-direction: column;
+  /* Focus and accessibility */
+  --dialog-focus-color: #0066cc;
+  --dialog-focus-width: 0.125rem;
+  --dialog-focus-offset: 0.125rem;
+  --dialog-focus-outline: var(--dialog-focus-width) solid var(--dialog-focus-color);
 }
 
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --dialog-border-color: currentColor;
+    --dialog-border-width: 0.125rem;
+    --dialog-close-color: currentColor;
+    --dialog-button-border: currentColor 0.125rem solid;
+    --dialog-focus-width: 0.1875rem;
+  }
+}
 dialog {
   width: var(--dialog-min-w);
   min-width: var(--min-w);
@@ -22,7 +37,12 @@ dialog {
   border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
   padding: var(--dialog-padding);
-  padding-block-start: calc(var(--dialog-padding) - 0rem);
+  padding-block-start: var(--dialog-padding);
+  /* Focus visible for keyboard navigation */
+}
+dialog:focus-visible {
+  outline: var(--dialog-focus-outline);
+  outline-offset: var(--dialog-focus-offset);
 }
 dialog[open] {
   display: var(--dialog-display);
@@ -57,10 +77,21 @@ dialog section {
   background-color: var(--dialog-button-bg);
   border: var(--dialog-button-border);
   cursor: pointer;
+  /* Keyboard focus indicator */
+  /* Remove default focus for mouse users */
 }
-.dialog-header button[type=button]:hover, .dialog-header button[type=button]:focus {
+.dialog-header button[type=button]:hover {
   border-color: var(--dialog-close-color);
   background-color: var(--dialog-button-hover-bg);
+}
+.dialog-header button[type=button]:focus-visible {
+  outline: var(--dialog-focus-outline);
+  outline-offset: var(--dialog-focus-offset);
+  border-color: var(--dialog-focus-color);
+  background-color: var(--dialog-button-hover-bg);
+}
+.dialog-header button[type=button]:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .alert-dialog-actions,
@@ -71,6 +102,16 @@ dialog section {
   justify-content: var(--dialog-footer-justify, flex-end);
   gap: var(--dialog-gap);
   width: 100%;
+  /* Focus styles for footer buttons */
+}
+.alert-dialog-actions button:focus-visible,
+.dialog-footer button:focus-visible {
+  outline: var(--dialog-focus-outline);
+  outline-offset: var(--dialog-focus-offset);
+}
+.alert-dialog-actions button:focus:not(:focus-visible),
+.dialog-footer button:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /*# sourceMappingURL=dialog.css.map */

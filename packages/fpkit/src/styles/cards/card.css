@@ -47,4 +47,20 @@
   padding-block-start: calc(var(--card-p) - 0.5rem);
 }
 
+[data-card=interactive] {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+[data-card=interactive]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+[data-card=interactive]:focus-visible {
+  outline: 0.125rem solid var(--focus-color, #0066CC);
+  outline-offset: 0.125rem;
+}
+[data-card=interactive]:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /*# sourceMappingURL=card.css.map */
