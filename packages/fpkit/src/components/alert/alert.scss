@@ -134,11 +134,8 @@
   button {
     &[data-btn~="icon"] {
       --btn-bg: transparent;
+      align-items: flex-start;
     }
-  }
-
-  * + div {
-    margin-block-start: var(--spc-1);
   }
 
   /* Variant: Filled - Solid colored background */
