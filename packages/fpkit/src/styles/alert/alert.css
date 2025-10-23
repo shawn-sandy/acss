@@ -117,9 +117,7 @@
 }
 [role=alert] button[data-btn~=icon] {
   --btn-bg: transparent;
-}
-[role=alert] * + div {
-  margin-block-start: var(--spc-1);
+  align-items: flex-start;
 }
 [role=alert][data-variant=filled] {
   border: none;

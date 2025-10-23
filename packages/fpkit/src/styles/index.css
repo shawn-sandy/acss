@@ -298,14 +298,7 @@ body > a[href^="#"]:focus {
   top: 0;
 }
 
-* + div,
-* + ul,
-* + section {
-  margin-block-start: 1rem;
-}
-* + div:empty,
-* + ul:empty,
-* + section:empty {
+div:empty {
   display: none;
 }
 
@@ -1729,9 +1722,7 @@ nav[data-breadcrumb] ol li a[href][aria-current] {
 }
 [role=alert] button[data-btn~=icon] {
   --btn-bg: transparent;
-}
-[role=alert] * + div {
-  margin-block-start: var(--spc-1);
+  align-items: flex-start;
 }
 [role=alert][data-variant=filled] {
   border: none;
