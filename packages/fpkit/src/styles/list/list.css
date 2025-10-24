@@ -115,49 +115,64 @@ dd:last-child {
   margin-block-end: 0;
 }
 
-[data-variant=none] {
+ul[data-variant=none],
+ol[data-variant=none],
+dl[data-variant=none] {
   list-style-type: none;
   padding-inline-start: 0;
 }
-[data-variant=none] li {
+ul[data-variant=none] li,
+ol[data-variant=none] li,
+dl[data-variant=none] li {
   padding-inline-start: 0;
 }
-
-[data-variant=inline] {
+ul[data-variant=inline],
+ol[data-variant=inline],
+dl[data-variant=inline] {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: var(--list-gap);
   padding-inline-start: 0;
   list-style-type: none;
 }
-[data-variant=inline] li {
+ul[data-variant=inline] li,
+ol[data-variant=inline] li,
+dl[data-variant=inline] li {
   padding-inline-start: 0;
   margin-block-end: 0;
 }
-
-[data-variant=custom] {
+ul[data-variant=custom],
+ol[data-variant=custom],
+dl[data-variant=custom] {
   list-style-type: none;
   padding-inline-start: 0;
 }
-[data-variant=custom] li {
+ul[data-variant=custom] li,
+ol[data-variant=custom] li,
+dl[data-variant=custom] li {
   position: relative;
   padding-inline-start: calc(var(--list-marker-size) + var(--list-marker-offset));
 }
-[data-variant=custom] li::before {
+ul[data-variant=custom] li::before,
+ol[data-variant=custom] li::before,
+dl[data-variant=custom] li::before {
   content: var(--list-marker-content, "•");
   color: var(--list-marker-color);
   font-size: var(--list-marker-size);
   position: absolute;
   left: 0;
 }
-
-[data-variant=compact] {
+ul[data-variant=compact],
+ol[data-variant=compact],
+dl[data-variant=compact] {
   --list-gap: 0.25rem;
   --list-item-margin-bottom: 0.25rem;
   --list-margin-bottom: 0.5rem;
 }
-
-[data-variant=spaced] {
+ul[data-variant=spaced],
+ol[data-variant=spaced],
+dl[data-variant=spaced] {
   --list-gap: 1rem;
   --list-item-margin-bottom: 1rem;
 }
