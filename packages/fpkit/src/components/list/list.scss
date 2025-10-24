@@ -165,61 +165,68 @@ dd {
 // List Variants (data-variant attribute)
 // =============================================================================
 
-// None variant - removes list styling
-[data-variant="none"] {
-  list-style-type: none;
-  padding-inline-start: 0;
-
-  li {
+ul,
+ol,
+dl {
+  // None variant - removes list styling
+  &[data-variant="none"] {
+    list-style-type: none;
     padding-inline-start: 0;
-  }
-}
 
-// Inline variant - horizontal list for navigation
-[data-variant="inline"] {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--list-gap);
-  padding-inline-start: 0;
-  list-style-type: none;
-
-  li {
-    padding-inline-start: 0;
-    margin-block-end: 0;
-  }
-}
-
-// Custom marker variant - allows for custom list markers
-[data-variant="custom"] {
-  list-style-type: none;
-  padding-inline-start: 0;
-
-  li {
-    position: relative;
-    padding-inline-start: calc(var(--list-marker-size) + var(--list-marker-offset));
-
-    // Allow custom marker via ::before pseudo-element
-    &::before {
-      content: var(--list-marker-content, "•");
-      color: var(--list-marker-color);
-      font-size: var(--list-marker-size);
-      position: absolute;
-      left: 0;
+    li {
+      padding-inline-start: 0;
     }
   }
-}
 
-// Compact variant - reduced spacing
-[data-variant="compact"] {
-  --list-gap: 0.25rem; // 4px
-  --list-item-margin-bottom: 0.25rem; // 4px
-  --list-margin-bottom: 0.5rem; // 8px
-}
+  // Inline variant - horizontal list for navigation
+  &[data-variant="inline"] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--list-gap);
+    padding-inline-start: 0;
+    list-style-type: none;
 
-// Spaced variant - increased spacing
-[data-variant="spaced"] {
-  --list-gap: 1rem; // 16px
-  --list-item-margin-bottom: 1rem; // 16px
+    li {
+      padding-inline-start: 0;
+      margin-block-end: 0;
+    }
+  }
+
+  // Custom marker variant - allows for custom list markers
+  &[data-variant="custom"] {
+    list-style-type: none;
+    padding-inline-start: 0;
+
+    li {
+      position: relative;
+      padding-inline-start: calc(
+        var(--list-marker-size) + var(--list-marker-offset)
+      );
+
+      // Allow custom marker via ::before pseudo-element
+      &::before {
+        content: var(--list-marker-content, "•");
+        color: var(--list-marker-color);
+        font-size: var(--list-marker-size);
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+
+  // Compact variant - reduced spacing
+  &[data-variant="compact"] {
+    --list-gap: 0.25rem; // 4px
+    --list-item-margin-bottom: 0.25rem; // 4px
+    --list-margin-bottom: 0.5rem; // 8px
+  }
+
+  // Spaced variant - increased spacing
+  &[data-variant="spaced"] {
+    --list-gap: 1rem; // 16px
+    --list-item-margin-bottom: 1rem; // 16px
+  }
 }
 
 // =============================================================================
