@@ -342,7 +342,13 @@ nav {
   /* Appearance */
   --nav-bg: initial;
   --nav-fs: 0.9rem;
-  --nav-hov-bg: whitesmoke;
+  --nav-hov-bg: #e8e8e8;
+
+  /* Focus Indicators (WCAG 2.4.7 - 3:1 contrast minimum) */
+  --nav-focus-color: currentColor;
+  --nav-focus-width: 0.125rem; /* 2px */
+  --nav-focus-offset: 0.125rem; /* 2px */
+  --nav-focus-style: solid;
 }
 ```
 
@@ -375,6 +381,36 @@ function ThemedNavigation() {
 }
 ```
 
+### Custom Focus Indicators
+
+Customize focus styles for keyboard navigation (WCAG 2.4.7):
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function AccessibleNavigation() {
+  return (
+    <Nav
+      aria-label="Main navigation"
+      styles={{
+        '--nav-focus-color': '#0066CC',
+        '--nav-focus-width': '0.1875rem', // 3px for higher visibility
+        '--nav-focus-offset': '0.25rem',
+      }}
+    >
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/">Home</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/about">About</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
 ### Available CSS Custom Properties
 
 | Property | Description | Default |
@@ -389,7 +425,11 @@ function ThemedNavigation() {
 | `--nav-fs` | Font size | `0.9rem` |
 | `--nav-align` | Align items | `center` |
 | `--nav-justify` | Justify content | `space-between` |
-| `--nav-hov-bg` | Hover background | `whitesmoke` |
+| `--nav-hov-bg` | Hover background | `#e8e8e8` |
+| `--nav-focus-color` | Focus outline color | `currentColor` |
+| `--nav-focus-width` | Focus outline width | `0.125rem` (2px) |
+| `--nav-focus-offset` | Focus outline offset | `0.125rem` (2px) |
+| `--nav-focus-style` | Focus outline style | `solid` |
 
 ### Custom Classes
 
