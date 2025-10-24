@@ -1,10 +1,11 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
-import { within, expect, userEvent } from "storybook/test";
+import { within, expect, userEvent, fn } from "storybook/test";
 import { useRef, useEffect } from "react";
 import Link from "./link";
+import type { LinkProps } from "./link.types";
 import "../../styles/link/link.css";
 
-const meta: Meta<typeof Link> = {
+const meta = {
   title: "FP.React Components/Links",
   tags: ["version:1.0.0", "autodocs"],
   component: Link,
@@ -43,10 +44,10 @@ const meta: Meta<typeof Link> = {
       },
     },
   },
-} as Meta;
+} as Meta<typeof Link>;
 
 export default meta;
-type Story = StoryObj<typeof Link>;
+type Story = StoryObj<LinkProps>;
 
 /**
  * Basic link component with default styling.
@@ -57,7 +58,7 @@ export const Default: Story = {
     href: "/about",
     children: "About Us",
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -82,7 +83,7 @@ export const ExternalLink: Story = {
     target: "_blank",
     children: "Visit Google",
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -110,7 +111,7 @@ export const ExternalLinkWithPrefetch: Story = {
     prefetch: true,
     children: "Prefetch Example",
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -133,7 +134,7 @@ export const ExternalLinkWithCustomRel: Story = {
     rel: "nofollow author",
     children: "External Link with Custom Rel",
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -222,7 +223,7 @@ export const KeyboardNavigation: Story = {
     href: "/keyboard-test",
     children: "Keyboard Accessible Link",
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -258,7 +259,7 @@ export const IconOnlyWithAriaLabel: Story = {
       </svg>
     ),
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -343,12 +344,7 @@ export const WithOnClick: Story = {
   args: {
     href: "/products",
     children: "Track All Activations",
-    onClick: (e) => {
-      // eslint-disable-next-line no-console
-      console.log("onClick fired - href:", e.currentTarget.href);
-      // eslint-disable-next-line no-console
-      console.log("Event type:", e.type); // "click"
-    },
+    onClick: fn(),
   },
   parameters: {
     docs: {
@@ -358,7 +354,7 @@ export const WithOnClick: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -381,12 +377,7 @@ export const WithOnPointerDown: Story = {
   args: {
     href: "/products",
     children: "Track Pointer Only",
-    onPointerDown: (e) => {
-      // eslint-disable-next-line no-console
-      console.log("onPointerDown fired - pointerType:", e.pointerType);
-      // eslint-disable-next-line no-console
-      console.log("Event type:", e.type); // "pointerdown"
-    },
+    onPointerDown: fn(),
   },
   parameters: {
     docs: {
@@ -396,7 +387,7 @@ export const WithOnPointerDown: Story = {
       },
     },
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement);
     const link = canvas.getByRole("link");
 
@@ -419,14 +410,8 @@ export const WithBothHandlers: Story = {
   args: {
     href: "/products",
     children: "Track Both Ways",
-    onClick: (e) => {
-      // eslint-disable-next-line no-console
-      console.log("onClick - all activations:", e.type);
-    },
-    onPointerDown: (e) => {
-      // eslint-disable-next-line no-console
-      console.log("onPointerDown - pointer type:", e.pointerType);
-    },
+    onClick: fn(),
+    onPointerDown: fn(),
   },
   parameters: {
     docs: {
