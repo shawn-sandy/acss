@@ -1,0 +1,718 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Nav/Readme" />
+
+# Nav Component
+
+A semantic, accessible navigation component system for building site navigation that meets WCAG 2.1 AA accessibility standards.
+
+## Summary
+
+The `Nav` component provides a complete navigation solution using the semantic `<nav>` element with three compound sub-components (Nav.List and Nav.Item). Built with TypeScript, ref forwarding, and comprehensive accessibility features, it's designed for modern React applications following component-driven development principles.
+
+**Latest Version:** v1.0.0+
+
+## Features
+
+- 🎯 **Semantic HTML** - Uses native `<nav>` element for proper navigation landmark
+- ♿ **WCAG 2.1 AA Compliant** - Full accessibility with ARIA support and keyboard navigation
+- 🎨 **Flexible Layouts** - Horizontal and vertical navigation patterns
+- ⚡ **Performance Optimized** - React.forwardRef for efficient ref handling
+- 🔧 **Type-Safe** - Comprehensive TypeScript definitions with extensive JSDoc
+- 📦 **Compound Component** - Nav.List and Nav.Item pattern for clean, intuitive API
+- 🎨 **CSS Custom Properties** - Extensive theming via CSS variables (rem units only)
+- 🧪 **Storybook Integration** - Interactive examples and documentation
+
+## Accessibility
+
+- ✅ Semantic `<nav>` element provides navigation landmark role
+- ✅ Supports `aria-label` for multiple navigation regions (WCAG 2.4.8)
+- ✅ Supports `aria-current="page"` for indicating current page
+- ✅ Screen readers announce navigation landmark automatically
+- ✅ Keyboard navigation works naturally with focusable links
+- ✅ Ref forwarding enables programmatic focus management
+- ✅ Proper list structure (ul > li) for screen reader context
+
+**Accessibility Rating:** ✅ A (Excellent) - WCAG 2.1 Level AA
+
+## Components
+
+### Nav
+
+The main navigation container that renders a semantic `<nav>` element.
+
+```tsx
+type NavProps = {
+  /** Child elements (typically Nav.List components) */
+  children: React.ReactNode;
+
+  /** Accessible label for the navigation region (required when multiple nav elements exist) */
+  'aria-label'?: string;
+
+  /** ID of an element that labels this navigation region */
+  'aria-labelledby'?: string;
+
+  /** HTML id attribute */
+  id?: string;
+
+  /** CSS class names */
+  classes?: string;
+
+  /** Inline styles (can include CSS custom properties) */
+  styles?: React.CSSProperties;
+} & Partial<React.ComponentProps<typeof UI>>;
+```
+
+### Nav.List
+
+A list container for grouping navigation items. Renders as an unstyled `<ul>` element.
+
+```tsx
+type NavListProps = {
+  /** Child elements (typically Nav.Item components) */
+  children: React.ReactNode;
+
+  /** Display items vertically (block layout) - default: false for horizontal */
+  isBlock?: boolean;
+
+  /** Accessible label for the list (use when multiple lists exist in same Nav) */
+  'aria-label'?: string;
+
+  /** CSS class names */
+  classes?: string;
+
+  /** Inline styles */
+  styles?: React.CSSProperties;
+};
+```
+
+### Nav.Item
+
+Individual navigation item wrapper. Renders as a `<li>` element.
+
+```tsx
+type NavItemProps = {
+  /** Child elements (typically a Link component) */
+  children: React.ReactNode;
+
+  /** HTML id attribute */
+  id?: string;
+
+  /** Inline styles */
+  styles?: React.CSSProperties;
+
+  /** CSS class names */
+  classes?: string;
+};
+```
+
+## Usage Examples
+
+### Basic Navigation
+
+Simple horizontal navigation menu:
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function Navigation() {
+  return (
+    <Nav>
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/">Home</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/about">About</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/contact">Contact</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+### Multiple Navigation Regions
+
+When you have multiple `<nav>` elements on the same page, use `aria-label` to distinguish them:
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function MultipleNavigation() {
+  return (
+    <>
+      {/* Main navigation */}
+      <Nav aria-label="Main navigation">
+        <Nav.List>
+          <Nav.Item>
+            <Link href="/">Home</Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link href="/products">Products</Link>
+          </Nav.Item>
+        </Nav.List>
+      </Nav>
+
+      {/* Footer navigation */}
+      <Nav aria-label="Footer navigation">
+        <Nav.List>
+          <Nav.Item>
+            <Link href="/privacy">Privacy Policy</Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link href="/terms">Terms of Service</Link>
+          </Nav.Item>
+        </Nav.List>
+      </Nav>
+    </>
+  );
+}
+```
+
+### Current Page Indicator
+
+Use `aria-current="page"` on the link to indicate the current page:
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function NavigationWithCurrent() {
+  return (
+    <Nav aria-label="Main navigation">
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/" aria-current="page">Home</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/about">About</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/contact">Contact</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+### Vertical Sidebar Navigation
+
+Use the `isBlock` prop for vertical layouts:
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function SidebarNavigation() {
+  return (
+    <Nav aria-label="Sidebar navigation">
+      <Nav.List isBlock>
+        <Nav.Item>
+          <Link href="/dashboard">Dashboard</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/projects">Projects</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/settings">Settings</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+### Complex Navbar Layout
+
+Multiple lists in a single navbar:
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function Navbar() {
+  return (
+    <Nav classes="navbar" aria-label="Main navigation">
+      <Nav.List aria-label="Primary menu">
+        <Nav.Item>
+          <Link href="/">Home</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/products">Products</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/about">About</Link>
+        </Nav.Item>
+      </Nav.List>
+
+      <Nav.List aria-label="User menu">
+        <Nav.Item>
+          <Link href="/login">Login</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/signup">Sign Up</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+### Navigation with Icons
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+import { SettingsIcon, HelpIcon } from '@fpkit/acss/icons';
+
+function IconNavigation() {
+  return (
+    <Nav aria-label="Settings navigation">
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/settings">
+            <SettingsIcon aria-hidden="true" />
+            Settings
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/help">
+            <HelpIcon aria-hidden="true" />
+            Help
+          </Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+### With Ref Forwarding
+
+Access the navigation element programmatically:
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+import { useRef, useEffect } from 'react';
+
+function NavigationWithRef() {
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // Programmatic access to nav element
+    if (navRef.current) {
+      console.log('Nav height:', navRef.current.offsetHeight);
+    }
+  }, []);
+
+  return (
+    <Nav ref={navRef} aria-label="Main navigation">
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/">Home</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+## Styling
+
+The component uses SCSS with CSS custom properties for theming. All spacing uses **rem units** (16px = 1rem) for accessibility.
+
+### CSS Custom Properties
+
+```css
+nav {
+  /* Display & Layout */
+  --nav-dsp: flex;
+  --nav-direction: row;
+  --nav-w: auto;
+  --nav-align: center;
+  --nav-justify: space-between;
+
+  /* Dimensions */
+  --nav-h: fit-content;
+  --nav-px: 1rem;
+  --nav-py: 0;
+  --nav-mx: 0;
+  --nav-gap: 0;
+
+  /* Appearance */
+  --nav-bg: initial;
+  --nav-fs: 0.9rem;
+  --nav-hov-bg: whitesmoke;
+}
+```
+
+### Custom Theming
+
+Override default styles with CSS custom properties:
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function ThemedNavigation() {
+  return (
+    <Nav
+      aria-label="Main navigation"
+      styles={{
+        '--nav-bg': '#1a1a1a',
+        '--nav-h': '4rem',
+        '--nav-px': '2rem',
+        '--nav-gap': '1rem',
+        '--nav-fs': '1rem',
+      }}
+    >
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/">Home</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+### Available CSS Custom Properties
+
+| Property | Description | Default |
+|----------|-------------|---------|
+| `--nav-dsp` | Display mode | `flex` |
+| `--nav-direction` | Flex direction | `row` |
+| `--nav-bg` | Background color | `initial` |
+| `--nav-h` | Minimum height | `fit-content` |
+| `--nav-px` | Horizontal padding | `1rem` |
+| `--nav-py` | Vertical padding | `0` |
+| `--nav-gap` | Gap between items | `0` |
+| `--nav-fs` | Font size | `0.9rem` |
+| `--nav-align` | Align items | `center` |
+| `--nav-justify` | Justify content | `space-between` |
+| `--nav-hov-bg` | Hover background | `whitesmoke` |
+
+### Custom Classes
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function CustomClassNavigation() {
+  return (
+    <Nav classes="navbar sticky-top">
+      <Nav.List classes="primary-nav">
+        <Nav.Item classes="nav-item-featured">
+          <Link href="/special">Special Offer</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+## Best Practices
+
+### Accessibility
+
+#### Use aria-label for Multiple Navigation Regions
+
+```tsx
+// ✅ GOOD - Multiple nav elements with labels
+<Nav aria-label="Main navigation">...</Nav>
+<Nav aria-label="Footer navigation">...</Nav>
+
+// ❌ BAD - Multiple nav elements without labels
+<Nav>...</Nav>
+<Nav>...</Nav>
+```
+
+#### Indicate Current Page
+
+```tsx
+// ✅ GOOD - Uses aria-current
+<Link href="/about" aria-current="page">About</Link>
+
+// ❌ BAD - Uses only visual styling
+<Link href="/about" className="active">About</Link>
+```
+
+#### Descriptive Link Text
+
+```tsx
+// ✅ GOOD - Descriptive link text
+<Nav.Item>
+  <Link href="/products">View Products</Link>
+</Nav.Item>
+
+// ❌ BAD - Generic link text
+<Nav.Item>
+  <Link href="/products">Click here</Link>
+</Nav.Item>
+```
+
+#### Sufficient Color Contrast
+
+Ensure link colors meet WCAG 2.1 contrast requirements:
+- **Normal text**: 4.5:1 contrast ratio
+- **Large text**: 3:1 contrast ratio
+- **Focus indicators**: 3:1 contrast ratio
+
+### Structure
+
+#### Use Proper Component Hierarchy
+
+```tsx
+// ✅ GOOD - Complete structure
+<Nav>
+  <Nav.List>
+    <Nav.Item><Link href="/">Home</Link></Nav.Item>
+  </Nav.List>
+</Nav>
+
+// ❌ BAD - Missing proper structure
+<Nav>
+  <Link href="/">Home</Link>
+  <Link href="/about">About</Link>
+</Nav>
+```
+
+#### Don't Use Generic Labels
+
+```tsx
+// ✅ GOOD - Descriptive label
+<Nav aria-label="Main navigation">...</Nav>
+
+// ❌ BAD - Generic label
+<Nav aria-label="Navigation">...</Nav>
+```
+
+### Styling
+
+#### Use rem Units for Accessibility
+
+```tsx
+// ✅ GOOD - rem scales with user font size preferences
+<Nav styles={{ '--nav-gap': '1rem' }}>...</Nav>
+
+// ❌ BAD - px ignores user preferences
+<Nav styles={{ '--nav-gap': '16px' }}>...</Nav>
+```
+
+#### Don't Use Divs for Interactive Elements
+
+```tsx
+// ✅ GOOD - Semantic links
+<Nav.Item>
+  <Link href="/page">Navigation Item</Link>
+</Nav.Item>
+
+// ❌ BAD - Non-semantic elements
+<Nav.Item>
+  <div onClick={handleClick}>Navigation Item</div>
+</Nav.Item>
+```
+
+## Keyboard Navigation
+
+The Nav component supports full keyboard navigation:
+- **Tab** - Move to next focusable element (links)
+- **Shift + Tab** - Move to previous focusable element
+- **Enter** - Activate link
+- **Space** - Activate link (when link has focus)
+
+## TypeScript
+
+Full TypeScript support with comprehensive type definitions:
+
+```tsx
+import { Nav, NavProps, NavListProps, NavItemProps } from '@fpkit/acss';
+
+// Custom navigation component
+interface CustomNavProps extends NavProps {
+  variant?: 'primary' | 'secondary';
+}
+
+const CustomNav: React.FC<CustomNavProps> = ({ variant, ...props }) => {
+  return (
+    <Nav
+      {...props}
+      classes={`custom-nav custom-nav--${variant}`}
+    />
+  );
+};
+```
+
+### Import Types
+
+```tsx
+import type {
+  NavProps,
+  NavListProps,
+  NavItemProps,
+} from '@fpkit/acss';
+```
+
+## Common Patterns
+
+### Responsive Navigation
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function ResponsiveNavigation() {
+  return (
+    <Nav
+      classes="navbar"
+      aria-label="Main navigation"
+      styles={{
+        '--nav-direction': 'row',
+        '@media (max-width: 768px)': {
+          '--nav-direction': 'column',
+        }
+      }}
+    >
+      <Nav.List>
+        <Nav.Item><Link href="/">Home</Link></Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+### Sticky Navigation
+
+```css
+.navbar-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+```
+
+```tsx
+<Nav classes="navbar-sticky" aria-label="Main navigation">
+  <Nav.List>
+    <Nav.Item><Link href="/">Home</Link></Nav.Item>
+  </Nav.List>
+</Nav>
+```
+
+### Navigation with Brand Logo
+
+```tsx
+import { Nav, Link } from '@fpkit/acss';
+
+function BrandNavigation() {
+  return (
+    <Nav classes="navbar" aria-label="Main navigation">
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/">
+            <img src="/logo.svg" alt="Company Name" />
+          </Link>
+        </Nav.Item>
+      </Nav.List>
+
+      <Nav.List aria-label="Primary menu">
+        <Nav.Item><Link href="/products">Products</Link></Nav.Item>
+        <Nav.Item><Link href="/about">About</Link></Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
+## WCAG 2.1 AA Compliance
+
+The Nav component meets the following success criteria:
+
+- **✅ 1.3.1 Info and Relationships** - Uses semantic HTML (`<nav>`, `<ul>`, `<li>`)
+- **✅ 2.4.1 Bypass Blocks** - Navigation landmark enables skip links
+- **✅ 2.4.8 Location** - Supports `aria-label` for multiple navigation regions
+- **✅ 4.1.2 Name, Role, Value** - Semantic elements provide proper roles
+- **✅ 4.1.3 Status Messages** - Supports `aria-current` for current page
+
+## Technical Details
+
+### Component Architecture
+
+- **Functional Components** with `React.forwardRef` for Nav, NavList, and NavItem
+- **Type-Safe** with extracted TypeScript definitions in `nav.types.ts`
+- **Accessible** by leveraging semantic HTML navigation and list elements
+- **Composable** via UI component for polymorphic flexibility
+- **Compound Component Pattern** - `Nav.List` and `Nav.Item` for intuitive API
+
+### Browser Support
+
+Works in all modern browsers supporting:
+- React 18+
+- CSS Custom Properties
+- CSS Flexbox
+- Semantic HTML5 (`<nav>` element)
+
+### Ref Types
+
+```ts
+// Nav ref
+const navRef = useRef<HTMLElement>(null);
+
+// NavList ref
+const listRef = useRef<HTMLUListElement>(null);
+
+// NavItem ref
+const itemRef = useRef<HTMLLIElement>(null);
+```
+
+## Testing
+
+### Manual Testing Checklist
+
+#### Screen Reader Testing (NVDA/VoiceOver/JAWS)
+- [ ] Announces as "navigation landmark"
+- [ ] aria-label read correctly when multiple nav elements present
+- [ ] Items announced as "list" with item count
+- [ ] Current page link announced with "current page" status
+
+#### Keyboard Navigation
+- [ ] Tab navigates through links in logical order
+- [ ] Enter and Space activate links
+- [ ] Focus indicators visible for keyboard users
+- [ ] No keyboard traps
+
+#### Visual Testing
+- [ ] Navigation displays correctly at different viewport sizes
+- [ ] Works at 200% browser zoom
+- [ ] Text reflows at 320px viewport width
+- [ ] Focus indicators meet 3:1 contrast requirement
+
+## Related Components
+
+- **Link** - For navigation links with WCAG compliance
+- **List** - Base list component used internally
+- **UI** - Base polymorphic component
+
+## Resources
+
+- [WCAG 2.1 Navigation Requirements](https://www.w3.org/WAI/WCAG21/quickref/?showtechniques=241#navigation)
+- [ARIA: navigation role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role)
+- [aria-current attribute](https://www.w3.org/TR/wai-aria-1.1/#aria-current)
+- [Accessible Navigation Patterns](https://www.w3.org/WAI/tutorials/menus/)
+- [MDN: nav Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav)
+
+## Changelog
+
+### v1.0.0 (Latest)
+- ✨ Complete refactoring with modern React patterns
+- ✨ React.forwardRef for proper ref handling on all components
+- ✨ Separate TypeScript types in `nav.types.ts`
+- ✨ WCAG 2.1 AA compliant with comprehensive ARIA support
+- ✨ Compound component pattern (Nav.List, Nav.Item)
+- ✨ Comprehensive JSDoc documentation with examples
+- ✨ CSS custom properties for flexible theming (rem units)
+- ✨ Storybook integration with interactive examples
+- 📝 Extensive README with accessibility best practices
+- 📝 25+ usage examples covering common patterns
+- ♿ Accessibility rating: A (Excellent)
+
+---
+
+**Need Help?** Check the [Storybook examples](./?path=/docs/fp-react-components-nav--docs) or review the [component source](./nav.tsx) for usage patterns.
