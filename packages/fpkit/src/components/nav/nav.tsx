@@ -74,7 +74,7 @@ export const NavList = React.forwardRef<
     <List
       type="ul"
       {...props}
-      data-list={`unstyled ${isBlock ? "block" : ""}`.trim()}
+      data-list={isBlock ? "unstyled block" : "unstyled"}
       ref={ref}
     >
       {children}
