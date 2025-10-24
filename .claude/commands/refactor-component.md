@@ -20,6 +20,7 @@
 > * **Separation of concerns** (UI vs. logic vs. data fetching)
 > * **Accessibility** WCAG 2.1 compliance (ARIA, keyboard navigation, etc.)
 > * **Testability** (clear props, minimal side effects, deterministic outputs)
+> * **Readme.mdx** always create or update the README.mdx documentation for the component
 
 ---
 
