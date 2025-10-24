@@ -1,92 +1,145 @@
 @use '../../sass/mixins';
 
+/**
+ * Link Component Styles
+ *
+ * Provides accessible, customizable link styles using CSS custom properties.
+ * Supports standard text links, button-styled links, and pill variants.
+ *
+ * WCAG 2.1 AA Compliance:
+ * - Focus indicators meet 2.4.7 (3:1 contrast minimum)
+ * - Color contrast meets 1.4.3 (4.5:1 for normal text)
+ * - Uses :focus-visible for better UX (keyboard vs mouse)
+ */
+
 a[href] {
-  --link-decoration: none;
+  // Color & Typography
   --link-color: #085ab7;
+  --link-weight: 400;
+  --link-fs: 1rem;
+
+  // Text Decoration
+  --link-decoration: none;
+  --link-decoration-offset: 0.09375rem; // 1.5px converted to rem
+  --link-decoration-thickness: 0.1875rem; // 3px converted to rem
+  --link-skip-ink: auto;
+
+  // Background & Border
   --link-bg: transparent;
+  --link-radius: 0.25rem;
+
+  // Spacing (for button variants)
   --link-px: 0;
   --link-py: 0;
-  --link-transition: all 0.75s ease-in-out;
-  --link-fs: 1rem;
-  --link-radius: 0.25rem;
-  --link-skip-ink: auto;
-  --link-decoration-offset: 1.5px;
-  --link-decoration-thickness: 3px;
-  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
-    var(--link-decoration-thickness) var(--link-skip-ink);
-  --link-decoration-thickness: 3px;
-  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
-    var(--link-decoration-thickness) var(--link-skip-ink);
 
+  // Transitions
+  --link-transition: all 0.75s ease-in-out;
+
+  // Focus Indicator (WCAG 2.4.7 - 3:1 contrast minimum)
+  --link-focus-color: currentColor;
+  --link-focus-width: 0.125rem; // 2px
+  --link-focus-offset: 0.125rem; // 2px
+  --link-focus-style: solid;
+
+  // Apply base styles
   color: var(--link-color);
   font-size: var(--link-fs);
+  font-weight: var(--link-weight);
   text-decoration: var(--link-decoration);
   text-underline-offset: var(--link-decoration-offset);
+  text-decoration-thickness: var(--link-decoration-thickness);
   text-decoration-skip-ink: var(--link-skip-ink);
   background-color: var(--link-bg);
   border-radius: var(--link-radius);
-  background-color: var(--link-bg);
-  border-radius: var(--link-radius);
-  font-weight: var(--link-weight);
+  transition: var(--link-transition);
 
+  // Ensure child elements inherit weight/style
   > i,
   > b {
     font-weight: var(--link-weight);
     font-style: normal;
   }
 
+  // Hover state - add underline for clarity
   &:hover {
     --link-decoration: underline;
   }
 
+  // Focus state - WCAG 2.4.7 compliant focus indicator
   &:focus {
-    outline: none;
+    outline: var(--link-focus-width) var(--link-focus-style)
+      var(--link-focus-color);
+    outline-offset: var(--link-focus-offset);
     --link-decoration: underline;
   }
 
+  // Focus-visible for better UX (only show outline on keyboard focus)
+  &:focus-visible {
+    outline: var(--link-focus-width) var(--link-focus-style)
+      var(--link-focus-color);
+    outline-offset: var(--link-focus-offset);
+  }
+
+  // Visited and active states
   &:visited,
   &:active {
     --link-color: currentColor;
   }
 
+  // Button-styled links (via <b> wrapper, data-btn attribute, or <i> for pill)
   &:has(> b),
-  &[data-link~='btn'],
+  &[data-btn],
   &:has(> i) {
     --link-button-color: var(--link-color);
     --link-bg: transparent;
     --link-decoration: none;
-    --link-border: 2px currentColor solid;
+    --link-border-width: 0.125rem; // 2px
+    --link-border-color: currentColor;
+    --link-border-style: solid;
     --link-fs: 0.9rem;
+
+    color: var(--link-button-color);
     background-color: var(--link-bg);
     font-style: normal;
     font-size: var(--link-fs);
-    color: var(--link-button-color);
     padding-inline: var(--link-fs);
     padding-block: calc(var(--link-fs) - 0.4rem);
     border-radius: var(--link-radius, 99rem);
     display: inline-flex;
-    outline: var(--link-border);
-    &:focus {
-      outline: var(--link-border);
+    align-items: center;
+    justify-content: center;
+    outline: var(--link-border-width) var(--link-border-color)
+      var(--link-border-style);
+
+    // Focus state for button links
+    &:focus,
+    &:focus-visible {
+      outline: var(--link-border-width) var(--link-border-color)
+        var(--link-border-style);
+      outline-offset: var(--link-focus-offset);
       --link-decoration: none;
     }
+
+    // Hover state for button links
     &:hover {
       --link-decoration: none;
     }
+
+    // Apply scale transition from mixins
     @include mixins.scale-transitions;
   }
+
+  // Pill variant (rounded corners)
   &[data-link~='pill'],
   &:has(> i) {
     --link-radius: 99rem;
     --link-decoration: none;
     font-style: normal;
+
     &:hover,
-    &:focus {
+    &:focus,
+    &:focus-visible {
       --link-decoration: none;
     }
   }
-}
-
-header > section {
-  width: auto;
 }

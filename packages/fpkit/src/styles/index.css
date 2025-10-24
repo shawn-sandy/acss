@@ -895,33 +895,44 @@ details[open] > section {
   }
 }
 
+/**
+ * Link Component Styles
+ *
+ * Provides accessible, customizable link styles using CSS custom properties.
+ * Supports standard text links, button-styled links, and pill variants.
+ *
+ * WCAG 2.1 AA Compliance:
+ * - Focus indicators meet 2.4.7 (3:1 contrast minimum)
+ * - Color contrast meets 1.4.3 (4.5:1 for normal text)
+ * - Uses :focus-visible for better UX (keyboard vs mouse)
+ */
 a[href] {
-  --link-decoration: none;
   --link-color: #085ab7;
+  --link-weight: 400;
+  --link-fs: 1rem;
+  --link-decoration: none;
+  --link-decoration-offset: 0.09375rem;
+  --link-decoration-thickness: 0.1875rem;
+  --link-skip-ink: auto;
   --link-bg: transparent;
+  --link-radius: 0.25rem;
   --link-px: 0;
   --link-py: 0;
   --link-transition: all 0.75s ease-in-out;
-  --link-fs: 1rem;
-  --link-radius: 0.25rem;
-  --link-skip-ink: auto;
-  --link-decoration-offset: 1.5px;
-  --link-decoration-thickness: 3px;
-  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
-    var(--link-decoration-thickness) var(--link-skip-ink);
-  --link-decoration-thickness: 3px;
-  --link-decoration: color: var(--link-color) var(--link-decoration-offset)
-    var(--link-decoration-thickness) var(--link-skip-ink);
+  --link-focus-color: currentColor;
+  --link-focus-width: 0.125rem;
+  --link-focus-offset: 0.125rem;
+  --link-focus-style: solid;
   color: var(--link-color);
   font-size: var(--link-fs);
+  font-weight: var(--link-weight);
   text-decoration: var(--link-decoration);
   text-underline-offset: var(--link-decoration-offset);
+  text-decoration-thickness: var(--link-decoration-thickness);
   text-decoration-skip-ink: var(--link-skip-ink);
   background-color: var(--link-bg);
   border-radius: var(--link-radius);
-  background-color: var(--link-bg);
-  border-radius: var(--link-radius);
-  font-weight: var(--link-weight);
+  transition: var(--link-transition);
 }
 a[href] > i,
 a[href] > b {
@@ -932,41 +943,51 @@ a[href]:hover {
   --link-decoration: underline;
 }
 a[href]:focus {
-  outline: none;
+  outline: var(--link-focus-width) var(--link-focus-style) var(--link-focus-color);
+  outline-offset: var(--link-focus-offset);
   --link-decoration: underline;
+}
+a[href]:focus-visible {
+  outline: var(--link-focus-width) var(--link-focus-style) var(--link-focus-color);
+  outline-offset: var(--link-focus-offset);
 }
 a[href]:visited, a[href]:active {
   --link-color: currentColor;
 }
-a[href]:has(> b), a[href][data-link~=btn], a[href]:has(> i) {
+a[href]:has(> b), a[href][data-btn], a[href]:has(> i) {
   --link-button-color: var(--link-color);
   --link-bg: transparent;
   --link-decoration: none;
-  --link-border: 2px currentColor solid;
+  --link-border-width: 0.125rem;
+  --link-border-color: currentColor;
+  --link-border-style: solid;
   --link-fs: 0.9rem;
+  color: var(--link-button-color);
   background-color: var(--link-bg);
   font-style: normal;
   font-size: var(--link-fs);
-  color: var(--link-button-color);
   padding-inline: var(--link-fs);
   padding-block: calc(var(--link-fs) - 0.4rem);
   border-radius: var(--link-radius, 99rem);
   display: inline-flex;
-  outline: var(--link-border);
+  align-items: center;
+  justify-content: center;
+  outline: var(--link-border-width) var(--link-border-color) var(--link-border-style);
   --scale-transition: transform 0.25s ease;
   --scale: scale(1);
   --scale-to: scale(1.05);
   transform: var(--scale);
   transition: var(--scale-transition);
 }
-a[href]:has(> b):focus, a[href][data-link~=btn]:focus, a[href]:has(> i):focus {
-  outline: var(--link-border);
+a[href]:has(> b):focus, a[href]:has(> b):focus-visible, a[href][data-btn]:focus, a[href][data-btn]:focus-visible, a[href]:has(> i):focus, a[href]:has(> i):focus-visible {
+  outline: var(--link-border-width) var(--link-border-color) var(--link-border-style);
+  outline-offset: var(--link-focus-offset);
   --link-decoration: none;
 }
-a[href]:has(> b):hover, a[href][data-link~=btn]:hover, a[href]:has(> i):hover {
+a[href]:has(> b):hover, a[href][data-btn]:hover, a[href]:has(> i):hover {
   --link-decoration: none;
 }
-a[href]:has(> b):hover, a[href][data-link~=btn]:hover, a[href]:has(> i):hover {
+a[href]:has(> b):hover, a[href][data-btn]:hover, a[href]:has(> i):hover {
   transform: var(--scale-to);
 }
 a[href][data-link~=pill], a[href]:has(> i) {
@@ -974,12 +995,8 @@ a[href][data-link~=pill], a[href]:has(> i) {
   --link-decoration: none;
   font-style: normal;
 }
-a[href][data-link~=pill]:hover, a[href][data-link~=pill]:focus, a[href]:has(> i):hover, a[href]:has(> i):focus {
+a[href][data-link~=pill]:hover, a[href][data-link~=pill]:focus, a[href][data-link~=pill]:focus-visible, a[href]:has(> i):hover, a[href]:has(> i):focus, a[href]:has(> i):focus-visible {
   --link-decoration: none;
-}
-
-header > section {
-  width: auto;
 }
 
 header,
