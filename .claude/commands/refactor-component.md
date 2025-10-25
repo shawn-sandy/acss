@@ -33,3 +33,4 @@
 1. **Plan outline:** Step-by-step breakdown of the refactoring approach.
 2. **Explanation:** Brief, structured summary of what was improved and why
 3. **Accessibility** — Ensure components are accessible, inclusive, and meet WCAG 2.1 compliance standards.
+4. **README.mdx** always create or update the  Storybook formatted README.mdx documentation for the component, documenting its usage, props, accessibility features, and examples.

@@ -48,6 +48,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       required,
       disabled,
       readOnly,
+      validationState = 'none',
+      errorMessage,
+      hintText,
       onBlur,
       onPointerDown,
       onChange,
@@ -59,6 +62,20 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref
   ) => {
+    // Determine aria-invalid based on validation state
+    const isInvalid = validationState === 'invalid'
+
+    // Generate describedby IDs for error and hint text
+    const describedByIds: string[] = []
+    if (errorMessage && id) {
+      describedByIds.push(`${id}-error`)
+    }
+    if (hintText && id) {
+      describedByIds.push(`${id}-hint`)
+    }
+    const ariaDescribedBy =
+      describedByIds.length > 0 ? describedByIds.join(' ') : undefined
+
     /**
      * Change event handler
      * @param {React.ChangeEvent<HTMLTextAreaElement>} e - Change event
@@ -120,6 +137,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         value={value}
         aria-disabled={disabled}
         aria-required={required}
+        aria-invalid={isInvalid}
+        aria-describedby={ariaDescribedBy}
         readOnly={readOnly}
         onChange={handleChange}
         onBlur={handleBlur}
