@@ -4,23 +4,32 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 # Nav Component
 
-A semantic, accessible navigation component system for building site navigation that meets WCAG 2.1 AA accessibility standards.
+A semantic, accessible navigation component system for building site navigation
+that meets WCAG 2.1 AA accessibility standards.
 
 ## Summary
 
-The `Nav` component provides a complete navigation solution using the semantic `<nav>` element with three compound sub-components (Nav.List and Nav.Item). Built with TypeScript, ref forwarding, and comprehensive accessibility features, it's designed for modern React applications following component-driven development principles.
+The `Nav` component provides a complete navigation solution using the semantic
+`<nav>` element with three compound sub-components (Nav.List and Nav.Item).
+Built with TypeScript, ref forwarding, and comprehensive accessibility features,
+it's designed for modern React applications following component-driven
+development principles.
 
 **Latest Version:** v1.0.0+
 
 ## Features
 
-- 🎯 **Semantic HTML** - Uses native `<nav>` element for proper navigation landmark
-- ♿ **WCAG 2.1 AA Compliant** - Full accessibility with ARIA support and keyboard navigation
+- 🎯 **Semantic HTML** - Uses native `<nav>` element for proper navigation
+  landmark
+- ♿ **WCAG 2.1 AA Compliant** - Full accessibility with ARIA support and
+  keyboard navigation
 - 🎨 **Flexible Layouts** - Horizontal and vertical navigation patterns
 - ⚡ **Performance Optimized** - React.forwardRef for efficient ref handling
 - 🔧 **Type-Safe** - Comprehensive TypeScript definitions with extensive JSDoc
-- 📦 **Compound Component** - Nav.List and Nav.Item pattern for clean, intuitive API
-- 🎨 **CSS Custom Properties** - Extensive theming via CSS variables (rem units only)
+- 📦 **Compound Component** - Nav.List and Nav.Item pattern for clean, intuitive
+  API
+- 🎨 **CSS Custom Properties** - Extensive theming via CSS variables (rem units
+  only)
 - 🧪 **Storybook Integration** - Interactive examples and documentation
 
 ## Accessibility
@@ -47,10 +56,10 @@ type NavProps = {
   children: React.ReactNode;
 
   /** Accessible label for the navigation region (required when multiple nav elements exist) */
-  'aria-label'?: string;
+  "aria-label"?: string;
 
   /** ID of an element that labels this navigation region */
-  'aria-labelledby'?: string;
+  "aria-labelledby"?: string;
 
   /** HTML id attribute */
   id?: string;
@@ -65,7 +74,8 @@ type NavProps = {
 
 ### Nav.List
 
-A list container for grouping navigation items. Renders as an unstyled `<ul>` element.
+A list container for grouping navigation items. Renders as an unstyled `<ul>`
+element.
 
 ```tsx
 type NavListProps = {
@@ -76,7 +86,7 @@ type NavListProps = {
   isBlock?: boolean;
 
   /** Accessible label for the list (use when multiple lists exist in same Nav) */
-  'aria-label'?: string;
+  "aria-label"?: string;
 
   /** CSS class names */
   classes?: string;
@@ -113,7 +123,7 @@ type NavItemProps = {
 Simple horizontal navigation menu:
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function Navigation() {
   return (
@@ -136,10 +146,11 @@ function Navigation() {
 
 ### Multiple Navigation Regions
 
-When you have multiple `<nav>` elements on the same page, use `aria-label` to distinguish them:
+When you have multiple `<nav>` elements on the same page, use `aria-label` to
+distinguish them:
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function MultipleNavigation() {
   return (
@@ -177,14 +188,16 @@ function MultipleNavigation() {
 Use `aria-current="page"` on the link to indicate the current page:
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function NavigationWithCurrent() {
   return (
     <Nav aria-label="Main navigation">
       <Nav.List>
         <Nav.Item>
-          <Link href="/" aria-current="page">Home</Link>
+          <Link href="/" aria-current="page">
+            Home
+          </Link>
         </Nav.Item>
         <Nav.Item>
           <Link href="/about">About</Link>
@@ -203,7 +216,7 @@ function NavigationWithCurrent() {
 Use the `isBlock` prop for vertical layouts:
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function SidebarNavigation() {
   return (
@@ -229,7 +242,7 @@ function SidebarNavigation() {
 Multiple lists in a single navbar:
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function Navbar() {
   return (
@@ -262,8 +275,8 @@ function Navbar() {
 ### Navigation with Icons
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
-import { SettingsIcon, HelpIcon } from '@fpkit/acss/icons';
+import { Nav, Link } from "@fpkit/acss";
+import { SettingsIcon, HelpIcon } from "@fpkit/acss/icons";
 
 function IconNavigation() {
   return (
@@ -292,8 +305,8 @@ function IconNavigation() {
 Access the navigation element programmatically:
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
-import { useRef, useEffect } from 'react';
+import { Nav, Link } from "@fpkit/acss";
+import { useRef, useEffect } from "react";
 
 function NavigationWithRef() {
   const navRef = useRef<HTMLElement>(null);
@@ -301,7 +314,7 @@ function NavigationWithRef() {
   useEffect(() => {
     // Programmatic access to nav element
     if (navRef.current) {
-      console.log('Nav height:', navRef.current.offsetHeight);
+      console.log("Nav height:", navRef.current.offsetHeight);
     }
   }, []);
 
@@ -319,7 +332,8 @@ function NavigationWithRef() {
 
 ## Styling
 
-The component uses SCSS with CSS custom properties for theming. All spacing uses **rem units** (16px = 1rem) for accessibility.
+The component uses SCSS with CSS custom properties for theming. All spacing uses
+**rem units** (16px = 1rem) for accessibility.
 
 ### CSS Custom Properties
 
@@ -342,7 +356,13 @@ nav {
   /* Appearance */
   --nav-bg: initial;
   --nav-fs: 0.9rem;
-  --nav-hov-bg: whitesmoke;
+  --nav-hov-bg: #e8e8e8;
+
+  /* Focus Indicators (WCAG 2.4.7 - 3:1 contrast minimum) */
+  --nav-focus-color: currentColor;
+  --nav-focus-width: 0.125rem; /* 2px */
+  --nav-focus-offset: 0.125rem; /* 2px */
+  --nav-focus-style: solid;
 }
 ```
 
@@ -351,18 +371,18 @@ nav {
 Override default styles with CSS custom properties:
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function ThemedNavigation() {
   return (
     <Nav
       aria-label="Main navigation"
       styles={{
-        '--nav-bg': '#1a1a1a',
-        '--nav-h': '4rem',
-        '--nav-px': '2rem',
-        '--nav-gap': '1rem',
-        '--nav-fs': '1rem',
+        "--nav-bg": "#1a1a1a",
+        "--nav-h": "4rem",
+        "--nav-px": "2rem",
+        "--nav-gap": "1rem",
+        "--nav-fs": "1rem",
       }}
     >
       <Nav.List>
@@ -375,26 +395,60 @@ function ThemedNavigation() {
 }
 ```
 
+### Custom Focus Indicators
+
+Customize focus styles for keyboard navigation (WCAG 2.4.7):
+
+```tsx
+import { Nav, Link } from "@fpkit/acss";
+
+function AccessibleNavigation() {
+  return (
+    <Nav
+      aria-label="Main navigation"
+      styles={{
+        "--nav-focus-color": "#0066CC",
+        "--nav-focus-width": "0.1875rem", // 3px for higher visibility
+        "--nav-focus-offset": "0.25rem",
+      }}
+    >
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/">Home</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/about">About</Link>
+        </Nav.Item>
+      </Nav.List>
+    </Nav>
+  );
+}
+```
+
 ### Available CSS Custom Properties
 
-| Property | Description | Default |
-|----------|-------------|---------|
-| `--nav-dsp` | Display mode | `flex` |
-| `--nav-direction` | Flex direction | `row` |
-| `--nav-bg` | Background color | `initial` |
-| `--nav-h` | Minimum height | `fit-content` |
-| `--nav-px` | Horizontal padding | `1rem` |
-| `--nav-py` | Vertical padding | `0` |
-| `--nav-gap` | Gap between items | `0` |
-| `--nav-fs` | Font size | `0.9rem` |
-| `--nav-align` | Align items | `center` |
-| `--nav-justify` | Justify content | `space-between` |
-| `--nav-hov-bg` | Hover background | `whitesmoke` |
+| Property             | Description          | Default          |
+| -------------------- | -------------------- | ---------------- |
+| `--nav-dsp`          | Display mode         | `flex`           |
+| `--nav-direction`    | Flex direction       | `row`            |
+| `--nav-bg`           | Background color     | `initial`        |
+| `--nav-h`            | Minimum height       | `fit-content`    |
+| `--nav-px`           | Horizontal padding   | `1rem`           |
+| `--nav-py`           | Vertical padding     | `0`              |
+| `--nav-gap`          | Gap between items    | `0`              |
+| `--nav-fs`           | Font size            | `0.9rem`         |
+| `--nav-align`        | Align items          | `center`         |
+| `--nav-justify`      | Justify content      | `space-between`  |
+| `--nav-hov-bg`       | Hover background     | `#e8e8e8`        |
+| `--nav-focus-color`  | Focus outline color  | `currentColor`   |
+| `--nav-focus-width`  | Focus outline width  | `0.125rem` (2px) |
+| `--nav-focus-offset` | Focus outline offset | `0.125rem` (2px) |
+| `--nav-focus-style`  | Focus outline style  | `solid`          |
 
 ### Custom Classes
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function CustomClassNavigation() {
   return (
@@ -452,6 +506,7 @@ function CustomClassNavigation() {
 #### Sufficient Color Contrast
 
 Ensure link colors meet WCAG 2.1 contrast requirements:
+
 - **Normal text**: 4.5:1 contrast ratio
 - **Large text**: 3:1 contrast ratio
 - **Focus indicators**: 3:1 contrast ratio
@@ -514,6 +569,7 @@ Ensure link colors meet WCAG 2.1 contrast requirements:
 ## Keyboard Navigation
 
 The Nav component supports full keyboard navigation:
+
 - **Tab** - Move to next focusable element (links)
 - **Shift + Tab** - Move to previous focusable element
 - **Enter** - Activate link
@@ -524,31 +580,22 @@ The Nav component supports full keyboard navigation:
 Full TypeScript support with comprehensive type definitions:
 
 ```tsx
-import { Nav, NavProps, NavListProps, NavItemProps } from '@fpkit/acss';
+import { Nav, NavProps, NavListProps, NavItemProps } from "@fpkit/acss";
 
 // Custom navigation component
 interface CustomNavProps extends NavProps {
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
 const CustomNav: React.FC<CustomNavProps> = ({ variant, ...props }) => {
-  return (
-    <Nav
-      {...props}
-      classes={`custom-nav custom-nav--${variant}`}
-    />
-  );
+  return <Nav {...props} classes={`custom-nav custom-nav--${variant}`} />;
 };
 ```
 
 ### Import Types
 
 ```tsx
-import type {
-  NavProps,
-  NavListProps,
-  NavItemProps,
-} from '@fpkit/acss';
+import type { NavProps, NavListProps, NavItemProps } from "@fpkit/acss";
 ```
 
 ## Common Patterns
@@ -556,7 +603,7 @@ import type {
 ### Responsive Navigation
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function ResponsiveNavigation() {
   return (
@@ -564,14 +611,16 @@ function ResponsiveNavigation() {
       classes="navbar"
       aria-label="Main navigation"
       styles={{
-        '--nav-direction': 'row',
-        '@media (max-width: 768px)': {
-          '--nav-direction': 'column',
-        }
+        "--nav-direction": "row",
+        "@media (max-width: 768px)": {
+          "--nav-direction": "column",
+        },
       }}
     >
       <Nav.List>
-        <Nav.Item><Link href="/">Home</Link></Nav.Item>
+        <Nav.Item>
+          <Link href="/">Home</Link>
+        </Nav.Item>
       </Nav.List>
     </Nav>
   );
@@ -591,7 +640,9 @@ function ResponsiveNavigation() {
 ```tsx
 <Nav classes="navbar-sticky" aria-label="Main navigation">
   <Nav.List>
-    <Nav.Item><Link href="/">Home</Link></Nav.Item>
+    <Nav.Item>
+      <Link href="/">Home</Link>
+    </Nav.Item>
   </Nav.List>
 </Nav>
 ```
@@ -599,7 +650,7 @@ function ResponsiveNavigation() {
 ### Navigation with Brand Logo
 
 ```tsx
-import { Nav, Link } from '@fpkit/acss';
+import { Nav, Link } from "@fpkit/acss";
 
 function BrandNavigation() {
   return (
@@ -613,8 +664,12 @@ function BrandNavigation() {
       </Nav.List>
 
       <Nav.List aria-label="Primary menu">
-        <Nav.Item><Link href="/products">Products</Link></Nav.Item>
-        <Nav.Item><Link href="/about">About</Link></Nav.Item>
+        <Nav.Item>
+          <Link href="/products">Products</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/about">About</Link>
+        </Nav.Item>
       </Nav.List>
     </Nav>
   );
@@ -625,7 +680,8 @@ function BrandNavigation() {
 
 The Nav component meets the following success criteria:
 
-- **✅ 1.3.1 Info and Relationships** - Uses semantic HTML (`<nav>`, `<ul>`, `<li>`)
+- **✅ 1.3.1 Info and Relationships** - Uses semantic HTML (`<nav>`, `<ul>`,
+  `<li>`)
 - **✅ 2.4.1 Bypass Blocks** - Navigation landmark enables skip links
 - **✅ 2.4.8 Location** - Supports `aria-label` for multiple navigation regions
 - **✅ 4.1.2 Name, Role, Value** - Semantic elements provide proper roles
@@ -635,7 +691,8 @@ The Nav component meets the following success criteria:
 
 ### Component Architecture
 
-- **Functional Components** with `React.forwardRef` for Nav, NavList, and NavItem
+- **Functional Components** with `React.forwardRef` for Nav, NavList, and
+  NavItem
 - **Type-Safe** with extracted TypeScript definitions in `nav.types.ts`
 - **Accessible** by leveraging semantic HTML navigation and list elements
 - **Composable** via UI component for polymorphic flexibility
@@ -644,6 +701,7 @@ The Nav component meets the following success criteria:
 ### Browser Support
 
 Works in all modern browsers supporting:
+
 - React 18+
 - CSS Custom Properties
 - CSS Flexbox
@@ -667,18 +725,21 @@ const itemRef = useRef<HTMLLIElement>(null);
 ### Manual Testing Checklist
 
 #### Screen Reader Testing (NVDA/VoiceOver/JAWS)
+
 - [ ] Announces as "navigation landmark"
 - [ ] aria-label read correctly when multiple nav elements present
 - [ ] Items announced as "list" with item count
 - [ ] Current page link announced with "current page" status
 
 #### Keyboard Navigation
+
 - [ ] Tab navigates through links in logical order
 - [ ] Enter and Space activate links
 - [ ] Focus indicators visible for keyboard users
 - [ ] No keyboard traps
 
 #### Visual Testing
+
 - [ ] Navigation displays correctly at different viewport sizes
 - [ ] Works at 200% browser zoom
 - [ ] Text reflows at 320px viewport width
@@ -701,6 +762,7 @@ const itemRef = useRef<HTMLLIElement>(null);
 ## Changelog
 
 ### v1.0.0 (Latest)
+
 - ✨ Complete refactoring with modern React patterns
 - ✨ React.forwardRef for proper ref handling on all components
 - ✨ Separate TypeScript types in `nav.types.ts`
@@ -715,4 +777,6 @@ const itemRef = useRef<HTMLLIElement>(null);
 
 ---
 
-**Need Help?** Check the [Storybook examples](./?path=/docs/fp-react-components-nav--docs) or review the [component source](./nav.tsx) for usage patterns.
+**Need Help?** Check the
+[Storybook examples](./?path=/docs/fp-react-components-nav--docs) or review the
+[component source](./nav.tsx) for usage patterns.

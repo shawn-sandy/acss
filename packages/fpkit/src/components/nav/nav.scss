@@ -21,7 +21,7 @@ body > nav,
       padding-inline: var(--nav-px, 0.75rem);
 
       &:hover {
-        background-color: var(--nav-hov-bg, whitesmoke);
+        background-color: var(--nav-hov-bg, #e8e8e8);
       }
       &:hover:where(img) {
         background-color: transparent;
@@ -31,6 +31,12 @@ body > nav,
 }
 
 nav {
+  // Focus Indicator Variables (WCAG 2.4.7 - 3:1 contrast minimum)
+  --nav-focus-color: currentColor;
+  --nav-focus-width: 0.125rem; // 2px
+  --nav-focus-offset: 0.125rem; // 2px
+  --nav-focus-style: solid;
+
   display: var(--nav-dsp, flex);
   flex-direction: var(--nav-direction, row);
   width: var(--nav-w, auto);
@@ -86,5 +92,30 @@ nav {
 
   > div {
     margin-block-start: 0;
+  }
+
+  // Focus indicators for links and buttons (WCAG 2.4.7)
+  a:focus {
+    outline: var(--nav-focus-width) var(--nav-focus-style)
+      var(--nav-focus-color);
+    outline-offset: var(--nav-focus-offset);
+  }
+
+  a:focus-visible {
+    outline: var(--nav-focus-width) var(--nav-focus-style)
+      var(--nav-focus-color);
+    outline-offset: var(--nav-focus-offset);
+  }
+
+  button:focus {
+    outline: var(--nav-focus-width) var(--nav-focus-style)
+      var(--nav-focus-color);
+    outline-offset: var(--nav-focus-offset);
+  }
+
+  button:focus-visible {
+    outline: var(--nav-focus-width) var(--nav-focus-style)
+      var(--nav-focus-color);
+    outline-offset: var(--nav-focus-offset);
   }
 }

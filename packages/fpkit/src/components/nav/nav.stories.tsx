@@ -82,17 +82,55 @@ export const MultipleNavs: Story = {
   args: {
     ...NavSection.args,
     classes: "navbar",
+    "aria-label": "Main navigation",
     children: (
       <>
-        <Nav.List>
-          <Nav.Item>Link 1</Nav.Item>
-          <Nav.Item>Link 2</Nav.Item>
+        <Nav.List aria-label="Primary menu">
+          <Nav.Item>
+            <Link href="/">Home</Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link href="/products">Products</Link>
+          </Nav.Item>
         </Nav.List>
-        <Nav.List>
-          <Nav.Item>Link 1</Nav.Item>
-          <Nav.Item>Link 2</Nav.Item>
+        <Nav.List aria-label="User menu">
+          <Nav.Item>
+            <Link href="/login">Login</Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link href="/signup">Sign Up</Link>
+          </Nav.Item>
         </Nav.List>
       </>
     ),
+  },
+} as Story;
+
+export const WithCurrentPage: Story = {
+  args: {
+    "aria-label": "Main navigation",
+    children: (
+      <Nav.List>
+        <Nav.Item>
+          <Link href="/" aria-current="page">
+            Home
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/about">About</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/products">Products</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link href="/contact">Contact</Link>
+        </Nav.Item>
+      </Nav.List>
+    ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const homeLink = canvas.getByText(/home/i);
+    expect(homeLink).toHaveAttribute("aria-current", "page");
   },
 } as Story;
