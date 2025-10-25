@@ -1,0 +1,426 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.React Components/Tag/Readme" />
+
+# Tag Component
+
+A small inline label component for displaying status indicators, version labels, and environment markers with WCAG 2.1 AA accessibility compliance.
+
+## Overview
+
+The Tag component serves as a visual and semantic indicator for highlighting supplementary information such as:
+
+- **Release stages** (alpha, beta, stable)
+- **Environment indicators** (production, development)
+- **Version labels** (v1.0.0, v2.0-beta)
+- **Status markers** (new, updated, deprecated)
+
+Tags are designed to be lightweight, accessible, and easily customizable through CSS custom properties.
+
+## Installation
+
+The Tag component is part of the `@fpkit/acss` package.
+
+```bash
+npm install @fpkit/acss
+```
+
+## Basic Usage
+
+```tsx
+import { Tag } from '@fpkit/acss'
+
+function App() {
+  return <Tag variant="beta">Beta Feature</Tag>
+}
+```
+
+## Variants
+
+The Tag component includes four predefined variants, each with semantic color schemes:
+
+### Alpha
+
+Early development stage indicator with warning colors.
+
+```tsx
+<Tag variant="alpha">Alpha v0.1.0</Tag>
+```
+
+### Beta
+
+Pre-release version indicator with warning colors.
+
+```tsx
+<Tag variant="beta">Beta</Tag>
+```
+
+### Stable
+
+Production-ready release indicator with success colors.
+
+```tsx
+<Tag variant="stable">Stable v1.0</Tag>
+```
+
+### Production
+
+Live production environment indicator with primary colors.
+
+```tsx
+<Tag variant="production">Production</Tag>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'alpha' \| 'beta' \| 'stable' \| 'production'` | `undefined` | Visual variant with predefined color schemes |
+| `elm` | `'span' \| 'p'` | `'span'` | HTML element to render (span for inline, p for block) |
+| `role` | `'note' \| 'status'` | `'note'` | ARIA role for semantic meaning and screen reader behavior |
+| `children` | `React.ReactNode` | `undefined` | Content to display inside the tag |
+| `id` | `string` | `undefined` | HTML id attribute |
+| `styles` | `React.CSSProperties` | `undefined` | Inline styles to apply |
+| `classes` | `string` | `undefined` | CSS class names to apply |
+| `aria-label` | `string` | `undefined` | Accessible label for screen readers |
+| `aria-describedby` | `string` | `undefined` | Reference to element(s) that describe the tag |
+
+### TypeScript Types
+
+```tsx
+import type { TagProps, TagVariant } from '@fpkit/acss'
+
+type TagVariant = 'alpha' | 'beta' | 'stable' | 'production'
+
+interface TagProps {
+  variant?: TagVariant
+  elm?: 'span' | 'p'
+  role?: 'note' | 'status'
+  children?: React.ReactNode
+  // ... extends UI component props
+}
+```
+
+## Accessibility (WCAG 2.1 AA Compliance)
+
+### ARIA Roles
+
+The Tag component supports two ARIA roles to ensure proper semantic meaning and screen reader announcements:
+
+#### `role="note"` (Default)
+
+Use for **static tags** that provide informational labels:
+
+```tsx
+<Tag variant="stable" role="note">v1.0.0</Tag>
+```
+
+**Characteristics:**
+- Screen readers read content once when encountered
+- Suitable for version numbers, feature labels, static indicators
+- Does not announce changes to users
+
+#### `role="status"`
+
+Use for **dynamic tags** that update and require announcements:
+
+```tsx
+<Tag role="status" variant="beta">
+  {isDeploying ? 'Deploying...' : 'Deployed'}
+</Tag>
+```
+
+**Characteristics:**
+- Creates a live region for screen reader announcements
+- Screen readers announce updates when content changes
+- Suitable for real-time status, deployment states, dynamic flags
+
+### Color Independence
+
+Don't rely solely on color to convey meaning. Always include descriptive text:
+
+```tsx
+{/* ✅ Good: Text provides meaning independent of color */}
+<Tag variant="production">Production Environment</Tag>
+
+{/* ❌ Bad: Relies only on color */}
+<Tag variant="production" />
+```
+
+### Accessible Labels
+
+Provide `aria-label` when tag content needs additional context:
+
+```tsx
+<Tag variant="beta" aria-label="Beta version - feedback welcome">
+  Beta
+</Tag>
+```
+
+### Contrast Ratios
+
+All predefined variants meet WCAG AA contrast requirements (4.5:1 for normal text). When using custom styles, ensure adequate contrast:
+
+```tsx
+{/* Ensure sufficient contrast when customizing */}
+<Tag styles={{ backgroundColor: '#0066cc', color: '#ffffff' }}>
+  Custom Tag
+</Tag>
+```
+
+## Usage Examples
+
+### Inline Tags
+
+Display tags inline within text content:
+
+```tsx
+<p>
+  This feature is currently in{' '}
+  <Tag variant="beta">Beta</Tag>{' '}
+  and will be moved to{' '}
+  <Tag variant="stable">Stable</Tag>{' '}
+  after testing.
+</p>
+```
+
+### Block-Level Tags
+
+Render tags as block elements using the `p` element:
+
+```tsx
+<Tag elm="p" variant="production">
+  Production Environment
+</Tag>
+```
+
+### Version Labels
+
+Use tags for semantic versioning:
+
+```tsx
+<div>
+  <Tag variant="alpha">v0.1.0-alpha</Tag>
+  <Tag variant="beta">v0.9.0-beta</Tag>
+  <Tag variant="stable">v1.0.0</Tag>
+  <Tag variant="production">v2.0.0</Tag>
+</div>
+```
+
+### Dynamic Status Indicators
+
+Update tags dynamically with proper ARIA role:
+
+```tsx
+function DeploymentStatus() {
+  const [status, setStatus] = useState('deploying')
+
+  return (
+    <Tag
+      role="status"
+      variant={status === 'deployed' ? 'stable' : 'beta'}
+    >
+      {status === 'deploying' ? 'Deploying...' : 'Deployed'}
+    </Tag>
+  )
+}
+```
+
+### Custom Styling
+
+Override default styles with inline CSS or custom properties:
+
+```tsx
+<Tag
+  variant="beta"
+  styles={{
+    fontSize: '0.75rem',
+    padding: '0.25rem 0.5rem',
+    fontWeight: 'bold'
+  }}
+>
+  Small Beta
+</Tag>
+```
+
+## Styling & Theming
+
+The Tag component uses CSS custom properties for theming. You can customize the appearance by overriding these variables:
+
+### CSS Custom Properties
+
+```css
+[data-tag] {
+  /* Spacing */
+  --tag-px: 0.7rem;           /* Horizontal padding */
+  --tag-py: 0.2rem;           /* Vertical padding */
+
+  /* Typography */
+  --tag-fs: 0.8rem;           /* Font size */
+  --tag-fw: 500;              /* Font weight */
+  --tag-color: currentColor;  /* Text color */
+
+  /* Appearance */
+  --tag-bg: lightgray;        /* Background color */
+  --tag-radius: 99rem;        /* Border radius */
+  --tag-display: inline-block;/* Display type */
+}
+```
+
+### Variant Color Tokens
+
+```css
+/* Override variant colors */
+[data-tag] {
+  --beta: var(--warning-500, orange);
+  --stable: var(--success-500, green);
+  --production: rgb(44, 71, 151);
+}
+```
+
+### Custom Theme Example
+
+```css
+/* Create a custom dark theme for tags */
+[data-tag] {
+  --tag-bg: #1a1a1a;
+  --tag-color: #ffffff;
+  --tag-radius: 0.25rem;
+}
+
+[data-tag~='beta'] {
+  --tag-bg: #ff6b00;
+  --tag-color: #ffffff;
+}
+```
+
+## Best Practices
+
+### ✅ Do
+
+- **Use semantic variants** that match the content meaning
+- **Include descriptive text** independent of color
+- **Use `role="status"`** for dynamic content that updates
+- **Use `role="note"`** for static informational labels
+- **Provide `aria-label`** for additional screen reader context when needed
+- **Keep tag content concise** (typically 1-3 words)
+
+### ❌ Don't
+
+- **Don't rely on color alone** to convey meaning
+- **Don't use `role="status"`** for static content
+- **Don't use empty tags** without accessible labels
+- **Don't nest interactive elements** inside tags
+- **Don't use tags for critical information** without text alternatives
+
+## Common Patterns
+
+### Feature Release Stages
+
+```tsx
+<div>
+  <h3>New Features</h3>
+  <ul>
+    <li>
+      Dark Mode <Tag variant="alpha">Alpha</Tag>
+    </li>
+    <li>
+      API v2 <Tag variant="beta">Beta</Tag>
+    </li>
+    <li>
+      OAuth Login <Tag variant="stable">Stable</Tag>
+    </li>
+  </ul>
+</div>
+```
+
+### Environment Indicators
+
+```tsx
+function EnvironmentBanner() {
+  const env = process.env.NODE_ENV
+
+  return (
+    <Tag
+      variant={env === 'production' ? 'production' : 'beta'}
+      aria-label={`Current environment: ${env}`}
+    >
+      {env}
+    </Tag>
+  )
+}
+```
+
+### Version Comparison
+
+```tsx
+<table>
+  <tr>
+    <td>Current</td>
+    <td><Tag variant="stable">v1.2.0</Tag></td>
+  </tr>
+  <tr>
+    <td>Latest</td>
+    <td><Tag variant="production">v2.0.0</Tag></td>
+  </tr>
+</table>
+```
+
+## Testing
+
+The Tag component includes comprehensive test coverage. Example test cases:
+
+```tsx
+import { render, screen } from '@testing-library/react'
+import Tag from './tag'
+
+test('renders with default props', () => {
+  render(<Tag>Test Tag</Tag>)
+  expect(screen.getByRole('note')).toBeInTheDocument()
+})
+
+test('applies variant styling', () => {
+  render(<Tag variant="beta">Beta</Tag>)
+  const tag = screen.getByText('Beta')
+  expect(tag).toHaveAttribute('data-tag', 'beta')
+})
+
+test('supports dynamic status updates', () => {
+  const { rerender } = render(
+    <Tag role="status">Deploying</Tag>
+  )
+  expect(screen.getByRole('status')).toHaveTextContent('Deploying')
+
+  rerender(<Tag role="status">Deployed</Tag>)
+  expect(screen.getByRole('status')).toHaveTextContent('Deployed')
+})
+```
+
+## Browser Support
+
+The Tag component supports all modern browsers that support:
+- CSS Custom Properties
+- CSS Logical Properties (`padding-inline`, `padding-block`)
+- ARIA roles and attributes
+
+For legacy browser support, consider using PostCSS with appropriate plugins.
+
+## Related Components
+
+- **Badge**: For numerical indicators and notification counts
+- **Chip**: For interactive, removable labels
+- **Label**: For form field labels
+
+## Changelog
+
+See the [component changelog](../../CHANGELOG.md) for version history and updates.
+
+## Contributing
+
+Contributions are welcome! Please read our [contributing guidelines](../../CONTRIBUTING.md) before submitting pull requests.
+
+## License
+
+MIT License - see [LICENSE](../../LICENSE) for details.

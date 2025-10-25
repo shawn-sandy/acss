@@ -540,21 +540,35 @@ button .btn-text:is(:hover, :focus) {
   filter: none;
 }
 
+/**
+ * Tag Component Styles
+ *
+ * Provides visual styling for the Tag component with CSS custom properties
+ * for easy theming and variant support. All measurements use rem units
+ * for scalability and accessibility.
+ */
+/**
+ * Base Tag Styles
+ * Applied to all tag elements via role and data-tag attributes
+ */
 p[role=note],
 [role=note],
 small > span,
 [data-tag] {
+  /* Variant color tokens */
   --beta: var(--warning-500, orange);
   --stable: var(--success-500, green);
   --production: rgb(44, 71, 151);
-  --tag-px: 0.7rem;
-  --tag-py: 0.2rem;
-  --tag-fs: 0.8rem;
-  --tag-radius: 99rem;
-  --tag-bg: lightgray;
-  --tag-fw: 500;
-  --tag-color: currentColor;
-  --tag-display: inline-block;
+  /* Tag component tokens */
+  --tag-px: 0.7rem; /* Horizontal padding (11.2px at 16px base) */
+  --tag-py: 0.2rem; /* Vertical padding (3.2px at 16px base) */
+  --tag-fs: 0.8rem; /* Font size (12.8px at 16px base) */
+  --tag-radius: 99rem; /* Fully rounded pill shape */
+  --tag-bg: lightgray; /* Default background color */
+  --tag-fw: 500; /* Medium font weight */
+  --tag-color: currentColor; /* Default text color (inherits) */
+  --tag-display: inline-block; /* Display type */
+  /* Apply CSS custom properties */
   display: var(--tag-display);
   padding-inline: var(--tag-px);
   padding-block: var(--tag-py);
@@ -562,33 +576,14 @@ small > span,
   color: var(--tag-color);
   background-color: var(--tag-bg);
   border-radius: var(--tag-radius);
-}
-p[role=note][data-tag~=beta],
-[role=note][data-tag~=beta],
-small > span[data-tag~=beta],
-[data-tag][data-tag~=beta] {
-  background-color: var(--beta);
-}
-p[role=note][data-tag~=stable],
-[role=note][data-tag~=stable],
-small > span[data-tag~=stable],
-[data-tag][data-tag~=stable] {
-  --tag-cl: white;
-  --tag-bg: var(--stable);
-}
-p[role=note][data-tag~=production],
-[role=note][data-tag~=production],
-small > span[data-tag~=production],
-[data-tag][data-tag~=production] {
-  --tag-color: white;
-  --tag-bg: var(--production);
-}
-p[role=note][data-tag~=beta],
-[role=note][data-tag~=beta],
-small > span[data-tag~=beta],
-[data-tag][data-tag~=beta] {
-  --tag-color: currentColor;
-  --tag-bg: var(--beta);
+  /**
+   * Variant Modifiers
+   * Applied via data-tag attribute (e.g., data-tag="beta")
+   */
+  /* Alpha variant - early development stage */
+  /* Beta variant - pre-release version */
+  /* Stable variant - production-ready release */
+  /* Production variant - live environment indicator */
 }
 p[role=note][data-tag~=alpha],
 [role=note][data-tag~=alpha],
@@ -604,10 +599,28 @@ small > span[data-tag~=beta],
   --tag-color: currentColor;
   --tag-bg: var(--beta);
 }
+p[role=note][data-tag~=stable],
+[role=note][data-tag~=stable],
+small > span[data-tag~=stable],
+[data-tag][data-tag~=stable] {
+  --tag-color: white;
+  --tag-bg: var(--stable);
+}
+p[role=note][data-tag~=production],
+[role=note][data-tag~=production],
+small > span[data-tag~=production],
+[data-tag][data-tag~=production] {
+  --tag-color: white;
+  --tag-bg: var(--production);
+}
 
+/**
+ * Block-level tag modifier
+ * Applied when Tag renders as <p> element
+ */
 p[role=note] {
   --tag-display: block;
-  --border-radius: 0.5rem;
+  --tag-radius: 0.5rem; /* Less rounded for block tags (8px at 16px base) */
 }
 
 /**
