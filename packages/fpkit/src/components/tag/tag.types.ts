@@ -21,7 +21,7 @@ export type TagVariant = 'alpha' | 'beta' | 'stable' | 'production'
 /**
  * Props for the Tag component
  *
- * @property {React.ReactNode} [children] - Content to display inside the tag (typically short text or version numbers)
+ * @property {React.ReactNode} children - REQUIRED - Content to display inside the tag (typically short text or version numbers)
  * @property {'span' | 'p'} [elm='span'] - HTML element to render the tag as. Use 'p' for block-level tags, 'span' for inline
  * @property {'note' | 'status'} [role='note'] - ARIA role for semantic meaning and screen reader announcements
  * @property {TagVariant} [variant] - Visual variant that applies predefined color schemes (alpha, beta, stable, production)
@@ -29,7 +29,9 @@ export type TagVariant = 'alpha' | 'beta' | 'stable' | 'production'
  * @property {React.CSSProperties} [styles] - Inline styles to apply to the tag
  * @property {string} [classes] - CSS class names to apply to the tag
  * @property {string} [aria-label] - Accessible label for screen readers. Recommended when tag content needs additional context
+ * @property {string} [aria-labelledby] - Reference to element(s) that label the tag for additional context
  * @property {string} [aria-describedby] - Reference to element(s) that describe the tag for additional context
+ * @property {'off' | 'polite' | 'assertive'} [aria-live] - ARIA live region politeness setting for dynamic content (use with role="status")
  *
  * @example
  * ```tsx
@@ -63,15 +65,43 @@ export type TagProps = {
   role?: 'note' | 'status'
   /**
    * Visual variant that applies predefined color schemes
-   * - 'alpha': Early development stage (warning colors)
-   * - 'beta': Pre-release version (warning colors)
-   * - 'stable': Production-ready release (success colors)
-   * - 'production': Live production environment (primary colors)
+   * - 'alpha': Early development stage (amber background with warning symbol ⚠)
+   * - 'beta': Pre-release version (amber background with warning symbol ⚠)
+   * - 'stable': Production-ready release (green background with checkmark ✓)
+   * - 'production': Live production environment (blue background with live indicator ●)
+   *
+   * Each variant includes both color AND visual symbols for accessibility (WCAG 1.4.1).
    */
   variant?: TagVariant
   /**
    * Content to display inside the tag
+   * REQUIRED - Ensures tag has meaningful content for all users including screen reader users
    * Typically short text, version numbers, or status labels
    */
-  children?: React.ReactNode
-} & Omit<React.ComponentProps<typeof UI>, 'as'>
+  children: React.ReactNode
+  /**
+   * Accessible label for screen readers
+   * Provides additional context beyond visible text
+   */
+  'aria-label'?: string
+  /**
+   * Reference to element(s) that label the tag
+   * Alternative to aria-label for programmatic labeling
+   */
+  'aria-labelledby'?: string
+  /**
+   * Reference to element(s) that describe the tag
+   * Provides additional descriptive context
+   */
+  'aria-describedby'?: string
+  /**
+   * ARIA live region politeness setting
+   * - 'off': Updates not announced (default)
+   * - 'polite': Announces when user is idle (recommended for role="status")
+   * - 'assertive': Announces immediately (use sparingly for critical updates)
+   */
+  'aria-live'?: 'off' | 'polite' | 'assertive'
+} & Omit<
+  React.ComponentProps<typeof UI>,
+  'as' | 'aria-label' | 'aria-labelledby' | 'aria-describedby' | 'aria-live'
+>

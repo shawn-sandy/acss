@@ -171,11 +171,13 @@ describe('Tag Component', () => {
   })
 
   describe('Edge Cases', () => {
-    it('should render without children', () => {
-      render(<Tag aria-label="Empty tag" />)
-      const tag = screen.getByLabelText('Empty tag')
+    it('should require children for accessibility', () => {
+      // TypeScript should enforce children as required
+      // This test verifies meaningful content is provided
+      render(<Tag aria-label="Tag with content">Required Content</Tag>)
+      const tag = screen.getByLabelText('Tag with content')
       expect(tag).toBeInTheDocument()
-      expect(tag).toBeEmptyDOMElement()
+      expect(tag).toHaveTextContent('Required Content')
     })
 
     it('should handle multiple children', () => {
