@@ -1,6 +1,12 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Forms/Form/Readme" />
+
 # Form Components
 
 A comprehensive set of accessible React form components built with TypeScript, designed for building robust, WCAG 2.1 AA compliant forms with proper validation, error handling, and status management.
+
+> 💡 **Interactive Examples**: See the [Form stories](./?path=/docs/fp-react-forms-form--docs) for live, interactive examples with automated accessibility testing.
 
 ## Features
 
@@ -42,6 +48,8 @@ import { Form, Input, Field } from '@fpkit/acss';
 
 ### Simple Contact Form
 
+A basic form with required fields, proper label associations, and submission handling.
+
 ```tsx
 import Form from '@fpkit/acss';
 
@@ -77,7 +85,7 @@ function ContactForm() {
 
 ### Form with Status Management
 
-Use the `status` prop to manage form submission states:
+Use the `status` prop to manage form submission states. This example shows how the form automatically sets `aria-busy` and disables fields during submission.
 
 ```tsx
 import { useState } from 'react';
@@ -144,7 +152,7 @@ function RegistrationForm() {
 
 ### Form with Validation
 
-Implement client-side validation with error messages:
+Implement client-side validation with error messages. Notice how the input uses `validationState` to show visual feedback and `aria-invalid` for screen readers.
 
 ```tsx
 import { useState } from 'react';
@@ -199,7 +207,7 @@ function ValidatedForm() {
 
 ### Keyboard-Driven Workflows
 
-Use the `onEnter` prop for keyboard-friendly interactions:
+Use the `onEnter` prop for keyboard-friendly interactions. This example demonstrates `onEnter` on inputs, textareas, and selects.
 
 ```tsx
 import { useState } from 'react';
@@ -518,16 +526,25 @@ test('submits form data', async () => {
 
 ---
 
-## Examples
+## More Examples
 
-See the [Storybook documentation](https://your-storybook-url.com) for interactive examples:
+See the [Form Interactive Guide](./?path=/docs/fp-react-forms-form--docs) for complete examples including:
 
-- Basic Form
-- Form with Validation
-- Form with Loading State
-- Keyboard Accessibility Demo
-- Multi-Step Form
-- Registration Form
+### Form with Hint Text
+
+Guide users with helpful hint text below fields, properly associated using `aria-describedby`.
+
+### Form with Select Dropdown
+
+Combine different form control types for rich data collection.
+
+### Form with Optional Fields
+
+Clearly distinguish between required and optional fields for better UX.
+
+### Complete Registration Form
+
+A comprehensive example combining all features: validation, hints, different field types, and proper accessibility.
 
 ---
 

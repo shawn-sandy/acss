@@ -62,6 +62,21 @@ export interface FormProps extends Omit<React.ComponentProps<'form'>, 'className
    */
   status?: FormStatus
   /**
+   * Accessible name for the form
+   * RECOMMENDED when multiple forms exist on the same page to help screen reader users distinguish between them.
+   * Use descriptive labels like "Contact form", "Login form", "Search form"
+   * @example "Contact form"
+   * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html|WCAG 2.4.6 Headings and Labels}
+   */
+  'aria-label'?: string
+  /**
+   * ID of element that labels the form
+   * Alternative to aria-label. Use when a visible heading already labels the form.
+   * @example "contact-form-title"
+   * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html|WCAG 2.4.6 Headings and Labels}
+   */
+  'aria-labelledby'?: string
+  /**
    * Child elements (form fields, buttons, etc.)
    */
   children: React.ReactNode
@@ -161,7 +176,6 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
         target={target}
         noValidate={noValidate}
         // Accessibility attributes
-        role="form"
         aria-busy={isBusy}
         // Data attribute for CSS styling hooks
         data-status={status}

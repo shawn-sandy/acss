@@ -24,7 +24,7 @@ export type SelectOptionsProps = {
  */
 export const Option = ({ selectValue, selectLabel }: SelectOptionsProps) => {
   return (
-    <option role="option" value={selectValue}>
+    <option value={selectValue}>
       {selectLabel || selectValue}
     </option>
   )
@@ -74,6 +74,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       children,
       required,
       selected,
+      validationState = 'none',
+      errorMessage,
+      hintText,
       onBlur,
       onSelectionChange,
       onPointerDown,
@@ -83,6 +86,20 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
+    // Determine aria-invalid based on validation state
+    const isInvalid = validationState === 'invalid'
+
+    // Generate describedby IDs for error and hint text
+    const describedByIds: string[] = []
+    if (errorMessage && id) {
+      describedByIds.push(`${id}-error`)
+    }
+    if (hintText && id) {
+      describedByIds.push(`${id}-hint`)
+    }
+    const ariaDescribedBy =
+      describedByIds.length > 0 ? describedByIds.join(' ') : undefined
+
     /**
      * Change event handler
      * @param {React.ChangeEvent<HTMLSelectElement>} e - Change event
@@ -137,6 +154,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         required={required}
         aria-required={required}
         aria-disabled={disabled}
+        aria-invalid={isInvalid}
+        aria-describedby={ariaDescribedBy}
         style={styles}
         {...props}
       >
