@@ -15,7 +15,7 @@ const preview: Preview = {
       },
     },
     viewport: {
-      viewports: {
+      options: {
         reflow: {
           name: "Reflow 320px",
           styles: {
