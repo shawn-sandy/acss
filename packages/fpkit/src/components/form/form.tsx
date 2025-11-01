@@ -1,66 +1,67 @@
-import UI from '#components/fp'
-import React from 'react'
+import UI from "#components/ui";
+import React from "react";
 
-import Input from './inputs'
-import Field from './fields'
-import Select from './select'
-import Textarea from './textarea'
+import Input from "./inputs";
+import Field from "./fields";
+import Select from "./select";
+import Textarea from "./textarea";
 
 /**
  * Form submission status type
  */
-export type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
+export type FormStatus = "idle" | "submitting" | "success" | "error";
 
 /**
  * Form component props interface
  * @interface FormProps
  * @extends {React.ComponentProps<'form'>}
  */
-export interface FormProps extends Omit<React.ComponentProps<'form'>, 'className'> {
+export interface FormProps
+  extends Omit<React.ComponentProps<"form">, "className"> {
   /**
    * Unique identifier for the form
    */
-  id?: string
+  id?: string;
   /**
    * Name attribute for the form
    */
-  name?: string
+  name?: string;
   /**
    * Inline CSS styles object
    */
-  styles?: React.CSSProperties
+  styles?: React.CSSProperties;
   /**
    * CSS class names (preferred over 'className' for consistency with fpkit components)
    */
-  classes?: string
+  classes?: string;
   /**
    * Form submission action URL
    */
-  action?: string
+  action?: string;
   /**
    * HTTP method for form submission
    * @default 'post'
    */
-  formMethod?: 'get' | 'post'
+  formMethod?: "get" | "post";
   /**
    * Form submission handler - prevents default browser submission
    * @param {React.FormEvent<HTMLFormElement>} event - Form submit event
    */
-  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
+  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
   /**
    * Target for form submission (_blank, _self, _parent, _top)
    */
-  target?: string
+  target?: string;
   /**
    * Disable HTML5 validation
    * @default false
    */
-  noValidate?: boolean
+  noValidate?: boolean;
   /**
    * Current form status for accessibility and styling
    * @default 'idle'
    */
-  status?: FormStatus
+  status?: FormStatus;
   /**
    * Accessible name for the form
    * RECOMMENDED when multiple forms exist on the same page to help screen reader users distinguish between them.
@@ -68,18 +69,18 @@ export interface FormProps extends Omit<React.ComponentProps<'form'>, 'className
    * @example "Contact form"
    * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html|WCAG 2.4.6 Headings and Labels}
    */
-  'aria-label'?: string
+  "aria-label"?: string;
   /**
    * ID of element that labels the form
    * Alternative to aria-label. Use when a visible heading already labels the form.
    * @example "contact-form-title"
    * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html|WCAG 2.4.6 Headings and Labels}
    */
-  'aria-labelledby'?: string
+  "aria-labelledby"?: string;
   /**
    * Child elements (form fields, buttons, etc.)
    */
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 /**
@@ -137,14 +138,14 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
       classes,
       children,
       action,
-      formMethod = 'post',
+      formMethod = "post",
       onSubmit,
       target,
       noValidate = false,
-      status = 'idle',
+      status = "idle",
       ...props
     },
-    ref
+    ref: React.ForwardedRef<HTMLFormElement>
   ) => {
     /**
      * Form submission handler
@@ -153,19 +154,22 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
      */
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       if (onSubmit) {
-        event.preventDefault()
-        onSubmit(event)
+        event.preventDefault();
+        onSubmit(event);
       }
       // If no onSubmit handler, allow native form submission
-    }
+    };
 
     // Determine if form is busy (submitting)
-    const isBusy = status === 'submitting'
+    const isBusy = status === "submitting";
 
     return (
       <UI
         as="form"
-        ref={ref as React.Ref<HTMLFormElement>}
+        // @ts-expect-error - ForwardedRef includes legacy string refs in its type union,
+        // but modern React (18+) and our polymorphic types correctly exclude them.
+        // String refs are deprecated and will not be passed at runtime.
+        ref={ref}
         id={id}
         name={name}
         className={classes}
@@ -183,26 +187,26 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
       >
         {children}
       </UI>
-    )
+    );
   }
-)
+);
 
 // Compound component type with sub-components
 type FormComponent = typeof Form & {
-  Field: typeof Field
-  Input: typeof Input
-  Select: typeof Select
-  Textarea: typeof Textarea
-}
+  Field: typeof Field;
+  Input: typeof Input;
+  Select: typeof Select;
+  Textarea: typeof Textarea;
+};
 
 // Display name for React DevTools
-Form.displayName = 'Form'
+Form.displayName = "Form";
 
 // Compound component pattern - attach sub-components with proper typing
-const FormWithSubComponents = Form as FormComponent
-FormWithSubComponents.Field = Field
-FormWithSubComponents.Input = Input
-FormWithSubComponents.Select = Select
-FormWithSubComponents.Textarea = Textarea
+const FormWithSubComponents = Form as FormComponent;
+FormWithSubComponents.Field = Field;
+FormWithSubComponents.Input = Input;
+FormWithSubComponents.Select = Select;
+FormWithSubComponents.Textarea = Textarea;
 
-export default FormWithSubComponents
+export default FormWithSubComponents;
