@@ -7,6 +7,7 @@ import React from "react";
  *
  * This utility type ensures that refs are properly typed based on the element
  * being rendered. For example, a button element receives HTMLButtonElement ref.
+ * Excludes legacy string refs (deprecated since React 16.3).
  *
  * @typeParam C - The HTML element type (e.g., 'button', 'div', 'a')
  * @example
@@ -15,8 +16,9 @@ import React from "react";
  * type DivRef = PolymorphicRef<'div'>; // React.Ref<HTMLDivElement>
  * ```
  */
-type PolymorphicRef<C extends React.ElementType> =
-  React.ComponentPropsWithRef<C>["ref"];
+type PolymorphicRef<C extends React.ElementType> = React.Ref<
+  React.ElementRef<C>
+>;
 
 /**
  * Defines the 'as' prop that determines which HTML element to render.
@@ -74,6 +76,9 @@ type PolymorphicComponentProp<
  * to match the element being rendered, enabling focus management and direct
  * DOM access for accessibility features like programmatic focus control.
  *
+ * Supports both PolymorphicRef and ForwardedRef for compatibility with
+ * React.forwardRef components.
+ *
  * @typeParam C - The HTML element type
  * @typeParam Props - The custom props to add
  *
@@ -93,7 +98,7 @@ type PolymorphicComponentPropWithRef<
   C extends React.ElementType,
   Props = {},
 > = PolymorphicComponentProp<C, Props> & {
-  ref?: PolymorphicRef<C>;
+  ref?: PolymorphicRef<C> | React.ForwardedRef<React.ElementRef<C>>;
 };
 
 /**
