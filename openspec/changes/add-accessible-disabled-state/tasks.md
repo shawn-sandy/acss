@@ -2,15 +2,15 @@
 
 ## 1. Core Hook Implementation
 
-- [ ] 1.1 Create `packages/fpkit/src/hooks/use-disabled-state.ts` with hook implementation
-- [ ] 1.2 Implement event handler wrapping logic with `preventDefault()` and `stopPropagation()`
-- [ ] 1.3 Add TypeScript generic support for element types (`<T extends HTMLElement>`)
-- [ ] 1.4 Use `useMemo` for `disabledProps` object to prevent unnecessary re-renders
-- [ ] 1.5 Use `useCallback` for wrapped event handlers with proper dependencies
-- [ ] 1.6 Add comprehensive JSDoc documentation with `@description`, `@param`, `@returns`, `@example`
-- [ ] 1.7 Include WCAG 2.1 references in JSDoc (2.1.1, 4.1.2)
-- [ ] 1.8 Add multiple usage examples in JSDoc (button, input, custom handlers)
-- [ ] 1.9 Export hook from `packages/fpkit/src/hooks.ts`
+- [x] 1.1 Create `packages/fpkit/src/hooks/use-disabled-state.ts` with hook implementation
+- [x] 1.2 Implement event handler wrapping logic with `preventDefault()` and `stopPropagation()`
+- [x] 1.3 Add TypeScript generic support for element types (`<T extends HTMLElement>`)
+- [x] 1.4 Use `useMemo` for `disabledProps` object to prevent unnecessary re-renders
+- [x] 1.5 Use `useCallback` for wrapped event handlers with proper dependencies
+- [x] 1.6 Add comprehensive JSDoc documentation with `@description`, `@param`, `@returns`, `@example`
+- [x] 1.7 Include WCAG 2.1 references in JSDoc (2.1.1, 4.1.2)
+- [x] 1.8 Add multiple usage examples in JSDoc (button, input, custom handlers)
+- [x] 1.9 Export hook from `packages/fpkit/src/hooks.ts`
 - [ ] 1.10 Create unit tests in `use-disabled-state.test.ts` covering:
   - [ ] Returns correct `aria-disabled` value
   - [ ] Returns `.is-disabled` className when disabled
@@ -22,42 +22,42 @@
 
 ## 2. Accessibility Utilities
 
-- [ ] 2.1 Create `packages/fpkit/src/utils/accessibility.ts` utility file
-- [ ] 2.2 Implement `getDisabledStyles()` function returning CSS-in-JS styles object
-- [ ] 2.3 Add `wrapEventHandler()` utility for advanced use cases
-- [ ] 2.4 Add JSDoc documentation with WCAG contrast requirements
+- [x] 2.1 Create `packages/fpkit/src/utils/accessibility.ts` utility file
+- [x] 2.2 Implement `getDisabledStyles()` function returning CSS-in-JS styles object
+- [x] 2.3 Add `wrapEventHandler()` utility for advanced use cases
+- [x] 2.4 Add JSDoc documentation with WCAG contrast requirements
 - [ ] 2.5 Create unit tests for utility functions
 
 ## 3. SCSS Styling System
 
-- [ ] 3.1 Create `packages/fpkit/src/styles/utilities/_disabled.scss`
-- [ ] 3.2 Implement `.is-disabled` utility class with:
-  - [ ] `--disabled-opacity: 0.6` CSS custom property
-  - [ ] `--disabled-cursor: not-allowed` CSS custom property
-  - [ ] `--disabled-color: hsl(0 0% 40%)` (ensures 3:1 contrast on white backgrounds)
-  - [ ] `opacity` using `var(--disabled-opacity)`
-  - [ ] `cursor` using `var(--disabled-cursor)`
-  - [ ] `color` using `var(--disabled-color)`
-- [ ] 3.3 Add selector for `[aria-disabled="true"]` matching `.is-disabled` styles
-- [ ] 3.4 Ensure all values use rem units (no px except for calculated values)
-- [ ] 3.5 Import `_disabled.scss` in `packages/fpkit/src/index.scss`
-- [ ] 3.6 Add comments documenting WCAG 1.4.3 compliance (3:1 minimum)
+- [x] 3.1 Create `packages/fpkit/src/styles/utilities/_disabled.scss`
+- [x] 3.2 Implement `.is-disabled` utility class with:
+  - [x] `--disabled-opacity: 0.6` CSS custom property
+  - [x] `--disabled-cursor: not-allowed` CSS custom property
+  - [x] `--disabled-color: hsl(0 0% 40%)` (ensures 3:1 contrast on white backgrounds)
+  - [x] `opacity` using `var(--disabled-opacity)`
+  - [x] `cursor` using `var(--disabled-cursor)`
+  - [x] `color` using `var(--disabled-color)`
+- [x] 3.3 Add selector for `[aria-disabled="true"]` matching `.is-disabled` styles
+- [x] 3.4 Ensure all values use rem units (no px except for calculated values)
+- [x] 3.5 Import `_disabled.scss` in `packages/fpkit/src/index.scss`
+- [x] 3.6 Add comments documenting WCAG 1.4.3 compliance (3:1 minimum)
 
 ## 4. Type System Updates
 
-- [ ] 4.1 Update `packages/fpkit/src/types/shared.ts` with `DisabledProps` interface
-- [ ] 4.2 Add JSDoc to `DisabledProps` documenting `disabled` prop
-- [ ] 4.3 Add JSDoc `@deprecated` tag to `isDisabled` with migration guidance
+- [x] 4.1 Update `packages/fpkit/src/types/shared.ts` with `DisabledProps` interface
+- [x] 4.2 Add JSDoc to `DisabledProps` documenting `disabled` prop
+- [x] 4.3 Add JSDoc `@deprecated` tag to `isDisabled` with migration guidance
 - [ ] 4.4 Ensure `DisabledProps` extends base interfaces properly
 - [ ] 4.5 Export `DisabledProps` from types entry point if needed
 
 ## 5. Button Component Refactoring
 
-- [ ] 5.1 Update `packages/fpkit/src/components/buttons/button.tsx`
-- [ ] 5.2 Import `useDisabledState` hook
-- [ ] 5.3 Replace manual event handler check with hook usage
-- [ ] 5.4 Update component to spread `{...disabledProps} {...handlers}`
-- [ ] 5.5 Ensure backward compatibility with `isDisabled` prop
+- [x] 5.1 Update `packages/fpkit/src/components/buttons/button.tsx`
+- [x] 5.2 Import `useDisabledState` hook
+- [x] 5.3 Replace manual event handler check with hook usage
+- [x] 5.4 Update component to spread `{...disabledProps} {...handlers}`
+- [x] 5.5 Ensure backward compatibility with `isDisabled` prop
 - [ ] 5.6 Update tests in `button.test.tsx` to verify:
   - [ ] Disabled button prevents onClick
   - [ ] Disabled button has `aria-disabled="true"`
@@ -68,30 +68,30 @@
 
 ## 6. Input Component Refactoring
 
-- [ ] 6.1 Update `packages/fpkit/src/components/form/inputs.tsx`
-- [ ] 6.2 Import `useDisabledState` hook
-- [ ] 6.3 Resolve `disabled` vs `isDisabled` prop (use `disabled ?? isDisabled`)
-- [ ] 6.4 Replace manual event handler check with hook usage
-- [ ] 6.5 Update component to spread `{...disabledProps} {...handlers}`
+- [x] 6.1 Update `packages/fpkit/src/components/form/inputs.tsx`
+- [x] 6.2 Import `useDisabledState` hook
+- [x] 6.3 Resolve `disabled` vs `isDisabled` prop (use `disabled ?? isDisabled`)
+- [x] 6.4 Replace manual event handler check with hook usage
+- [x] 6.5 Update component to spread `{...disabledProps} {...handlers}`
 - [ ] 6.6 Update tests in `inputs.test.tsx` (if exists) or create tests
 - [ ] 6.7 Update `input.stories.tsx` with disabled state examples
 - [ ] 6.8 Add story showing disabled input with hint text explaining why disabled
 
 ## 7. Textarea Component Refactoring
 
-- [ ] 7.1 Update `packages/fpkit/src/components/form/textarea.tsx`
-- [ ] 7.2 Import `useDisabledState` hook
-- [ ] 7.3 Replace manual `handleChange` disabled check with hook usage
-- [ ] 7.4 Update component to spread `{...disabledProps} {...handlers}`
+- [x] 7.1 Update `packages/fpkit/src/components/form/textarea.tsx`
+- [x] 7.2 Import `useDisabledState` hook
+- [x] 7.3 Replace manual `handleChange` disabled check with hook usage
+- [x] 7.4 Update component to spread `{...disabledProps} {...handlers}`
 - [ ] 7.5 Update tests for disabled behavior
 - [ ] 7.6 Update stories with disabled examples
 
 ## 8. Select Component Refactoring
 
-- [ ] 8.1 Update `packages/fpkit/src/components/form/select.tsx`
-- [ ] 8.2 Import `useDisabledState` hook
-- [ ] 8.3 Replace manual event handler check with hook usage
-- [ ] 8.4 Update component to spread `{...disabledProps} {...handlers}`
+- [x] 8.1 Update `packages/fpkit/src/components/form/select.tsx`
+- [x] 8.2 Import `useDisabledState` hook
+- [x] 8.3 Replace manual event handler check with hook usage
+- [x] 8.4 Update component to spread `{...disabledProps} {...handlers}`
 - [ ] 8.5 Update tests for disabled behavior
 - [ ] 8.6 Update stories with disabled examples
 
@@ -160,10 +160,10 @@
 
 ## 15. Build & Compilation
 
-- [ ] 15.1 Run `npm run build` in `packages/fpkit/` directory
-- [ ] 15.2 Verify TypeScript compilation succeeds with no errors
-- [ ] 15.3 Verify SCSS compilation succeeds with no errors
-- [ ] 15.4 Check that compiled CSS includes `.is-disabled` utility class
+- [x] 15.1 Run `npm run build` in `packages/fpkit/` directory
+- [x] 15.2 Verify TypeScript compilation succeeds with no errors (new files compile cleanly)
+- [x] 15.3 Verify SCSS compilation succeeds with no errors
+- [x] 15.4 Check that compiled CSS includes `.is-disabled` utility class
 - [ ] 15.5 Verify generated TypeScript declarations (`.d.ts`) include hook types
 - [ ] 15.6 Check bundle sizes to ensure minimal increase (<2KB total)
 - [ ] 15.7 Test ESM and CJS builds work correctly

@@ -1,6 +1,8 @@
 import React from "react";
 import FP from "../fp";
 import type { InputProps } from "./form.types";
+import { useDisabledState } from "../../hooks/use-disabled-state";
+import { resolveDisabledState } from "../../utils/accessibility";
 
 export type { InputProps } from "./form.types";
 
@@ -82,7 +84,28 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     // Support both `disabled` and `isDisabled` props (legacy compatibility)
-    const isInputDisabled = disabled ?? isDisabled ?? false;
+    const isInputDisabled = resolveDisabledState(disabled, isDisabled);
+
+    // Use the disabled state hook to wrap event handlers
+    const { disabledProps, handlers } = useDisabledState<HTMLInputElement>(
+      isInputDisabled,
+      {
+        onChange,
+        onBlur,
+        onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+          // Handle Enter key press for accessibility
+          if (e.key === "Enter" && onEnter) {
+            onEnter(e);
+          }
+          // Always call consumer's onKeyDown if provided
+          if (onKeyDown) {
+            onKeyDown(e);
+          }
+        },
+        // Note: onFocus is NOT wrapped to allow focus on disabled inputs
+        // This is handled automatically by useDisabledState
+      }
+    );
 
     // Determine aria-invalid based on validation state
     const isInvalid = validationState === "invalid";
@@ -102,16 +125,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const accessiblePlaceholder =
       placeholder || (required ? `* ${type} input` : `${type} input`);
 
-    // Handle Enter key press for accessibility
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter" && onEnter) {
-        onEnter(e);
-      }
-      // Always call consumer's onKeyDown if provided
-      if (onKeyDown) {
-        onKeyDown(e);
-      }
-    };
+    // Merge disabled className with user-provided classes
+    const mergedClasses = [disabledProps.className, classes]
+      .filter(Boolean)
+      .join(" ");
 
     return (
       <FP
@@ -123,7 +140,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         value={value}
         defaultValue={defaultValue}
         placeholder={accessiblePlaceholder}
-        className={classes}
+        className={mergedClasses}
         styles={styles}
         readOnly={readOnly}
         required={required}
@@ -133,13 +150,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         autoComplete={autoComplete}
         autoFocus={autoFocus}
         inputMode={inputMode}
-        // Event handlers
-        onChange={onChange}
-        onBlur={onBlur}
+        // Event handlers (wrapped by useDisabledState)
+        {...handlers}
         onFocus={onFocus}
-        onKeyDown={handleKeyDown}
         // ARIA attributes
-        aria-disabled={isInputDisabled}
+        aria-disabled={disabledProps["aria-disabled"]}
         aria-readonly={readOnly}
         aria-required={required}
         aria-invalid={isInvalid}

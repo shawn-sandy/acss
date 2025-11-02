@@ -1,5 +1,6 @@
 import UI from '../ui'
 import React from 'react'
+import { useDisabledState } from '../../hooks/use-disabled-state'
 
 export type { SelectProps } from './form.types'
 import type { SelectProps } from './form.types'
@@ -86,6 +87,27 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
+    // Use the disabled state hook to wrap event handlers
+    const { disabledProps, handlers } = useDisabledState<HTMLSelectElement>(
+      disabled,
+      {
+        onChange: onSelectionChange,
+        onPointerDown,
+        onBlur,
+        onKeyDown: (e: React.KeyboardEvent<HTMLSelectElement>) => {
+          // Handle Enter key press for accessibility
+          // Enables keyboard-only users to trigger actions after selection
+          if (e.key === 'Enter' && onEnter) {
+            onEnter(e)
+          }
+          // Always call consumer's onKeyDown if provided
+          if (onKeyDown) {
+            onKeyDown(e)
+          }
+        },
+      }
+    )
+
     // Determine aria-invalid based on validation state
     const isInvalid = validationState === 'invalid'
 
@@ -100,44 +122,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     const ariaDescribedBy =
       describedByIds.length > 0 ? describedByIds.join(' ') : undefined
 
-    /**
-     * Change event handler
-     * @param {React.ChangeEvent<HTMLSelectElement>} e - Change event
-     */
-    const handleOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      if (onSelectionChange && !disabled) onSelectionChange?.(e)
-    }
-
-    /**
-     * Pointer down event handler
-     * @param {React.PointerEvent<HTMLSelectElement>} e - Pointer event
-     */
-    const handlePointerDown = (e: React.PointerEvent<HTMLSelectElement>) => {
-      if (onPointerDown && !disabled) onPointerDown?.(e)
-    }
-
-    /**
-     * Blur event handler
-     * @param {React.FocusEvent<HTMLSelectElement>} e - Focus event
-     */
-    const handleOnBlur = (e: React.FocusEvent<HTMLSelectElement>) => {
-      if (onBlur && !disabled) onBlur?.(e)
-    }
-
-    /**
-     * Handle Enter key press for accessibility
-     * Enables keyboard-only users to trigger actions after selection
-     * @param {React.KeyboardEvent<HTMLSelectElement>} e - Keyboard event
-     */
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLSelectElement>) => {
-      if (e.key === 'Enter' && onEnter) {
-        onEnter(e)
-      }
-      // Always call consumer's onKeyDown if provided
-      if (onKeyDown) {
-        onKeyDown(e)
-      }
-    }
+    // Merge disabled className with user-provided classes
+    const mergedClasses = [disabledProps.className, classes]
+      .filter(Boolean)
+      .join(' ')
 
     return (
       <UI
@@ -145,15 +133,12 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         id={id}
         ref={ref}
         name={name}
-        className={classes}
+        className={mergedClasses}
         selected={selected}
-        onChange={handleOnChange}
-        onPointerDown={handlePointerDown}
-        onBlur={handleOnBlur}
-        onKeyDown={handleKeyDown}
+        {...handlers}
         required={required}
         aria-required={required}
-        aria-disabled={disabled}
+        aria-disabled={disabledProps['aria-disabled']}
         aria-invalid={isInvalid}
         aria-describedby={ariaDescribedBy}
         style={styles}
