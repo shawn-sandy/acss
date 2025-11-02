@@ -1,7 +1,11 @@
 import UI from '../ui'
 import React from 'react'
+import { useDisabledState } from '../../hooks/use-disabled-state'
+import { resolveDisabledState } from '../../utils/accessibility'
+import type { DisabledStateProps } from '../../types/shared'
 
-export type ButtonProps = Partial<React.ComponentProps<typeof UI>> & {
+export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
+  DisabledStateProps & {
     /**
      * The button type
      * Required - 'button' | 'submit' | 'reset'
@@ -9,82 +13,84 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> & {
     type: 'button' | 'submit' | 'reset'
   }
 
+/**
+ * Accessible Button component with WCAG 2.1 Level AA compliant disabled state.
+ *
+ * Features:
+ * - Uses aria-disabled pattern for better accessibility
+ * - Maintains keyboard focusability when disabled
+ * - Prevents all interactions when disabled
+ * - Supports both `disabled` and legacy `isDisabled` props
+ *
+ * @example
+ * // Basic usage
+ * <Button type="button" onClick={handleClick}>Click me</Button>
+ *
+ * @example
+ * // Disabled state (modern)
+ * <Button type="button" disabled={true} onClick={handleClick}>
+ *   Cannot click
+ * </Button>
+ *
+ * @example
+ * // Disabled state (legacy - deprecated)
+ * <Button type="button" isDisabled={true} onClick={handleClick}>
+ *   Cannot click
+ * </Button>
+ *
+ * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/keyboard WCAG 2.1.1 - Keyboard}
+ * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/name-role-value WCAG 4.1.2 - Name, Role, Value}
+ */
 export const Button = ({
   type = 'button',
   children,
   styles,
   disabled,
+  isDisabled,
   classes,
   onPointerDown,
   onPointerOver,
   onPointerLeave,
   onClick,
+  onKeyDown,
   ...props
 }: ButtonProps) => {
-  /**
-   * Handles the pointer down event on the button.
-   * Only triggers the onPointerDown callback if the button is not disabled.
-   * @param e The pointer event object from the button element
-   */
-  const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
-    if (!disabled) {
-      onPointerDown?.(e)
+  // Resolve disabled state from both props (disabled takes precedence)
+  const isActuallyDisabled = resolveDisabledState(disabled, isDisabled)
+
+  // Use the disabled state hook to wrap event handlers
+  const { disabledProps, handlers } = useDisabledState<HTMLButtonElement>(
+    isActuallyDisabled,
+    {
+      onClick,
+      onPointerDown,
+      onKeyDown,
+      // Note: onPointerOver and onPointerLeave are intentionally NOT wrapped
+      // to allow hover effects on disabled buttons for visual feedback
     }
-  }
+  )
 
-  /**
-     * Handles the pointer over event on the button.
-     * Only triggers the onPointerOver callback if the button is not disabled.
-     * @param e The pointer event object from the button element
-     */
-  const handlePointerOver = (e: React.PointerEvent<HTMLButtonElement>) => {
-    if (!disabled) {
-      onPointerOver?.(e)
-    }
-  }
+  // Merge disabled className with user-provided classes
+  const mergedClasses = [disabledProps.className, classes]
+    .filter(Boolean)
+    .join(' ')
 
-  /**
-     * Handles the pointer leave event on the button.
-     * Only triggers the onPointerLeave callback if the button is not disabled.
-     * @param e The pointer event object from the button element
-     */
-  const handlePointerLeave = (e: React.PointerEvent<HTMLButtonElement>) => {
-    if (!disabled) {
-      onPointerLeave?.(e)
-    }
-  }
-
-  /**
-     * Handles the click event on the button.
-     * Only triggers the onClick callback if the button is not disabled.
-     * @param e The mouse event object from the button element
-     */
-  const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!disabled) {
-       onClick?.(e)
-    }
-  }
-
-
-  /* Returning a button element. */
+  /* Returning a button element with accessible disabled state */
   return (
     <UI
       as="button"
       type={type}
-      onPointerOver={handlePointerOver}
-      onPointerDown={handlePointerDown}
-      onPointerLeave={handlePointerLeave}
-      onKeyDown={handlePointerDown}
+      aria-disabled={disabledProps['aria-disabled']}
+      onPointerOver={onPointerOver}
+      onPointerLeave={onPointerLeave}
       style={styles}
-      className={classes}
-      aria-disabled={disabled}
-      onClick={handleOnClick}
+      className={mergedClasses}
+      {...handlers}
       {...props}
     >
       {children}
     </UI>
   )
-  //
 }
 
 export default Button

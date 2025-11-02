@@ -1,5 +1,6 @@
 import React from 'react'
 import UI from '../ui'
+import { useDisabledState } from '../../hooks/use-disabled-state'
 
 export type { TextareaProps } from './form.types'
 import type { TextareaProps } from './form.types'
@@ -62,6 +63,28 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref
   ) => {
+    // Use the disabled state hook to wrap event handlers
+    const { disabledProps, handlers } = useDisabledState<HTMLTextAreaElement>(
+      disabled,
+      {
+        onChange,
+        onBlur,
+        onPointerDown,
+        onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+          // Handle Enter key press for accessibility
+          // Only triggers onEnter when Enter is pressed WITHOUT Shift modifier
+          // This allows Shift+Enter to create new lines as expected
+          if (e.key === 'Enter' && !e.shiftKey && onEnter) {
+            onEnter(e)
+          }
+          // Always call consumer's onKeyDown if provided
+          if (onKeyDown) {
+            onKeyDown(e)
+          }
+        },
+      }
+    )
+
     // Determine aria-invalid based on validation state
     const isInvalid = validationState === 'invalid'
 
@@ -76,52 +99,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const ariaDescribedBy =
       describedByIds.length > 0 ? describedByIds.join(' ') : undefined
 
-    /**
-     * Change event handler
-     * @param {React.ChangeEvent<HTMLTextAreaElement>} e - Change event
-     */
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      if (onChange && !disabled) {
-        onChange?.(e)
-      }
-    }
-
-    /**
-     * Blur event handler
-     * @param {React.FocusEvent<HTMLTextAreaElement>} e - Focus event
-     */
-    const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
-      if (onBlur && !disabled) {
-        onBlur?.(e)
-      }
-    }
-
-    /**
-     * Pointer down event handler
-     * @param {React.PointerEvent<HTMLTextAreaElement>} e - Pointer event
-     */
-    const handlePointerDown = (e: React.PointerEvent<HTMLTextAreaElement>) => {
-      if (onPointerDown && !disabled) {
-        onPointerDown?.(e)
-      }
-    }
-
-    /**
-     * Handle Enter key press for accessibility
-     * Only triggers onEnter when Enter is pressed WITHOUT Shift modifier
-     * This allows Shift+Enter to create new lines as expected
-     * @param {React.KeyboardEvent<HTMLTextAreaElement>} e - Keyboard event
-     */
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      // Check for Enter key without Shift modifier
-      if (e.key === 'Enter' && !e.shiftKey && onEnter) {
-        onEnter(e)
-      }
-      // Always call consumer's onKeyDown if provided
-      if (onKeyDown) {
-        onKeyDown(e)
-      }
-    }
+    // Merge disabled className with user-provided classes
+    const mergedClasses = [disabledProps.className, classes]
+      .filter(Boolean)
+      .join(' ')
 
     return (
       <UI
@@ -131,19 +112,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         rows={rows}
         cols={cols}
         styles={styles}
-        className={classes}
+        className={mergedClasses}
         data-style="textarea"
         required={required}
         value={value}
-        aria-disabled={disabled}
+        aria-disabled={disabledProps['aria-disabled']}
         aria-required={required}
         aria-invalid={isInvalid}
         aria-describedby={ariaDescribedBy}
         readOnly={readOnly}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        onPointerDown={handlePointerDown}
-        onKeyDown={handleKeyDown}
+        {...handlers}
         ref={ref}
         placeholder={placeholder || `${required ? '*' : ''} Message`}
         {...props}

@@ -4,6 +4,7 @@
 @use "./sass/properties";
 @use "./sass/globals";
 @use "./sass/elements";
+@use "./styles/utilities/disabled";
 @use "./components/buttons/button.scss";
 @use "./components/tag/tag.scss";
 @use "./components/images/img.scss";

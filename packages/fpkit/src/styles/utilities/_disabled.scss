@@ -1,0 +1,46 @@
+/**
+ * Disabled State Utility Styles
+ *
+ * Provides accessible styling for disabled form elements using aria-disabled pattern.
+ * Meets WCAG 2.1 Level AA requirements for visual distinction and contrast.
+ *
+ * WCAG References:
+ * - WCAG 1.4.3 (Contrast Minimum): UI components require 3:1 contrast minimum
+ * - WCAG 2.1.1 (Keyboard): Elements remain focusable via keyboard
+ * - WCAG 4.1.2 (Name, Role, Value): aria-disabled properly announces state
+ *
+ * Usage:
+ * - Apply .is-disabled class OR aria-disabled="true" attribute
+ * - Customize via CSS custom properties (--disabled-opacity, --disabled-cursor, --disabled-color)
+ * - Default color (hsl(0 0% 40%)) ensures 3:1 contrast on white backgrounds
+ *
+ * WARNING: If overriding --disabled-color, ensure WCAG 1.4.3 compliance
+ * (minimum 3:1 contrast ratio for UI components)
+ */
+
+.is-disabled,
+[aria-disabled='true'] {
+  /* CSS Custom Properties for theming */
+  --disabled-opacity: 0.6;
+  --disabled-cursor: not-allowed;
+  /* hsl(0 0% 40%) = #666666, provides 3:1 contrast on white (#ffffff) */
+  --disabled-color: hsl(0 0% 40%);
+
+  /* Apply disabled styles */
+  opacity: var(--disabled-opacity);
+  cursor: var(--disabled-cursor);
+  color: var(--disabled-color);
+
+  /**
+   * Maintain focus visibility for keyboard navigation (WCAG 2.4.7)
+   * Disabled elements must still be focusable and have visible focus indicators
+   */
+  &:focus-visible {
+    /* Preserve focus ring from global styles */
+    outline-width: 0.125rem; /* 2px */
+    outline-style: solid;
+    outline-offset: 0.125rem; /* 2px */
+    /* Use currentColor to maintain contrast with disabled color */
+    outline-color: currentColor;
+  }
+}
