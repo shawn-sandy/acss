@@ -25,7 +25,7 @@ body > nav ul > li,
 }
 body > nav ul > li:hover,
 [aria-label~=navbar] ul > li:hover, .navbar ul > li:hover {
-  background-color: var(--nav-hov-bg, whitesmoke);
+  background-color: var(--nav-hov-bg, #e8e8e8);
 }
 body > nav ul > li:hover:where(img),
 [aria-label~=navbar] ul > li:hover:where(img), .navbar ul > li:hover:where(img) {
@@ -33,6 +33,10 @@ body > nav ul > li:hover:where(img),
 }
 
 nav {
+  --nav-focus-color: currentColor;
+  --nav-focus-width: 0.125rem;
+  --nav-focus-offset: 0.125rem;
+  --nav-focus-style: solid;
   display: var(--nav-dsp, flex);
   flex-direction: var(--nav-direction, row);
   width: var(--nav-w, auto);
@@ -80,6 +84,22 @@ nav[data-variant] {
 }
 nav > div {
   margin-block-start: 0;
+}
+nav a:focus {
+  outline: var(--nav-focus-width) var(--nav-focus-style) var(--nav-focus-color);
+  outline-offset: var(--nav-focus-offset);
+}
+nav a:focus-visible {
+  outline: var(--nav-focus-width) var(--nav-focus-style) var(--nav-focus-color);
+  outline-offset: var(--nav-focus-offset);
+}
+nav button:focus {
+  outline: var(--nav-focus-width) var(--nav-focus-style) var(--nav-focus-color);
+  outline-offset: var(--nav-focus-offset);
+}
+nav button:focus-visible {
+  outline: var(--nav-focus-width) var(--nav-focus-style) var(--nav-focus-color);
+  outline-offset: var(--nav-focus-offset);
 }
 
 /*# sourceMappingURL=nav.css.map */

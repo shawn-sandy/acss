@@ -34,13 +34,25 @@
   /**
    * Maintain focus visibility for keyboard navigation (WCAG 2.4.7)
    * Disabled elements must still be focusable and have visible focus indicators
+   *
+   * WCAG 2.4.7 requires focus indicators to have 3:1 contrast against both:
+   * - The background color
+   * - Adjacent non-focused component colors
+   *
+   * Theme authors: If providing a custom --focus-color, ensure it meets WCAG 2.4.7
+   * contrast requirements (3:1 minimum) against all background colors in your theme.
+   *
+   * Example theme customization:
+   * :root {
+   *   --focus-color: #005fcc;  // Ensure 3:1 contrast on your backgrounds
+   * }
    */
   &:focus-visible {
     /* Preserve focus ring from global styles */
     outline-width: 0.125rem; /* 2px */
     outline-style: solid;
     outline-offset: 0.125rem; /* 2px */
-    /* Use currentColor to maintain contrast with disabled color */
-    outline-color: currentColor;
+    /* Use custom focus color with currentColor fallback */
+    outline-color: var(--focus-color, currentColor);
   }
 }
