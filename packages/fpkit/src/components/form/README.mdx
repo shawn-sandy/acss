@@ -266,6 +266,179 @@ function ServerSideForm() {
 
 ---
 
+## Disabled State
+
+Form components support an accessible disabled state using the `aria-disabled` pattern, which provides better accessibility than the native HTML `disabled` attribute.
+
+### Why aria-disabled?
+
+The `aria-disabled` pattern offers key advantages:
+
+- **Keyboard Accessibility**: Disabled elements remain in the tab order, allowing keyboard users to discover them
+- **Screen Reader Discovery**: Screen readers can announce the disabled state and read associated tooltips or help text
+- **WCAG Compliance**: Meets WCAG 2.1.1 (Keyboard) and 4.1.2 (Name, Role, Value) requirements
+- **Interactive Help**: Enables tooltips or contextual help on disabled elements to explain why they're disabled
+
+### Basic Usage
+
+Use the `disabled` prop to disable form inputs, textareas, and selects:
+
+```tsx
+import Form from '@fpkit/acss';
+
+function DisabledInputExample() {
+  return (
+    <Form>
+      <Form.Field label="Email" labelFor="email">
+        <Form.Input
+          id="email"
+          name="email"
+          type="email"
+          disabled={true}
+          value="locked@example.com"
+        />
+      </Form.Field>
+
+      <Form.Field label="Comments" labelFor="comments">
+        <Form.Textarea
+          id="comments"
+          name="comments"
+          disabled={true}
+        />
+      </Form.Field>
+
+      <Form.Field label="Country" labelFor="country">
+        <Form.Select id="country" name="country" disabled={true}>
+          <option value="us">United States</option>
+          <option value="ca">Canada</option>
+        </Form.Select>
+      </Form.Field>
+    </Form>
+  );
+}
+```
+
+### Migration from isDisabled
+
+For backward compatibility, the deprecated `isDisabled` prop is still supported but will be removed in a future version.
+
+**Before (deprecated):**
+```tsx
+<Form.Input isDisabled={true} />
+```
+
+**After (recommended):**
+```tsx
+<Form.Input disabled={true} />
+```
+
+Both props work identically, but `disabled` follows standard HTML conventions and should be used for all new code.
+
+### Disabled State During Form Submission
+
+A common pattern is disabling all form fields while a form is submitting:
+
+```tsx
+import { useState } from 'react';
+import Form, { FormStatus } from '@fpkit/acss';
+
+function SubmitDisabledForm() {
+  const [status, setStatus] = useState<FormStatus>('idle');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('submitting');
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      await fetch('/api/save', {
+        method: 'POST',
+        body: formData,
+      });
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+    }
+  };
+
+  const isSubmitting = status === 'submitting';
+
+  return (
+    <Form status={status} onSubmit={handleSubmit}>
+      <Form.Field label="Username" labelFor="username" required>
+        <Form.Input
+          id="username"
+          name="username"
+          disabled={isSubmitting}
+          required
+        />
+      </Form.Field>
+
+      <Form.Field label="Bio" labelFor="bio">
+        <Form.Textarea
+          id="bio"
+          name="bio"
+          disabled={isSubmitting}
+        />
+      </Form.Field>
+
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Saving...' : 'Save Profile'}
+      </button>
+    </Form>
+  );
+}
+```
+
+### Behavior
+
+When a form control is disabled:
+
+- **Keyboard Navigation**: Element remains focusable via Tab key (maintains tab order)
+- **Interaction Prevention**: All interaction events are prevented (click, change, keydown, etc.)
+- **Focus Events**: Focus events still work, allowing screen readers to discover and announce the element
+- **Visual Styling**: `.is-disabled` class and `aria-disabled="true"` attribute are applied
+- **Screen Readers**: Announce "disabled" state when focused
+
+### Styling
+
+Disabled elements can be styled using CSS custom properties:
+
+```css
+:root {
+  --disabled-opacity: 0.6;            /* Visual opacity for disabled state */
+  --disabled-cursor: not-allowed;     /* Cursor style */
+  --disabled-color: hsl(0 0% 40%);    /* Text color (3:1 contrast minimum) */
+}
+```
+
+Override these properties for custom styling:
+
+```tsx
+<Form.Input
+  disabled={true}
+  styles={{
+    '--disabled-opacity': '0.5',
+    '--disabled-color': '#666666',
+  }}
+/>
+```
+
+**Selectors Available:**
+- `.is-disabled` - Class added to disabled elements
+- `[aria-disabled="true"]` - Attribute selector
+
+### WCAG Compliance
+
+The `aria-disabled` pattern ensures compliance with:
+
+- **WCAG 2.1.1 (Keyboard)**: Elements remain in keyboard tab order for discovery
+- **WCAG 4.1.2 (Name, Role, Value)**: `aria-disabled` announces state to screen readers
+- **WCAG 1.4.3 (Contrast Minimum)**: Disabled text maintains 3:1 contrast ratio
+- **WCAG 2.4.7 (Focus Visible)**: Focus indicators preserved on disabled elements
+
+---
+
 ## Component API
 
 ### Form
@@ -321,7 +494,8 @@ Text input component with validation support.
 | `errorMessage` | `string` | - | Error message for `aria-describedby` |
 | `hintText` | `string` | - | Hint text for `aria-describedby` |
 | `onEnter` | `(event: KeyboardEvent) => void` | - | Handler for Enter key press |
-| `disabled` | `boolean` | `false` | Disable input |
+| `disabled` | `boolean` | `false` | Disable input using `aria-disabled` pattern (remains focusable) |
+| `isDisabled` | `boolean` | `false` | **Deprecated.** Use `disabled` instead |
 | `readOnly` | `boolean` | `false` | Make input read-only |
 | `required` | `boolean` | `false` | Mark input as required |
 
@@ -336,6 +510,8 @@ Multi-line text input component.
 | `rows` | `number` | `5` | Number of visible rows |
 | `cols` | `number` | `25` | Number of visible columns |
 | `onEnter` | `(event: KeyboardEvent) => void` | - | Handler for Enter (without Shift) |
+| `disabled` | `boolean` | `false` | Disable textarea using `aria-disabled` pattern (remains focusable) |
+| `isDisabled` | `boolean` | `false` | **Deprecated.** Use `disabled` instead |
 
 **Note**: Shift+Enter adds a new line without triggering `onEnter`.
 
@@ -350,7 +526,8 @@ Dropdown select component with keyboard support.
 | `onSelectionChange` | `(event: ChangeEvent) => void` | - | Selection change handler |
 | `onEnter` | `(event: KeyboardEvent) => void` | - | Handler for Enter key press |
 | `required` | `boolean` | `false` | Mark select as required |
-| `disabled` | `boolean` | `false` | Disable select |
+| `disabled` | `boolean` | `false` | Disable select using `aria-disabled` pattern (remains focusable) |
+| `isDisabled` | `boolean` | `false` | **Deprecated.** Use `disabled` instead |
 
 ---
 
@@ -378,6 +555,12 @@ All form components meet WCAG 2.1 Level AA standards:
 5. **WCAG 2.1.1 Keyboard** ✅
    - All interactive elements keyboard accessible
    - `onEnter` prop for custom keyboard workflows
+
+6. **Accessible Disabled State** ✅
+   - Uses `aria-disabled` pattern instead of native `disabled` attribute
+   - Elements remain keyboard focusable (stay in tab order)
+   - Screen readers announce disabled state while allowing discovery
+   - See [Disabled State](#disabled-state) section for details
 
 ### Screen Reader Support
 
