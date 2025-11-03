@@ -133,7 +133,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         ref={ref}
         name={name}
         className={disabledProps.className}
-        selected={selected}
+        defaultValue={selected}
         {...handlers}
         required={required}
         aria-required={required}
@@ -151,5 +151,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
 Select.displayName = 'Select'
 
+// Type assertion to allow adding static property to ForwardRefExoticComponent
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+;(Select as any).Option = Option
+
 export default Select
-Select.Option = Option

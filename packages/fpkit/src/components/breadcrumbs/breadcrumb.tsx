@@ -94,13 +94,16 @@ const BreadcrumbItem = React.memo(
     classes,
     ...props
   }: React.ComponentProps<typeof UI>) => {
+    // Filter out UI-specific props that aren't valid on <li>
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+    const { renderStyles, defaultStyles, as, ref, ...validLiProps } = props as any;
     return (
       <li
         id={id}
         style={styles}
         className={classes}
         data-list="unstyled inline"
-        {...props}
+        {...validLiProps}
       >
         {children}
       </li>

@@ -82,9 +82,12 @@ type FPProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
  * <UI as="button" styles={{ padding: '1rem' }}>Click me</UI>
  * ```
  */
-type FPComponent = <C extends React.ElementType = 'span'>(
-  props: FPProps<C>,
-) => React.ReactElement | null
+type FPComponent = {
+  <C extends React.ElementType = 'span'>(
+    props: FPProps<C>,
+  ): React.ReactElement | null
+  displayName?: string
+}
 
 /**
  * @deprecated **DEPRECATED:** This component is deprecated and will be removed in a future version.
@@ -120,7 +123,7 @@ type FPComponent = <C extends React.ElementType = 'span'>(
  * @param {React.ReactNode} props.children - The children to render inside the component.
  * @returns {React.ReactElement} - A React component that renders an HTML element with optional styles.
  */
-const FP: FPComponent = React.forwardRef(
+const FP = React.forwardRef(
   <C extends React.ElementType>(
     { as, styles, classes, children, defaultStyles, ...props }: FPProps<C>,
     ref?: PolymorphicRef<C>,
@@ -135,7 +138,7 @@ const FP: FPComponent = React.forwardRef(
       </Component>
     )
   },
-)
+) as FPComponent
 
 FP.displayName = 'FP'
 

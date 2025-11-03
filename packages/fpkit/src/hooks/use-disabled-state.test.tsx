@@ -329,8 +329,9 @@ describe('useDisabledState', () => {
         { initialProps: { disabled: false } }
       );
 
+      const mockPreventDefault = vi.fn();
       const mockEvent = {
-        preventDefault: vi.fn(),
+        preventDefault: mockPreventDefault,
         stopPropagation: vi.fn(),
       } as unknown as React.MouseEvent<HTMLButtonElement>;
 
@@ -343,12 +344,12 @@ describe('useDisabledState', () => {
 
       // Reset mock
       onClick.mockClear();
-      mockEvent.preventDefault.mockClear();
+      mockPreventDefault.mockClear();
 
       // Disabled - handler should not execute
       result.current.handlers.onClick?.(mockEvent);
       expect(onClick).not.toHaveBeenCalled();
-      expect(mockEvent.preventDefault).toHaveBeenCalled();
+      expect(mockPreventDefault).toHaveBeenCalled();
     });
 
     it('should use latest handler via ref when handler changes', () => {
