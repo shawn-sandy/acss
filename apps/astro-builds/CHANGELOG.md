@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/shawn-sandy/acss/compare/astro-fpkit@0.1.0...astro-fpkit@0.1.1) (2025-11-03)
+
+**Note:** Version bump only for package astro-fpkit
+
+
+
+
+
 # [0.1.0](https://github.com/shawn-sandy/acss/compare/astro-fpkit@0.0.9...astro-fpkit@0.1.0) (2025-11-03)
 
 
