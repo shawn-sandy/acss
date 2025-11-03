@@ -86,24 +86,28 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // Support both `disabled` and `isDisabled` props (legacy compatibility)
     const isInputDisabled = resolveDisabledState(disabled, isDisabled);
 
-    // Use the disabled state hook to wrap event handlers
+    // Use the disabled state hook with enhanced API for automatic className merging
     const { disabledProps, handlers } = useDisabledState<HTMLInputElement>(
       isInputDisabled,
       {
-        onChange,
-        onBlur,
-        onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
-          // Handle Enter key press for accessibility
-          if (e.key === "Enter" && onEnter) {
-            onEnter(e);
-          }
-          // Always call consumer's onKeyDown if provided
-          if (onKeyDown) {
-            onKeyDown(e);
-          }
+        handlers: {
+          onChange,
+          onBlur,
+          onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+            // Handle Enter key press for accessibility
+            if (e.key === "Enter" && onEnter) {
+              onEnter(e);
+            }
+            // Always call consumer's onKeyDown if provided
+            if (onKeyDown) {
+              onKeyDown(e);
+            }
+          },
+          // Note: onFocus is NOT wrapped to allow focus on disabled inputs
+          // This is handled automatically by useDisabledState
         },
-        // Note: onFocus is NOT wrapped to allow focus on disabled inputs
-        // This is handled automatically by useDisabledState
+        // Automatic className merging - hook combines disabled class with user classes
+        className: classes,
       }
     );
 
@@ -125,11 +129,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const accessiblePlaceholder =
       placeholder || (required ? `* ${type} input` : `${type} input`);
 
-    // Merge disabled className with user-provided classes
-    const mergedClasses = [disabledProps.className, classes]
-      .filter(Boolean)
-      .join(" ");
-
     return (
       <FP
         as="input"
@@ -140,7 +139,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         value={value}
         defaultValue={defaultValue}
         placeholder={accessiblePlaceholder}
-        className={mergedClasses}
+        className={disabledProps.className}
         styles={styles}
         readOnly={readOnly}
         required={required}

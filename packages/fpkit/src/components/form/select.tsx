@@ -87,24 +87,28 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
-    // Use the disabled state hook to wrap event handlers
+    // Use the disabled state hook with enhanced API for automatic className merging
     const { disabledProps, handlers } = useDisabledState<HTMLSelectElement>(
       disabled,
       {
-        onChange: onSelectionChange,
-        onPointerDown,
-        onBlur,
-        onKeyDown: (e: React.KeyboardEvent<HTMLSelectElement>) => {
-          // Handle Enter key press for accessibility
-          // Enables keyboard-only users to trigger actions after selection
-          if (e.key === 'Enter' && onEnter) {
-            onEnter(e)
-          }
-          // Always call consumer's onKeyDown if provided
-          if (onKeyDown) {
-            onKeyDown(e)
-          }
+        handlers: {
+          onChange: onSelectionChange,
+          onPointerDown,
+          onBlur,
+          onKeyDown: (e: React.KeyboardEvent<HTMLSelectElement>) => {
+            // Handle Enter key press for accessibility
+            // Enables keyboard-only users to trigger actions after selection
+            if (e.key === 'Enter' && onEnter) {
+              onEnter(e)
+            }
+            // Always call consumer's onKeyDown if provided
+            if (onKeyDown) {
+              onKeyDown(e)
+            }
+          },
         },
+        // Automatic className merging - hook combines disabled class with user classes
+        className: classes,
       }
     )
 
@@ -122,18 +126,13 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     const ariaDescribedBy =
       describedByIds.length > 0 ? describedByIds.join(' ') : undefined
 
-    // Merge disabled className with user-provided classes
-    const mergedClasses = [disabledProps.className, classes]
-      .filter(Boolean)
-      .join(' ')
-
     return (
       <UI
         as="select"
         id={id}
         ref={ref}
         name={name}
-        className={mergedClasses}
+        className={disabledProps.className}
         selected={selected}
         {...handlers}
         required={required}

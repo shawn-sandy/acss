@@ -68,18 +68,86 @@ export const DefaultRequired: Story = {
   },
 } as Story;
 
+/**
+ * Disabled input using WCAG-compliant aria-disabled pattern.
+ *
+ * Key accessibility features implemented by the optimized useDisabledState hook:
+ * - Uses aria-disabled instead of native disabled attribute
+ * - Remains keyboard focusable (in tab order)
+ * - Prevents all interactions (typing, onChange events)
+ * - Screen readers can discover and announce disabled state
+ * - Automatic className merging (.is-disabled + custom classes)
+ */
 export const InputDisabled: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'Displays a disabled input `aria-disabled="true"` on any input type',
+        story: `
+Displays a disabled input with \`aria-disabled="true"\`.
+
+**Why aria-disabled instead of disabled?**
+- Keeps input in tab order for screen reader users
+- Allows focus for screen reader announcement
+- Better contrast control for WCAG AA compliance
+- Can show tooltips/help text even when disabled
+
+Try tabbing to the input - it receives focus!
+Try typing - interactions are prevented by the hook.
+        `,
       },
     },
   },
   args: {
     type: "text",
-    isDisabled: true,
+    disabled: true,
+    placeholder: "This input is disabled",
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("textbox");
+
+    await step("Disabled input has aria-disabled attribute", async () => {
+      expect(input).toHaveAttribute("aria-disabled", "true");
+    });
+
+    await step("Disabled input remains focusable", async () => {
+      await userEvent.tab();
+      expect(input).toHaveFocus();
+    });
+
+    await step("Disabled input has .is-disabled class", async () => {
+      expect(input).toHaveClass("is-disabled");
+    });
+
+    await step("Disabled input prevents typing interactions", async () => {
+      const initialValue = input.getAttribute("value") || "";
+      await userEvent.type(input, "test");
+      // Value should remain unchanged due to disabled state
+      expect(input).toHaveValue(initialValue);
+    });
+  },
+} as Story;
+
+/**
+ * Disabled input with custom classes.
+ *
+ * Demonstrates the hook's automatic className merging feature.
+ * The .is-disabled class is automatically combined with custom classes.
+ */
+export const DisabledWithCustomClass: Story = {
+  args: {
+    type: "text",
+    disabled: true,
+    classes: "custom-input highlight-disabled",
+    placeholder: "Disabled with custom classes",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Shows how the optimized hook automatically merges `.is-disabled` with custom classes (`custom-input highlight-disabled`).",
+      },
+    },
   },
 } as Story;
 
