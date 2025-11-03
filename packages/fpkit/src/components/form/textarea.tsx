@@ -63,25 +63,29 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref
   ) => {
-    // Use the disabled state hook to wrap event handlers
+    // Use the disabled state hook with enhanced API for automatic className merging
     const { disabledProps, handlers } = useDisabledState<HTMLTextAreaElement>(
       disabled,
       {
-        onChange,
-        onBlur,
-        onPointerDown,
-        onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-          // Handle Enter key press for accessibility
-          // Only triggers onEnter when Enter is pressed WITHOUT Shift modifier
-          // This allows Shift+Enter to create new lines as expected
-          if (e.key === 'Enter' && !e.shiftKey && onEnter) {
-            onEnter(e)
-          }
-          // Always call consumer's onKeyDown if provided
-          if (onKeyDown) {
-            onKeyDown(e)
-          }
+        handlers: {
+          onChange,
+          onBlur,
+          onPointerDown,
+          onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+            // Handle Enter key press for accessibility
+            // Only triggers onEnter when Enter is pressed WITHOUT Shift modifier
+            // This allows Shift+Enter to create new lines as expected
+            if (e.key === 'Enter' && !e.shiftKey && onEnter) {
+              onEnter(e)
+            }
+            // Always call consumer's onKeyDown if provided
+            if (onKeyDown) {
+              onKeyDown(e)
+            }
+          },
         },
+        // Automatic className merging - hook combines disabled class with user classes
+        className: classes,
       }
     )
 
@@ -99,11 +103,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const ariaDescribedBy =
       describedByIds.length > 0 ? describedByIds.join(' ') : undefined
 
-    // Merge disabled className with user-provided classes
-    const mergedClasses = [disabledProps.className, classes]
-      .filter(Boolean)
-      .join(' ')
-
     return (
       <UI
         as="textarea"
@@ -112,7 +111,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         rows={rows}
         cols={cols}
         styles={styles}
-        className={mergedClasses}
+        className={disabledProps.className}
         data-style="textarea"
         required={required}
         value={value}

@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 
 /**
  * Event handler mapping type for disabled state management.
@@ -28,6 +28,33 @@ export interface DisabledProps {
   'aria-disabled': boolean;
   /** CSS class name for disabled state styling */
   className: string;
+  /** Optional tabIndex to remove element from tab order when disabled */
+  tabIndex?: -1;
+}
+
+/**
+ * Configuration options for useDisabledState hook.
+ *
+ * @template T - The HTML element type
+ */
+export interface UseDisabledStateOptions<T extends HTMLElement> {
+  /** Event handlers to wrap with disabled logic */
+  handlers?: Partial<DisabledEventHandlers<T>>;
+
+  /** Existing className to merge with disabled class */
+  className?: string;
+
+  /** Custom disabled className (default: 'is-disabled') */
+  disabledClassName?: string;
+
+  /** Whether to call preventDefault on disabled events (default: true) */
+  preventDefault?: boolean;
+
+  /** Whether to call stopPropagation on disabled events (default: true) */
+  stopPropagation?: boolean;
+
+  /** Make element non-focusable when disabled via tabIndex=-1 (default: false for a11y) */
+  removeFromTabOrder?: boolean;
 }
 
 /**
@@ -57,51 +84,57 @@ export interface UseDisabledStateReturn<T extends HTMLElement> {
  * - Enables tooltips and contextual help on disabled elements
  * - Better visual styling control for WCAG contrast compliance
  *
+ * **Performance Optimizations:**
+ * - Single memoization pass for all handlers and props
+ * - Stable handler references using refs (only recreate on disabled state change)
+ * - Automatic className merging to reduce consumer boilerplate
+ *
  * @template T - The HTML element type (e.g., HTMLButtonElement, HTMLInputElement)
  *
  * @param {boolean | undefined} disabled - Whether the element should be disabled. Undefined treated as false.
- * @param {Partial<DisabledEventHandlers<T>>} handlers - Event handlers to wrap with disabled logic
+ * @param {Partial<DisabledEventHandlers<T>> | UseDisabledStateOptions<T>} handlersOrOptions -
+ *   Event handlers to wrap OR configuration options object (for backward compatibility)
  *
  * @returns {UseDisabledStateReturn<T>} Object containing disabledProps and wrapped handlers
  *
  * @example
- * // Basic button usage
+ * // Basic button usage (legacy API - still supported)
  * const MyButton = ({ disabled, onClick, children }) => {
  *   const { disabledProps, handlers } = useDisabledState(disabled, { onClick });
  *   return <button {...disabledProps} {...handlers}>{children}</button>;
  * };
  *
  * @example
- * // Input with multiple handlers
- * const MyInput = ({ disabled, onChange, onBlur }) => {
+ * // Enhanced API with className merging
+ * const MyButton = ({ disabled, onClick, className, children }) => {
  *   const { disabledProps, handlers } = useDisabledState(disabled, {
- *     onChange,
- *     onBlur
+ *     handlers: { onClick },
+ *     className,
+ *   });
+ *   return <button {...disabledProps} {...handlers}>{children}</button>;
+ * };
+ *
+ * @example
+ * // Custom configuration
+ * const MyInput = ({ disabled, onChange, className }) => {
+ *   const { disabledProps, handlers } = useDisabledState(disabled, {
+ *     handlers: { onChange },
+ *     className,
+ *     disabledClassName: 'custom-disabled',
+ *     preventDefault: true,
+ *     stopPropagation: false,
  *   });
  *   return <input {...disabledProps} {...handlers} />;
  * };
  *
  * @example
- * // TypeScript with specific element type
- * const MyInput = ({ disabled, onChange }: InputProps) => {
- *   const { disabledProps, handlers } = useDisabledState<HTMLInputElement>(
- *     disabled,
- *     { onChange }
- *   );
- *   return <input {...disabledProps} {...handlers} />;
- * };
- *
- * @example
- * // Custom element with polymorphic component
- * const MyButton = <E extends React.ElementType = 'button'>({
- *   as,
- *   disabled,
- *   onClick,
- *   ...props
- * }: PolymorphicComponentProps<E, ButtonProps>) => {
- *   const Component = as || 'button';
- *   const { disabledProps, handlers } = useDisabledState(disabled, { onClick });
- *   return <Component {...disabledProps} {...handlers} {...props} />;
+ * // Remove from tab order when disabled
+ * const MyButton = ({ disabled, onClick }) => {
+ *   const { disabledProps, handlers } = useDisabledState(disabled, {
+ *     handlers: { onClick },
+ *     removeFromTabOrder: true, // Adds tabIndex=-1 when disabled
+ *   });
+ *   return <button {...disabledProps} {...handlers}>Click me</button>;
  * };
  *
  * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/keyboard WCAG 2.1.1 - Keyboard}
@@ -110,200 +143,104 @@ export interface UseDisabledStateReturn<T extends HTMLElement> {
  */
 export function useDisabledState<T extends HTMLElement = HTMLElement>(
   disabled: boolean | undefined,
-  handlers: Partial<DisabledEventHandlers<T>> = {}
+  handlersOrOptions: Partial<DisabledEventHandlers<T>> | UseDisabledStateOptions<T> = {}
 ): UseDisabledStateReturn<T> {
   // Normalize disabled to boolean (treat undefined as false)
   const isDisabled = Boolean(disabled);
 
-  // Memoize disabled props to prevent unnecessary re-renders
-  const disabledProps = useMemo<DisabledProps>(
-    () => ({
+  // Support both legacy API (handlers directly) and new API (options object)
+  // Check if this is the new API by looking for config properties
+  const configKeys = ['handlers', 'className', 'disabledClassName', 'preventDefault', 'stopPropagation', 'removeFromTabOrder'];
+  const isNewAPI = Object.keys(handlersOrOptions).some(key => configKeys.includes(key));
+
+  const options: UseDisabledStateOptions<T> = isNewAPI
+    ? (handlersOrOptions as UseDisabledStateOptions<T>)
+    : { handlers: handlersOrOptions as Partial<DisabledEventHandlers<T>> };
+
+  const {
+    handlers = {},
+    className = '',
+    disabledClassName = 'is-disabled',
+    preventDefault = true,
+    stopPropagation = true,
+    removeFromTabOrder = false,
+  } = options;
+
+  // Store latest handlers in ref to maintain stable wrapper functions
+  // This prevents handler wrappers from being recreated on every render
+  const handlersRef = useRef(handlers);
+
+  useEffect(() => {
+    handlersRef.current = handlers;
+  }, [handlers]);
+
+  // Single memoization pass for both props and wrapped handlers
+  // Only recalculates when disabled state or configuration changes
+  return useMemo<UseDisabledStateReturn<T>>(() => {
+    // Build disabled props with merged className
+    const mergedClassName = [
+      isDisabled ? disabledClassName : '',
+      className,
+    ]
+      .filter(Boolean)
+      .map(c => c.trim())
+      .filter(c => c.length > 0)
+      .join(' ');
+
+    const disabledProps: DisabledProps = {
       'aria-disabled': isDisabled,
-      className: isDisabled ? 'is-disabled' : '',
-    }),
-    [isDisabled]
-  );
+      className: mergedClassName,
+    };
 
-  // Wrap onClick handler
-  const wrappedOnClick = useCallback(
-    (event: React.MouseEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
+    // Add tabIndex=-1 when disabled if requested (removes from tab order)
+    if (removeFromTabOrder && isDisabled) {
+      disabledProps.tabIndex = -1;
+    }
+
+    // Build wrapped handlers using declarative mapping
+    // Only includes handlers that were actually provided
+    const wrappedHandlers: Partial<DisabledEventHandlers<T>> = {};
+
+    // Define which handlers to wrap and their special behaviors
+    const handlerConfigs: Array<{
+      key: keyof DisabledEventHandlers<T>;
+      allowWhenDisabled?: boolean;
+    }> = [
+      { key: 'onClick' },
+      { key: 'onChange' },
+      { key: 'onBlur' },
+      { key: 'onFocus', allowWhenDisabled: true }, // Always allow focus for a11y
+      { key: 'onPointerDown' },
+      { key: 'onKeyDown' },
+      { key: 'onKeyUp' },
+      { key: 'onMouseDown' },
+      { key: 'onMouseUp' },
+      { key: 'onTouchStart' },
+      { key: 'onTouchEnd' },
+    ];
+
+    // Wrap each provided handler
+    handlerConfigs.forEach(({ key, allowWhenDisabled = false }) => {
+      // Check if handler exists in the initial handlers object
+      if (handlersRef.current[key] !== undefined) {
+        // Create wrapper that accesses handler from ref at call-time
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        wrappedHandlers[key] = ((event: any) => {
+          if (isDisabled && !allowWhenDisabled) {
+            if (preventDefault) event.preventDefault();
+            if (stopPropagation) event.stopPropagation();
+            return;
+          }
+          // Access latest handler from ref at call-time
+          handlersRef.current[key]?.(event);
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        }) as any;
       }
-      handlers.onClick?.(event);
-    },
-    [isDisabled, handlers.onClick]
-  );
+    });
 
-  // Wrap onChange handler
-  const wrappedOnChange = useCallback(
-    (event: React.ChangeEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onChange?.(event);
-    },
-    [isDisabled, handlers.onChange]
-  );
-
-  // Wrap onBlur handler
-  const wrappedOnBlur = useCallback(
-    (event: React.FocusEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onBlur?.(event);
-    },
-    [isDisabled, handlers.onBlur]
-  );
-
-  // Wrap onFocus handler
-  // NOTE: Focus events are NOT prevented even when disabled
-  // This allows screen readers to discover and announce disabled elements
-  const wrappedOnFocus = useCallback(
-    (event: React.FocusEvent<T>) => {
-      // Always allow focus for accessibility
-      handlers.onFocus?.(event);
-    },
-    [handlers.onFocus]
-  );
-
-  // Wrap onPointerDown handler
-  const wrappedOnPointerDown = useCallback(
-    (event: React.PointerEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onPointerDown?.(event);
-    },
-    [isDisabled, handlers.onPointerDown]
-  );
-
-  // Wrap onKeyDown handler
-  const wrappedOnKeyDown = useCallback(
-    (event: React.KeyboardEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onKeyDown?.(event);
-    },
-    [isDisabled, handlers.onKeyDown]
-  );
-
-  // Wrap onKeyUp handler
-  const wrappedOnKeyUp = useCallback(
-    (event: React.KeyboardEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onKeyUp?.(event);
-    },
-    [isDisabled, handlers.onKeyUp]
-  );
-
-  // Wrap onMouseDown handler
-  const wrappedOnMouseDown = useCallback(
-    (event: React.MouseEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onMouseDown?.(event);
-    },
-    [isDisabled, handlers.onMouseDown]
-  );
-
-  // Wrap onMouseUp handler
-  const wrappedOnMouseUp = useCallback(
-    (event: React.MouseEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onMouseUp?.(event);
-    },
-    [isDisabled, handlers.onMouseUp]
-  );
-
-  // Wrap onTouchStart handler
-  const wrappedOnTouchStart = useCallback(
-    (event: React.TouchEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onTouchStart?.(event);
-    },
-    [isDisabled, handlers.onTouchStart]
-  );
-
-  // Wrap onTouchEnd handler
-  const wrappedOnTouchEnd = useCallback(
-    (event: React.TouchEvent<T>) => {
-      if (isDisabled) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-      handlers.onTouchEnd?.(event);
-    },
-    [isDisabled, handlers.onTouchEnd]
-  );
-
-  // Build wrapped handlers object (only include handlers that were provided)
-  const wrappedHandlers: Partial<DisabledEventHandlers<T>> = {};
-
-  if (handlers.onClick !== undefined) {
-    wrappedHandlers.onClick = wrappedOnClick;
-  }
-  if (handlers.onChange !== undefined) {
-    wrappedHandlers.onChange = wrappedOnChange;
-  }
-  if (handlers.onBlur !== undefined) {
-    wrappedHandlers.onBlur = wrappedOnBlur;
-  }
-  if (handlers.onFocus !== undefined) {
-    wrappedHandlers.onFocus = wrappedOnFocus;
-  }
-  if (handlers.onPointerDown !== undefined) {
-    wrappedHandlers.onPointerDown = wrappedOnPointerDown;
-  }
-  if (handlers.onKeyDown !== undefined) {
-    wrappedHandlers.onKeyDown = wrappedOnKeyDown;
-  }
-  if (handlers.onKeyUp !== undefined) {
-    wrappedHandlers.onKeyUp = wrappedOnKeyUp;
-  }
-  if (handlers.onMouseDown !== undefined) {
-    wrappedHandlers.onMouseDown = wrappedOnMouseDown;
-  }
-  if (handlers.onMouseUp !== undefined) {
-    wrappedHandlers.onMouseUp = wrappedOnMouseUp;
-  }
-  if (handlers.onTouchStart !== undefined) {
-    wrappedHandlers.onTouchStart = wrappedOnTouchStart;
-  }
-  if (handlers.onTouchEnd !== undefined) {
-    wrappedHandlers.onTouchEnd = wrappedOnTouchEnd;
-  }
-
-  return {
-    disabledProps,
-    handlers: wrappedHandlers,
-  };
+    return {
+      disabledProps,
+      handlers: wrappedHandlers,
+    };
+  }, [isDisabled, className, disabledClassName, preventDefault, stopPropagation, removeFromTabOrder]);
 }
