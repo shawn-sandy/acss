@@ -1,9 +1,10 @@
 body > nav,
-[aria-label~='navbar'], .navbar {
+[aria-label~="navbar"],
+.navbar {
   padding-inline: var(--nav-px, 1rem);
   min-height: var(--nav-h, fit-content);
 
-  @media(max-width: 580px) {
+  @media (max-width: 580px) {
     flex-direction: column;
     height: fit-content;
     min-height: fit-content;
@@ -55,8 +56,9 @@ nav {
     align-items: var(--nav-align, center);
     padding-inline: var(--nav-px, 1rem);
     padding-block: var(--nav-py, 0);
+    margin-block-end: var(--nav-mb, 0);
     height: 100%;
-    &[data-list~='block'] {
+    &[data-list~="block"] {
       --nav-direction: column;
     }
   }

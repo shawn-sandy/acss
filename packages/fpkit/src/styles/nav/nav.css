@@ -1,11 +1,13 @@
 body > nav,
-[aria-label~=navbar], .navbar {
+[aria-label~=navbar],
+.navbar {
   padding-inline: var(--nav-px, 1rem);
   min-height: var(--nav-h, fit-content);
 }
 @media (max-width: 580px) {
   body > nav,
-  [aria-label~=navbar], .navbar {
+  [aria-label~=navbar],
+  .navbar {
     flex-direction: column;
     height: fit-content;
     min-height: fit-content;
@@ -14,7 +16,8 @@ body > nav,
   }
 }
 body > nav ul > li,
-[aria-label~=navbar] ul > li, .navbar ul > li {
+[aria-label~=navbar] ul > li,
+.navbar ul > li {
   display: flex;
   align-items: center;
   list-style: none;
@@ -24,11 +27,13 @@ body > nav ul > li,
   padding-inline: var(--nav-px, 0.75rem);
 }
 body > nav ul > li:hover,
-[aria-label~=navbar] ul > li:hover, .navbar ul > li:hover {
+[aria-label~=navbar] ul > li:hover,
+.navbar ul > li:hover {
   background-color: var(--nav-hov-bg, #e8e8e8);
 }
 body > nav ul > li:hover:where(img),
-[aria-label~=navbar] ul > li:hover:where(img), .navbar ul > li:hover:where(img) {
+[aria-label~=navbar] ul > li:hover:where(img),
+.navbar ul > li:hover:where(img) {
   background-color: transparent;
 }
 
@@ -55,6 +60,7 @@ nav > ul {
   align-items: var(--nav-align, center);
   padding-inline: var(--nav-px, 1rem);
   padding-block: var(--nav-py, 0);
+  margin-block-end: var(--nav-mb, 0);
   height: 100%;
 }
 nav > section[data-list~=block],
