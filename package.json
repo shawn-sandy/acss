@@ -16,7 +16,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky",
-    "lerna:publish": "npx lerna publish from-package --yes"
+    "publish": "lerna publish",
+    "publish:ci": "lerna publish --yes"
   },
   "dependencies": {
     "@storybook/addon-a11y": "^10.0.2",
