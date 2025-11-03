@@ -24,7 +24,6 @@
     "test:coverage": "vitest --coverage",
     "test:ui:coverage": "vitest --coverage --ui",
     "test:snapshot": "vitest --run --update",
-    "release": "npm publish",
     "lint": "eslint . --ext .jsx,.tsx",
     "lint-fix": "eslint . --ext .jsx,.tsx"
   },
@@ -94,7 +93,7 @@
     "./package.json": "./package.json",
     "./styles": {
       "import": "./libs/index.css",
-      "require": "./libs/index.ccs",
+      "require": "./libs/index.css",
       "default": "./libs/index.css"
     },
     "./css": "./libs/components",
@@ -102,7 +101,6 @@
   },
   "files": [
     "src",
-    "dist",
     "libs",
     "libs/index.css"
   ],

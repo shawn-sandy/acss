@@ -8,6 +8,12 @@
   "useNx": false,
   "command": {
     "version": {
+      "message": "chore(release): publish %s",
+      "conventionalCommits": true,
+      "createRelease": "github"
+    },
+    "publish": {
+      "conventionalCommits": true,
       "message": "chore(release): publish %s"
     }
   }
