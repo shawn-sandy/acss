@@ -158,16 +158,20 @@
 
 ## 9. Beta Release (Optional but Recommended)
 
-- [ ] 9.1 Create beta branch: `release/v{X}.0.0-beta`
-- [ ] 9.2 Publish beta to npm: `npm publish --tag beta`
-- [ ] 9.3 Announce beta release to users/team
-- [ ] 9.4 Create test project using beta version
-- [ ] 9.5 Apply migrations in test project
-- [ ] 9.6 Document any issues found
-- [ ] 9.7 Gather feedback from at least 2 beta testers
-- [ ] 9.8 Incorporate feedback and fix any issues
-- [ ] 9.9 Publish second beta if needed
-- [ ] 9.10 Confirm beta is stable before final release
+- [x] 9.1 Create beta branch: `release/v1.0.0-beta`
+- [x] 9.2 Update version to 1.0.0-beta.0
+- [x] 9.3 Update CHANGELOG with beta release date (2025-11-04)
+- [x] 9.4 Build package successfully
+- [x] 9.5 Create beta testing instructions (`BETA-TESTING-v1.0.0.md`)
+- [ ] 9.6 Publish beta to npm: `npm publish --tag beta --otp=<code>` (requires 2FA)
+- [ ] 9.7 Announce beta release to users/team
+- [ ] 9.8 Create test project using beta version
+- [ ] 9.9 Apply migrations in test project
+- [ ] 9.10 Document any issues found
+- [ ] 9.11 Gather feedback from at least 2 beta testers
+- [ ] 9.12 Incorporate feedback and fix any issues
+- [ ] 9.13 Publish second beta if needed (v1.0.0-beta.1)
+- [ ] 9.14 Confirm beta is stable before final release
 
 ## 10. Final Release
 
