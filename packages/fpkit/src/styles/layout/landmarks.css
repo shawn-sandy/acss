@@ -5,23 +5,23 @@ header,
   --overlay-placement: center;
   --overlay-display: grid;
   --overlay-padding: 2rem;
-  --overlay-w: 100%;
-  --overlay-h: 40vh;
-  --overlay-max-h: 500px;
+  --overlay-width: 100%;
+  --overlay-height: 40vh;
+  --overlay-max-height: 500px;
   --overlay-color: currentColor;
-  --overlay-content-w: 80%;
+  --overlay-content-width: 80%;
   --overlay-gap: 2rem;
   --overlay-bg: whitesmoke;
-  --overlay-px: auto;
-  --overlay-py: auto;
-  --overlay-mx: auto;
-  --overlay-my: auto;
+  --overlay-padding-inline: auto;
+  --overlay-padding-block: auto;
+  --overlay-margin-inline: auto;
+  --overlay-margin-block: auto;
   grid-template-areas: "overlay";
   display: var(--overlay-display);
   place-items: var(--overlay-placement);
   align-items: var(--overlay-placement);
-  min-height: var(--overlay-h);
-  width: var(--overlay-w);
+  min-height: var(--overlay-height);
+  width: var(--overlay-width);
   color: var(--overlay-color);
   background-color: var(--overlay-bg);
   min-width: 20rem;
@@ -34,7 +34,7 @@ header > *,
 header > img,
 [data-hero] > img,
 [data-grid~=overlay] > img {
-  width: var(--overlay-w);
+  width: var(--overlay-width);
   background-size: contain;
 }
 header > div,
@@ -44,9 +44,9 @@ header > section,
 [data-grid~=overlay] > div,
 [data-grid~=overlay] > section {
   --overlay-display: flex;
-  max-width: var(--overlay-content-w);
+  max-width: var(--overlay-content-width);
   padding-inline: var(--spc-4);
-  margin-inline: var(--overlay-mx);
+  margin-inline: var(--overlay-margin-inline);
   gap: var(--overlay-gap);
   text-align: center;
 }
@@ -73,7 +73,7 @@ header > section > h2,
 [data-grid~=overlay] > div > h2,
 [data-grid~=overlay] > section > h1,
 [data-grid~=overlay] > section > h2 {
-  line-height: var(--header-lh, 1.1);
+  line-height: var(--header-line-height, 1.1);
   font-weight: 500;
 }
 header > div > h1,
@@ -103,16 +103,16 @@ header > section > h3,
 
 main,
 footer {
-  --content-w: min(100%, 1480px);
-  --content-mx: auto;
-  --content-px: 1rem;
+  --content-width: min(100%, 1480px);
+  --content-margin-inline: auto;
+  --content-padding-inline: 1rem;
   --content-gap: 2rem;
   padding-block: var(--overlay-padding);
 }
 main > section,
 footer > section {
-  width: var(--content-w);
-  margin-inline: var(--content-mx);
+  width: var(--content-width);
+  margin-inline: var(--content-margin-inline);
   padding-inline: var(--spc-6);
 }
 
@@ -122,8 +122,8 @@ main {
 }
 main > section[aria-label],
 main > section {
-  width: var(--content-w);
-  margin-inline: var(--content-mx);
+  width: var(--content-width);
+  margin-inline: var(--content-margin-inline);
 }
 main > section[aria-label]:has(> article, > aside),
 main > section:has(> article, > aside) {

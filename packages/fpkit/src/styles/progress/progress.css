@@ -1,8 +1,8 @@
 progress {
   /* Revert all styles */
   all: revert;
-  --progress-w: 100%;
-  --progress-h: 1rem;
+  --progress-width: 100%;
+  --progress-height: 1rem;
   --progress-bg: #cccccc;
   --progress-color: rgb(71, 71, 245);
   --progress-accent-color: var(--progress-color);
@@ -12,8 +12,8 @@ progress {
   /* If the progress element is busy, remove the revert styles */
 }
 progress[value] {
-  width: var(--progress-w);
-  height: var(--progress-h);
+  width: var(--progress-width);
+  height: var(--progress-height);
   background-color: var(--progress-bg);
   accent-color: var(--progress-accent-color);
   /* Styling for the remaining part of the& bar */
@@ -34,8 +34,8 @@ progress[value]::-webkit-progress-bar {
   accent-color: var(--progress-accent-color);
 }
 progress[aria-busy] {
-  width: var(--progress-w);
-  height: var(--progress-h);
+  width: var(--progress-width);
+  height: var(--progress-height);
   accent-color: var(--progress-accent-color);
   /* Styling for the remaining part of the& bar */
 }

@@ -3,13 +3,13 @@ sup:has(> span) {
   --badge-color: currentColor;
   --badge-radius: 0.5rem;
   --badge-padding: 0.3rem;
-  --badge-v-align: 0.5rem;
+  --badge-vertical-align: 0.5rem;
   --badge-fs: var(--fs-1);
   background-color: var(--badge-bg);
   color: var(--badge-color);
   padding: var(--badge-padding);
   border-radius: var(--badge-radius);
-  vertical-align: var(--badge-v-align);
+  vertical-align: var(--badge-vertical-align);
   font-size: var(--badge-fs);
 }
 sup:has(> span) span {

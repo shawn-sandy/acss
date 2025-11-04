@@ -1,7 +1,7 @@
 nav:not(body > nav),
 nav[data-breadcrumb] {
-  --breadcrumb-padding-inline: unset;
-  --breadcrumb-display: flex;
+  --breadcrumb-px: unset;
+  --breadcrumb-dsp: flex;
   --breadcrumb-gap: 0.5rem;
   --breadcrumb-color: currentColor;
   --breadcrumb-current-color: rgb(46, 46, 46);
@@ -9,12 +9,12 @@ nav[data-breadcrumb] {
   margin-inline: unset;
   padding-inline: unset;
   ol {
-    padding-inline: var(--breadcrumb-padding-inline);
-    display: var(--breadcrumb-display);
+    padding-inline: var(--breadcrumb-px);
+    display: var(--breadcrumb-dsp);
     gap: var(--breadcrumb-gap);
     li {
       padding-inline: unset;
-      width: var(--breadcrumb-width, fit-content);
+      width: var(--breadcrumb-w, fit-content);
       text-transform: capitalize;
       display: flex;
       color: var(--breadcrumb-color);

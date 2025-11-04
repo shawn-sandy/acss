@@ -41,8 +41,59 @@ const meta: Meta<typeof Alert> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "The Alert component is used to display important messages to users. It can be dismissible and supports various interaction tests",
+        component: `The Alert component is used to display important messages to users with support for multiple severity levels, variants, and accessibility features.
+
+## CSS Variables
+
+Customize the Alert appearance using CSS custom properties:
+
+### Layout & Structure
+- \`--alert-bg\`: Background color (default: \`whitesmoke\`)
+- \`--alert-color\`: Text color (default: \`currentColor\`)
+- \`--alert-border\`: Border style (default: \`thin solid currentColor\`)
+- \`--alert-radius\`: Border radius (default: \`var(--border-radius)\`)
+- \`--alert-padding\`: Internal padding (default: \`var(--spc-4)\`)
+- \`--alert-margin-block-end\`: Bottom margin (default: none)
+- \`--alert-gap\`: Gap between icon and content (default: \`var(--spc-4)\`)
+
+### Severity Colors (Success)
+- \`--alert-success-bg\`: Success background (default: \`#e6f4ea\`)
+- \`--alert-success-border\`: Success border (default: \`#34a853\`)
+- \`--alert-success-text\`: Success text (default: \`#1e4620\`)
+
+### Severity Colors (Error)
+- \`--alert-error-bg\`: Error background (default: \`#fdeded\`)
+- \`--alert-error-border\`: Error border (default: \`#d32f2f\`)
+- \`--alert-error-text\`: Error text (default: \`#5f2120\`)
+
+### Severity Colors (Warning)
+- \`--alert-warning-bg\`: Warning background (default: \`#fff4e5\`)
+- \`--alert-warning-border\`: Warning border (default: \`#ff9800\`)
+- \`--alert-warning-text\`: Warning text (default: \`#663c00\`)
+
+### Severity Colors (Info)
+- \`--alert-info-bg\`: Info background (default: \`#e5f6fd\`)
+- \`--alert-info-border\`: Info border (default: \`#0288d1\`)
+- \`--alert-info-text\`: Info text (default: \`#084154\`)
+
+### Typography
+- \`--alert-title-fw\`: Title font weight (default: \`600\`)
+- \`--alert-title-fs\`: Title font size (default: \`inherit\`)
+
+### Animation
+- \`--alert-transition-duration\`: Animation timing (default: \`0.3s\`)
+
+**Example:**
+\`\`\`css
+[role="alert"] {
+  --alert-radius: 0.5rem;
+  --alert-padding: 1.5rem;
+  --alert-gap: 1rem;
+  --alert-title-fw: 700;
+  --alert-success-bg: #d4edda;
+  --alert-success-border: #28a745;
+}
+\`\`\``,
       },
     },
   },

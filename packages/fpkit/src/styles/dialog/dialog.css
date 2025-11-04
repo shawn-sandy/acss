@@ -1,5 +1,5 @@
 :root {
-  --dialog-min-w: max(20rem, 80%);
+  --dialog-min-width: max(20rem, 80%);
   --dialog-gap: 0.625rem;
   --dialog-border-color: lightgray;
   --dialog-border-width: thin;
@@ -31,8 +31,8 @@
   }
 }
 dialog {
-  width: var(--dialog-min-w);
-  min-width: var(--min-w);
+  width: var(--dialog-min-width);
+  min-width: var(--dialog-min-width);
   gap: var(--dialog-gap);
   border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
