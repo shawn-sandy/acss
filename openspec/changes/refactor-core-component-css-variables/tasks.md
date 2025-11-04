@@ -2,15 +2,15 @@
 
 ## 1. Button Component Refactoring
 
-- [ ] 1.1 Read current `packages/fpkit/src/components/buttons/button.scss`
-- [ ] 1.2 Create backup of button.scss
-- [ ] 1.3 Refactor size tokens: `--btn-xs` → `--btn-size-xs`, etc. (4 variables)
-- [ ] 1.4 Refactor logical properties: `--btn-px` → `--btn-padding-inline`, `--btn-py` → `--btn-padding-block`
-- [ ] 1.5 Refactor visual properties: `--btn-rds` → `--btn-radius`, `--btn-cl` → `--btn-color`, `--btn-dsp` → `--btn-display`, `--btn-bdr` → `--btn-border`
-- [ ] 1.6 Refactor whitespace/spacing: `--btn-wspc` → `--btn-whitespace`, `--btn-spc` → `--btn-spacing`
-- [ ] 1.7 Standardize state variables: `--btn-hov-bg` → `--btn-hover-bg`
-- [ ] 1.8 Add explicit variant variables: `--btn-primary-bg`, `--btn-primary-color`, `--btn-secondary-bg`, `--btn-secondary-border`
-- [ ] 1.9 Update all references within button.scss to use new names
+- [x] 1.1 Read current `packages/fpkit/src/components/buttons/button.scss`
+- [x] 1.2 Create backup of button.scss
+- [x] 1.3 Refactor size tokens: `--btn-xs` → `--btn-size-xs`, etc. (4 variables)
+- [x] 1.4 Refactor logical properties: `--btn-px` → `--btn-padding-inline`, `--btn-py` → `--btn-padding-block`
+- [x] 1.5 Refactor visual properties: `--btn-rds` → `--btn-radius`, `--btn-cl` → `--btn-color`, `--btn-dsp` → `--btn-display`, `--btn-bdr` → `--btn-border`
+- [x] 1.6 Refactor whitespace/spacing: `--btn-wspc` → `--btn-whitespace`, `--btn-spc` → `--btn-spacing`
+- [x] 1.7 Standardize state variables: `--btn-hov-bg` → `--btn-hover-bg`
+- [x] 1.8 Add explicit variant variables: `--btn-primary-bg`, `--btn-primary-color`, `--btn-secondary-bg`, `--btn-secondary-border`
+- [x] 1.9 Update all references within button.scss to use new names
 - [ ] 1.10 Verify button component renders correctly in browser
 - [ ] 1.11 Test all button variants (sizes, colors, states)
 - [ ] 1.12 Test button hover states
@@ -25,15 +25,15 @@
 
 ## 2. Form/Input Component Refactoring
 
-- [ ] 2.1 Read current `packages/fpkit/src/components/form/form.scss`
-- [ ] 2.2 Create backup of form.scss
-- [ ] 2.3 Refactor logical properties: `--input-px` → `--input-padding-inline`, `--input-py` → `--input-padding-block`
-- [ ] 2.4 Refactor sizing: `--input-w` → `--input-width`
-- [ ] 2.5 Keep approved abbreviations: `--input-fs` (font-size)
-- [ ] 2.6 Add missing focus state variables: `--input-focus-outline`, `--input-focus-outline-offset`
-- [ ] 2.7 Add missing disabled state variables: `--input-disabled-bg`, `--input-disabled-opacity`
-- [ ] 2.8 Update placeholder variables if needed: `--placeholder-fs`, `--placeholder-color`
-- [ ] 2.9 Update all references within form.scss to use new names
+- [x] 2.1 Read current `packages/fpkit/src/components/form/form.scss`
+- [x] 2.2 Create backup of form.scss
+- [x] 2.3 Refactor logical properties: `--input-px` → `--input-padding-inline`, `--input-py` → `--input-padding-block`
+- [x] 2.4 Refactor sizing: `--input-w` → `--input-width`
+- [x] 2.5 Keep approved abbreviations: `--input-fs` (font-size)
+- [x] 2.6 Add missing focus state variables: `--input-focus-outline`, `--input-focus-outline-offset`
+- [x] 2.7 Add missing disabled state variables: `--input-disabled-bg`, `--input-disabled-opacity`
+- [x] 2.8 Update placeholder variables if needed: `--placeholder-fs`, `--placeholder-color`
+- [x] 2.9 Update all references within form.scss to use new names
 - [ ] 2.10 Verify input renders correctly in browser
 - [ ] 2.11 Test input focus state
 - [ ] 2.12 Test input disabled state
@@ -49,14 +49,14 @@
 
 ## 3. Card Component Refactoring
 
-- [ ] 3.1 Read current `packages/fpkit/src/components/cards/card.scss`
-- [ ] 3.2 Create backup of card.scss
-- [ ] 3.3 Refactor abbreviated padding: `--card-p` → `--card-padding`
-- [ ] 3.4 Verify existing good variables: `--card-bg`, `--card-radius`, `--card-display`, `--card-direction`, `--card-gap`
-- [ ] 3.5 Add element-specific variables for complex cards: `--card-header-padding`, `--card-header-bg`, `--card-header-border-bottom`
-- [ ] 3.6 Add body element variables: `--card-body-padding`
-- [ ] 3.7 Add footer element variables: `--card-footer-padding`, `--card-footer-bg`
-- [ ] 3.8 Update all references within card.scss to use new names
+- [x] 3.1 Read current `packages/fpkit/src/components/cards/card.scss`
+- [x] 3.2 Create backup of card.scss
+- [x] 3.3 Refactor abbreviated padding: `--card-p` → `--card-padding`
+- [x] 3.4 Verify existing good variables: `--card-bg`, `--card-radius`, `--card-display`, `--card-direction`, `--card-gap`
+- [x] 3.5 Add element-specific variables for complex cards: `--card-header-padding`, `--card-header-bg`, `--card-header-border-bottom`
+- [x] 3.6 Add body element variables: `--card-body-padding`
+- [x] 3.7 Add footer element variables: `--card-footer-padding`, `--card-footer-bg`
+- [x] 3.8 Update all references within card.scss to use new names
 - [ ] 3.9 Verify card component renders correctly
 - [ ] 3.10 Test basic card layout
 - [ ] 3.11 Test card with header
@@ -93,68 +93,68 @@
 
 ## 5. Migration Documentation
 
-- [ ] 5.1 Create `MIGRATION-v{X}.md` file in root
-- [ ] 5.2 Write "Overview" section explaining breaking changes
-- [ ] 5.3 Add "Quick Summary" with total number of changed variables
-- [ ] 5.4 Create "Button Component" section with before/after table (26 variables)
-- [ ] 5.5 Create "Form/Input Component" section with before/after table (12 variables)
-- [ ] 5.6 Create "Card Component" section with before/after table (8 variables)
-- [ ] 5.7 Add "Find and Replace Patterns" section with regex examples
-- [ ] 5.8 Include example: Find `--btn-px\b`, Replace `--btn-padding-inline`
-- [ ] 5.9 Add "Testing Your Migration" checklist
-- [ ] 5.10 Include "Before You Migrate" preparation steps
-- [ ] 5.11 Add "After Migration" verification steps
-- [ ] 5.12 Create "Common Migration Scenarios" with code examples
-- [ ] 5.13 Add "Troubleshooting" section for common issues
-- [ ] 5.14 Include "Rollback Instructions" if users encounter problems
-- [ ] 5.15 Add "Frequently Asked Questions" section
-- [ ] 5.16 Proofread migration guide for clarity
-- [ ] 5.17 Test all find-and-replace patterns on sample code
+- [x] 5.1 Create `MIGRATION-v{X}.md` file in root
+- [x] 5.2 Write "Overview" section explaining breaking changes
+- [x] 5.3 Add "Quick Summary" with total number of changed variables
+- [x] 5.4 Create "Button Component" section with before/after table (26 variables)
+- [x] 5.5 Create "Form/Input Component" section with before/after table (12 variables)
+- [x] 5.6 Create "Card Component" section with before/after table (8 variables)
+- [x] 5.7 Add "Find and Replace Patterns" section with regex examples
+- [x] 5.8 Include example: Find `--btn-px\b`, Replace `--btn-padding-inline`
+- [x] 5.9 Add "Testing Your Migration" checklist
+- [x] 5.10 Include "Before You Migrate" preparation steps
+- [x] 5.11 Add "After Migration" verification steps
+- [x] 5.12 Create "Common Migration Scenarios" with code examples
+- [x] 5.13 Add "Troubleshooting" section for common issues
+- [x] 5.14 Include "Rollback Instructions" if users encounter problems
+- [x] 5.15 Add "Frequently Asked Questions" section
+- [x] 5.16 Proofread migration guide for clarity
+- [x] 5.17 Test all find-and-replace patterns on sample code
 - [ ] 5.18 Get peer review of migration guide
 
 ## 6. CHANGELOG Updates
 
-- [ ] 6.1 Read current `CHANGELOG.md`
-- [ ] 6.2 Create new version section for major release
-- [ ] 6.3 Add "BREAKING CHANGES" subsection at top
-- [ ] 6.4 List all CSS variable changes with summary
-- [ ] 6.5 Link to migration guide: `See [MIGRATION-v{X}.md](./MIGRATION-v{X}.md)`
-- [ ] 6.6 Add "CSS Variables" section listing specific changes
-- [ ] 6.7 Document Button component changes
-- [ ] 6.8 Document Form/Input component changes
-- [ ] 6.9 Document Card component changes
-- [ ] 6.10 Add "Migration" section with quick tips
-- [ ] 6.11 Add "Benefits" section explaining improvements
+- [x] 6.1 Read current `CHANGELOG.md`
+- [x] 6.2 Create new version section for major release
+- [x] 6.3 Add "BREAKING CHANGES" subsection at top
+- [x] 6.4 List all CSS variable changes with summary
+- [x] 6.5 Link to migration guide: `See [MIGRATION-v{X}.md](./MIGRATION-v{X}.md)`
+- [x] 6.6 Add "CSS Variables" section listing specific changes
+- [x] 6.7 Document Button component changes
+- [x] 6.8 Document Form/Input component changes
+- [x] 6.9 Document Card component changes
+- [x] 6.10 Add "Migration" section with quick tips
+- [x] 6.11 Add "Benefits" section explaining improvements
 - [ ] 6.12 Include release date
-- [ ] 6.13 Follow existing CHANGELOG format/style
+- [x] 6.13 Follow existing CHANGELOG format/style
 - [ ] 6.14 Verify all links work
 
 ## 7. Storybook Documentation
 
-- [ ] 7.1 Update button.stories.tsx controls to reflect new variable names
-- [ ] 7.2 Add "Customization" story for Button showing variable overrides
-- [ ] 7.3 Add code example in Button docs showing how to customize with new variables
-- [ ] 7.4 Update form.stories.tsx controls
-- [ ] 7.5 Add "Customization" story for Form/Input
-- [ ] 7.6 Add code example in Form docs
-- [ ] 7.7 Update card.stories.tsx controls
-- [ ] 7.8 Add "Customization" story for Card showing header/footer styling
-- [ ] 7.9 Add code example in Card docs
-- [ ] 7.10 Add "CSS Variables" section to each component's Storybook docs page
-- [ ] 7.11 List all available variables in docs
-- [ ] 7.12 Include default values where helpful
-- [ ] 7.13 Verify all Storybook stories load without errors
-- [ ] 7.14 Test interactive controls for new variables
-- [ ] 7.15 Ensure documentation renders correctly in Storybook
+- [x] 7.1 Update button.stories.tsx controls to reflect new variable names
+- [x] 7.2 Add "Customization" story for Button showing variable overrides
+- [x] 7.3 Add code example in Button docs showing how to customize with new variables
+- [x] 7.4 Update form.stories.tsx controls
+- [x] 7.5 Add "Customization" story for Form/Input
+- [x] 7.6 Add code example in Form docs
+- [x] 7.7 Update card.stories.tsx controls
+- [x] 7.8 Add "Customization" story for Card showing header/footer styling
+- [x] 7.9 Add code example in Card docs
+- [x] 7.10 Add "CSS Variables" section to each component's Storybook docs page
+- [x] 7.11 List all available variables in docs
+- [x] 7.12 Include default values where helpful
+- [x] 7.13 Verify all Storybook stories load without errors
+- [x] 7.14 Test interactive controls for new variables
+- [x] 7.15 Ensure documentation renders correctly in Storybook
 
 ## 8. Version Management
 
-- [ ] 8.1 Determine next major version number (e.g., 1.0.0 or 2.0.0)
-- [ ] 8.2 Update `packages/fpkit/package.json` version
-- [ ] 8.3 Verify version follows semantic versioning (major bump for breaking changes)
-- [ ] 8.4 Update root `package-lock.json` if needed
-- [ ] 8.5 Tag version for Lerna: `git tag v{X}.0.0`
-- [ ] 8.6 Verify package.json version matches CHANGELOG version
+- [x] 8.1 Determine next major version number (e.g., 1.0.0 or 2.0.0)
+- [x] 8.2 Update `packages/fpkit/package.json` version
+- [x] 8.3 Verify version follows semantic versioning (major bump for breaking changes)
+- [x] 8.4 Update root `package-lock.json` if needed
+- [x] 8.5 Tag version for Lerna: `git tag v{X}.0.0`
+- [x] 8.6 Verify package.json version matches CHANGELOG version
 
 ## 9. Beta Release (Optional but Recommended)
 
@@ -204,12 +204,12 @@
 
 ## Acceptance Criteria
 
-- [ ] All 46 variables renamed according to standard
+- [x] All 46 variables renamed according to standard
 - [ ] All tests pass without modification
 - [ ] All components render correctly in Storybook
 - [ ] No visual regressions detected
-- [ ] Migration guide complete and tested
-- [ ] CHANGELOG documents all breaking changes
+- [x] Migration guide complete and tested
+- [x] CHANGELOG documents all breaking changes
 - [ ] Beta tested by at least 2 users (if beta release used)
 - [ ] Build succeeds without errors or warnings
 - [ ] Lint passes without errors
