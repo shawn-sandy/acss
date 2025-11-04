@@ -32,6 +32,46 @@ const meta: Meta<typeof Details> = {
   title: "FP.REACT Components/Details",
   component: Details,
   tags: ["rc"],
+  parameters: {
+    docs: {
+      description: {
+        component: `Expandable/collapsible details component with smooth transitions and accessible markup.
+
+## CSS Variables
+
+### Layout & Display
+- \`--details-display\`: Display mode (default: flex)
+- \`--details-direction\`: Flex direction (default: column)
+- \`--details-justify\`: Content justification (default: flex-start)
+- \`--details-width\`: Details width (default: 100%)
+- \`--details-height\`: Details height (default: max-content)
+- \`--details-gap\`: Gap between elements (default: 0rem)
+
+### Sizing & Constraints
+- \`--details-max-height-closed\`: Max height when closed (default: 6.25rem)
+- \`--details-max-height-open\`: Max height when open (default: 50rem)
+
+### Spacing
+- \`--details-padding-inline\`: Horizontal padding (default: 1.5rem)
+- \`--details-padding-block\`: Vertical padding (default: 1rem)
+
+### Borders & Radius
+- \`--details-border\`: Border style (default: 0.0625rem solid #dfdfdf)
+- \`--details-radius\`: Border radius (default: 0)
+
+### Summary Element
+- \`--summary-display\`: Summary display mode (default: flex)
+- \`--summary-justify\`: Summary content justification (default: flex-start)
+- \`--summary-align\`: Summary vertical alignment (default: center)
+- \`--summary-gap\`: Gap within summary (default: 0.5rem)
+- \`--summary-padding-inline\`: Summary horizontal padding (fallback: \`--details-padding-inline\`)
+- \`--summary-padding-block\`: Summary vertical padding (fallback: \`--details-padding-block\`)
+- \`--summary-cursor\`: Summary cursor style (default: pointer)
+- \`--summary-transitions\`: Transition timing (default: all 0.75s ease-in-out)
+`,
+      },
+    },
+  },
   args: {
     children: content,
     icon: icon,

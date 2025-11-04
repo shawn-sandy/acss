@@ -949,14 +949,14 @@ details {
   --details-direction: column;
   --details-display: flex;
   --details-gap: 0rem;
-  --details-h: max-content;
+  --details-height: max-content;
   --details-justify: flex-start;
-  --details-px: 1.5rem;
-  --details-py: 1rem;
+  --details-padding-inline: 1.5rem;
+  --details-padding-block: 1rem;
   --details-radius: 0;
-  --details-w: 100%;
-  --max-h-closed: 6.25rem;
-  --max-h-open: 50rem;
+  --details-width: 100%;
+  --details-max-height-closed: 6.25rem;
+  --details-max-height-open: 50rem;
   --summary-align: center;
   --summary-cursor: pointer;
   --summary-display: flex;
@@ -968,12 +968,12 @@ details {
   flex-direction: var(--details-direction);
   justify-content: var(--details-justify);
   gap: var(--details-gap);
-  width: var(--details-w);
+  width: var(--details-width);
   border: var(--details-border);
   border-left: none;
   border-right: none;
   transition: var(--summary-transitions);
-  max-height: var(--max-h-closed);
+  max-height: var(--details-max-height-closed);
   overflow: clip;
 }
 @starting-style {
@@ -1002,8 +1002,8 @@ details summary {
   display: var(--summary-display);
   justify-content: var(--summary-justify);
   align-items: var(--summary-align);
-  padding-inline: var(--summary-px, var(--details-px));
-  padding-block: var(--summary-py, var(--details-py));
+  padding-inline: var(--summary-padding-inline, var(--details-padding-inline));
+  padding-block: var(--summary-padding-block, var(--details-padding-block));
   gap: var(--summary-gap);
   list-style: none;
   border-top-left-radius: var(--details-radius);
@@ -1023,15 +1023,15 @@ details summary:hover {
   cursor: var(--summary-cursor);
 }
 details summary > section {
-  width: var(--details-w);
+  width: var(--details-width);
 }
 details .list-styles summary {
   border-left: none;
   border-right: none;
 }
 details > section {
-  padding-inline: var(--details-px);
-  padding-block: var(--details-py);
+  padding-inline: var(--details-padding-inline);
+  padding-block: var(--details-padding-block);
   margin-block-start: 0;
   border: 1px transparent solid;
 }
@@ -1043,7 +1043,7 @@ details[open] > summary {
   border-bottom: var(--details-border);
 }
 details[open] > section {
-  max-height: var(--max-h-open);
+  max-height: var(--details-max-height-open);
 }
 @starting-style {
   details[open] > section {
@@ -1570,8 +1570,8 @@ sup:has(> span)[data-badge~=rounded] span {
 body > nav,
 [aria-label~=navbar],
 .navbar {
-  padding-inline: var(--nav-px, 1rem);
-  min-height: var(--nav-h, fit-content);
+  padding-inline: var(--nav-padding-inline, 1rem);
+  min-height: var(--nav-height, fit-content);
 }
 @media (max-width: 580px) {
   body > nav,
@@ -1593,12 +1593,12 @@ body > nav ul > li,
   margin: 0;
   padding: 0;
   min-height: 100%;
-  padding-inline: var(--nav-px, 0.75rem);
+  padding-inline: var(--nav-padding-inline, 0.75rem);
 }
 body > nav ul > li:hover,
 [aria-label~=navbar] ul > li:hover,
 .navbar ul > li:hover {
-  background-color: var(--nav-hov-bg, #e8e8e8);
+  background-color: var(--nav-hover-bg, #e8e8e8);
 }
 body > nav ul > li:hover:where(img),
 [aria-label~=navbar] ul > li:hover:where(img),
@@ -1611,25 +1611,25 @@ nav {
   --nav-focus-width: 0.125rem;
   --nav-focus-offset: 0.125rem;
   --nav-focus-style: solid;
-  display: var(--nav-dsp, flex);
+  display: var(--nav-display, flex);
   flex-direction: var(--nav-direction, row);
-  width: var(--nav-w, auto);
+  width: var(--nav-width, auto);
   place-items: var(--nav-align, center);
   justify-content: var(--nav-justify, space-between);
-  margin-inline: var(--nav-mx, 0);
+  margin-inline: var(--nav-margin-inline, 0);
   background-color: var(--nav-bg, initial);
 }
 nav > section,
 nav > ul {
-  --nav-dsp: flex;
+  --nav-display: flex;
   flex-direction: var(--nav-direction, row);
-  display: var(--nav-dsp, flex);
+  display: var(--nav-display, flex);
   gap: var(--nav-gap, 0);
   font-size: var(--nav-fs, 0.9rem);
   align-items: var(--nav-align, center);
-  padding-inline: var(--nav-px, 1rem);
-  padding-block: var(--nav-py, 0);
-  margin-block-end: var(--nav-mb, 0);
+  padding-inline: var(--nav-padding-inline, 1rem);
+  padding-block: var(--nav-padding-block, 0);
+  margin-block-end: var(--nav-margin-block-end, 0);
   height: 100%;
 }
 nav > section[data-list~=block],
@@ -1637,7 +1637,7 @@ nav > ul[data-list~=block] {
   --nav-direction: column;
 }
 nav > section > div {
-  --py: 0;
+  --nav-padding-block: 0;
 }
 nav ul > li {
   display: flex;
@@ -1646,15 +1646,15 @@ nav ul > li {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  padding-inline: var(--nav-px, 1rem);
+  padding-inline: var(--nav-padding-inline, 1rem);
 }
 nav img[alt] {
-  --px: 0 var(--s1);
-  --w: var(--brand-w, 3.6rem);
+  --nav-img-padding-inline: 0 var(--s1);
+  --nav-img-width: var(--brand-w, 3.6rem);
 }
 nav[data-variant] {
   background-color: var(--nav-bg);
-  color: var(--nav-cl);
+  color: var(--nav-color);
   font-size: var(--nav-fs, 0.9rem);
 }
 nav > div {
