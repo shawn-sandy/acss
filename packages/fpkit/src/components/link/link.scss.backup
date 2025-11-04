@@ -15,7 +15,7 @@
 a[href] {
   // Color & Typography
   --link-color: #085ab7;
-  --link-fw: 400;
+  --link-weight: 400;
   --link-fs: 1rem;
 
   // Text Decoration
@@ -29,8 +29,8 @@ a[href] {
   --link-radius: 0.25rem;
 
   // Spacing (for button variants)
-  --link-padding-inline: 0;
-  --link-padding-block: 0;
+  --link-px: 0;
+  --link-py: 0;
 
   // Transitions
   --link-transition: all 0.75s ease-in-out;
@@ -44,7 +44,7 @@ a[href] {
   // Apply base styles
   color: var(--link-color);
   font-size: var(--link-fs);
-  font-weight: var(--link-fw);
+  font-weight: var(--link-weight);
   text-decoration: var(--link-decoration);
   text-underline-offset: var(--link-decoration-offset);
   text-decoration-thickness: var(--link-decoration-thickness);
@@ -56,7 +56,7 @@ a[href] {
   // Ensure child elements inherit weight/style
   > i,
   > b {
-    font-weight: var(--link-fw);
+    font-weight: var(--link-weight);
     font-style: normal;
   }
 

@@ -39,8 +39,44 @@ const meta = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A semantic, accessible anchor component with enhanced security for external links and flexible styling variants.",
+        component: `A semantic, accessible anchor component with enhanced security for external links and flexible styling variants.
+
+## CSS Variables
+
+### Typography & Color
+- \`--link-color\`: Link text color (default: #085ab7)
+- \`--link-fw\`: Font weight (default: 400)
+- \`--link-fs\`: Font size (default: 1rem)
+
+### Text Decoration
+- \`--link-decoration\`: Text decoration style (default: none, underline on hover/focus)
+- \`--link-decoration-offset\`: Underline offset (default: 0.09375rem / 1.5px)
+- \`--link-decoration-thickness\`: Underline thickness (default: 0.0625rem / 1px)
+- \`--link-skip-ink\`: Text decoration skip ink (default: auto)
+
+### Background & Border
+- \`--link-bg\`: Background color (default: transparent)
+- \`--link-radius\`: Border radius (default: 0.25rem, 99rem for pills)
+
+### Spacing (Button Variants)
+- \`--link-padding-inline\`: Horizontal padding (default: 0, calculated for button variants)
+- \`--link-padding-block\`: Vertical padding (default: 0, calculated for button variants)
+
+### Focus Indicators (WCAG 2.4.7)
+- \`--link-focus-color\`: Focus outline color (default: currentColor)
+- \`--link-focus-width\`: Focus outline width (default: 0.125rem / 2px)
+- \`--link-focus-offset\`: Focus outline offset (default: 0.125rem / 2px)
+- \`--link-focus-style\`: Focus outline style (default: solid)
+
+### Transitions
+- \`--link-transition\`: Transition timing (default: all 0.75s ease-in-out)
+
+### Button Variants
+- \`--link-button-color\`: Button link text color (default: var(--link-color))
+- \`--link-border-width\`: Button border width (default: 0.125rem / 2px)
+- \`--link-border-color\`: Button border color (default: currentColor)
+- \`--link-border-style\`: Button border style (default: solid)
+`,
       },
     },
   },

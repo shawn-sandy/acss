@@ -8,6 +8,46 @@ const meta: Meta<typeof Badge> = {
   title: "FP.REACT Components/Badge",
   component: Badge,
   tags: ["beta", "accessible"],
+  parameters: {
+    docs: {
+      description: {
+        component: `A notification badge component for displaying counts or status indicators with accessibility support.
+
+## CSS Variables
+
+Customize the Badge appearance using CSS custom properties:
+
+### Layout & Structure
+- \`--badge-bg\`: Background color (default: \`lightgray\`)
+- \`--badge-color\`: Text color (default: \`currentColor\`)
+- \`--badge-radius\`: Border radius (default: \`0.5rem\`)
+- \`--badge-padding\`: Internal padding (default: \`0.3rem\`)
+- \`--badge-vertical-align\`: Vertical alignment (default: \`0.5rem\`)
+
+### Typography
+- \`--badge-fs\`: Font size (default: \`var(--fs-1)\`)
+
+### Rounded Variant
+When using \`variant="rounded"\`:
+- \`--badge-size\`: Fixed circular size (default: \`1.5625rem\`)
+- Border radius automatically becomes \`50%\`
+- Padding becomes \`0\`
+- Content truncated with ellipsis if too long
+
+**Example:**
+\`\`\`css
+sup:has(> span) {
+  --badge-bg: #ef4444;
+  --badge-color: white;
+  --badge-radius: 0.25rem;
+  --badge-padding: 0.5rem;
+  --badge-vertical-align: 0.75rem;
+  --badge-fs: 0.875rem;
+}
+\`\`\``,
+      },
+    },
+  },
   args: {
     children: "5",
   },

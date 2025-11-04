@@ -9,24 +9,24 @@ header,
   --overlay-display: grid;
   // Overlay padding
   --overlay-padding: 2rem;
-  --overlay-width: 100%;
-  --overlay-height: 40vh;
-  --overlay-max-height: 500px;
+  --overlay-w: 100%;
+  --overlay-h: 40vh;
+  --overlay-max-h: 500px;
   --overlay-color: currentColor;
-  --overlay-content-width: 80%;
+  --overlay-content-w: 80%;
   --overlay-gap: 2rem;
   --overlay-bg: whitesmoke;
-  --overlay-padding-inline: auto;
-  --overlay-padding-block: auto;
-  --overlay-margin-inline: auto;
-  --overlay-margin-block: auto;
+  --overlay-px: auto;
+  --overlay-py: auto;
+  --overlay-mx: auto;
+  --overlay-my: auto;
 
   grid-template-areas: 'overlay';
   display: var(--overlay-display);
   place-items: var(--overlay-placement);
   align-items: var(--overlay-placement);
-  min-height: var(--overlay-height);
-  width: var(--overlay-width);
+  min-height: var(--overlay-h);
+  width: var(--overlay-w);
   color: var(--overlay-color);
   background-color: var(--overlay-bg);
   min-width: 20rem;
@@ -34,16 +34,16 @@ header,
     grid-area: overlay;
   }
   > img {
-    width: var(--overlay-width);
+    width: var(--overlay-w);
     // height: auto;
     background-size: contain;
   }
   > div,
   > section {
     --overlay-display: flex;
-    max-width: var(--overlay-content-width);
+    max-width: var(--overlay-content-w);
     padding-inline: var(--spc-4);
-    margin-inline: var(--overlay-margin-inline);
+    margin-inline: var(--overlay-mx);
     gap: var(--overlay-gap);
     text-align: center;
     p {
@@ -54,7 +54,7 @@ header,
     }
     > h1,
     > h2 {
-      line-height: var(--header-line-height, 1.1);
+      line-height: var(--header-lh, 1.1);
       font-weight: 500;
     }
 

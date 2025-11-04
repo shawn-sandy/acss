@@ -17,7 +17,23 @@ const meta: Meta<typeof Breadcrumb> = {
 
 **Features:** Automatic path parsing, custom route naming, text truncation, full accessibility support, and performance optimized with memoization.
 
-**Accessibility:** Semantic HTML (\`<nav>\`, \`<ol>\`), proper ARIA labels, current page marked with \`aria-current="page"\`, and truncated text includes full text in \`aria-label\`.`,
+**Accessibility:** Semantic HTML (\`<nav>\`, \`<ol>\`), proper ARIA labels, current page marked with \`aria-current="page"\`, and truncated text includes full text in \`aria-label\`.
+
+## CSS Variables
+
+### Layout & Display
+- \`--breadcrumb-display\`: Display mode for breadcrumb list (default: flex)
+- \`--breadcrumb-width\`: Width of list items (default: fit-content)
+
+### Spacing
+- \`--breadcrumb-padding-inline\`: Horizontal padding (default: unset)
+- \`--breadcrumb-gap\`: Gap between breadcrumb items (default: 0.5rem)
+
+### Typography & Color
+- \`--breadcrumb-fs\`: Font size (default: var(--fs-3))
+- \`--breadcrumb-color\`: Text color (default: currentColor)
+- \`--breadcrumb-current-color\`: Current page color (default: rgb(46, 46, 46))
+`,
       },
     },
   },

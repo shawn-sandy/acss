@@ -40,7 +40,7 @@
   line-height: 1.6;
   display: flex;
   flex-direction: row;
-  border-radius: var(--alert-border-radius, var(--border-radius));
+  border-radius: var(--alert-radius, var(--border-radius));
   gap: var(--alert-gap, var(--spc-4));
   /* Exit animations */
   transition: opacity var(--alert-transition-duration) ease, transform var(--alert-transition-duration) ease;
@@ -81,8 +81,8 @@
 [role=alert] .alert-message .alert-title {
   margin-block-end: var(--spc-1, 0.25rem);
   margin-block-start: 0;
-  font-weight: var(--alert-title-weight, 600);
-  font-size: var(--alert-title-size, inherit);
+  font-weight: var(--alert-title-fw, 600);
+  font-size: var(--alert-title-fs, inherit);
   line-height: 1.4;
 }
 [role=alert] .alert-message h2.alert-title,
@@ -93,7 +93,7 @@
   margin: 0;
   margin-block-end: var(--spc-1, 0.25rem);
   font-size: inherit;
-  font-weight: var(--alert-title-weight, 600);
+  font-weight: var(--alert-title-fw, 600);
 }
 [role=alert][data-alert~=info] {
   --alert-bg: var(--alert-info-bg);

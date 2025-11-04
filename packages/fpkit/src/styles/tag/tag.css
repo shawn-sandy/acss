@@ -24,8 +24,8 @@ small > span,
   --stable: #0f7c3e; /* Dark green: 4.56:1 contrast with white */
   --production: #1e3a8a; /* Dark blue: 8.59:1 contrast with white */
   /* Tag component tokens */
-  --tag-px: 0.7rem; /* Horizontal padding (11.2px at 16px base) */
-  --tag-py: 0.2rem; /* Vertical padding (3.2px at 16px base) */
+  --tag-padding-inline: 0.7rem; /* Horizontal padding (11.2px at 16px base) */
+  --tag-padding-block: 0.2rem; /* Vertical padding (3.2px at 16px base) */
   --tag-fs: 0.8rem; /* Font size (12.8px at 16px base) */
   --tag-radius: 99rem; /* Fully rounded pill shape */
   --tag-bg: lightgray; /* Default background color */
@@ -34,8 +34,8 @@ small > span,
   --tag-display: inline-block; /* Display type */
   /* Apply CSS custom properties */
   display: var(--tag-display);
-  padding-inline: var(--tag-px);
-  padding-block: var(--tag-py);
+  padding-inline: var(--tag-padding-inline);
+  padding-block: var(--tag-padding-block);
   font-size: var(--tag-fs);
   color: var(--tag-color);
   background-color: var(--tag-bg);

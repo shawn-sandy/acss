@@ -48,8 +48,29 @@ const meta: Meta<typeof Tag> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "A small inline label component for displaying status, versions, or environment indicators with WCAG 2.1 AA accessibility compliance.",
+        component: `A small inline label component for displaying status, versions, or environment indicators with WCAG 2.1 AA accessibility compliance.
+
+## CSS Variables
+
+### Spacing
+- \`--tag-padding-inline\`: Horizontal padding (default: 0.7rem / 11.2px)
+- \`--tag-padding-block\`: Vertical padding (default: 0.2rem / 3.2px)
+
+### Typography
+- \`--tag-fs\`: Font size (default: 0.8rem / 12.8px)
+- \`--tag-fw\`: Font weight (default: 500)
+- \`--tag-color\`: Text color (default: currentColor)
+
+### Appearance
+- \`--tag-bg\`: Background color (default: lightgray)
+- \`--tag-radius\`: Border radius (default: 99rem for pill shape, 0.5rem for block)
+- \`--tag-display\`: Display mode (default: inline-block, block for \`<p>\`)
+
+### Variant Colors (WCAG AA Compliant)
+- \`--beta\`: Amber (#fbbf24) - 6.94:1 contrast with black
+- \`--stable\`: Dark green (#0f7c3e) - 4.56:1 contrast with white
+- \`--production\`: Dark blue (#1e3a8a) - 8.59:1 contrast with white
+`,
       },
     },
   },

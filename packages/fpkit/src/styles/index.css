@@ -621,8 +621,8 @@ small > span,
   --stable: #0f7c3e; /* Dark green: 4.56:1 contrast with white */
   --production: #1e3a8a; /* Dark blue: 8.59:1 contrast with white */
   /* Tag component tokens */
-  --tag-px: 0.7rem; /* Horizontal padding (11.2px at 16px base) */
-  --tag-py: 0.2rem; /* Vertical padding (3.2px at 16px base) */
+  --tag-padding-inline: 0.7rem; /* Horizontal padding (11.2px at 16px base) */
+  --tag-padding-block: 0.2rem; /* Vertical padding (3.2px at 16px base) */
   --tag-fs: 0.8rem; /* Font size (12.8px at 16px base) */
   --tag-radius: 99rem; /* Fully rounded pill shape */
   --tag-bg: lightgray; /* Default background color */
@@ -631,8 +631,8 @@ small > span,
   --tag-display: inline-block; /* Display type */
   /* Apply CSS custom properties */
   display: var(--tag-display);
-  padding-inline: var(--tag-px);
-  padding-block: var(--tag-py);
+  padding-inline: var(--tag-padding-inline);
+  padding-block: var(--tag-padding-block);
   font-size: var(--tag-fs);
   color: var(--tag-color);
   background-color: var(--tag-bg);
@@ -778,21 +778,21 @@ img[alt] {
 
 figure:has(img[alt]) {
   --fig-display: flex;
-  --fig-p: 0.5rem;
+  --fig-padding: 0.5rem;
   --fig-bg: rgba(245, 245, 245, 0.683);
-  --fig-w: fit-content;
+  --fig-width: fit-content;
   display: var(--fig-display);
   position: relative;
-  padding: var(--fig-p);
+  padding: var(--fig-padding);
   background-color: var(--fig-bg);
-  max-width: var(--fig-w);
+  max-width: var(--fig-width);
 }
 figure:has(img[alt]) > figcaption {
   position: absolute;
-  bottom: var(--fig-bottom, var(--fig-p));
-  left: var(--fig-left, var(--fig-p));
-  right: var(--fig-right, var(--fig-p));
-  padding: var(--caption-p, var(--spc-3));
+  bottom: var(--fig-bottom, var(--fig-padding));
+  left: var(--fig-left, var(--fig-padding));
+  right: var(--fig-right, var(--fig-padding));
+  padding: var(--caption-padding, var(--spc-3));
   background-color: var(--fig-bg);
 }
 
@@ -894,8 +894,8 @@ figure:has(img[alt]) > figcaption {
 progress {
   /* Revert all styles */
   all: revert;
-  --progress-w: 100%;
-  --progress-h: 1rem;
+  --progress-width: 100%;
+  --progress-height: 1rem;
   --progress-bg: #cccccc;
   --progress-color: rgb(71, 71, 245);
   --progress-accent-color: var(--progress-color);
@@ -905,8 +905,8 @@ progress {
   /* If the progress element is busy, remove the revert styles */
 }
 progress[value] {
-  width: var(--progress-w);
-  height: var(--progress-h);
+  width: var(--progress-width);
+  height: var(--progress-height);
   background-color: var(--progress-bg);
   accent-color: var(--progress-accent-color);
   /* Styling for the remaining part of the& bar */
@@ -927,8 +927,8 @@ progress[value]::-webkit-progress-bar {
   accent-color: var(--progress-accent-color);
 }
 progress[aria-busy] {
-  width: var(--progress-w);
-  height: var(--progress-h);
+  width: var(--progress-width);
+  height: var(--progress-height);
   accent-color: var(--progress-accent-color);
   /* Styling for the remaining part of the& bar */
 }
@@ -1072,7 +1072,7 @@ details[open] > section {
  */
 a[href] {
   --link-color: #085ab7;
-  --link-weight: 400;
+  --link-fw: 400;
   --link-fs: 1rem;
   --link-decoration: none;
   --link-decoration-offset: 0.09375rem;
@@ -1080,8 +1080,8 @@ a[href] {
   --link-skip-ink: auto;
   --link-bg: transparent;
   --link-radius: 0.25rem;
-  --link-px: 0;
-  --link-py: 0;
+  --link-padding-inline: 0;
+  --link-padding-block: 0;
   --link-transition: all 0.75s ease-in-out;
   --link-focus-color: currentColor;
   --link-focus-width: 0.125rem;
@@ -1089,7 +1089,7 @@ a[href] {
   --link-focus-style: solid;
   color: var(--link-color);
   font-size: var(--link-fs);
-  font-weight: var(--link-weight);
+  font-weight: var(--link-fw);
   text-decoration: var(--link-decoration);
   text-underline-offset: var(--link-decoration-offset);
   text-decoration-thickness: var(--link-decoration-thickness);
@@ -1100,7 +1100,7 @@ a[href] {
 }
 a[href] > i,
 a[href] > b {
-  font-weight: var(--link-weight);
+  font-weight: var(--link-fw);
   font-style: normal;
 }
 a[href]:hover {
@@ -1170,23 +1170,23 @@ header,
   --overlay-placement: center;
   --overlay-display: grid;
   --overlay-padding: 2rem;
-  --overlay-w: 100%;
-  --overlay-h: 40vh;
-  --overlay-max-h: 500px;
+  --overlay-width: 100%;
+  --overlay-height: 40vh;
+  --overlay-max-height: 500px;
   --overlay-color: currentColor;
-  --overlay-content-w: 80%;
+  --overlay-content-width: 80%;
   --overlay-gap: 2rem;
   --overlay-bg: whitesmoke;
-  --overlay-px: auto;
-  --overlay-py: auto;
-  --overlay-mx: auto;
-  --overlay-my: auto;
+  --overlay-padding-inline: auto;
+  --overlay-padding-block: auto;
+  --overlay-margin-inline: auto;
+  --overlay-margin-block: auto;
   grid-template-areas: "overlay";
   display: var(--overlay-display);
   place-items: var(--overlay-placement);
   align-items: var(--overlay-placement);
-  min-height: var(--overlay-h);
-  width: var(--overlay-w);
+  min-height: var(--overlay-height);
+  width: var(--overlay-width);
   color: var(--overlay-color);
   background-color: var(--overlay-bg);
   min-width: 20rem;
@@ -1199,7 +1199,7 @@ header > *,
 header > img,
 [data-hero] > img,
 [data-grid~=overlay] > img {
-  width: var(--overlay-w);
+  width: var(--overlay-width);
   background-size: contain;
 }
 header > div,
@@ -1209,9 +1209,9 @@ header > section,
 [data-grid~=overlay] > div,
 [data-grid~=overlay] > section {
   --overlay-display: flex;
-  max-width: var(--overlay-content-w);
+  max-width: var(--overlay-content-width);
   padding-inline: var(--spc-4);
-  margin-inline: var(--overlay-mx);
+  margin-inline: var(--overlay-margin-inline);
   gap: var(--overlay-gap);
   text-align: center;
 }
@@ -1238,7 +1238,7 @@ header > section > h2,
 [data-grid~=overlay] > div > h2,
 [data-grid~=overlay] > section > h1,
 [data-grid~=overlay] > section > h2 {
-  line-height: var(--header-lh, 1.1);
+  line-height: var(--header-line-height, 1.1);
   font-weight: 500;
 }
 header > div > h1,
@@ -1268,16 +1268,16 @@ header > section > h3,
 
 main,
 footer {
-  --content-w: min(100%, 1480px);
-  --content-mx: auto;
-  --content-px: 1rem;
+  --content-width: min(100%, 1480px);
+  --content-margin-inline: auto;
+  --content-padding-inline: 1rem;
   --content-gap: 2rem;
   padding-block: var(--overlay-padding);
 }
 main > section,
 footer > section {
-  width: var(--content-w);
-  margin-inline: var(--content-mx);
+  width: var(--content-width);
+  margin-inline: var(--content-margin-inline);
   padding-inline: var(--spc-6);
 }
 
@@ -1287,8 +1287,8 @@ main {
 }
 main > section[aria-label],
 main > section {
-  width: var(--content-w);
-  margin-inline: var(--content-mx);
+  width: var(--content-width);
+  margin-inline: var(--content-margin-inline);
 }
 main > section[aria-label]:has(> article, > aside),
 main > section:has(> article, > aside) {
@@ -1318,7 +1318,7 @@ footer > div {
 }
 
 :root {
-  --dialog-min-w: max(20rem, 80%);
+  --dialog-min-width: max(20rem, 80%);
   --dialog-gap: 0.625rem;
   --dialog-border-color: lightgray;
   --dialog-border-width: thin;
@@ -1350,8 +1350,8 @@ footer > div {
   }
 }
 dialog {
-  width: var(--dialog-min-w);
-  min-width: var(--min-w);
+  width: var(--dialog-min-width);
+  min-width: var(--dialog-min-width);
   gap: var(--dialog-gap);
   border: var(--dialog-border-color) var(--dialog-border-width) solid;
   border-radius: var(--dialog-border-radius);
@@ -1532,13 +1532,13 @@ sup:has(> span) {
   --badge-color: currentColor;
   --badge-radius: 0.5rem;
   --badge-padding: 0.3rem;
-  --badge-v-align: 0.5rem;
+  --badge-vertical-align: 0.5rem;
   --badge-fs: var(--fs-1);
   background-color: var(--badge-bg);
   color: var(--badge-color);
   padding: var(--badge-padding);
   border-radius: var(--badge-radius);
-  vertical-align: var(--badge-v-align);
+  vertical-align: var(--badge-vertical-align);
   font-size: var(--badge-fs);
 }
 sup:has(> span) span {
@@ -1781,8 +1781,8 @@ select {
 
 nav:not(body > nav),
 nav[data-breadcrumb] {
-  --breadcrumb-px: unset;
-  --breadcrumb-dsp: flex;
+  --breadcrumb-padding-inline: unset;
+  --breadcrumb-display: flex;
   --breadcrumb-gap: 0.5rem;
   --breadcrumb-color: currentColor;
   --breadcrumb-current-color: rgb(46, 46, 46);
@@ -1792,14 +1792,14 @@ nav[data-breadcrumb] {
 }
 nav:not(body > nav) ol,
 nav[data-breadcrumb] ol {
-  padding-inline: var(--breadcrumb-px);
-  display: var(--breadcrumb-dsp);
+  padding-inline: var(--breadcrumb-padding-inline);
+  display: var(--breadcrumb-display);
   gap: var(--breadcrumb-gap);
 }
 nav:not(body > nav) ol li,
 nav[data-breadcrumb] ol li {
   padding-inline: unset;
-  width: var(--breadcrumb-w, fit-content);
+  width: var(--breadcrumb-width, fit-content);
   text-transform: capitalize;
   display: flex;
   color: var(--breadcrumb-color);
@@ -2073,7 +2073,7 @@ li:has(> button) {
   line-height: 1.6;
   display: flex;
   flex-direction: row;
-  border-radius: var(--alert-border-radius, var(--border-radius));
+  border-radius: var(--alert-radius, var(--border-radius));
   gap: var(--alert-gap, var(--spc-4));
   /* Exit animations */
   transition: opacity var(--alert-transition-duration) ease, transform var(--alert-transition-duration) ease;
@@ -2114,8 +2114,8 @@ li:has(> button) {
 [role=alert] .alert-message .alert-title {
   margin-block-end: var(--spc-1, 0.25rem);
   margin-block-start: 0;
-  font-weight: var(--alert-title-weight, 600);
-  font-size: var(--alert-title-size, inherit);
+  font-weight: var(--alert-title-fw, 600);
+  font-size: var(--alert-title-fs, inherit);
   line-height: 1.4;
 }
 [role=alert] .alert-message h2.alert-title,
@@ -2126,7 +2126,7 @@ li:has(> button) {
   margin: 0;
   margin-block-end: var(--spc-1, 0.25rem);
   font-size: inherit;
-  font-weight: var(--alert-title-weight, 600);
+  font-weight: var(--alert-title-fw, 600);
 }
 [role=alert][data-alert~=info] {
   --alert-bg: var(--alert-info-bg);
