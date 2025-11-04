@@ -628,3 +628,274 @@ export const WithOnEnterHandler: Story = {
     });
   },
 };
+
+/**
+ * CSS Variable Customization
+ *
+ * Demonstrates how to customize form/input appearance using the new standardized
+ * CSS custom property naming convention.
+ *
+ * New variable naming patterns:
+ * - Logical properties: `--input-padding-inline`, `--input-padding-block`
+ * - Full property names: `--input-width`, `--input-radius`, `--input-border`
+ * - Approved abbreviations: `--input-fs` (font-size), `--input-bg` (background)
+ * - State variables: `--input-focus-outline`, `--input-disabled-bg`
+ */
+export const Customization: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      {/* Custom input styling */}
+      <div>
+        <h4>Custom Input Styling</h4>
+        <FormComponent aria-label="Custom input example">
+          <FormComponent.Field label="Name" labelFor="custom-name">
+            <FormComponent.Input
+              id="custom-name"
+              name="name"
+              placeholder="Enter your name"
+              styles={{
+                "--input-padding-inline": "1.5rem",
+                "--input-padding-block": "0.75rem",
+                "--input-fs": "1.125rem",
+                "--input-radius": "0.5rem",
+                "--input-border": "2px solid #0066cc",
+              }}
+            />
+          </FormComponent.Field>
+        </FormComponent>
+      </div>
+
+      {/* Compact form */}
+      <div>
+        <h4>Compact Form</h4>
+        <FormComponent aria-label="Compact form example">
+          <FormComponent.Field label="Email" labelFor="compact-email">
+            <FormComponent.Input
+              id="compact-email"
+              name="email"
+              type="email"
+              styles={{
+                "--input-padding-inline": "0.75rem",
+                "--input-padding-block": "0.5rem",
+                "--input-fs": "0.875rem",
+                "--input-radius": "0.25rem",
+              }}
+            />
+          </FormComponent.Field>
+        </FormComponent>
+      </div>
+
+      {/* Custom focus states */}
+      <div>
+        <h4>Custom Focus States</h4>
+        <FormComponent aria-label="Focus state example">
+          <FormComponent.Field label="Username" labelFor="focus-username">
+            <FormComponent.Input
+              id="focus-username"
+              name="username"
+              placeholder="Try focusing this input"
+              styles={{
+                "--input-focus-outline": "3px solid #0066cc",
+                "--input-focus-outline-offset": "2px",
+                "--input-border": "2px solid #ddd",
+              }}
+            />
+          </FormComponent.Field>
+        </FormComponent>
+      </div>
+
+      {/* Custom textarea */}
+      <div>
+        <h4>Custom Textarea</h4>
+        <FormComponent aria-label="Textarea example">
+          <FormComponent.Field label="Message" labelFor="custom-message">
+            <FormComponent.Textarea
+              id="custom-message"
+              name="message"
+              placeholder="Enter your message"
+              rows={4}
+              styles={{
+                "--input-padding-inline": "1rem",
+                "--input-padding-block": "1rem",
+                "--input-fs": "1rem",
+                "--input-radius": "0.75rem",
+                "--input-border": "1px solid #ccc",
+                "--input-width": "100%",
+              }}
+            />
+          </FormComponent.Field>
+        </FormComponent>
+      </div>
+
+      {/* Custom select */}
+      <div>
+        <h4>Custom Select</h4>
+        <FormComponent aria-label="Select example">
+          <FormComponent.Field label="Country" labelFor="custom-country">
+            <FormComponent.Select
+              id="custom-country"
+              name="country"
+              styles={{
+                "--input-padding-inline": "1.25rem",
+                "--input-padding-block": "0.625rem",
+                "--input-fs": "1rem",
+                "--input-radius": "0.5rem",
+                "--input-border": "2px solid #28a745",
+                "--input-bg": "#f0f9f4",
+              }}
+            >
+              <FormComponent.Select.Option value="">Select country</FormComponent.Select.Option>
+              <FormComponent.Select.Option value="us">United States</FormComponent.Select.Option>
+              <FormComponent.Select.Option value="ca">Canada</FormComponent.Select.Option>
+              <FormComponent.Select.Option value="uk">United Kingdom</FormComponent.Select.Option>
+            </FormComponent.Select>
+          </FormComponent.Field>
+        </FormComponent>
+      </div>
+
+      {/* Dark theme example */}
+      <div
+        style={{
+          background: "#1a1a1a",
+          padding: "1.5rem",
+          borderRadius: "0.5rem",
+        }}
+      >
+        <h4 style={{ color: "white", marginTop: 0 }}>Dark Theme Example</h4>
+        <FormComponent aria-label="Dark theme form">
+          <FormComponent.Field label="Email" labelFor="dark-email">
+            <FormComponent.Input
+              id="dark-email"
+              name="email"
+              type="email"
+              placeholder="email@example.com"
+              styles={{
+                "--input-bg": "#2a2a2a",
+                "--input-color": "#e5e7eb",
+                "--input-border": "1px solid #4b5563",
+                "--input-padding-inline": "1rem",
+                "--input-padding-block": "0.75rem",
+                "--input-radius": "0.5rem",
+                "--input-focus-outline": "2px solid #3b82f6",
+                "--placeholder-color": "#9ca3af",
+              }}
+            />
+          </FormComponent.Field>
+          <FormComponent.Field label="Comments" labelFor="dark-comments" style={{ marginTop: "1rem" }}>
+            <FormComponent.Textarea
+              id="dark-comments"
+              name="comments"
+              placeholder="Your feedback..."
+              rows={3}
+              styles={{
+                "--input-bg": "#2a2a2a",
+                "--input-color": "#e5e7eb",
+                "--input-border": "1px solid #4b5563",
+                "--input-padding-inline": "1rem",
+                "--input-padding-block": "0.75rem",
+                "--input-radius": "0.5rem",
+                "--input-focus-outline": "2px solid #3b82f6",
+                "--placeholder-color": "#9ca3af",
+              }}
+            />
+          </FormComponent.Field>
+        </FormComponent>
+      </div>
+
+      {/* Disabled state customization */}
+      <div>
+        <h4>Custom Disabled State</h4>
+        <FormComponent aria-label="Disabled state example">
+          <FormComponent.Field label="Disabled Input" labelFor="disabled-custom">
+            <FormComponent.Input
+              id="disabled-custom"
+              name="disabled"
+              disabled
+              value="This input is disabled"
+              styles={{
+                "--input-disabled-bg": "#f5f5f5",
+                "--input-disabled-opacity": "0.6",
+                "--input-padding-inline": "1rem",
+                "--input-padding-block": "0.75rem",
+              }}
+            />
+          </FormComponent.Field>
+        </FormComponent>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+## Available CSS Variables
+
+### Base Properties
+- \`--input-padding-inline\`: Horizontal padding (logical property)
+- \`--input-padding-block\`: Vertical padding (logical property)
+- \`--input-width\`: Input width
+- \`--input-radius\`: Border radius
+- \`--input-color\`: Text color
+- \`--input-bg\`: Background color
+- \`--input-border\`: Border style
+
+### Typography (Approved Abbreviations)
+- \`--input-fs\`: Font size
+
+### Focus State Variables
+- \`--input-focus-outline\`: Outline on focus
+- \`--input-focus-outline-offset\`: Outline offset on focus
+
+### Disabled State Variables
+- \`--input-disabled-bg\`: Background color when disabled
+- \`--input-disabled-opacity\`: Opacity when disabled
+
+### Placeholder Variables
+- \`--placeholder-fs\`: Placeholder font size
+- \`--placeholder-color\`: Placeholder text color
+
+### Migration from Old Names
+- ❌ \`--input-px\` → ✅ \`--input-padding-inline\`
+- ❌ \`--input-py\` → ✅ \`--input-padding-block\`
+- ❌ \`--input-w\` → ✅ \`--input-width\`
+
+## Usage Examples
+
+### Custom Input
+\`\`\`tsx
+<Form.Input
+  styles={{
+    "--input-padding-inline": "1.5rem",
+    "--input-padding-block": "0.75rem",
+    "--input-fs": "1.125rem",
+    "--input-radius": "0.5rem",
+  }}
+/>
+\`\`\`
+
+### Custom Focus State
+\`\`\`tsx
+<Form.Input
+  styles={{
+    "--input-focus-outline": "3px solid #0066cc",
+    "--input-focus-outline-offset": "2px",
+  }}
+/>
+\`\`\`
+
+### Dark Theme Input
+\`\`\`tsx
+<Form.Input
+  styles={{
+    "--input-bg": "#2a2a2a",
+    "--input-color": "#e5e7eb",
+    "--input-border": "1px solid #4b5563",
+    "--input-focus-outline": "2px solid #3b82f6",
+  }}
+/>
+\`\`\`
+        `,
+      },
+    },
+  },
+} as Story;
