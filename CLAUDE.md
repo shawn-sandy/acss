@@ -122,6 +122,53 @@ npm run preview          # Preview production build
 - Follow BEM-like naming or component-scoped class names
 - Avoid inline styles unless necessary for dynamic CSS properties
 
+#### CSS Variable Naming Standard
+
+All CSS custom properties must follow the standardized naming convention. See `docs/css-variables.md` for complete documentation.
+
+**Pattern:**
+```
+--{component}-{element}-{variant}-{property}-{modifier}
+```
+
+**Examples:**
+```scss
+// Base properties
+--btn-bg
+--btn-padding-inline
+--btn-radius
+
+// Variant properties
+--btn-primary-bg
+--alert-error-border
+
+// State properties
+--btn-hover-bg
+--btn-focus-outline
+
+// Element-specific properties
+--card-header-padding
+--dialog-footer-bg
+```
+
+**Approved Abbreviations:**
+- ✅ Use: `bg`, `fs`, `fw`, `radius`, `gap`
+- ❌ Don't use: `px`/`py` (use `padding-inline`/`padding-block`), `w`/`h` (use `width`/`height`), `cl` (use `color`), `dsp` (use `display`), `bdr` (use `border`)
+
+**Component Development Checklist:**
+- [ ] CSS variables follow `--{component}-{property}` pattern
+- [ ] Use full words for padding, margin, color, border, display, width, height
+- [ ] Use logical properties (`padding-inline`, `margin-block`) for spacing
+- [ ] Variant variables use `--{component}-{variant}-{property}` pattern
+- [ ] State variables use `--{component}-{state}-{property}` pattern
+- [ ] Element variables use `--{component}-{element}-{property}` pattern
+- [ ] All variables use rem units (not px)
+- [ ] Variables documented in component Storybook story
+
+**Resources:**
+- **CSS Variable Reference Guide**: `docs/css-variables.md`
+- **Migration Guide**: `MIGRATION-template.md` (for refactoring existing components)
+
 ### Testing
 
 - Tests use Vitest with happy-dom or jsdom
