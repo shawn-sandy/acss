@@ -3,14 +3,14 @@ details {
   --details-direction: column;
   --details-display: flex;
   --details-gap: 0rem;
-  --details-h: max-content;
+  --details-height: max-content;
   --details-justify: flex-start;
-  --details-px: 1.5rem;
-  --details-py: 1rem;
+  --details-padding-inline: 1.5rem;
+  --details-padding-block: 1rem;
   --details-radius: 0;
-  --details-w: 100%;
-  --max-h-closed: 6.25rem;
-  --max-h-open: 50rem;
+  --details-width: 100%;
+  --details-max-height-closed: 6.25rem;
+  --details-max-height-open: 50rem;
   --summary-align: center;
   --summary-cursor: pointer;
   --summary-display: flex;
@@ -22,12 +22,12 @@ details {
   flex-direction: var(--details-direction);
   justify-content: var(--details-justify);
   gap: var(--details-gap);
-  width: var(--details-w);
+  width: var(--details-width);
   border: var(--details-border);
   border-left: none;
   border-right: none;
   transition: var(--summary-transitions);
-  max-height: var(--max-h-closed);
+  max-height: var(--details-max-height-closed);
   overflow: clip;
 }
 @starting-style {
@@ -56,8 +56,8 @@ details summary {
   display: var(--summary-display);
   justify-content: var(--summary-justify);
   align-items: var(--summary-align);
-  padding-inline: var(--summary-px, var(--details-px));
-  padding-block: var(--summary-py, var(--details-py));
+  padding-inline: var(--summary-padding-inline, var(--details-padding-inline));
+  padding-block: var(--summary-padding-block, var(--details-padding-block));
   gap: var(--summary-gap);
   list-style: none;
   border-top-left-radius: var(--details-radius);
@@ -77,15 +77,15 @@ details summary:hover {
   cursor: var(--summary-cursor);
 }
 details summary > section {
-  width: var(--details-w);
+  width: var(--details-width);
 }
 details .list-styles summary {
   border-left: none;
   border-right: none;
 }
 details > section {
-  padding-inline: var(--details-px);
-  padding-block: var(--details-py);
+  padding-inline: var(--details-padding-inline);
+  padding-block: var(--details-padding-block);
   margin-block-start: 0;
   border: 1px transparent solid;
 }
@@ -97,7 +97,7 @@ details[open] > summary {
   border-bottom: var(--details-border);
 }
 details[open] > section {
-  max-height: var(--max-h-open);
+  max-height: var(--details-max-height-open);
 }
 @starting-style {
   details[open] > section {

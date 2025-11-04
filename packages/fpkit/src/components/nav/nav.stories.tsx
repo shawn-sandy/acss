@@ -14,7 +14,41 @@ const meta: Meta<typeof Nav> = {
     actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
-        component: "Nav description here...",
+        component: `Navigation component with accessible markup and customizable styling via CSS variables.
+
+## CSS Variables
+
+### Layout & Sizing
+- \`--nav-display\`: Display mode (default: flex)
+- \`--nav-width\`: Nav width (default: auto)
+- \`--nav-height\`: Minimum height (default: fit-content)
+- \`--nav-direction\`: Flex direction (default: row)
+- \`--nav-align\`: Vertical alignment (default: center)
+- \`--nav-justify\`: Horizontal justification (default: space-between)
+
+### Spacing
+- \`--nav-padding-inline\`: Horizontal padding (default: 1rem)
+- \`--nav-padding-block\`: Vertical padding (default: 0)
+- \`--nav-margin-inline\`: Horizontal margin (default: 0)
+- \`--nav-margin-block-end\`: Bottom margin (default: 0)
+- \`--nav-gap\`: Gap between nav items (default: 0)
+
+### Typography & Color
+- \`--nav-fs\`: Font size (default: 0.9rem)
+- \`--nav-color\`: Text color
+- \`--nav-bg\`: Background color (default: initial)
+- \`--nav-hover-bg\`: Background color on hover (default: #e8e8e8)
+
+### Focus Indicators (WCAG 2.4.7)
+- \`--nav-focus-color\`: Focus outline color (default: currentColor)
+- \`--nav-focus-width\`: Focus outline width (default: 0.125rem / 2px)
+- \`--nav-focus-offset\`: Focus outline offset (default: 0.125rem / 2px)
+- \`--nav-focus-style\`: Focus outline style (default: solid)
+
+### Image Elements
+- \`--nav-img-padding-inline\`: Image padding (default: 0 var(--s1))
+- \`--nav-img-width\`: Image width (default: var(--brand-w, 3.6rem))
+`,
       },
     },
   },
