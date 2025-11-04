@@ -4,26 +4,14 @@
   --input-bg: inherit;
   --input-border: none;
   --input-outline: thin solid var(--input-border-color);
-  --input-padding-inline: 0.6rem;
-  --input-padding-block: 0.4rem;
+  --input-px: 0.6rem;
+  --input-py: 0.4rem;
   --input-radius: --var(--radius);
   --input-fs: var(--fs);
-  --input-width: clamp(200px, 100%, 500px);
-
-  // Focus state variables (NEW - for accessibility)
-  --input-focus-outline: medium solid var(--input-border-color);
-  --input-focus-outline-offset: 0;
-
-  // Disabled state variables (NEW)
-  --input-disabled-bg: #f5f5f5;
-  --input-disabled-opacity: 0.6;
-  --input-disabled-cursor: not-allowed;
-
-  // Placeholder variables
+  --input-w: clamp(200px, 100%, 500px);
   --placeholder-color: gray;
   --placeholder-style: italic;
   --placeholder-fs: smaller;
-
   --form-direction: column;
   --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><polyline points='6,9 10,13 14,9' stroke='%23000000' stroke-width='1.5' fill='none' /></svg>");
 }
@@ -49,11 +37,11 @@ select {
   -webkit-appearance: var(--input-appearance);
   -moz-appearance: var(--input-appearance);
   appearance: var(--input-appearance);
-  width: var(--input-width);
+  width: var(--input-w);
   border: var(--input-border);
   outline: var(--input-outline);
-  padding-inline: var(--input-padding-inline);
-  padding-block: var(--input-padding-block);
+  padding-inline: var(--input-px);
+  padding-block: var(--input-py);
   border-radius: var(--input-radius);
   background-color: var(--input-bg, #fff);
 
@@ -65,8 +53,7 @@ select {
   }
 
   &:focus-visible, &:focus {
-    outline: var(--input-focus-outline);
-    outline-offset: var(--input-focus-outline-offset);
+    outline-width: medium;
   }
 
 
@@ -80,12 +67,9 @@ select {
     }
   }
 
-  &[aria-disabled='true'],
-  &:disabled {
+  &[aria-disabled='true'] {
     --input-border-color: lightgray;
-    background-color: var(--input-disabled-bg);
-    opacity: var(--input-disabled-opacity);
-    cursor: var(--input-disabled-cursor);
+    cursor: not-allowed;
     text-transform: capitalize;
     text-decoration: line-through;
   }

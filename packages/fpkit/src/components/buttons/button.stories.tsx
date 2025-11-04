@@ -181,8 +181,8 @@ export const DisabledCustom: Story = {
     classes: "my-custom-button",
     styles: {
       "--btn-fs": "1.25rem",
-      "--btn-py": "0.75rem",
-      "--btn-px": "1.5rem",
+      "--btn-padding-block": "0.75rem",
+      "--btn-padding-inline": "1.5rem",
     },
     children: "Custom Disabled",
   },
@@ -220,6 +220,192 @@ Disabled buttons prevent interactions via the optimized useDisabledState hook.
 
 Try tabbing through - all buttons receive focus!
 Try clicking - only enabled button responds.
+        `,
+      },
+    },
+  },
+} as Story;
+
+/**
+ * CSS Variable Customization
+ *
+ * Demonstrates how to customize button appearance using the new standardized
+ * CSS custom property naming convention.
+ *
+ * New variable naming patterns:
+ * - Size tokens: `--btn-size-{xs|sm|md|lg}`
+ * - Logical properties: `--btn-padding-inline`, `--btn-padding-block`
+ * - Full property names: `--btn-radius`, `--btn-color`, `--btn-display`, `--btn-border`
+ * - Approved abbreviations: `--btn-fs` (font-size), `--btn-bg` (background), `--btn-fw` (font-weight)
+ */
+export const Customization: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      {/* Custom brand colors */}
+      <div>
+        <h4>Custom Brand Colors</h4>
+        <Button
+          type="button"
+          styles={{
+            "--btn-bg": "#0066cc",
+            "--btn-color": "white",
+            "--btn-radius": "0.5rem",
+            "--btn-padding-inline": "2rem",
+            "--btn-padding-block": "0.75rem",
+          }}
+        >
+          Brand Button
+        </Button>
+      </div>
+
+      {/* Custom sizes using logical properties */}
+      <div>
+        <h4>Custom Padding (Logical Properties)</h4>
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <Button
+            type="button"
+            styles={{
+              "--btn-padding-inline": "0.5rem",
+              "--btn-padding-block": "0.25rem",
+              "--btn-fs": "0.875rem",
+            }}
+          >
+            Compact
+          </Button>
+          <Button
+            type="button"
+            styles={{
+              "--btn-padding-inline": "3rem",
+              "--btn-padding-block": "1rem",
+              "--btn-fs": "1.125rem",
+            }}
+          >
+            Spacious
+          </Button>
+        </div>
+      </div>
+
+      {/* Custom hover effects */}
+      <div>
+        <h4>Custom Hover Effects</h4>
+        <Button
+          type="button"
+          styles={{
+            "--btn-bg": "#28a745",
+            "--btn-color": "white",
+            "--btn-hover-filter": "brightness(1.1)",
+            "--btn-hover-transform": "translateY(-2px)",
+          }}
+        >
+          Hover Me
+        </Button>
+      </div>
+
+      {/* Custom borders and shapes */}
+      <div>
+        <h4>Custom Borders & Shapes</h4>
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <Button
+            type="button"
+            styles={{
+              "--btn-bg": "transparent",
+              "--btn-color": "#0066cc",
+              "--btn-border": "2px solid currentColor",
+              "--btn-radius": "0",
+            }}
+          >
+            Square Outline
+          </Button>
+          <Button
+            type="button"
+            styles={{
+              "--btn-bg": "#dc3545",
+              "--btn-color": "white",
+              "--btn-radius": "100rem",
+              "--btn-padding-inline": "2rem",
+            }}
+          >
+            Pill Shape
+          </Button>
+        </div>
+      </div>
+
+      {/* Dark theme example */}
+      <div
+        style={{
+          background: "#1a1a1a",
+          padding: "1.5rem",
+          borderRadius: "0.5rem",
+        }}
+      >
+        <h4 style={{ color: "white", marginTop: 0 }}>Dark Theme Example</h4>
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <Button
+            type="button"
+            styles={{
+              "--btn-bg": "#3b82f6",
+              "--btn-color": "white",
+              "--btn-hover-filter": "brightness(1.2)",
+            }}
+          >
+            Primary
+          </Button>
+          <Button
+            type="button"
+            styles={{
+              "--btn-bg": "transparent",
+              "--btn-color": "#e5e7eb",
+              "--btn-border": "1px solid #4b5563",
+              "--btn-hover-filter": "brightness(1.3)",
+            }}
+          >
+            Secondary
+          </Button>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+## Available CSS Variables
+
+### Size Tokens
+- \`--btn-size-xs\`: 0.6875rem (11px)
+- \`--btn-size-sm\`: 0.8125rem (13px)
+- \`--btn-size-md\`: 0.9375rem (15px)
+- \`--btn-size-lg\`: 1.125rem (18px)
+
+### Base Properties
+- \`--btn-padding-inline\`: Horizontal padding (logical property)
+- \`--btn-padding-block\`: Vertical padding (logical property)
+- \`--btn-radius\`: Border radius
+- \`--btn-color\`: Text color
+- \`--btn-bg\`: Background color
+- \`--btn-border\`: Border style
+- \`--btn-display\`: Display property
+- \`--btn-whitespace\`: White-space handling
+- \`--btn-spacing\`: Margin/spacing
+
+### Typography (Approved Abbreviations)
+- \`--btn-fs\`: Font size
+- \`--btn-fw\`: Font weight
+
+### State Variables
+- \`--btn-hover-filter\`: Filter on hover
+- \`--btn-hover-transform\`: Transform on hover
+- \`--btn-hover-outline\`: Outline on hover
+
+### Migration from Old Names
+- ❌ \`--btn-px\` → ✅ \`--btn-padding-inline\`
+- ❌ \`--btn-py\` → ✅ \`--btn-padding-block\`
+- ❌ \`--btn-rds\` → ✅ \`--btn-radius\`
+- ❌ \`--btn-cl\` → ✅ \`--btn-color\`
+- ❌ \`--btn-dsp\` → ✅ \`--btn-display\`
+- ❌ \`--btn-bdr\` → ✅ \`--btn-border\`
+- ❌ \`--btn-wspc\` → ✅ \`--btn-whitespace\`
+- ❌ \`--btn-spc\` → ✅ \`--btn-spacing\`
         `,
       },
     },

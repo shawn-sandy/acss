@@ -1,11 +1,10 @@
 button {
-  // Size tokens - renamed for clarity
-  --btn-size-xs: 0.6875rem;
-  --btn-size-sm: 0.8125rem;
-  --btn-size-md: 0.9375rem;
-  --btn-size-lg: 1.125rem;
+  --btn-xs: 0.6875rem;
+  --btn-sm: 0.8125rem;
+  --btn-md: 0.9375rem;
+  --btn-lg: 1.125rem;
   --btn-pill: 100rem;
-  --btn-fs: var(--btn-size-md);
+  --btn-fs: var(--btn-md);
   --btn-height: calc(var(--btn-fs) * 2.25);
   --btn-bg: lightgray;
   --btn-width: max-content;
@@ -14,16 +13,16 @@ button {
   font-weight: var(--btn-fw, 500);
   height: var(--btn-height);
   place-items: var(--btn-place, center);
-  padding-inline: var(--btn-padding-inline, calc(var(--btn-fs) * 1.5));
-  padding-block: var(--btn-padding-block, calc(var(--btn-fs) * 0.5));
-  border: var(--btn-border, none);
-  border-radius: var(--btn-radius, calc(6rem / 16));
+  padding-inline: var(--btn-px, calc(var(--btn-fs) * 1.5));
+  padding-block: var(--btn-py, calc(var(--btn-fs) * 0.5));
+  border: var(--btn-bdr, none);
+  border-radius: var(--btn-rds, calc(6rem / 16));
   text-decoration: var(--btn-deco, none);
-  color: var(--btn-color, currentColor);
-  display: var(--btn-display, inline-flex);
+  color: var(--btn-cl, currentColor);
+  display: var(--btn-dsp, inline-flex);
   gap: var(--btn-gap, 0.2rem);
-  white-space: var(--btn-whitespace, inherit);
-  margin: var(--btn-spacing, 0);
+  white-space: var(--btn-wspc, inherit);
+  margin: var(--btn-spc, 0);
   transition: var(
     --btn-transition,
     var(--tran-all, all 0.3s cubic-bezier(0.4, 0, 0.2, 1))
@@ -37,7 +36,7 @@ button {
 
   &[type] {
     background-color: var(--btn-bg, var(--neutral-300));
-    --btn-border: solid var(--btn-sg);
+    --btn-bdr: solid var(--btn-sg);
   }
 
   &[type="submit"],
@@ -77,12 +76,13 @@ button {
   &[type="reset"] {
     --btn-bg: transparent;
     --btn-color: gray;
-    --btn-border: gray thin solid;
+    --btn-bdr: gray thin solid;
   }
 
   &[type="submit"] {
     --btn-bg: var(--primary-700, blue);
-    --btn-color: #fff;
+    --btn-cl: #fff;
+    --btn-color: rgb(231, 231, 231);
     --btn-border: none;
   }
 
@@ -94,23 +94,23 @@ button {
 
   &[data-btn~="xs"],
   .btn-xs {
-    --btn-fs: var(--btn-size-xs);
+    --btn-fs: var(--btn-xs);
     text-transform: uppercase;
   }
 
   &[data-btn~="sm"],
   .btn-sm {
-    --btn-fs: var(--btn-size-sm);
+    --btn-fs: var(--btn-sm);
   }
 
   &[data-btn~="md"],
   .btn-md {
-    --btn-fs: var(--btn-size-md);
+    --btn-fs: var(--btn-md);
   }
 
   &[data-btn~="lg"],
   .btn-lg {
-    --btn-fs: var(--btn-size-lg);
+    --btn-fs: var(--btn-lg);
   }
 
   &[data-btn~="icon"],
@@ -129,15 +129,15 @@ button {
   &[data-btn~="text"],
   .btn-text {
     --btn-bg: transparent;
-    --btn-color: currentColor;
-    --btn-border: none;
+    --btn-cl: currentColor;
+    --btn-bdr: none;
     --btn-height: unset;
     --btn-width: unset;
-    --btn-padding-block: 0.75rem;
-    --btn-padding-inline: 0.75rem;
+    --btn-py: 0.75rem;
+    --btn-px: 0.75rem;
     &:is(:hover, :focus) {
-      background-color: color-mix(in srgb, var(--btn-color) 10%, transparent);
-      outline: 0.025rem solid var(--btn-color);
+      background-color: color-mix(in srgb, var(--btn-cl) 10%, transparent);
+      outline: 0.025rem solid var(--btn-cl);
       outline-offset: 0;
       filter: none; // Override parent filter
     }
