@@ -1,23 +1,11 @@
 :root {
-  // Base card properties
-  --card-padding: 2rem;
+  --card-p: 2rem;
   --card-bg: #fff;
-  --card-radius: calc(var(--card-padding) / 4);
+  --card-radius: calc(var(--card-p) / 4);
   --card-position: relative;
   --card-display: flex;
   --card-direction: column;
   --card-gap: 1rem;
-
-  // Element-specific variables (NEW - for complex card layouts)
-  --card-header-padding: 1rem 1.5rem;
-  --card-header-bg: #f8f9fa;
-  --card-header-border-bottom: 1px solid #dee2e6;
-
-  --card-body-padding: 1.5rem;
-
-  --card-footer-padding: 1rem 1.5rem;
-  --card-footer-bg: #f8f9fa;
-  --card-footer-border-top: 1px solid #dee2e6;
 }
 
 [data-card],
@@ -44,36 +32,14 @@
   }
 
   > *:not(img) {
-    padding-inline: var(--card-padding);
+    padding-inline: var(--card-p);
   }
   > *:last-child:not(img) {
     // margin-block-end: 0;
-    padding-block-end: var(--card-padding);
+    padding-block-end: var(--card-p);
   }
   > *:first-child:not(img) {
-    padding-block-start: calc(var(--card-padding) - 0.5rem);
-  }
-
-  // Element-specific styling (using new scoped variables)
-  > header,
-  > [data-card-header] {
-    padding: var(--card-header-padding);
-    background-color: var(--card-header-bg);
-    border-bottom: var(--card-header-border-bottom);
-    border-radius: var(--card-radius) var(--card-radius) 0 0;
-  }
-
-  > [data-card-body] {
-    padding: var(--card-body-padding);
-    flex: 1;
-  }
-
-  > footer,
-  > [data-card-footer] {
-    padding: var(--card-footer-padding);
-    background-color: var(--card-footer-bg);
-    border-top: var(--card-footer-border-top);
-    border-radius: 0 0 var(--card-radius) var(--card-radius);
+    padding-block-start: calc(var(--card-p) - 0.5rem);
   }
 }
 

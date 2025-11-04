@@ -307,3 +307,186 @@ export const CustomHeadingLevels: Story = {
     },
   },
 } as Story;
+
+/**
+ * CSS Variable Customization
+ *
+ * Demonstrates how to customize card appearance using the new standardized
+ * CSS custom property naming convention.
+ *
+ * New variable naming patterns:
+ * - Base properties: `--card-padding`, `--card-radius`, `--card-bg`, `--card-gap`
+ * - Element-specific: `--card-header-*`, `--card-body-*`, `--card-footer-*`
+ * - Full property names (no single-letter abbreviations)
+ */
+export const Customization: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      {/* Custom padding and spacing */}
+      <div>
+        <h4>Custom Padding & Spacing</h4>
+        <Card styles={{
+          "--card-padding": "3rem",
+          "--card-radius": "1rem",
+          "--card-gap": "1.5rem",
+        }}>
+          <Card.Title>Spacious Card</Card.Title>
+          <Card.Content>
+            <p>This card uses custom padding (3rem) and larger border radius (1rem).</p>
+          </Card.Content>
+        </Card>
+      </div>
+
+      {/* Compact card */}
+      <div>
+        <h4>Compact Card</h4>
+        <Card styles={{
+          "--card-padding": "1rem",
+          "--card-radius": "0.25rem",
+          "--card-gap": "0.5rem",
+        }}>
+          <Card.Title>Compact Card</Card.Title>
+          <Card.Content>
+            <p>This card uses minimal padding and smaller gaps for a compact layout.</p>
+          </Card.Content>
+        </Card>
+      </div>
+
+      {/* Custom header/footer styling */}
+      <div>
+        <h4>Element-Specific Customization (Header, Body, Footer)</h4>
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <Card styles={{
+            "--card-header-padding": "1.5rem 2rem",
+            "--card-header-bg": "#0066cc",
+            "--card-header-border-bottom": "none",
+            "--card-body-padding": "2rem",
+            "--card-footer-padding": "1rem 2rem",
+            "--card-footer-bg": "#f0f0f0",
+            "--card-footer-border-top": "2px solid #ddd",
+          }}>
+            <header data-card-header style={{ color: 'white' }}>
+              <h3 style={{ margin: 0 }}>Custom Header</h3>
+            </header>
+            <div data-card-body>
+              <p>This card demonstrates element-specific customization using the new scoped variables.</p>
+              <p>Header has custom blue background, body has custom padding, footer has custom gray background.</p>
+            </div>
+            <footer data-card-footer>
+              <small>Custom Footer Content</small>
+            </footer>
+          </Card>
+
+          <Card styles={{
+            "--card-header-padding": "0.75rem 1.25rem",
+            "--card-header-bg": "#28a745",
+            "--card-header-border-bottom": "3px solid #1e7e34",
+            "--card-body-padding": "1.25rem",
+            "--card-footer-padding": "0.75rem 1.25rem",
+            "--card-footer-bg": "#e7f5ea",
+          }}>
+            <header data-card-header style={{ color: 'white' }}>
+              <h3 style={{ margin: 0 }}>Green Theme</h3>
+            </header>
+            <div data-card-body>
+              <p>Another example with green theme and custom element spacing.</p>
+            </div>
+            <footer data-card-footer>
+              <small>Footer with light green background</small>
+            </footer>
+          </Card>
+        </div>
+      </div>
+
+      {/* Dark theme card */}
+      <div
+        style={{
+          background: "#1a1a1a",
+          padding: "1.5rem",
+          borderRadius: "0.5rem",
+        }}
+      >
+        <h4 style={{ color: "white", marginTop: 0 }}>Dark Theme Example</h4>
+        <Card styles={{
+          "--card-bg": "#2a2a2a",
+          "--card-padding": "2rem",
+          "--card-radius": "0.75rem",
+          "--card-header-bg": "#3a3a3a",
+          "--card-header-border-bottom": "1px solid #4a4a4a",
+          "--card-footer-bg": "#3a3a3a",
+          "--card-footer-border-top": "1px solid #4a4a4a",
+        }}>
+          <header data-card-header>
+            <h3 style={{ margin: 0, color: 'white' }}>Dark Mode Card</h3>
+          </header>
+          <div data-card-body style={{ color: '#e5e7eb' }}>
+            <p>This card demonstrates dark theme customization with all element-specific variables.</p>
+          </div>
+          <footer data-card-footer style={{ color: '#9ca3af' }}>
+            <small>Styled with CSS custom properties</small>
+          </footer>
+        </Card>
+      </div>
+
+      {/* Brand card */}
+      <div>
+        <h4>Brand Card (No Radius, Custom Colors)</h4>
+        <Card styles={{
+          "--card-bg": "#fff5e6",
+          "--card-radius": "0",
+          "--card-padding": "2.5rem",
+          "--card-gap": "2rem",
+          "--card-header-bg": "#ff9800",
+          "--card-header-border-bottom": "4px solid #f57c00",
+        }}>
+          <header data-card-header>
+            <h3 style={{ margin: 0, color: 'white' }}>Brand Card</h3>
+          </header>
+          <div data-card-body>
+            <p>This card uses brand colors and no border radius for a distinct look.</p>
+          </div>
+        </Card>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+## Available CSS Variables
+
+### Base Properties
+- \`--card-padding\`: Main card padding (default: 2rem)
+- \`--card-bg\`: Background color (default: #fff)
+- \`--card-radius\`: Border radius (default: calc(var(--card-padding) / 4))
+- \`--card-display\`: Display property (default: flex)
+- \`--card-direction\`: Flex direction (default: column)
+- \`--card-gap\`: Gap between child elements (default: 1rem)
+
+### Element-Specific Variables (NEW)
+#### Header
+- \`--card-header-padding\`: Header padding (default: 1rem 1.5rem)
+- \`--card-header-bg\`: Header background color (default: #f8f9fa)
+- \`--card-header-border-bottom\`: Header bottom border (default: 1px solid #dee2e6)
+
+#### Body
+- \`--card-body-padding\`: Body content padding (default: 1.5rem)
+
+#### Footer
+- \`--card-footer-padding\`: Footer padding (default: 1rem 1.5rem)
+- \`--card-footer-bg\`: Footer background color (default: #f8f9fa)
+- \`--card-footer-border-top\`: Footer top border (default: 1px solid #dee2e6)
+
+### Migration from Old Names
+- ❌ \`--card-p\` → ✅ \`--card-padding\`
+
+### Usage with Element Selectors
+Element-specific variables work with:
+- \`<header>\` or \`[data-card-header]\`
+- \`[data-card-body]\`
+- \`<footer>\` or \`[data-card-footer]\`
+        `,
+      },
+    },
+  },
+} as Story;

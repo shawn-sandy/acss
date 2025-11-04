@@ -1,11 +1,18 @@
 :root {
-  --card-p: 2rem;
+  --card-padding: 2rem;
   --card-bg: #fff;
-  --card-radius: calc(var(--card-p) / 4);
+  --card-radius: calc(var(--card-padding) / 4);
   --card-position: relative;
   --card-display: flex;
   --card-direction: column;
   --card-gap: 1rem;
+  --card-header-padding: 1rem 1.5rem;
+  --card-header-bg: #f8f9fa;
+  --card-header-border-bottom: 1px solid #dee2e6;
+  --card-body-padding: 1.5rem;
+  --card-footer-padding: 1rem 1.5rem;
+  --card-footer-bg: #f8f9fa;
+  --card-footer-border-top: 1px solid #dee2e6;
 }
 
 [data-card],
@@ -36,15 +43,38 @@
 }
 [data-card] > *:not(img),
 [data-component~=card] > *:not(img) {
-  padding-inline: var(--card-p);
+  padding-inline: var(--card-padding);
 }
 [data-card] > *:last-child:not(img),
 [data-component~=card] > *:last-child:not(img) {
-  padding-block-end: var(--card-p);
+  padding-block-end: var(--card-padding);
 }
 [data-card] > *:first-child:not(img),
 [data-component~=card] > *:first-child:not(img) {
-  padding-block-start: calc(var(--card-p) - 0.5rem);
+  padding-block-start: calc(var(--card-padding) - 0.5rem);
+}
+[data-card] > header,
+[data-card] > [data-card-header],
+[data-component~=card] > header,
+[data-component~=card] > [data-card-header] {
+  padding: var(--card-header-padding);
+  background-color: var(--card-header-bg);
+  border-bottom: var(--card-header-border-bottom);
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+[data-card] > [data-card-body],
+[data-component~=card] > [data-card-body] {
+  padding: var(--card-body-padding);
+  flex: 1;
+}
+[data-card] > footer,
+[data-card] > [data-card-footer],
+[data-component~=card] > footer,
+[data-component~=card] > [data-card-footer] {
+  padding: var(--card-footer-padding);
+  background-color: var(--card-footer-bg);
+  border-top: var(--card-footer-border-top);
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
 }
 
 [data-card=interactive] {

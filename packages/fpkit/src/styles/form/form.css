@@ -4,11 +4,16 @@
   --input-bg: inherit;
   --input-border: none;
   --input-outline: thin solid var(--input-border-color);
-  --input-px: 0.6rem;
-  --input-py: 0.4rem;
+  --input-padding-inline: 0.6rem;
+  --input-padding-block: 0.4rem;
   --input-radius: --var(--radius);
   --input-fs: var(--fs);
-  --input-w: clamp(200px, 100%, 500px);
+  --input-width: clamp(200px, 100%, 500px);
+  --input-focus-outline: medium solid var(--input-border-color);
+  --input-focus-outline-offset: 0;
+  --input-disabled-bg: #f5f5f5;
+  --input-disabled-opacity: 0.6;
+  --input-disabled-cursor: not-allowed;
   --placeholder-color: gray;
   --placeholder-style: italic;
   --placeholder-fs: smaller;
@@ -36,11 +41,11 @@ select {
   -webkit-appearance: var(--input-appearance);
   -moz-appearance: var(--input-appearance);
   appearance: var(--input-appearance);
-  width: var(--input-w);
+  width: var(--input-width);
   border: var(--input-border);
   outline: var(--input-outline);
-  padding-inline: var(--input-px);
-  padding-block: var(--input-py);
+  padding-inline: var(--input-padding-inline);
+  padding-block: var(--input-padding-block);
   border-radius: var(--input-radius);
   background-color: var(--input-bg, #fff);
 }
@@ -57,7 +62,8 @@ textarea:focus-visible,
 textarea:focus,
 select:focus-visible,
 select:focus {
-  outline-width: medium;
+  outline: var(--input-focus-outline);
+  outline-offset: var(--input-focus-outline-offset);
 }
 input[type]:not([type=checkbox], [type=radio])[aria-required=true]::placeholder,
 textarea[aria-required=true]::placeholder,
@@ -70,11 +76,15 @@ textarea[aria-required=true]::placeholder::after,
 select[aria-required=true]::placeholder::after {
   content: "* ";
 }
-input[type]:not([type=checkbox], [type=radio])[aria-disabled=true],
+input[type]:not([type=checkbox], [type=radio])[aria-disabled=true], input[type]:not([type=checkbox], [type=radio]):disabled,
 textarea[aria-disabled=true],
-select[aria-disabled=true] {
+textarea:disabled,
+select[aria-disabled=true],
+select:disabled {
   --input-border-color: lightgray;
-  cursor: not-allowed;
+  background-color: var(--input-disabled-bg);
+  opacity: var(--input-disabled-opacity);
+  cursor: var(--input-disabled-cursor);
   text-transform: capitalize;
   text-decoration: line-through;
 }
