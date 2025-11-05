@@ -3,6 +3,81 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@0.5.8...@fpkit/acss@1.0.0) (2025-11-05)
+
+
+### Bug Fixes
+
+* **breadcrumb:** correct aria-label for breadcrumb links ([c58c506](https://github.com/shawn-sandy/fpkit/commit/c58c50661071b9c3776c366812df498f6570518e))
+* **build:** resolve TypeScript compilation errors in components and tests ([3de6caf](https://github.com/shawn-sandy/fpkit/commit/3de6caf66c3c3116bfb2960d4d925bd12ba35eb3))
+* correct displayName syntax error in dialog-modal component - Fix invalid JavaScript identifier in DialogModal.displayName assignment - Remove space from displayName string to prevent build errors - Resolves Netlify build failure due to syntax error at line 59 ([fa5b9e9](https://github.com/shawn-sandy/fpkit/commit/fa5b9e90c9ac00013d6a8654a1414f9aeb30033c))
+* **details:** enhance details component styles for discrete transitions ([840643f](https://github.com/shawn-sandy/fpkit/commit/840643f613ec9cd75c818525d2dfae914f4c8617))
+* **img:** improve onError handling with automatic fallback support ([d40c614](https://github.com/shawn-sandy/fpkit/commit/d40c614e2175d04c823550655104d15bee91912d))
+* **ui.stories:** update title for UI component documentation ([e96d62a](https://github.com/shawn-sandy/fpkit/commit/e96d62acce2cf1201a03f229edff1d812c3e687f))
+* update Node.js version requirements for Netlify compatibility - Add .nvmrc file specifying Node.js 20.9.0 - Add netlify.toml with proper build configuration - Add engines field to package.json files specifying Node >=20.9.0 - Resolves compatibility issues with react-docgen@8.0.0 and storybook-addon-tag-badges@2.0.0 ([cec70ce](https://github.com/shawn-sandy/fpkit/commit/cec70ce3477b7ddc5a9995f6323d828e50826678))
+
+
+### Code Refactoring
+
+* **icon:** enforce WCAG AA compliance with aria-hidden by default ([5807018](https://github.com/shawn-sandy/fpkit/commit/5807018a12119da4762359489a3ecfd7b4530a31))
+
+
+### Features
+
+* **alert:** add contentType prop for flexible content rendering ([668a0c1](https://github.com/shawn-sandy/fpkit/commit/668a0c1bae6c4a00c925d94913a1e7fee031e848))
+* **alert:** implement Phase 4 WCAG 2.1 Level AA accessibility compliance ([9f92551](https://github.com/shawn-sandy/fpkit/commit/9f925512e343ea614b496337378c3a57c9fa2e17))
+* **badge:** enhance badge styles and add auto-scaling functionality ([8666279](https://github.com/shawn-sandy/fpkit/commit/8666279fd17b62453de9d3a98bdbda728e3126f3))
+* **breadcrumb:** enhance Breadcrumb component with improved accessibility and structure ([6f0d4c7](https://github.com/shawn-sandy/fpkit/commit/6f0d4c7ee921ad5b4a6358beaadac8788cd316a3))
+* **button:** add additional button variants for improved UI consistency ([23a9f6b](https://github.com/shawn-sandy/fpkit/commit/23a9f6bd7b2475f321678d4b3dcb92693cb3c417))
+* **button:** unify button size classes for improved consistency ([3443f7a](https://github.com/shawn-sandy/fpkit/commit/3443f7a2e16640427ca5a06ada85311c9ac040f9))
+* **button:** update button size variables for consistency across styles ([74d39ce](https://github.com/shawn-sandy/fpkit/commit/74d39cef7e9f5c656972daa28ba787b4cacea801))
+* **components:** implement accessible disabled state with aria-disabled pattern ([5fb5e13](https://github.com/shawn-sandy/fpkit/commit/5fb5e1365e97e81ae5f2b5a3a3fe3c240e4aeb76))
+* enhance @fpkit/acss library with individual component exports and build script ([c6e6946](https://github.com/shawn-sandy/fpkit/commit/c6e694680ae4ae82a6f72ffc3a71c9c68f1eaac6))
+* **heading:** refactor Heading component for improved readability ([6267aab](https://github.com/shawn-sandy/fpkit/commit/6267aab9410b7a80bb534d7e767b00792424c5d0))
+* **nav:** add WCAG 2.4.7 compliant focus indicators and accessibility enhancements ([b3052f2](https://github.com/shawn-sandy/fpkit/commit/b3052f27a0d902123ba2d41b417391d100d3c3b3))
+* **styles:** enhance WCAG AA compliance for tag and nav components ([d29b0bf](https://github.com/shawn-sandy/fpkit/commit/d29b0bf05eb8f8796c088cb1508fc8b6e78c6bc0))
+* **tests:** add setup file for testing-library matchers and update tsconfig types ([9d40120](https://github.com/shawn-sandy/fpkit/commit/9d40120bc17f55ae50ee8e494e8b606efe01adfd))
+
+
+### Performance Improvements
+
+* **img:** replace external placeholder with performant SVG gradient ([c004fc0](https://github.com/shawn-sandy/fpkit/commit/c004fc025eb0ef0db44b8d0b128aee009a0d3132)), closes [#6366f1](https://github.com/shawn-sandy/fpkit/issues/6366f1) [#8b5cf6](https://github.com/shawn-sandy/fpkit/issues/8b5cf6) [#ec4899](https://github.com/shawn-sandy/fpkit/issues/ec4899)
+
+
+### BREAKING CHANGES
+
+* **icon:** (Semantic):**
+- Icons now have aria-hidden="true" by default
+- Semantic icons (standalone without text) require aria-hidden={false}
+- Icon-only buttons must provide aria-label for accessibility
+
+**Added:**
+- aria-hidden prop (default: true) to control screen reader visibility
+- aria-label prop for semantic icon accessible names
+- role prop for semantic role override (e.g., role="img")
+- Comprehensive JSDoc with decorative vs semantic patterns
+- README.mdx with WCAG compliance documentation
+- 4 new Storybook examples (3 accessible patterns, 1 anti-pattern)
+
+**Changed:**
+- Icon wrapper now applies aria-hidden="true" by default
+- Updated IconProps type with accessibility-focused props
+- Deprecated alt prop in favor of aria-label (backward compatible)
+
+**Documentation:**
+- Added 9.2KB README.mdx with complete accessibility guide
+- Documented all 30+ icons organized by category
+- Migration guide for updating existing icon usage
+- WCAG checklist for developers
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+
+
+
+
 ## [0.6.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@0.6.0...@fpkit/acss@0.6.1) (2025-11-03)
 
 **Note:** Version bump only for package @fpkit/acss
