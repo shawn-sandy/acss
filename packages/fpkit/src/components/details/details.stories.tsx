@@ -31,7 +31,7 @@ const icon = <Icons.Add />;
 const meta: Meta<typeof Details> = {
   title: "FP.REACT Components/Details",
   component: Details,
-  tags: ["rc"],
+  tags: ["stable"],
   parameters: {
     docs: {
       description: {

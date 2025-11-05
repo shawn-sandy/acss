@@ -6,7 +6,7 @@ const content =
 
 const meta: Meta<typeof Card> = {
   title: "FP.REACT Components/Card",
-  tags: ["rc", "autodocs"],
+  tags: ["stable", "autodocs"],
   component: Card,
   args: {
     children: <p>{content}</p>,

@@ -11,7 +11,7 @@ const FormComponent = Form as unknown as typeof Form;
 
 const meta: Meta<typeof FormComponent> = {
   title: "FP.REACT Forms/Form",
-  tags: ["rc", "autodocs"],
+  tags: ["stable", "autodocs"],
   component: FormComponent,
   parameters: {
     docs: {

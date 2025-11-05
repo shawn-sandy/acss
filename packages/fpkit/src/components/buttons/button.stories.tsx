@@ -9,7 +9,7 @@ const buttonClicked = fn();
 const meta = {
   title: "FP.React Components/Buttons",
   component: Button,
-  tags: ["rc"],
+  tags: ["beta"],
   args: {
     children: "Click me",
     onClick: buttonClicked,
@@ -149,10 +149,13 @@ export const Disabled: Story = {
       expect(button).toHaveAttribute("aria-disabled", "true");
     });
 
-    await step("Disabled button remains focusable for accessibility", async () => {
-      await userEvent.tab();
-      expect(button).toHaveFocus();
-    });
+    await step(
+      "Disabled button remains focusable for accessibility",
+      async () => {
+        await userEvent.tab();
+        expect(button).toHaveFocus();
+      }
+    );
 
     await step("Disabled button prevents click interactions", async () => {
       const clickHandler = fn();

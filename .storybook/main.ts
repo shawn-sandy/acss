@@ -25,12 +25,10 @@ const config: StorybookConfig = {
     },
     "storybook-addon-test-codegen",
   ],
-
   framework: {
     name: "@storybook/react-vite",
     options: {},
   },
-
   docs: {
     defaultName: "Interactive Guide",
   },

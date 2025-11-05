@@ -9,7 +9,7 @@ import Link from "../link/link";
 const meta: Meta<typeof Nav> = {
   title: "FP.REACT Components/Nav",
   component: Nav,
-  tags: ["rc"],
+  tags: ["stable"],
   parameters: {
     actions: { argTypesRegex: "^on.*" },
     docs: {
