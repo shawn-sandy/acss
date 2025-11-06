@@ -1,0 +1,473 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/Accessibility" />
+
+# Accessibility Guide
+
+Learn how to maintain **WCAG 2.1 Level AA** compliance when using and composing @fpkit/acss components.
+
+> **📖 Full Guide:** For comprehensive documentation, see [docs/guides/accessibility.md](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
+
+---
+
+## Quick Reference
+
+fpkit components are **WCAG 2.1 Level AA compliant** by default. Your responsibility is to maintain accessibility when:
+
+- Composing custom components
+- Customizing with CSS variables
+- Adding custom interactions
+- Creating forms and interactive elements
+
+---
+
+## Core Principles
+
+### 1. Semantic HTML First
+
+fpkit components use appropriate semantic elements:
+
+```tsx
+// ✅ Good - uses semantic button
+<Button onClick={handleClick}>Click me</Button>
+// Renders: <button type="button">Click me</button>
+
+// ✅ Good - uses semantic link
+<Button as="a" href="/page">Navigate</Button>
+// Renders: <a href="/page">Navigate</a>
+
+// ❌ Bad - div as button
+<div onClick={handleClick}>Click me</div>
+```
+
+### 2. Keyboard Navigation
+
+All fpkit interactive components support:
+
+- **Tab**: Navigate between elements
+- **Enter/Space**: Activate buttons and links
+- **Escape**: Close modals and dialogs
+- **Arrow keys**: Navigate menus and lists
+
+**Test:** Try navigating your app using only the keyboard!
+
+### 3. Focus Management
+
+fpkit provides built-in focus indicators:
+
+```css
+/* Customize focus styles */
+:root {
+  --btn-focus-outline: 2px solid #0066cc;
+  --btn-focus-outline-offset: 2px;
+}
+```
+
+### 4. Screen Reader Support
+
+fpkit includes proper ARIA attributes. Your job is to add context:
+
+```tsx
+// ✅ Good - descriptive label
+<Button aria-label="Close dialog">
+  <Icon name="close" />
+</Button>
+
+// ❌ Bad - no label
+<Button>
+  <Icon name="close" />
+</Button>
+```
+
+---
+
+## ARIA Attributes
+
+### Labels
+
+```tsx
+// Icon-only button needs aria-label
+<Button aria-label="Close dialog">
+  <Icon name="close" />
+</Button>
+
+// Button with visible text - no aria-label needed
+<Button>
+  <Icon name="save" aria-hidden="true" />
+  Save
+</Button>
+
+// Group with aria-labelledby
+<div role="group" aria-labelledby="filter-heading">
+  <h3 id="filter-heading">Filter Options</h3>
+  <Button>Apply</Button>
+</div>
+
+// Additional description
+<Input
+  type="email"
+  aria-describedby="email-hint"
+/>
+<div id="email-hint">We'll never share your email</div>
+```
+
+### States
+
+```tsx
+// Expanded state (dropdowns)
+<Button aria-expanded={isOpen} aria-controls="menu-list">
+  Menu
+</Button>
+<div id="menu-list" hidden={!isOpen}>
+  {/* Menu items */}
+</div>
+
+// Toggle state (toolbar)
+<Button aria-pressed={isBold} onClick={toggleBold}>
+  <Icon name="bold" aria-hidden="true" />
+  Bold
+</Button>
+
+// Current page
+<nav aria-label="Pagination">
+  <Button aria-current="page">1</Button>
+  <Button>2</Button>
+</nav>
+```
+
+### Live Regions
+
+```tsx
+// Polite announcement (non-urgent)
+<div aria-live="polite" aria-atomic="true">
+  {statusMessage}
+</div>
+
+// Alert role (urgent messages)
+<Alert variant="error" role="alert">
+  Form submission failed.
+</Alert>
+
+// Status role (progress updates)
+<div role="status" aria-live="polite">
+  Saving... {progress}% complete
+</div>
+```
+
+---
+
+## Button Patterns
+
+### Why fpkit Uses aria-disabled
+
+```tsx
+// fpkit pattern - stays in tab order
+<Button disabled>Submit</Button>
+// Renders: <button aria-disabled="true">Submit</button>
+
+// Benefits:
+// - Keyboard accessible
+// - Can show tooltips
+// - Users understand why disabled
+```
+
+### Button Types
+
+```tsx
+// Inside forms - specify type
+<form>
+  <Button type="submit">Save</Button>
+  <Button type="button">Cancel</Button>
+</form>
+
+// Outside forms - defaults to "button"
+<Button onClick={handleAction}>Action</Button>
+```
+
+---
+
+## Form Patterns
+
+### Field Labels
+
+```tsx
+// ✅ Good - explicit association
+<label htmlFor="email">Email Address</label>
+<Input id="email" type="email" />
+
+// ✅ Good - implicit association
+<label>
+  Email Address
+  <Input type="email" />
+</label>
+
+// ❌ Bad - no association
+<label>Email Address</label>
+<Input type="email" />
+```
+
+### Error Messages
+
+```tsx
+<label htmlFor="password">Password</label>
+<Input
+  id="password"
+  type="password"
+  aria-describedby={hasError ? 'password-error' : undefined}
+  aria-invalid={hasError}
+/>
+{hasError && (
+  <div id="password-error" role="alert">
+    Password must be at least 8 characters
+  </div>
+)}
+```
+
+### Required Fields
+
+```tsx
+<label htmlFor="name">
+  Name <span aria-label="required">*</span>
+</label>
+<Input
+  id="name"
+  type="text"
+  required
+  aria-required="true"
+/>
+```
+
+---
+
+## Color Contrast
+
+### WCAG AA Requirements
+
+- **Normal text** (< 18pt): **4.5:1** contrast ratio
+- **Large text** (≥ 18pt): **3:1** contrast ratio
+- **UI components**: **3:1** contrast ratio
+
+### Testing
+
+1. **Browser DevTools** → Elements → Accessibility tab
+2. **Storybook a11y addon** → Check violations in Accessibility panel
+3. **[WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)**
+
+### Built-in Compliance
+
+fpkit components meet requirements by default:
+
+```scss
+// Example contrasts
+--btn-primary-bg: #0066cc;      // Blue
+--btn-primary-color: #ffffff;    // White (7.5:1 - exceeds AA)
+
+--alert-error-bg: #f8d7da;
+--alert-error-color: #721c24;    // Dark red (9.2:1 - exceeds AA)
+```
+
+**When customizing:** Always test contrast!
+
+---
+
+## Testing Accessibility
+
+### Storybook a11y Addon
+
+Storybook includes automatic accessibility testing:
+
+1. Open any story in Storybook
+2. Click **Accessibility** tab
+3. Review violations, passes, and incomplete checks
+4. Fix issues before deploying
+
+### Automated Testing
+
+```bash
+npm install -D jest-axe
+```
+
+```tsx
+import { axe, toHaveNoViolations } from 'jest-axe'
+
+expect.extend(toHaveNoViolations)
+
+it('should not have accessibility violations', async () => {
+  const { container } = render(<Button>Click me</Button>)
+  const results = await axe(container)
+  expect(results).toHaveNoViolations()
+})
+```
+
+### Manual Testing Checklist
+
+- [ ] **Keyboard Navigation** - Tab through all interactive elements
+- [ ] **Screen Reader** - Test with VoiceOver (macOS), NVDA (Windows)
+- [ ] **Focus Indicators** - Visible focus states (3:1 contrast ratio)
+- [ ] **Accessible Names** - All interactive elements have labels
+- [ ] **Color Contrast** - Text meets 4.5:1 for normal, 3:1 for large
+- [ ] **Semantic Structure** - Proper heading hierarchy and landmarks
+
+---
+
+## Interactive Elements
+
+### Making Non-Button Elements Clickable
+
+```tsx
+import { Card } from '@fpkit/acss'
+
+// ❌ Bad - div with onClick
+<Card onClick={handleClick}>Clickable</Card>
+
+// ✅ Better - add role and keyboard support
+<Card
+  as="article"
+  role="button"
+  tabIndex={0}
+  onClick={handleClick}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleClick(e)
+    }
+  }}
+  aria-label="View article details"
+>
+  {/* Card content */}
+</Card>
+
+// ✅ Best - use semantic element
+<Card as="a" href="/article/123">
+  {/* Card content */}
+</Card>
+```
+
+**Requirements for custom interactive elements:**
+- `role="button"` - Announces as interactive
+- `tabIndex={0}` - Makes keyboard focusable
+- `onClick` - Mouse interaction
+- `onKeyDown` - Keyboard activation (Enter/Space)
+- `aria-label` - Descriptive label
+
+---
+
+## Common Mistakes
+
+### ❌ Don't
+
+- Use `div` or `span` as buttons without proper ARIA
+- Remove focus outlines without alternatives
+- Use `placeholder` as a label replacement
+- Use color alone to convey information
+- Nest interactive elements (`<button>` inside `<a>`)
+- Use positive `tabindex` values (> 0)
+- Auto-play audio/video without controls
+
+### ✅ Do
+
+- Use semantic HTML elements
+- Provide visible focus indicators
+- Include proper labels for all form controls
+- Use multiple cues (color + icon, color + text)
+- Ensure modals trap focus
+- Use `aria-live="polite"` for non-critical updates
+- Test with keyboard and screen readers
+
+---
+
+## Composing Accessible Components
+
+When composing fpkit components, maintain accessibility:
+
+```tsx
+import { Button, Badge } from '@fpkit/acss'
+
+// ✅ Good - maintains accessibility
+export const NotificationButton = ({ count, onClick }) => {
+  return (
+    <Button onClick={onClick} aria-label={`Notifications (${count} unread)`}>
+      <Icon name="bell" aria-hidden="true" />
+      {count > 0 && (
+        <Badge aria-hidden="true">{count}</Badge>
+      )}
+    </Button>
+  )
+}
+```
+
+**Why this works:**
+- Button is keyboard accessible (inherits from fpkit)
+- `aria-label` provides context for screen readers
+- Visual elements hidden with `aria-hidden`
+- Count announced via `aria-label`
+
+---
+
+## WCAG 2.1 Level AA Checklist
+
+### Perceivable
+
+- [ ] Text alternatives for non-text content
+- [ ] Content presentable in different ways
+- [ ] Sufficient color contrast (4.5:1 normal, 3:1 large)
+- [ ] Text resizable up to 200%
+
+### Operable
+
+- [ ] All functionality keyboard accessible
+- [ ] No keyboard traps
+- [ ] Users have enough time to interact
+- [ ] No content flashes > 3 times per second
+- [ ] Clear page titles and headings
+- [ ] Visible focus indicators
+- [ ] Multiple navigation methods
+
+### Understandable
+
+- [ ] Language programmatically determined
+- [ ] Labels for user input
+- [ ] Clear error messages
+- [ ] Consistent navigation
+- [ ] Predictable behavior
+
+### Robust
+
+- [ ] Valid HTML (no duplicate IDs)
+- [ ] Correct ARIA usage
+- [ ] Compatible with assistive technologies
+- [ ] Status messages announced
+
+---
+
+## Tools & Resources
+
+### Testing Tools
+
+| Tool | Type | Use Case |
+|------|------|----------|
+| [axe DevTools](https://www.deque.com/axe/devtools/) | Browser Extension | Real-time violation detection |
+| [WAVE](https://wave.webaim.org/extension/) | Browser Extension | Visual feedback |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) | Built-in Chrome | Comprehensive audit |
+| [jest-axe](https://github.com/nickcolley/jest-axe) | Testing Library | Automated unit testing |
+| Storybook a11y addon | Storybook | Interactive testing |
+
+### Guidelines
+
+- [WCAG 2.1 Quick Reference](https://www.w3.org/WAI/WCAG21/quickref/)
+- [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+- [WebAIM Articles](https://webaim.org/articles/)
+
+---
+
+## Additional Resources
+
+- **📖 [Full Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)** - Comprehensive WCAG patterns
+- **📘 [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)** - Building accessible compositions
+- **🧪 [Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md)** - Accessibility testing strategies
+
+---
+
+**Remember:** Accessibility is not optional. fpkit provides accessible components by default - your job is to maintain that accessibility when composing and customizing them.
+
+**Use the Storybook a11y addon** on every story to catch violations early!
