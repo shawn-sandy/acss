@@ -1,0 +1,542 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Guides/Composition" />
+
+# Component Composition Guide
+
+Learn how to build custom components by composing existing @fpkit/acss primitives.
+
+> **📖 Full Guide:** For comprehensive documentation, see [docs/guides/composition.md](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)
+
+---
+
+## Why Composition?
+
+**Composition over duplication** ensures:
+
+- ✅ **Consistency** - Reusing components ensures UI consistency
+- ✅ **Maintainability** - Bug fixes propagate automatically
+- ✅ **Reduced Code** - Less code to write and maintain
+- ✅ **Tested Components** - Leverage existing test coverage
+- ✅ **Accessibility** - Inherit WCAG-compliant patterns
+
+---
+
+## Decision Tree
+
+```
+┌─────────────────────────────────────┐
+│ New Component Need: "ComponentName" │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+    ┌──────────────────────┐
+    │ Does fpkit have a    │  YES → Use fpkit component
+    │ component that meets │        Customize with CSS variables
+    │ the need exactly?    │
+    └──────┬───────────────┘
+           │ NO
+           ▼
+    ┌──────────────────────┐
+    │ Can it be built by   │  YES → Compose existing components
+    │ combining 2+ fpkit   │        Import and combine
+    │ components?          │
+    └──────┬───────────────┘
+           │ NO
+           ▼
+    ┌──────────────────────┐
+    │ Can I extend an      │  YES → Wrap fpkit component
+    │ fpkit component with │        Add custom logic/styling
+    │ additional features? │
+    └──────┬───────────────┘
+           │ NO
+           ▼
+    ┌──────────────────────┐
+    │ Create custom        │
+    │ component from       │
+    │ scratch using fpkit  │
+    │ styling patterns     │
+    └─────────────────────┘
+```
+
+---
+
+## Common Patterns
+
+### Pattern 1: Container + Content
+
+Wrap fpkit components with additional structure:
+
+```tsx
+import { Button, Badge } from '@fpkit/acss'
+
+export const StatusButton = ({ status, children, ...props }) => {
+  return (
+    <Button {...props}>
+      {children}
+      <Badge variant={status}>{status}</Badge>
+    </Button>
+  )
+}
+
+// Usage
+<StatusButton status="active">Server Status</StatusButton>
+```
+
+---
+
+### Pattern 2: Conditional Composition
+
+Different combinations based on props:
+
+```tsx
+import { Alert, Dialog } from '@fpkit/acss'
+
+export const Notification = ({ inline, variant, children, ...props }) => {
+  if (inline) {
+    return <Alert variant={variant}>{children}</Alert>
+  }
+
+  return (
+    <Dialog {...props}>
+      <Alert variant={variant}>{children}</Alert>
+    </Dialog>
+  )
+}
+
+// Usage
+<Notification inline variant="success">Saved!</Notification>
+<Notification isOpen={showModal} variant="error">Error!</Notification>
+```
+
+---
+
+### Pattern 3: Enhanced Wrapper
+
+Add behavior around fpkit components:
+
+```tsx
+import { Button } from '@fpkit/acss'
+import { useState } from 'react'
+
+export const LoadingButton = ({ loading, onClick, children, ...props }) => {
+  const [isLoading, setIsLoading] = useState(loading)
+
+  const handleClick = async (e) => {
+    setIsLoading(true)
+    try {
+      await onClick?.(e)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <Button
+      {...props}
+      disabled={isLoading || props.disabled}
+      onClick={handleClick}
+    >
+      {isLoading ? 'Loading...' : children}
+    </Button>
+  )
+}
+
+// Usage
+<LoadingButton onClick={async () => await saveData()}>
+  Save
+</LoadingButton>
+```
+
+---
+
+### Pattern 4: List of Components
+
+Render multiple instances:
+
+```tsx
+import { Tag } from '@fpkit/acss'
+
+export const TagList = ({ tags, onRemove, ...props }) => {
+  return (
+    <div className="tag-list" {...props}>
+      {tags.map((tag) => (
+        <Tag
+          key={tag.id}
+          onClose={onRemove ? () => onRemove(tag) : undefined}
+        >
+          {tag.label}
+        </Tag>
+      ))}
+    </div>
+  )
+}
+
+// Usage
+<TagList
+  tags={[
+    { id: 1, label: 'React' },
+    { id: 2, label: 'TypeScript' },
+  ]}
+  onRemove={handleRemoveTag}
+/>
+```
+
+---
+
+### Pattern 5: Compound Component
+
+Multiple related components working together:
+
+```tsx
+import { Card, Button } from '@fpkit/acss'
+
+export const ActionCard = ({ title, children, actions, ...props }) => {
+  return (
+    <Card {...props}>
+      <Card.Header>
+        <Card.Title>{title}</Card.Title>
+      </Card.Header>
+      <Card.Content>{children}</Card.Content>
+      {actions && (
+        <Card.Footer>
+          {actions.map((action, i) => (
+            <Button key={i} {...action} />
+          ))}
+        </Card.Footer>
+      )}
+    </Card>
+  )
+}
+
+// Usage
+<ActionCard
+  title="Confirm Action"
+  actions={[
+    { children: 'Cancel', variant: 'secondary', onClick: handleCancel },
+    { children: 'Confirm', variant: 'primary', onClick: handleConfirm },
+  ]}
+>
+  Are you sure you want to proceed?
+</ActionCard>
+```
+
+---
+
+## Real-World Examples
+
+### Example 1: Icon Button
+
+```tsx
+import { Button } from '@fpkit/acss'
+
+export const IconButton = ({ icon, children, iconPosition = 'left', ...props }) => {
+  return (
+    <Button {...props}>
+      {iconPosition === 'left' && <span className="icon">{icon}</span>}
+      {children}
+      {iconPosition === 'right' && <span className="icon">{icon}</span>}
+    </Button>
+  )
+}
+
+// Usage
+<IconButton icon="💾" variant="primary">
+  Save Changes
+</IconButton>
+```
+
+---
+
+### Example 2: Confirm Button
+
+```tsx
+import { Button, Dialog } from '@fpkit/acss'
+import { useState } from 'react'
+
+export const ConfirmButton = ({
+  confirmTitle = 'Confirm Action',
+  confirmMessage = 'Are you sure?',
+  onConfirm,
+  children,
+  ...props
+}) => {
+  const [showConfirm, setShowConfirm] = useState(false)
+
+  const handleConfirm = () => {
+    setShowConfirm(false)
+    onConfirm?.()
+  }
+
+  return (
+    <>
+      <Button {...props} onClick={() => setShowConfirm(true)}>
+        {children}
+      </Button>
+
+      <Dialog isOpen={showConfirm} onClose={() => setShowConfirm(false)}>
+        <h2>{confirmTitle}</h2>
+        <p>{confirmMessage}</p>
+        <div className="dialog-actions">
+          <Button variant="secondary" onClick={() => setShowConfirm(false)}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleConfirm}>
+            Confirm
+          </Button>
+        </div>
+      </Dialog>
+    </>
+  )
+}
+
+// Usage
+<ConfirmButton
+  variant="danger"
+  confirmTitle="Delete Account"
+  confirmMessage="This action cannot be undone."
+  onConfirm={handleDeleteAccount}
+>
+  Delete Account
+</ConfirmButton>
+```
+
+---
+
+### Example 3: Tag Input
+
+```tsx
+import { Tag } from '@fpkit/acss'
+import { useState } from 'react'
+
+export const TagInput = ({ value = [], onChange, placeholder, ...props }) => {
+  const [inputValue, setInputValue] = useState('')
+
+  const addTag = () => {
+    if (inputValue.trim() && !value.includes(inputValue.trim())) {
+      onChange?.([...value, inputValue.trim()])
+      setInputValue('')
+    }
+  }
+
+  const removeTag = (tagToRemove) => {
+    onChange?.(value.filter((tag) => tag !== tagToRemove))
+  }
+
+  return (
+    <div className="tag-input" {...props}>
+      <div className="tag-list">
+        {value.map((tag) => (
+          <Tag key={tag} onClose={() => removeTag(tag)}>
+            {tag}
+          </Tag>
+        ))}
+      </div>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            addTag()
+          }
+        }}
+        placeholder={placeholder || 'Add tag...'}
+      />
+    </div>
+  )
+}
+
+// Usage
+<TagInput
+  value={tags}
+  onChange={setTags}
+  placeholder="Add technology..."
+/>
+```
+
+---
+
+## Anti-Patterns to Avoid
+
+### ❌ Over-Composition
+
+Too many nested layers:
+
+```tsx
+// ❌ Bad
+<OuterWrapper>
+  <MiddleContainer>
+    <InnerBox>
+      <ContentWrapper>
+        <Button>Click</Button>
+      </ContentWrapper>
+    </InnerBox>
+  </MiddleContainer>
+</OuterWrapper>
+
+// ✅ Good
+<Container>
+  <Button>Click</Button>
+</Container>
+```
+
+**Rule:** Keep composition depth ≤ 3 levels.
+
+---
+
+### ❌ Prop Drilling
+
+Passing props through multiple layers:
+
+```tsx
+// ❌ Bad
+<Wrapper theme={theme} size={size}>
+  <Container theme={theme} size={size}>
+    <Button theme={theme} size={size} />
+  </Container>
+</Wrapper>
+
+// ✅ Good
+const ThemeContext = createContext()
+
+<ThemeProvider value={{ theme, size }}>
+  <Wrapper>
+    <Container>
+      <Button />
+    </Container>
+  </Wrapper>
+</ThemeProvider>
+```
+
+**Rule:** If passing >3 props through >2 levels, use context.
+
+---
+
+### ❌ Duplicating Instead of Composing
+
+```tsx
+// ❌ Bad
+export const Status = ({ variant, children }) => {
+  return <span className={`status status-${variant}`}>{children}</span>
+}
+
+// ✅ Good
+import { Badge } from '@fpkit/acss'
+export const Status = Badge
+```
+
+**Rule:** If code looks similar to fpkit, reuse it.
+
+---
+
+### ❌ Composing Incompatible Components
+
+```tsx
+// ❌ Bad - nested interactive elements (a11y violation)
+<Link href="/page">
+  <Button>Click me</Button>
+</Link>
+
+// ✅ Good - use polymorphic 'as' prop
+<Button as="a" href="/page">
+  Click me
+</Button>
+```
+
+**Rule:** Check component APIs for `as` prop support.
+
+---
+
+## Styling Composed Components
+
+Customize with CSS variables:
+
+```tsx
+import { Button, Badge } from '@fpkit/acss'
+
+export const PriorityButton = ({ priority, children, ...props }) => {
+  return (
+    <Button
+      {...props}
+      style={{
+        '--btn-padding-inline': '2rem',
+        '--btn-gap': '0.75rem',
+      }}
+    >
+      {children}
+      <Badge
+        variant={priority === 'high' ? 'error' : 'default'}
+        style={{
+          '--badge-fs': '0.75rem',
+        }}
+      >
+        {priority}
+      </Badge>
+    </Button>
+  )
+}
+```
+
+---
+
+## TypeScript Support
+
+Extend fpkit types:
+
+```tsx
+import { Button, type ButtonProps } from '@fpkit/acss'
+
+interface LoadingButtonProps extends ButtonProps {
+  loading?: boolean
+  loadingText?: string
+}
+
+export const LoadingButton = ({
+  loading,
+  loadingText = 'Loading...',
+  children,
+  ...props
+}: LoadingButtonProps) => {
+  return (
+    <Button {...props} disabled={loading || props.disabled}>
+      {loading ? loadingText : children}
+    </Button>
+  )
+}
+```
+
+---
+
+## Best Practices
+
+### ✅ Do
+
+- Start with fpkit components
+- Preserve accessibility
+- Use CSS variables for customization
+- Document which fpkit components you're using
+- Test integration
+- Export cleanly
+
+### ❌ Don't
+
+- Don't duplicate fpkit logic
+- Don't break accessibility (nested interactive elements)
+- Don't over-compose (≤3 levels)
+- Don't prop drill (use context)
+- Don't ignore polymorphism (`as` prop)
+
+---
+
+## Additional Resources
+
+- **📖 [Full Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)** - Comprehensive patterns and examples
+- **🎨 [CSS Variables Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)** - Styling composed components
+- **♿ [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)** - Maintaining accessibility
+- **🧪 [Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md)** - Testing compositions
+
+---
+
+**Remember:** Compose when it creates clearer, more maintainable code that leverages tested, accessible primitives from @fpkit/acss.

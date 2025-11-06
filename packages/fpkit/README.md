@@ -519,6 +519,38 @@ test('renders button with text', () => {
 });
 ```
 
+## 📚 Documentation
+
+Comprehensive guides to help you build accessible, maintainable applications with @fpkit/acss:
+
+### Core Guides
+
+- **[CSS Variables Guide](docs/guides/css-variables.md)** - Learn how to discover and customize CSS custom properties for theming and styling
+- **[Composition Guide](docs/guides/composition.md)** - Master component composition patterns to build custom components by combining fpkit primitives
+- **[Accessibility Guide](docs/guides/accessibility.md)** - Understand and maintain WCAG 2.1 Level AA compliance when using and composing components
+- **[Architecture Guide](docs/guides/architecture.md)** - Learn fpkit's architectural patterns, component structure, and how to work effectively with the library
+- **[Testing Guide](docs/guides/testing.md)** - Test applications and custom components using Vitest and React Testing Library
+- **[Storybook Guide](docs/guides/storybook.md)** - Document custom components and compositions using Storybook
+
+### Quick Links
+
+- **[Documentation Index](docs/README.md)** - Complete documentation hub with guide navigator and workflows
+- **[Storybook](https://fpkit.netlify.app/)** - Interactive component documentation and playground
+
+### Common Tasks
+
+**Customizing component appearance?**
+→ Start with [CSS Variables Guide](docs/guides/css-variables.md)
+
+**Building a custom component?**
+→ Read [Composition Guide](docs/guides/composition.md), then [Architecture Guide](docs/guides/architecture.md)
+
+**Ensuring accessibility?**
+→ Study [Accessibility Guide](docs/guides/accessibility.md)
+
+**Testing components?**
+→ Follow [Testing Guide](docs/guides/testing.md)
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
