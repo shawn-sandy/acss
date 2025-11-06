@@ -9,7 +9,7 @@ import "./icon.scss";
 const meta: Meta<typeof Icon> = {
   component: Icon,
   title: "FP.React Components/Icons",
-  tags: ["rc"],
+  tags: ["stable"],
   args: {
     // styles: Icon.styles,
   },

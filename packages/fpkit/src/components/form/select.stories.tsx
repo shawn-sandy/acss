@@ -5,7 +5,7 @@ import Select from "./select";
 import React from "react";
 const meta: Meta<typeof Select> = {
   title: "FP.REACT Forms/Select",
-  tags: ["rc"],
+  tags: ["stable"],
   component: Select,
   parameters: {
     docs: {

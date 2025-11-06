@@ -7,7 +7,7 @@ import "./form.scss";
 const meta: Meta<typeof Input> = {
   title: "FP.REACT  Forms/Inputs",
   component: Input,
-  tags: ["rc"],
+  tags: ["stable"],
   args: {},
   parameters: {
     docs: {
