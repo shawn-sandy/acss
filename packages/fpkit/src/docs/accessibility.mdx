@@ -1,18 +1,21 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="Guides/Accessibility" />
 
 # Accessibility Guide
 
-Learn how to maintain **WCAG 2.1 Level AA** compliance when using and composing @fpkit/acss components.
+Learn how to maintain **WCAG 2.1 Level AA** compliance when using and composing
+@fpkit/acss components.
 
-> **📖 Full Guide:** For comprehensive documentation, see [docs/guides/accessibility.md](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
+> **📖 Full Guide:** For comprehensive documentation, see
+> [docs/guides/accessibility.md](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
 
 ---
 
 ## Quick Reference
 
-fpkit components are **WCAG 2.1 Level AA compliant** by default. Your responsibility is to maintain accessibility when:
+fpkit components are **WCAG 2.1 Level AA compliant** by default. Your
+responsibility is to maintain accessibility when:
 
 - Composing custom components
 - Customizing with CSS variables
@@ -259,11 +262,11 @@ fpkit components meet requirements by default:
 
 ```scss
 // Example contrasts
---btn-primary-bg: #0066cc;      // Blue
---btn-primary-color: #ffffff;    // White (7.5:1 - exceeds AA)
+--btn-primary-bg: #0066cc; // Blue
+--btn-primary-color: #ffffff; // White (7.5:1 - exceeds AA)
 
 --alert-error-bg: #f8d7da;
---alert-error-color: #721c24;    // Dark red (9.2:1 - exceeds AA)
+--alert-error-color: #721c24; // Dark red (9.2:1 - exceeds AA)
 ```
 
 **When customizing:** Always test contrast!
@@ -288,15 +291,15 @@ npm install -D jest-axe
 ```
 
 ```tsx
-import { axe, toHaveNoViolations } from 'jest-axe'
+import { axe, toHaveNoViolations } from "jest-axe";
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
-it('should not have accessibility violations', async () => {
-  const { container } = render(<Button>Click me</Button>)
-  const results = await axe(container)
-  expect(results).toHaveNoViolations()
-})
+it("should not have accessibility violations", async () => {
+  const { container } = render(<Button>Click me</Button>);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
 ```
 
 ### Manual Testing Checklist
@@ -344,6 +347,7 @@ import { Card } from '@fpkit/acss'
 ```
 
 **Requirements for custom interactive elements:**
+
 - `role="button"` - Announces as interactive
 - `tabIndex={0}` - Makes keyboard focusable
 - `onClick` - Mouse interaction
@@ -381,22 +385,21 @@ import { Card } from '@fpkit/acss'
 When composing fpkit components, maintain accessibility:
 
 ```tsx
-import { Button, Badge } from '@fpkit/acss'
+import { Button, Badge } from "@fpkit/acss";
 
 // ✅ Good - maintains accessibility
 export const NotificationButton = ({ count, onClick }) => {
   return (
     <Button onClick={onClick} aria-label={`Notifications (${count} unread)`}>
       <Icon name="bell" aria-hidden="true" />
-      {count > 0 && (
-        <Badge aria-hidden="true">{count}</Badge>
-      )}
+      {count > 0 && <Badge aria-hidden="true">{count}</Badge>}
     </Button>
-  )
-}
+  );
+};
 ```
 
 **Why this works:**
+
 - Button is keyboard accessible (inherits from fpkit)
 - `aria-label` provides context for screen readers
 - Visual elements hidden with `aria-hidden`
@@ -444,13 +447,13 @@ export const NotificationButton = ({ count, onClick }) => {
 
 ### Testing Tools
 
-| Tool | Type | Use Case |
-|------|------|----------|
-| [axe DevTools](https://www.deque.com/axe/devtools/) | Browser Extension | Real-time violation detection |
-| [WAVE](https://wave.webaim.org/extension/) | Browser Extension | Visual feedback |
-| [Lighthouse](https://developers.google.com/web/tools/lighthouse) | Built-in Chrome | Comprehensive audit |
-| [jest-axe](https://github.com/nickcolley/jest-axe) | Testing Library | Automated unit testing |
-| Storybook a11y addon | Storybook | Interactive testing |
+| Tool                                                             | Type              | Use Case                      |
+| ---------------------------------------------------------------- | ----------------- | ----------------------------- |
+| [axe DevTools](https://www.deque.com/axe/devtools/)              | Browser Extension | Real-time violation detection |
+| [WAVE](https://wave.webaim.org/extension/)                       | Browser Extension | Visual feedback               |
+| [Lighthouse](https://developers.google.com/web/tools/lighthouse) | Built-in Chrome   | Comprehensive audit           |
+| [jest-axe](https://github.com/nickcolley/jest-axe)               | Testing Library   | Automated unit testing        |
+| Storybook a11y addon                                             | Storybook         | Interactive testing           |
 
 ### Guidelines
 
@@ -462,12 +465,20 @@ export const NotificationButton = ({ count, onClick }) => {
 
 ## Additional Resources
 
-- **📖 [Full Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)** - Comprehensive WCAG patterns
-- **📘 [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)** - Building accessible compositions
-- **🧪 [Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md)** - Accessibility testing strategies
+- **📖
+  [Full Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)** -
+  Comprehensive WCAG patterns
+- **📘
+  [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)** -
+  Building accessible compositions
+- **🧪
+  [Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md)** -
+  Accessibility testing strategies
 
 ---
 
-**Remember:** Accessibility is not optional. fpkit provides accessible components by default - your job is to maintain that accessibility when composing and customizing them.
+**Remember:** Accessibility is not optional. fpkit provides accessible
+components by default - your job is to maintain that accessibility when
+composing and customizing them.
 
 **Use the Storybook a11y addon** on every story to catch violations early!

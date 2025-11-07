@@ -1,10 +1,11 @@
-import { Meta } from '@storybook/blocks';
+import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="Guides/Introduction" />
 
 # @fpkit/acss Documentation
 
-Welcome to the **@fpkit/acss** component library documentation! These guides help you build accessible, maintainable applications using fpkit components.
+Welcome to the **@fpkit/acss** component library documentation! These guides
+help you build accessible, maintainable applications using fpkit components.
 
 ---
 
@@ -12,39 +13,48 @@ Welcome to the **@fpkit/acss** component library documentation! These guides hel
 
 ### [CSS Variables Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)
 
-Learn how to discover and customize CSS custom properties for theming and styling.
+Learn how to discover and customize CSS custom properties for theming and
+styling.
 
 **Topics covered:**
+
 - Understanding the naming convention (`--component-property`)
 - Discovering available variables (DevTools, autocomplete)
 - Customization strategies (global, theme, component-specific)
 - rem units and accessibility
 - Framework integration (React, Next.js, CSS Modules)
 
-**Use when:** Customizing component appearance, creating themes, or building design systems.
+**Use when:** Customizing component appearance, creating themes, or building
+design systems.
 
 ---
 
 ### [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)
 
-Master component composition patterns to build custom components by combining fpkit primitives.
+Master component composition patterns to build custom components by combining
+fpkit primitives.
 
 **Topics covered:**
+
 - Composition vs creation decision tree
-- Common composition patterns (container + content, conditional, enhanced wrapper)
+- Common composition patterns (container + content, conditional, enhanced
+  wrapper)
 - Real-world examples (AlertDialog, IconButton, TagInput, ConfirmButton)
 - Anti-patterns to avoid
 - TypeScript support for compositions
 
-**Use when:** Building custom components, extending fpkit functionality, or creating application-specific components.
+**Use when:** Building custom components, extending fpkit functionality, or
+creating application-specific components.
 
 ---
 
 ### [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
 
-Understand and maintain WCAG 2.1 Level AA compliance when using and composing fpkit components.
+Understand and maintain WCAG 2.1 Level AA compliance when using and composing
+fpkit components.
 
 **Topics covered:**
+
 - Core accessibility principles
 - ARIA attributes and patterns
 - Keyboard navigation
@@ -53,15 +63,18 @@ Understand and maintain WCAG 2.1 Level AA compliance when using and composing fp
 - Color contrast requirements
 - Testing accessibility (manual and automated with jest-axe)
 
-**Use when:** Ensuring accessible applications, testing for WCAG compliance, implementing keyboard navigation, or composing accessible custom components.
+**Use when:** Ensuring accessible applications, testing for WCAG compliance,
+implementing keyboard navigation, or composing accessible custom components.
 
 ---
 
 ### [Architecture Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/architecture.md)
 
-Learn fpkit's architectural patterns, component structure, and how to work effectively with the library.
+Learn fpkit's architectural patterns, component structure, and how to work
+effectively with the library.
 
 **Topics covered:**
+
 - Polymorphic UI component foundation
 - Simple vs compound component patterns
 - TypeScript support and prop types
@@ -70,15 +83,18 @@ Learn fpkit's architectural patterns, component structure, and how to work effec
 - Props patterns and conventions
 - Framework integration
 
-**Use when:** Understanding fpkit component structure, working with polymorphic `as` prop, extending component props, or integrating with frameworks.
+**Use when:** Understanding fpkit component structure, working with polymorphic
+`as` prop, extending component props, or integrating with frameworks.
 
 ---
 
 ### [Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md)
 
-Test applications and custom components built with fpkit using Vitest and React Testing Library.
+Test applications and custom components built with fpkit using Vitest and React
+Testing Library.
 
 **Topics covered:**
+
 - Vitest and React Testing Library setup
 - Testing composed components
 - Query best practices (`getByRole`, `getByLabelText`)
@@ -87,15 +103,18 @@ Test applications and custom components built with fpkit using Vitest and React 
 - Async testing and loading states
 - Mock functions and test organization
 
-**Use when:** Setting up test infrastructure, testing custom compositions, testing user interactions, or testing accessibility.
+**Use when:** Setting up test infrastructure, testing custom compositions,
+testing user interactions, or testing accessibility.
 
 ---
 
 ### [Storybook Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/storybook.md)
 
-Document custom components and compositions using Storybook for development and showcase.
+Document custom components and compositions using Storybook for development and
+showcase.
 
 **Topics covered:**
+
 - Storybook setup and configuration
 - Story structure and patterns
 - Documenting composed components
@@ -104,18 +123,22 @@ Document custom components and compositions using Storybook for development and 
 - ArgTypes configuration
 - Complete examples
 
-**Use when:** Documenting custom components, creating component showcases, interactive component development, or building internal component libraries.
+**Use when:** Documenting custom components, creating component showcases,
+interactive component development, or building internal component libraries.
 
 ---
 
 ## 🎯 Quick Start by Task
 
 ### I want to customize component appearance
-1. Read [CSS Variables Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)
+
+1. Read
+   [CSS Variables Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)
 2. Use browser DevTools to discover variables
 3. Override in your CSS with `:root` or scoped selectors
 
 **Example:**
+
 ```css
 :root {
   --btn-primary-bg: #0066cc;
@@ -127,64 +150,80 @@ Document custom components and compositions using Storybook for development and 
 ---
 
 ### I want to build a custom component
-1. Check [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md) decision tree
-2. Review [Architecture Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/architecture.md) patterns
+
+1. Check
+   [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)
+   decision tree
+2. Review
+   [Architecture Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/architecture.md)
+   patterns
 3. Compose from fpkit primitives
-4. Maintain accessibility with [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
+4. Maintain accessibility with
+   [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
 
 **Example:**
+
 ```tsx
-import { Button, Badge } from '@fpkit/acss'
+import { Button, Badge } from "@fpkit/acss";
 
 export const StatusButton = ({ status, children, ...props }) => (
   <Button {...props}>
     {children}
     <Badge variant={status}>{status}</Badge>
   </Button>
-)
+);
 ```
 
 ---
 
 ### I want to ensure my app is accessible
-1. Study [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
+
+1. Study
+   [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)
 2. Test with keyboard navigation
-3. Use automated testing with jest-axe ([Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md))
+3. Use automated testing with jest-axe
+   ([Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md))
 4. Verify color contrast ratios
 
 **Example:**
+
 ```tsx
-import { axe, toHaveNoViolations } from 'jest-axe'
+import { axe, toHaveNoViolations } from "jest-axe";
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
-it('should not have accessibility violations', async () => {
-  const { container } = render(<StatusButton status="active">Server</StatusButton>)
-  const results = await axe(container)
-  expect(results).toHaveNoViolations()
-})
+it("should not have accessibility violations", async () => {
+  const { container } = render(
+    <StatusButton status="active">Server</StatusButton>
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
 ```
 
 ---
 
 ### I want to test my components
-1. Setup from [Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md)
+
+1. Setup from
+   [Testing Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/testing.md)
 2. Focus tests on your custom logic (fpkit is already tested)
 3. Use `getByRole` queries for accessibility
 4. Test user interactions and keyboard navigation
 
 **Example:**
+
 ```tsx
-import { render, screen } from '@testing-library/react'
-import { userEvent } from '@testing-library/user-event'
+import { render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 
-it('calls onClick when clicked', async () => {
-  const handleClick = vi.fn()
-  render(<StatusButton onClick={handleClick}>Click me</StatusButton>)
+it("calls onClick when clicked", async () => {
+  const handleClick = vi.fn();
+  render(<StatusButton onClick={handleClick}>Click me</StatusButton>);
 
-  await userEvent.click(screen.getByRole('button'))
-  expect(handleClick).toHaveBeenCalledOnce()
-})
+  await userEvent.click(screen.getByRole("button"));
+  expect(handleClick).toHaveBeenCalledOnce();
+});
 ```
 
 ---
@@ -193,18 +232,19 @@ it('calls onClick when clicked', async () => {
 
 ### Composition Over Creation
 
-fpkit encourages **composing** existing components rather than creating new ones from scratch:
+fpkit encourages **composing** existing components rather than creating new ones
+from scratch:
 
 ```tsx
 // ✅ Good - compose from fpkit components
-import { Button, Badge } from '@fpkit/acss'
+import { Button, Badge } from "@fpkit/acss";
 
 const StatusButton = ({ status, children }) => (
   <Button>
     {children}
     <Badge>{status}</Badge>
   </Button>
-)
+);
 
 // ❌ Less ideal - creating from scratch
 const StatusButton = ({ status, children }) => (
@@ -212,10 +252,11 @@ const StatusButton = ({ status, children }) => (
     {children}
     <span className="badge">{status}</span>
   </button>
-)
+);
 ```
 
-**Benefits:** Consistency, maintained accessibility, reduced code, leveraged test coverage.
+**Benefits:** Consistency, maintained accessibility, reduced code, leveraged
+test coverage.
 
 ---
 
@@ -237,7 +278,8 @@ All fpkit components use **CSS custom properties** for styling:
 }
 ```
 
-**Benefits:** Theme creation, component-specific customization, real-time updates, scoped styling.
+**Benefits:** Theme creation, component-specific customization, real-time
+updates, scoped styling.
 
 ---
 
@@ -251,13 +293,15 @@ fpkit components meet **WCAG 2.1 Level AA** standards by default:
 - Screen reader support
 - Sufficient color contrast
 
-**Your responsibility:** Maintain accessibility when composing and customizing components.
+**Your responsibility:** Maintain accessibility when composing and customizing
+components.
 
 ---
 
 ### Polymorphic Components
 
-Most fpkit components support the **`as` prop** for rendering as different HTML elements:
+Most fpkit components support the **`as` prop** for rendering as different HTML
+elements:
 
 ```tsx
 // Button as link
@@ -267,22 +311,26 @@ Most fpkit components support the **`as` prop** for rendering as different HTML 
 <Card as="section">Content</Card>
 ```
 
-**Benefits:** Semantic flexibility, type-safe props, maintained component behavior.
+**Benefits:** Semantic flexibility, type-safe props, maintained component
+behavior.
 
 ---
 
 ## 🔗 External Resources
 
 ### fpkit Resources
+
 - [GitHub Repository](https://github.com/shawn-sandy/acss)
 - [npm Package](https://www.npmjs.com/package/@fpkit/acss)
 
 ### Web Standards
+
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
 - [MDN Web Docs](https://developer.mozilla.org/)
 
 ### Testing Resources
+
 - [Vitest Documentation](https://vitest.dev/)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [jest-axe](https://github.com/nickcolley/jest-axe)
@@ -291,9 +339,12 @@ Most fpkit components support the **`as` prop** for rendering as different HTML 
 
 ## 📖 Full Documentation
 
-For the complete, offline-accessible documentation, see the `docs/` directory in the npm package or [view on GitHub](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/docs).
+For the complete, offline-accessible documentation, see the `docs/` directory in
+the npm package or
+[view on GitHub](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/docs).
 
 Each guide is available as a detailed markdown file with:
+
 - Comprehensive explanations
 - Code examples
 - Best practices

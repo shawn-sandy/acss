@@ -1,13 +1,15 @@
-import { Meta, Canvas, Story } from '@storybook/blocks';
-import { Button } from '../components/buttons/button';
+import { Meta, Canvas, Story } from "@storybook/addon-docs/blocks";
+import { Button } from "../components/buttons/button";
 
 <Meta title="Guides/CSS Variables" />
 
 # CSS Variables Guide
 
-Learn how to discover and customize CSS custom properties in @fpkit/acss components.
+Learn how to discover and customize CSS custom properties in @fpkit/acss
+components.
 
-> **📖 Full Guide:** For comprehensive documentation, see [docs/guides/css-variables.md](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)
+> **📖 Full Guide:** For comprehensive documentation, see
+> [docs/guides/css-variables.md](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)
 
 ---
 
@@ -33,8 +35,8 @@ All fpkit components use CSS custom properties for theming:
 /* Inline styles */
 <Button
   style={{
-    '--btn-bg': '#e63946',
-    '--btn-color': 'white',
+    "--btn-bg": "#e63946",
+    "--btn-color": "white",
   }}
 >
   Custom Button
@@ -158,9 +160,9 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 ```tsx
 <Button
   style={{
-    '--btn-bg': '#e63946',
-    '--btn-color': 'white',
-    '--btn-padding-inline': '2.5rem',
+    "--btn-bg": "#e63946",
+    "--btn-color": "white",
+    "--btn-padding-inline": "2.5rem",
   }}
 >
   Danger Action
@@ -173,25 +175,13 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 
 ```scss
 // Base properties
---btn-display: inline-flex
---btn-padding-inline: 1.5rem
---btn-padding-block: 0.5rem
---btn-fs: 1rem
---btn-fw: 600
---btn-radius: 0.375rem
---btn-gap: 0.5rem
-
-// Variants
---btn-primary-bg: #0066cc
---btn-primary-color: white
---btn-secondary-bg: transparent
---btn-secondary-color: currentColor
-
-// States
---btn-hover-bg: brightness(1.1)
---btn-focus-outline: 2px solid currentColor
---btn-focus-outline-offset: 2px
---btn-disabled-opacity: 0.6
+--btn-display: inline-flex --btn-padding-inline: 1.5rem --btn-padding-block:
+  0.5rem --btn-fs: 1rem --btn-fw: 600 --btn-radius: 0.375rem --btn-gap: 0.5rem
+  // Variants
+  --btn-primary-bg: #0066cc --btn-primary-color: white --btn-secondary-bg: transparent
+  --btn-secondary-color: currentColor // States
+  --btn-hover-bg: brightness(1.1) --btn-focus-outline: 2px solid currentColor --btn-focus-outline-offset:
+  2px --btn-disabled-opacity: 0.6;
 ```
 
 ---
@@ -200,26 +190,13 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 
 ```scss
 // Base properties
---alert-padding: 1rem
---alert-radius: 0.375rem
---alert-border-width: 1px
-
-// Semantic variants
---alert-error-bg: #f8d7da
---alert-error-border: #f5c6cb
---alert-error-color: #721c24
-
---alert-success-bg: #d4edda
---alert-success-border: #c3e6cb
---alert-success-color: #155724
-
---alert-warning-bg: #fff3cd
---alert-warning-border: #ffeaa7
---alert-warning-color: #856404
-
---alert-info-bg: #d1ecf1
---alert-info-border: #bee5eb
---alert-info-color: #0c5460
+--alert-padding: 1rem --alert-radius: 0.375rem --alert-border-width: 1px
+  // Semantic variants
+  --alert-error-bg: #f8d7da --alert-error-border: #f5c6cb --alert-error-color: #721c24
+  --alert-success-bg: #d4edda --alert-success-border: #c3e6cb --alert-success-color:
+  #155724 --alert-warning-bg: #fff3cd --alert-warning-border: #ffeaa7 --alert-warning-color:
+  #856404 --alert-info-bg: #d1ecf1 --alert-info-border: #bee5eb --alert-info-color:
+  #0c5460;
 ```
 
 ---
@@ -228,22 +205,12 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 
 ```scss
 // Base properties
---card-padding: 1rem
---card-bg: white
---card-radius: 0.5rem
---card-border: 1px solid #e0e0e0
-
-// Header
---card-header-padding: 1rem 1.5rem
---card-header-bg: #f9f9f9
---card-header-border-bottom: 1px solid #e0e0e0
---card-header-fs: 1.25rem
---card-header-fw: 600
-
-// Footer
---card-footer-padding: 1rem 1.5rem
---card-footer-bg: #f9f9f9
---card-footer-border-top: 1px solid #e0e0e0
+--card-padding: 1rem --card-bg: white --card-radius: 0.5rem --card-border: 1px
+  solid #e0e0e0 // Header
+  --card-header-padding: 1rem 1.5rem --card-header-bg: #f9f9f9 --card-header-border-bottom:
+  1px solid #e0e0e0 --card-header-fs: 1.25rem --card-header-fw: 600 // Footer
+  --card-footer-padding: 1rem 1.5rem --card-footer-bg: #f9f9f9
+  --card-footer-border-top: 1px solid #e0e0e0;
 ```
 
 ---
@@ -252,25 +219,25 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 
 ### ✅ Abbreviated Properties
 
-| Abbreviation | Full Name | Example |
-|--------------|-----------|---------|
-| `bg` | background / background-color | `--btn-bg` |
-| `fs` | font-size | `--btn-fs` |
-| `fw` | font-weight | `--btn-fw` |
-| `radius` | border-radius | `--btn-radius` |
-| `gap` | gap | `--btn-gap` |
+| Abbreviation | Full Name                     | Example        |
+| ------------ | ----------------------------- | -------------- |
+| `bg`         | background / background-color | `--btn-bg`     |
+| `fs`         | font-size                     | `--btn-fs`     |
+| `fw`         | font-weight                   | `--btn-fw`     |
+| `radius`     | border-radius                 | `--btn-radius` |
+| `gap`        | gap                           | `--btn-gap`    |
 
 ### ✅ Full Word Properties
 
-| Property | Variable Pattern |
-|----------|------------------|
-| padding | `--{component}-padding-{direction}` |
-| margin | `--{component}-margin-{direction}` |
-| color | `--{component}-color` |
-| border | `--{component}-border` |
-| display | `--{component}-display` |
-| width | `--{component}-width` |
-| height | `--{component}-height` |
+| Property | Variable Pattern                    |
+| -------- | ----------------------------------- |
+| padding  | `--{component}-padding-{direction}` |
+| margin   | `--{component}-margin-{direction}`  |
+| color    | `--{component}-color`               |
+| border   | `--{component}-border`              |
+| display  | `--{component}-display`             |
+| width    | `--{component}-width`               |
+| height   | `--{component}-height`              |
 
 ---
 
@@ -281,6 +248,7 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 **Conversion:** `px / 16 = rem`
 
 **Common values:**
+
 - 8px = 0.5rem
 - 12px = 0.75rem
 - 16px = 1rem (base)
@@ -289,6 +257,7 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 - 32px = 2rem
 
 **Why rem?**
+
 - Respects user font size preferences
 - Consistent scaling across breakpoints
 - Better for responsive design
@@ -300,14 +269,14 @@ Browse compiled CSS in `node_modules/@fpkit/acss/libs/index.css`
 ### React
 
 ```jsx
-import './theme.css'; // Global overrides
+import "./theme.css"; // Global overrides
 
 function CustomButton() {
   return (
     <Button
       style={{
-        '--btn-padding-inline': '2rem',
-        '--btn-radius': '0.5rem',
+        "--btn-padding-inline": "2rem",
+        "--btn-radius": "0.5rem",
       }}
     >
       Custom
@@ -328,16 +297,16 @@ function CustomButton() {
 ```
 
 ```jsx
-import styles from './Button.module.css';
+import styles from "./Button.module.css";
 
-<Button className={styles.customButton}>Custom</Button>
+<Button className={styles.customButton}>Custom</Button>;
 ```
 
 ### Styled Components
 
 ```jsx
-import styled from 'styled-components';
-import { Button } from '@fpkit/acss';
+import styled from "styled-components";
+import { Button } from "@fpkit/acss";
 
 const CustomButton = styled(Button)`
   --btn-padding-inline: 2rem;
@@ -377,7 +346,7 @@ const CustomButton = styled(Button)`
 
 ```css
 /* ❌ Won't work - imported after */
-@import '@fpkit/acss/libs/index.css';
+@import "@fpkit/acss/libs/index.css";
 
 :root {
   --btn-bg: red; /* Applied first, then overwritten */
@@ -388,17 +357,24 @@ const CustomButton = styled(Button)`
   --btn-bg: red; /* Overrides fpkit defaults */
 }
 
-@import '@fpkit/acss/libs/index.css';
+@import "@fpkit/acss/libs/index.css";
 ```
 
 ---
 
 ## Additional Resources
 
-- **📖 [Full CSS Variables Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)** - Comprehensive documentation
-- **📘 [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)** - Building custom components
-- **♿ [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)** - WCAG compliance
+- **📖
+  [Full CSS Variables Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md)** -
+  Comprehensive documentation
+- **📘
+  [Composition Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/composition.md)** -
+  Building custom components
+- **♿
+  [Accessibility Guide](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/accessibility.md)** -
+  WCAG compliance
 
 ---
 
-**Explore component stories** in this Storybook to see CSS variable customization examples in action!
+**Explore component stories** in this Storybook to see CSS variable
+customization examples in action!
