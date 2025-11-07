@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="Guides/fpkit Consumer Skill" />
+<Meta title="Guides/FPKit Developer" />
 
-# fpkit Consumer Skill
+# FPKit Developer
 
 **Build applications with @fpkit/acss using Claude Code assistance**
 
@@ -30,16 +30,16 @@ This skill helps you:
 
 ```bash
 # Copy to global skills (available in all projects)
-cp -r /path/to/fpkit-consumer ~/.claude/skills/
+cp -r /path/to/fpkit-developer ~/.claude/skills/
 
 # Or copy to project-specific skills
-cp -r /path/to/fpkit-consumer ./.claude/skills/
+cp -r /path/to/fpkit-developer ./.claude/skills/
 ```
 
 2. **Verify installation**:
 
 ```bash
-ls ~/.claude/skills/fpkit-consumer/
+ls ~/.claude/skills/fpkit-developer/
 # Should show: README.md  SKILL.md  references/  scripts/
 ```
 
@@ -216,13 +216,13 @@ Run the validation script on your custom styles:
 
 ```bash
 # Validate a file
-python ~/.claude/skills/fpkit-consumer/scripts/validate_css_vars.py styles/button.scss
+python ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py styles/button.scss
 
 # Validate a directory
-python ~/.claude/skills/fpkit-consumer/scripts/validate_css_vars.py styles/
+python ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py styles/
 
 # From your project root
-python ~/.claude/skills/fpkit-consumer/scripts/validate_css_vars.py .
+python ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py .
 ```
 
 **What it checks:**
@@ -237,22 +237,22 @@ Access comprehensive guides without leaving your terminal:
 
 ```bash
 # View composition patterns
-cat ~/.claude/skills/fpkit-consumer/references/composition.md
+cat ~/.claude/skills/fpkit-developer/references/composition.md
 
 # View CSS variable guide
-cat ~/.claude/skills/fpkit-consumer/references/css-variables.md
+cat ~/.claude/skills/fpkit-developer/references/css-variables.md
 
 # View accessibility guide
-cat ~/.claude/skills/fpkit-consumer/references/accessibility.md
+cat ~/.claude/skills/fpkit-developer/references/accessibility.md
 
 # View architecture guide
-cat ~/.claude/skills/fpkit-consumer/references/architecture.md
+cat ~/.claude/skills/fpkit-developer/references/architecture.md
 
 # View testing guide
-cat ~/.claude/skills/fpkit-consumer/references/testing.md
+cat ~/.claude/skills/fpkit-developer/references/testing.md
 
 # View Storybook guide
-cat ~/.claude/skills/fpkit-consumer/references/storybook.md
+cat ~/.claude/skills/fpkit-developer/references/storybook.md
 ```
 
 Or ask Claude Code to reference them:
@@ -264,13 +264,13 @@ Keep documentation up-to-date with the latest fpkit guides:
 
 ```bash
 # Sync all documentation from fpkit package
-~/.claude/skills/fpkit-consumer/scripts/sync-docs.sh
+~/.claude/skills/fpkit-developer/scripts/sync-docs.sh
 
 # Check which docs need updating
-~/.claude/skills/fpkit-consumer/scripts/sync-docs.sh --check
+~/.claude/skills/fpkit-developer/scripts/sync-docs.sh --check
 
 # Sync a specific guide
-~/.claude/skills/fpkit-consumer/scripts/sync-docs.sh --guide testing.md
+~/.claude/skills/fpkit-developer/scripts/sync-docs.sh --guide testing.md
 ```
 
 **When to sync:**
@@ -289,7 +289,7 @@ Edit `config.json` to customize documentation source:
 ## Skill Structure
 
 ```
-fpkit-consumer/
+fpkit-developer/
 ├── README.md                          # This file
 ├── SKILL.md                           # Claude Code skill workflow
 ├── config.json                        # Configuration (docs source, paths)
@@ -463,7 +463,7 @@ The skill helps you follow these best practices:
 
 1. **Check installation path:**
    ```bash
-   ls ~/.claude/skills/fpkit-consumer/SKILL.md
+   ls ~/.claude/skills/fpkit-developer/SKILL.md
    ```
 
 2. **Restart Claude Code** after installation
@@ -482,12 +482,12 @@ The skill helps you follow these best practices:
 
 2. **Make script executable:**
    ```bash
-   chmod +x ~/.claude/skills/fpkit-consumer/scripts/validate_css_vars.py
+   chmod +x ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py
    ```
 
 3. **Run with python3 explicitly:**
    ```bash
-   python3 ~/.claude/skills/fpkit-consumer/scripts/validate_css_vars.py styles/
+   python3 ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py styles/
    ```
 
 ### Documentation Not Found
@@ -496,10 +496,10 @@ Reference docs are copied to the skill directory:
 
 ```bash
 # List references
-ls ~/.claude/skills/fpkit-consumer/references/
+ls ~/.claude/skills/fpkit-developer/references/
 
 # View a guide
-cat ~/.claude/skills/fpkit-consumer/references/composition.md
+cat ~/.claude/skills/fpkit-developer/references/composition.md
 ```
 
 ---
