@@ -1,4 +1,4 @@
-# fpkit Consumer Skill
+# FPKit Developer
 
 A Claude Code skill for building applications with **@fpkit/acss** components.
 
