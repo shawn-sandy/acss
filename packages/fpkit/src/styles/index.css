@@ -1834,7 +1834,7 @@ dl {
   --list-margin-top: 0;
   --list-margin-bottom: 1rem;
   --list-margin-inline: 0;
-  --list-padding-inline: 2.5rem;
+  --list-padding-inline: 0.5rem;
   --list-gap: 0.5rem;
   --list-marker-color: currentColor;
   --list-marker-size: 1em;
