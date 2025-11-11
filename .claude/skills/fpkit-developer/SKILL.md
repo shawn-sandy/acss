@@ -13,6 +13,7 @@ A Claude Code skill for building applications with **@fpkit/acss** components.
 ## Purpose
 
 This skill helps you:
+
 - **Compose custom components** from fpkit primitives
 - **Validate CSS variables** against fpkit conventions
 - **Maintain accessibility** when building with fpkit
@@ -31,6 +32,7 @@ When a user requests a new component or feature, follow this workflow:
 ### Step 1: Analyze the Request
 
 Understand what the user needs:
+
 - What is the component supposed to do?
 - What user interactions are required?
 - Are there similar fpkit components?
@@ -44,6 +46,7 @@ Understand what the user needs:
 Review the [@fpkit/acss component catalog](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/src/components) or [Storybook](https://fpkit.netlify.app):
 
 **Available components:**
+
 - **Buttons:** Button
 - **Cards:** Card, CardHeader, CardTitle, CardContent, CardFooter
 - **Forms:** Input, Field, FieldLabel, FieldInput
@@ -96,6 +99,7 @@ export const StatusButton = ({ status, children, ...props }: StatusButtonProps) 
 ```
 
 **Guidelines:**
+
 - Import fpkit components using named imports
 - Extend fpkit component prop types with TypeScript
 - Spread `...props` to preserve all fpkit functionality
@@ -147,6 +151,7 @@ export const LoadingButton = ({
 ```
 
 **Guidelines:**
+
 - Extend fpkit prop types (don't replace them)
 - Preserve all fpkit functionality
 - Add custom logic around fpkit components
@@ -166,6 +171,7 @@ If the component is truly custom and can't use fpkit:
    - Define CSS variables for theming
 
 2. **Create styles (if needed):**
+
    ```scss
    // components/CustomComponent.scss
    .custom-component {
@@ -180,6 +186,7 @@ If the component is truly custom and can't use fpkit:
    ```
 
 3. **Validate CSS variables** (if you created custom styles):
+
    ```bash
    python scripts/validate_css_vars.py components/
    ```
@@ -200,6 +207,7 @@ If the component is truly custom and can't use fpkit:
 - [ ] Screen reader friendly (meaningful labels)
 
 **Test:**
+
 - Navigate with keyboard only (Tab, Enter, Escape)
 - Use automated testing (jest-axe)
 - Check Storybook a11y addon (if documenting in Storybook)
@@ -213,6 +221,7 @@ If the component is truly custom and can't use fpkit:
 If creating a reusable component for your team:
 
 **Create a Storybook story:**
+
 ```tsx
 // components/StatusButton.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react'
@@ -262,6 +271,7 @@ python scripts/validate_css_vars.py
 ```
 
 **What it checks:**
+
 - ✅ Naming pattern: `--{component}-{property}`
 - ✅ rem units (not px)
 - ✅ Approved abbreviations: bg, fs, fw, radius, gap
@@ -274,6 +284,7 @@ python scripts/validate_css_vars.py
 ### Composition Patterns
 
 See `references/composition.md` for:
+
 - Decision tree (compose vs extend vs create)
 - 5 common composition patterns
 - Real-world examples (IconButton, ConfirmButton, TagInput)
@@ -283,6 +294,7 @@ See `references/composition.md` for:
 ### CSS Variables
 
 See `references/css-variables.md` for:
+
 - Naming convention (`--component-property`)
 - Discovery techniques (DevTools, autocomplete)
 - Customization strategies (global, theme, component-specific)
@@ -292,6 +304,7 @@ See `references/css-variables.md` for:
 ### Accessibility
 
 See `references/accessibility.md` for:
+
 - WCAG 2.1 Level AA compliance
 - ARIA patterns and attributes
 - Keyboard navigation
@@ -302,6 +315,7 @@ See `references/accessibility.md` for:
 ### Architecture
 
 See `references/architecture.md` for:
+
 - Polymorphic UI component foundation
 - Understanding the `as` prop
 - Simple vs compound component patterns
@@ -312,6 +326,7 @@ See `references/architecture.md` for:
 ### Testing
 
 See `references/testing.md` for:
+
 - Vitest and React Testing Library setup
 - Testing composed components
 - Query best practices (getByRole, getByLabelText)
@@ -322,6 +337,7 @@ See `references/testing.md` for:
 ### Storybook
 
 See `references/storybook.md` for:
+
 - Storybook setup and configuration
 - Story structure and patterns
 - Documenting composed components
