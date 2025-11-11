@@ -532,9 +532,9 @@ MIT License - Same as @fpkit/acss
 
 ## Version
 
-**Skill Version:** 1.0.0
+**Skill Version:** 0.1.2
 **Compatible with:** @fpkit/acss v1.x
-**Last Updated:** 2025-01-06
+**Last Updated:** 2025-11-11
 
 ---
 
