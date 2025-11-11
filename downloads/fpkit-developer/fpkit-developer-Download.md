@@ -69,13 +69,7 @@ cp -r /tmp/fpkit-developer skills/
 
 ### 4. Verify Installation
 
-To confirm the skill is installed correctly:
-
-1. Open Claude Code in your terminal or project
-2. Type `/` to see available commands
-3. Look for **fpkit-developer** in the available skills list
-
-Alternatively, check the skills directory:
+To confirm the skill is installed correctly, check the skills directory:
 
 ```bash
 # For user-level installation
@@ -93,7 +87,7 @@ ls ~/.claude/skills/fpkit-developer
 - [ ] ZIP file extracted successfully
 - [ ] Skill folder copied to `~/.claude/skills/` or project `skills/` directory
 - [ ] SKILL.md file exists in the skill folder
-- [ ] Skill appears in Claude Code's available skills
+- [ ] Valid YAML frontmatter in SKILL.md (name and description fields)
 - [ ] No error messages when Claude Code starts
 
 ## Compatibility
@@ -104,15 +98,16 @@ ls ~/.claude/skills/fpkit-developer
 
 ## Troubleshooting
 
-### Skill Not Appearing
+### Skill Not Loading
 
-**Problem:** The skill doesn't show up in Claude Code's available skills.
+**Problem:** The skill is not being invoked or recognized by Claude Code.
 
 **Solutions:**
-1. Verify the skill folder is in the correct location (`~/.claude/skills/`)
-2. Check that SKILL.md exists and has valid YAML frontmatter
-3. Restart Claude Code
-4. Check Claude Code logs for errors
+1. Verify the skill folder is in the correct location (`~/.claude/skills/` or project `skills/`)
+2. Check that SKILL.md exists and has valid YAML frontmatter with `name:` and `description:` fields
+3. Ensure the directory name matches the skill name in the YAML frontmatter
+4. Restart Claude Code to reload skills
+5. Check Claude Code logs for errors or validation warnings
 
 ### Permission Errors
 
