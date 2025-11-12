@@ -19,18 +19,19 @@
  */
 
 .is-disabled,
-[aria-disabled='true'] {
+[aria-disabled="true"] {
   /* CSS Custom Properties for theming */
-  --disabled-opacity: 0.6;
+  --disabled-opacity: 0.91;
   --disabled-cursor: not-allowed;
   /* hsl(0 0% 40%) = #666666, provides 3:1 contrast on white (#ffffff) */
-  --disabled-color: hsl(0 0% 40%);
+  --disabled-color: currentColor;
+  --disabled-background-color: none;
 
   /* Apply disabled styles */
   opacity: var(--disabled-opacity);
   cursor: var(--disabled-cursor);
   color: var(--disabled-color);
-
+  background-color: var(--disabled-background-color);
   /**
    * Maintain focus visibility for keyboard navigation (WCAG 2.4.7)
    * Disabled elements must still be focusable and have visible focus indicators
