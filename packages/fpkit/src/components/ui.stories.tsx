@@ -15,7 +15,7 @@ import UI from "./ui";
  * - Zero runtime overhead
  */
 const meta = {
-  title: "FP.UI",
+  title: "FP/UI",
   component: UI,
   tags: ["autodocs", "primitive"],
   parameters: {
@@ -782,7 +782,9 @@ export const CommonAccessibilityMistakes: Story = {
 
         {/* Missing accessible name */}
         <div>
-          <h4 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}>
+          <h4
+            style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}
+          >
             ❌ BAD: Icon button without accessible name
           </h4>
           <UI
@@ -800,15 +802,24 @@ export const CommonAccessibilityMistakes: Story = {
           >
             ×
           </UI>
-          <p style={{ fontSize: "0.875rem", color: "#721c24", marginTop: "0.5rem" }}>
-            <strong>Problem:</strong> Screen readers cannot identify this button's
-            purpose. <strong>Fix:</strong> Add <code>aria-label="Close"</code>
+          <p
+            style={{
+              fontSize: "0.875rem",
+              color: "#721c24",
+              marginTop: "0.5rem",
+            }}
+          >
+            <strong>Problem:</strong> Screen readers cannot identify this
+            button's purpose. <strong>Fix:</strong> Add{" "}
+            <code>aria-label="Close"</code>
           </p>
         </div>
 
         {/* Non-semantic clickable div */}
         <div>
-          <h4 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}>
+          <h4
+            style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}
+          >
             ❌ BAD: Clickable div without keyboard support
           </h4>
           <UI
@@ -825,16 +836,25 @@ export const CommonAccessibilityMistakes: Story = {
           >
             Click me (but you can't use keyboard!)
           </UI>
-          <p style={{ fontSize: "0.875rem", color: "#721c24", marginTop: "0.5rem" }}>
-            <strong>Problem:</strong> Not keyboard accessible or announced to screen
-            readers. <strong>Fix:</strong> Use <code>as="button"</code> or add{" "}
-            <code>role="button"</code>, <code>tabIndex=0</code>, and keyboard handlers.
+          <p
+            style={{
+              fontSize: "0.875rem",
+              color: "#721c24",
+              marginTop: "0.5rem",
+            }}
+          >
+            <strong>Problem:</strong> Not keyboard accessible or announced to
+            screen readers. <strong>Fix:</strong> Use <code>as="button"</code>{" "}
+            or add <code>role="button"</code>, <code>tabIndex=0</code>, and
+            keyboard handlers.
           </p>
         </div>
 
         {/* Poor contrast focus indicator */}
         <div>
-          <h4 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}>
+          <h4
+            style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}
+          >
             ❌ BAD: Insufficient focus indicator contrast
           </h4>
           <UI
@@ -851,16 +871,24 @@ export const CommonAccessibilityMistakes: Story = {
           >
             Low contrast focus
           </UI>
-          <p style={{ fontSize: "0.875rem", color: "#721c24", marginTop: "0.5rem" }}>
-            <strong>Problem:</strong> Focus indicator contrast ratio is less than 3:1
-            (WCAG 2.4.7). <strong>Fix:</strong> Use a contrasting color like dark blue
-            on light blue background.
+          <p
+            style={{
+              fontSize: "0.875rem",
+              color: "#721c24",
+              marginTop: "0.5rem",
+            }}
+          >
+            <strong>Problem:</strong> Focus indicator contrast ratio is less
+            than 3:1 (WCAG 2.4.7). <strong>Fix:</strong> Use a contrasting color
+            like dark blue on light blue background.
           </p>
         </div>
 
         {/* Vague link text */}
         <div>
-          <h4 style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}>
+          <h4
+            style={{ marginTop: 0, marginBottom: "0.5rem", color: "#dc3545" }}
+          >
             ❌ BAD: Non-descriptive link text
           </h4>
           <UI
@@ -873,10 +901,16 @@ export const CommonAccessibilityMistakes: Story = {
           >
             Click here
           </UI>
-          <p style={{ fontSize: "0.875rem", color: "#721c24", marginTop: "0.5rem" }}>
+          <p
+            style={{
+              fontSize: "0.875rem",
+              color: "#721c24",
+              marginTop: "0.5rem",
+            }}
+          >
             <strong>Problem:</strong> "Click here" doesn't describe the link's
-            destination. <strong>Fix:</strong> Use descriptive text like "View product
-            documentation".
+            destination. <strong>Fix:</strong> Use descriptive text like "View
+            product documentation".
           </p>
         </div>
       </div>

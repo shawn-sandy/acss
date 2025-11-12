@@ -1,0 +1,292 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Heading (Deprecated)/Readme" />
+
+# Heading (Deprecated)
+
+> ⚠️ **DEPRECATED**: This component is deprecated and will be removed in **v3.0.0**. Please use the [`Title`](?path=/docs/fp-react-components-title--docs) component instead.
+
+---
+
+## Deprecation Notice
+
+<div style={{ padding: '1.5rem', background: '#fef3c7', border: '2px solid #f59e0b', borderRadius: '0.5rem', marginBottom: '2rem' }}>
+  <strong style={{ color: '#92400e', fontSize: '1.125rem' }}>⚠️ This component is deprecated</strong>
+  <p style={{ marginTop: '0.5rem', color: '#78350f' }}>
+    The <code>Heading</code> component has been replaced by the new <code>Title</code> component
+    which offers improved API design, better accessibility features, and enhanced performance.
+  </p>
+  <p style={{ marginTop: '0.5rem', color: '#78350f' }}>
+    <strong>Removal Timeline:</strong> This component will be removed in v3.0.0 (TBD)
+  </p>
+</div>
+
+---
+
+## Quick Migration
+
+### Before (Deprecated)
+
+```tsx
+import { Heading } from '@fpkit/acss';
+
+<Heading type="h2">Section Title</Heading>
+```
+
+### After (Recommended)
+
+```tsx
+import { Title } from '@fpkit/acss';
+
+<Title level="h2">Section Title</Title>
+```
+
+---
+
+## Why We Deprecated Heading
+
+The new `Title` component provides several advantages over the deprecated `Heading` component:
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Better API</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>The <code>level</code> prop is more semantic and descriptive than <code>type</code></p>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Improved Accessibility</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>Enhanced WCAG 2.1 AA compliance with better screen reader support</p>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Better Documentation</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>Comprehensive JSDoc comments for improved TypeScript IntelliSense</p>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <strong>✅ Performance</strong>
+    <p style={{ fontSize: '0.875rem', color: '#666' }}>React.memo optimization prevents unnecessary re-renders</p>
+  </div>
+</div>
+
+---
+
+## Migration Guide
+
+### Step-by-Step Migration
+
+#### 1. Update Imports
+
+```tsx
+// Before
+import { Heading } from '@fpkit/acss';
+
+// After
+import { Title } from '@fpkit/acss';
+```
+
+#### 2. Rename the Component
+
+```tsx
+// Before
+<Heading type="h2">Section Title</Heading>
+
+// After
+<Title level="h2">Section Title</Title>
+```
+
+#### 3. Update the Prop Name
+
+The only prop that changed is `type` → `level`:
+
+| Old Prop | New Prop | Description |
+|----------|----------|-------------|
+| `type` | `level` | The semantic heading level (h1-h6) |
+
+#### 4. Review Default Behavior
+
+**IMPORTANT:** The default heading level changed:
+
+- **Heading (old)**: Default is `h3`
+- **Title (new)**: Default is `h2`
+
+If you relied on the default, you may need to explicitly specify `h3`:
+
+```tsx
+// Before (implicitly h3)
+<Heading>Default Heading</Heading>
+
+// After (explicitly h3 to maintain behavior)
+<Title level="h3">Default Heading</Title>
+
+// Or use the new default (h2)
+<Title>Default Title</Title>
+```
+
+---
+
+## All Heading Levels
+
+The `Heading` component supports all six semantic heading levels, just like `Title`:
+
+```tsx
+// h1 - Page title (use once per page)
+<Heading type="h1">Main Page Title</Heading>
+
+// h2 - Major sections
+<Heading type="h2">Section Heading</Heading>
+
+// h3 - Subsections (default)
+<Heading type="h3">Subsection Heading</Heading>
+
+// h4-h6 - Deeper nesting
+<Heading type="h4">Level Four Heading</Heading>
+<Heading type="h5">Level Five Heading</Heading>
+<Heading type="h6">Level Six Heading</Heading>
+```
+
+**Migrate to:**
+
+```tsx
+// h1 - Page title (use once per page)
+<Title level="h1">Main Page Title</Title>
+
+// h2 - Major sections (now default)
+<Title level="h2">Section Heading</Title>
+
+// h3 - Subsections
+<Title level="h3">Subsection Heading</Title>
+
+// h4-h6 - Deeper nesting
+<Title level="h4">Level Four Heading</Title>
+<Title level="h5">Level Five Heading</Title>
+<Title level="h6">Level Six Heading</Title>
+```
+
+---
+
+## Props
+
+> **Note**: These props still work but are deprecated. Refer to the [Title component documentation](?path=/docs/fp-react-components-title--docs) for the current API.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `"h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "h6"` | `"h3"` | **Deprecated.** Use `level` on Title component instead |
+| `children` | `React.ReactNode` | *required* | The content to display in the heading |
+| `ui` | `string` | - | Data attribute for fpkit styling hooks |
+| `className` | `string` | - | CSS class names to apply |
+| `ref` | `React.Ref<HTMLHeadingElement>` | - | Forwarded ref to the heading element |
+
+All other standard HTML heading attributes and ARIA properties are also supported.
+
+---
+
+## Current Behavior
+
+The `Heading` component still works for backwards compatibility but:
+
+### Development Warnings
+
+In development mode, the component logs deprecation warnings to the console:
+
+```
+[@fpkit/acss] Heading component is deprecated and will be removed in v3.0.0.
+Please use the Title component instead.
+Migration: <Heading type="h2"> → <Title level="h2">
+See documentation: https://fpkit.dev/components/title
+```
+
+### Production Behavior
+
+- No console warnings in production builds
+- Full backwards compatibility maintained
+- All props forwarded correctly to Title component
+- Performance identical to direct Title usage
+
+---
+
+## TypeScript Support
+
+The component maintains full TypeScript support:
+
+```tsx
+import { Heading, type TitleProps } from '@fpkit/acss';
+
+// Old API (still typed correctly)
+<Heading type="h2">Typed Heading</Heading>
+
+// Type-safe with all Title props
+const props: TitleProps = {
+  type: 'h3',
+  children: 'Section Title',
+  className: 'custom-class'
+};
+<Heading {...props} />
+```
+
+However, TypeScript will show deprecation warnings in your IDE for better migration visibility.
+
+---
+
+## Migration Checklist
+
+Use this checklist to ensure a smooth migration:
+
+- [ ] Find all `<Heading>` imports in your codebase
+- [ ] Replace `import { Heading }` with `import { Title }`
+- [ ] Replace all `<Heading>` tags with `<Title>`
+- [ ] Replace all `type` props with `level`
+- [ ] Review uses without explicit `type` prop (default changed from `h3` → `h2`)
+- [ ] Test all migrated components
+- [ ] Remove any `Heading` imports
+- [ ] Search for any remaining references to `Heading` component
+
+### Find and Replace Tips
+
+**VS Code / IDE Search:**
+
+```regex
+# Find
+<Heading\s+type="(h[1-6])"
+
+# Replace with
+<Title level="$1"
+```
+
+**Command Line (ripgrep):**
+
+```bash
+# Find all Heading usage
+rg "Heading" --type tsx --type ts
+
+# Find Heading imports
+rg "import.*Heading.*from.*@fpkit/acss"
+```
+
+---
+
+## Related Components
+
+- **[Title](?path=/docs/fp-react-components-title--docs)** - The recommended replacement component
+- **Text** - For body text and paragraphs
+
+---
+
+## Support & Resources
+
+- **Title Component Docs**: [View documentation](?path=/docs/fp-react-components-title--docs)
+- **GitHub**: [fpkit/acss](https://github.com/fpkit/acss)
+- **Migration Help**: Open an issue if you need assistance migrating
+
+---
+
+<div style={{ padding: '1.5rem', background: '#f0f9ff', border: '1px solid #0ea5e9', borderRadius: '0.5rem', marginTop: '2rem' }}>
+  <strong>💡 Migration Tip:</strong> The Title component maintains the same functionality
+  while providing better DX and accessibility. The migration is straightforward and can be done incrementally.
+  Start by migrating new code, then gradually update existing components.
+</div>
+
+<div style={{ padding: '1.5rem', background: '#fef3c7', border: '2px solid #f59e0b', borderRadius: '0.5rem', marginTop: '1rem' }}>
+  <strong style={{ color: '#92400e' }}>⚠️ Removal Timeline</strong>
+  <p style={{ marginTop: '0.5rem', color: '#78350f', marginBottom: 0 }}>
+    Plan to complete your migration before upgrading to v3.0.0.
+    This component will be completely removed in that release.
+  </p>
+</div>

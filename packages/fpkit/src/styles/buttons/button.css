@@ -55,6 +55,10 @@ button:is(:hover, :focus)[aria-disabled=true] {
   opacity: var(--btn-opacity, 0.5);
   filter: none;
 }
+button:focus-visible {
+  outline: var(--btn-focus-outline, 2px solid currentColor);
+  outline-offset: var(--btn-focus-outline-offset, 1px);
+}
 button[type=reset] {
   --btn-bg: transparent;
   --btn-color: gray;
