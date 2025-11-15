@@ -12,7 +12,6 @@ import { AlertView } from "./views";
  */
 type Severity = "default" | "info" | "success" | "warning" | "error";
 
-
 /**
  * Props for the Alert component.
  */
@@ -170,7 +169,7 @@ export type AlertProps = {
    * ```
    */
   contentType?: "text" | "node";
-} & Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'children'>;
+} & Omit<React.HTMLAttributes<HTMLDivElement>, "title" | "children">;
 
 /**
  * Alert is a fully accessible component for displaying status messages with different severity levels.
@@ -353,7 +352,7 @@ const useAlertBehavior = ({
 // MAIN COMPONENT
 // ============================================================================
 
-const Alert: React.FC<AlertProps> = ({
+export const Alert: React.FC<AlertProps> = ({
   open,
   severity = "default",
   children,
