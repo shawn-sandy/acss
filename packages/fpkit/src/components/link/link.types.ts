@@ -1,5 +1,4 @@
 import React from "react";
-import UI from "#components/ui";
 
 /**
  * Props for the Link component.
@@ -233,8 +232,17 @@ export type LinkProps = {
    * ```
    */
   onPointerDown?: (event: React.PointerEvent<HTMLAnchorElement>) => void;
-} & React.ComponentProps<typeof UI> &
-  React.ComponentPropsWithoutRef<"a">;
+
+  /**
+   * Icon element to display in the link (used by IconLink).
+   *
+   * @example
+   * ```tsx
+   * <IconLink href="/home" icon={<HomeIcon />} />
+   * ```
+   */
+  icon?: React.ReactNode;
+} & Omit<React.ComponentPropsWithoutRef<"a">, 'style'>;
 
 /**
  * Props for the Link component with ref support.

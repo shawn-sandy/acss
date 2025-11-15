@@ -1,7 +1,7 @@
 ---
 name: fpkit-developer
 description: A Claude Code skill for building applications with @fpkit/acss components
-version: 0.1.2
+version: 0.1.3
 ---
 
 # FPKit Developer
@@ -47,7 +47,8 @@ Review the [@fpkit/acss component catalog](https://github.com/shawn-sandy/acss/t
 
 **Available components:**
 
-- **Buttons:** Button
+- **Buttons:** Button (with `aria-disabled` pattern, focus management, performance optimized)
+- **Links:** Link (auto security for external links, ref forwarding, prefetch support)
 - **Cards:** Card, CardHeader, CardTitle, CardContent, CardFooter
 - **Forms:** Input, Field, FieldLabel, FieldInput
 - **Layout:** Header, Main, Footer, Aside, Nav
@@ -143,7 +144,11 @@ export const LoadingButton = ({
   }
 
   return (
-    <Button {...props} disabled={isLoading || props.disabled} onClick={handleClick}>
+    <Button
+      {...props}
+      disabled={isLoading || props.disabled}
+      onClick={handleClick}
+    >
       {isLoading ? 'Loading...' : children}
     </Button>
   )
@@ -152,10 +157,14 @@ export const LoadingButton = ({
 
 **Guidelines:**
 
-- Extend fpkit prop types (don't replace them)
-- Preserve all fpkit functionality
-- Add custom logic around fpkit components
-- Maintain accessibility (ARIA attributes, keyboard support)
+- **Extend fpkit prop types** (don't replace them)
+- **Preserve all fpkit functionality** (aria-disabled, focus management, etc.)
+- **Add custom logic** around fpkit components
+- **Maintain accessibility** - fpkit Button automatically handles:
+  - `aria-disabled` pattern for better keyboard accessibility
+  - Focus management (stays in tab order when disabled)
+  - Event prevention when disabled
+  - Automatic className merging for `.is-disabled` styling
 
 ---
 
@@ -486,22 +495,27 @@ export const TagInput = ({ value, onChange, placeholder }: TagInputProps) => {
 
 ### ✅ Do
 
-- **Compose from fpkit** - Start with fpkit components
-- **Extend prop types** - Use TypeScript to extend fpkit types
-- **Preserve accessibility** - Keep ARIA attributes and keyboard support
+- **Compose from fpkit** - Start with fpkit components to inherit built-in accessibility
+- **Extend prop types** - Use TypeScript to extend fpkit types (preserves type safety)
+- **Preserve accessibility** - fpkit uses `aria-disabled` for better keyboard accessibility
+- **Use `onClick` for events** - Captures keyboard, mouse, touch, and assistive tech
 - **Use CSS variables** - Customize with variables, not hardcoded styles
 - **Validate CSS** - Run validation script on custom styles
 - **Document compositions** - Note which fpkit components you're using in JSDoc
 - **Test integration** - Test how composed components work together
+- **Add tooltips to disabled buttons** - fpkit's `aria-disabled` pattern allows this!
 
 ### ❌ Don't
 
 - **Don't duplicate fpkit** - If it exists in fpkit, use it
 - **Don't break accessibility** - Maintain ARIA and keyboard navigation
+- **Don't use `onPointerDown` alone** - It doesn't fire for keyboard users
+- **Don't override `disabled` handling** - Trust fpkit's `aria-disabled` pattern
 - **Don't use px units** - Always use rem
 - **Don't over-compose** - Keep composition depth ≤ 3 levels
 - **Don't nest interactive elements** - No `<button>` inside `<a>`
 - **Don't ignore polymorphism** - Use `as` prop instead of wrapping
+- **Don't manually add `rel="noopener"` to external links** - fpkit Link does this automatically
 
 ---
 

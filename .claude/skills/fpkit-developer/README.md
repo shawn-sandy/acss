@@ -326,7 +326,8 @@ The skill knows about these fpkit components:
 - Input, Field, FieldLabel, FieldInput, FieldTextarea
 
 **Buttons & Actions:**
-- Button
+- Button (with `aria-disabled` pattern, focus management, performance optimized)
+- Link (auto security for external links, ref forwarding, prefetch support)
 
 **Cards:**
 - Card, CardHeader, CardTitle, CardContent, CardFooter
@@ -532,9 +533,16 @@ MIT License - Same as @fpkit/acss
 
 ## Version
 
-**Skill Version:** 0.1.2
+**Skill Version:** 0.1.3
 **Compatible with:** @fpkit/acss v1.x
-**Last Updated:** 2025-11-11
+**Last Updated:** 2025-11-15
+
+### What's New in v0.1.3
+- Enhanced accessibility documentation with `aria-disabled` button pattern details
+- Added Link component security features (automatic `rel="noopener noreferrer"`)
+- Improved event handling best practices (`onClick` vs `onPointerDown`)
+- Added ref forwarding documentation for Links
+- Updated examples to showcase new Button performance optimizations (~90% fewer re-renders)
 
 ---
 
