@@ -69,14 +69,19 @@ cp -r /tmp/fpkit-developer skills/
 
 **Option C: Install via gitpick (Recommended)**
 
-Install directly from GitHub without downloading or extracting ZIP files:
+### User-level installation (available in all projects)
 
 ```bash
-# User-level installation (available in all projects)
 npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
+```
 
-# Project-level installation (for a specific project)
+### Project-specific installation
+
+```bash
 cd /path/to/your/project
+```
+
+```bash
 npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
 ```
 

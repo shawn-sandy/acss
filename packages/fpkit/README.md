@@ -565,13 +565,19 @@ Supercharge your development workflow with the **fpkit-developer** skill for Cla
 
 ### Quick Install
 
-Install the skill directly from GitHub using **gitpick**:
+### User-level installation (available in all projects)
 
 ```bash
-# User-level installation (available in all projects)
 npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
+```
 
-# Project-specific installation
+### Project-specific installation
+
+```bash
+cd /path/to/your/project
+```
+
+```bash
 npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
 ```
 

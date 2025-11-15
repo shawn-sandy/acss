@@ -65,16 +65,24 @@ rm -rf acss
 
 The fastest and easiest way to install directly from GitHub:
 
-```bash
-# User-level installation (available in all projects)
-npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
+### User-level installation (available in all projects)
 
-# Project-specific installation
+```bash
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
+```
+
+### Project-specific installation
+
+```bash
 cd /path/to/your/project
+```
+
+```bash
 npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
 ```
 
 **Why gitpick?**
+
 - ✅ Single command - no ZIP download or extraction
 - ✅ Selective cloning - only downloads the skill folder
 - ✅ Zero dependencies - lightweight and fast (<35kb)
@@ -105,6 +113,7 @@ pnpm add @fpkit/acss
 The skill activates automatically when you're working in a project using @fpkit/acss.
 
 **Trigger phrases:**
+
 - "Build a custom component using fpkit"
 - "Create a [component name] with @fpkit/acss"
 - "Compose a [feature] from fpkit components"
@@ -138,6 +147,7 @@ The skill activates automatically when you're working in a project using @fpkit/
 > ```
 >
 > This composition:
+>
 > - ✅ Extends Button props with TypeScript
 > - ✅ Preserves all fpkit Button functionality
 > - ✅ Maintains accessibility (ARIA, keyboard support)
@@ -189,6 +199,7 @@ The skill activates automatically when you're working in a project using @fpkit/
 > ⚠️  Add `aria-label` if using icon-only button
 >
 > Example with accessibility:
+>
 > ```tsx
 > <StatusButton
 >   status="active"
@@ -199,6 +210,7 @@ The skill activates automatically when you're working in a project using @fpkit/
 > ```
 >
 > Run automated testing:
+>
 > ```tsx
 > import { axe, toHaveNoViolations } from 'jest-axe'
 >
@@ -249,6 +261,7 @@ python ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py .
 ```
 
 **What it checks:**
+
 - ✅ Naming pattern: `--{component}-{property}`
 - ✅ rem units (not px)
 - ✅ Approved abbreviations: `bg`, `fs`, `fw`, `radius`, `gap`
@@ -297,12 +310,14 @@ Keep documentation up-to-date with the latest fpkit guides:
 ```
 
 **When to sync:**
+
 - After updating @fpkit/acss to a new version
 - When fpkit documentation is updated
 - Periodically to ensure you have the latest patterns and examples
 
 **Configuration:**
 Edit `config.json` to customize documentation source:
+
 - `docsSource`: "local" (default) or "online"
 - `onlineDocsUrl`: GitHub raw URL for online fallback
 - `fpkitDocsPath`: Relative path to fpkit docs in monorepo
@@ -344,34 +359,44 @@ fpkit-developer/
 The skill knows about these fpkit components:
 
 **Layout:**
+
 - Header, Main, Footer, Aside, Nav
 
 **Content:**
+
 - Heading, Text, Badge, Tag
 
 **Forms:**
+
 - Input, Field, FieldLabel, FieldInput, FieldTextarea
 
 **Buttons & Actions:**
+
 - Button (with `aria-disabled` pattern, focus management, performance optimized)
 - Link (auto security for external links, ref forwarding, prefetch support)
 
 **Cards:**
+
 - Card, CardHeader, CardTitle, CardContent, CardFooter
 
 **Dialogs:**
+
 - Dialog, Modal
 
 **Feedback:**
+
 - Alert
 
 **Data Display:**
+
 - Table, List
 
 **Interactive:**
+
 - Details, Popover
 
 **Icons:**
+
 - Icon library
 
 ---
@@ -388,6 +413,7 @@ The skill knows about these fpkit components:
    - Dialog (for the confirmation modal)
 
 3. **Composes solution:**
+
    ```tsx
    import { Button, Dialog } from '@fpkit/acss'
    import { useState } from 'react'
@@ -404,6 +430,7 @@ The skill knows about these fpkit components:
    - Focus management ✅
 
 5. **Provides usage example:**
+
    ```tsx
    <ConfirmButton
      variant="danger"
@@ -419,6 +446,7 @@ The skill knows about these fpkit components:
    > "How do I make the buttons larger and change the primary color?"
 
 2. **Claude Code provides CSS variable solution:**
+
    ```css
    :root {
      --btn-padding-inline: 2rem;
@@ -429,6 +457,7 @@ The skill knows about these fpkit components:
    ```
 
 3. **Validates your custom CSS** (if needed):
+
    ```bash
    python scripts/validate_css_vars.py styles/
    ```
@@ -445,6 +474,7 @@ The skill knows about these fpkit components:
    - Color contrast ✅
 
 3. **Suggests automated testing:**
+
    ```tsx
    import { axe, toHaveNoViolations } from 'jest-axe'
    // ... test code
@@ -457,24 +487,29 @@ The skill knows about these fpkit components:
 The skill helps you follow these best practices:
 
 ### ✅ Composition Over Duplication
+
 - Reuse fpkit components instead of creating from scratch
 - Compose 2-3 fpkit components to build complex UIs
 
 ### ✅ Type Safety
+
 - Extend fpkit prop types with TypeScript
 - Preserve all fpkit functionality with `...props` spreading
 
 ### ✅ Accessibility
+
 - Maintain ARIA attributes from fpkit
 - Support keyboard navigation
 - Ensure color contrast meets WCAG AA
 
 ### ✅ Styling Conventions
+
 - Use CSS variables for customization
 - Use rem units (not px)
 - Follow naming pattern: `--{component}-{property}`
 
 ### ✅ Testing
+
 - Focus on testing your composition logic
 - Trust fpkit's internal testing
 - Use jest-axe for accessibility testing
@@ -486,6 +521,7 @@ The skill helps you follow these best practices:
 ### Skill Not Activating
 
 1. **Check installation path:**
+
    ```bash
    ls ~/.claude/skills/fpkit-developer/SKILL.md
    ```
@@ -493,6 +529,7 @@ The skill helps you follow these best practices:
 2. **Restart Claude Code** after installation
 
 3. **Verify @fpkit/acss is installed:**
+
    ```bash
    npm list @fpkit/acss
    ```
@@ -500,16 +537,19 @@ The skill helps you follow these best practices:
 ### Validation Script Not Working
 
 1. **Check Python version:**
+
    ```bash
    python --version  # Should be 3.7+
    ```
 
 2. **Make script executable:**
+
    ```bash
    chmod +x ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py
    ```
 
 3. **Run with python3 explicitly:**
+
    ```bash
    python3 ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py styles/
    ```
@@ -541,11 +581,13 @@ This skill is part of the @fpkit/acss project. To suggest improvements:
 ## Resources
 
 ### Official Documentation
+
 - **[fpkit Docs](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/docs)** - Complete documentation
 - **[Storybook](https://fpkit.netlify.app/)** - Interactive component examples
 - **[npm Package](https://www.npmjs.com/package/@fpkit/acss)** - Installation and API reference
 
 ### Learning Resources
+
 - **[WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - Accessibility standards
 - **[React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)** - TypeScript patterns
 - **[Testing Library](https://testing-library.com/)** - Testing best practices
@@ -565,6 +607,7 @@ MIT License - Same as @fpkit/acss
 **Last Updated:** 2025-11-15
 
 ### What's New in v0.1.3
+
 - Enhanced accessibility documentation with `aria-disabled` button pattern details
 - Added Link component security features (automatic `rel="noopener noreferrer"`)
 - Improved event handling best practices (`onClick` vs `onPointerDown`)
