@@ -1,13 +1,13 @@
 # fpkit-developer - Installation Guide
 
-**Version:** 0.1.2
-**Package Date:** 2025-11-11
+**Version:** 0.1.6
+**Package Date:** 2025-11-15
 
 ## Overview
 
 This package contains the **fpkit-developer** skill for Claude Code. This skill provides:
 
-> A Claude Code skill for building applications with @fpkit/acss components
+> Guide for building applications with @fpkit/acss components. This skill should be used when composing custom React components from fpkit primitives, validating CSS variable naming conventions, extending fpkit components with custom behavior, or ensuring accessibility compliance in fpkit-based applications. Use when the user needs help with component composition patterns, CSS customization, or accessibility testing. Not for developing the @fpkit/acss library itself.
 
 ## Prerequisites
 
@@ -23,14 +23,14 @@ Before installing this skill, ensure you have:
 
 You should have the following file:
 ```
-fpkit-developer-v0.1.2.zip
+fpkit-developer-v0.1.6.zip
 ```
 
 ### 2. Extract the Archive
 
 **On macOS/Linux:**
 ```bash
-unzip fpkit-developer-v0.1.2.zip -d /tmp/
+unzip fpkit-developer-v0.1.6.zip -d /tmp/
 ```
 
 **On Windows:**
@@ -67,35 +67,15 @@ mkdir -p skills/
 cp -r /tmp/fpkit-developer skills/
 ```
 
-**Option C: Install via gitpick (Recommended)**
-
-### User-level installation (available in all projects)
-
-```bash
-npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
-```
-
-### Project-specific installation
-
-```bash
-cd /path/to/your/project
-```
-
-```bash
-npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
-```
-
-**Benefits of gitpick:**
-- ✅ Single command installation
-- ✅ No ZIP download or extraction needed
-- ✅ Always get the latest version from GitHub
-- ✅ Works with both public and private repositories
-
-**What is gitpick?** A lightweight tool for selective cloning from GitHub repositories. Learn more at [github.com/nrjdalal/gitpick](https://github.com/nrjdalal/gitpick).
-
 ### 4. Verify Installation
 
-To confirm the skill is installed correctly, check the skills directory:
+To confirm the skill is installed correctly:
+
+1. Open Claude Code in your terminal or project
+2. Type `/` to see available commands
+3. Look for **fpkit-developer** in the available skills list
+
+Alternatively, check the skills directory:
 
 ```bash
 # For user-level installation
@@ -113,7 +93,7 @@ ls ~/.claude/skills/fpkit-developer
 - [ ] ZIP file extracted successfully
 - [ ] Skill folder copied to `~/.claude/skills/` or project `skills/` directory
 - [ ] SKILL.md file exists in the skill folder
-- [ ] Valid YAML frontmatter in SKILL.md (name and description fields)
+- [ ] Skill appears in Claude Code's available skills
 - [ ] No error messages when Claude Code starts
 
 ## Compatibility
@@ -124,16 +104,15 @@ ls ~/.claude/skills/fpkit-developer
 
 ## Troubleshooting
 
-### Skill Not Loading
+### Skill Not Appearing
 
-**Problem:** The skill is not being invoked or recognized by Claude Code.
+**Problem:** The skill doesn't show up in Claude Code's available skills.
 
 **Solutions:**
-1. Verify the skill folder is in the correct location (`~/.claude/skills/` or project `skills/`)
-2. Check that SKILL.md exists and has valid YAML frontmatter with `name:` and `description:` fields
-3. Ensure the directory name matches the skill name in the YAML frontmatter
-4. Restart Claude Code to reload skills
-5. Check Claude Code logs for errors or validation warnings
+1. Verify the skill folder is in the correct location (`~/.claude/skills/`)
+2. Check that SKILL.md exists and has valid YAML frontmatter
+3. Restart Claude Code
+4. Check Claude Code logs for errors
 
 ### Permission Errors
 
@@ -198,8 +177,8 @@ rm -rf /path/to/project/skills/fpkit-developer
 ## Version Information
 
 - **Skill Name:** fpkit-developer
-- **Version:** 0.1.2
-- **Installation Date:** 2025-11-11
+- **Version:** 0.1.6
+- **Installation Date:** 2025-11-15
 
 ---
 

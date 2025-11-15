@@ -1,11 +1,11 @@
 # fpkit-developer - User Guide
 
-**Version:** 0.1.3
+**Version:** 0.1.6
 **Last Updated:** 2025-11-15
 
 ## What is fpkit-developer?
 
-A Claude Code skill for building applications with @fpkit/acss components
+Guide for building applications with @fpkit/acss components. This skill should be used when composing custom React components from fpkit primitives, validating CSS variable naming conventions, extending fpkit components with custom behavior, or ensuring accessibility compliance in fpkit-based applications. Use when the user needs help with component composition patterns, CSS customization, or accessibility testing. Not for developing the @fpkit/acss library itself.
 
 This skill extends Claude Code's capabilities by providing specialized knowledge and workflows tailored to specific tasks. When invoked, Claude can leverage this skill's expertise to help you accomplish your goals more efficiently.
 
@@ -211,22 +211,14 @@ Skills can be modified to fit your specific needs:
 
 ## Version History
 
-**Current Version:** 0.1.3
-- Enhanced accessibility documentation with `aria-disabled` button pattern details
-- Added Link component security features (automatic `rel="noopener noreferrer"`)
-- Improved event handling best practices (`onClick` vs `onPointerDown`)
-- Added ref forwarding documentation for Links
-- Updated examples to showcase new Button performance optimizations
-
-**Version 0.1.2**
-- Initial release with core composition patterns and CSS variable validation
+**Current Version:** 0.1.6
 
 To check for updates or newer versions of this skill, consult the original source or distribution channel where you obtained the package.
 
 ## Skill Information
 
 - **Skill Name:** fpkit-developer
-- **Version:** 0.1.3
+- **Version:** 0.1.6
 - **Installation Directory:** `~/.claude/skills/fpkit-developer/`
 
 ## Getting More Help
