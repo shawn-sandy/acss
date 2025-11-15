@@ -551,6 +551,66 @@ Comprehensive guides to help you build accessible, maintainable applications wit
 **Testing components?**
 → Follow [Testing Guide](docs/guides/testing.md)
 
+## 🤖 Claude Code Skill
+
+Supercharge your development workflow with the **fpkit-developer** skill for Claude Code! This AI assistant skill helps you build applications using @fpkit/acss components with best practices baked in.
+
+### What the Skill Does
+
+- ✅ **Component Composition** - Get guidance on composing custom components from fpkit primitives
+- ✅ **CSS Variable Validation** - Automatically validate your custom styles against fpkit naming conventions
+- ✅ **Accessibility Assistance** - Maintain WCAG 2.1 Level AA compliance with automated checks
+- ✅ **TypeScript Support** - Type-safe component compositions with proper prop inheritance
+- ✅ **Testing Guidance** - Best practices for testing fpkit-based components
+
+### Quick Install
+
+### User-level installation (available in all projects)
+
+```bash
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
+```
+
+### Project-specific installation
+
+```bash
+cd /path/to/your/project
+```
+
+```bash
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
+```
+
+**What is gitpick?** A lightweight tool (<35kb) for selective cloning from GitHub repositories. Learn more at [github.com/nrjdalal/gitpick](https://github.com/nrjdalal/gitpick).
+
+### Usage Examples
+
+Once installed, the skill activates automatically when working with @fpkit/acss:
+
+**Compose a Custom Component:**
+```
+You: "Create a StatusButton that combines Button and Badge from fpkit"
+Claude: [Provides composition with proper TypeScript types and accessibility]
+```
+
+**Validate Your Styles:**
+```
+You: "Check if my CSS variables follow fpkit conventions"
+Claude: [Validates naming patterns, units, and provides fixes]
+```
+
+**Ensure Accessibility:**
+```
+You: "Review this component for WCAG AA compliance"
+Claude: [Analyzes semantic HTML, ARIA, keyboard nav, and color contrast]
+```
+
+### Learn More
+
+- **[Full Skill Documentation](../../.claude/skills/fpkit-developer/README.md)** - Complete usage guide and examples
+- **[Reference Guides](../../.claude/skills/fpkit-developer/references/)** - Composition patterns, CSS variables, accessibility, and more
+- **Requirements:** Claude Code, @fpkit/acss installed in your project
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.

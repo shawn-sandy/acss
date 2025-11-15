@@ -162,6 +162,28 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   }
 );
 
+export const IconLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, icon, ...props }, ref) => {
+    return (
+      <Link ref={ref} href={href} {...props}>
+        {icon}
+      </Link>
+    );
+  }
+);
+
+export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, children, ...props }, ref) => {
+    return (
+      <Link ref={ref} href={href} {...props}>
+        {children}
+      </Link>
+    );
+  }
+);
+
+IconLink.displayName = "IconLink";
+LinkButton.displayName = "LinkButton";
 Link.displayName = "Link";
 
 export default Link;

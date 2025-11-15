@@ -1,7 +1,8 @@
+import React from "react";
 import { StoryObj, Meta } from "@storybook/react-vite";
 import { within, expect, userEvent, fn } from "storybook/test";
 import { useRef, useEffect } from "react";
-import Link from "./link";
+import Link, { IconLink, LinkButton } from "./link";
 import type { LinkProps } from "./link.types";
 import "../../styles/link/link.css";
 
@@ -41,7 +42,29 @@ const meta = {
       description: {
         component: `A semantic, accessible anchor component with enhanced security for external links and flexible styling variants.
 
+## Features
+
+- **Automatic Security**: External links (\`target="_blank"\`) automatically get \`rel="noopener noreferrer"\`
+- **WCAG 2.1 AA Compliant**: Focus indicators, semantic HTML, keyboard navigation
+- **Flexible Styling**: Text links, button-styled links, and pill variants
+- **Performance**: Optional prefetch hints for faster navigation
+- **Ref Forwarding**: Direct DOM access for focus management
+- **Type-Safe**: Full TypeScript support with comprehensive prop types
+
+## Exported Components
+
+### Link (default)
+Main component for creating semantic anchor elements with enhanced features.
+
+### IconLink
+Specialized component for icon-only or icon-with-text links.
+
+### LinkButton
+Convenience component for button-styled links.
+
 ## CSS Variables
+
+All units use **rem** (not px). Base: 1rem = 16px.
 
 ### Typography & Color
 - \`--link-color\`: Link text color (default: #085ab7)
@@ -50,32 +73,40 @@ const meta = {
 
 ### Text Decoration
 - \`--link-decoration\`: Text decoration style (default: none, underline on hover/focus)
-- \`--link-decoration-offset\`: Underline offset (default: 0.09375rem / 1.5px)
-- \`--link-decoration-thickness\`: Underline thickness (default: 0.0625rem / 1px)
+- \`--link-decoration-offset\`: Underline offset (default: 0.09375rem)
+- \`--link-decoration-thickness\`: Underline thickness (default: 0.0625rem)
 - \`--link-skip-ink\`: Text decoration skip ink (default: auto)
 
 ### Background & Border
 - \`--link-bg\`: Background color (default: transparent)
 - \`--link-radius\`: Border radius (default: 0.25rem, 99rem for pills)
 
-### Spacing (Button Variants)
+### Spacing
 - \`--link-padding-inline\`: Horizontal padding (default: 0, calculated for button variants)
 - \`--link-padding-block\`: Vertical padding (default: 0, calculated for button variants)
 
 ### Focus Indicators (WCAG 2.4.7)
 - \`--link-focus-color\`: Focus outline color (default: currentColor)
-- \`--link-focus-width\`: Focus outline width (default: 0.125rem / 2px)
-- \`--link-focus-offset\`: Focus outline offset (default: 0.125rem / 2px)
+- \`--link-focus-width\`: Focus outline width (default: 0.125rem)
+- \`--link-focus-offset\`: Focus outline offset (default: 0.125rem)
 - \`--link-focus-style\`: Focus outline style (default: solid)
 
 ### Transitions
 - \`--link-transition\`: Transition timing (default: all 0.75s ease-in-out)
 
-### Button Variants
+### Button Variant Variables
+Applied when using \`btnStyle\` prop, \`data-btn\` attribute, or \`<b>\`/\`<i>\` wrappers:
 - \`--link-button-color\`: Button link text color (default: var(--link-color))
-- \`--link-border-width\`: Button border width (default: 0.125rem / 2px)
+- \`--link-border-width\`: Button border width (default: 0.125rem)
 - \`--link-border-color\`: Button border color (default: currentColor)
 - \`--link-border-style\`: Button border style (default: solid)
+
+## Usage Patterns
+
+### Button Styling (3 ways)
+1. **btnStyle prop**: \`<Link href="/signup" btnStyle="btn">Sign Up</Link>\`
+2. **Wrapper elements**: \`<Link href="/signup"><b>Sign Up</b></Link>\` (button) or \`<Link href="/signup"><i>Sign Up</i></Link>\` (pill)
+3. **Direct attribute**: \`<Link href="/signup" data-btn>Sign Up</Link>\`
 `,
       },
     },
@@ -454,6 +485,172 @@ export const WithBothHandlers: Story = {
       description: {
         story:
           "Use both handlers when you need comprehensive tracking: `onClick` captures all activations, while `onPointerDown` provides pointer-specific data.",
+      },
+    },
+  },
+};
+
+/**
+ * Button-styled link using btnStyle prop.
+ * Demonstrates direct usage of the btnStyle prop instead of wrapper elements.
+ */
+export const WithBtnStyleProp: Story = {
+  args: {
+    href: "/dashboard",
+    btnStyle: "btn",
+    children: "Go to Dashboard",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use the `btnStyle` prop to apply button styling directly. This sets the `data-btn` attribute on the link element.",
+      },
+    },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByRole("link");
+
+    // Verify btnStyle creates data-btn attribute
+    expect(link).toHaveAttribute("data-btn", "btn");
+    expect(link).toHaveTextContent("Go to Dashboard");
+  },
+};
+
+/**
+ * IconLink component for icon-based navigation.
+ * Specialized component for links with icons.
+ */
+export const IconLinkComponent: Story = {
+  render: () => (
+    <IconLink
+      href="/home"
+      aria-label="Return to homepage"
+      icon={
+        <svg
+          aria-hidden="true"
+          width="20"
+          height="20"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+        >
+          <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+        </svg>
+      }
+    >
+      {null}
+    </IconLink>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The `IconLink` component is a convenience wrapper for icon-based links. Always include an `aria-label` for accessibility and set `aria-hidden='true'` on the icon.",
+      },
+    },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByRole("link");
+
+    // Verify accessible name
+    expect(link).toHaveAccessibleName("Return to homepage");
+
+    // Verify icon is hidden from screen readers
+    const svg = link.querySelector("svg");
+    expect(svg).toHaveAttribute("aria-hidden", "true");
+  },
+};
+
+/**
+ * IconLink with text label.
+ * Icon link with visible text alongside the icon.
+ */
+export const IconLinkWithText: Story = {
+  render: () => (
+    <IconLink
+      href="/downloads"
+      icon={
+        <svg
+          aria-hidden="true"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          style={{ marginRight: "0.5rem" }}
+        >
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+        </svg>
+      }
+    >
+      Download Files
+    </IconLink>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "IconLink can contain both an icon and text. The icon is passed via the `icon` prop, and text is provided as children.",
+      },
+    },
+  },
+};
+
+/**
+ * LinkButton component for call-to-action links.
+ * Convenience component that applies button styling automatically.
+ */
+export const LinkButtonComponent: Story = {
+  render: () => (
+    <LinkButton href="/get-started">
+      <b>Get Started Free</b>
+    </LinkButton>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The `LinkButton` component is a convenience wrapper for button-styled links. It maintains semantic `<a>` element while providing button appearance.",
+      },
+    },
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByRole("link");
+
+    // Verify it's still a semantic anchor
+    expect(link.tagName).toBe("A");
+    expect(link).toHaveAttribute("href", "/get-started");
+    expect(link).toHaveTextContent("Get Started Free");
+  },
+};
+
+/**
+ * LinkButton with custom styling.
+ * Demonstrates CSS variable overrides on LinkButton.
+ */
+export const LinkButtonCustom: Story = {
+  render: () => {
+    const customStyles: React.CSSProperties = {
+      "--link-button-color": "#ffffff",
+      "--link-bg": "#0066cc",
+      "--link-border-color": "#0066cc",
+      "--link-radius": "0.5rem",
+    } as React.CSSProperties;
+
+    return (
+      <LinkButton href="/signup" styles={customStyles}>
+        <b>Sign Up Now</b>
+      </LinkButton>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "LinkButton styling can be customized using CSS custom properties for colors, borders, and border radius.",
       },
     },
   },

@@ -67,6 +67,32 @@ mkdir -p skills/
 cp -r /tmp/fpkit-developer skills/
 ```
 
+**Option C: Install via gitpick (Recommended)**
+
+### User-level installation (available in all projects)
+
+```bash
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
+```
+
+### Project-specific installation
+
+```bash
+cd /path/to/your/project
+```
+
+```bash
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
+```
+
+**Benefits of gitpick:**
+- ✅ Single command installation
+- ✅ No ZIP download or extraction needed
+- ✅ Always get the latest version from GitHub
+- ✅ Works with both public and private repositories
+
+**What is gitpick?** A lightweight tool for selective cloning from GitHub repositories. Learn more at [github.com/nrjdalal/gitpick](https://github.com/nrjdalal/gitpick).
+
 ### 4. Verify Installation
 
 To confirm the skill is installed correctly, check the skills directory:

@@ -6,7 +6,8 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 **Build applications with @fpkit/acss using Claude Code assistance**
 
-A portable Claude Code skill for developers using the @fpkit/acss component library in their applications.
+A portable Claude Code skill for developers using the @fpkit/acss component
+library in their applications.
 
 ---
 
@@ -14,11 +15,10 @@ A portable Claude Code skill for developers using the @fpkit/acss component libr
 
 This skill helps you:
 
-✅ **Compose custom components** from fpkit primitives
-✅ **Validate CSS variables** against fpkit conventions
-✅ **Maintain accessibility** (WCAG 2.1 Level AA)
-✅ **Follow best practices** for component composition
-✅ **TypeScript support** for type-safe compositions
+✅ **Compose custom components** from fpkit primitives ✅ **Validate CSS
+variables** against fpkit conventions ✅ **Maintain accessibility** (WCAG 2.1
+Level AA) ✅ **Follow best practices** for component composition ✅ **TypeScript
+support** for type-safe compositions
 
 ---
 
@@ -42,6 +42,36 @@ cp -r /path/to/fpkit-developer ./.claude/skills/
 ls ~/.claude/skills/fpkit-developer/
 # Should show: README.md  SKILL.md  references/  scripts/
 ```
+
+### Option 3: Install via gitpick (Recommended)
+
+The fastest and easiest way to install directly from GitHub:
+
+### User-level installation (available in all projects)
+
+```bash
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
+```
+
+### Project-specific installation
+
+```bash
+cd /path/to/your/project
+```
+
+```bash
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
+```
+
+**Why gitpick?**
+
+- ✅ Single command - no ZIP download or extraction
+- ✅ Selective cloning - only downloads the skill folder
+- ✅ Zero dependencies - lightweight and fast (`<35kb`)
+- ✅ Always up-to-date - pulls latest version from GitHub
+
+**Learn more:**
+[github.com/nrjdalal/gitpick](https://github.com/nrjdalal/gitpick)
 
 3. **Restart Claude Code** to load the skill.
 
@@ -79,9 +109,11 @@ pnpm add @fpkit/acss
 
 ### Activating the Skill
 
-The skill activates automatically when you're working in a project using @fpkit/acss.
+The skill activates automatically when you're working in a project using
+@fpkit/acss.
 
 **Trigger phrases:**
+
 - "Build a custom component using fpkit"
 - "Create a [component name] with @fpkit/acss"
 - "Compose a [feature] from fpkit components"
@@ -92,29 +124,37 @@ The skill activates automatically when you're working in a project using @fpkit/
 #### Example 1: Composing a StatusButton
 
 **You:**
+
 > Create a StatusButton component that combines Button and Badge from fpkit
 
 **Claude Code:**
+
 > I'll help you create a StatusButton by composing fpkit components.
 >
 > ```tsx
-> import { Button, Badge } from '@fpkit/acss'
+> import { Button, Badge } from "@fpkit/acss";
 >
-> export interface StatusButtonProps extends React.ComponentProps<typeof Button> {
->   status: 'active' | 'inactive' | 'pending'
+> export interface StatusButtonProps
+>   extends React.ComponentProps<typeof Button> {
+>   status: "active" | "inactive" | "pending";
 > }
 >
-> export const StatusButton = ({ status, children, ...props }: StatusButtonProps) => {
+> export const StatusButton = ({
+>   status,
+>   children,
+>   ...props
+> }: StatusButtonProps) => {
 >   return (
 >     <Button {...props}>
 >       {children}
 >       <Badge variant={status}>{status}</Badge>
 >     </Button>
->   )
-> }
+>   );
+> };
 > ```
 >
 > This composition:
+>
 > - ✅ Extends Button props with TypeScript
 > - ✅ Preserves all fpkit Button functionality
 > - ✅ Maintains accessibility (ARIA, keyboard support)
@@ -123,17 +163,19 @@ The skill activates automatically when you're working in a project using @fpkit/
 #### Example 2: Custom Styling
 
 **You:**
+
 > How do I customize the button padding in my StatusButton?
 
 **Claude Code:**
+
 > You can customize fpkit components using CSS variables:
 >
 > ```tsx
 > <StatusButton
 >   status="active"
 >   style={{
->     '--btn-padding-inline': '2rem',
->     '--btn-padding-block': '1rem',
+>     "--btn-padding-inline": "2rem",
+>     "--btn-padding-block": "1rem",
 >   }}
 > >
 >   Server Status
@@ -155,37 +197,38 @@ The skill activates automatically when you're working in a project using @fpkit/
 #### Example 3: Accessibility Check
 
 **You:**
+
 > Is this component accessible?
 
 **Claude Code:**
+
 > Let me check accessibility:
 >
-> ✅ Uses semantic Button element
-> ✅ Inherits keyboard navigation
-> ✅ Maintains focus indicators
-> ⚠️  Add `aria-label` if using icon-only button
+> ✅ Uses semantic Button element ✅ Inherits keyboard navigation ✅ Maintains
+> focus indicators ⚠️ Add `aria-label` if using icon-only button
 >
 > Example with accessibility:
+>
 > ```tsx
-> <StatusButton
->   status="active"
->   aria-label="Server status: active"
-> >
+> <StatusButton status="active" aria-label="Server status: active">
 >   <ServerIcon aria-hidden="true" />
 > </StatusButton>
 > ```
 >
 > Run automated testing:
+>
 > ```tsx
-> import { axe, toHaveNoViolations } from 'jest-axe'
+> import { axe, toHaveNoViolations } from "jest-axe";
 >
-> expect.extend(toHaveNoViolations)
+> expect.extend(toHaveNoViolations);
 >
-> it('should not have accessibility violations', async () => {
->   const { container } = render(<StatusButton status="active">Server</StatusButton>)
->   const results = await axe(container)
->   expect(results).toHaveNoViolations()
-> })
+> it("should not have accessibility violations", async () => {
+>   const { container } = render(
+>     <StatusButton status="active">Server</StatusButton>
+>   );
+>   const results = await axe(container);
+>   expect(results).toHaveNoViolations();
+> });
 > ```
 
 ---
@@ -226,10 +269,12 @@ python ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py .
 ```
 
 **What it checks:**
+
 - ✅ Naming pattern: `--{component}-{property}`
 - ✅ rem units (not px)
 - ✅ Approved abbreviations: `bg`, `fs`, `fw`, `radius`, `gap`
-- ✅ Full words for: `padding`, `margin`, `color`, `border`, `display`, `width`, `height`
+- ✅ Full words for: `padding`, `margin`, `color`, `border`, `display`, `width`,
+  `height`
 
 ### 3. Reference Documentation
 
@@ -256,6 +301,7 @@ cat ~/.claude/skills/fpkit-developer/references/storybook.md
 ```
 
 Or ask Claude Code to reference them:
+
 > "Show me composition patterns from the fpkit skill"
 
 ### 4. Documentation Sync
@@ -274,12 +320,13 @@ Keep documentation up-to-date with the latest fpkit guides:
 ```
 
 **When to sync:**
+
 - After updating @fpkit/acss to a new version
 - When fpkit documentation is updated
 - Periodically to ensure you have the latest patterns and examples
 
-**Configuration:**
-Edit `config.json` to customize documentation source:
+**Configuration:** Edit `config.json` to customize documentation source:
+
 - `docsSource`: "local" (default) or "online"
 - `onlineDocsUrl`: GitHub raw URL for online fallback
 - `fpkitDocsPath`: Relative path to fpkit docs in monorepo
@@ -309,10 +356,11 @@ fpkit-developer/
 
 ## Compatibility
 
-- **@fpkit/acss:** v1.x
+- **@fpkit/acss:** v1.0.0+
 - **Claude Code:** Latest version
 - **Python:** 3.7+ (for validation script)
-- **Node.js:** 18+ (for npm package)
+- **Node.js:** 22.12.0+ (for npm package)
+- **Storybook:** 10.x (if using in monorepo)
 
 ---
 
@@ -321,33 +369,43 @@ fpkit-developer/
 The skill knows about these fpkit components:
 
 **Layout:**
+
 - Header, Main, Footer, Aside, Nav
 
 **Content:**
+
 - Heading, Text, Badge, Tag
 
 **Forms:**
+
 - Input, Field, FieldLabel, FieldInput, FieldTextarea
 
 **Buttons & Actions:**
+
 - Button
 
 **Cards:**
+
 - Card, CardHeader, CardTitle, CardContent, CardFooter
 
 **Dialogs:**
+
 - Dialog, Modal
 
 **Feedback:**
+
 - Alert
 
 **Data Display:**
+
 - Table, List
 
 **Interactive:**
+
 - Details, Popover
 
 **Icons:**
+
 - Icon library
 
 ---
@@ -357,34 +415,36 @@ The skill knows about these fpkit components:
 ### Workflow 1: Build a Custom Component
 
 1. **Describe what you want:**
-   > "Create a ConfirmButton that shows a confirmation dialog before executing an action"
+
+   > "Create a ConfirmButton that shows a confirmation dialog before executing
+   > an action"
 
 2. **Claude Code identifies fpkit components:**
+
    - Button (for the trigger)
    - Dialog (for the confirmation modal)
 
 3. **Composes solution:**
+
    ```tsx
-   import { Button, Dialog } from '@fpkit/acss'
-   import { useState } from 'react'
+   import { Button, Dialog } from "@fpkit/acss";
+   import { useState } from "react";
 
    export const ConfirmButton = ({ onConfirm, children, ...props }) => {
-     const [showConfirm, setShowConfirm] = useState(false)
+     const [showConfirm, setShowConfirm] = useState(false);
      // ... implementation
-   }
+   };
    ```
 
 4. **Validates accessibility:**
+
    - Keyboard navigation ✅
    - ARIA attributes ✅
    - Focus management ✅
 
 5. **Provides usage example:**
    ```tsx
-   <ConfirmButton
-     variant="danger"
-     onConfirm={handleDelete}
-   >
+   <ConfirmButton variant="danger" onConfirm={handleDelete}>
      Delete Account
    </ConfirmButton>
    ```
@@ -392,9 +452,11 @@ The skill knows about these fpkit components:
 ### Workflow 2: Customize Styling
 
 1. **Ask about customization:**
+
    > "How do I make the buttons larger and change the primary color?"
 
 2. **Claude Code provides CSS variable solution:**
+
    ```css
    :root {
      --btn-padding-inline: 2rem;
@@ -412,9 +474,11 @@ The skill knows about these fpkit components:
 ### Workflow 3: Ensure Accessibility
 
 1. **Request accessibility review:**
+
    > "Check if my component is accessible"
 
 2. **Claude Code reviews:**
+
    - Semantic HTML ✅
    - Keyboard navigation ✅
    - ARIA attributes ⚠️ (suggests improvements)
@@ -422,7 +486,7 @@ The skill knows about these fpkit components:
 
 3. **Suggests automated testing:**
    ```tsx
-   import { axe, toHaveNoViolations } from 'jest-axe'
+   import { axe, toHaveNoViolations } from "jest-axe";
    // ... test code
    ```
 
@@ -433,24 +497,29 @@ The skill knows about these fpkit components:
 The skill helps you follow these best practices:
 
 ### ✅ Composition Over Duplication
+
 - Reuse fpkit components instead of creating from scratch
 - Compose 2-3 fpkit components to build complex UIs
 
 ### ✅ Type Safety
+
 - Extend fpkit prop types with TypeScript
 - Preserve all fpkit functionality with `...props` spreading
 
 ### ✅ Accessibility
+
 - Maintain ARIA attributes from fpkit
 - Support keyboard navigation
 - Ensure color contrast meets WCAG AA
 
 ### ✅ Styling Conventions
+
 - Use CSS variables for customization
 - Use rem units (not px)
 - Follow naming pattern: `--{component}-{property}`
 
 ### ✅ Testing
+
 - Focus on testing your composition logic
 - Trust fpkit's internal testing
 - Use jest-axe for accessibility testing
@@ -462,6 +531,7 @@ The skill helps you follow these best practices:
 ### Skill Not Activating
 
 1. **Check installation path:**
+
    ```bash
    ls ~/.claude/skills/fpkit-developer/SKILL.md
    ```
@@ -476,11 +546,13 @@ The skill helps you follow these best practices:
 ### Validation Script Not Working
 
 1. **Check Python version:**
+
    ```bash
    python --version  # Should be 3.7+
    ```
 
 2. **Make script executable:**
+
    ```bash
    chmod +x ~/.claude/skills/fpkit-developer/scripts/validate_css_vars.py
    ```
@@ -508,7 +580,8 @@ cat ~/.claude/skills/fpkit-developer/references/composition.md
 
 This skill is part of the @fpkit/acss project. To suggest improvements:
 
-1. **Report issues:** [GitHub Issues](https://github.com/shawn-sandy/acss/issues)
+1. **Report issues:**
+   [GitHub Issues](https://github.com/shawn-sandy/acss/issues)
 2. **Suggest features:** Open a discussion on GitHub
 3. **Contribute code:** Submit a pull request
 
@@ -517,13 +590,19 @@ This skill is part of the @fpkit/acss project. To suggest improvements:
 ## Resources
 
 ### Official Documentation
-- **[fpkit Docs](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/docs)** - Complete documentation
+
+- **[fpkit Docs](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/docs)** -
+  Complete documentation
 - **[Storybook](https://fpkit.netlify.app/)** - Interactive component examples
-- **[npm Package](https://www.npmjs.com/package/@fpkit/acss)** - Installation and API reference
+- **[npm Package](https://www.npmjs.com/package/@fpkit/acss)** - Installation
+  and API reference
 
 ### Learning Resources
-- **[WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - Accessibility standards
-- **[React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)** - TypeScript patterns
+
+- **[WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** -
+  Accessibility standards
+- **[React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)** -
+  TypeScript patterns
 - **[Testing Library](https://testing-library.com/)** - Testing best practices
 
 ---
@@ -536,9 +615,8 @@ MIT License - Same as @fpkit/acss
 
 ## Version
 
-**Skill Version:** 1.0.0
-**Compatible with:** @fpkit/acss v1.x
-**Last Updated:** 2025-01-06
+**Skill Version:** 1.0.0 **Compatible with:** @fpkit/acss v1.0.0+ **Last
+Updated:** 2025-11-15
 
 ---
 
