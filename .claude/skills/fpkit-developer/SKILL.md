@@ -1,7 +1,7 @@
 ---
 name: fpkit-developer
 description: Guide for building applications with @fpkit/acss components. This skill should be used when composing custom React components from fpkit primitives, validating CSS variable naming conventions, extending fpkit components with custom behavior, or ensuring accessibility compliance in fpkit-based applications. Use when the user needs help with component composition patterns, CSS customization, or accessibility testing. Not for developing the @fpkit/acss library itself.
-version: 0.1.5
+version: 0.1.6
 ---
 
 # FPKit Developer
