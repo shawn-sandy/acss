@@ -342,12 +342,11 @@ describe("Breadcrumb", () => {
           currentRoute="/products/shirts"
           linkProps={{
             onClick: handleClick,
-            "data-testid": "breadcrumb-link",
           }}
         />
       );
 
-      const links = screen.getAllByTestId("breadcrumb-link");
+      const links = screen.getAllByRole("link");
       expect(links.length).toBeGreaterThan(0);
 
       // Click first link

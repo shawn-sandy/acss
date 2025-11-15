@@ -24,7 +24,7 @@ describe("Link Component", () => {
 
     it("should render with custom classes via UI component", () => {
       render(
-        <Link href="/" classes="custom-link-class">
+        <Link href="/" className="custom-link-class">
           Test
         </Link>
       );
