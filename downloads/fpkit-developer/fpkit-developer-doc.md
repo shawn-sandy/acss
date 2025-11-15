@@ -1,7 +1,7 @@
 # fpkit-developer - User Guide
 
-**Version:** 0.1.2
-**Last Updated:** 2025-11-11
+**Version:** 0.1.3
+**Last Updated:** 2025-11-15
 
 ## What is fpkit-developer?
 
@@ -211,14 +211,22 @@ Skills can be modified to fit your specific needs:
 
 ## Version History
 
-**Current Version:** 0.1.2
+**Current Version:** 0.1.3
+- Enhanced accessibility documentation with `aria-disabled` button pattern details
+- Added Link component security features (automatic `rel="noopener noreferrer"`)
+- Improved event handling best practices (`onClick` vs `onPointerDown`)
+- Added ref forwarding documentation for Links
+- Updated examples to showcase new Button performance optimizations
+
+**Version 0.1.2**
+- Initial release with core composition patterns and CSS variable validation
 
 To check for updates or newer versions of this skill, consult the original source or distribution channel where you obtained the package.
 
 ## Skill Information
 
 - **Skill Name:** fpkit-developer
-- **Version:** 0.1.2
+- **Version:** 0.1.3
 - **Installation Directory:** `~/.claude/skills/fpkit-developer/`
 
 ## Getting More Help

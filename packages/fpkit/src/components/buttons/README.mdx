@@ -93,30 +93,38 @@ export default AdvancedButton;
 
 ### Overview
 
-The Button component now uses an **optimized disabled state implementation** that follows WCAG 2.1 Level AA accessibility guidelines. This update brings significant performance improvements and better accessibility compliance.
+The Button component now uses an **optimized disabled state implementation**
+that follows WCAG 2.1 Level AA accessibility guidelines. This update brings
+significant performance improvements and better accessibility compliance.
 
 ### Key Improvements
 
 #### 1. **ARIA-Disabled Pattern**
 
-Instead of using the native `disabled` attribute, the button uses `aria-disabled`:
+Instead of using the native `disabled` attribute, the button uses
+`aria-disabled`:
 
-- **Stays in tab order** - Screen reader users can discover and navigate to disabled buttons
-- **Allows focus** - Users can still focus disabled buttons to read tooltips or help text
-- **Prevents interactions** - All click/keyboard events are blocked when disabled
+- **Stays in tab order** - Screen reader users can discover and navigate to
+  disabled buttons
+- **Allows focus** - Users can still focus disabled buttons to read tooltips or
+  help text
+- **Prevents interactions** - All click/keyboard events are blocked when
+  disabled
 - **Better styling control** - Meets WCAG AA contrast requirements more easily
 
 #### 2. **Performance Optimizations**
 
 The new `useDisabledState` hook provides:
 
-- **~90% reduction in unnecessary re-renders** compared to previous implementation
+- **~90% reduction in unnecessary re-renders** compared to previous
+  implementation
 - **Stable handler references** - Event handlers don't recreate on every render
 - **Optimized memoization** - Single memoization pass for all props and handlers
 
 #### 3. **Automatic className Merging**
 
-The disabled state now automatically merges your custom classes with the `.is-disabled` class:
+The disabled state now automatically merges your custom classes with the
+`.is-disabled` class:
 
 ```tsx
 // Before: You had to manage className manually
@@ -188,10 +196,12 @@ This implementation follows:
 ### Related
 
 - See [useDisabledState Hook](/docs/hooks/use-disabled-state) for advanced usage
-- See [Accessibility Guide](/docs/guides/accessibility) for WCAG compliance details
+- See [Accessibility Guide](/docs/guides/accessibility) for WCAG compliance
+  details
 
 ## Additional Notes
 
 - Ensure the `type` prop is set to one of `'button'`, `'submit'`, or `'reset'`.
 - The `styles` prop can be used to apply inline styles to the button.
-- The `disabled` prop uses the accessible `aria-disabled` pattern instead of native `disabled` attribute.
+- The `disabled` prop uses the accessible `aria-disabled` pattern instead of
+  native `disabled` attribute.

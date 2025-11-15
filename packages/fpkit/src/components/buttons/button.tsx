@@ -1,8 +1,8 @@
-import UI from '../ui'
-import React from 'react'
-import { useDisabledState } from '../../hooks/use-disabled-state'
-import { resolveDisabledState } from '../../utils/accessibility'
-import type { DisabledStateProps } from '../../types/shared'
+import UI from "../ui";
+import React from "react";
+import { useDisabledState } from "../../hooks/use-disabled-state";
+import { resolveDisabledState } from "../../utils/accessibility";
+import type { DisabledStateProps } from "../../types/shared";
 
 export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
   DisabledStateProps & {
@@ -10,8 +10,8 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
      * The button type
      * Required - 'button' | 'submit' | 'reset'
      */
-    type: 'button' | 'submit' | 'reset'
-  }
+    type: "button" | "submit" | "reset";
+  };
 
 /**
  * Accessible Button component with WCAG 2.1 Level AA compliant disabled state.
@@ -67,7 +67,7 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
  * @see {@link file://./../../hooks/useDisabledState.md useDisabledState Hook Documentation}
  */
 export const Button = ({
-  type = 'button',
+  type = "button",
   children,
   styles,
   disabled,
@@ -81,7 +81,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   // Resolve disabled state from both props (disabled takes precedence)
-  const isActuallyDisabled = resolveDisabledState(disabled, isDisabled)
+  const isActuallyDisabled = resolveDisabledState(disabled, isDisabled);
 
   // Use the disabled state hook with enhanced API for automatic className merging
   const { disabledProps, handlers } = useDisabledState<HTMLButtonElement>(
@@ -97,14 +97,14 @@ export const Button = ({
       // Note: onPointerOver and onPointerLeave are intentionally NOT wrapped
       // to allow hover effects on disabled buttons for visual feedback
     }
-  )
+  );
 
   /* Returning a button element with accessible disabled state */
   return (
     <UI
       as="button"
       type={type}
-      aria-disabled={disabledProps['aria-disabled']}
+      aria-disabled={disabledProps["aria-disabled"]}
       onPointerOver={onPointerOver}
       onPointerLeave={onPointerLeave}
       style={styles}
@@ -114,8 +114,12 @@ export const Button = ({
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
-export default Button
-Button.displayName = 'Button'
+export const IconButton = ({ icon, ...props }: ButtonProps) => {
+  return <Button {...props}>{icon}</Button>;
+};
+
+export default Button;
+Button.displayName = "Button";
