@@ -41,19 +41,46 @@ ls ~/.claude/skills/fpkit-developer/
 
 3. **Restart Claude Code** to load the skill.
 
-### Option 2: Clone from GitHub (Future)
+### Option 2: Clone from GitHub
 
-When this skill is published to GitHub:
+For developers who want to contribute or stay synced with the repository:
 
 ```bash
 # Global installation
 cd ~/.claude/skills/
-git clone https://github.com/shawn-sandy/fpkit-consumer-skill.git fpkit-consumer
+git clone https://github.com/shawn-sandy/acss.git --depth 1 --filter=blob:none --sparse
+cd acss
+git sparse-checkout set .claude/skills/fpkit-developer
+mv .claude/skills/fpkit-developer ../
+cd ..
+rm -rf acss
+
+# Or use a shallow clone and manually extract the skill folder
+git clone --depth 1 https://github.com/shawn-sandy/acss.git
+cp -r acss/.claude/skills/fpkit-developer ~/.claude/skills/
+rm -rf acss
+```
+
+### Option 3: Install via gitpick (Recommended)
+
+The fastest and easiest way to install directly from GitHub:
+
+```bash
+# User-level installation (available in all projects)
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ~/.claude/skills/fpkit-developer
 
 # Project-specific installation
-cd ./.claude/skills/
-git clone https://github.com/shawn-sandy/fpkit-consumer-skill.git fpkit-consumer
+cd /path/to/your/project
+npx gitpick shawn-sandy/acss/tree/main/.claude/skills/fpkit-developer ./.claude/skills/fpkit-developer
 ```
+
+**Why gitpick?**
+- ✅ Single command - no ZIP download or extraction
+- ✅ Selective cloning - only downloads the skill folder
+- ✅ Zero dependencies - lightweight and fast (<35kb)
+- ✅ Always up-to-date - pulls latest version from GitHub
+
+**Learn more:** [github.com/nrjdalal/gitpick](https://github.com/nrjdalal/gitpick)
 
 ---
 
