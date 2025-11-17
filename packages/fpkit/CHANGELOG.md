@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@2.0.0...@fpkit/acss@2.1.0) (2025-11-17)
+
+
+### Features
+
+* **fpkit:** export Alert and UI components in public API ([8bdf309](https://github.com/shawn-sandy/fpkit/commit/8bdf309f579e5cacfb31c5bae1566db22d512eab))
+
+
+
+
+
 # [2.0.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@0.5.8...@fpkit/acss@2.0.0) (2025-11-15)
 
 
