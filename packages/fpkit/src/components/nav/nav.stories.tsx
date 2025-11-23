@@ -5,6 +5,7 @@ import React from "react";
 
 import Nav from "./nav";
 import Link from "../link/link";
+import Button from "../buttons/button";
 
 const meta: Meta<typeof Nav> = {
   title: "FP.REACT Components/Nav",
@@ -60,6 +61,9 @@ const meta: Meta<typeof Nav> = {
         </Nav.Item>
         <Nav.Item>
           <Link href="/">Link 2</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Button type="button">Button</Button>
         </Nav.Item>
       </Nav.List>
     ),
