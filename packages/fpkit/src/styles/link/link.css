@@ -21,11 +21,11 @@ a[href] {
   --link-radius: 0.25rem;
   --link-padding-inline: 0;
   --link-padding-block: 0;
-  --link-transition: all 0.75s ease-in-out;
+  --link-transition: all 0.35s ease-in-out;
   --link-focus-color: currentColor;
   --link-focus-width: 0.125rem;
   --link-focus-offset: 0.125rem;
-  --link-focus-style: solid;
+  --link-focus-style: none;
   color: var(--link-color);
   font-size: var(--link-fs);
   font-weight: var(--link-fw);
@@ -45,14 +45,10 @@ a[href] > b {
 a[href]:hover {
   --link-decoration: underline;
 }
-a[href]:focus {
-  outline: var(--link-focus-width) var(--link-focus-style) var(--link-focus-color);
-  outline-offset: var(--link-focus-offset);
-  --link-decoration: underline;
-}
 a[href]:focus-visible {
   outline: var(--link-focus-width) var(--link-focus-style) var(--link-focus-color);
   outline-offset: var(--link-focus-offset);
+  font-weight: bold;
 }
 a[href]:visited, a[href]:active {
   --link-color: currentColor;

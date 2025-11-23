@@ -1,4 +1,4 @@
-@use '../../sass/mixins';
+@use "../../sass/mixins";
 
 /**
  * Link Component Styles
@@ -33,13 +33,13 @@ a[href] {
   --link-padding-block: 0;
 
   // Transitions
-  --link-transition: all 0.75s ease-in-out;
+  --link-transition: all 0.35s ease-in-out;
 
   // Focus Indicator (WCAG 2.4.7 - 3:1 contrast minimum)
   --link-focus-color: currentColor;
   --link-focus-width: 0.125rem; // 2px
   --link-focus-offset: 0.125rem; // 2px
-  --link-focus-style: solid;
+  --link-focus-style: none;
 
   // Apply base styles
   color: var(--link-color);
@@ -66,18 +66,12 @@ a[href] {
   }
 
   // Focus state - WCAG 2.4.7 compliant focus indicator
-  &:focus {
-    outline: var(--link-focus-width) var(--link-focus-style)
-      var(--link-focus-color);
-    outline-offset: var(--link-focus-offset);
-    --link-decoration: underline;
-  }
-
   // Focus-visible for better UX (only show outline on keyboard focus)
   &:focus-visible {
     outline: var(--link-focus-width) var(--link-focus-style)
       var(--link-focus-color);
     outline-offset: var(--link-focus-offset);
+    font-weight: bold;
   }
 
   // Visited and active states
@@ -130,7 +124,7 @@ a[href] {
   }
 
   // Pill variant (rounded corners)
-  &[data-link~='pill'],
+  &[data-link~="pill"],
   &:has(> i) {
     --link-radius: 99rem;
     --link-decoration: none;

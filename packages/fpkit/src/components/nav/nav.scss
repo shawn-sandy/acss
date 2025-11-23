@@ -24,7 +24,7 @@ body > nav,
       &:hover {
         background-color: var(--nav-hover-bg, #e8e8e8);
       }
-      &:hover:where(img, button) {
+      & > :where(img, button):hover {
         background-color: transparent;
       }
     }
