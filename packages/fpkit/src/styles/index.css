@@ -1606,9 +1606,9 @@ body > nav ul > li:hover,
 .navbar ul > li:hover {
   background-color: var(--nav-hover-bg, #e8e8e8);
 }
-body > nav ul > li:hover:where(img),
-[aria-label~=navbar] ul > li:hover:where(img),
-.navbar ul > li:hover:where(img) {
+body > nav ul > li:hover:where(img, button),
+[aria-label~=navbar] ul > li:hover:where(img, button),
+.navbar ul > li:hover:where(img, button) {
   background-color: transparent;
 }
 
