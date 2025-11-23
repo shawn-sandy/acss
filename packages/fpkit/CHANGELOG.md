@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@2.1.0...@fpkit/acss@2.2.0) (2025-11-23)
+
+
+### Bug Fixes
+
+* **breadcrumbs:** update test to use role instead of data-testid for link elements ([40b266f](https://github.com/shawn-sandy/fpkit/commit/40b266fe1d6fadc7a8b9fedf44cfa0e24bae9d66))
+
+
+### Features
+
+* **fpkit:** export Alert and UI components in public API ([67548f2](https://github.com/shawn-sandy/fpkit/commit/67548f2219ad456358761a21e4f5e44d0a1b70d5))
+* **nav:** enhance hover behavior and update stories with Button component ([076879a](https://github.com/shawn-sandy/fpkit/commit/076879a4cc363df4987ae33d4de7313b82a25643))
+
+
+
+
+
 # [2.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@2.0.0...@fpkit/acss@2.1.0) (2025-11-17)
 
 ### Features
