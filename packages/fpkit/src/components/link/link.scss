@@ -39,7 +39,7 @@ a[href] {
   --link-focus-color: currentColor;
   --link-focus-width: 0.125rem; // 2px
   --link-focus-offset: 0.125rem; // 2px
-  --link-focus-style: none;
+  --link-focus-style: solid;
 
   // Apply base styles
   color: var(--link-color);
