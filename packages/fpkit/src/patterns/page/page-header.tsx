@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Landmarks from '#components/layout/landmarks'
 import Heading from '#components/heading/heading'
-import { Link } from '#components/link/link'
-import { ComponentProps } from '#types'
 
 export enum HeaderVariants {
   Cover = 'cover',

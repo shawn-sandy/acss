@@ -23,7 +23,7 @@ export { Input, type InputProps } from "./components/form/inputs";
 export { Icon, type IconProps } from "./components/icons/icon";
 export { Img } from "./components/images/img";
 export type { ImgProps } from "./components/images/img.types";
-export { Link } from "./components/link/link";
+export { default as Link } from "./components/link/link";
 export type { LinkProps } from "./components/link/link.types";
 export { default as List, type ListProps, type ListItemProps } from "./components/list/list";
 export { Modal, type ModalProps } from "./components/modal/modal";
