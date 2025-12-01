@@ -39,6 +39,8 @@ export type {
   FlexProps,
   FlexItemProps,
   FlexSpacerProps,
+  FlexContainerElement,
+  FlexItemElement,
   FlexDirection,
   FlexWrap,
   FlexJustify,

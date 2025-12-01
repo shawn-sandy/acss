@@ -4,6 +4,31 @@
  */
 
 /**
+ * Valid HTML elements for Flex container
+ * Restricted to semantic container elements only
+ */
+export type FlexContainerElement =
+  | "div"
+  | "section"
+  | "article"
+  | "aside"
+  | "main"
+  | "header"
+  | "footer"
+  | "nav"
+  | "ul"
+  | "ol"
+  | "dl"
+  | "form"
+  | "fieldset";
+
+/**
+ * Valid HTML elements for Flex.Item
+ * Includes list item elements in addition to container elements
+ */
+export type FlexItemElement = FlexContainerElement | "li" | "dt" | "dd";
+
+/**
  * Flex container direction
  */
 export type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
@@ -74,6 +99,16 @@ export interface ResponsiveFlexProps {
 
 /**
  * Base Flex component props
+ *
+ * ## Semantic Elements Only
+ * The `as` prop is restricted to semantic container elements to ensure
+ * proper HTML structure and accessibility. Use only block-level container
+ * elements like div, section, article, or form elements.
+ *
+ * **Allowed elements**: div, section, article, aside, main, header, footer,
+ * nav, ul, ol, dl, form, fieldset
+ *
+ * **Not allowed**: span, a, button, input, or other inline/interactive elements
  */
 export interface FlexProps
   extends ResponsiveFlexProps,
@@ -82,8 +117,11 @@ export interface FlexProps
   variant?: FlexVariant;
   /** Use inline-flex instead of flex */
   inline?: boolean;
-  /** Element type to render as */
-  as?: React.ElementType;
+  /**
+   * Element type to render as
+   * @remarks Restricted to semantic container elements only for proper HTML structure
+   */
+  as?: FlexContainerElement;
   /** Additional CSS class names */
   className?: string;
   /** Inline styles and CSS custom properties */
@@ -102,6 +140,13 @@ export interface FlexProps
 
 /**
  * Flex.Item component props
+ *
+ * ## Semantic Elements
+ * The `as` prop accepts container elements plus list item elements (li, dt, dd)
+ * to support semantic list structures within flex containers.
+ *
+ * **Allowed elements**: div, section, article, aside, main, header, footer,
+ * nav, ul, ol, dl, form, fieldset, li, dt, dd
  */
 export interface FlexItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "className"> {
   /** Flex grow factor */
@@ -116,8 +161,11 @@ export interface FlexItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   alignSelf?: FlexAlignSelf;
   /** Order of the flex item */
   order?: "first" | "last" | "none";
-  /** Element type to render as */
-  as?: React.ElementType;
+  /**
+   * Element type to render as
+   * @remarks Includes list item elements (li, dt, dd) in addition to container elements
+   */
+  as?: FlexItemElement;
   /** Additional CSS class names */
   className?: string;
   /** Inline styles and CSS custom properties */
@@ -145,10 +193,20 @@ export interface FlexItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "
 /**
  * Flex.Spacer component props
  * Creates an auto-expanding spacer element (flex: 1)
+ *
+ * ## Semantic Elements Only
+ * The `as` prop is restricted to container elements. Spacers are purely
+ * presentational and should use non-semantic containers like div.
+ *
+ * **Allowed elements**: div, section, article, aside, main, header, footer,
+ * nav, ul, ol, dl, form, fieldset
  */
 export interface FlexSpacerProps extends Omit<React.HTMLAttributes<HTMLElement>, "className"> {
-  /** Element type to render as */
-  as?: React.ElementType;
+  /**
+   * Element type to render as
+   * @remarks Restricted to container elements. Default is 'div'.
+   */
+  as?: FlexContainerElement;
   /** Additional CSS class names */
   className?: string;
   /** Inline styles and CSS custom properties */

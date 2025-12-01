@@ -569,10 +569,10 @@ describe("Flex", () => {
     });
 
     it("should render as custom element", () => {
-      render(<Flex.Spacer as="span" data-testid="flex-spacer" />);
+      render(<Flex.Spacer as="section" data-testid="flex-spacer" />);
 
       const spacer = screen.getByTestId("flex-spacer");
-      expect(spacer.tagName).toBe("SPAN");
+      expect(spacer.tagName).toBe("SECTION");
     });
 
     it("should merge custom className", () => {

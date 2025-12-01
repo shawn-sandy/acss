@@ -6,6 +6,8 @@ import type {
   FlexSpacerProps,
   FlexComponent,
   ResponsiveFlexProps,
+  FlexContainerElement,
+  FlexItemElement,
 } from "./flex.types";
 
 /**
@@ -101,8 +103,17 @@ const generateFlexClasses = (props: ResponsiveFlexProps, prefix = ""): string[] 
  * - **Responsive Props**: Different layouts at sm/md/lg/xl breakpoints
  * - **Preset Variants**: Common patterns like 'center', 'between', 'stack'
  * - **CSS Custom Properties**: Runtime theming via styles prop
- * - **Polymorphic**: Render as any HTML element via 'as' prop
+ * - **Polymorphic**: Render as semantic container elements via 'as' prop
  * - **Type-Safe**: Full TypeScript support with autocomplete
+ *
+ * ## Semantic Elements Only
+ * The `as` prop is restricted to semantic container elements:
+ * - **Block containers**: div (default), section, article, aside, main, header, footer
+ * - **List containers**: ul, ol, dl, nav
+ * - **Form containers**: form, fieldset
+ *
+ * This restriction ensures proper HTML structure and prevents misuse as inline
+ * or interactive elements (e.g., span, a, button).
  *
  * ## Accessibility
  * - Uses semantic HTML by default (div, but customizable via 'as' prop)
@@ -154,6 +165,13 @@ const generateFlexClasses = (props: ResponsiveFlexProps, prefix = ""): string[] 
  * <Flex as="nav" role="navigation" aria-label="Main navigation">
  *   <a href="/">Home</a>
  *   <a href="/about">About</a>
+ * </Flex>
+ *
+ * @example
+ * // Semantic list structure
+ * <Flex as="ul" gap="md">
+ *   <Flex.Item as="li">Item 1</Flex.Item>
+ *   <Flex.Item as="li">Item 2</Flex.Item>
  * </Flex>
  */
 const FlexBase = React.forwardRef<HTMLElement, FlexProps>((props, ref) => {
@@ -243,6 +261,16 @@ FlexBase.displayName = "Flex";
  * shrink, basis, alignment, and order. Supports responsive flex sizing
  * at different breakpoints.
  *
+ * ## Semantic Elements
+ * The `as` prop accepts container elements plus list item elements:
+ * - **Block containers**: div (default), section, article, aside, main, header, footer
+ * - **List containers**: ul, ol, dl, nav
+ * - **Form containers**: form, fieldset
+ * - **List items**: li, dt, dd
+ *
+ * List item elements (li, dt, dd) are included to support semantic list
+ * structures within flex containers.
+ *
  * ## Props
  * - **grow**: Flex grow factor (0 | 1)
  * - **shrink**: Flex shrink factor (0 | 1)
@@ -280,6 +308,13 @@ FlexBase.displayName = "Flex";
  * <Flex.Item order="last">
  *   Shows last visually
  * </Flex.Item>
+ *
+ * @example
+ * // Semantic list item
+ * <Flex as="ul" gap="md">
+ *   <Flex.Item as="li">List item 1</Flex.Item>
+ *   <Flex.Item as="li">List item 2</Flex.Item>
+ * </Flex>
  */
 const FlexItem = React.forwardRef<HTMLElement, FlexItemProps>((props, ref) => {
   const {
@@ -389,6 +424,15 @@ FlexItem.displayName = "Flex.Item";
  * to fill available space, pushing adjacent items to the edges.
  * Commonly used to separate groups of items in a flex container.
  *
+ * ## Semantic Elements Only
+ * The `as` prop is restricted to container elements:
+ * - **Block containers**: div (default), section, article, aside, main, header, footer
+ * - **List containers**: ul, ol, dl, nav
+ * - **Form containers**: form, fieldset
+ *
+ * Spacers are purely presentational and should typically use non-semantic
+ * containers like div.
+ *
  * ## Accessibility
  * - Renders as `<div>` by default (purely presentational)
  * - Use `aria-hidden="true"` if purely decorative
@@ -411,14 +455,6 @@ FlexItem.displayName = "Flex.Item";
  *   <Flex.Spacer />
  *   <div>End</div>
  * </Flex>
- *
- * @example
- * // Render as span for inline context
- * <Flex inline>
- *   <span>Item</span>
- *   <Flex.Spacer as="span" />
- *   <span>Item</span>
- * </Flex>
  */
 const FlexSpacer = React.forwardRef<HTMLElement, FlexSpacerProps>((props, ref) => {
   const { as = "div", className = "", styles, ...rest } = props;
@@ -439,4 +475,10 @@ Flex.Spacer = FlexSpacer;
 
 export default Flex;
 export { FlexItem, FlexSpacer };
-export type { FlexProps, FlexItemProps, FlexSpacerProps };
+export type {
+  FlexProps,
+  FlexItemProps,
+  FlexSpacerProps,
+  FlexContainerElement,
+  FlexItemElement,
+};
