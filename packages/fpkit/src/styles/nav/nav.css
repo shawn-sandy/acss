@@ -31,9 +31,9 @@ body > nav ul > li:hover,
 .navbar ul > li:hover {
   background-color: var(--nav-hover-bg, #e8e8e8);
 }
-body > nav ul > li > :where(img, button):hover,
-[aria-label~=navbar] ul > li > :where(img, button):hover,
-.navbar ul > li > :where(img, button):hover {
+body > nav ul > li:hover:has(img, button),
+[aria-label~=navbar] ul > li:hover:has(img, button),
+.navbar ul > li:hover:has(img, button) {
   background-color: transparent;
 }
 

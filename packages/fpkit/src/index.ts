@@ -25,7 +25,7 @@ export { Img } from "./components/images/img";
 export type { ImgProps } from "./components/images/img.types";
 export { Link } from "./components/link/link";
 export type { LinkProps } from "./components/link/link.types";
-export { List, type ListItemProps } from "./components/list/list";
+export { default as List, type ListProps, type ListItemProps } from "./components/list/list";
 export { Modal, type ModalProps } from "./components/modal/modal";
 export { Popover, type PopoverProps } from "./components/popover/popover";
 export { RenderTable as TBL, type TableProps } from "./components/tables/table";
