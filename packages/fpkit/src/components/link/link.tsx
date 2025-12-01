@@ -176,7 +176,7 @@ export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ({ href, children, ...props }, ref) => {
     return (
       <Link ref={ref} href={href} {...props}>
-        {children}
+        <i>{children}</i>
       </Link>
     );
   }
