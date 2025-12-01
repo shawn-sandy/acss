@@ -182,8 +182,23 @@ export const LinkButton = React.forwardRef<HTMLAnchorElement, LinkProps>(
   }
 );
 
+Link.displayName = "Link";
 IconLink.displayName = "IconLink";
 LinkButton.displayName = "LinkButton";
-Link.displayName = "Link";
 
-export default Link;
+// Compound component pattern - attach subcomponents to Link with proper typing
+export interface LinkComponent
+  extends React.ForwardRefExoticComponent<
+    LinkProps & React.RefAttributes<HTMLAnchorElement>
+  > {
+  LinkButton: typeof LinkButton;
+  IconLink: typeof IconLink;
+}
+
+// Attach subcomponents to Link using Object.assign for better type inference
+const LinkWithSubcomponents = Object.assign(Link, {
+  LinkButton,
+  IconLink,
+});
+
+export default LinkWithSubcomponents as LinkComponent;
