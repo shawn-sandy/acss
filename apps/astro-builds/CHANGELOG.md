@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/shawn-sandy/acss/compare/astro-fpkit@0.0.9...astro-fpkit@1.2.0) (2025-12-01)
+
+
+### Features
+
+* **button:** update button size variables for consistency across styles ([#23](https://github.com/shawn-sandy/acss/issues/23)) ([f396016](https://github.com/shawn-sandy/acss/commit/f3960167b6fff6b50c38c93a742f1c282e72fc16))
+
+
+
+
+
 # [1.1.0](https://github.com/shawn-sandy/acss/compare/astro-fpkit@0.0.9...astro-fpkit@1.1.0) (2025-11-15)
 
 
