@@ -1,20 +1,51 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, expect } from "storybook/test";
+import Flex from "./flex";
 import "./flex.scss";
 
 /**
- * Flexbox Utilities Story
- * Comprehensive documentation of responsive flexbox utility classes
+ * Flexbox Utilities and Component Story
+ * Comprehensive documentation of responsive flexbox utility classes and React Flex component
  */
-const meta: Meta = {
-  title: "FP.React Components/Utilities/Flexbox",
-  tags: ["autodocs"],
+const meta: Meta<typeof Flex> = {
+  title: "FP.React Components/Layout/Flex",
+  component: Flex,
+  tags: ["autodocs", "rc"],
   parameters: {
     docs: {
       description: {
         component: `
-# Flexbox Utilities
+# Flex Container Component
 
-Comprehensive responsive flexbox utility classes for flexible layouts. All utilities support responsive modifiers (\`sm:\`, \`md:\`, \`lg:\`, \`xl:\`) and use CSS custom properties for maximum flexibility.
+A flexible container component for creating flexbox layouts with a declarative React API.
+Supports responsive props, preset variants, and compound pattern with Flex.Item and Flex.Spacer.
+
+## Features
+
+- **Compound Pattern**: Use \`Flex.Item\` and \`Flex.Spacer\` sub-components
+- **Responsive Props**: Different layouts at sm/md/lg/xl breakpoints
+- **Preset Variants**: Common patterns like 'center', 'between', 'stack'
+- **CSS Custom Properties**: Runtime theming via styles prop
+- **Polymorphic**: Render as any HTML element via 'as' prop
+- **Type-Safe**: Full TypeScript support with autocomplete
+
+## Usage Approaches
+
+### 1. React Component (Recommended)
+\`\`\`tsx
+<Flex gap="md" justify="between" align="center">
+  <Flex.Item flex="1">Content 1</Flex.Item>
+  <Flex.Item flex="1">Content 2</Flex.Item>
+</Flex>
+\`\`\`
+
+### 2. Utility Classes (Direct HTML)
+\`\`\`html
+<div className="flex gap-md justify-between items-center">
+  <div className="flex-1">Content 1</div>
+  <div className="flex-1">Content 2</div>
+</div>
+\`\`\`
 
 ## Breakpoints
 
@@ -23,34 +54,17 @@ Comprehensive responsive flexbox utility classes for flexible layouts. All utili
 - **lg**: 62rem (992px)
 - **xl**: 80rem (1280px)
 
-## Features
-
-- Modern range syntax media queries
-- Fluid spacing with \`clamp()\`
-- Mobile-first responsive design
-- Follows project rem-only standards
-- CSS custom properties for theming
-
-## Usage
-
-Combine base classes with responsive modifiers for adaptive layouts:
-
-\`\`\`html
-<div className="flex flex-col md:flex-row gap-md items-center">
-  <div className="flex-1">Content</div>
-  <div className="flex-1">Content</div>
-</div>
-\`\`\`
-
 ## CSS Custom Properties
 
-Override default spacing by setting CSS variables:
+Override default spacing:
 
 \`\`\`css
 :root {
-  --flex-gap-sm: 0.5rem;  /* Default small gap */
-  --flex-gap-md: 0.75rem; /* Default medium gap */
-  --flex-gap-lg: 1rem;    /* Default large gap */
+  --flex-gap-xs: 0.25rem;
+  --flex-gap-sm: 0.5rem;
+  --flex-gap-md: 0.75rem;
+  --flex-gap-lg: 1rem;
+  --flex-gap-xl: 1.5rem;
 }
 \`\`\`
         `,
@@ -60,7 +74,570 @@ Override default spacing by setting CSS variables:
 };
 
 export default meta;
-type Story = StoryObj;
+type Story = StoryObj<typeof Flex>;
+
+// ============================================================================
+// REACT COMPONENT STORIES
+// ============================================================================
+
+/**
+ * Basic Flex component usage
+ */
+export const FlexComponent: Story = {
+  args: {
+    gap: "md",
+    children: (
+      <>
+        <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          Item 1
+        </div>
+        <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          Item 2
+        </div>
+        <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          Item 3
+        </div>
+      </>
+    ),
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Flex container renders correctly", async () => {
+      const flexContainer = canvas.getByText("Item 1").parentElement?.parentElement;
+      expect(flexContainer).toBeInTheDocument();
+      expect(flexContainer).toHaveClass("flex");
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Basic Flex component with gap spacing. The component automatically generates the appropriate utility classes from props.",
+      },
+    },
+  },
+};
+
+/**
+ * Flex with various layout props
+ */
+export const FlexWithProps: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Row direction with space between</h4>
+        <Flex
+          direction="row"
+          justify="between"
+          align="center"
+          gap="md"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Left
+          </div>
+          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Center
+          </div>
+          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            Right
+          </div>
+        </Flex>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Column direction with center alignment</h4>
+        <Flex
+          direction="column"
+          align="center"
+          gap="sm"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Item 1
+          </div>
+          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Item 2
+          </div>
+          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            Item 3
+          </div>
+        </Flex>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Demonstrates different combinations of direction, justify, align, and gap props.",
+      },
+    },
+  },
+};
+
+/**
+ * Responsive Flex layout
+ */
+export const FlexResponsive: Story = {
+  render: () => (
+    <Flex
+      direction="column"
+      gap="sm"
+      md={{ direction: "row", gap: "lg", justify: "between" }}
+      style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+    >
+      <Flex.Item flex="none" md={{ flex: "1" }}>
+        <div
+          style={{
+            padding: "1rem",
+            background: "#e3f2fd",
+            borderRadius: "0.25rem",
+            minHeight: "6rem",
+          }}
+        >
+          Column on mobile<br />Row on medium+<br />flex="1" on medium+
+        </div>
+      </Flex.Item>
+      <Flex.Item flex="none" md={{ flex: "1" }}>
+        <div
+          style={{
+            padding: "1rem",
+            background: "#bbdefb",
+            borderRadius: "0.25rem",
+            minHeight: "6rem",
+          }}
+        >
+          Responsive layout with gap changes
+        </div>
+      </Flex.Item>
+      <Flex.Item flex="none" md={{ flex: "1" }}>
+        <div
+          style={{
+            padding: "1rem",
+            background: "#90caf9",
+            borderRadius: "0.25rem",
+            minHeight: "6rem",
+          }}
+        >
+          Resize to see behavior
+        </div>
+      </Flex.Item>
+    </Flex>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Responsive layout that changes from column on mobile to row on medium+ screens, with different gap sizes at different breakpoints.",
+      },
+    },
+    chromatic: {
+      viewports: [375, 768, 1280],
+    },
+  },
+};
+
+/**
+ * Flex.Item sub-component
+ */
+export const FlexWithItems: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Equal width items (flex="1")</h4>
+        <Flex
+          gap="md"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <Flex.Item flex="1">
+            <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+              flex="1"
+            </div>
+          </Flex.Item>
+          <Flex.Item flex="1">
+            <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+              flex="1"
+            </div>
+          </Flex.Item>
+          <Flex.Item flex="1">
+            <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+              flex="1"
+            </div>
+          </Flex.Item>
+        </Flex>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Mixed sizing (flex="none" + flex="1")</h4>
+        <Flex
+          gap="md"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <Flex.Item flex="none" styles={{ width: "8rem" }}>
+            <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+              Fixed 8rem
+            </div>
+          </Flex.Item>
+          <Flex.Item flex="1">
+            <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+              Fills remaining space
+            </div>
+          </Flex.Item>
+        </Flex>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Custom alignment (alignSelf)</h4>
+        <Flex
+          gap="md"
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+            minHeight: "8rem",
+          }}
+        >
+          <Flex.Item alignSelf="start">
+            <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+              Start
+            </div>
+          </Flex.Item>
+          <Flex.Item alignSelf="center">
+            <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+              Center
+            </div>
+          </Flex.Item>
+          <Flex.Item alignSelf="end">
+            <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+              End
+            </div>
+          </Flex.Item>
+        </Flex>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates Flex.Item sub-component with different flex sizing and alignment options.",
+      },
+    },
+  },
+};
+
+/**
+ * Flex.Spacer sub-component
+ */
+export const FlexWithSpacer: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Push items to opposite edges</h4>
+        <Flex
+          gap="md"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Left side
+          </div>
+          <Flex.Spacer />
+          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            Right side
+          </div>
+        </Flex>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Multiple spacers for even distribution</h4>
+        <Flex
+          gap="md"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Start
+          </div>
+          <Flex.Spacer />
+          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Middle
+          </div>
+          <Flex.Spacer />
+          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            End
+          </div>
+        </Flex>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Flex.Spacer creates auto-expanding space (flex: 1) to push items apart. Commonly used for navbar layouts and toolbars.",
+      },
+    },
+  },
+};
+
+/**
+ * Preset variants
+ */
+export const FlexVariants: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>variant="center"</h4>
+        <Flex
+          variant="center"
+          style={{
+            padding: "2rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+            minHeight: "8rem",
+          }}
+        >
+          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Centered both axes
+          </div>
+        </Flex>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>variant="between"</h4>
+        <Flex
+          variant="between"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Left
+          </div>
+          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            Right
+          </div>
+        </Flex>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>variant="stack"</h4>
+        <Flex
+          variant="stack"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Stacked Item 1
+          </div>
+          <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Stacked Item 2
+          </div>
+          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            Stacked Item 3
+          </div>
+        </Flex>
+        <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+          Stack variant uses column layout by default, becomes row on medium+ screens
+        </p>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>variant="spread"</h4>
+        <Flex
+          variant="spread"
+          gap="sm"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            Equal
+          </div>
+          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Width
+          </div>
+          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            Items
+          </div>
+        </Flex>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Preset variants provide common flexbox patterns: 'center', 'between', 'around', 'stack', 'spread'.",
+      },
+    },
+  },
+};
+
+/**
+ * Nested Flex containers
+ */
+export const NestedFlex: Story = {
+  render: () => (
+    <Flex
+      direction="column"
+      gap="md"
+      style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+    >
+      <Flex justify="between" align="center" gap="md">
+        <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          Header Left
+        </div>
+        <Flex.Spacer />
+        <Flex gap="sm">
+          <div style={{ padding: "0.5rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Nav 1
+          </div>
+          <div style={{ padding: "0.5rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Nav 2
+          </div>
+          <div style={{ padding: "0.5rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            Nav 3
+          </div>
+        </Flex>
+      </Flex>
+
+      <Flex gap="md">
+        <Flex.Item flex="none" styles={{ width: "12rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#f3e5f5",
+              borderRadius: "0.25rem",
+              minHeight: "12rem",
+            }}
+          >
+            Sidebar
+          </div>
+        </Flex.Item>
+        <Flex.Item flex="1">
+          <Flex
+            direction="column"
+            gap="md"
+            style={{ padding: "1rem", background: "#f1f8e9", borderRadius: "0.25rem" }}
+          >
+            <div style={{ padding: "0.75rem", background: "#dcedc8", borderRadius: "0.25rem" }}>
+              Main content area
+            </div>
+            <Flex gap="sm">
+              <Flex.Item flex="1">
+                <div style={{ padding: "0.75rem", background: "#c5e1a5", borderRadius: "0.25rem" }}>
+                  Column 1
+                </div>
+              </Flex.Item>
+              <Flex.Item flex="1">
+                <div style={{ padding: "0.75rem", background: "#c5e1a5", borderRadius: "0.25rem" }}>
+                  Column 2
+                </div>
+              </Flex.Item>
+            </Flex>
+          </Flex>
+        </Flex.Item>
+      </Flex>
+    </Flex>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Complex layout demonstrating nested Flex containers to create a typical application layout with header, sidebar, and main content.",
+      },
+    },
+  },
+};
+
+/**
+ * Custom styling with CSS variables
+ */
+export const CustomStyling: Story = {
+  render: () => (
+    <Flex
+      gap="md"
+      styles={
+        {
+          "--flex-gap": "3rem",
+          padding: "2rem",
+          border: "2px solid #1976d2",
+          borderRadius: "0.5rem",
+          background: "linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)",
+        } as React.CSSProperties
+      }
+    >
+      <div style={{ padding: "1rem", background: "white", borderRadius: "0.25rem" }}>
+        Custom gap via --flex-gap
+      </div>
+      <div style={{ padding: "1rem", background: "white", borderRadius: "0.25rem" }}>
+        Custom styles
+      </div>
+      <div style={{ padding: "1rem", background: "white", borderRadius: "0.25rem" }}>
+        Via styles prop
+      </div>
+    </Flex>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates custom styling using CSS custom properties and inline styles via the styles prop.",
+      },
+    },
+  },
+};
+
+/**
+ * Polymorphic rendering
+ */
+export const PolymorphicFlex: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Render as &lt;nav&gt;</h4>
+        <Flex
+          as="nav"
+          role="navigation"
+          aria-label="Main navigation"
+          gap="md"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <a href="#" style={{ padding: "0.5rem", textDecoration: "none", color: "#1976d2" }}>
+            Home
+          </a>
+          <a href="#" style={{ padding: "0.5rem", textDecoration: "none", color: "#1976d2" }}>
+            About
+          </a>
+          <a href="#" style={{ padding: "0.5rem", textDecoration: "none", color: "#1976d2" }}>
+            Contact
+          </a>
+        </Flex>
+      </div>
+
+      <div>
+        <h4 style={{ marginBottom: "0.5rem" }}>Render as &lt;section&gt;</h4>
+        <Flex
+          as="section"
+          direction="column"
+          gap="md"
+          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+        >
+          <h3 style={{ margin: 0 }}>Section Title</h3>
+          <p style={{ margin: 0 }}>Content in a semantic section element</p>
+        </Flex>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The 'as' prop allows Flex to render as any HTML element, enabling semantic markup while maintaining flexbox behavior.",
+      },
+    },
+  },
+};
+
+// ============================================================================
+// UTILITY CLASS STORIES (Preserved for backward compatibility)
+// ============================================================================
 
 /**
  * Basic flex container with default gap

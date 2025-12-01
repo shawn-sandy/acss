@@ -2225,6 +2225,13 @@ li:has(> button) {
    Comprehensive flexbox utility classes with responsive modifiers.
    Uses CSS custom properties for flexibility and modern range media queries.
 
+   Usage:
+   1. Direct utility classes: <div className="flex gap-md justify-between">
+   2. React Flex component: <Flex gap="md" justify="between">
+      - Flex component automatically generates these utility classes from props
+      - Supports responsive props: <Flex md={{ direction: "row" }}>
+      - Sub-components: Flex.Item, Flex.Spacer
+
    Breakpoints:
    - sm: 30rem (480px)
    - md: 48rem (768px)

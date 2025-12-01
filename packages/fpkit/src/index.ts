@@ -34,6 +34,21 @@ export { TextToSpeech } from "./components/text-to-speech/TextToSpeech";
 
 // Layout components
 export * from "./components/layout/landmarks";
+export { default as Flex } from "./components/flexbox/flex";
+export type {
+  FlexProps,
+  FlexItemProps,
+  FlexSpacerProps,
+  FlexDirection,
+  FlexWrap,
+  FlexJustify,
+  FlexAlign,
+  FlexAlignContent,
+  FlexAlignSelf,
+  FlexGap,
+  FlexVariant,
+  ResponsiveFlexProps,
+} from "./components/flexbox/flex.types";
 
 // Navigation components
 export * from "./components/nav/nav";
