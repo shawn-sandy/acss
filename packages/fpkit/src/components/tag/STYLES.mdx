@@ -1,0 +1,105 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Tag/STYLES" />
+
+# Tag Styles
+
+Status indicator tag styling with semantic variants and WCAG 2.1 AA compliance.
+
+## Overview
+
+The fpkit tag system provides visual status indicators using role-based
+selectors with support for alpha, beta, stable, and production variants.
+
+### Key Features
+
+- **Four semantic variants** - Alpha, beta, stable, production
+- **Visual indicators** - Icons beyond color for accessibility
+- **WCAG compliant** - Color contrast meets AA standards
+- **Pill shape** - Fully rounded borders
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+```css
+[data-tag] {
+  /* Variant colors */
+  --beta: #fbbf24; /* Amber */
+  --stable: #0f7c3e; /* Dark green */
+  --production: #1e3a8a; /* Dark blue */
+
+  /* Tag styling */
+  --tag-padding-inline: 0.7rem; /* 11.2px */
+  --tag-padding-block: 0.2rem; /* 3.2px */
+  --tag-fs: 0.8rem; /* 12.8px */
+  --tag-radius: 99rem; /* Pill shape */
+  --tag-bg: lightgray;
+  --tag-fw: 500;
+  --tag-color: currentColor;
+  --tag-display: inline-block;
+}
+```
+
+## Tag Variants
+
+### Alpha Tag
+
+```html
+<span data-tag="alpha">Alpha</span>
+```
+
+**Displays:** ⚠ Alpha (amber background, warning symbol)
+
+### Beta Tag
+
+```html
+<span data-tag="beta">Beta</span>
+```
+
+**Displays:** ⚠ Beta (amber background, warning symbol)
+
+### Stable Tag
+
+```html
+<span data-tag="stable">Stable</span>
+```
+
+**Displays:** ✓ Stable (green background, checkmark symbol)
+
+### Production Tag
+
+```html
+<span data-tag="production">Production</span>
+```
+
+**Displays:** ● Production (blue background, live indicator)
+
+## Real-World Examples
+
+### Feature Status
+
+```html
+<h3>
+  New Dashboard
+  <span data-tag="beta">Beta</span>
+</h3>
+```
+
+### API Endpoint Status
+
+```html
+<code>/api/users</code>
+<span data-tag="stable">Stable</span>
+```
+
+### Environment Indicator
+
+```html
+<span data-tag="production">Production Environment</span>
+```
+
+## Related Resources
+
+- **React Component** - See README for React Tag component API
+- **WCAG 2.1: Color Contrast** - https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum

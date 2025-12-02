@@ -1,0 +1,73 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Images/STYLES" />
+
+# Image Styles
+
+Responsive image styling with figure support and CSS custom properties.
+
+## Overview
+
+The fpkit image system provides responsive, accessible image styling with
+support for figures and captions.
+
+### Key Features
+
+- **Responsive by default** - Max-width 100% with auto height
+- **Object-fit support** - Control image scaling
+- **Aspect ratio** - Maintain proportions
+- **Figure captions** - Styled figcaption support
+- **CSS custom properties** - Full control over display
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+```css
+img[alt] {
+  --img-max-width: 100%;
+  --img-height: auto;
+  --img-object-fit: cover;
+  --img-object-position: center;
+  --img-aspect-ratio: auto 2/3;
+  --img-display: inline-block;
+}
+
+figure:has(img[alt]) {
+  --fig-display: flex;
+  --fig-padding: 0.5rem;
+  --fig-bg: rgba(245, 245, 245, 0.683);
+  --fig-width: fit-content;
+}
+```
+
+## Basic Usage
+
+### Responsive Image
+
+```html
+<img src="/image.jpg" alt="Description" />
+```
+
+### Image with Figure
+
+```html
+<figure>
+  <img src="/image.jpg" alt="Description" />
+  <figcaption>Image caption</figcaption>
+</figure>
+```
+
+### Custom Aspect Ratio
+
+```html
+<img
+  src="/image.jpg"
+  alt="Square image"
+  style="--img-aspect-ratio: 1/1; --img-object-fit: cover"
+/>
+```
+
+## Related Resources
+
+- **MDN: Images** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img
+- **MDN: Figure** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure

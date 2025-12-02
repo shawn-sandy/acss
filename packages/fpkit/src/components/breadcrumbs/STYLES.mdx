@@ -1,0 +1,94 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Breadcrumbs/STYLES" />
+
+# Breadcrumb Styles
+
+Navigation breadcrumb styling using semantic `<nav>` with ordered lists for
+showing page hierarchy and location.
+
+## Overview
+
+The fpkit breadcrumb system provides navigation trail styling using `<nav>`
+elements with ordered lists. Includes automatic separators and current page
+indication.
+
+### Key Features
+
+- **Semantic HTML** - Uses `<nav>` with `<ol>` for proper structure
+- **Automatic separators** - Visual separators between items
+- **Current page styling** - Distinct styling for current location
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+```css
+nav[data-breadcrumb] {
+  /* Layout */
+  --breadcrumb-display: flex;
+  --breadcrumb-gap: 0.5rem; /* 8px */
+
+  /* Colors */
+  --breadcrumb-color: currentColor;
+  --breadcrumb-current-color: rgb(46, 46, 46);
+
+  /* Typography */
+  --breadcrumb-fs: var(--fs-3);
+
+  /* Spacing */
+  --breadcrumb-padding-inline: unset;
+}
+```
+
+## Basic Structure
+
+```html
+<nav data-breadcrumb aria-label="Breadcrumb">
+  <ol>
+    <li>
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+    </li>
+    <li>
+      <a href="/products">Products</a>
+      <span aria-hidden="true">/</span>
+    </li>
+    <li>
+      <a href="/products/shoes" aria-current="page">Shoes</a>
+    </li>
+  </ol>
+</nav>
+```
+
+## Real-World Examples
+
+### E-commerce Breadcrumb
+
+```html
+<nav data-breadcrumb aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a><span aria-hidden="true">/</span></li>
+    <li><a href="/shop">Shop</a><span aria-hidden="true">/</span></li>
+    <li><a href="/shop/clothing">Clothing</a><span aria-hidden="true">/</span></li>
+    <li><a aria-current="page">Men's Shirts</a></li>
+  </ol>
+</nav>
+```
+
+### Documentation Site
+
+```html
+<nav data-breadcrumb aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Docs</a><span aria-hidden="true">›</span></li>
+    <li><a href="/components">Components</a><span aria-hidden="true">›</span></li>
+    <li><a aria-current="page">Button</a></li>
+  </ol>
+</nav>
+```
+
+## Related Resources
+
+- **React Component** - See README for React Breadcrumb component API
+- **W3C ARIA: Breadcrumb Pattern** - https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/

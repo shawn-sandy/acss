@@ -1,0 +1,75 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Link/STYLES" />
+
+# Link Styles
+
+Enhanced anchor link styling with button variants and WCAG 2.1 AA compliance.
+
+## Overview
+
+The fpkit link system provides accessible, customizable link styles with support
+for standard text links, button-styled links, and pill variants.
+
+### Key Features
+
+- **Text decoration control** - Customizable underlines
+- **Button-styled links** - Links that look like buttons
+- **Pill variant** - Fully rounded links
+- **WCAG compliant** - Focus indicators and color contrast
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+```css
+a[href] {
+  /* Color & Typography */
+  --link-color: #085ab7;
+  --link-fw: 400;
+  --link-fs: 1rem;
+
+  /* Text Decoration */
+  --link-decoration: none;
+  --link-decoration-offset: 0.09375rem; /* 1.5px */
+  --link-decoration-thickness: 0.0625rem; /* 1px */
+
+  /* Background & Border */
+  --link-bg: transparent;
+  --link-radius: 0.25rem;
+
+  /* Transitions */
+  --link-transition: all 0.35s ease-in-out;
+
+  /* Focus (WCAG 2.4.7) */
+  --link-focus-color: currentColor;
+  --link-focus-width: 0.125rem; /* 2px */
+  --link-focus-offset: 0.125rem;
+}
+```
+
+## Link Types
+
+### Standard Link
+
+```html
+<a href="/page">Standard Link</a>
+```
+
+### Button-Styled Link
+
+```html
+<a href="/action" data-btn>Button Link</a>
+<a href="/action"><b>Button Link</b></a>
+```
+
+### Pill Link
+
+```html
+<a href="/action" data-link="pill">Pill Link</a>
+<a href="/action"><i>Pill Link</i></a>
+```
+
+## Related Resources
+
+- **MDN: Links** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a

@@ -1,0 +1,548 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Layout/STYLES" />
+
+# Layout Styles
+
+Semantic layout component styling system for page structure using HTML5
+landmark elements (header, main, footer) with CSS custom properties.
+
+## Overview
+
+The fpkit layout styling system provides comprehensive styles for semantic page
+structure using HTML5 landmarks. Includes hero/overlay headers, content width
+management, sidebar layouts, and footer styling.
+
+### Key Features
+
+- **Semantic landmarks** - Header, main, and footer elements with proper
+  structure
+- **Hero/overlay system** - Grid-based hero sections with background images
+- **Content width management** - Responsive max-width containers (1480px)
+- **Sidebar layouts** - Article/aside flexbox patterns
+- **Centered content** - Auto-margin centering for main content
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+### Header/Hero Overlay Properties
+
+```css
+header,
+[data-hero],
+[data-grid~="overlay"] {
+  /* Grid */
+  --overlay-grid-area: overlay;
+  --overlay-display: grid;
+  --overlay-placement: center;
+
+  /* Dimensions */
+  --overlay-width: 100%;
+  --overlay-height: 40vh; /* 40% of viewport height */
+  --overlay-max-height: 500px;
+
+  /* Content */
+  --overlay-content-width: 80%;
+  --overlay-gap: 2rem; /* 32px */
+
+  /* Colors */
+  --overlay-bg: whitesmoke;
+  --overlay-color: currentColor;
+
+  /* Spacing */
+  --overlay-padding: 2rem; /* 32px */
+  --overlay-padding-inline: auto;
+  --overlay-padding-block: auto;
+  --overlay-margin-inline: auto;
+  --overlay-margin-block: auto;
+}
+```
+
+### Main/Footer Content Properties
+
+```css
+main,
+footer {
+  /* Content width */
+  --content-width: min(100%, 1480px); /* Max width with responsive scaling */
+  --content-margin-inline: auto; /* Center content */
+  --content-padding-inline: 1rem; /* 16px */
+  --content-gap: 2rem; /* 32px gap for article/aside */
+}
+```
+
+## Header / Hero Section
+
+### Basic Header
+
+Simple header with centered content:
+
+```html
+<header>
+  <div>
+    <h1>Welcome</h1>
+    <p>Hero section content</p>
+  </div>
+</header>
+```
+
+**CSS Applied:**
+
+```css
+header {
+  grid-template-areas: "overlay";
+  display: grid;
+  place-items: center;
+  min-height: 40vh;
+  width: 100%;
+  color: currentColor;
+  background-color: whitesmoke;
+  min-width: 20rem;
+}
+
+header > * {
+  grid-area: overlay; /* All children in same grid area */
+}
+
+header > div {
+  max-width: 80%;
+  padding-inline: var(--spc-4);
+  margin-inline: auto;
+  gap: 2rem;
+  text-align: center;
+}
+```
+
+### Hero with Background Image
+
+Overlay content on background image:
+
+```html
+<header style="--overlay-bg: url('/hero.jpg') center/cover">
+  <div>
+    <h1>Hero Title</h1>
+    <p>Hero description text</p>
+    <button type="button">Call to Action</button>
+  </div>
+</header>
+```
+
+### Hero with Data Attribute
+
+```html
+<div data-hero style="--overlay-height: 60vh; --overlay-bg: #0066cc; --overlay-color: white">
+  <div>
+    <h1>Product Launch</h1>
+    <p>Discover our latest innovation</p>
+  </div>
+</div>
+```
+
+### Hero Grid Overlay
+
+```html
+<section data-grid="overlay" style="--overlay-height: 50vh">
+  <img src="/background.jpg" alt="" role="presentation" />
+  <div>
+    <h2>Overlay Content</h2>
+    <p>Text overlaid on image</p>
+  </div>
+</section>
+```
+
+### Hero Typography
+
+Headers automatically scale headings:
+
+```css
+header > div > h1 {
+  font-size: var(--fs-12); /* Large heading */
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+header > div > h2 {
+  font-size: var(--fs-11);
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+header > div > h3 {
+  font-size: var(--fs-10);
+}
+
+header > div p {
+  width: auto;
+  max-width: 60ch; /* Optimal line length */
+  font-size: var(--fs-8);
+  line-height: 1.4;
+}
+```
+
+## Main Content
+
+### Basic Main Element
+
+```html
+<main>
+  <section>
+    <h2>Page Title</h2>
+    <p>Main content goes here.</p>
+  </section>
+</main>
+```
+
+**CSS Applied:**
+
+```css
+main {
+  flex: 1; /* Grows to fill available space */
+  font-size: var(--fs-3);
+  padding-block: 2rem;
+}
+
+main > section {
+  width: min(100%, 1480px);
+  margin-inline: auto;
+  padding-inline: var(--spc-6);
+}
+```
+
+### Main with Article
+
+```html
+<main>
+  <section>
+    <article>
+      <h2>Article Title</h2>
+      <p>Article content...</p>
+    </article>
+  </section>
+</main>
+```
+
+### Main with Article and Aside (Sidebar Layout)
+
+```html
+<main>
+  <section>
+    <article>
+      <h2>Main Content</h2>
+      <p>Primary article content...</p>
+    </article>
+    <aside>
+      <h3>Sidebar</h3>
+      <p>Sidebar content...</p>
+    </aside>
+  </section>
+</main>
+```
+
+**CSS Applied:**
+
+```css
+main > section:has(> article, > aside) {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 2rem;
+}
+
+/* Article takes majority of space */
+main > section > article {
+  flex-basis: 0;
+  flex-grow: 999; /* Grows to fill space */
+  min-inline-size: 50%; /* Min 50% width */
+}
+
+/* Aside (sidebar) with min width */
+main > section > aside {
+  flex-basis: 20rem; /* 320px min width */
+  flex-grow: 1;
+}
+```
+
+**Result:** Article takes majority of space; aside wraps below on narrow
+screens.
+
+### Main with ARIA Labeled Sections
+
+```html
+<main>
+  <section aria-label="Introduction">
+    <h2>About Us</h2>
+    <p>Content...</p>
+  </section>
+  <section aria-label="Features">
+    <h2>Features</h2>
+    <p>Content...</p>
+  </section>
+</main>
+```
+
+## Footer
+
+### Basic Footer
+
+```html
+<footer>
+  <div>
+    <p>&copy; 2025 Company Name</p>
+  </div>
+</footer>
+```
+
+**CSS Applied:**
+
+```css
+footer {
+  padding-block: 2rem;
+}
+
+footer > section {
+  width: min(100%, 1480px);
+  margin-inline: auto;
+  padding-inline: var(--spc-6);
+}
+
+footer > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 5rem; /* 80px */
+  text-align: center;
+}
+```
+
+### Footer with Sections
+
+```html
+<footer>
+  <section>
+    <div>
+      <h3>Company</h3>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/careers">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Support</h3>
+      <ul>
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </section>
+  <div>
+    <p>&copy; 2025 Company Name</p>
+  </div>
+</footer>
+```
+
+## Real-World Examples
+
+### Full Page Layout
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <header style="--overlay-height: 50vh; --overlay-bg: #0066cc; --overlay-color: white">
+      <div>
+        <h1>Welcome to Our Site</h1>
+        <p>Discover amazing products and services</p>
+        <button type="button">Get Started</button>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <article>
+          <h2>Main Content</h2>
+          <p>Primary content area...</p>
+        </article>
+        <aside>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+          </ul>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <p>&copy; 2025 Company Name. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
+```
+
+### Hero with Image Overlay
+
+```html
+<header>
+  <img src="/hero-bg.jpg" alt="" role="presentation" />
+  <div style="--overlay-color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5)">
+    <h1>Image Overlay Hero</h1>
+    <p>Beautiful background with centered text</p>
+  </div>
+</header>
+```
+
+### Multi-Column Main
+
+```html
+<main>
+  <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2rem">
+    <article>
+      <h3>Column 1</h3>
+      <p>Content...</p>
+    </article>
+    <article>
+      <h3>Column 2</h3>
+      <p>Content...</p>
+    </article>
+    <article>
+      <h3>Column 3</h3>
+      <p>Content...</p>
+    </article>
+  </section>
+</main>
+```
+
+### Full-Width Hero with Narrow Content
+
+```html
+<header style="--overlay-content-width: 50rem">
+  <div>
+    <h1>Narrow Content Hero</h1>
+    <p>Content is constrained to 50rem width</p>
+  </div>
+</header>
+```
+
+## Accessibility Considerations
+
+### Landmark Roles
+
+HTML5 landmarks provide automatic ARIA roles:
+
+- `<header>` → `role="banner"` (when direct child of body)
+- `<main>` → `role="main"`
+- `<footer>` → `role="contentinfo"` (when direct child of body)
+
+### Skip Links
+
+Provide skip navigation for keyboard users:
+
+```html
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header>...</header>
+<main id="main-content">...</main>
+```
+
+### Heading Hierarchy
+
+Maintain proper heading levels:
+
+```html
+<header>
+  <h1>Site Title</h1>
+</header>
+<main>
+  <section>
+    <h2>Section Title</h2>
+    <h3>Subsection Title</h3>
+  </section>
+</main>
+```
+
+### Alternative Text for Images
+
+Hero background images should use empty alt or role="presentation":
+
+```html
+<header>
+  <img src="/hero.jpg" alt="" role="presentation" />
+  <div>
+    <h1>Descriptive Title</h1>
+  </div>
+</header>
+```
+
+## CSS Variable Naming Convention
+
+| Category      | Variable Pattern                | Example                            |
+| ------------- | ------------------------------- | ---------------------------------- |
+| **Overlay**   | `--overlay-{property}`          | `--overlay-bg`, `--overlay-height` |
+| **Content**   | `--content-{property}`          | `--content-width`, `--content-gap` |
+
+## Browser Support
+
+- **CSS Grid:** All modern browsers
+- **CSS Custom Properties:** All modern browsers
+- **Flexbox:** All modern browsers
+- **`:has()` selector:** Chrome 105+, Firefox 121+, Safari 15.4+
+- **`min()` function:** Chrome 79+, Firefox 75+, Safari 11.1+
+
+## Performance Tips
+
+### Optimize Hero Images
+
+Use responsive images for hero backgrounds:
+
+```html
+<header>
+  <picture>
+    <source srcset="/hero-lg.jpg" media="(min-width: 1024px)" />
+    <source srcset="/hero-md.jpg" media="(min-width: 768px)" />
+    <img src="/hero-sm.jpg" alt="" role="presentation" />
+  </picture>
+  <div>
+    <h1>Hero Title</h1>
+  </div>
+</header>
+```
+
+### Use CSS Classes
+
+```css
+.hero-dark {
+  --overlay-bg: #333;
+  --overlay-color: white;
+}
+
+.hero-tall {
+  --overlay-height: 70vh;
+}
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                          | fpkit Layout                        |
+| --------------------------------- | ----------------------------------- |
+| `class="container mx-auto"`       | `<main>` (automatic)                |
+| `class="max-w-7xl mx-auto"`       | `style="--content-width: 80rem"`    |
+| `class="h-screen flex items-center"` | `<header>` (automatic)           |
+
+### From Bootstrap
+
+| Bootstrap                         | fpkit Layout                        |
+| --------------------------------- | ----------------------------------- |
+| `class="container"`               | `<main>` or `<section>` (automatic) |
+| `class="row"`                     | Article/aside pattern (automatic)   |
+| `class="jumbotron"`               | `<header>` with hero styles         |
+
+## Related Resources
+
+- **React Components** - See layout component README
+- **MDN: HTML5 Sectioning Elements** -
+  https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning
+- **W3C ARIA: Landmark Regions** - https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/

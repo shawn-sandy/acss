@@ -1,0 +1,589 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/List/STYLES" />
+
+# List Styles
+
+Comprehensive list styling system with CSS custom properties for ul, ol, and dl
+elements with extensive variant support.
+
+## Overview
+
+The fpkit list styling system provides flexible, accessible list components for
+unordered (`<ul>`), ordered (`<ol>`), and definition (`<dl>`) lists. Includes
+automatic nested list styling, multiple variants, and comprehensive theming.
+
+### Key Features
+
+- **Three list types** - Unordered, ordered, and definition lists
+- **Nested list support** - Automatic marker changes for nested levels
+- **Five variants** - None, inline, custom, compact, and spaced
+- **Custom markers** - Full control over list markers via CSS variables
+- **Definition lists** - Styled `<dt>`/`<dd>` elements
+- **Print optimized** - Adjusted spacing for print media
+- **Accessibility** - Focus indicators and keyboard navigation support
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+### Base List Properties
+
+```css
+ul, ol, dl {
+  /* Spacing */
+  --list-margin-top: 0;
+  --list-margin-bottom: 1rem; /* 16px */
+  --list-margin-inline: 0;
+  --list-padding-inline: 0.5rem; /* 8px browser indent */
+  --list-gap: 0.5rem; /* 8px between items */
+
+  /* List Markers */
+  --list-marker-color: currentColor;
+  --list-marker-size: 1em; /* Relative to font size */
+  --list-marker-offset: 0.5rem; /* 8px space between marker and text */
+
+  /* Typography */
+  --list-font-size: 1rem; /* 16px */
+  --list-line-height: 1.5; /* 24px with 16px font */
+  --list-font-family: inherit;
+  --list-color: inherit;
+
+  /* List Item Spacing */
+  --list-item-margin-bottom: 0.5rem; /* 8px */
+  --list-item-padding-inline: 0;
+  --list-item-padding-block: 0;
+}
+```
+
+### Definition List Properties
+
+```css
+ul, ol, dl {
+  /* Definition Terms (dt) */
+  --dt-font-weight: 600; /* Semi-bold */
+  --dt-margin-bottom: 0.25rem; /* 4px */
+
+  /* Definition Descriptions (dd) */
+  --dd-margin-inline-start: 2rem; /* 32px indent */
+  --dd-margin-bottom: 1rem; /* 16px */
+}
+```
+
+### Custom Marker Properties
+
+```css
+[data-variant="custom"] li::before {
+  content: var(--list-marker-content, "•");
+}
+```
+
+## Unordered Lists (ul)
+
+### Basic Unordered List
+
+```html
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+</ul>
+```
+
+**CSS Applied:**
+
+```css
+ul {
+  list-style-type: disc;
+  padding-inline-start: 0.5rem;
+  margin-block-end: 1rem;
+}
+
+ul::marker {
+  color: currentColor;
+  font-size: 1em;
+}
+```
+
+### Nested Unordered Lists
+
+Automatic marker changes for nested levels:
+
+```html
+<ul>
+  <li>Level 1 (disc ●)</li>
+  <li>
+    Level 1
+    <ul>
+      <li>Level 2 (circle ○)</li>
+      <li>
+        Level 2
+        <ul>
+          <li>Level 3 (square ■)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+```
+
+**CSS:**
+
+```css
+ul { list-style-type: disc; }
+ul ul { list-style-type: circle; }
+ul ul ul { list-style-type: square; }
+```
+
+## Ordered Lists (ol)
+
+### Basic Ordered List
+
+```html
+<ol>
+  <li>First step</li>
+  <li>Second step</li>
+  <li>Third step</li>
+</ol>
+```
+
+**CSS:**
+
+```css
+ol {
+  list-style-type: decimal;
+}
+```
+
+### Nested Ordered Lists
+
+Automatic numbering changes for nested levels:
+
+```html
+<ol>
+  <li>Step 1 (1, 2, 3...)</li>
+  <li>
+    Step 2
+    <ol>
+      <li>Substep 2.a (a, b, c...)</li>
+      <li>
+        Substep 2.b
+        <ol>
+          <li>Substep 2.b.i (i, ii, iii...)</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+```
+
+**CSS:**
+
+```css
+ol { list-style-type: decimal; }
+ol ol { list-style-type: lower-alpha; }
+ol ol ol { list-style-type: lower-roman; }
+```
+
+## Definition Lists (dl)
+
+### Basic Definition List
+
+```html
+<dl>
+  <dt>Term 1</dt>
+  <dd>Definition for term 1.</dd>
+
+  <dt>Term 2</dt>
+  <dd>Definition for term 2.</dd>
+</dl>
+```
+
+**CSS:**
+
+```css
+dt {
+  font-weight: 600;
+  margin-block-end: 0.25rem;
+}
+
+dd {
+  margin-inline-start: 2rem; /* Indented */
+  margin-block-end: 1rem;
+}
+```
+
+### Multiple Definitions
+
+```html
+<dl>
+  <dt>Term</dt>
+  <dd>First definition</dd>
+  <dd>Second definition</dd>
+</dl>
+```
+
+## List Variants
+
+### None Variant
+
+Remove list styling:
+
+```html
+<ul data-variant="none">
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+```
+
+**CSS:**
+
+```css
+[data-variant="none"] {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+```
+
+### Inline Variant
+
+Horizontal list for navigation:
+
+```html
+<ul data-variant="inline">
+  <li><a href="/">Home</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/contact">Contact</a></li>
+</ul>
+```
+
+**CSS:**
+
+```css
+[data-variant="inline"] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-inline-start: 0;
+  list-style-type: none;
+}
+```
+
+### Custom Marker Variant
+
+Custom list markers using `::before`:
+
+```html
+<ul data-variant="custom" style="--list-marker-content: '✓'; --list-marker-color: green">
+  <li>Completed task</li>
+  <li>Another task</li>
+</ul>
+```
+
+**CSS:**
+
+```css
+[data-variant="custom"] {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+[data-variant="custom"] li {
+  position: relative;
+  padding-inline-start: calc(var(--list-marker-size) + var(--list-marker-offset));
+}
+
+[data-variant="custom"] li::before {
+  content: var(--list-marker-content, "•");
+  color: var(--list-marker-color);
+  font-size: var(--list-marker-size);
+  position: absolute;
+  left: 0;
+}
+```
+
+### Compact Variant
+
+Reduced spacing:
+
+```html
+<ul data-variant="compact">
+  <li>Compact item 1</li>
+  <li>Compact item 2</li>
+  <li>Compact item 3</li>
+</ul>
+```
+
+**CSS:**
+
+```css
+[data-variant="compact"] {
+  --list-gap: 0.25rem; /* 4px */
+  --list-item-margin-bottom: 0.25rem; /* 4px */
+  --list-margin-bottom: 0.5rem; /* 8px */
+}
+```
+
+### Spaced Variant
+
+Increased spacing:
+
+```html
+<ul data-variant="spaced">
+  <li>Spaced item 1</li>
+  <li>Spaced item 2</li>
+  <li>Spaced item 3</li>
+</ul>
+```
+
+**CSS:**
+
+```css
+[data-variant="spaced"] {
+  --list-gap: 1rem; /* 16px */
+  --list-item-margin-bottom: 1rem; /* 16px */
+}
+```
+
+## Real-World Examples
+
+### Navigation Menu
+
+```html
+<ul data-variant="inline" style="--list-gap: 2rem">
+  <li><a href="/">Home</a></li>
+  <li><a href="/products">Products</a></li>
+  <li><a href="/about">About</a></li>
+  <li><a href="/contact">Contact</a></li>
+</ul>
+```
+
+### Checklist with Custom Markers
+
+```html
+<ul data-variant="custom" style="--list-marker-content: '☐'; --list-marker-size: 1.2em">
+  <li>Unchecked task</li>
+  <li style="--list-marker-content: '☑'; --list-marker-color: green">
+    Completed task
+  </li>
+  <li>Another task</li>
+</ul>
+```
+
+### Glossary (Definition List)
+
+```html
+<dl>
+  <dt>HTML</dt>
+  <dd>HyperText Markup Language - the standard markup language for web pages.</dd>
+
+  <dt>CSS</dt>
+  <dd>Cascading Style Sheets - used for describing the presentation of a document.</dd>
+
+  <dt>JavaScript</dt>
+  <dd>A programming language that enables interactive web pages.</dd>
+</dl>
+```
+
+### Step-by-Step Instructions
+
+```html
+<ol data-variant="spaced">
+  <li>
+    <strong>Step 1:</strong> Download the software
+    <ul>
+      <li>Visit the official website</li>
+      <li>Click the download button</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Step 2:</strong> Install the application
+    <ul>
+      <li>Run the installer</li>
+      <li>Follow on-screen instructions</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Step 3:</strong> Launch and configure
+  </li>
+</ol>
+```
+
+### Feature List with Icons
+
+```html
+<ul data-variant="custom" style="--list-marker-content: '✨'; --list-marker-size: 1.5em">
+  <li>Fast performance</li>
+  <li>Easy to use</li>
+  <li>Fully responsive</li>
+  <li>Accessible</li>
+</ul>
+```
+
+### Compact Footer Links
+
+```html
+<ul data-variant="inline compact">
+  <li><a href="/privacy">Privacy</a></li>
+  <li>|</li>
+  <li><a href="/terms">Terms</a></li>
+  <li>|</li>
+  <li><a href="/contact">Contact</a></li>
+</ul>
+```
+
+### Nested To-Do List
+
+```html
+<ul data-variant="custom" style="--list-marker-content: '☐'">
+  <li>
+    Project Planning
+    <ul data-variant="custom" style="--list-marker-content: '☐'">
+      <li style="--list-marker-content: '☑'; --list-marker-color: green">Define scope</li>
+      <li style="--list-marker-content: '☑'; --list-marker-color: green">Set timeline</li>
+      <li>Assign resources</li>
+    </ul>
+  </li>
+  <li>Development</li>
+  <li>Testing</li>
+</ul>
+```
+
+## Accessibility Considerations
+
+### Focus Indicators
+
+List items containing links or buttons get subtle focus treatment:
+
+```css
+li:has(a:focus-visible),
+li:has(button:focus-visible) {
+  outline: 0.0625rem solid transparent;
+}
+```
+
+### Semantic Structure
+
+Use appropriate list types:
+
+- **Unordered lists (`<ul>`)** - Related items without order
+- **Ordered lists (`<ol>`)** - Sequential steps or rankings
+- **Definition lists (`<dl>`)** - Term/definition pairs
+
+### Screen Reader Support
+
+Lists announce the number of items:
+
+```html
+<!-- Screen reader announces: "List, 3 items" -->
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+```
+
+### Avoid Empty List Items
+
+```html
+<!-- Bad: Empty list item -->
+<ul>
+  <li></li>
+  <li>Item</li>
+</ul>
+
+<!-- Good: All items have content -->
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+</ul>
+```
+
+## Print Styles
+
+Lists automatically adjust for print:
+
+```css
+@media print {
+  ul, ol, dl {
+    --list-margin-bottom: 0.5rem;
+    --list-item-margin-bottom: 0.25rem;
+  }
+
+  ul, ol {
+    list-style-position: inside; /* Keeps markers visible */
+  }
+}
+```
+
+## Reduced Motion
+
+Respects user's motion preferences:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  ul, ol, dl, li, dt, dd {
+    animation: none;
+    transition: none;
+  }
+}
+```
+
+## CSS Variable Naming Convention
+
+| Category         | Variable Pattern                | Example                           |
+| ---------------- | ------------------------------- | --------------------------------- |
+| **List Spacing** | `--list-{spacing-type}`         | `--list-margin-bottom`, `--list-gap` |
+| **Markers**      | `--list-marker-{property}`      | `--list-marker-color`, `--list-marker-size` |
+| **Typography**   | `--list-{property}`             | `--list-font-size`, `--list-line-height` |
+| **List Items**   | `--list-item-{property}`        | `--list-item-margin-bottom`       |
+| **Definition**   | `--dt-{property}`, `--dd-{property}` | `--dt-font-weight`, `--dd-margin-inline-start` |
+
+## Browser Support
+
+- **CSS Custom Properties:** All modern browsers
+- **`::marker` pseudo-element:** Chrome 86+, Firefox 68+, Safari 11.1+
+- **`:has()` selector:** Chrome 105+, Firefox 121+, Safari 15.4+
+- **Logical properties:** Chrome 87+, Firefox 66+, Safari 14.1+
+- **Flexbox (inline variant):** All modern browsers
+
+## Performance Tips
+
+Create reusable list classes:
+
+```css
+.list-navigation {
+  --list-gap: 2rem;
+  --list-font-size: 1.125rem;
+}
+
+.list-compact {
+  --list-gap: 0.25rem;
+  --list-item-margin-bottom: 0.25rem;
+}
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                          | fpkit List                          |
+| --------------------------------- | ----------------------------------- |
+| `class="list-none"`               | `data-variant="none"`               |
+| `class="list-disc"`               | Default `<ul>`                      |
+| `class="space-y-2"`               | `style="--list-item-margin-bottom: 0.5rem"` |
+| `class="flex space-x-4"`          | `data-variant="inline"`             |
+
+### From Bootstrap
+
+| Bootstrap                         | fpkit List                          |
+| --------------------------------- | ----------------------------------- |
+| `class="list-unstyled"`           | `data-variant="none"`               |
+| `class="list-inline"`             | `data-variant="inline"`             |
+
+## Related Resources
+
+- **React Component** - See README for React List component API
+- **MDN: Lists** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
+- **W3C: List Structure** - https://www.w3.org/WAI/tutorials/page-structure/content/
