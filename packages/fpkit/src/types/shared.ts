@@ -1,29 +1,13 @@
-export interface ComponentProps {
-  /**
-   * The default child content/component to render.
-   */
-  children?: React.ReactNode
-  /**
-   * Use defaylt component styles
-   */
-  renderStyles?: boolean
-  /**
-   * Component id attribute
-   */
-  id?: string
-  /**
-   * Styles object
-   */
-  styles?: React.CSSProperties
-  /**
-   * Component class attribute
-   */
-  classes?: string
-  /**
-   * Style value for [data-style] attribute
-   */
-  dataStyle?: string
-}
+/**
+ * Import ComponentProps from the canonical definition.
+ * This ensures a single source of truth for the interface.
+ *
+ * @see {@link ./component-props.ts} for the full interface definition with generic type support
+ */
+import type { ComponentProps } from "./component-props";
+
+// Re-export for convenience
+export type { ComponentProps };
 
 /**
  * Props for disabled state management across components.
