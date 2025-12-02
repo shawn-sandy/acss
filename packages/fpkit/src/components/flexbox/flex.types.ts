@@ -19,6 +19,7 @@ export type FlexContainerElement =
   | "ul"
   | "ol"
   | "dl"
+  | "li"
   | "form"
   | "fieldset";
 
@@ -41,7 +42,13 @@ export type FlexWrap = "wrap" | "nowrap" | "wrap-reverse";
 /**
  * Flex justify-content alignment
  */
-export type FlexJustify = "start" | "end" | "center" | "between" | "around" | "evenly";
+export type FlexJustify =
+  | "start"
+  | "end"
+  | "center"
+  | "between"
+  | "around"
+  | "evenly";
 
 /**
  * Flex align-items alignment
@@ -63,7 +70,13 @@ export type FlexAlignContent =
 /**
  * Flex align-self alignment (individual items)
  */
-export type FlexAlignSelf = "auto" | "start" | "end" | "center" | "baseline" | "stretch";
+export type FlexAlignSelf =
+  | "auto"
+  | "start"
+  | "end"
+  | "center"
+  | "baseline"
+  | "stretch";
 
 /**
  * Gap size options
@@ -148,7 +161,8 @@ export interface FlexProps
  * **Allowed elements**: div, section, article, aside, main, header, footer,
  * nav, ul, ol, dl, form, fieldset, li, dt, dd
  */
-export interface FlexItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "className"> {
+export interface FlexItemProps
+  extends Omit<React.HTMLAttributes<HTMLElement>, "className"> {
   /** Flex grow factor */
   grow?: 0 | 1;
   /** Flex shrink factor */
@@ -201,7 +215,8 @@ export interface FlexItemProps extends Omit<React.HTMLAttributes<HTMLElement>, "
  * **Allowed elements**: div, section, article, aside, main, header, footer,
  * nav, ul, ol, dl, form, fieldset
  */
-export interface FlexSpacerProps extends Omit<React.HTMLAttributes<HTMLElement>, "className"> {
+export interface FlexSpacerProps
+  extends Omit<React.HTMLAttributes<HTMLElement>, "className"> {
   /**
    * Element type to render as
    * @remarks Restricted to container elements. Default is 'div'.
@@ -219,6 +234,10 @@ export interface FlexSpacerProps extends Omit<React.HTMLAttributes<HTMLElement>,
 export type FlexComponent = React.ForwardRefExoticComponent<
   FlexProps & React.RefAttributes<HTMLElement>
 > & {
-  Item: React.ForwardRefExoticComponent<FlexItemProps & React.RefAttributes<HTMLElement>>;
-  Spacer: React.ForwardRefExoticComponent<FlexSpacerProps & React.RefAttributes<HTMLElement>>;
+  Item: React.ForwardRefExoticComponent<
+    FlexItemProps & React.RefAttributes<HTMLElement>
+  >;
+  Spacer: React.ForwardRefExoticComponent<
+    FlexSpacerProps & React.RefAttributes<HTMLElement>
+  >;
 };
