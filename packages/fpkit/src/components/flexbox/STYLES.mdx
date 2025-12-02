@@ -1,0 +1,857 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Layout/Flex/STYLES" />
+
+# Flexbox Utility Classes
+
+Comprehensive CSS utility classes for building responsive flexbox layouts with
+CSS custom properties and modern media queries.
+
+## Overview
+
+The fpkit flexbox utility system provides a complete set of layout utilities for
+creating flexible, responsive designs. All utilities support responsive
+modifiers and use CSS custom properties for easy customization.
+
+### Key Features
+
+- **Comprehensive utilities** - Complete coverage of all flexbox properties
+- **Responsive modifiers** - All utilities available at sm, md, lg, xl
+  breakpoints
+- **CSS custom properties** - Easily customize gap spacing and defaults
+- **Modern CSS** - Uses range media queries and fluid typography
+- **Rem-based spacing** - All spacing values use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+### Gap Spacing Variables
+
+The flexbox system uses fluid typography with `clamp()` for responsive gap
+spacing:
+
+```css
+:root {
+  /* Gap spacing - fluid typography */
+  --flex-gap-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem); /* 4-8px */
+  --flex-gap-sm: clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem); /* 8-12px */
+  --flex-gap-md: clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem); /* 12-18px */
+  --flex-gap-lg: clamp(1rem, 0.85rem + 0.6vw, 1.5rem); /* 16-24px */
+  --flex-gap-xl: clamp(1.5rem, 1.25rem + 0.75vw, 2rem); /* 24-32px */
+
+  /* Default gap for flex containers */
+  --flex-gap: var(--flex-gap-sm);
+}
+```
+
+### Customizing Gaps
+
+Override gap values for specific components:
+
+```css
+.custom-flex {
+  --flex-gap: 2rem; /* Custom gap spacing */
+}
+```
+
+Or inline:
+
+```html
+<div class="flex" style="--flex-gap: 2rem">
+  <!-- Custom gap spacing -->
+</div>
+```
+
+## Base Flex Containers
+
+### `.flex`
+
+Standard flex container with default gap:
+
+```html
+<div class="flex">
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+```
+
+**CSS:**
+
+```css
+.flex {
+  display: flex;
+  gap: var(--flex-gap); /* default: --flex-gap-sm */
+}
+```
+
+### `.flex-inline`
+
+Inline flex container:
+
+```html
+<div class="flex-inline">
+  <span>Inline</span>
+  <span>Items</span>
+</div>
+```
+
+**CSS:**
+
+```css
+.flex-inline {
+  display: inline-flex;
+  gap: var(--flex-gap);
+}
+```
+
+## Flex Direction
+
+Control the direction of flex items:
+
+| Class               | CSS Value                        | Description                 |
+| ------------------- | -------------------------------- | --------------------------- |
+| `.flex-row`         | `flex-direction: row`            | Horizontal layout (default) |
+| `.flex-row-reverse` | `flex-direction: row-reverse`    | Reverse horizontal          |
+| `.flex-col`         | `flex-direction: column`         | Vertical layout             |
+| `.flex-col-reverse` | `flex-direction: column-reverse` | Reverse vertical            |
+
+### Examples
+
+```html
+<!-- Horizontal row -->
+<div class="flex flex-row">
+  <div>Left</div>
+  <div>Right</div>
+</div>
+
+<!-- Vertical column -->
+<div class="flex flex-col">
+  <div>Top</div>
+  <div>Bottom</div>
+</div>
+
+<!-- Responsive: column on mobile, row on tablet+ -->
+<div class="flex flex-col md:flex-row">
+  <div>Content</div>
+  <div>Sidebar</div>
+</div>
+```
+
+## Flex Wrap
+
+Control whether flex items wrap:
+
+| Class                | CSS Value                 | Description                |
+| -------------------- | ------------------------- | -------------------------- |
+| `.flex-wrap`         | `flex-wrap: wrap`         | Allow wrapping             |
+| `.flex-wrap-reverse` | `flex-wrap: wrap-reverse` | Wrap in reverse            |
+| `.flex-nowrap`       | `flex-wrap: nowrap`       | Prevent wrapping (default) |
+
+### Examples
+
+```html
+<!-- Allow items to wrap to new lines -->
+<div class="flex flex-wrap gap-md">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+  <div>Item 4</div>
+</div>
+
+<!-- Responsive: wrap on mobile, nowrap on desktop -->
+<div class="flex flex-wrap lg:flex-nowrap">
+  <div>Content</div>
+</div>
+```
+
+## Justify Content (Main Axis)
+
+Align items along the main axis:
+
+| Class              | CSS Value                        | Description         |
+| ------------------ | -------------------------------- | ------------------- |
+| `.justify-start`   | `justify-content: flex-start`    | Align to start      |
+| `.justify-end`     | `justify-content: flex-end`      | Align to end        |
+| `.justify-center`  | `justify-content: center`        | Center items        |
+| `.justify-between` | `justify-content: space-between` | Space between items |
+| `.justify-around`  | `justify-content: space-around`  | Space around items  |
+| `.justify-evenly`  | `justify-content: space-evenly`  | Even spacing        |
+
+### Examples
+
+```html
+<!-- Center horizontally -->
+<div class="flex justify-center">
+  <div>Centered</div>
+</div>
+
+<!-- Space between (common header/footer layout) -->
+<div class="flex justify-between">
+  <div>Logo</div>
+  <nav>Menu</nav>
+</div>
+
+<!-- Even spacing -->
+<div class="flex justify-evenly">
+  <button>Action 1</button>
+  <button>Action 2</button>
+  <button>Action 3</button>
+</div>
+```
+
+## Align Items (Cross Axis)
+
+Align items along the cross axis:
+
+| Class             | CSS Value                 | Description               |
+| ----------------- | ------------------------- | ------------------------- |
+| `.items-start`    | `align-items: flex-start` | Align to start            |
+| `.items-end`      | `align-items: flex-end`   | Align to end              |
+| `.items-center`   | `align-items: center`     | Center items              |
+| `.items-baseline` | `align-items: baseline`   | Align to text baseline    |
+| `.items-stretch`  | `align-items: stretch`    | Stretch to fill (default) |
+
+### Examples
+
+```html
+<!-- Vertically center items -->
+<div class="flex items-center" style="height: 200px">
+  <div>Vertically centered</div>
+</div>
+
+<!-- Align to baseline (useful for text) -->
+<div class="flex items-baseline gap-sm">
+  <h1>Title</h1>
+  <span>Subtitle</span>
+</div>
+```
+
+## Align Content (Multi-line)
+
+Align wrapped flex lines:
+
+| Class              | CSS Value                      | Description             |
+| ------------------ | ------------------------------ | ----------------------- |
+| `.content-start`   | `align-content: flex-start`    | Pack lines to start     |
+| `.content-end`     | `align-content: flex-end`      | Pack lines to end       |
+| `.content-center`  | `align-content: center`        | Center lines            |
+| `.content-between` | `align-content: space-between` | Space between lines     |
+| `.content-around`  | `align-content: space-around`  | Space around lines      |
+| `.content-evenly`  | `align-content: space-evenly`  | Even spacing            |
+| `.content-stretch` | `align-content: stretch`       | Stretch lines (default) |
+
+### Examples
+
+```html
+<!-- Space between wrapped lines -->
+<div class="flex flex-wrap content-between" style="height: 400px">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+  <div>Item 4</div>
+</div>
+```
+
+## Align Self (Individual Items)
+
+Override alignment for individual flex items:
+
+| Class            | CSS Value                | Description         |
+| ---------------- | ------------------------ | ------------------- |
+| `.self-auto`     | `align-self: auto`       | Inherit from parent |
+| `.self-start`    | `align-self: flex-start` | Align to start      |
+| `.self-end`      | `align-self: flex-end`   | Align to end        |
+| `.self-center`   | `align-self: center`     | Center item         |
+| `.self-baseline` | `align-self: baseline`   | Align to baseline   |
+| `.self-stretch`  | `align-self: stretch`    | Stretch to fill     |
+
+### Examples
+
+```html
+<div class="flex items-start" style="height: 200px">
+  <div>Normal</div>
+  <div class="self-center">Centered</div>
+  <div class="self-end">Bottom</div>
+</div>
+```
+
+## Flex Item Sizing
+
+### Flex Grow
+
+Control how items grow to fill space:
+
+| Class          | CSS Value      | Description          |
+| -------------- | -------------- | -------------------- |
+| `.flex-grow-0` | `flex-grow: 0` | Don't grow (default) |
+| `.flex-grow-1` | `flex-grow: 1` | Allow growth         |
+
+```html
+<div class="flex gap-md">
+  <div class="flex-grow-0">Fixed width</div>
+  <div class="flex-grow-1">Grows to fill</div>
+</div>
+```
+
+### Flex Shrink
+
+Control how items shrink:
+
+| Class            | CSS Value        | Description               |
+| ---------------- | ---------------- | ------------------------- |
+| `.flex-shrink-0` | `flex-shrink: 0` | Don't shrink              |
+| `.flex-shrink-1` | `flex-shrink: 1` | Allow shrinking (default) |
+
+```html
+<div class="flex">
+  <div class="flex-shrink-0">No shrink</div>
+  <div class="flex-shrink-1">Can shrink</div>
+</div>
+```
+
+### Flex Basis
+
+Control initial size:
+
+| Class              | CSS Value          | Description                |
+| ------------------ | ------------------ | -------------------------- |
+| `.flex-basis-auto` | `flex-basis: auto` | Based on content (default) |
+| `.flex-basis-0`    | `flex-basis: 0`    | Zero basis                 |
+| `.flex-basis-full` | `flex-basis: 100%` | Full width/height          |
+
+### Flex Shorthand
+
+Common flex value combinations:
+
+| Class           | CSS Value        | Description                  |
+| --------------- | ---------------- | ---------------------------- |
+| `.flex-1`       | `flex: 1 1 0%`   | Grow and shrink equally      |
+| `.flex-auto`    | `flex: 1 1 auto` | Grow/shrink based on content |
+| `.flex-initial` | `flex: 0 1 auto` | Initial size, can shrink     |
+| `.flex-none`    | `flex: none`     | Don't grow or shrink         |
+
+### Examples
+
+```html
+<!-- Equal width columns -->
+<div class="flex gap-md">
+  <div class="flex-1">Column 1</div>
+  <div class="flex-1">Column 2</div>
+  <div class="flex-1">Column 3</div>
+</div>
+
+<!-- Fixed sidebar, flexible content -->
+<div class="flex gap-lg">
+  <aside class="flex-none" style="width: 250px">Sidebar</aside>
+  <main class="flex-1">Main content</main>
+</div>
+```
+
+## Gap Utilities
+
+### Gap (Both Axes)
+
+| Class     | CSS Value                 | Size Range |
+| --------- | ------------------------- | ---------- |
+| `.gap-0`  | `gap: 0`                  | No gap     |
+| `.gap-xs` | `gap: var(--flex-gap-xs)` | 4-8px      |
+| `.gap-sm` | `gap: var(--flex-gap-sm)` | 8-12px     |
+| `.gap-md` | `gap: var(--flex-gap-md)` | 12-18px    |
+| `.gap-lg` | `gap: var(--flex-gap-lg)` | 16-24px    |
+| `.gap-xl` | `gap: var(--flex-gap-xl)` | 24-32px    |
+
+### Row Gap (Horizontal Spacing)
+
+| Class         | CSS Value                     | Size Range |
+| ------------- | ----------------------------- | ---------- |
+| `.row-gap-0`  | `row-gap: 0`                  | No gap     |
+| `.row-gap-xs` | `row-gap: var(--flex-gap-xs)` | 4-8px      |
+| `.row-gap-sm` | `row-gap: var(--flex-gap-sm)` | 8-12px     |
+| `.row-gap-md` | `row-gap: var(--flex-gap-md)` | 12-18px    |
+| `.row-gap-lg` | `row-gap: var(--flex-gap-lg)` | 16-24px    |
+| `.row-gap-xl` | `row-gap: var(--flex-gap-xl)` | 24-32px    |
+
+### Column Gap (Vertical Spacing)
+
+| Class         | CSS Value                        | Size Range |
+| ------------- | -------------------------------- | ---------- |
+| `.col-gap-0`  | `column-gap: 0`                  | No gap     |
+| `.col-gap-xs` | `column-gap: var(--flex-gap-xs)` | 4-8px      |
+| `.col-gap-sm` | `column-gap: var(--flex-gap-sm)` | 8-12px     |
+| `.col-gap-md` | `column-gap: var(--flex-gap-md)` | 12-18px    |
+| `.col-gap-lg` | `column-gap: var(--flex-gap-lg)` | 16-24px    |
+| `.col-gap-xl` | `column-gap: var(--flex-gap-xl)` | 24-32px    |
+
+### Examples
+
+```html
+<!-- Uniform gap -->
+<div class="flex gap-md">
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+
+<!-- Different row and column gaps (grid-like) -->
+<div class="flex flex-wrap row-gap-lg col-gap-sm">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+
+<!-- Responsive gaps -->
+<div class="flex gap-sm md:gap-md lg:gap-lg">
+  <div>Content</div>
+</div>
+```
+
+## Common Flex Patterns
+
+Pre-built patterns for common layouts:
+
+### `.flex-center`
+
+Center content on both axes:
+
+```css
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+```html
+<div class="flex-center" style="height: 300px">
+  <div>Perfectly centered</div>
+</div>
+```
+
+### `.flex-between`
+
+Space between with vertical centering (common for headers):
+
+```css
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+```
+
+```html
+<header class="flex-between">
+  <div class="logo">Logo</div>
+  <nav>Navigation</nav>
+</header>
+```
+
+### `.flex-around`
+
+Space around with vertical centering:
+
+```css
+.flex-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+```
+
+```html
+<div class="flex-around">
+  <button>Action 1</button>
+  <button>Action 2</button>
+  <button>Action 3</button>
+</div>
+```
+
+### `.flex-stack`
+
+Vertical stack with gap (responsive: becomes horizontal at md):
+
+```css
+.flex-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--flex-gap-sm);
+}
+
+@media (width >= 48rem) {
+  .flex-stack {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--flex-gap-md);
+  }
+}
+```
+
+```html
+<div class="flex-stack">
+  <div>Stacks vertically on mobile</div>
+  <div>Becomes horizontal on tablets+</div>
+</div>
+```
+
+### `.flex-spread`
+
+Equal width children:
+
+```css
+.flex-spread > * {
+  flex: 1 1 0%;
+}
+```
+
+```html
+<div class="flex flex-spread gap-md">
+  <div>Equal</div>
+  <div>Width</div>
+  <div>Columns</div>
+</div>
+```
+
+## Order Utilities
+
+Control visual order of flex items:
+
+| Class          | CSS Value    | Description            |
+| -------------- | ------------ | ---------------------- |
+| `.order-first` | `order: -1`  | Move to first position |
+| `.order-last`  | `order: 999` | Move to last position  |
+| `.order-none`  | `order: 0`   | Default order          |
+
+### Examples
+
+```html
+<div class="flex">
+  <div class="order-last">Appears last (was first in markup)</div>
+  <div>Middle</div>
+  <div class="order-first">Appears first (was last in markup)</div>
+</div>
+```
+
+## Responsive Utilities
+
+All utilities support responsive modifiers at four breakpoints:
+
+### Breakpoints
+
+| Prefix | Min Width | Pixels | Description   |
+| ------ | --------- | ------ | ------------- |
+| `sm:`  | 30rem     | 480px  | Small devices |
+| `md:`  | 48rem     | 768px  | Tablets       |
+| `lg:`  | 62rem     | 992px  | Desktops      |
+| `xl:`  | 80rem     | 1280px | Large screens |
+
+### Syntax
+
+```
+{breakpoint}:{utility}
+```
+
+### Available Responsive Utilities
+
+All the following utilities support responsive modifiers:
+
+- **Direction:** `flex-row`, `flex-row-reverse`, `flex-col`, `flex-col-reverse`
+- **Wrap:** `flex-wrap`, `flex-nowrap`
+- **Justify:** `justify-start`, `justify-end`, `justify-center`,
+  `justify-between`, `justify-around`, `justify-evenly`
+- **Align Items:** `items-start`, `items-end`, `items-center`, `items-baseline`,
+  `items-stretch`
+- **Gaps:** `gap-0`, `gap-xs`, `gap-sm`, `gap-md`, `gap-lg`, `gap-xl`
+- **Flex Sizing:** `flex-1`, `flex-auto`, `flex-none`
+
+### Responsive Examples
+
+```html
+<!-- Stack on mobile, row on tablet+ -->
+<div class="flex flex-col md:flex-row gap-md">
+  <div>Content</div>
+  <div>Sidebar</div>
+</div>
+
+<!-- Center on mobile, space-between on desktop -->
+<div class="flex justify-center lg:justify-between">
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+
+<!-- Small gap on mobile, larger on desktop -->
+<div class="flex gap-sm md:gap-md lg:gap-lg xl:gap-xl">
+  <div>Item 1</div>
+  <div>Item 2</div>
+</div>
+
+<!-- Complex responsive layout -->
+<div
+  class="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-sm md:gap-md lg:gap-lg"
+>
+  <div class="flex-1">Column 1</div>
+  <div class="flex-1">Column 2</div>
+  <div class="flex-1">Column 3</div>
+</div>
+```
+
+## Automatic Responsive Adjustments
+
+The flexbox system includes built-in responsive gap adjustments:
+
+### Large Breakpoint (lg: 992px+)
+
+```css
+@media (width >= 62rem) {
+  .flex,
+  .flex-inline {
+    gap: var(--flex-gap-md); /* Increases from sm to md */
+  }
+
+  .flex-stack {
+    gap: var(--flex-gap-lg); /* Increases to lg */
+  }
+}
+```
+
+### Extra Large Breakpoint (xl: 1280px+)
+
+```css
+@media (width >= 80rem) {
+  .flex,
+  .flex-inline {
+    gap: var(--flex-gap-lg); /* Increases to lg */
+  }
+
+  .flex-stack {
+    gap: var(--flex-gap-xl); /* Increases to xl */
+  }
+}
+```
+
+## Real-World Examples
+
+### Responsive Navigation Header
+
+```html
+<header
+  class="flex flex-col md:flex-row justify-between items-center gap-md md:gap-lg"
+>
+  <div class="logo">
+    <img src="/logo.svg" alt="Logo" />
+  </div>
+  <nav class="flex gap-md">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </nav>
+</header>
+```
+
+### Card Grid with Wrapping
+
+```html
+<div class="flex flex-wrap gap-md lg:gap-lg">
+  <div class="flex-basis-full md:flex-basis-0 md:flex-1">
+    <div class="card">Card 1</div>
+  </div>
+  <div class="flex-basis-full md:flex-basis-0 md:flex-1">
+    <div class="card">Card 2</div>
+  </div>
+  <div class="flex-basis-full md:flex-basis-0 md:flex-1">
+    <div class="card">Card 3</div>
+  </div>
+</div>
+```
+
+### Sidebar Layout
+
+```html
+<div class="flex flex-col lg:flex-row gap-lg">
+  <aside class="flex-none lg:flex-basis-0" style="--flex-basis: 250px">
+    <nav class="flex flex-col gap-sm">
+      <a href="#section1">Section 1</a>
+      <a href="#section2">Section 2</a>
+      <a href="#section3">Section 3</a>
+    </nav>
+  </aside>
+  <main class="flex-1">
+    <article>Main content</article>
+  </main>
+</div>
+```
+
+### Form Layout
+
+```html
+<form class="flex flex-col gap-md">
+  <div class="flex flex-col sm:flex-row gap-sm">
+    <label class="flex-none sm:flex-basis-0" style="--flex-basis: 150px">
+      First Name
+    </label>
+    <input class="flex-1" type="text" />
+  </div>
+  <div class="flex flex-col sm:flex-row gap-sm">
+    <label class="flex-none sm:flex-basis-0" style="--flex-basis: 150px">
+      Last Name
+    </label>
+    <input class="flex-1" type="text" />
+  </div>
+  <div class="flex justify-end gap-sm">
+    <button type="button">Cancel</button>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+```
+
+### Centered Modal Dialog
+
+```html
+<div class="flex-center" style="min-height: 100vh">
+  <div class="modal flex flex-col gap-md" style="width: 90%; max-width: 500px">
+    <div class="flex justify-between items-center">
+      <h2>Dialog Title</h2>
+      <button>✕</button>
+    </div>
+    <div class="flex-1">
+      <p>Dialog content</p>
+    </div>
+    <div class="flex justify-end gap-sm">
+      <button>Cancel</button>
+      <button>Confirm</button>
+    </div>
+  </div>
+</div>
+```
+
+## Browser Support
+
+The flexbox utilities use modern CSS features:
+
+- **Flexbox:** All modern browsers (IE11+ with prefixes)
+- **Range media queries:** Chrome 104+, Firefox 102+, Safari 16.4+
+- **CSS custom properties:** All modern browsers (IE11 not supported)
+- **Gap property:** Chrome 84+, Firefox 63+, Safari 14.1+
+
+For older browsers, consider using PostCSS with autoprefixer.
+
+## Accessibility Considerations
+
+### Visual vs Source Order
+
+When using `order` utilities or `flex-direction: *-reverse`, be aware that
+visual order differs from source order:
+
+```html
+<!-- Screen readers will announce in source order, not visual order -->
+<div class="flex flex-row-reverse">
+  <div>Appears second visually, but first in source</div>
+  <div>Appears first visually, but second in source</div>
+</div>
+```
+
+**Best practice:** Keep source order logical for screen readers. Use CSS for
+visual adjustments only.
+
+### Focus Order
+
+Focus order follows source order, not visual order:
+
+```html
+<!-- Tab order follows 1→2→3 regardless of visual order -->
+<div class="flex">
+  <button class="order-last">Button 1 (visually last, focus first)</button>
+  <button>Button 2</button>
+  <button class="order-first">Button 3 (visually first, focus last)</button>
+</div>
+```
+
+**Best practice:** Avoid changing visual order of interactive elements.
+
+## Performance Tips
+
+### Avoid Deep Nesting
+
+Prefer flat structures over deeply nested flex containers:
+
+```html
+<!-- Good: Flat structure -->
+<div class="flex gap-md">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+
+<!-- Avoid: Unnecessary nesting -->
+<div class="flex">
+  <div class="flex">
+    <div class="flex">
+      <div>Over-nested</div>
+    </div>
+  </div>
+</div>
+```
+
+### Use Shorthand Properties
+
+Prefer shorthand utilities like `.flex-1` over multiple utilities:
+
+```html
+<!-- Good: Shorthand -->
+<div class="flex-1">Content</div>
+
+<!-- Verbose: Multiple utilities -->
+<div class="flex-grow-1 flex-shrink-1 flex-basis-0">Content</div>
+```
+
+### Combine Utilities Strategically
+
+Use pattern classes when appropriate:
+
+```html
+<!-- Good: Pattern class -->
+<div class="flex-between">
+  <div>Left</div>
+  <div>Right</div>
+</div>
+
+<!-- Works but verbose -->
+<div class="flex justify-between items-center">
+  <div>Left</div>
+  <div>Right</div>
+</div>
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind          | fpkit              | Notes           |
+| ----------------- | ------------------ | --------------- |
+| `flex`            | `.flex`            | Same            |
+| `flex-row`        | `.flex-row`        | Same            |
+| `flex-col`        | `.flex-col`        | Same            |
+| `justify-between` | `.justify-between` | Same            |
+| `items-center`    | `.items-center`    | Same            |
+| `gap-4`           | `.gap-md`          | Different scale |
+| `flex-1`          | `.flex-1`          | Same            |
+| `md:flex-row`     | `.md:flex-row`     | Same syntax     |
+
+### From Bootstrap
+
+| Bootstrap                 | fpkit                       | Notes             |
+| ------------------------- | --------------------------- | ----------------- |
+| `d-flex`                  | `.flex`                     | Shorter           |
+| `flex-row`                | `.flex-row`                 | Same              |
+| `flex-column`             | `.flex-col`                 | Shorter           |
+| `justify-content-between` | `.justify-between`          | Shorter           |
+| `align-items-center`      | `.items-center`             | Shorter           |
+| `flex-grow-1`             | `.flex-grow-1` or `.flex-1` | Same or shorthand |
+
+## Related Resources
+
+- **React Component** - See [README.mdx](./README.mdx) for the React Flex
+  component API
+- **MDN: Flexbox** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout)
+- **CSS Tricks: Complete Guide to Flexbox** -
+  [https://css-tricks.com/snippets/css/a-guide-to-flexbox/](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- **W3C Flexbox Specification** -
+  [https://www.w3.org/TR/css-flexbox-1/](https://www.w3.org/TR/css-flexbox-1/)
