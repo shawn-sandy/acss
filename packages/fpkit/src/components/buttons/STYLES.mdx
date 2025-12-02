@@ -1,0 +1,766 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Buttons/Styles" />
+
+# Button Styles
+
+Comprehensive button styling system with CSS custom properties for flexible,
+accessible, and themeable buttons.
+
+## Overview
+
+The fpkit button styling system provides a complete set of button styles
+supporting multiple sizes, variants, and states. All styles use CSS custom
+properties for easy customization and theming, with rem-based sizing for
+accessibility.
+
+### Key Features
+
+- **Size variants** - Extra small (xs) through large (lg) with fluid typography
+- **Style variants** - Pill, icon, and text button styles
+- **Type-based styling** - Automatic styling for submit, reset button types
+- **State management** - Hover, focus, and disabled states with smooth
+  transitions
+- **CSS custom properties** - Extensive theming support via CSS variables
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+- **Accessibility** - Proper focus indicators and disabled state handling
+
+## CSS Custom Properties
+
+### Size Tokens
+
+The button system uses predefined size tokens for consistent typography:
+
+```css
+button {
+  /* Size tokens */
+  --btn-size-xs: 0.6875rem; /* 11px */
+  --btn-size-sm: 0.8125rem; /* 13px */
+  --btn-size-md: 0.9375rem; /* 15px */
+  --btn-size-lg: 1.125rem; /* 18px */
+
+  /* Default font size */
+  --btn-fs: var(--btn-size-md);
+
+  /* Dynamic height based on font size */
+  --btn-height: calc(var(--btn-fs) * 2.25);
+}
+```
+
+### Core Style Properties
+
+```css
+button {
+  /* Typography */
+  --btn-fs: var(--btn-size-md); /* Font size */
+  --btn-fw: 500; /* Font weight */
+
+  /* Colors */
+  --btn-bg: lightgray; /* Background color */
+  --btn-color: currentColor; /* Text color */
+
+  /* Spacing */
+  --btn-padding-inline: calc(var(--btn-fs) * 1.5); /* Horizontal padding */
+  --btn-padding-block: calc(var(--btn-fs) * 0.5); /* Vertical padding */
+  --btn-gap: 0.2rem; /* Gap between child elements */
+  --btn-spacing: 0; /* External margin */
+
+  /* Borders */
+  --btn-border: none; /* Border style */
+  --btn-radius: 0.375rem; /* Border radius (6px) */
+
+  /* Layout */
+  --btn-width: max-content; /* Button width */
+  --btn-height: calc(var(--btn-fs) * 2.25); /* Button height */
+  --btn-display: inline-flex; /* Display mode */
+  --btn-place: center; /* place-items value */
+
+  /* Effects */
+  --btn-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transition */
+  --btn-deco: none; /* Text decoration */
+  --btn-whitespace: inherit; /* White space handling */
+}
+```
+
+### Hover & Focus Properties
+
+```css
+button:is(:hover, :focus) {
+  /* Hover effects */
+  --btn-hover-filter: brightness(0.85); /* Darken on hover */
+  --btn-hover-transform: scale(1.03); /* Slight scale up */
+  --btn-hover-outline: thin; /* Outline width */
+}
+
+button:focus-visible {
+  /* Focus indicator */
+  --btn-focus-outline: 2px solid currentColor; /* Focus outline */
+  --btn-focus-outline-offset: 1px; /* Outline offset */
+}
+```
+
+### Disabled State Properties
+
+```css
+button[disabled],
+button[aria-disabled="true"] {
+  --btn-cursor: not-allowed; /* Cursor style when disabled */
+  --btn-opacity: 0.5; /* Optional opacity reduction */
+}
+```
+
+### Special Variant Properties
+
+```css
+button {
+  /* Pill variant */
+  --btn-pill: 100rem; /* Fully rounded borders */
+}
+```
+
+### Customizing Button Styles
+
+Override CSS variables for specific buttons:
+
+```css
+.custom-button {
+  --btn-bg: #0066cc;
+  --btn-color: white;
+  --btn-fs: 1.125rem;
+  --btn-radius: 0.5rem;
+}
+```
+
+Or inline:
+
+```html
+<button style="--btn-bg: #0066cc; --btn-color: white">Custom Button</button>
+```
+
+## Base Button Styles
+
+### Default Button
+
+Standard button with default styling:
+
+```html
+<button>Default Button</button>
+```
+
+**CSS Applied:**
+
+```css
+button {
+  font-size: var(--btn-fs); /* 0.9375rem / 15px */
+  font-weight: 500;
+  height: calc(var(--btn-fs) * 2.25);
+  padding-inline: calc(var(--btn-fs) * 1.5);
+  padding-block: calc(var(--btn-fs) * 0.5);
+  border-radius: 0.375rem;
+  background-color: lightgray;
+  color: currentColor;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+```
+
+### Type Variants
+
+Buttons automatically styled based on their type attribute:
+
+#### Submit Button
+
+```html
+<button type="submit">Submit</button>
+```
+
+**CSS:**
+
+```css
+button[type="submit"] {
+  --btn-bg: var(--primary-700, blue);
+  --btn-color: #fff;
+  --btn-border: none;
+}
+```
+
+#### Reset Button
+
+```html
+<button type="reset">Reset</button>
+```
+
+**CSS:**
+
+```css
+button[type="reset"] {
+  --btn-bg: transparent;
+  --btn-color: gray;
+  --btn-border: gray thin solid;
+}
+```
+
+## Size Variants
+
+Control button size using data attributes or classes:
+
+| Data Attribute  | Class     | Font Size   | Pixel Equivalent | Description        |
+| --------------- | --------- | ----------- | ---------------- | ------------------ |
+| `data-btn="xs"` | `.btn-xs` | `0.6875rem` | 11px             | Extra small button |
+| `data-btn="sm"` | `.btn-sm` | `0.8125rem` | 13px             | Small button       |
+| `data-btn="md"` | `.btn-md` | `0.9375rem` | 15px             | Medium (default)   |
+| `data-btn="lg"` | `.btn-lg` | `1.125rem`  | 18px             | Large button       |
+
+### Examples
+
+```html
+<!-- Extra small (uppercase text) -->
+<button data-btn="xs">Extra Small</button>
+
+<!-- Small -->
+<button data-btn="sm">Small Button</button>
+
+<!-- Medium (default) -->
+<button>Medium Button</button>
+<button data-btn="md">Medium Button</button>
+
+<!-- Large -->
+<button data-btn="lg">Large Button</button>
+```
+
+### Size Customization
+
+Height and padding scale automatically based on font size:
+
+```css
+button[data-btn~="lg"] {
+  --btn-fs: 1.125rem; /* 18px */
+  --btn-height: calc(1.125rem * 2.25); /* 2.53125rem / 40.5px */
+  --btn-padding-inline: calc(1.125rem * 1.5); /* 1.6875rem / 27px */
+  --btn-padding-block: calc(1.125rem * 0.5); /* 0.5625rem / 9px */
+}
+```
+
+## Style Variants
+
+### Pill Button
+
+Fully rounded button with large border radius:
+
+```html
+<button data-btn="pill">Pill Button</button>
+<button data-style="pill">Pill Button</button>
+<button data-fp-btn="pill">Pill Button</button>
+```
+
+**CSS:**
+
+```css
+button[data-btn~="pill"] {
+  border-radius: var(--btn-pill, 100rem);
+}
+```
+
+**Example:**
+
+```html
+<button data-btn="pill" style="--btn-bg: #4CAF50; --btn-color: white">
+  Pill Button
+</button>
+```
+
+### Icon Button
+
+Button optimized for icons with minimal padding:
+
+```html
+<button data-btn="icon">
+  <svg><!-- icon --></svg>
+</button>
+```
+
+**CSS:**
+
+```css
+button[data-btn~="icon"] {
+  padding: unset;
+  height: unset;
+  --btn-bg: transparent;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+**Example:**
+
+```html
+<button data-btn="icon" aria-label="Close">✕</button>
+<button data-btn="icon lg" aria-label="Menu">☰</button>
+```
+
+### Text Button
+
+Minimal button with transparent background and subtle hover:
+
+```html
+<button data-btn="text">Text Button</button>
+```
+
+**CSS:**
+
+```css
+button[data-btn~="text"] {
+  --btn-bg: transparent;
+  --btn-color: currentColor;
+  --btn-border: none;
+  --btn-height: unset;
+  --btn-width: unset;
+  --btn-padding-block: 0.75rem;
+  --btn-padding-inline: 0.75rem;
+}
+
+button[data-btn~="text"]:is(:hover, :focus) {
+  background-color: color-mix(in srgb, var(--btn-color) 10%, transparent);
+  outline: 0.025rem solid var(--btn-color);
+  outline-offset: 0;
+  filter: none;
+}
+```
+
+**Example:**
+
+```html
+<button data-btn="text">Learn More</button>
+<button data-btn="text" style="--btn-color: #0066cc">View Details</button>
+```
+
+## State Styles
+
+### Hover State
+
+Buttons darken and scale slightly on hover:
+
+```css
+button:is(:hover, :focus) {
+  filter: brightness(0.85); /* Darkens background */
+  transform: scale(1.03); /* Slight scale up */
+  outline: thin;
+  outline-offset: 1px;
+}
+```
+
+**Customization:**
+
+```html
+<button
+  style="--btn-hover-transform: scale(1.05); --btn-hover-filter: brightness(0.9)"
+>
+  Hover Me
+</button>
+```
+
+### Focus State
+
+Visible focus indicator for keyboard navigation:
+
+```css
+button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+```
+
+**Customization:**
+
+```html
+<button
+  style="--btn-focus-outline: 3px solid blue; --btn-focus-outline-offset: 2px"
+>
+  Focus Me
+</button>
+```
+
+### Disabled State
+
+Disabled buttons show not-allowed cursor and no hover effects:
+
+```html
+<button disabled>Disabled Button</button>
+<button aria-disabled="true">Disabled Button</button>
+```
+
+**CSS:**
+
+```css
+button[disabled],
+button[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+button[disabled]:is(:hover, :focus),
+button[aria-disabled="true"]:is(:hover, :focus) {
+  transform: none; /* No scale effect */
+  opacity: 0.5;
+  filter: none; /* No brightness filter */
+}
+```
+
+## Combining Variants
+
+You can combine multiple variants using space-separated values:
+
+```html
+<!-- Large pill button -->
+<button data-btn="lg pill">Large Pill</button>
+
+<!-- Small icon button -->
+<button data-btn="sm icon" aria-label="Close">✕</button>
+
+<!-- Large text button -->
+<button data-btn="lg text">Large Text</button>
+```
+
+**Example:**
+
+```html
+<button data-btn="lg pill" style="--btn-bg: #9C27B0; --btn-color: white">
+  Large Pill Button
+</button>
+```
+
+## Real-World Examples
+
+### Primary Action Button
+
+```html
+<button
+  type="submit"
+  data-btn="lg"
+  style="--btn-bg: #1976D2; --btn-color: white; --btn-radius: 0.5rem"
+>
+  Get Started
+</button>
+```
+
+### Secondary Button
+
+```html
+<button
+  type="button"
+  style="--btn-bg: transparent; --btn-color: #1976D2; --btn-border: 2px solid #1976D2"
+>
+  Learn More
+</button>
+```
+
+### Danger Button
+
+```html
+<button type="button" style="--btn-bg: #D32F2F; --btn-color: white">
+  Delete
+</button>
+```
+
+### Icon Button Group
+
+```html
+<div style="display: flex; gap: 0.5rem">
+  <button data-btn="icon" aria-label="Edit">✎</button>
+  <button data-btn="icon" aria-label="Delete">✕</button>
+  <button data-btn="icon" aria-label="Settings">⚙</button>
+</div>
+```
+
+### Button with Icon and Text
+
+```html
+<button data-btn="lg" style="--btn-bg: #4CAF50; --btn-color: white">
+  <svg width="20" height="20"><!-- icon --></svg>
+  <span>Add Item</span>
+</button>
+```
+
+### Outlined Pill Button
+
+```html
+<button
+  data-btn="pill"
+  style="--btn-bg: transparent; --btn-color: #FF5722; --btn-border: 2px solid #FF5722"
+>
+  Contact Us
+</button>
+```
+
+### Loading Button
+
+```html
+<button disabled style="--btn-opacity: 0.7">
+  <span>Loading...</span>
+  <span style="animation: spin 1s linear infinite">⟳</span>
+</button>
+```
+
+### Full Width Button
+
+```html
+<button style="--btn-width: 100%" type="submit">Continue</button>
+```
+
+## Accessibility Considerations
+
+### Keyboard Navigation
+
+All buttons are keyboard-accessible by default:
+
+- **Tab** - Focus the button
+- **Enter** or **Space** - Activate the button
+- **Focus indicators** - Visible outline on `:focus-visible`
+
+### Disabled State
+
+Use proper disabled attributes:
+
+```html
+<!-- Native disabled (recommended) -->
+<button disabled>Cannot click</button>
+
+<!-- ARIA disabled (for custom behavior) -->
+<button aria-disabled="true">Cannot click</button>
+```
+
+**Note:** The `aria-disabled="true"` attribute allows custom JavaScript handling
+while maintaining disabled styling.
+
+### Icon Buttons
+
+Always provide accessible labels for icon-only buttons:
+
+```html
+<!-- Good: Has aria-label -->
+<button data-btn="icon" aria-label="Close dialog">✕</button>
+
+<!-- Bad: No label (not accessible) -->
+<button data-btn="icon">✕</button>
+```
+
+### Focus Management
+
+The button system includes visible focus indicators:
+
+```css
+button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+```
+
+**Best practice:** Never use `outline: none` without providing an alternative
+focus indicator.
+
+### Color Contrast
+
+Ensure sufficient color contrast (WCAG AA: 4.5:1 for text):
+
+```html
+<!-- Good contrast -->
+<button style="--btn-bg: #1976D2; --btn-color: white">Button</button>
+
+<!-- Poor contrast (avoid) -->
+<button style="--btn-bg: #FFEB3B; --btn-color: white">Button</button>
+```
+
+## Button States Reference
+
+### Interactive States
+
+| State             | Selector                       | Description                   |
+| ----------------- | ------------------------------ | ----------------------------- |
+| **Default**       | `button`                       | Normal state                  |
+| **Hover**         | `button:hover`                 | Mouse hover                   |
+| **Focus**         | `button:focus`                 | Keyboard focus                |
+| **Focus Visible** | `button:focus-visible`         | Keyboard focus indicator      |
+| **Active**        | `button:active`                | Being clicked                 |
+| **Disabled**      | `button[disabled]`             | Disabled (native)             |
+| **ARIA Disabled** | `button[aria-disabled="true"]` | Disabled (ARIA, allows focus) |
+
+### Visual Effects by State
+
+```css
+/* Default → Hover/Focus */
+button:is(:hover, :focus) {
+  filter: brightness(0.85); /* 15% darker */
+  transform: scale(1.03); /* 3% larger */
+  outline: thin;
+}
+
+/* Disabled (no effects) */
+button[disabled]:is(:hover, :focus) {
+  transform: none;
+  filter: none;
+  opacity: 0.5;
+}
+```
+
+## CSS Variable Naming Convention
+
+All button CSS variables follow the `--btn-{property}` pattern:
+
+### Property Mapping
+
+| Category        | Variable Pattern           | Example                                     |
+| --------------- | -------------------------- | ------------------------------------------- |
+| **Colors**      | `--btn-{property}`         | `--btn-bg`, `--btn-color`                   |
+| **Sizing**      | `--btn-{dimension}`        | `--btn-fs`, `--btn-height`                  |
+| **Spacing**     | `--btn-{spacing-type}`     | `--btn-padding-inline`, `--btn-gap`         |
+| **Borders**     | `--btn-{border-property}`  | `--btn-border`, `--btn-radius`              |
+| **States**      | `--btn-{state}-{property}` | `--btn-hover-filter`, `--btn-focus-outline` |
+| **Size Tokens** | `--btn-size-{size}`        | `--btn-size-xs`, `--btn-size-lg`            |
+| **Variants**    | `--btn-{variant}`          | `--btn-pill`                                |
+
+### Common Variables Quick Reference
+
+```css
+/* Core Styling */
+--btn-fs              /* Font size */
+--btn-fw              /* Font weight */
+--btn-bg              /* Background color */
+--btn-color           /* Text color */
+
+/* Spacing */
+--btn-padding-inline  /* Horizontal padding */
+--btn-padding-block   /* Vertical padding */
+--btn-gap             /* Gap between children */
+
+/* Borders */
+--btn-border          /* Border style */
+--btn-radius          /* Border radius */
+
+/* Layout */
+--btn-width           /* Button width */
+--btn-height          /* Button height */
+--btn-display         /* Display mode */
+
+/* States */
+--btn-hover-filter    /* Hover brightness */
+--btn-hover-transform /* Hover scale */
+--btn-focus-outline   /* Focus outline */
+
+/* Size Tokens */
+--btn-size-xs         /* 0.6875rem / 11px */
+--btn-size-sm         /* 0.8125rem / 13px */
+--btn-size-md         /* 0.9375rem / 15px */
+--btn-size-lg         /* 1.125rem / 18px */
+```
+
+## Browser Support
+
+The button styles use modern CSS features:
+
+- **CSS Custom Properties:** All modern browsers (IE11 not supported)
+- **`:is()` selector:** Chrome 88+, Firefox 78+, Safari 14+
+- **`color-mix()`:** Chrome 111+, Firefox 113+, Safari 16.2+
+- **`calc()`:** All modern browsers
+- **Flexbox:** All modern browsers
+- **Transitions:** All modern browsers
+
+### Fallbacks
+
+For older browsers without `color-mix()` support in text buttons:
+
+```css
+/* Modern browsers */
+background-color: color-mix(in srgb, var(--btn-color) 10%, transparent);
+
+/* Fallback (add before above rule) */
+background-color: rgba(0, 0, 0, 0.05);
+```
+
+## Performance Tips
+
+### Avoid Overriding Core Properties
+
+When customizing, override CSS variables rather than properties:
+
+```html
+<!-- Good: Override variables -->
+<button style="--btn-bg: blue">Button</button>
+
+<!-- Less optimal: Override properties -->
+<button style="background-color: blue">Button</button>
+```
+
+### Use Type Attributes
+
+Leverage automatic styling for common button types:
+
+```html
+<!-- Automatic styling -->
+<button type="submit">Submit</button>
+
+<!-- Manual styling (more verbose) -->
+<button style="--btn-bg: blue; --btn-color: white">Submit</button>
+```
+
+### Minimize Inline Styles
+
+Create reusable button classes for common patterns:
+
+```css
+.btn-primary {
+  --btn-bg: #1976d2;
+  --btn-color: white;
+}
+
+.btn-large-pill {
+  --btn-fs: var(--btn-size-lg);
+  --btn-radius: var(--btn-pill);
+}
+```
+
+```html
+<button class="btn-primary">Primary</button>
+<button class="btn-large-pill">Large Pill</button>
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                        | fpkit Button                                                    |
+| ------------------------------- | --------------------------------------------------------------- |
+| `class="btn btn-primary"`       | `type="submit"` or `style="--btn-bg: blue; --btn-color: white"` |
+| `class="btn-sm"`                | `data-btn="sm"`                                                 |
+| `class="btn-lg"`                | `data-btn="lg"`                                                 |
+| `class="rounded-full"`          | `data-btn="pill"`                                               |
+| `class="btn-ghost"`             | `data-btn="text"`                                               |
+| `class="btn-circle"`            | `data-btn="icon pill"`                                          |
+| `class="btn-disabled" disabled` | `disabled` or `aria-disabled="true"`                            |
+
+### From Bootstrap
+
+| Bootstrap                   | fpkit Button                         |
+| --------------------------- | ------------------------------------ |
+| `class="btn btn-primary"`   | `type="submit"` or custom `--btn-bg` |
+| `class="btn btn-secondary"` | `type="reset"` or custom styling     |
+| `class="btn btn-sm"`        | `data-btn="sm"`                      |
+| `class="btn btn-lg"`        | `data-btn="lg"`                      |
+| `class="btn rounded-pill"`  | `data-btn="pill"`                    |
+| `class="btn btn-link"`      | `data-btn="text"`                    |
+| `class="btn" disabled`      | `disabled` or `aria-disabled="true"` |
+
+## Related Resources
+
+- **React Component** - See [README.mdx](./README.mdx) for the React Button
+  component API
+- **MDN: `<button>` element** -
+  [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)
+- **W3C ARIA: Button Role** -
+  [https://www.w3.org/WAI/ARIA/apg/patterns/button/](https://www.w3.org/WAI/ARIA/apg/patterns/button/)
+- **CSS Custom Properties** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

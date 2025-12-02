@@ -1,0 +1,821 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Forms/Styles" />
+
+# Form Styles
+
+Comprehensive form control styling system with CSS custom properties for inputs,
+textareas, selects, and form layouts.
+
+## Overview
+
+The fpkit form styling system provides consistent, accessible form controls with
+extensive customization through CSS variables. All form elements support focus
+states, disabled states, placeholder styling, and validation indicators.
+
+### Key Features
+
+- **Universal input styling** - Text inputs, textareas, and selects with
+  consistent appearance
+- **Custom select arrows** - SVG-based dropdown indicator
+- **Accessible focus indicators** - Visible focus states for keyboard navigation
+- **Disabled state styling** - Visual feedback for disabled form controls
+- **Required field indicators** - ARIA-based required field styling
+- **Placeholder customization** - Full control over placeholder appearance
+- **Flexible layouts** - Column or row-based form layouts
+- **CSS custom properties** - Extensive theming via CSS variables
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+### Input Properties
+
+Core styling variables for inputs, textareas, and selects:
+
+```css
+:root {
+  /* Appearance */
+  --input-appearance: none; /* Remove browser defaults */
+  --input-bg: inherit; /* Background color */
+  --input-border-color: gray; /* Border/outline color */
+
+  /* Borders & Outlines */
+  --input-border: none; /* Inner border */
+  --input-outline: thin solid var(--input-border-color); /* Outer outline */
+  --input-radius: var(--radius); /* Border radius */
+
+  /* Spacing */
+  --input-padding-inline: 0.6rem; /* Horizontal padding (9.6px) */
+  --input-padding-block: 0.4rem; /* Vertical padding (6.4px) */
+
+  /* Typography */
+  --input-fs: var(--fs); /* Font size */
+
+  /* Dimensions */
+  --input-width: clamp(200px, 100%, 500px); /* Responsive width */
+}
+```
+
+### Focus State Properties
+
+```css
+:root {
+  /* Focus indicators */
+  --input-focus-outline: medium solid var(--input-border-color);
+  --input-focus-outline-offset: 0;
+}
+```
+
+### Disabled State Properties
+
+```css
+:root {
+  /* Disabled styling */
+  --input-disabled-bg: #f5f5f5;
+  --input-disabled-opacity: 0.6;
+  --input-disabled-cursor: not-allowed;
+}
+```
+
+### Placeholder Properties
+
+```css
+:root {
+  /* Placeholder styling */
+  --placeholder-color: gray;
+  --placeholder-style: italic;
+  --placeholder-fs: smaller;
+}
+```
+
+### Form Layout Properties
+
+```css
+:root {
+  /* Form layout */
+  --form-direction: column; /* Form flex direction */
+}
+```
+
+### Select Properties
+
+```css
+:root {
+  /* Custom select arrow */
+  --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><polyline points='6,9 10,13 14,9' stroke='%23000000' stroke-width='1.5' fill='none' /></svg>");
+}
+```
+
+### Customizing Form Styles
+
+Override CSS variables globally or per-element:
+
+```css
+/* Global customization */
+:root {
+  --input-border-color: #0066cc;
+  --input-padding-inline: 1rem;
+  --input-radius: 0.5rem;
+}
+
+/* Per-element customization */
+.custom-input {
+  --input-bg: #f9f9f9;
+  --input-border-color: #333;
+}
+```
+
+Or inline:
+
+```html
+<input type="text" style="--input-bg: #f0f0f0; --input-border-color: blue" />
+```
+
+## Form Structure
+
+### Basic Form
+
+Standard vertical form layout:
+
+```html
+<form>
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" />
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" />
+  </div>
+  <button type="submit">Submit</button>
+</form>
+```
+
+**CSS Applied:**
+
+```css
+form {
+  display: flex;
+  flex-direction: column; /* Vertical layout */
+  gap: 1rem; /* 16px spacing between fields */
+}
+
+form > div {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column; /* Vertical label/input pairing */
+}
+
+form label {
+  display: block;
+}
+```
+
+### Horizontal Form Layout
+
+Change form direction to row:
+
+```html
+<form style="--form-direction: row">
+  <div>
+    <label for="search">Search</label>
+    <input type="text" id="search" name="search" />
+  </div>
+  <button type="submit">Go</button>
+</form>
+```
+
+## Input Types
+
+### Text Input
+
+Standard text input with outline:
+
+```html
+<input type="text" placeholder="Enter text" />
+```
+
+**CSS Applied:**
+
+```css
+input[type]:not([type="checkbox"], [type="radio"]) {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: clamp(200px, 100%, 500px);
+  border: none;
+  outline: thin solid gray;
+  padding-inline: 0.6rem;
+  padding-block: 0.4rem;
+  border-radius: var(--radius);
+  background-color: #fff;
+}
+```
+
+**Note:** Checkboxes and radios are excluded from these styles to preserve their
+native appearance.
+
+### Textarea
+
+Multi-line text input:
+
+```html
+<textarea placeholder="Enter message" rows="4"></textarea>
+```
+
+**CSS:** Same as text input, with resizable height.
+
+### Select Dropdown
+
+Dropdown with custom arrow:
+
+```html
+<select>
+  <option value="">Choose an option</option>
+  <option value="1">Option 1</option>
+  <option value="2">Option 2</option>
+  <option value="3">Option 3</option>
+</select>
+```
+
+**CSS Applied:**
+
+```css
+select {
+  border: thin solid gray; /* Border instead of outline */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: var(--select-arrow) no-repeat;
+  background-position: right 0.5rem top 50%;
+  padding-inline-end: 0; /* Remove right padding for arrow space */
+}
+```
+
+**Custom Arrow:** The select uses an SVG data URL for the dropdown arrow,
+positioned on the right side.
+
+## Input States
+
+### Default State
+
+Standard input appearance:
+
+```html
+<input type="text" value="Default value" />
+```
+
+### Focus State
+
+Enhanced outline on focus:
+
+```html
+<input type="text" placeholder="Focus me" />
+```
+
+**CSS:**
+
+```css
+input:focus-visible,
+input:focus {
+  outline: medium solid var(--input-border-color);
+  outline-offset: 0;
+}
+```
+
+**Customization:**
+
+```html
+<input
+  type="text"
+  style="--input-focus-outline: 3px solid blue; --input-focus-outline-offset: 2px"
+/>
+```
+
+### Disabled State
+
+Grayed-out appearance with strikethrough text:
+
+```html
+<input type="text" value="Disabled" disabled />
+<input type="text" value="Disabled" aria-disabled="true" />
+```
+
+**CSS:**
+
+```css
+input[aria-disabled="true"],
+input:disabled {
+  --input-border-color: lightgray;
+  background-color: #f5f5f5;
+  opacity: 0.6;
+  cursor: not-allowed;
+  text-transform: capitalize;
+  text-decoration: line-through;
+}
+```
+
+### Required Fields
+
+Visual indicator for required fields:
+
+```html
+<input type="text" aria-required="true" placeholder="Required field" />
+```
+
+**CSS:**
+
+```css
+input[aria-required="true"]::placeholder {
+  color: var(--color-required, gray);
+  font-weight: 600;
+}
+
+input[aria-required="true"]::placeholder::after {
+  content: "* ";
+}
+```
+
+**Note:** The asterisk (\*) is automatically appended to the placeholder text
+for required fields.
+
+## Placeholder Styling
+
+### Default Placeholder
+
+Italic, gray, smaller text:
+
+```html
+<input type="text" placeholder="Enter your name" />
+```
+
+**CSS:**
+
+```css
+input::placeholder {
+  color: gray;
+  font-style: italic;
+  font-size: smaller;
+  text-transform: capitalize;
+}
+```
+
+### Custom Placeholder
+
+```html
+<input
+  type="text"
+  placeholder="Custom placeholder"
+  style="--placeholder-color: blue; --placeholder-style: normal; --placeholder-fs: 1rem"
+/>
+```
+
+## Real-World Examples
+
+### Login Form
+
+```html
+<form>
+  <div>
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" aria-required="true" />
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" aria-required="true" />
+  </div>
+  <div>
+    <label>
+      <input type="checkbox" name="remember" />
+      Remember me
+    </label>
+  </div>
+  <button type="submit">Log In</button>
+</form>
+```
+
+### Contact Form
+
+```html
+<form style="--input-border-color: #0066cc">
+  <div>
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" aria-required="true" />
+  </div>
+  <div>
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" aria-required="true" />
+  </div>
+  <div>
+    <label for="subject">Subject</label>
+    <select id="subject" name="subject">
+      <option value="">Choose a subject</option>
+      <option value="support">Support</option>
+      <option value="sales">Sales</option>
+      <option value="feedback">Feedback</option>
+    </select>
+  </div>
+  <div>
+    <label for="message">Message *</label>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      aria-required="true"
+    ></textarea>
+  </div>
+  <button type="submit">Send Message</button>
+</form>
+```
+
+### Search Form (Horizontal)
+
+```html
+<form style="--form-direction: row; align-items: flex-end">
+  <div style="flex: 1">
+    <label for="search">Search</label>
+    <input
+      type="search"
+      id="search"
+      name="q"
+      placeholder="Search..."
+      style="--input-width: 100%"
+    />
+  </div>
+  <button type="submit">Search</button>
+</form>
+```
+
+### Inline Label Form
+
+```html
+<form>
+  <div style="--form-direction: row; align-items: center">
+    <label for="email" style="width: 8rem">Email Address</label>
+    <input type="email" id="email" name="email" style="flex: 1" />
+  </div>
+  <div style="--form-direction: row; align-items: center">
+    <label for="phone" style="width: 8rem">Phone Number</label>
+    <input type="tel" id="phone" name="phone" style="flex: 1" />
+  </div>
+  <button type="submit">Submit</button>
+</form>
+```
+
+### Form with Fieldset
+
+```html
+<form>
+  <fieldset
+    style="border: 1px solid gray; padding: 1rem; border-radius: 0.5rem"
+  >
+    <legend>Personal Information</legend>
+    <div>
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" />
+    </div>
+    <div>
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" />
+    </div>
+  </fieldset>
+  <button type="submit">Continue</button>
+</form>
+```
+
+### Multi-Column Form
+
+```html
+<form>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+    <div>
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" name="firstName" />
+    </div>
+    <div>
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" name="lastName" />
+    </div>
+  </div>
+  <div>
+    <label for="address">Address</label>
+    <input type="text" id="address" name="address" />
+  </div>
+  <button type="submit">Submit</button>
+</form>
+```
+
+### Form with Validation States
+
+```html
+<form>
+  <div>
+    <label for="valid">Valid Input</label>
+    <input
+      type="text"
+      id="valid"
+      value="Valid value"
+      style="--input-border-color: green"
+    />
+  </div>
+  <div>
+    <label for="invalid">Invalid Input</label>
+    <input
+      type="text"
+      id="invalid"
+      value="Invalid value"
+      style="--input-border-color: red"
+      aria-invalid="true"
+    />
+    <small style="color: red">This field has an error.</small>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+```
+
+## Accessibility Considerations
+
+### Labels
+
+Always associate labels with inputs:
+
+```html
+<!-- Good: Explicit association -->
+<label for="email">Email</label>
+<input type="email" id="email" name="email" />
+
+<!-- Good: Implicit association -->
+<label>
+  Email
+  <input type="email" name="email" />
+</label>
+
+<!-- Bad: No association -->
+<label>Email</label>
+<input type="email" name="email" />
+```
+
+### Required Fields
+
+Use `aria-required` for screen reader support:
+
+```html
+<label for="name">Name *</label>
+<input type="text" id="name" name="name" aria-required="true" required />
+```
+
+**Note:** Include both `aria-required="true"` (for styling) and `required` (for
+HTML5 validation).
+
+### Error Messages
+
+Associate error messages with inputs:
+
+```html
+<label for="email">Email</label>
+<input
+  type="email"
+  id="email"
+  name="email"
+  aria-invalid="true"
+  aria-describedby="email-error"
+/>
+<span id="email-error" role="alert">Please enter a valid email address.</span>
+```
+
+### Focus Indicators
+
+Ensure visible focus indicators (automatic with `:focus-visible`):
+
+```css
+input:focus-visible {
+  outline: medium solid var(--input-border-color);
+}
+```
+
+**Never remove focus outlines** without providing alternatives.
+
+### Disabled Fields
+
+Use proper disabled attributes:
+
+```html
+<!-- Native disabled (recommended) -->
+<input type="text" disabled />
+
+<!-- ARIA disabled (for custom behavior) -->
+<input type="text" aria-disabled="true" />
+```
+
+### Keyboard Navigation
+
+All form controls are keyboard-accessible by default:
+
+- **Tab** - Move to next field
+- **Shift+Tab** - Move to previous field
+- **Enter** - Submit form
+- **Space** - Toggle checkbox/radio
+
+## Form Validation Styling
+
+### Valid State
+
+```html
+<input
+  type="email"
+  value="user@example.com"
+  style="--input-border-color: #28a745"
+/>
+```
+
+### Invalid State
+
+```html
+<input
+  type="email"
+  value="invalid-email"
+  aria-invalid="true"
+  style="--input-border-color: #dc3545"
+/>
+```
+
+### Custom Validation Colors
+
+```css
+:root {
+  --input-valid-color: #28a745;
+  --input-invalid-color: #dc3545;
+}
+```
+
+```html
+<input type="text" style="--input-border-color: var(--input-valid-color)" />
+<input
+  type="text"
+  aria-invalid="true"
+  style="--input-border-color: var(--input-invalid-color)"
+/>
+```
+
+## CSS Variable Naming Convention
+
+All form CSS variables follow specific patterns:
+
+### Property Mapping
+
+| Category         | Variable Pattern             | Example                                        |
+| ---------------- | ---------------------------- | ---------------------------------------------- |
+| **Input Core**   | `--input-{property}`         | `--input-bg`, `--input-border`                 |
+| **Input States** | `--input-{state}-{property}` | `--input-focus-outline`, `--input-disabled-bg` |
+| **Placeholder**  | `--placeholder-{property}`   | `--placeholder-color`, `--placeholder-fs`      |
+| **Form Layout**  | `--form-{property}`          | `--form-direction`                             |
+| **Select**       | `--select-{property}`        | `--select-arrow`                               |
+
+### Common Variables Quick Reference
+
+```css
+/* Input Appearance */
+--input-bg               /* Background color */
+--input-border           /* Inner border */
+--input-outline          /* Outer outline */
+--input-border-color     /* Border/outline color */
+--input-radius           /* Border radius */
+--input-appearance       /* Browser appearance reset */
+
+/* Input Spacing */
+--input-padding-inline   /* Horizontal padding */
+--input-padding-block    /* Vertical padding */
+--input-width            /* Input width */
+
+/* Input Typography */
+--input-fs               /* Font size */
+
+/* Focus State */
+--input-focus-outline    /* Focus outline style */
+--input-focus-outline-offset /* Focus outline offset */
+
+/* Disabled State */
+--input-disabled-bg      /* Disabled background */
+--input-disabled-opacity /* Disabled opacity */
+--input-disabled-cursor  /* Disabled cursor */
+
+/* Placeholder */
+--placeholder-color      /* Placeholder text color */
+--placeholder-style      /* Placeholder font style */
+--placeholder-fs         /* Placeholder font size */
+
+/* Form Layout */
+--form-direction         /* Form flex direction */
+
+/* Select */
+--select-arrow           /* Custom dropdown arrow */
+```
+
+## Browser Support
+
+The form styles use modern CSS features:
+
+- **CSS Custom Properties:** All modern browsers (IE11 not supported)
+- **`:focus-visible`:** Chrome 86+, Firefox 85+, Safari 15.4+
+- **`appearance: none`:** All modern browsers
+- **`clamp()`:** Chrome 79+, Firefox 75+, Safari 13.1+
+- **Logical properties** (`padding-inline`, `padding-block`): Chrome 87+,
+  Firefox 66+, Safari 14.1+
+- **`::placeholder`:** All modern browsers
+- **SVG data URLs:** All modern browsers
+
+### Fallbacks
+
+For older browsers without `clamp()`:
+
+```css
+/* Fallback */
+--input-width: 100%;
+max-width: 500px;
+min-width: 200px;
+
+/* Modern */
+--input-width: clamp(200px, 100%, 500px);
+```
+
+## Performance Tips
+
+### Avoid Over-Styling
+
+Style only what's necessary:
+
+```html
+<!-- Good: Uses defaults -->
+<input type="text" />
+
+<!-- Avoid: Unnecessary customization -->
+<input
+  type="text"
+  style="--input-bg: white; --input-outline: thin solid gray"
+/>
+```
+
+### Use CSS Classes
+
+Create reusable form classes:
+
+```css
+.form-control-lg {
+  --input-padding-inline: 1rem;
+  --input-padding-block: 0.75rem;
+  --input-fs: 1.125rem;
+}
+
+.form-control-sm {
+  --input-padding-inline: 0.5rem;
+  --input-padding-block: 0.25rem;
+  --input-fs: 0.875rem;
+}
+```
+
+```html
+<input type="text" class="form-control-lg" />
+<input type="text" class="form-control-sm" />
+```
+
+### Minimize Select Arrow Customization
+
+The default select arrow works well for most cases. Only customize when
+necessary:
+
+```css
+/* Custom arrow color (if needed) */
+--select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><polyline points='6,9 10,13 14,9' stroke='%230066cc' stroke-width='1.5' fill='none' /></svg>");
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                                           | fpkit Form                           |
+| -------------------------------------------------- | ------------------------------------ |
+| `class="border border-gray-300 rounded px-3 py-2"` | Default `<input>` styles             |
+| `class="focus:ring focus:border-blue-500"`         | `--input-focus-outline`              |
+| `class="disabled:bg-gray-100"`                     | `disabled` or `aria-disabled="true"` |
+| `class="placeholder-gray-400"`                     | `--placeholder-color`                |
+| `class="w-full"`                                   | `style="--input-width: 100%"`        |
+
+### From Bootstrap
+
+| Bootstrap                       | fpkit Form                           |
+| ------------------------------- | ------------------------------------ |
+| `class="form-control"`          | Default `<input>` styles             |
+| `class="form-control:focus"`    | Automatic focus styles               |
+| `class="form-control:disabled"` | `disabled` or `aria-disabled="true"` |
+| `class="form-select"`           | Default `<select>` styles            |
+
+## Related Resources
+
+- **React Component** - See form component README for React API
+- **MDN: Forms** -
+  [https://developer.mozilla.org/en-US/docs/Learn/Forms](https://developer.mozilla.org/en-US/docs/Learn/Forms)
+- **W3C: Form Accessibility** -
+  [https://www.w3.org/WAI/tutorials/forms/](https://www.w3.org/WAI/tutorials/forms/)
+- **CSS Custom Properties** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

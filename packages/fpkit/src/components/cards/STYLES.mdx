@@ -1,0 +1,778 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Cards/Styles" />
+
+# Card Styles
+
+Flexible card component styling system with CSS custom properties for building
+content containers with headers, bodies, and footers.
+
+## Overview
+
+The fpkit card styling system provides a versatile foundation for creating card
+layouts with semantic structure. Cards support headers, bodies, footers, images,
+and interactive states, all customizable through CSS custom properties.
+
+### Key Features
+
+- **Flexible layout** - Flexbox-based column layout with customizable gap
+- **Semantic structure** - Support for header, body, and footer elements
+- **Element-specific styling** - Dedicated variables for each card section
+- **Interactive variant** - Hover and focus states for clickable cards
+- **Image support** - Smart padding handling for card images
+- **CSS custom properties** - Extensive theming via CSS variables
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+- **WCAG compliant** - Accessible focus indicators with proper contrast
+
+## CSS Custom Properties
+
+### Base Card Properties
+
+Root-level variables define the card's overall appearance:
+
+```css
+:root {
+  /* Layout */
+  --card-display: flex;
+  --card-direction: column;
+  --card-gap: 1rem; /* 16px */
+
+  /* Colors */
+  --card-bg: #fff;
+
+  /* Spacing */
+  --card-padding: 2rem; /* 32px */
+
+  /* Borders */
+  --card-radius: 0.5rem; /* 8px (calculated as card-padding / 4) */
+
+  /* Position */
+  --card-position: relative;
+
+  /* Alignment */
+  --card-align: left; /* Text alignment */
+}
+```
+
+### Header Properties
+
+Variables specific to card headers:
+
+```css
+:root {
+  --card-header-padding: 1rem 1.5rem; /* 16px 24px */
+  --card-header-bg: #f8f9fa;
+  --card-header-border-bottom: 1px solid #dee2e6;
+}
+```
+
+### Body Properties
+
+Variables for card body content:
+
+```css
+:root {
+  --card-body-padding: 1.5rem; /* 24px */
+}
+```
+
+### Footer Properties
+
+Variables for card footers:
+
+```css
+:root {
+  --card-footer-padding: 1rem 1.5rem; /* 16px 24px */
+  --card-footer-bg: #f8f9fa;
+  --card-footer-border-top: 1px solid #dee2e6;
+}
+```
+
+### Interactive Card Properties
+
+For clickable/interactive cards:
+
+```css
+[data-card="interactive"] {
+  /* Focus indicator */
+  --focus-color: #0066cc; /* Focus outline color (3:1 contrast minimum) */
+
+  /* Hover effects (not customizable via variables) */
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+```
+
+### Customizing Card Styles
+
+Override CSS variables for specific cards:
+
+```css
+.custom-card {
+  --card-bg: #f0f0f0;
+  --card-padding: 1.5rem;
+  --card-radius: 1rem;
+  --card-gap: 0.75rem;
+}
+```
+
+Or inline:
+
+```html
+<div data-card style="--card-bg: #f9f9f9; --card-padding: 1.5rem">
+  <!-- Card content -->
+</div>
+```
+
+## Base Card Structure
+
+### Simple Card
+
+Basic card with content:
+
+```html
+<div data-card>
+  <h2>Card Title</h2>
+  <p>Card content goes here.</p>
+</div>
+```
+
+Alternative selector:
+
+```html
+<div data-component="card">
+  <h2>Card Title</h2>
+  <p>Card content goes here.</p>
+</div>
+```
+
+**CSS Applied:**
+
+```css
+[data-card] {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  text-align: left;
+}
+
+/* Smart padding: applied to all children except images */
+[data-card] > *:not(img) {
+  padding-inline: 2rem;
+}
+
+/* First child padding */
+[data-card] > *:first-child:not(img) {
+  padding-block-start: 1.5rem; /* card-padding - 0.5rem */
+}
+
+/* Last child padding */
+[data-card] > *:last-child:not(img) {
+  padding-block-end: 2rem;
+}
+```
+
+### Card with Image
+
+Cards intelligently handle images without applying padding:
+
+```html
+<div data-card>
+  <img src="image.jpg" alt="Card image" />
+  <h2>Card Title</h2>
+  <p>Content below image.</p>
+</div>
+```
+
+**Note:** Images receive no horizontal or vertical padding, allowing them to
+extend to card edges while other content remains padded.
+
+## Structured Cards
+
+### Card with Header, Body, and Footer
+
+Use semantic HTML or data attributes:
+
+```html
+<!-- Using semantic HTML -->
+<div data-card>
+  <header>
+    <h2>Card Title</h2>
+  </header>
+  <div data-card-body>
+    <p>Main content goes here.</p>
+  </div>
+  <footer>
+    <button>Action</button>
+  </footer>
+</div>
+
+<!-- Using data attributes -->
+<div data-card>
+  <div data-card-header>
+    <h2>Card Title</h2>
+  </div>
+  <div data-card-body>
+    <p>Main content goes here.</p>
+  </div>
+  <div data-card-footer>
+    <button>Action</button>
+  </div>
+</div>
+```
+
+**CSS Applied:**
+
+```css
+/* Header styling */
+[data-card] > header,
+[data-card] > [data-card-header] {
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners only */
+}
+
+/* Body styling */
+[data-card] > [data-card-body] {
+  padding: 1.5rem;
+  flex: 1; /* Grows to fill available space */
+}
+
+/* Footer styling */
+[data-card] > footer,
+[data-card] > [data-card-footer] {
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  border-radius: 0 0 0.5rem 0.5rem; /* Rounded bottom corners only */
+}
+```
+
+## Card Variants
+
+### Interactive Card
+
+Clickable card with hover and focus states:
+
+```html
+<div data-card="interactive" tabindex="0" role="button">
+  <h2>Clickable Card</h2>
+  <p>This card responds to hover and keyboard focus.</p>
+</div>
+```
+
+**CSS Applied:**
+
+```css
+[data-card="interactive"] {
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Hover state */
+[data-card="interactive"]:hover {
+  transform: translateY(-2px); /* Lifts up slightly */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15); /* Elevated shadow */
+}
+
+/* Focus indicator (WCAG 2.4.7 compliant) */
+[data-card="interactive"]:focus-visible {
+  outline: 0.125rem solid #0066cc; /* 2px solid outline */
+  outline-offset: 0.125rem; /* 2px offset */
+}
+
+/* Remove outline for mouse users */
+[data-card="interactive"]:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+**Accessibility Notes:**
+
+- Add `tabindex="0"` to make card keyboard-focusable
+- Add `role="button"` or `role="link"` for screen readers
+- Use `aria-label` for cards without descriptive text
+- Handle click and keyboard events (Enter/Space)
+
+### Centered Card
+
+Center-aligned card content:
+
+```html
+<div data-card style="--card-align: center">
+  <h2>Centered Content</h2>
+  <p>All text is centered.</p>
+</div>
+```
+
+### Card with Custom Gap
+
+Adjust spacing between card children:
+
+```html
+<div data-card style="--card-gap: 1.5rem">
+  <h2>Title</h2>
+  <p>Content with larger gap between elements.</p>
+</div>
+```
+
+## Real-World Examples
+
+### Product Card
+
+```html
+<div data-card>
+  <img src="product.jpg" alt="Product name" />
+  <div data-card-body>
+    <h3>Product Name</h3>
+    <p>$99.99</p>
+    <p>Product description goes here.</p>
+  </div>
+  <div data-card-footer>
+    <button type="button">Add to Cart</button>
+  </div>
+</div>
+```
+
+### Profile Card
+
+```html
+<div data-card style="--card-align: center">
+  <img
+    src="avatar.jpg"
+    alt="User name"
+    style="border-radius: 50%; width: 5rem"
+  />
+  <h2>John Doe</h2>
+  <p>Software Engineer</p>
+  <div data-card-footer>
+    <button data-btn="text">View Profile</button>
+  </div>
+</div>
+```
+
+### Article Card
+
+```html
+<div data-card="interactive" tabindex="0" role="article">
+  <header>
+    <small>Technology • 5 min read</small>
+    <h2>Article Title</h2>
+  </header>
+  <div data-card-body>
+    <p>
+      Article excerpt or summary text goes here. This provides a preview of the
+      full article content.
+    </p>
+  </div>
+  <footer>
+    <small>Published on Jan 1, 2025</small>
+  </footer>
+</div>
+```
+
+### Stats Card
+
+```html
+<div
+  data-card
+  style="--card-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%); --card-align: center"
+>
+  <h3 style="color: white; font-size: 3rem; margin: 0">1,234</h3>
+  <p style="color: rgba(255, 255, 255, 0.9)">Total Users</p>
+</div>
+```
+
+### Notification Card
+
+```html
+<div
+  data-card
+  style="--card-bg: #fff3cd; --card-header-bg: #ffc107; --card-padding: 1rem"
+>
+  <header>
+    <strong>⚠️ Warning</strong>
+  </header>
+  <div data-card-body>
+    <p>Your subscription will expire in 3 days.</p>
+  </div>
+  <footer>
+    <button type="button">Renew Now</button>
+  </footer>
+</div>
+```
+
+### Image Gallery Card
+
+```html
+<div data-card style="--card-gap: 0">
+  <img src="gallery-1.jpg" alt="Gallery image 1" />
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0">
+    <img src="gallery-2.jpg" alt="Gallery image 2" />
+    <img src="gallery-3.jpg" alt="Gallery image 3" />
+  </div>
+  <div data-card-body>
+    <h3>Photo Gallery</h3>
+    <p>3 images</p>
+  </div>
+</div>
+```
+
+### Card with Article Element
+
+Cards can contain article elements with automatic flex styling:
+
+```html
+<div data-card>
+  <article>
+    <h2>Article Heading</h2>
+    <p>Article content that automatically flexes to fill space.</p>
+  </article>
+</div>
+```
+
+**CSS Applied:**
+
+```css
+[data-card] > article {
+  display: flex;
+  flex-direction: column;
+  flex: 2; /* Takes twice the space of other flex children */
+}
+```
+
+## Layout Patterns
+
+### Card Grid
+
+Create responsive card layouts:
+
+```html
+<div
+  style="display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1.5rem"
+>
+  <div data-card>
+    <h2>Card 1</h2>
+    <p>Content</p>
+  </div>
+  <div data-card>
+    <h2>Card 2</h2>
+    <p>Content</p>
+  </div>
+  <div data-card>
+    <h2>Card 3</h2>
+    <p>Content</p>
+  </div>
+</div>
+```
+
+### Horizontal Card Layout
+
+Change card direction to row:
+
+```html
+<div data-card style="--card-direction: row; --card-gap: 1.5rem">
+  <img
+    src="image.jpg"
+    alt="Card image"
+    style="width: 12rem; object-fit: cover"
+  />
+  <div>
+    <h2>Horizontal Card</h2>
+    <p>Content appears beside the image.</p>
+  </div>
+</div>
+```
+
+### Nested Cards
+
+Cards can be nested for complex layouts:
+
+```html
+<div data-card style="--card-bg: #f5f5f5; --card-padding: 1.5rem">
+  <h2>Parent Card</h2>
+  <div data-card style="--card-padding: 1rem">
+    <h3>Nested Card</h3>
+    <p>Inner card content.</p>
+  </div>
+</div>
+```
+
+## Heading Spacing
+
+Cards automatically adjust heading margins:
+
+```css
+[data-card] h2,
+[data-card] h3 {
+  margin-block-end: 0;
+  padding-block-end: 0;
+}
+
+[data-card] + div {
+  margin-block-start: 0;
+}
+```
+
+This prevents excessive spacing between card headings and following content.
+
+## Accessibility Considerations
+
+### Interactive Cards
+
+When creating clickable cards:
+
+1. **Keyboard Accessibility:**
+
+   ```html
+   <div data-card="interactive" tabindex="0" role="button">
+     <!-- Card content -->
+   </div>
+   ```
+
+2. **Focus Indicators:**
+
+   - Automatic visible focus outline (2px solid, 3:1 contrast minimum)
+   - `:focus-visible` only shows for keyboard navigation
+   - Mouse clicks don't trigger outline
+
+3. **Screen Reader Support:**
+
+   ```html
+   <div
+     data-card="interactive"
+     tabindex="0"
+     role="button"
+     aria-label="View product details"
+   >
+     <!-- Card content -->
+   </div>
+   ```
+
+4. **Keyboard Interaction:**
+   - **Tab** - Focus the card
+   - **Enter** or **Space** - Activate the card
+   - Add JavaScript to handle keyboard events
+
+### Semantic Structure
+
+Use proper HTML semantics:
+
+```html
+<!-- Good: Semantic elements -->
+<div data-card>
+  <header>
+    <h2>Title</h2>
+  </header>
+  <section data-card-body>
+    <p>Content</p>
+  </section>
+  <footer>
+    <button>Action</button>
+  </footer>
+</div>
+```
+
+### Color Contrast
+
+Ensure sufficient contrast for card backgrounds and text (WCAG AA: 4.5:1):
+
+```html
+<!-- Good contrast -->
+<div data-card style="--card-bg: #333; color: white">
+  <p>High contrast text</p>
+</div>
+```
+
+### Focus Color Customization
+
+Customize focus color for better contrast:
+
+```html
+<div data-card="interactive" tabindex="0" style="--focus-color: #d32f2f">
+  <!-- Card with custom focus color -->
+</div>
+```
+
+## CSS Variable Naming Convention
+
+All card CSS variables follow the `--card-{property}` pattern:
+
+### Property Mapping
+
+| Category          | Variable Pattern                 | Example                              |
+| ----------------- | -------------------------------- | ------------------------------------ |
+| **Layout**        | `--card-{layout-property}`       | `--card-display`, `--card-direction` |
+| **Colors**        | `--card-{element}-{property}`    | `--card-bg`, `--card-header-bg`      |
+| **Spacing**       | `--card-{element}-padding`       | `--card-padding`, `--card-gap`       |
+| **Borders**       | `--card-{element}-border-{side}` | `--card-header-border-bottom`        |
+| **Border Radius** | `--card-radius`                  | `--card-radius`                      |
+| **Alignment**     | `--card-align`                   | `--card-align`                       |
+| **Focus**         | `--focus-color`                  | `--focus-color`                      |
+
+### Common Variables Quick Reference
+
+```css
+/* Base Styling */
+--card-bg               /* Background color */
+--card-padding          /* Padding for card content */
+--card-radius           /* Border radius */
+--card-gap              /* Gap between children */
+
+/* Layout */
+--card-display          /* Display mode (flex) */
+--card-direction        /* Flex direction (column/row) */
+--card-align            /* Text alignment */
+--card-position         /* Position value */
+
+/* Header */
+--card-header-padding   /* Header padding */
+--card-header-bg        /* Header background */
+--card-header-border-bottom /* Header bottom border */
+
+/* Body */
+--card-body-padding     /* Body padding */
+
+/* Footer */
+--card-footer-padding   /* Footer padding */
+--card-footer-bg        /* Footer background */
+--card-footer-border-top /* Footer top border */
+
+/* Interactive */
+--focus-color           /* Focus outline color */
+```
+
+## Browser Support
+
+The card styles use modern CSS features:
+
+- **CSS Custom Properties:** All modern browsers (IE11 not supported)
+- **Flexbox:** All modern browsers
+- **`:focus-visible`:** Chrome 86+, Firefox 85+, Safari 15.4+
+- **`:not()` selector:** All modern browsers
+- **`rgba()`:** All modern browsers
+- **Logical properties** (`padding-inline`, `padding-block`): Chrome 87+,
+  Firefox 66+, Safari 14.1+
+
+### Fallbacks
+
+For browsers without `:focus-visible` support:
+
+```css
+/* Fallback: Always show outline on focus */
+[data-card="interactive"]:focus {
+  outline: 0.125rem solid #0066cc;
+  outline-offset: 0.125rem;
+}
+
+/* Modern browsers: Only show for keyboard */
+[data-card="interactive"]:focus-visible {
+  outline: 0.125rem solid #0066cc;
+  outline-offset: 0.125rem;
+}
+
+[data-card="interactive"]:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+## Performance Tips
+
+### Minimize Inline Styles
+
+Create reusable card classes:
+
+```css
+.card-dark {
+  --card-bg: #333;
+  color: white;
+}
+
+.card-compact {
+  --card-padding: 1rem;
+  --card-gap: 0.5rem;
+}
+
+.card-large {
+  --card-padding: 3rem;
+  --card-gap: 2rem;
+}
+```
+
+```html
+<div data-card class="card-dark">Dark theme card</div>
+<div data-card class="card-compact">Compact card</div>
+```
+
+### Avoid Nested Transitions
+
+Don't add transitions to all card children:
+
+```css
+/* Avoid */
+[data-card] * {
+  transition: all 0.3s;
+}
+
+/* Good: Only transition what changes */
+[data-card="interactive"] {
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+```
+
+### Use Transform for Animations
+
+Prefer `transform` over properties like `top` or `margin`:
+
+```css
+/* Good: Uses transform (hardware accelerated) */
+[data-card="interactive"]:hover {
+  transform: translateY(-2px);
+}
+
+/* Avoid: Uses top (causes reflow) */
+[data-card="interactive"]:hover {
+  top: -2px;
+}
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                                 | fpkit Card                                                 |
+| ---------------------------------------- | ---------------------------------------------------------- |
+| `class="bg-white rounded-lg shadow p-6"` | `data-card` with `--card-bg: #fff; --card-padding: 1.5rem` |
+| `class="card card-bordered"`             | `data-card` with custom `--card-header-border-bottom`      |
+| `class="hover:shadow-lg transition"`     | `data-card="interactive"`                                  |
+| `class="card-body"`                      | `data-card-body`                                           |
+
+### From Bootstrap
+
+| Bootstrap              | fpkit Card                                  |
+| ---------------------- | ------------------------------------------- |
+| `class="card"`         | `data-card`                                 |
+| `class="card-header"`  | `<header>` or `data-card-header`            |
+| `class="card-body"`    | `data-card-body`                            |
+| `class="card-footer"`  | `<footer>` or `data-card-footer`            |
+| `class="card-img-top"` | `<img>` as first child (automatic handling) |
+
+## Related Resources
+
+- **React Component** - See [README.mdx](./README.mdx) for the React Card
+  component API
+- **MDN: Flexbox** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout)
+- **W3C ARIA: Article Role** -
+  [https://www.w3.org/WAI/ARIA/apg/patterns/article/](https://www.w3.org/WAI/ARIA/apg/patterns/article/)
+- **CSS Custom Properties** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

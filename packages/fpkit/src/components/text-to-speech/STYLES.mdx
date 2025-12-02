@@ -1,0 +1,80 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Text-to-Speech/Styles" />
+
+# Text-to-Speech Styles
+
+Text-to-speech control styling with button and display components using CSS
+custom properties.
+
+## Overview
+
+The fpkit text-to-speech (TTS) system provides styling for TTS control panels
+with play/pause buttons and text display areas.
+
+### Key Features
+
+- **Flexbox layout** - Centered controls and text
+- **Pill-shaped container** - Rounded borders
+- **Button styling** - Integrated button controls
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+```css
+[data-tts] {
+  /* Layout */
+  --tts-gap: 0.5rem; /* 8px */
+  --tts-align-items: center;
+  --tts-justify-content: center;
+
+  /* Colors */
+  --tts-bg: #fff;
+  --tts-border-color: currentColor;
+
+  /* Borders */
+  --tts-border-width: 0.125rem; /* 2px */
+  --tts-border-style: solid;
+  --tts-radius: 99rem; /* Pill shape */
+
+  /* Spacing */
+  --tts-padding: 0.5rem; /* 8px */
+
+  /* Dimensions */
+  --tts-min-width: 20.3125rem; /* 325px */
+}
+```
+
+## Basic Structure
+
+```html
+<div data-tts>
+  <button data-btn="tts-btn" aria-label="Play">▶</button>
+  <span>Text to be spoken</span>
+  <button data-btn="tts-btn" aria-label="Pause">⏸</button>
+</div>
+```
+
+## Real-World Example
+
+### Article Reader
+
+```html
+<article>
+  <h2>Article Title</h2>
+
+  <div data-tts>
+    <button data-btn="tts-btn" aria-label="Read article aloud">🔊</button>
+    <span>Listen to this article</span>
+  </div>
+
+  <p>Article content...</p>
+</article>
+```
+
+## Related Resources
+
+- **React Component** - See README for React TTS component API
+- **Web Speech API** -
+  https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API

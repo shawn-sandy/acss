@@ -1,0 +1,460 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Navigation/Styles" />
+
+# Navigation Styles
+
+Navigation component styling system with CSS custom properties for creating
+flexible, responsive, and accessible navigation bars.
+
+## Overview
+
+The fpkit navigation styling system provides flexible navigation components
+using semantic `<nav>` elements or ARIA labels. Navigation supports horizontal
+and vertical layouts, responsive behavior, and comprehensive keyboard
+accessibility.
+
+### Key Features
+
+- **Semantic HTML** - Uses `<nav>` element with proper ARIA labeling
+- **Flexible layouts** - Horizontal (default) and vertical navigation
+- **Responsive design** - Automatic mobile adaptation below 580px
+- **List-based structure** - Semantic `<ul>`/`<li>` for nav items
+- **Focus indicators** - WCAG 2.4.7 compliant focus states
+- **Hover effects** - Visual feedback on navigation items
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+### Base Navigation Properties
+
+```css
+nav {
+  /* Layout */
+  --nav-display: flex;
+  --nav-direction: row; /* row or column */
+  --nav-width: auto;
+  --nav-align: center; /* place-items value */
+  --nav-justify: space-between;
+
+  /* Colors */
+  --nav-bg: initial; /* Background color */
+  --nav-color: currentColor; /* Text color */
+
+  /* Spacing */
+  --nav-padding-inline: 1rem; /* Horizontal padding */
+  --nav-padding-block: 0; /* Vertical padding */
+  --nav-margin-inline: 0; /* Horizontal margin */
+  --nav-margin-block-end: 0; /* Bottom margin */
+  --nav-gap: 0; /* Gap between items */
+
+  /* Typography */
+  --nav-fs: 0.9rem; /* Font size (14.4px) */
+
+  /* Hover */
+  --nav-hover-bg: #e8e8e8; /* Hover background */
+
+  /* Height */
+  --nav-height: fit-content; /* Nav height */
+}
+```
+
+### Focus Indicator Properties
+
+```css
+nav {
+  /* Focus indicators (WCAG 2.4.7) */
+  --nav-focus-color: currentColor;
+  --nav-focus-width: 0.125rem; /* 2px */
+  --nav-focus-offset: 0.125rem; /* 2px */
+  --nav-focus-style: solid;
+}
+```
+
+### Image/Logo Properties
+
+```css
+nav img[alt] {
+  --nav-img-padding-inline: 0 var(--s1);
+  --nav-img-width: 3.6rem; /* 57.6px (or var(--brand-w)) */
+}
+```
+
+## Navigation Structure
+
+### Basic Horizontal Navigation
+
+```html
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</nav>
+```
+
+### Navigation with Logo
+
+```html
+<nav>
+  <img src="/logo.svg" alt="Company Logo" />
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</nav>
+```
+
+### Navigation with Sections
+
+```html
+<nav>
+  <section>
+    <img src="/logo.svg" alt="Logo" />
+  </section>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+  </ul>
+  <section>
+    <button type="button">Login</button>
+  </section>
+</nav>
+```
+
+## Selectors
+
+The navigation styles apply to multiple selectors:
+
+```css
+/* Direct child nav of body */
+body > nav {
+  /* styles */
+}
+
+/* ARIA labeled navbar */
+[aria-label~="navbar"] {
+  /* styles */
+}
+
+/* Class-based navbar */
+.navbar {
+  /* styles */
+}
+```
+
+**Usage:**
+
+```html
+<!-- Semantic nav -->
+<nav aria-label="Main navbar">...</nav>
+
+<!-- ARIA label -->
+<div aria-label="navbar">...</div>
+
+<!-- Class-based -->
+<div class="navbar">...</div>
+```
+
+## Layout Variants
+
+### Horizontal Navigation (Default)
+
+```html
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+```
+
+### Vertical Navigation
+
+```html
+<nav style="--nav-direction: column">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+```
+
+### Vertical List in Horizontal Nav
+
+```html
+<nav>
+  <ul data-list="block">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+```
+
+**CSS:**
+
+```css
+[data-list~="block"] {
+  --nav-direction: column;
+}
+```
+
+## Responsive Behavior
+
+### Mobile Breakpoint
+
+Below 580px, navbars automatically switch to column layout:
+
+```css
+@media (max-width: 580px) {
+  body > nav,
+  [aria-label~="navbar"],
+  .navbar {
+    flex-direction: column;
+    height: fit-content;
+    min-height: fit-content;
+    padding-block: unset;
+    gap: 0.5rem;
+  }
+}
+```
+
+**Result:** Navigation items stack vertically on mobile devices.
+
+## Hover States
+
+### List Item Hover
+
+```css
+nav ul > li:hover {
+  background-color: #e8e8e8; /* --nav-hover-bg */
+}
+```
+
+### Exception for Images and Buttons
+
+Items containing images or buttons don't show hover background:
+
+```css
+nav ul > li:hover:has(img, button) {
+  background-color: transparent;
+}
+```
+
+## Focus Indicators
+
+### Link Focus
+
+```css
+nav a:focus,
+nav a:focus-visible {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.125rem;
+}
+```
+
+### Button Focus
+
+```css
+nav button:focus,
+nav button:focus-visible {
+  outline: 0.125rem solid currentColor;
+  outline-offset: 0.125rem;
+}
+```
+
+## Real-World Examples
+
+### Header Navigation
+
+```html
+<nav style="--nav-bg: #333; --nav-color: white; --nav-padding-block: 1rem">
+  <section>
+    <img src="/logo.svg" alt="Brand" style="--nav-img-width: 4rem" />
+  </section>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/products">Products</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+  <section>
+    <button type="button">Sign In</button>
+  </section>
+</nav>
+```
+
+### Sidebar Navigation
+
+```html
+<nav
+  style="--nav-direction: column; --nav-align: flex-start; --nav-width: 15rem; min-height: 100vh; --nav-bg: #f5f5f5"
+>
+  <ul style="width: 100%">
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/settings">Settings</a></li>
+    <li><a href="/profile">Profile</a></li>
+  </ul>
+</nav>
+```
+
+### Navigation with Icons
+
+```html
+<nav>
+  <ul style="--nav-gap: 1rem">
+    <li>
+      <a href="/">
+        <span aria-hidden="true">🏠</span>
+        <span>Home</span>
+      </a>
+    </li>
+    <li>
+      <a href="/search">
+        <span aria-hidden="true">🔍</span>
+        <span>Search</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+
+### Navbar with Data Variant
+
+```html
+<nav
+  data-variant="primary"
+  style="--nav-bg: #0066cc; --nav-color: white; --nav-fs: 1rem"
+>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+</nav>
+```
+
+### Navigation with Dropdown
+
+```html
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li style="position: relative">
+      <button type="button">Products</button>
+      <!-- Dropdown menu would go here -->
+    </li>
+  </ul>
+</nav>
+```
+
+## Accessibility Considerations
+
+### ARIA Labeling
+
+Always provide accessible labels:
+
+```html
+<!-- Good: aria-label -->
+<nav aria-label="Main navigation">...</nav>
+
+<!-- Good: aria-labelledby -->
+<nav aria-labelledby="nav-title">
+  <h2 id="nav-title">Main Navigation</h2>
+  ...
+</nav>
+```
+
+### Keyboard Navigation
+
+- **Tab** - Navigate through links/buttons
+- **Shift+Tab** - Navigate backwards
+- **Enter** - Activate link/button
+- All interactive elements have visible focus indicators
+
+### Current Page Indication
+
+Mark the current page for screen readers:
+
+```html
+<nav aria-label="Main">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about" aria-current="page">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</nav>
+```
+
+### Skip Navigation Link
+
+Provide skip link for keyboard users:
+
+```html
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<nav aria-label="Main">...</nav>
+<main id="main-content">...</main>
+```
+
+## CSS Variable Naming Convention
+
+| Category       | Variable Pattern         | Example                             |
+| -------------- | ------------------------ | ----------------------------------- |
+| **Layout**     | `--nav-{property}`       | `--nav-display`, `--nav-direction`  |
+| **Colors**     | `--nav-{property}`       | `--nav-bg`, `--nav-color`           |
+| **Spacing**    | `--nav-{spacing-type}`   | `--nav-padding-inline`, `--nav-gap` |
+| **Typography** | `--nav-fs`               | `--nav-fs`                          |
+| **Focus**      | `--nav-focus-{property}` | `--nav-focus-color`                 |
+| **Images**     | `--nav-img-{property}`   | `--nav-img-width`                   |
+
+## Browser Support
+
+- **CSS Custom Properties:** All modern browsers
+- **Flexbox:** All modern browsers
+- **`:focus-visible`:** Chrome 86+, Firefox 85+, Safari 15.4+
+- **`:has()` selector:** Chrome 105+, Firefox 121+, Safari 15.4+
+- **Media queries:** All modern browsers
+
+## Performance Tips
+
+Create reusable nav classes:
+
+```css
+.nav-dark {
+  --nav-bg: #333;
+  --nav-color: white;
+}
+
+.nav-compact {
+  --nav-padding-inline: 0.5rem;
+  --nav-fs: 0.875rem;
+}
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                         | fpkit Nav                                    |
+| -------------------------------- | -------------------------------------------- |
+| `class="navbar"`                 | `<nav>`                                      |
+| `class="flex items-center"`      | Automatic with `<nav>`                       |
+| `class="space-x-4"`              | `style="--nav-gap: 1rem"`                    |
+| `class="bg-gray-800 text-white"` | `style="--nav-bg: #333; --nav-color: white"` |
+
+### From Bootstrap
+
+| Bootstrap                     | fpkit Nav                                    |
+| ----------------------------- | -------------------------------------------- |
+| `class="navbar"`              | `<nav>`                                      |
+| `class="navbar-nav"`          | `<ul>` inside `<nav>`                        |
+| `class="navbar-dark bg-dark"` | `style="--nav-bg: #333; --nav-color: white"` |
+
+## Related Resources
+
+- **React Component** - See README for React Nav component API
+- **MDN: `<nav>` element** -
+  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav
+- **W3C ARIA: Navigation Landmark** -
+  https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/

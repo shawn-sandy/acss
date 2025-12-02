@@ -1,0 +1,445 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Details/Styles" />
+
+# Details Styles
+
+Collapsible disclosure widget styling using native HTML5 `<details>` and
+`<summary>` elements with smooth animations and CSS custom properties.
+
+## Overview
+
+The fpkit details styling system provides accordion-style collapsible content
+using semantic `<details>` elements. Features smooth height animations, focus
+indicators, and automatic styling for adjacent details elements.
+
+### Key Features
+
+- **Native HTML5** - Uses `<details>` and `<summary>` elements
+- **Smooth animations** - Height transitions using modern CSS
+- **Accordion styling** - Automatic grouping for adjacent details
+- **Focus indicators** - Keyboard accessibility
+- **Hidden markers** - Custom styling without default disclosure triangle
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+- **Modern CSS** - Uses `interpolate-size` and `@starting-style`
+
+## CSS Custom Properties
+
+### Details Properties
+
+```css
+details {
+  /* Layout */
+  --details-display: flex;
+  --details-direction: column;
+  --details-justify: flex-start;
+  --details-gap: 0;
+  --details-width: 100%;
+  --details-height: max-content;
+
+  /* Borders */
+  --details-border: 0.0625rem solid #dfdfdf; /* 1px */
+  --details-radius: 0;
+
+  /* Spacing */
+  --details-padding-inline: 1.5rem; /* 24px */
+  --details-padding-block: 1rem; /* 16px */
+
+  /* Animation */
+  --summary-transitions: all 0.75s ease-in-out;
+
+  /* Height Constraints */
+  --details-max-height-closed: 6.25rem; /* 100px */
+  --details-max-height-open: 50rem; /* 800px */
+}
+```
+
+### Summary Properties
+
+```css
+details {
+  /* Summary Layout */
+  --summary-display: flex;
+  --summary-justify: flex-start;
+  --summary-align: center;
+  --summary-gap: 0.5rem; /* 8px */
+
+  /* Summary Interaction */
+  --summary-cursor: pointer;
+
+  /* Summary Spacing */
+  --summary-padding-inline: var(--details-padding-inline);
+  --summary-padding-block: var(--details-padding-block);
+}
+```
+
+## Basic Structure
+
+### Simple Details
+
+```html
+<details>
+  <summary>Click to expand</summary>
+  <section>
+    <p>Hidden content that appears when expanded.</p>
+  </section>
+</details>
+```
+
+**CSS Applied:**
+
+```css
+details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 0.0625rem solid #dfdfdf;
+  border-left: none;
+  border-right: none;
+  max-height: 6.25rem; /* Closed state */
+  overflow: clip;
+  transition: all 0.75s ease-in-out;
+}
+
+details::marker {
+  content: none; /* Hide default triangle */
+}
+
+summary {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  gap: 0.5rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+details[open] {
+  max-height: max-content;
+}
+```
+
+## Accordion Pattern
+
+### Multiple Details (Accordion)
+
+Adjacent details elements automatically style as accordion:
+
+```html
+<details>
+  <summary>Section 1</summary>
+  <section>
+    <p>Content for section 1</p>
+  </section>
+</details>
+
+<details>
+  <summary>Section 2</summary>
+  <section>
+    <p>Content for section 2</p>
+  </section>
+</details>
+
+<details>
+  <summary>Section 3</summary>
+  <section>
+    <p>Content for section 3</p>
+  </section>
+</details>
+```
+
+**CSS:**
+
+```css
+/* First details */
+details:first-of-type {
+  border-radius: var(--details-radius) var(--details-radius) 0 0;
+}
+
+/* Middle details */
+details + details {
+  border-radius: 0;
+  border-top: none; /* Remove double borders */
+}
+
+/* Last details */
+details:last-of-type {
+  border-radius: 0 0 var(--details-radius) var(--details-radius);
+}
+
+/* Single details */
+details:only-of-type {
+  border-radius: var(--details-radius);
+}
+```
+
+## States
+
+### Closed State (Default)
+
+```html
+<details>
+  <summary>Closed (default)</summary>
+  <section>
+    <p>Content hidden</p>
+  </section>
+</details>
+```
+
+### Open State
+
+```html
+<details open>
+  <summary>Open by default</summary>
+  <section>
+    <p>Content visible</p>
+  </section>
+</details>
+```
+
+**CSS:**
+
+```css
+details[open] {
+  max-height: max-content;
+  transition: all 0.75s ease-in-out;
+}
+
+details[open] > summary {
+  border-bottom: 0.0625rem solid #dfdfdf;
+}
+
+details[open] > section {
+  max-height: 50rem;
+}
+```
+
+### Focus State
+
+```css
+summary:focus-within {
+  outline: none;
+  border-bottom: solid 2px currentColor;
+  background-color: whitesmoke;
+}
+```
+
+## Animation Features
+
+### Height Animation
+
+Uses modern CSS `interpolate-size` for smooth height transitions:
+
+```css
+details {
+  interpolate-size: allow-keywords; /* Enables height animation */
+  transition: all 0.75s ease-in-out;
+}
+```
+
+### Starting Style
+
+Initial state for animations:
+
+```css
+@starting-style {
+  details {
+    max-height: 0;
+  }
+}
+```
+
+### Browser Support Check
+
+```css
+@supports (transition-behavior: allow-discrete) {
+  @starting-style {
+    details {
+      max-height: 0;
+      transition: all 0.75s ease-in-out;
+    }
+  }
+}
+```
+
+## Real-World Examples
+
+### FAQ Section
+
+```html
+<h2>Frequently Asked Questions</h2>
+
+<details style="--details-radius: 0.5rem">
+  <summary>What is your return policy?</summary>
+  <section>
+    <p>You can return items within 30 days of purchase for a full refund.</p>
+  </section>
+</details>
+
+<details>
+  <summary>Do you ship internationally?</summary>
+  <section>
+    <p>Yes, we ship to over 100 countries worldwide.</p>
+  </section>
+</details>
+
+<details>
+  <summary>How long does shipping take?</summary>
+  <section>
+    <p>Domestic shipping typically takes 3-5 business days.</p>
+  </section>
+</details>
+```
+
+### Settings Panel
+
+```html
+<details>
+  <summary>
+    <strong>General Settings</strong>
+  </summary>
+  <section>
+    <label> <input type="checkbox" /> Enable notifications </label>
+    <label> <input type="checkbox" /> Dark mode </label>
+  </section>
+</details>
+
+<details>
+  <summary>
+    <strong>Privacy Settings</strong>
+  </summary>
+  <section>
+    <label> <input type="checkbox" /> Public profile </label>
+    <label> <input type="checkbox" /> Show email </label>
+  </section>
+</details>
+```
+
+### Product Details
+
+```html
+<details>
+  <summary>Product Specifications</summary>
+  <section>
+    <dl>
+      <dt>Dimensions</dt>
+      <dd>10" x 8" x 2"</dd>
+
+      <dt>Weight</dt>
+      <dd>1.5 lbs</dd>
+
+      <dt>Material</dt>
+      <dd>100% Cotton</dd>
+    </dl>
+  </section>
+</details>
+```
+
+### Nested Details
+
+```html
+<details>
+  <summary>Parent Section</summary>
+  <section>
+    <p>Parent content</p>
+
+    <details style="margin-block: 1rem">
+      <summary>Nested Section</summary>
+      <section>
+        <p>Nested content</p>
+      </section>
+    </details>
+  </section>
+</details>
+```
+
+## Accessibility Considerations
+
+### Keyboard Navigation
+
+- **Enter** or **Space** - Toggle expand/collapse
+- **Tab** - Focus next element
+- **Shift+Tab** - Focus previous element
+
+### Screen Reader Support
+
+```html
+<details aria-label="Product details">
+  <summary>More Information</summary>
+  <section>
+    <p>Content...</p>
+  </section>
+</details>
+```
+
+### ARIA Attributes
+
+```html
+<details id="faq1">
+  <summary aria-controls="faq1-content">Question 1</summary>
+  <section id="faq1-content">
+    <p>Answer 1</p>
+  </section>
+</details>
+```
+
+## CSS Variable Naming Convention
+
+| Category    | Variable Pattern       | Example                               |
+| ----------- | ---------------------- | ------------------------------------- |
+| **Details** | `--details-{property}` | `--details-border`, `--details-width` |
+| **Summary** | `--summary-{property}` | `--summary-display`, `--summary-gap`  |
+
+## Browser Support
+
+- **`<details>` element:** All modern browsers (Chrome 12+, Firefox 49+, Safari
+  6+)
+- **CSS Custom Properties:** All modern browsers
+- **`interpolate-size`:** Chrome 129+, Firefox 133+ (Experimental)
+- **`@starting-style`:** Chrome 117+, Firefox 129+ (Experimental)
+- **Flexbox:** All modern browsers
+
+### Progressive Enhancement
+
+Basic functionality works without modern features. Advanced animations enhance
+experience in supporting browsers.
+
+## Performance Tips
+
+```css
+.details-compact {
+  --details-padding-inline: 1rem;
+  --details-padding-block: 0.75rem;
+  --summary-transitions: all 0.3s ease;
+}
+
+.details-rounded {
+  --details-radius: 0.5rem;
+}
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                  | fpkit Details                 |
+| ------------------------- | ----------------------------- |
+| Custom collapse component | Native `<details>`            |
+| `class="accordion"`       | Adjacent `<details>` elements |
+
+### From Bootstrap
+
+| Bootstrap           | fpkit Details                 |
+| ------------------- | ----------------------------- |
+| `class="accordion"` | Adjacent `<details>` elements |
+| `class="collapse"`  | Native `<details>` element    |
+
+## Related Resources
+
+- **React Component** - See README for React Details component API
+- **MDN: `<details>` element** -
+  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+- **W3C: Disclosure Pattern** -
+  https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/

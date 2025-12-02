@@ -1,0 +1,56 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Icons/Styles" />
+
+# Icon Styles
+
+Flexbox-based icon wrapper for consistent icon display and alignment.
+
+## Overview
+
+The fpkit icon system provides a flexible wrapper for icon elements using the
+`data-icon` attribute with flexbox layout.
+
+### Key Features
+
+- **Flexbox layout** - Centered icon alignment
+- **Gap control** - Spacing between icon and text
+- **Size control** - Width and height management
+- **CSS custom properties** - Full layout control
+
+## CSS Custom Properties
+
+```css
+[data-icon] {
+  --icon-display: inline-flex;
+  --icon-direction: row;
+  --icons-placement: center;
+  --icon-width: max-content;
+  --icon-gap: 0.2rem; /* 3.2px */
+  --icon-height: max-content;
+}
+```
+
+## Basic Usage
+
+### Icon with Text
+
+```html
+<span data-icon>
+  <svg><!-- icon --></svg>
+  <span>Label</span>
+</span>
+```
+
+### Icon Button
+
+```html
+<button data-icon>
+  <svg><!-- icon --></svg>
+  <span>Click me</span>
+</button>
+```
+
+## Related Resources
+
+- **MDN: SVG** - https://developer.mozilla.org/en-US/docs/Web/SVG

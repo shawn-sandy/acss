@@ -1,0 +1,888 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Dialog/Styles" />
+
+# Dialog Styles
+
+Modal dialog styling system with CSS custom properties for creating accessible,
+keyboard-navigable dialogs with headers, content, and action footers.
+
+## Overview
+
+The fpkit dialog styling system provides a complete foundation for modal dialogs
+using the native `<dialog>` HTML element. Includes support for headers, close
+buttons, content sections, and action footers, all with comprehensive keyboard
+accessibility and high contrast mode support.
+
+### Key Features
+
+- **Native `<dialog>` element** - Built on HTML5 dialog with proper semantics
+- **Flexible layout** - Flexbox-based column layout with customizable gap
+- **Header with close button** - Pre-styled header section with close control
+- **Action footer** - Flexible footer for action buttons
+- **Keyboard accessibility** - Full keyboard navigation with visible focus
+  indicators
+- **High contrast mode** - Automatic adjustments for users who need high
+  contrast
+- **CSS custom properties** - Extensive theming via CSS variables
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+- **WCAG compliant** - Accessible focus indicators and semantic structure
+
+## CSS Custom Properties
+
+### Base Dialog Properties
+
+Root-level variables define the dialog's overall appearance:
+
+```css
+:root {
+  /* Dimensions */
+  --dialog-min-width: max(20rem, 80%); /* Responsive width: min 320px or 80% */
+
+  /* Layout */
+  --dialog-display: flex;
+  --dialog-flex-direction: column;
+  --dialog-gap: 0.625rem; /* 10px */
+
+  /* Spacing */
+  --dialog-padding: 1.5rem; /* 24px */
+  --dialog-padding-inline: 1rem; /* 16px (currently unused) */
+
+  /* Borders */
+  --dialog-border-color: lightgray;
+  --dialog-border-width: thin; /* ~1px */
+  --dialog-border-style: solid;
+  --dialog-border-radius: var(--border-radius);
+}
+```
+
+### Button Properties
+
+Variables for dialog header close button:
+
+```css
+:root {
+  /* Close button */
+  --dialog-close-color: gray;
+  --dialog-button-bg: transparent;
+  --dialog-button-border: transparent thin solid;
+  --dialog-button-hover-bg: whitesmoke;
+}
+```
+
+### Focus & Accessibility Properties
+
+```css
+:root {
+  /* Focus indicators */
+  --dialog-focus-color: #0066cc; /* Blue focus color */
+  --dialog-focus-width: 0.125rem; /* 2px */
+  --dialog-focus-offset: 0.125rem; /* 2px */
+  --dialog-focus-outline: var(--dialog-focus-width) solid var(
+      --dialog-focus-color
+    );
+}
+```
+
+### Footer Properties
+
+```css
+.dialog-footer {
+  /* Footer alignment */
+  --dialog-footer-justify: flex-end; /* Right-align action buttons */
+}
+```
+
+### High Contrast Mode Support
+
+Automatic adjustments for users with high contrast preferences:
+
+```css
+@media (prefers-contrast: high) {
+  :root {
+    --dialog-border-color: currentColor;
+    --dialog-border-width: 0.125rem; /* 2px (thicker) */
+    --dialog-close-color: currentColor;
+    --dialog-button-border: currentColor 0.125rem solid;
+    --dialog-focus-width: 0.1875rem; /* 3px (thicker) */
+  }
+}
+```
+
+### Customizing Dialog Styles
+
+Override CSS variables:
+
+```css
+dialog {
+  --dialog-border-color: #0066cc;
+  --dialog-padding: 2rem;
+  --dialog-gap: 1rem;
+}
+```
+
+Or inline:
+
+```html
+<dialog style="--dialog-border-color: blue; --dialog-padding: 2rem">
+  <!-- Dialog content -->
+</dialog>
+```
+
+## Dialog Structure
+
+### Basic Dialog
+
+Simple dialog with content:
+
+```html
+<dialog id="myDialog">
+  <p>This is a dialog.</p>
+  <button type="button" onclick="document.getElementById('myDialog').close()">
+    Close
+  </button>
+</dialog>
+
+<button onclick="document.getElementById('myDialog').showModal()">
+  Open Dialog
+</button>
+```
+
+**CSS Applied:**
+
+```css
+dialog {
+  width: max(20rem, 80%);
+  min-width: max(20rem, 80%);
+  gap: 0.625rem;
+  border: lightgray thin solid;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+}
+
+dialog[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+```
+
+### Dialog with Header
+
+Dialog with title and close button:
+
+```html
+<dialog id="headerDialog">
+  <div class="dialog-header">
+    <h3>Dialog Title</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('headerDialog').close()"
+      aria-label="Close dialog"
+    >
+      ✕
+    </button>
+  </div>
+  <p>Dialog content goes here.</p>
+</dialog>
+```
+
+**CSS Applied:**
+
+```css
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-width: 100%;
+}
+
+.dialog-header h3 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.dialog-header button[type="button"] {
+  background-color: transparent;
+  border: transparent thin solid;
+  cursor: pointer;
+}
+
+.dialog-header button[type="button"]:hover {
+  border-color: gray;
+  background-color: whitesmoke;
+}
+```
+
+### Dialog with Header, Content, and Footer
+
+Complete dialog structure:
+
+```html
+<dialog id="fullDialog">
+  <div class="dialog-header">
+    <h3>Confirm Action</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('fullDialog').close()"
+      aria-label="Close dialog"
+    >
+      ✕
+    </button>
+  </div>
+
+  <section>
+    <p>Are you sure you want to proceed with this action?</p>
+  </section>
+
+  <div class="dialog-footer">
+    <button
+      type="button"
+      onclick="document.getElementById('fullDialog').close()"
+    >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      onclick="document.getElementById('fullDialog').close()"
+    >
+      Confirm
+    </button>
+  </div>
+</dialog>
+```
+
+**CSS Applied:**
+
+```css
+dialog section {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 0.625rem;
+  flex-direction: column;
+  margin-block-start: 0;
+}
+
+.dialog-footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end; /* Right-aligned buttons */
+  gap: 0.625rem;
+  width: 100%;
+}
+```
+
+## Dialog Components
+
+### Dialog Header
+
+Header section with title and close button:
+
+```html
+<div class="dialog-header">
+  <h3>Dialog Title</h3>
+  <button type="button" class="dialog-close" aria-label="Close">✕</button>
+</div>
+```
+
+**Features:**
+
+- Flexbox layout with space-between
+- Close button with hover state
+- Automatic heading margin removal
+- Full width
+
+### Dialog Section
+
+Content area for dialog body:
+
+```html
+<section>
+  <p>Main dialog content goes here.</p>
+  <p>Additional paragraphs or form elements.</p>
+</section>
+```
+
+**Features:**
+
+- Full width
+- Flexbox column layout
+- Consistent gap spacing
+- Zero top margin
+
+### Dialog Footer
+
+Action button area (also works with `alert-dialog-actions` class):
+
+```html
+<div class="dialog-footer">
+  <button type="button">Cancel</button>
+  <button type="submit">Confirm</button>
+</div>
+```
+
+**Features:**
+
+- Right-aligned buttons (default)
+- Flexbox row layout with wrapping
+- Consistent gap between buttons
+- Full width
+
+**Custom Alignment:**
+
+```html
+<!-- Center-aligned buttons -->
+<div class="dialog-footer" style="--dialog-footer-justify: center">
+  <button>OK</button>
+</div>
+
+<!-- Left-aligned buttons -->
+<div class="dialog-footer" style="--dialog-footer-justify: flex-start">
+  <button>Back</button>
+  <button>Next</button>
+</div>
+
+<!-- Space between buttons -->
+<div class="dialog-footer" style="--dialog-footer-justify: space-between">
+  <button>Cancel</button>
+  <button>Confirm</button>
+</div>
+```
+
+## Focus & Keyboard Accessibility
+
+### Dialog Focus
+
+The dialog element itself receives focus when opened:
+
+```css
+dialog:focus-visible {
+  outline: 0.125rem solid #0066cc;
+  outline-offset: 0.125rem;
+}
+```
+
+### Button Focus
+
+Close button and footer buttons have visible focus indicators:
+
+```css
+.dialog-header button:focus-visible,
+.dialog-footer button:focus-visible {
+  outline: 0.125rem solid #0066cc;
+  outline-offset: 0.125rem;
+  border-color: #0066cc;
+  background-color: whitesmoke;
+}
+```
+
+### Keyboard Navigation
+
+- **Escape** - Close dialog (native behavior)
+- **Tab** - Move to next focusable element
+- **Shift+Tab** - Move to previous focusable element
+- **Enter** or **Space** - Activate focused button
+
+### Focus Trap
+
+The native `<dialog>` element automatically traps focus within the dialog when
+opened with `showModal()`.
+
+## Real-World Examples
+
+### Confirmation Dialog
+
+```html
+<dialog id="confirmDialog">
+  <div class="dialog-header">
+    <h3>Delete Item?</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('confirmDialog').close()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <section>
+    <p>
+      Are you sure you want to delete this item? This action cannot be undone.
+    </p>
+  </section>
+
+  <div class="dialog-footer">
+    <button
+      type="button"
+      onclick="document.getElementById('confirmDialog').close()"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      onclick="handleDelete(); document.getElementById('confirmDialog').close()"
+      style="--btn-bg: #dc3545; --btn-color: white"
+    >
+      Delete
+    </button>
+  </div>
+</dialog>
+```
+
+### Form Dialog
+
+```html
+<dialog id="formDialog" style="--dialog-min-width: 30rem">
+  <div class="dialog-header">
+    <h3>Add New Item</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('formDialog').close()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <section>
+    <form id="itemForm">
+      <div>
+        <label for="itemName">Name</label>
+        <input type="text" id="itemName" name="name" required />
+      </div>
+      <div>
+        <label for="itemDescription">Description</label>
+        <textarea id="itemDescription" name="description" rows="4"></textarea>
+      </div>
+    </form>
+  </section>
+
+  <div class="dialog-footer">
+    <button
+      type="button"
+      onclick="document.getElementById('formDialog').close()"
+    >
+      Cancel
+    </button>
+    <button type="submit" form="itemForm">Save</button>
+  </div>
+</dialog>
+```
+
+### Alert Dialog
+
+```html
+<dialog id="alertDialog">
+  <div class="dialog-header">
+    <h3>⚠️ Warning</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('alertDialog').close()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <section>
+    <p>Your session will expire in 2 minutes. Please save your work.</p>
+  </section>
+
+  <div class="alert-dialog-actions">
+    <button type="button" onclick="extendSession()">Extend Session</button>
+  </div>
+</dialog>
+```
+
+### Success Dialog
+
+```html
+<dialog id="successDialog">
+  <div class="dialog-header">
+    <h3>✓ Success</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('successDialog').close()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <section>
+    <p>Your changes have been saved successfully.</p>
+  </section>
+
+  <div class="dialog-footer" style="--dialog-footer-justify: center">
+    <button
+      type="button"
+      onclick="document.getElementById('successDialog').close()"
+    >
+      OK
+    </button>
+  </div>
+</dialog>
+```
+
+### Wide Dialog
+
+```html
+<dialog id="wideDialog" style="--dialog-min-width: max(40rem, 90%)">
+  <div class="dialog-header">
+    <h3>Settings</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('wideDialog').close()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <section>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem">
+      <div>
+        <h4>General</h4>
+        <!-- Settings content -->
+      </div>
+      <div>
+        <h4>Advanced</h4>
+        <!-- Settings content -->
+      </div>
+    </div>
+  </section>
+
+  <div class="dialog-footer">
+    <button
+      type="button"
+      onclick="document.getElementById('wideDialog').close()"
+    >
+      Close
+    </button>
+  </div>
+</dialog>
+```
+
+### Dialog with Scrollable Content
+
+```html
+<dialog id="scrollDialog">
+  <div class="dialog-header">
+    <h3>Terms of Service</h3>
+    <button
+      type="button"
+      class="dialog-close"
+      onclick="document.getElementById('scrollDialog').close()"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <section style="max-height: 20rem; overflow-y: auto">
+    <p>Long content that scrolls...</p>
+    <!-- More content -->
+  </section>
+
+  <div class="dialog-footer">
+    <button
+      type="button"
+      onclick="document.getElementById('scrollDialog').close()"
+    >
+      Decline
+    </button>
+    <button
+      type="button"
+      onclick="acceptTerms(); document.getElementById('scrollDialog').close()"
+    >
+      Accept
+    </button>
+  </div>
+</dialog>
+```
+
+## Opening and Closing Dialogs
+
+### Modal Dialog (Recommended)
+
+Modal dialogs block interaction with the rest of the page:
+
+```javascript
+const dialog = document.getElementById("myDialog");
+
+// Open as modal (with backdrop)
+dialog.showModal();
+
+// Close dialog
+dialog.close();
+
+// Close with return value
+dialog.close("confirmed");
+```
+
+### Non-Modal Dialog
+
+Non-modal dialogs allow interaction with the page:
+
+```javascript
+const dialog = document.getElementById("myDialog");
+
+// Open as non-modal (no backdrop)
+dialog.show();
+
+// Close
+dialog.close();
+```
+
+### Listening to Dialog Events
+
+```javascript
+const dialog = document.getElementById("myDialog");
+
+// Listen for close event
+dialog.addEventListener("close", () => {
+  console.log("Dialog closed with:", dialog.returnValue);
+});
+
+// Listen for cancel event (Escape key)
+dialog.addEventListener("cancel", (event) => {
+  console.log("Dialog cancelled");
+  // event.preventDefault(); // Prevent closing if needed
+});
+```
+
+## Accessibility Considerations
+
+### ARIA Roles and Labels
+
+Use proper ARIA attributes for accessibility:
+
+```html
+<dialog
+  id="myDialog"
+  role="dialog"
+  aria-labelledby="dialogTitle"
+  aria-describedby="dialogDesc"
+>
+  <div class="dialog-header">
+    <h3 id="dialogTitle">Dialog Title</h3>
+    <button type="button" class="dialog-close" aria-label="Close dialog">
+      ✕
+    </button>
+  </div>
+
+  <section>
+    <p id="dialogDesc">Dialog description for screen readers.</p>
+  </section>
+</dialog>
+```
+
+### Focus Management
+
+1. **Initial Focus:**
+
+   ```javascript
+   dialog.addEventListener("open", () => {
+     // Focus first input or primary action
+     dialog.querySelector("input, button[type='submit']")?.focus();
+   });
+   ```
+
+2. **Return Focus:**
+
+   ```javascript
+   const trigger = document.getElementById("openButton");
+   trigger.addEventListener("click", () => {
+     dialog.showModal();
+   });
+
+   dialog.addEventListener("close", () => {
+     trigger.focus(); // Return focus to trigger button
+   });
+   ```
+
+### Keyboard Shortcuts
+
+Ensure keyboard users can:
+
+- **Tab through** all focusable elements
+- **Escape** to close the dialog
+- **Enter/Space** to activate buttons
+
+### Close Button Accessibility
+
+Always provide an accessible label:
+
+```html
+<!-- Good: Has aria-label -->
+<button type="button" class="dialog-close" aria-label="Close dialog">✕</button>
+
+<!-- Bad: No accessible label -->
+<button type="button" class="dialog-close">✕</button>
+```
+
+## CSS Variable Naming Convention
+
+All dialog CSS variables follow specific patterns:
+
+### Property Mapping
+
+| Category       | Variable Pattern             | Example                                          |
+| -------------- | ---------------------------- | ------------------------------------------------ |
+| **Dimensions** | `--dialog-{dimension}`       | `--dialog-min-width`                             |
+| **Layout**     | `--dialog-{layout-property}` | `--dialog-display`, `--dialog-flex-direction`    |
+| **Spacing**    | `--dialog-{spacing-type}`    | `--dialog-padding`, `--dialog-gap`               |
+| **Borders**    | `--dialog-border-{property}` | `--dialog-border-color`, `--dialog-border-width` |
+| **Buttons**    | `--dialog-button-{property}` | `--dialog-button-bg`, `--dialog-button-border`   |
+| **Focus**      | `--dialog-focus-{property}`  | `--dialog-focus-color`, `--dialog-focus-width`   |
+| **Footer**     | `--dialog-footer-{property}` | `--dialog-footer-justify`                        |
+
+### Common Variables Quick Reference
+
+```css
+/* Dimensions */
+--dialog-min-width          /* Minimum width (responsive) */
+
+/* Layout */
+--dialog-display            /* Display mode (flex) */
+--dialog-flex-direction     /* Flex direction (column) */
+--dialog-gap                /* Gap between children */
+
+/* Spacing */
+--dialog-padding            /* Padding (all sides) */
+--dialog-padding-inline     /* Horizontal padding (unused) */
+
+/* Borders */
+--dialog-border-color       /* Border color */
+--dialog-border-width       /* Border width */
+--dialog-border-style       /* Border style (solid) */
+--dialog-border-radius      /* Border radius */
+
+/* Buttons */
+--dialog-close-color        /* Close button color */
+--dialog-button-bg          /* Button background */
+--dialog-button-border      /* Button border */
+--dialog-button-hover-bg    /* Button hover background */
+
+/* Focus */
+--dialog-focus-color        /* Focus outline color */
+--dialog-focus-width        /* Focus outline width */
+--dialog-focus-offset       /* Focus outline offset */
+--dialog-focus-outline      /* Complete focus outline */
+
+/* Footer */
+--dialog-footer-justify     /* Footer button alignment */
+```
+
+## Browser Support
+
+The dialog styles use modern CSS features:
+
+- **`<dialog>` element:** Chrome 37+, Firefox 98+, Safari 15.4+
+- **CSS Custom Properties:** All modern browsers (IE11 not supported)
+- **`:focus-visible`:** Chrome 86+, Firefox 85+, Safari 15.4+
+- **Flexbox:** All modern browsers
+- **`@media (prefers-contrast: high)`:** Chrome 96+, Firefox 89+, Safari 14.1+
+- **Logical properties** (`padding-block-start`): Chrome 87+, Firefox 66+,
+  Safari 14.1+
+
+### Polyfills
+
+For browsers without native `<dialog>` support, use:
+
+- **dialog-polyfill:** https://github.com/GoogleChrome/dialog-polyfill
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.6/dist/dialog-polyfill.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.6/dist/dialog-polyfill.min.css"
+/>
+
+<script>
+  const dialog = document.querySelector("dialog");
+  dialogPolyfill.registerDialog(dialog);
+</script>
+```
+
+## Performance Tips
+
+### Avoid Inline Styles
+
+Create reusable dialog variants:
+
+```css
+.dialog-sm {
+  --dialog-min-width: max(15rem, 50%);
+  --dialog-padding: 1rem;
+}
+
+.dialog-lg {
+  --dialog-min-width: max(40rem, 90%);
+  --dialog-padding: 2rem;
+}
+```
+
+```html
+<dialog class="dialog-sm">Small dialog</dialog>
+<dialog class="dialog-lg">Large dialog</dialog>
+```
+
+### Use Native Dialog Methods
+
+Prefer `.showModal()` over custom implementations:
+
+```javascript
+// Good: Native method
+dialog.showModal();
+
+// Avoid: Custom modal logic
+dialog.style.display = "block";
+overlay.style.display = "block";
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind               | fpkit Dialog                        |
+| ---------------------- | ----------------------------------- |
+| `class="modal"`        | `<dialog>`                          |
+| `class="modal-box"`    | `<dialog>` (styled automatically)   |
+| `class="modal-header"` | `.dialog-header`                    |
+| `class="modal-body"`   | `<section>`                         |
+| `class="modal-footer"` | `.dialog-footer`                    |
+| Custom modal backdrop  | Native backdrop (via `showModal()`) |
+
+### From Bootstrap
+
+| Bootstrap                 | fpkit Dialog                      |
+| ------------------------- | --------------------------------- |
+| `class="modal"`           | `<dialog>`                        |
+| `class="modal-dialog"`    | `<dialog>` (styled automatically) |
+| `class="modal-header"`    | `.dialog-header`                  |
+| `class="modal-body"`      | `<section>`                       |
+| `class="modal-footer"`    | `.dialog-footer`                  |
+| `data-bs-toggle="modal"`  | `onclick="dialog.showModal()"`    |
+| `data-bs-dismiss="modal"` | `onclick="dialog.close()"`        |
+
+## Related Resources
+
+- **React Component** - See [README.mdx](./README.mdx) for the React Dialog
+  component API
+- **MDN: `<dialog>` element** -
+  [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
+- **W3C ARIA: Dialog Pattern** -
+  [https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/)
+- **CSS Custom Properties** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
