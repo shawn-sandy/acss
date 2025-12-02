@@ -1,0 +1,63 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Progress/STYLES" />
+
+# Progress Bar Styles
+
+Native HTML5 progress bar styling with cross-browser support and CSS custom
+properties.
+
+## Overview
+
+The fpkit progress system provides styling for native `<progress>` elements with
+vendor-specific pseudo-elements for cross-browser compatibility.
+
+### Key Features
+
+- **Native HTML5** - Uses `<progress>` element
+- **Cross-browser support** - Vendor prefix handling
+- **Indeterminate state** - Loading indicator support
+- **CSS custom properties** - Customizable colors and dimensions
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+
+## CSS Custom Properties
+
+```css
+progress {
+  --progress-width: 100%;
+  --progress-height: 1rem; /* 16px */
+  --progress-bg: #cccccc;
+  --progress-color: rgb(71, 71, 245);
+  --progress-accent-color: var(--progress-color);
+}
+```
+
+## Basic Usage
+
+### Determinate Progress
+
+```html
+<progress value="70" max="100">70%</progress>
+```
+
+### Indeterminate (Loading)
+
+```html
+<progress aria-busy="true"></progress>
+```
+
+## Customization
+
+```html
+<progress
+  value="50"
+  max="100"
+  style="--progress-accent-color: green; --progress-height: 1.5rem"
+>
+  50%
+</progress>
+```
+
+## Related Resources
+
+- **MDN: Progress** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress

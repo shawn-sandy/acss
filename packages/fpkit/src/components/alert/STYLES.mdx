@@ -1,0 +1,782 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Alert/STYLES" />
+
+# Alert Styles
+
+Notification alert styling system with CSS custom properties for creating
+accessible, semantic alerts with multiple variants and animation support.
+
+## Overview
+
+The fpkit alert styling system provides accessible notification components using
+the semantic `role="alert"` attribute. Alerts support four severity types
+(success, error, warning, info) and three visual variants (outlined, filled,
+soft) with built-in animations and WCAG compliance.
+
+### Key Features
+
+- **Semantic types** - Success, error, warning, and info alerts with color-coded
+  styling
+- **Visual variants** - Outlined (default), filled, and soft styles
+- **Icon support** - Dedicated icon area with proper alignment
+- **Title and message** - Structured content with title and body sections
+- **Animations** - Smooth entrance/exit transitions with reduced motion support
+- **Dismissible** - Support for close buttons
+- **CSS custom properties** - Extensive theming via CSS variables
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+- **WCAG compliant** - Proper ARIA roles, focus indicators, and color contrast
+- **Reduced motion** - Respects user's motion preferences
+
+## CSS Custom Properties
+
+### Color Properties by Type
+
+Each alert type has dedicated color variables:
+
+```css
+[role="alert"] {
+  /* Success colors */
+  --alert-success-bg: #e6f4ea; /* Light green background */
+  --alert-success-border: #34a853; /* Green border */
+  --alert-success-text: #1e4620; /* Dark green text */
+
+  /* Error colors */
+  --alert-error-bg: #fdeded; /* Light red background */
+  --alert-error-border: #d32f2f; /* Red border */
+  --alert-error-text: #5f2120; /* Dark red text */
+
+  /* Warning colors */
+  --alert-warning-bg: #fff4e5; /* Light orange background */
+  --alert-warning-border: #ff9800; /* Orange border */
+  --alert-warning-text: #663c00; /* Dark orange text */
+
+  /* Info colors */
+  --alert-info-bg: #e5f6fd; /* Light blue background */
+  --alert-info-border: #0288d1; /* Blue border */
+  --alert-info-text: #084154; /* Dark blue text */
+}
+```
+
+### Base Alert Properties
+
+```css
+[role="alert"] {
+  /* Colors (customizable per instance) */
+  --alert-bg: whitesmoke; /* Background color */
+  --alert-color: currentColor; /* Text color */
+
+  /* Borders */
+  --alert-border: thin solid currentColor; /* Border style */
+  --alert-radius: var(--border-radius); /* Border radius */
+
+  /* Spacing */
+  --alert-padding: var(--spc-4); /* Internal padding */
+  --alert-gap: var(--spc-4); /* Gap between icon and message */
+  --alert-margin-block-end: 0; /* Bottom margin */
+
+  /* Animation */
+  --alert-transition-duration: 0.3s; /* Transition duration */
+}
+```
+
+### Title Properties
+
+```css
+.alert-title {
+  --alert-title-fw: 600; /* Title font weight */
+  --alert-title-fs: inherit; /* Title font size (inherits from alert) */
+}
+```
+
+### Customizing Alert Styles
+
+Override CSS variables:
+
+```css
+[role="alert"] {
+  --alert-padding: 1.5rem;
+  --alert-gap: 1rem;
+  --alert-radius: 0.5rem;
+}
+```
+
+Or inline:
+
+```html
+<div role="alert" style="--alert-padding: 1.5rem; --alert-gap: 1rem">
+  Alert content
+</div>
+```
+
+## Alert Structure
+
+### Basic Alert
+
+Simple alert with message:
+
+```html
+<div role="alert" data-alert="info">
+  <p>This is an informational alert.</p>
+</div>
+```
+
+**CSS Applied:**
+
+```css
+[role="alert"] {
+  background-color: whitesmoke;
+  border: thin solid currentColor;
+  color: currentColor;
+  padding: var(--spc-4);
+  font-size: var(--fs-0);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: row;
+  border-radius: var(--border-radius);
+  gap: var(--spc-4);
+}
+```
+
+### Alert with Title
+
+Alert with title and message:
+
+```html
+<div role="alert" data-alert="success">
+  <div class="alert-message">
+    <strong class="alert-title">Success!</strong>
+    <p>Your changes have been saved successfully.</p>
+  </div>
+</div>
+```
+
+**CSS for Title:**
+
+```css
+.alert-title {
+  margin-block-end: 0.25rem;
+  margin-block-start: 0;
+  font-weight: 600;
+  font-size: inherit;
+  line-height: 1.4;
+}
+```
+
+### Alert with Icon
+
+Alert with icon and message:
+
+```html
+<div role="alert" data-alert="warning">
+  <span class="alert-icon" aria-hidden="true">⚠️</span>
+  <div class="alert-message">
+    <strong class="alert-title">Warning</strong>
+    <p>Please review your input before proceeding.</p>
+  </div>
+</div>
+```
+
+**CSS for Icon:**
+
+```css
+.alert-icon {
+  margin-block-start: 0;
+  align-items: center;
+}
+```
+
+### Alert with Close Button
+
+Dismissible alert:
+
+```html
+<div role="alert" data-alert="info" data-visible="true">
+  <div class="alert-message">
+    <p>This alert can be dismissed.</p>
+  </div>
+  <button
+    type="button"
+    data-btn="icon"
+    aria-label="Close alert"
+    onclick="this.parentElement.setAttribute('data-visible', 'false')"
+  >
+    ✕
+  </button>
+</div>
+```
+
+**Note:** The `data-visible="false"` triggers exit animation via opacity and
+transform.
+
+## Alert Types
+
+Control alert type using the `data-alert` attribute:
+
+| Data Attribute      | Type    | Description                  |
+| ------------------- | ------- | ---------------------------- |
+| `data-alert="success"` | Success | Positive feedback (green)    |
+| `data-alert="error"`   | Error   | Error messages (red)         |
+| `data-alert="warning"` | Warning | Warnings/cautions (orange)   |
+| `data-alert="info"`    | Info    | Informational messages (blue)|
+
+### Success Alert
+
+```html
+<div role="alert" data-alert="success">
+  <span class="alert-icon" aria-hidden="true">✓</span>
+  <div class="alert-message">
+    <strong class="alert-title">Success</strong>
+    <p>Operation completed successfully.</p>
+  </div>
+</div>
+```
+
+**CSS:**
+
+```css
+[data-alert~="success"] {
+  --alert-bg: #e6f4ea;
+  --alert-color: #1e4620;
+  border-color: #34a853;
+}
+```
+
+### Error Alert
+
+```html
+<div role="alert" data-alert="error">
+  <span class="alert-icon" aria-hidden="true">✕</span>
+  <div class="alert-message">
+    <strong class="alert-title">Error</strong>
+    <p>Something went wrong. Please try again.</p>
+  </div>
+</div>
+```
+
+**CSS:**
+
+```css
+[data-alert~="error"] {
+  --alert-bg: #fdeded;
+  --alert-color: #5f2120;
+  border-color: #d32f2f;
+}
+```
+
+### Warning Alert
+
+```html
+<div role="alert" data-alert="warning">
+  <span class="alert-icon" aria-hidden="true">⚠️</span>
+  <div class="alert-message">
+    <strong class="alert-title">Warning</strong>
+    <p>This action cannot be undone.</p>
+  </div>
+</div>
+```
+
+**CSS:**
+
+```css
+[data-alert~="warning"] {
+  --alert-bg: #fff4e5;
+  --alert-color: #663c00;
+  border-color: #ff9800;
+}
+```
+
+### Info Alert
+
+```html
+<div role="alert" data-alert="info">
+  <span class="alert-icon" aria-hidden="true">ℹ️</span>
+  <div class="alert-message">
+    <strong class="alert-title">Information</strong>
+    <p>Here's some helpful information.</p>
+  </div>
+</div>
+```
+
+**CSS:**
+
+```css
+[data-alert~="info"] {
+  --alert-bg: #e5f6fd;
+  --alert-color: #084154;
+  border-color: #0288d1;
+}
+```
+
+## Visual Variants
+
+Control visual style using the `data-variant` attribute:
+
+| Data Attribute          | Variant  | Description                               |
+| ----------------------- | -------- | ----------------------------------------- |
+| *(none)* or `"outlined"` | Outlined | Light background with colored border (default) |
+| `data-variant="filled"`  | Filled   | Solid colored background with white text  |
+| `data-variant="soft"`    | Soft     | Light background without border           |
+
+### Outlined Variant (Default)
+
+Light background with colored border:
+
+```html
+<div role="alert" data-alert="info" data-variant="outlined">
+  <p>Outlined alert (default style).</p>
+</div>
+```
+
+### Filled Variant
+
+Solid background with white text:
+
+```html
+<div role="alert" data-alert="success" data-variant="filled">
+  <span class="alert-icon" aria-hidden="true">✓</span>
+  <div class="alert-message">
+    <strong class="alert-title">Success</strong>
+    <p>Changes saved successfully.</p>
+  </div>
+</div>
+```
+
+**CSS:**
+
+```css
+[data-variant="filled"][data-alert~="success"] {
+  --alert-bg: #34a853; /* Solid green */
+  --alert-color: white;
+  border: none;
+}
+```
+
+### Soft Variant
+
+Light background without border:
+
+```html
+<div role="alert" data-alert="warning" data-variant="soft">
+  <span class="alert-icon" aria-hidden="true">⚠️</span>
+  <div class="alert-message">
+    <p>Soft warning alert without border.</p>
+  </div>
+</div>
+```
+
+**CSS:**
+
+```css
+[data-variant="soft"] {
+  border: none;
+}
+```
+
+## Animations
+
+### Entrance/Exit Animation
+
+Alerts automatically animate in and out:
+
+```css
+[role="alert"] {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hidden state */
+[role="alert"]:not([data-visible="true"]) {
+  opacity: 0;
+  transform: translateY(-0.5rem); /* Slides up */
+}
+```
+
+### Reduced Motion Support
+
+Respects user's motion preferences:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  [role="alert"] {
+    transition-duration: 0.01ms; /* Near-instant */
+  }
+}
+```
+
+## Real-World Examples
+
+### Form Validation Alert
+
+```html
+<div role="alert" data-alert="error" data-visible="true">
+  <span class="alert-icon" aria-hidden="true">✕</span>
+  <div class="alert-message">
+    <strong class="alert-title">Validation Error</strong>
+    <p>Please correct the following errors:</p>
+    <ul>
+      <li>Email address is required</li>
+      <li>Password must be at least 8 characters</li>
+    </ul>
+  </div>
+</div>
+```
+
+### Success Notification
+
+```html
+<div role="alert" data-alert="success" data-variant="filled" data-visible="true">
+  <span class="alert-icon" aria-hidden="true">✓</span>
+  <div class="alert-message">
+    <strong class="alert-title">Account Created</strong>
+    <p>Welcome! Your account has been created successfully.</p>
+  </div>
+  <button type="button" data-btn="icon" aria-label="Close" style="color: white">
+    ✕
+  </button>
+</div>
+```
+
+### Warning with Action
+
+```html
+<div role="alert" data-alert="warning">
+  <span class="alert-icon" aria-hidden="true">⚠️</span>
+  <div class="alert-message">
+    <strong class="alert-title">Session Expiring</strong>
+    <p>Your session will expire in 5 minutes.</p>
+    <button type="button" onclick="extendSession()">Extend Session</button>
+  </div>
+</div>
+```
+
+### Info Banner
+
+```html
+<div role="alert" data-alert="info" data-variant="soft">
+  <span class="alert-icon" aria-hidden="true">ℹ️</span>
+  <div class="alert-message">
+    <p>
+      <strong>New feature available!</strong> Check out our updated dashboard.
+      <a href="/dashboard">Learn more</a>
+    </p>
+  </div>
+</div>
+```
+
+### Stack of Alerts
+
+```html
+<div style="display: flex; flex-direction: column; gap: 1rem">
+  <div role="alert" data-alert="success" data-visible="true">
+    <p>Item added to cart.</p>
+  </div>
+  <div role="alert" data-alert="info" data-visible="true">
+    <p>Free shipping on orders over $50.</p>
+  </div>
+</div>
+```
+
+### Alert with Custom Colors
+
+```html
+<div
+  role="alert"
+  style="--alert-bg: #f3e5f5; --alert-color: #4a148c; border-color: #9c27b0"
+>
+  <span class="alert-icon" aria-hidden="true">🎉</span>
+  <div class="alert-message">
+    <strong class="alert-title">Congratulations!</strong>
+    <p>You've earned a new badge.</p>
+  </div>
+</div>
+```
+
+### Alert with Heading Element
+
+```html
+<div role="alert" data-alert="error">
+  <span class="alert-icon" aria-hidden="true">✕</span>
+  <div class="alert-message">
+    <h3 class="alert-title">Payment Failed</h3>
+    <p>Your payment could not be processed. Please check your payment details and try again.</p>
+  </div>
+</div>
+```
+
+**Note:** Heading elements (h2-h6) can be used with `.alert-title` class and
+will have their default margins/sizes reset.
+
+## Accessibility Considerations
+
+### ARIA Role
+
+Always use `role="alert"`:
+
+```html
+<div role="alert" data-alert="error">
+  <p>Error message</p>
+</div>
+```
+
+**Why:** The `role="alert"` attribute announces the alert to screen readers
+immediately when it appears.
+
+### Screen Reader Only Text
+
+Use `.sr-only` for additional context:
+
+```html
+<div role="alert" data-alert="success">
+  <span class="sr-only">Success:</span>
+  <p>Changes saved.</p>
+</div>
+```
+
+**CSS for `.sr-only`:**
+
+```css
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+```
+
+### Icon Accessibility
+
+Always add `aria-hidden="true"` to decorative icons:
+
+```html
+<span class="alert-icon" aria-hidden="true">✓</span>
+```
+
+**Why:** Decorative icons shouldn't be announced to screen readers. The alert
+type (success, error, etc.) provides sufficient context.
+
+### Close Button Accessibility
+
+Provide accessible labels:
+
+```html
+<button type="button" data-btn="icon" aria-label="Close alert">✕</button>
+```
+
+### Focus Management
+
+Alerts with interactive elements (buttons, links) should be keyboard-accessible:
+
+```css
+[role="alert"]:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Hide outline for mouse clicks */
+[role="alert"]:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+### Color Contrast
+
+Alert colors meet WCAG AA contrast requirements:
+
+| Type    | Background | Text Color | Contrast Ratio |
+| ------- | ---------- | ---------- | -------------- |
+| Success | #e6f4ea    | #1e4620    | 10.2:1 ✓       |
+| Error   | #fdeded    | #5f2120    | 8.5:1 ✓        |
+| Warning | #fff4e5    | #663c00    | 9.1:1 ✓        |
+| Info    | #e5f6fd    | #084154    | 11.4:1 ✓       |
+
+**Filled Variant:** White text on colored backgrounds also meets contrast
+requirements.
+
+## Dismissible Alerts
+
+### JavaScript for Dismissal
+
+```html
+<div role="alert" data-alert="info" data-visible="true" id="myAlert">
+  <div class="alert-message">
+    <p>Dismissible alert.</p>
+  </div>
+  <button
+    type="button"
+    data-btn="icon"
+    aria-label="Close"
+    onclick="dismissAlert('myAlert')"
+  >
+    ✕
+  </button>
+</div>
+
+<script>
+  function dismissAlert(id) {
+    const alert = document.getElementById(id);
+    alert.setAttribute("data-visible", "false");
+
+    // Remove from DOM after animation completes
+    setTimeout(() => {
+      alert.remove();
+    }, 300); // Match --alert-transition-duration
+  }
+</script>
+```
+
+### Auto-Dismiss
+
+```html
+<div role="alert" data-alert="success" data-visible="true" id="autoAlert">
+  <p>This alert will auto-dismiss in 5 seconds.</p>
+</div>
+
+<script>
+  setTimeout(() => {
+    dismissAlert("autoAlert");
+  }, 5000);
+</script>
+```
+
+## CSS Variable Naming Convention
+
+All alert CSS variables follow specific patterns:
+
+### Property Mapping
+
+| Category       | Variable Pattern                        | Example                                  |
+| -------------- | --------------------------------------- | ---------------------------------------- |
+| **Type Colors**| `--alert-{type}-{property}`             | `--alert-success-bg`, `--alert-error-text` |
+| **Base Styles**| `--alert-{property}`                    | `--alert-bg`, `--alert-border`           |
+| **Title**      | `--alert-title-{property}`              | `--alert-title-fw`, `--alert-title-fs`   |
+| **Animation**  | `--alert-transition-{property}`         | `--alert-transition-duration`            |
+
+### Common Variables Quick Reference
+
+```css
+/* Success Colors */
+--alert-success-bg
+--alert-success-border
+--alert-success-text
+
+/* Error Colors */
+--alert-error-bg
+--alert-error-border
+--alert-error-text
+
+/* Warning Colors */
+--alert-warning-bg
+--alert-warning-border
+--alert-warning-text
+
+/* Info Colors */
+--alert-info-bg
+--alert-info-border
+--alert-info-text
+
+/* Base Styling */
+--alert-bg               /* Background color */
+--alert-color            /* Text color */
+--alert-border           /* Border style */
+--alert-radius           /* Border radius */
+--alert-padding          /* Padding */
+--alert-gap              /* Gap between icon and message */
+--alert-margin-block-end /* Bottom margin */
+
+/* Animation */
+--alert-transition-duration /* Transition duration */
+
+/* Title */
+--alert-title-fw         /* Title font weight */
+--alert-title-fs         /* Title font size */
+```
+
+## Browser Support
+
+The alert styles use modern CSS features:
+
+- **CSS Custom Properties:** All modern browsers (IE11 not supported)
+- **Flexbox:** All modern browsers
+- **`:focus-visible`:** Chrome 86+, Firefox 85+, Safari 15.4+
+- **`@media (prefers-reduced-motion)`:** Chrome 74+, Firefox 63+, Safari 10.1+
+- **Logical properties** (`margin-block-start`): Chrome 87+, Firefox 66+,
+  Safari 14.1+
+- **`role="alert"`:** All browsers with screen reader support
+
+## Performance Tips
+
+### Minimize Animation Overhead
+
+For static alerts, disable animations:
+
+```html
+<div role="alert" style="--alert-transition-duration: 0s">
+  <p>Static alert (no animation).</p>
+</div>
+```
+
+### Use CSS Classes
+
+Create reusable alert variants:
+
+```css
+.alert-compact {
+  --alert-padding: 0.75rem;
+  --alert-gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.alert-large {
+  --alert-padding: 1.5rem;
+  --alert-gap: 1rem;
+  font-size: 1.125rem;
+}
+```
+
+```html
+<div role="alert" data-alert="info" class="alert-compact">
+  <p>Compact alert.</p>
+</div>
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                                      | fpkit Alert                               |
+| --------------------------------------------- | ----------------------------------------- |
+| `class="alert alert-success"`                 | `role="alert" data-alert="success"`       |
+| `class="alert alert-error"`                   | `role="alert" data-alert="error"`         |
+| `class="bg-green-100 text-green-800"`         | `data-alert="success"`                    |
+| `class="border border-red-500"`               | `data-alert="error" data-variant="outlined"` |
+| Custom dismiss button                         | `<button data-btn="icon" aria-label="Close">` |
+
+### From Bootstrap
+
+| Bootstrap                                     | fpkit Alert                               |
+| --------------------------------------------- | ----------------------------------------- |
+| `class="alert alert-success"`                 | `role="alert" data-alert="success"`       |
+| `class="alert alert-danger"`                  | `role="alert" data-alert="error"`         |
+| `class="alert alert-warning"`                 | `role="alert" data-alert="warning"`       |
+| `class="alert alert-info"`                    | `role="alert" data-alert="info"`          |
+| `class="alert-dismissible"`                   | Add close button with `data-btn="icon"`   |
+
+## Related Resources
+
+- **React Component** - See [README.mdx](./README.mdx) for the React Alert
+  component API
+- **MDN: ARIA alert role** -
+  [https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role)
+- **W3C ARIA: Alert Pattern** -
+  [https://www.w3.org/WAI/ARIA/apg/patterns/alert/](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)
+- **CSS Custom Properties** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

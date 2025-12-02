@@ -1,0 +1,604 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Badge/STYLES" />
+
+# Badge Styles
+
+Badge component styling system with CSS custom properties for creating compact,
+informative indicators and notification counters.
+
+## Overview
+
+The fpkit badge styling system uses the semantic `<sup>` element containing a
+`<span>` to create badges. Badges support rectangular and circular variants with
+full customization through CSS variables.
+
+### Key Features
+
+- **Semantic HTML** - Uses `<sup>` element for proper semantic structure
+- **Two variants** - Rectangular (default) and circular/rounded badges
+- **Flexible sizing** - Customizable dimensions via CSS variables
+- **Content overflow** - Graceful handling of long content in circular badges
+- **CSS custom properties** - Full theming control
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+- **Vertical alignment** - Automatic superscript positioning
+
+## CSS Custom Properties
+
+### Base Badge Properties
+
+Variables for default rectangular badges:
+
+```css
+sup:has(> span) {
+  /* Colors */
+  --badge-bg: lightgray; /* Background color */
+  --badge-color: currentColor; /* Text color */
+
+  /* Shape */
+  --badge-radius: 0.5rem; /* Border radius (8px) */
+
+  /* Spacing */
+  --badge-padding: 0.3rem; /* Padding (4.8px) */
+
+  /* Position */
+  --badge-vertical-align: 0.5rem; /* Vertical offset (8px) */
+
+  /* Typography */
+  --badge-fs: var(--fs-1); /* Font size */
+}
+```
+
+### Rounded Badge Properties
+
+Variables specific to circular badges:
+
+```css
+sup[data-badge~="rounded"] {
+  --badge-radius: 50%; /* Fully circular */
+  --badge-padding: 0; /* No padding (size controlled by width/height) */
+  --badge-size: 1.5625rem; /* Circle diameter (25px) */
+}
+```
+
+### Customizing Badge Styles
+
+Override CSS variables:
+
+```css
+sup:has(> span) {
+  --badge-bg: #0066cc;
+  --badge-color: white;
+  --badge-radius: 0.25rem;
+}
+```
+
+Or inline:
+
+```html
+<sup style="--badge-bg: red; --badge-color: white">
+  <span>5</span>
+</sup>
+```
+
+## Badge Structure
+
+### Basic Badge
+
+Rectangular badge with content:
+
+```html
+<sup>
+  <span>New</span>
+</sup>
+```
+
+**CSS Applied:**
+
+```css
+sup:has(> span) {
+  background-color: lightgray;
+  color: currentColor;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  vertical-align: 0.5rem;
+  font-size: var(--fs-1);
+}
+
+sup:has(> span) span {
+  color: inherit;
+}
+```
+
+### Rounded/Circular Badge
+
+Circular badge with fixed size:
+
+```html
+<sup data-badge="rounded">
+  <span>5</span>
+</sup>
+```
+
+**CSS Applied:**
+
+```css
+sup[data-badge~="rounded"] {
+  --badge-radius: 50%;
+  --badge-padding: 0;
+  --badge-size: 1.5625rem; /* 25px */
+  width: var(--badge-size);
+  height: var(--badge-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 700;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+sup[data-badge~="rounded"] span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  padding: 0 0.125rem; /* 2px horizontal padding */
+}
+```
+
+## Badge in Context
+
+### Badge on Text
+
+Badge as superscript on inline text:
+
+```html
+<p>
+  Notifications
+  <sup><span>3</span></sup>
+</p>
+```
+
+### Badge on Button
+
+Badge indicating count on button:
+
+```html
+<button type="button">
+  Messages
+  <sup style="--badge-bg: red; --badge-color: white">
+    <span>12</span>
+  </sup>
+</button>
+```
+
+### Badge on Icon
+
+Badge on icon button:
+
+```html
+<button type="button" data-btn="icon" aria-label="Notifications">
+  🔔
+  <sup data-badge="rounded" style="--badge-bg: red; --badge-color: white">
+    <span>5</span>
+  </sup>
+</button>
+```
+
+### Badge on Heading
+
+Badge in heading:
+
+```html
+<h2>
+  Tasks
+  <sup style="--badge-bg: blue; --badge-color: white">
+    <span>24</span>
+  </sup>
+</h2>
+```
+
+## Badge Variants
+
+### Status Badges
+
+Success badge (green):
+
+```html
+<sup style="--badge-bg: #34a853; --badge-color: white">
+  <span>Active</span>
+</sup>
+```
+
+Error badge (red):
+
+```html
+<sup style="--badge-bg: #d32f2f; --badge-color: white">
+  <span>Error</span>
+</sup>
+```
+
+Warning badge (orange):
+
+```html
+<sup style="--badge-bg: #ff9800; --badge-color: white">
+  <span>Pending</span>
+</sup>
+```
+
+Info badge (blue):
+
+```html
+<sup style="--badge-bg: #0288d1; --badge-color: white">
+  <span>Info</span>
+</sup>
+```
+
+### Size Variants
+
+Small badge:
+
+```html
+<sup style="--badge-padding: 0.2rem; --badge-fs: 0.625rem">
+  <span>XS</span>
+</sup>
+```
+
+Large badge:
+
+```html
+<sup style="--badge-padding: 0.5rem; --badge-fs: 1rem">
+  <span>Large</span>
+</sup>
+```
+
+### Rounded Badge Sizes
+
+Small circular badge:
+
+```html
+<sup data-badge="rounded" style="--badge-size: 1.25rem; font-size: 0.5625rem">
+  <span>3</span>
+</sup>
+```
+
+Large circular badge:
+
+```html
+<sup data-badge="rounded" style="--badge-size: 2rem; font-size: 0.875rem">
+  <span>99+</span>
+</sup>
+```
+
+## Real-World Examples
+
+### Notification Count
+
+```html
+<button type="button">
+  Inbox
+  <sup data-badge="rounded" style="--badge-bg: #d32f2f; --badge-color: white">
+    <span>42</span>
+  </sup>
+</button>
+```
+
+### Status Indicator
+
+```html
+<span>
+  Server Status
+  <sup style="--badge-bg: #34a853; --badge-color: white; --badge-radius: 0.25rem">
+    <span>Online</span>
+  </sup>
+</span>
+```
+
+### Feature Badge
+
+```html
+<h3>
+  Premium Plan
+  <sup style="--badge-bg: gold; --badge-color: #333; --badge-padding: 0.25rem 0.5rem">
+    <span>New</span>
+  </sup>
+</h3>
+```
+
+### Cart Counter
+
+```html
+<button type="button" data-btn="icon" aria-label="Shopping cart with 7 items">
+  🛒
+  <sup
+    data-badge="rounded"
+    style="--badge-bg: #ff5722; --badge-color: white; position: absolute; top: -0.5rem; right: -0.5rem"
+  >
+    <span>7</span>
+  </sup>
+</button>
+```
+
+### Beta Tag
+
+```html
+<a href="/beta-features">
+  Try New Features
+  <sup style="--badge-bg: #9c27b0; --badge-color: white; --badge-radius: 0.375rem">
+    <span>Beta</span>
+  </sup>
+</a>
+```
+
+### User Role Badge
+
+```html
+<div class="user-profile">
+  <span>John Doe</span>
+  <sup style="--badge-bg: #0288d1; --badge-color: white; --badge-padding: 0.2rem 0.4rem">
+    <span>Admin</span>
+  </sup>
+</div>
+```
+
+### Overflow Handling (Circular)
+
+Long content in circular badge:
+
+```html
+<sup data-badge="rounded" style="--badge-bg: red; --badge-color: white">
+  <span>999+</span>
+</sup>
+```
+
+**Note:** Content longer than the badge width will be clipped with ellipsis
+handled by `text-overflow: clip` and `overflow: hidden`.
+
+## Positioning Badges
+
+### Absolute Positioning
+
+Position badge relative to parent:
+
+```html
+<div style="position: relative; display: inline-block">
+  <button type="button">
+    Profile
+  </button>
+  <sup
+    data-badge="rounded"
+    style="--badge-bg: red; --badge-color: white; position: absolute; top: -0.5rem; right: -0.5rem"
+  >
+    <span>3</span>
+  </sup>
+</div>
+```
+
+### Top-Right Badge
+
+```html
+<div style="position: relative; display: inline-block">
+  <span style="font-size: 2rem">📧</span>
+  <sup
+    data-badge="rounded"
+    style="--badge-bg: #d32f2f; --badge-color: white; position: absolute; top: 0; right: 0; transform: translate(50%, -50%)"
+  >
+    <span>5</span>
+  </sup>
+</div>
+```
+
+## Accessibility Considerations
+
+### Screen Reader Support
+
+Badges should convey meaning to screen readers:
+
+```html
+<!-- Good: Badge has semantic meaning -->
+<button aria-label="Notifications, 5 unread">
+  Notifications
+  <sup data-badge="rounded" aria-hidden="true">
+    <span>5</span>
+  </sup>
+</button>
+
+<!-- Alternative: Use visually hidden text -->
+<button>
+  Notifications
+  <span class="sr-only">5 unread notifications</span>
+  <sup data-badge="rounded" aria-hidden="true">
+    <span>5</span>
+  </sup>
+</button>
+```
+
+### Color Contrast
+
+Ensure sufficient contrast between badge background and text (WCAG AA: 4.5:1):
+
+```html
+<!-- Good contrast -->
+<sup style="--badge-bg: #0066cc; --badge-color: white">
+  <span>Text</span>
+</sup>
+
+<!-- Poor contrast (avoid) -->
+<sup style="--badge-bg: yellow; --badge-color: white">
+  <span>Text</span>
+</sup>
+```
+
+### Decorative vs Informative
+
+- **Decorative badges:** Add `aria-hidden="true"` if visual only
+- **Informative badges:** Ensure content is accessible to screen readers
+
+## CSS Variable Naming Convention
+
+All badge CSS variables follow the `--badge-{property}` pattern:
+
+### Property Mapping
+
+| Category       | Variable Pattern       | Example                              |
+| -------------- | ---------------------- | ------------------------------------ |
+| **Colors**     | `--badge-{property}`   | `--badge-bg`, `--badge-color`        |
+| **Shape**      | `--badge-radius`       | `--badge-radius`                     |
+| **Spacing**    | `--badge-{spacing}`    | `--badge-padding`                    |
+| **Position**   | `--badge-vertical-align` | `--badge-vertical-align`           |
+| **Typography** | `--badge-fs`           | `--badge-fs`                         |
+| **Size**       | `--badge-size`         | `--badge-size` (rounded variant)     |
+
+### Common Variables Quick Reference
+
+```css
+/* Colors */
+--badge-bg               /* Background color */
+--badge-color            /* Text color */
+
+/* Shape */
+--badge-radius           /* Border radius */
+
+/* Spacing */
+--badge-padding          /* Padding */
+
+/* Position */
+--badge-vertical-align   /* Vertical alignment offset */
+
+/* Typography */
+--badge-fs               /* Font size */
+
+/* Size (Rounded Variant) */
+--badge-size             /* Circle diameter */
+```
+
+## Browser Support
+
+The badge styles use modern CSS features:
+
+- **CSS Custom Properties:** All modern browsers (IE11 not supported)
+- **`:has()` selector:** Chrome 105+, Firefox 121+, Safari 15.4+
+- **Flexbox:** All modern browsers
+- **`box-sizing: border-box`:** All modern browsers
+
+### Fallback for `:has()`
+
+For browsers without `:has()` support, add a class:
+
+```css
+/* Fallback */
+sup.badge {
+  /* Badge styles */
+}
+
+/* Modern browsers */
+sup:has(> span) {
+  /* Badge styles */
+}
+```
+
+```html
+<sup class="badge">
+  <span>Text</span>
+</sup>
+```
+
+## Performance Tips
+
+### Use CSS Classes
+
+Create reusable badge variants:
+
+```css
+.badge-primary {
+  --badge-bg: #0066cc;
+  --badge-color: white;
+}
+
+.badge-success {
+  --badge-bg: #34a853;
+  --badge-color: white;
+}
+
+.badge-error {
+  --badge-bg: #d32f2f;
+  --badge-color: white;
+}
+
+.badge-small {
+  --badge-padding: 0.2rem;
+  --badge-fs: 0.625rem;
+}
+```
+
+```html
+<sup class="badge-primary"><span>Primary</span></sup>
+<sup class="badge-success"><span>Success</span></sup>
+```
+
+### Avoid Inline Styles
+
+Prefer classes over inline styles for better maintainability:
+
+```html
+<!-- Good: Reusable class -->
+<sup class="badge-error"><span>5</span></sup>
+
+<!-- Less optimal: Inline styles -->
+<sup style="--badge-bg: red; --badge-color: white"><span>5</span></sup>
+```
+
+## Migration from Other Systems
+
+### From Tailwind CSS
+
+| Tailwind                                      | fpkit Badge                              |
+| --------------------------------------------- | ---------------------------------------- |
+| `class="badge badge-primary"`                 | `<sup style="--badge-bg: blue; --badge-color: white"><span>Text</span></sup>` |
+| `class="badge-sm"`                            | `<sup style="--badge-padding: 0.2rem"><span>Text</span></sup>` |
+| `class="badge-lg"`                            | `<sup style="--badge-padding: 0.5rem"><span>Text</span></sup>` |
+| `class="badge-circle"`                        | `<sup data-badge="rounded"><span>5</span></sup>` |
+
+### From Bootstrap
+
+| Bootstrap                                     | fpkit Badge                              |
+| --------------------------------------------- | ---------------------------------------- |
+| `<span class="badge bg-primary">`             | `<sup style="--badge-bg: blue; --badge-color: white"><span>Text</span></sup>` |
+| `<span class="badge rounded-pill">`           | `<sup data-badge="rounded"><span>Text</span></sup>` |
+| `<span class="badge bg-success">`             | `<sup style="--badge-bg: green; --badge-color: white"><span>Text</span></sup>` |
+
+## Semantic HTML Considerations
+
+### Why `<sup>`?
+
+The badge system uses `<sup>` (superscript) because:
+
+1. **Semantic meaning** - Badges typically represent supplementary information
+2. **Automatic positioning** - Superscript positioning is built-in
+3. **Accessibility** - Screen readers understand superscript context
+
+### When to Use Badges
+
+- **Notification counters** - Unread message counts
+- **Status indicators** - Online/offline, active/inactive
+- **Labels** - New features, beta tags
+- **Counts** - Item quantities, totals
+
+### When NOT to Use Badges
+
+- **Primary content** - Use regular text elements
+- **Clickable elements** - Use buttons instead
+- **Long text** - Use other components like tags or chips
+
+## Related Resources
+
+- **React Component** - See [README.mdx](./README.mdx) for the React Badge
+  component API
+- **MDN: `<sup>` element** -
+  [https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sup](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sup)
+- **CSS `:has()` selector** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/:has](https://developer.mozilla.org/en-US/docs/Web/CSS/:has)
+- **CSS Custom Properties** -
+  [https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
