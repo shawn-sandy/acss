@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Navigation/Nav/Styles" />
+
+# Nav Styles
+
+`nav.scss` styles top-level navbars and generic `nav` elements.
+
+## CSS Custom Properties
+
+- Layout tokens: `--nav-display`, `--nav-direction`, `--nav-width`, `--nav-align`, `--nav-justify`, `--nav-gap`, `--nav-padding-inline|block`, `--nav-height`.
+- Color tokens: `--nav-bg`, `--nav-color`, `--nav-hover-bg`, `--nav-fs`, brand sizing via `--brand-w`.
+- Focus tokens: `--nav-focus-color`, `--nav-focus-width`, `--nav-focus-offset`, `--nav-focus-style`.
+
+## Base Styling
+
+- `body > nav`, `[aria-label~="navbar"]`, and `.navbar` set padding and responsive stacking below 580px.
+- Nested `ul > li` items align content, remove list bullets, and apply hover backgrounds unless containing images/buttons.
+- Generic `nav` containers use flex layout with optional column stacking via `[data-list~="block"]` on child lists.
+
+## Accessibility
+
+- Focus outlines for links and buttons meet WCAG 2.4.7; mouse focus outlines are suppressed via `:focus:not(:focus-visible)` overrides on child selectors.
+
+## Usage
+
+```tsx
+<nav aria-label="navbar">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/docs">Docs</a></li>
+    <li><button type="button">Sign in</button></li>
+  </ul>
+</nav>
+```

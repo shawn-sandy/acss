@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Data Display/Badge/Styles" />
+
+# Badge Styles
+
+`badge.scss` styles `<sup>` wrappers that contain a `<span>` badge value.
+
+## CSS Custom Properties
+
+- `--badge-bg`, `--badge-color`, `--badge-radius`, `--badge-padding`, and `--badge-fs` control background, text, radius, spacing, and font size.
+- `--badge-vertical-align` offsets inline alignment; `--badge-size` is used for rounded badges.
+
+## Base Styling
+
+- The badge uses inherited color, padding, and radius on the `<sup>` while preserving child color.
+- Rounded variant `[data-badge~="rounded"]` switches to a circular badge with fixed size, centered content, and clipped overflow.
+
+## Usage
+
+```tsx
+<sup data-badge>
+  <span>3</span>
+</sup>
+<sup data-badge="rounded">
+  <span>99</span>
+</sup>
+```

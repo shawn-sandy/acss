@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Inputs/Button/Styles" />
+
+# Button Styles
+
+The `button.scss` tokens style native buttons and `[data-btn]` modifiers.
+
+## CSS Custom Properties
+
+- Sizing tokens `--btn-size-xs|sm|md|lg`, `--btn-height`, `--btn-width`, `--btn-radius`, and pill radius `--btn-pill`.
+- Visual tokens `--btn-bg`, `--btn-color`, `--btn-border`, `--btn-fw`, `--btn-padding-*`, `--btn-gap`, `--btn-transition`.
+- Focus styling via `--btn-focus-outline` and hover transform/filter overrides.
+
+## Base Styling
+
+- Buttons default to `inline-flex` alignment with configurable spacing, transitions, and outlines.
+- Type-specific tweaks: `[type]` adds a neutral background and border, `[type="submit"]` uses `--primary-700`, `[type="reset"]` is transparent with a thin border.
+- Disabled states respect `aria-disabled` with blocked transforms and optional opacity.
+
+## Variants & Size Modifiers
+
+- Data attributes or helper classes adjust size: `[data-btn~="xs|sm|md|lg"]` or `.btn-xs` etc.
+- Shape variants: `[data-btn~="pill"]`, `[data-style~="pill"]`, or `[data-btn~="icon"]` for square icon buttons.
+- Text-only styling via `[data-btn~="text"]`/`.btn-text` removes background and adds hover outlines.
+
+## Accessibility Notes
+
+- Hover/focus uses scalable outlines and `filter` transforms while preserving `:focus-visible` indicators.
+- Disabled buttons suppress animations and respect `aria-disabled="true"`.
+
+## Usage
+
+```tsx
+<button type="submit" data-btn="lg pill">Submit</button>
+<button data-btn="icon" aria-label="Close">×</button>
+<button data-btn="text" aria-disabled="true">Read more</button>
+```

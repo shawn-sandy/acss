@@ -1,0 +1,24 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Media/Icon/Styles" />
+
+# Icon Styles
+
+`icon.scss` provides layout tokens for `[data-icon]` wrappers.
+
+## CSS Custom Properties
+
+- `--icon-display`, `--icon-direction`, `--icons-placement`, `--icon-gap`, `--icon-width`, `--icon-height`.
+
+## Base Styling
+
+- Icons render as flex containers with configurable direction, gap, and `place-items` alignment, making it easy to pair glyphs with labels.
+
+## Usage
+
+```tsx
+<span data-icon style={{ '--icon-gap': '0.5rem' }}>
+  <svg aria-hidden="true" />
+  <span>Label</span>
+</span>
+```

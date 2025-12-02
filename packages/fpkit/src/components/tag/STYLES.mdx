@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Data Display/Tag/Styles" />
+
+# Tag Styles
+
+`tag.scss` styles `[data-tag]`, `p[role='note']`, and `small > span` tag tokens.
+
+## CSS Custom Properties
+
+- Variant colors: `--beta`, `--stable`, `--production` supply WCAG AA palettes.
+- Tag tokens: `--tag-padding-inline`, `--tag-padding-block`, `--tag-fs`, `--tag-radius`, `--tag-bg`, `--tag-fw`, `--tag-color`, `--tag-display`.
+
+## Base Styling
+
+- Tags render as inline-block pills with customizable padding, radius, font sizing, and background.
+- `p[role='note']` switches to block display and a less-rounded radius for block-level tags.
+
+## Variants
+
+- `[data-tag~='alpha'|'beta'|'stable'|'production']` apply color tokens and prepend symbols (`⚠`, `✓`, `●`) through `::before` for non-color cues.
+- Focus-visible outlines emphasize keyboard navigation while suppressing mouse outlines.
+
+## Usage
+
+```tsx
+<span data-tag="beta">Beta</span>
+<span data-tag="stable">Stable</span>
+<p role="note" data-tag="production">Live</p>
+```

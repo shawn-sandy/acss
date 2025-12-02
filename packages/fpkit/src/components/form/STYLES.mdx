@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Inputs/Form/Styles" />
+
+# Form Styles
+
+`form.scss` standardizes form controls and layout tokens.
+
+## CSS Custom Properties
+
+- Input tokens: `--input-border-color`, `--input-bg`, `--input-border`, `--input-outline`, `--input-padding-*`, `--input-radius`, `--input-width`, `--input-fs`.
+- State tokens: `--input-focus-outline`, `--input-focus-outline-offset`, disabled colors/opacity/cursor, placeholder color/style/size.
+- Layout tokens: `--form-direction` for stacking fields, `--select-arrow` for custom select chevron.
+
+## Base Styling
+
+- Forms use flex layout with gap; nested `div` inherit the chosen direction.
+- Inputs, textareas, and selects remove native appearance, apply padding, radius, and placeholder styling, and honor `aria-required` by tinting placeholders.
+- Focus-visible outlines use configurable tokens; disabled inputs adopt muted backgrounds and line-through text.
+- Select elements remove native arrows and draw a background SVG positioned on the right.
+
+## Usage
+
+```tsx
+<form>
+  <div>
+    <label htmlFor="name">Name</label>
+    <input id="name" placeholder="Full name" />
+  </div>
+  <div>
+    <label htmlFor="role">Role</label>
+    <select id="role">
+      <option>Admin</option>
+      <option>User</option>
+    </select>
+  </div>
+</form>
+```

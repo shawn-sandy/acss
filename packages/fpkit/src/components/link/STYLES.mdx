@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Navigation/Link/Styles" />
+
+# Link Styles
+
+`link.scss` styles anchors with CSS custom properties and optional button-like treatments.
+
+## CSS Custom Properties
+
+- Typography and decoration tokens: `--link-color`, `--link-fw`, `--link-fs`, `--link-decoration`, `--link-decoration-offset`, `--link-decoration-thickness`, `--link-skip-ink`.
+- Background and spacing: `--link-bg`, `--link-radius`, `--link-padding-inline|block`.
+- Focus tokens: `--link-focus-color`, `--link-focus-width`, `--link-focus-offset`, `--link-focus-style`.
+- Button variants use `--link-button-color`, `--link-border-width|color|style` and inherit transitions from `mixins.scale-transitions`.
+
+## Base Styling
+
+- Standard links underline on hover and emphasize `:focus-visible` with outlines and bold weight.
+- Visited/active states fall back to `currentColor` to avoid surprising palettes.
+
+## Variants
+
+- Button-styled links activate when wrapping `<b>`/`<i>` tags or applying `[data-btn]`, adding padding, border outlines, and flex centering.
+- Pill form via `[data-link~="pill"]` or `<i>` wrapper rounds corners and suppresses decoration on hover/focus.
+
+## Usage
+
+```tsx
+<a href="/docs">Standard link</a>
+<a href="/cta" data-btn>Button link</a>
+<a href="/pill" data-link="pill">Pill link</a>
+```

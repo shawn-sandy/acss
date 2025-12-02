@@ -1,0 +1,25 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Media/TextToSpeech/Styles" />
+
+# Text-to-Speech Styles
+
+`text-to-speech.scss` styles `[data-tts]` controls and nested buttons.
+
+## CSS Custom Properties
+
+- Tokens include `--tts-gap`, `--tts-bg`, `--tts-border-width|style|color`, `--tts-radius`, `--tts-padding`, `--tts-min-width`, `--tts-align-items`, `--tts-justify-content`.
+
+## Base Styling
+
+- `[data-tts]` renders as a flex pill with background, outline border, and minimum width.
+- Child buttons marked `data-btn~='tts-btn'` remove outlines and reuse the border variables on hover via `.tts-border`.
+
+## Usage
+
+```tsx
+<div data-tts>
+  <button data-btn="tts-btn">Play</button>
+  <button data-btn="tts-btn">Pause</button>
+</div>
+```

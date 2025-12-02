@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Media/Image/Styles" />
+
+# Image Styles
+
+`img.scss` targets `img[alt]` and figures that contain them.
+
+## CSS Custom Properties
+
+- Image tokens: `--img-max-width`, `--img-height`, `--img-object-fit`, `--img-object-position`, `--img-aspect-ratio`, `--img-display`.
+- Figure tokens: `--fig-display`, `--fig-padding`, `--fig-bg`, `--fig-width`, caption offsets (`--fig-bottom|left|right`) and `--caption-padding`.
+
+## Base Styling
+
+- Images default to responsive sizing with `max-inline-size: 100%`, configurable aspect ratio, and centered object-fit.
+- `figure:has(img[alt])` uses a padded container with optional overlay caption anchored via logical offsets.
+- Alt text uses italic styling to distinguish fallback rendering.
+
+## Usage
+
+```tsx
+<figure>
+  <img alt="Product" src="/img.png" style={{ '--img-aspect-ratio': '16 / 9' }} />
+  <figcaption>Product hero</figcaption>
+</figure>
+```

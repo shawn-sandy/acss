@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Feedback/Alert/Styles" />
+
+# Alert Styles
+
+`alert.scss` styles `[role="alert"]` containers with semantic variants.
+
+## CSS Custom Properties
+
+- Variant palettes: `--alert-*` tokens for success, error, warning, and info backgrounds, borders, and text.
+- Layout tokens `--alert-padding`, `--alert-radius`, `--alert-gap`, `--alert-border`, and transition duration `--alert-transition-duration`.
+
+## Base Structure
+
+- Alerts render as flex rows with gap spacing, padding, and rounded corners.
+- `.alert-icon` and `.alert-message` children align content, with `.alert-title` styles applying to headings or strong elements.
+- Visibility controlled via `[data-visible]` with translate/opacity transitions and reduced-motion overrides.
+
+## Variants
+
+- Severity via `[data-alert~="info|warning|error|success"]` sets background and text colors.
+- Visual style via `[data-variant="filled"|"soft"|"outlined"]`; filled mode inverts text to white and removes borders, soft removes borders.
+- Icon buttons inherit button icon styling when using `[data-btn~="icon"]`.
+
+## Accessibility
+
+- Keyboard focus shows outlines while mouse focus is suppressed via `:focus:not(:focus-visible)`.
+- Screen-reader helper `.sr-only` provided for hidden labels.
+
+## Usage
+
+```tsx
+<div role="alert" data-alert="warning" data-variant="filled">
+  <div className="alert-icon">!</div>
+  <div className="alert-message">
+    <h3 className="alert-title">Heads up</h3>
+    <p>Check your configuration.</p>
+  </div>
+</div>
+```

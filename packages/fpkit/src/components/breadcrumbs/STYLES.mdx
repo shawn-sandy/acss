@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Navigation/Breadcrumbs/Styles" />
+
+# Breadcrumb Styles
+
+`breadcrumb.scss` targets `nav[data-breadcrumb]` and nested lists.
+
+## CSS Custom Properties
+
+- Layout tokens: `--breadcrumb-padding-inline`, `--breadcrumb-display`, `--breadcrumb-gap`.
+- Typography tokens: `--breadcrumb-color`, `--breadcrumb-current-color`, `--breadcrumb-fs`, `--breadcrumb-width`.
+
+## Base Styling
+
+- Breadcrumb `ol` renders as a flex row with configurable gap and padding.
+- List items capitalize labels, set shared font sizing, and lighten separators (`span[aria-hidden]`).
+- Current page links (`[aria-current]`) use `--breadcrumb-current-color` and remove underlines.
+
+## Usage
+
+```tsx
+<nav data-breadcrumb aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a><span aria-hidden="true">/</span></li>
+    <li><a href="/components">Components</a><span aria-hidden="true">/</span></li>
+    <li><a aria-current="page">Breadcrumb</a></li>
+  </ol>
+</nav>
+```

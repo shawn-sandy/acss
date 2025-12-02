@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Overlay/Dialog/Styles" />
+
+# Dialog Styles
+
+`dialog.scss` styles native `<dialog>` elements and supporting regions.
+
+## CSS Custom Properties
+
+- Layout tokens: `--dialog-min-width`, `--dialog-gap`, `--dialog-border-*`, `--dialog-border-radius`, `--dialog-padding`, `--dialog-flex-direction`.
+- Focus tokens: `--dialog-focus-color`, `--dialog-focus-width`, `--dialog-focus-offset`, `--dialog-focus-outline` with high-contrast overrides.
+- Control tokens: `--dialog-close-color`, `--dialog-button-bg/border`, `--dialog-button-hover-bg`.
+
+## Base Styling
+
+- Dialogs use flex layout with gap spacing, rounded borders, and padding when `[open]`.
+- Sections inside the dialog inherit column layout and spacing.
+- `.dialog-header` aligns titles and close buttons; `.dialog-footer`/`.alert-dialog-actions` align action buttons with wrapping support.
+
+## Accessibility
+
+- `:focus-visible` outlines on dialogs and footer buttons; mouse focus outlines suppressed.
+- High-contrast media query increases border and focus visibility.
+
+## Usage
+
+```tsx
+<dialog open>
+  <div className="dialog-header">
+    <h3>Confirm</h3>
+    <button type="button" aria-label="Close">×</button>
+  </div>
+  <section>Body content</section>
+  <div className="dialog-footer">
+    <button>Cancel</button>
+    <button data-btn="primary">Continue</button>
+  </div>
+</dialog>
+```

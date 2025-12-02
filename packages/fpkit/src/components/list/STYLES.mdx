@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Content/List/Styles" />
+
+# List Styles
+
+`list.scss` defines shared theming for `ul`, `ol`, and `dl` elements.
+
+## CSS Custom Properties
+
+- Spacing tokens: `--list-margin-*`, `--list-padding-inline`, `--list-gap`, `--list-item-margin-bottom`, `--list-item-padding-*`.
+- Marker tokens: `--list-marker-color`, `--list-marker-size`, `--list-marker-offset`, `--list-marker-content`.
+- Typography tokens: `--list-font-size`, `--list-line-height`, `--list-font-family`, `--list-color`.
+- Definition list tokens: `--dt-font-weight`, `--dt-margin-bottom`, `--dd-margin-inline-start`, `--dd-margin-bottom`.
+
+## Base Styling
+
+- Lists use logical padding/margins, rem-based spacing, and nested lists inherit tightened gaps.
+- `ul`/`ol` customize markers and nested marker styles; `li` pads to respect marker offset and removes trailing margin on the last item.
+- `dl` resets padding; `dt`/`dd` adopt dedicated weights and spacing.
+
+## Variants
+
+- `[data-variant="none"]` removes markers and padding.
+- `[data-variant="inline"]` switches to horizontal flex layout with zero marker padding.
+- `[data-variant="custom"]` uses pseudo markers from `--list-marker-content` and respects marker sizing/offset.
+- `[data-variant="compact"]` and `[data-variant="spaced"]` adjust gap and margins.
+
+## Accessibility & Media
+
+- Focus styling on list items with focusable children; print styles reduce spacing and set `list-style-position: inside`.
+- Reduced-motion media query disables animations/transitions.
+
+## Usage
+
+```tsx
+<ul data-variant="inline" style={{ '--list-gap': '1rem' }}>
+  <li><a href="/a">Link A</a></li>
+  <li><a href="/b">Link B</a></li>
+  <li><a href="/c">Link C</a></li>
+</ul>
+```

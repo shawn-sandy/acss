@@ -1,0 +1,24 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Feedback/Progress/Styles" />
+
+# Progress Styles
+
+`progress.scss` normalizes native `<progress>` elements.
+
+## CSS Custom Properties
+
+- `--progress-width`, `--progress-height`, `--progress-bg`, `--progress-color`, `--progress-accent-color`, `--progress-background-color`.
+
+## Base Styling
+
+- Resets all styles with `all: revert` then reapplies widths, heights, and accent colors when `[value]` is present.
+- Customizes WebKit and Firefox track/value colors via pseudo elements.
+- `[aria-busy]` retains sizing and accent coloring for indeterminate states.
+
+## Usage
+
+```tsx
+<progress value={40} max={100} style={{ '--progress-accent-color': 'rebeccapurple' }} />
+<progress aria-busy />
+```

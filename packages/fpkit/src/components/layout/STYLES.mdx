@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Layout/Landmarks/Styles" />
+
+# Layout Styles
+
+`landmarks.scss` and `_header.scss` define global layout scaffolding for headers, mains, and footers.
+
+## CSS Custom Properties
+
+- Overlay/header tokens: `--overlay-display`, `--overlay-placement`, `--overlay-padding`, `--overlay-width|height|max-height`, `--overlay-bg`, `--overlay-content-width`, `--overlay-gap`, `--overlay-margin-inline|block`.
+- Content tokens: `--content-width`, `--content-margin-inline`, `--content-padding-inline`, `--content-gap` used by `main`/`footer` sections.
+
+## Base Styling
+
+- `header`, `[data-hero]`, and `[data-grid~="overlay"]` use CSS grid with a single `overlay` area, supporting background images with overlaid text. Inner sections center content, cap widths, and scale heading typography.
+- `main` and `footer` use the content width tokens; `main > section` becomes a responsive flex layout when it contains `article`/`aside` pairs. Footers center content blocks with minimum height.
+
+## Usage
+
+```tsx
+<header data-grid="overlay">
+  <img alt="hero" src="/hero.jpg" />
+  <section>
+    <h1>Page title</h1>
+    <p>Lead copy for the hero layout.</p>
+  </section>
+</header>
+```

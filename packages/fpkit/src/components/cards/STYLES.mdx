@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="FP.REACT Components/Data Display/Card/Styles" />
+
+# Card Styles
+
+`card.scss` supplies layout tokens for `[data-card]` and `[data-component~="card"]` containers.
+
+## CSS Custom Properties
+
+- Container tokens: `--card-padding`, `--card-bg`, `--card-radius`, `--card-gap`, `--card-direction`, `--card-display`.
+- Element tokens: `--card-header-padding/bg/border-bottom`, `--card-body-padding`, `--card-footer-padding/bg/border-top`.
+
+## Base Structure
+
+- Cards are flex columns with gap spacing, padded children (except `img`), and text alignment via `--card-align`.
+- Semantic sections use data attributes: `[data-card-header]`, `[data-card-body]`, `[data-card-footer]` mirror header/body/footer elements with dedicated padding and borders.
+- Adjacent text spacing is normalized for headings and siblings.
+
+## Interactive Variant
+
+- `[data-card="interactive"]` adds hover elevation (`translateY` + shadow) and WCAG-compliant `:focus-visible` outlines while suppressing outlines for mouse users.
+
+## Usage
+
+```tsx
+<div data-card data-card="interactive">
+  <header data-card-header>Title</header>
+  <section data-card-body>Body copy</section>
+  <footer data-card-footer>Actions</footer>
+</div>
+```
