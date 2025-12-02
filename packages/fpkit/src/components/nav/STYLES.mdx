@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Navigation/STYLES" />
+<Meta title="FP.REACT Components/Navigation/Styles" />
 
 # Navigation Styles
 
@@ -9,9 +9,10 @@ flexible, responsive, and accessible navigation bars.
 
 ## Overview
 
-The fpkit navigation styling system provides flexible navigation components using
-semantic `<nav>` elements or ARIA labels. Navigation supports horizontal and
-vertical layouts, responsive behavior, and comprehensive keyboard accessibility.
+The fpkit navigation styling system provides flexible navigation components
+using semantic `<nav>` elements or ARIA labels. Navigation supports horizontal
+and vertical layouts, responsive behavior, and comprehensive keyboard
+accessibility.
 
 ### Key Features
 
@@ -130,13 +131,19 @@ The navigation styles apply to multiple selectors:
 
 ```css
 /* Direct child nav of body */
-body > nav { /* styles */ }
+body > nav {
+  /* styles */
+}
 
 /* ARIA labeled navbar */
-[aria-label~="navbar"] { /* styles */ }
+[aria-label~="navbar"] {
+  /* styles */
+}
 
 /* Class-based navbar */
-.navbar { /* styles */ }
+.navbar {
+  /* styles */
+}
 ```
 
 **Usage:**
@@ -392,14 +399,14 @@ Provide skip link for keyboard users:
 
 ## CSS Variable Naming Convention
 
-| Category       | Variable Pattern         | Example                            |
-| -------------- | ------------------------ | ---------------------------------- |
-| **Layout**     | `--nav-{property}`       | `--nav-display`, `--nav-direction` |
-| **Colors**     | `--nav-{property}`       | `--nav-bg`, `--nav-color`          |
-| **Spacing**    | `--nav-{spacing-type}`   | `--nav-padding-inline`, `--nav-gap`|
-| **Typography** | `--nav-fs`               | `--nav-fs`                         |
-| **Focus**      | `--nav-focus-{property}` | `--nav-focus-color`                |
-| **Images**     | `--nav-img-{property}`   | `--nav-img-width`                  |
+| Category       | Variable Pattern         | Example                             |
+| -------------- | ------------------------ | ----------------------------------- |
+| **Layout**     | `--nav-{property}`       | `--nav-display`, `--nav-direction`  |
+| **Colors**     | `--nav-{property}`       | `--nav-bg`, `--nav-color`           |
+| **Spacing**    | `--nav-{spacing-type}`   | `--nav-padding-inline`, `--nav-gap` |
+| **Typography** | `--nav-fs`               | `--nav-fs`                          |
+| **Focus**      | `--nav-focus-{property}` | `--nav-focus-color`                 |
+| **Images**     | `--nav-img-{property}`   | `--nav-img-width`                   |
 
 ## Browser Support
 
@@ -429,23 +436,25 @@ Create reusable nav classes:
 
 ### From Tailwind CSS
 
-| Tailwind                          | fpkit Nav                           |
-| --------------------------------- | ----------------------------------- |
-| `class="navbar"`                  | `<nav>`                             |
-| `class="flex items-center"`       | Automatic with `<nav>`              |
-| `class="space-x-4"`               | `style="--nav-gap: 1rem"`           |
-| `class="bg-gray-800 text-white"`  | `style="--nav-bg: #333; --nav-color: white"` |
+| Tailwind                         | fpkit Nav                                    |
+| -------------------------------- | -------------------------------------------- |
+| `class="navbar"`                 | `<nav>`                                      |
+| `class="flex items-center"`      | Automatic with `<nav>`                       |
+| `class="space-x-4"`              | `style="--nav-gap: 1rem"`                    |
+| `class="bg-gray-800 text-white"` | `style="--nav-bg: #333; --nav-color: white"` |
 
 ### From Bootstrap
 
-| Bootstrap                         | fpkit Nav                           |
-| --------------------------------- | ----------------------------------- |
-| `class="navbar"`                  | `<nav>`                             |
-| `class="navbar-nav"`              | `<ul>` inside `<nav>`               |
-| `class="navbar-dark bg-dark"`     | `style="--nav-bg: #333; --nav-color: white"` |
+| Bootstrap                     | fpkit Nav                                    |
+| ----------------------------- | -------------------------------------------- |
+| `class="navbar"`              | `<nav>`                                      |
+| `class="navbar-nav"`          | `<ul>` inside `<nav>`                        |
+| `class="navbar-dark bg-dark"` | `style="--nav-bg: #333; --nav-color: white"` |
 
 ## Related Resources
 
 - **React Component** - See README for React Nav component API
-- **MDN: `<nav>` element** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav
-- **W3C ARIA: Navigation Landmark** - https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
+- **MDN: `<nav>` element** -
+  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav
+- **W3C ARIA: Navigation Landmark** -
+  https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/

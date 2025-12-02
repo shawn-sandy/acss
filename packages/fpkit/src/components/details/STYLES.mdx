@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Details/STYLES" />
+<Meta title="FP.REACT Components/Details/Styles" />
 
 # Details Styles
 
@@ -301,12 +301,8 @@ Initial state for animations:
     <strong>General Settings</strong>
   </summary>
   <section>
-    <label>
-      <input type="checkbox" /> Enable notifications
-    </label>
-    <label>
-      <input type="checkbox" /> Dark mode
-    </label>
+    <label> <input type="checkbox" /> Enable notifications </label>
+    <label> <input type="checkbox" /> Dark mode </label>
   </section>
 </details>
 
@@ -315,12 +311,8 @@ Initial state for animations:
     <strong>Privacy Settings</strong>
   </summary>
   <section>
-    <label>
-      <input type="checkbox" /> Public profile
-    </label>
-    <label>
-      <input type="checkbox" /> Show email
-    </label>
+    <label> <input type="checkbox" /> Public profile </label>
+    <label> <input type="checkbox" /> Show email </label>
   </section>
 </details>
 ```
@@ -329,9 +321,7 @@ Initial state for animations:
 
 ```html
 <details>
-  <summary>
-    Product Specifications
-  </summary>
+  <summary>Product Specifications</summary>
   <section>
     <dl>
       <dt>Dimensions</dt>
@@ -397,14 +387,15 @@ Initial state for animations:
 
 ## CSS Variable Naming Convention
 
-| Category       | Variable Pattern                | Example                              |
-| -------------- | ------------------------------- | ------------------------------------ |
-| **Details**    | `--details-{property}`          | `--details-border`, `--details-width` |
-| **Summary**    | `--summary-{property}`          | `--summary-display`, `--summary-gap`  |
+| Category    | Variable Pattern       | Example                               |
+| ----------- | ---------------------- | ------------------------------------- |
+| **Details** | `--details-{property}` | `--details-border`, `--details-width` |
+| **Summary** | `--summary-{property}` | `--summary-display`, `--summary-gap`  |
 
 ## Browser Support
 
-- **`<details>` element:** All modern browsers (Chrome 12+, Firefox 49+, Safari 6+)
+- **`<details>` element:** All modern browsers (Chrome 12+, Firefox 49+, Safari
+  6+)
 - **CSS Custom Properties:** All modern browsers
 - **`interpolate-size`:** Chrome 129+, Firefox 133+ (Experimental)
 - **`@starting-style`:** Chrome 117+, Firefox 129+ (Experimental)
@@ -433,20 +424,22 @@ experience in supporting browsers.
 
 ### From Tailwind CSS
 
-| Tailwind                          | fpkit Details                       |
-| --------------------------------- | ----------------------------------- |
-| Custom collapse component         | Native `<details>`                  |
-| `class="accordion"`               | Adjacent `<details>` elements       |
+| Tailwind                  | fpkit Details                 |
+| ------------------------- | ----------------------------- |
+| Custom collapse component | Native `<details>`            |
+| `class="accordion"`       | Adjacent `<details>` elements |
 
 ### From Bootstrap
 
-| Bootstrap                         | fpkit Details                       |
-| --------------------------------- | ----------------------------------- |
-| `class="accordion"`               | Adjacent `<details>` elements       |
-| `class="collapse"`                | Native `<details>` element          |
+| Bootstrap           | fpkit Details                 |
+| ------------------- | ----------------------------- |
+| `class="accordion"` | Adjacent `<details>` elements |
+| `class="collapse"`  | Native `<details>` element    |
 
 ## Related Resources
 
 - **React Component** - See README for React Details component API
-- **MDN: `<details>` element** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
-- **W3C: Disclosure Pattern** - https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/
+- **MDN: `<details>` element** -
+  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+- **W3C: Disclosure Pattern** -
+  https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/

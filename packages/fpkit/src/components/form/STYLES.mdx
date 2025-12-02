@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Forms/STYLES" />
+<Meta title="FP.REACT Components/Forms/Styles" />
 
 # Form Styles
 
@@ -128,10 +128,7 @@ Override CSS variables globally or per-element:
 Or inline:
 
 ```html
-<input
-  type="text"
-  style="--input-bg: #f0f0f0; --input-border-color: blue"
-/>
+<input type="text" style="--input-bg: #f0f0f0; --input-border-color: blue" />
 ```
 
 ## Form Structure
@@ -340,8 +337,8 @@ input[aria-required="true"]::placeholder::after {
 }
 ```
 
-**Note:** The asterisk (*) is automatically appended to the placeholder text for
-required fields.
+**Note:** The asterisk (\*) is automatically appended to the placeholder text
+for required fields.
 
 ## Placeholder Styling
 
@@ -470,7 +467,9 @@ input::placeholder {
 
 ```html
 <form>
-  <fieldset style="border: 1px solid gray; padding: 1rem; border-radius: 0.5rem">
+  <fieldset
+    style="border: 1px solid gray; padding: 1rem; border-radius: 0.5rem"
+  >
     <legend>Personal Information</legend>
     <div>
       <label for="firstName">First Name</label>
@@ -665,13 +664,13 @@ All form CSS variables follow specific patterns:
 
 ### Property Mapping
 
-| Category        | Variable Pattern                | Example                           |
-| --------------- | ------------------------------- | --------------------------------- |
-| **Input Core**  | `--input-{property}`            | `--input-bg`, `--input-border`    |
-| **Input States**| `--input-{state}-{property}`    | `--input-focus-outline`, `--input-disabled-bg` |
-| **Placeholder** | `--placeholder-{property}`      | `--placeholder-color`, `--placeholder-fs` |
-| **Form Layout** | `--form-{property}`             | `--form-direction`                |
-| **Select**      | `--select-{property}`           | `--select-arrow`                  |
+| Category         | Variable Pattern             | Example                                        |
+| ---------------- | ---------------------------- | ---------------------------------------------- |
+| **Input Core**   | `--input-{property}`         | `--input-bg`, `--input-border`                 |
+| **Input States** | `--input-{state}-{property}` | `--input-focus-outline`, `--input-disabled-bg` |
+| **Placeholder**  | `--placeholder-{property}`   | `--placeholder-color`, `--placeholder-fs`      |
+| **Form Layout**  | `--form-{property}`          | `--form-direction`                             |
+| **Select**       | `--select-{property}`        | `--select-arrow`                               |
 
 ### Common Variables Quick Reference
 
@@ -751,7 +750,10 @@ Style only what's necessary:
 <input type="text" />
 
 <!-- Avoid: Unnecessary customization -->
-<input type="text" style="--input-bg: white; --input-outline: thin solid gray" />
+<input
+  type="text"
+  style="--input-bg: white; --input-outline: thin solid gray"
+/>
 ```
 
 ### Use CSS Classes
@@ -791,22 +793,22 @@ necessary:
 
 ### From Tailwind CSS
 
-| Tailwind                                      | fpkit Form                                  |
-| --------------------------------------------- | ------------------------------------------- |
-| `class="border border-gray-300 rounded px-3 py-2"` | Default `<input>` styles                    |
-| `class="focus:ring focus:border-blue-500"`    | `--input-focus-outline`                     |
-| `class="disabled:bg-gray-100"`                | `disabled` or `aria-disabled="true"`        |
-| `class="placeholder-gray-400"`                | `--placeholder-color`                       |
-| `class="w-full"`                              | `style="--input-width: 100%"`               |
+| Tailwind                                           | fpkit Form                           |
+| -------------------------------------------------- | ------------------------------------ |
+| `class="border border-gray-300 rounded px-3 py-2"` | Default `<input>` styles             |
+| `class="focus:ring focus:border-blue-500"`         | `--input-focus-outline`              |
+| `class="disabled:bg-gray-100"`                     | `disabled` or `aria-disabled="true"` |
+| `class="placeholder-gray-400"`                     | `--placeholder-color`                |
+| `class="w-full"`                                   | `style="--input-width: 100%"`        |
 
 ### From Bootstrap
 
-| Bootstrap                                     | fpkit Form                                  |
-| --------------------------------------------- | ------------------------------------------- |
-| `class="form-control"`                        | Default `<input>` styles                    |
-| `class="form-control:focus"`                  | Automatic focus styles                      |
-| `class="form-control:disabled"`               | `disabled` or `aria-disabled="true"`        |
-| `class="form-select"`                         | Default `<select>` styles                   |
+| Bootstrap                       | fpkit Form                           |
+| ------------------------------- | ------------------------------------ |
+| `class="form-control"`          | Default `<input>` styles             |
+| `class="form-control:focus"`    | Automatic focus styles               |
+| `class="form-control:disabled"` | `disabled` or `aria-disabled="true"` |
+| `class="form-select"`           | Default `<select>` styles            |
 
 ## Related Resources
 

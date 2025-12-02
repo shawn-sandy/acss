@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Dialog/STYLES" />
+<Meta title="FP.REACT Components/Dialog/Styles" />
 
 # Dialog Styles
 
@@ -78,8 +78,9 @@ Variables for dialog header close button:
   --dialog-focus-color: #0066cc; /* Blue focus color */
   --dialog-focus-width: 0.125rem; /* 2px */
   --dialog-focus-offset: 0.125rem; /* 2px */
-  --dialog-focus-outline: var(--dialog-focus-width) solid
-    var(--dialog-focus-color);
+  --dialog-focus-outline: var(--dialog-focus-width) solid var(
+      --dialog-focus-color
+    );
 }
 ```
 
@@ -238,7 +239,10 @@ Complete dialog structure:
   </section>
 
   <div class="dialog-footer">
-    <button type="button" onclick="document.getElementById('fullDialog').close()">
+    <button
+      type="button"
+      onclick="document.getElementById('fullDialog').close()"
+    >
       Cancel
     </button>
     <button
@@ -408,11 +412,16 @@ opened with `showModal()`.
   </div>
 
   <section>
-    <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+    <p>
+      Are you sure you want to delete this item? This action cannot be undone.
+    </p>
   </section>
 
   <div class="dialog-footer">
-    <button type="button" onclick="document.getElementById('confirmDialog').close()">
+    <button
+      type="button"
+      onclick="document.getElementById('confirmDialog').close()"
+    >
       Cancel
     </button>
     <button
@@ -450,17 +459,16 @@ opened with `showModal()`.
       </div>
       <div>
         <label for="itemDescription">Description</label>
-        <textarea
-          id="itemDescription"
-          name="description"
-          rows="4"
-        ></textarea>
+        <textarea id="itemDescription" name="description" rows="4"></textarea>
       </div>
     </form>
   </section>
 
   <div class="dialog-footer">
-    <button type="button" onclick="document.getElementById('formDialog').close()">
+    <button
+      type="button"
+      onclick="document.getElementById('formDialog').close()"
+    >
       Cancel
     </button>
     <button type="submit" form="itemForm">Save</button>
@@ -515,7 +523,10 @@ opened with `showModal()`.
   </section>
 
   <div class="dialog-footer" style="--dialog-footer-justify: center">
-    <button type="button" onclick="document.getElementById('successDialog').close()">
+    <button
+      type="button"
+      onclick="document.getElementById('successDialog').close()"
+    >
       OK
     </button>
   </div>
@@ -552,7 +563,10 @@ opened with `showModal()`.
   </section>
 
   <div class="dialog-footer">
-    <button type="button" onclick="document.getElementById('wideDialog').close()">
+    <button
+      type="button"
+      onclick="document.getElementById('wideDialog').close()"
+    >
       Close
     </button>
   </div>
@@ -581,7 +595,10 @@ opened with `showModal()`.
   </section>
 
   <div class="dialog-footer">
-    <button type="button" onclick="document.getElementById('scrollDialog').close()">
+    <button
+      type="button"
+      onclick="document.getElementById('scrollDialog').close()"
+    >
       Decline
     </button>
     <button
@@ -651,14 +668,15 @@ dialog.addEventListener("cancel", (event) => {
 Use proper ARIA attributes for accessibility:
 
 ```html
-<dialog id="myDialog" role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">
+<dialog
+  id="myDialog"
+  role="dialog"
+  aria-labelledby="dialogTitle"
+  aria-describedby="dialogDesc"
+>
   <div class="dialog-header">
     <h3 id="dialogTitle">Dialog Title</h3>
-    <button
-      type="button"
-      class="dialog-close"
-      aria-label="Close dialog"
-    >
+    <button type="button" class="dialog-close" aria-label="Close dialog">
       ✕
     </button>
   </div>
@@ -672,6 +690,7 @@ Use proper ARIA attributes for accessibility:
 ### Focus Management
 
 1. **Initial Focus:**
+
    ```javascript
    dialog.addEventListener("open", () => {
      // Focus first input or primary action
@@ -680,6 +699,7 @@ Use proper ARIA attributes for accessibility:
    ```
 
 2. **Return Focus:**
+
    ```javascript
    const trigger = document.getElementById("openButton");
    trigger.addEventListener("click", () => {
@@ -717,15 +737,15 @@ All dialog CSS variables follow specific patterns:
 
 ### Property Mapping
 
-| Category         | Variable Pattern                     | Example                                  |
-| ---------------- | ------------------------------------ | ---------------------------------------- |
-| **Dimensions**   | `--dialog-{dimension}`               | `--dialog-min-width`                     |
-| **Layout**       | `--dialog-{layout-property}`         | `--dialog-display`, `--dialog-flex-direction` |
-| **Spacing**      | `--dialog-{spacing-type}`            | `--dialog-padding`, `--dialog-gap`       |
-| **Borders**      | `--dialog-border-{property}`         | `--dialog-border-color`, `--dialog-border-width` |
-| **Buttons**      | `--dialog-button-{property}`         | `--dialog-button-bg`, `--dialog-button-border` |
-| **Focus**        | `--dialog-focus-{property}`          | `--dialog-focus-color`, `--dialog-focus-width` |
-| **Footer**       | `--dialog-footer-{property}`         | `--dialog-footer-justify`                |
+| Category       | Variable Pattern             | Example                                          |
+| -------------- | ---------------------------- | ------------------------------------------------ |
+| **Dimensions** | `--dialog-{dimension}`       | `--dialog-min-width`                             |
+| **Layout**     | `--dialog-{layout-property}` | `--dialog-display`, `--dialog-flex-direction`    |
+| **Spacing**    | `--dialog-{spacing-type}`    | `--dialog-padding`, `--dialog-gap`               |
+| **Borders**    | `--dialog-border-{property}` | `--dialog-border-color`, `--dialog-border-width` |
+| **Buttons**    | `--dialog-button-{property}` | `--dialog-button-bg`, `--dialog-button-border`   |
+| **Focus**      | `--dialog-focus-{property}`  | `--dialog-focus-color`, `--dialog-focus-width`   |
+| **Footer**     | `--dialog-footer-{property}` | `--dialog-footer-justify`                        |
 
 ### Common Variables Quick Reference
 
@@ -835,26 +855,26 @@ overlay.style.display = "block";
 
 ### From Tailwind CSS
 
-| Tailwind                                      | fpkit Dialog                             |
-| --------------------------------------------- | ---------------------------------------- |
-| `class="modal"`                               | `<dialog>`                               |
-| `class="modal-box"`                           | `<dialog>` (styled automatically)        |
-| `class="modal-header"`                        | `.dialog-header`                         |
-| `class="modal-body"`                          | `<section>`                              |
-| `class="modal-footer"`                        | `.dialog-footer`                         |
-| Custom modal backdrop                         | Native backdrop (via `showModal()`)      |
+| Tailwind               | fpkit Dialog                        |
+| ---------------------- | ----------------------------------- |
+| `class="modal"`        | `<dialog>`                          |
+| `class="modal-box"`    | `<dialog>` (styled automatically)   |
+| `class="modal-header"` | `.dialog-header`                    |
+| `class="modal-body"`   | `<section>`                         |
+| `class="modal-footer"` | `.dialog-footer`                    |
+| Custom modal backdrop  | Native backdrop (via `showModal()`) |
 
 ### From Bootstrap
 
-| Bootstrap                                     | fpkit Dialog                             |
-| --------------------------------------------- | ---------------------------------------- |
-| `class="modal"`                               | `<dialog>`                               |
-| `class="modal-dialog"`                        | `<dialog>` (styled automatically)        |
-| `class="modal-header"`                        | `.dialog-header`                         |
-| `class="modal-body"`                          | `<section>`                              |
-| `class="modal-footer"`                        | `.dialog-footer`                         |
-| `data-bs-toggle="modal"`                      | `onclick="dialog.showModal()"`           |
-| `data-bs-dismiss="modal"`                     | `onclick="dialog.close()"`               |
+| Bootstrap                 | fpkit Dialog                      |
+| ------------------------- | --------------------------------- |
+| `class="modal"`           | `<dialog>`                        |
+| `class="modal-dialog"`    | `<dialog>` (styled automatically) |
+| `class="modal-header"`    | `.dialog-header`                  |
+| `class="modal-body"`      | `<section>`                       |
+| `class="modal-footer"`    | `.dialog-footer`                  |
+| `data-bs-toggle="modal"`  | `onclick="dialog.showModal()"`    |
+| `data-bs-dismiss="modal"` | `onclick="dialog.close()"`        |
 
 ## Related Resources
 

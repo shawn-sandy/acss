@@ -1,11 +1,11 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Layout/STYLES" />
+<Meta title="FP.REACT Components/Layout/Styles" />
 
 # Layout Styles
 
-Semantic layout component styling system for page structure using HTML5
-landmark elements (header, main, footer) with CSS custom properties.
+Semantic layout component styling system for page structure using HTML5 landmark
+elements (header, main, footer) with CSS custom properties.
 
 ## Overview
 
@@ -131,7 +131,10 @@ Overlay content on background image:
 ### Hero with Data Attribute
 
 ```html
-<div data-hero style="--overlay-height: 60vh; --overlay-bg: #0066cc; --overlay-color: white">
+<div
+  data-hero
+  style="--overlay-height: 60vh; --overlay-bg: #0066cc; --overlay-color: white"
+>
   <div>
     <h1>Product Launch</h1>
     <p>Discover our latest innovation</p>
@@ -346,10 +349,12 @@ footer > div {
 ### Full Page Layout
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <body>
-    <header style="--overlay-height: 50vh; --overlay-bg: #0066cc; --overlay-color: white">
+    <header
+      style="--overlay-height: 50vh; --overlay-bg: #0066cc; --overlay-color: white"
+    >
       <div>
         <h1>Welcome to Our Site</h1>
         <p>Discover amazing products and services</p>
@@ -398,7 +403,9 @@ footer > div {
 
 ```html
 <main>
-  <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2rem">
+  <section
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 2rem"
+  >
     <article>
       <h3>Column 1</h3>
       <p>Content...</p>
@@ -477,10 +484,10 @@ Hero background images should use empty alt or role="presentation":
 
 ## CSS Variable Naming Convention
 
-| Category      | Variable Pattern                | Example                            |
-| ------------- | ------------------------------- | ---------------------------------- |
-| **Overlay**   | `--overlay-{property}`          | `--overlay-bg`, `--overlay-height` |
-| **Content**   | `--content-{property}`          | `--content-width`, `--content-gap` |
+| Category    | Variable Pattern       | Example                            |
+| ----------- | ---------------------- | ---------------------------------- |
+| **Overlay** | `--overlay-{property}` | `--overlay-bg`, `--overlay-height` |
+| **Content** | `--content-{property}` | `--content-width`, `--content-gap` |
 
 ## Browser Support
 
@@ -526,23 +533,24 @@ Use responsive images for hero backgrounds:
 
 ### From Tailwind CSS
 
-| Tailwind                          | fpkit Layout                        |
-| --------------------------------- | ----------------------------------- |
-| `class="container mx-auto"`       | `<main>` (automatic)                |
-| `class="max-w-7xl mx-auto"`       | `style="--content-width: 80rem"`    |
+| Tailwind                             | fpkit Layout                     |
+| ------------------------------------ | -------------------------------- |
+| `class="container mx-auto"`          | `<main>` (automatic)             |
+| `class="max-w-7xl mx-auto"`          | `style="--content-width: 80rem"` |
 | `class="h-screen flex items-center"` | `<header>` (automatic)           |
 
 ### From Bootstrap
 
-| Bootstrap                         | fpkit Layout                        |
-| --------------------------------- | ----------------------------------- |
-| `class="container"`               | `<main>` or `<section>` (automatic) |
-| `class="row"`                     | Article/aside pattern (automatic)   |
-| `class="jumbotron"`               | `<header>` with hero styles         |
+| Bootstrap           | fpkit Layout                        |
+| ------------------- | ----------------------------------- |
+| `class="container"` | `<main>` or `<section>` (automatic) |
+| `class="row"`       | Article/aside pattern (automatic)   |
+| `class="jumbotron"` | `<header>` with hero styles         |
 
 ## Related Resources
 
 - **React Components** - See layout component README
 - **MDN: HTML5 Sectioning Elements** -
   https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning
-- **W3C ARIA: Landmark Regions** - https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/
+- **W3C ARIA: Landmark Regions** -
+  https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/

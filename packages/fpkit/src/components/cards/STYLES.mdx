@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Cards/STYLES" />
+<Meta title="FP.REACT Components/Cards/Styles" />
 
 # Card Styles
 
@@ -99,7 +99,9 @@ For clickable/interactive cards:
 
   /* Hover effects (not customizable via variables) */
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 ```
 
@@ -269,7 +271,9 @@ Clickable card with hover and focus states:
 ```css
 [data-card="interactive"] {
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* Hover state */
@@ -341,7 +345,11 @@ Adjust spacing between card children:
 
 ```html
 <div data-card style="--card-align: center">
-  <img src="avatar.jpg" alt="User name" style="border-radius: 50%; width: 5rem" />
+  <img
+    src="avatar.jpg"
+    alt="User name"
+    style="border-radius: 50%; width: 5rem"
+  />
   <h2>John Doe</h2>
   <p>Software Engineer</p>
   <div data-card-footer>
@@ -447,7 +455,9 @@ Cards can contain article elements with automatic flex styling:
 Create responsive card layouts:
 
 ```html
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1.5rem">
+<div
+  style="display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1.5rem"
+>
   <div data-card>
     <h2>Card 1</h2>
     <p>Content</p>
@@ -520,6 +530,7 @@ This prevents excessive spacing between card headings and following content.
 When creating clickable cards:
 
 1. **Keyboard Accessibility:**
+
    ```html
    <div data-card="interactive" tabindex="0" role="button">
      <!-- Card content -->
@@ -527,11 +538,13 @@ When creating clickable cards:
    ```
 
 2. **Focus Indicators:**
+
    - Automatic visible focus outline (2px solid, 3:1 contrast minimum)
    - `:focus-visible` only shows for keyboard navigation
    - Mouse clicks don't trigger outline
 
 3. **Screen Reader Support:**
+
    ```html
    <div
      data-card="interactive"
@@ -583,11 +596,7 @@ Ensure sufficient contrast for card backgrounds and text (WCAG AA: 4.5:1):
 Customize focus color for better contrast:
 
 ```html
-<div
-  data-card="interactive"
-  tabindex="0"
-  style="--focus-color: #d32f2f"
->
+<div data-card="interactive" tabindex="0" style="--focus-color: #d32f2f">
   <!-- Card with custom focus color -->
 </div>
 ```
@@ -598,15 +607,15 @@ All card CSS variables follow the `--card-{property}` pattern:
 
 ### Property Mapping
 
-| Category         | Variable Pattern                   | Example                              |
-| ---------------- | ---------------------------------- | ------------------------------------ |
-| **Layout**       | `--card-{layout-property}`         | `--card-display`, `--card-direction` |
-| **Colors**       | `--card-{element}-{property}`      | `--card-bg`, `--card-header-bg`      |
-| **Spacing**      | `--card-{element}-padding`         | `--card-padding`, `--card-gap`       |
-| **Borders**      | `--card-{element}-border-{side}`   | `--card-header-border-bottom`        |
-| **Border Radius**| `--card-radius`                    | `--card-radius`                      |
-| **Alignment**    | `--card-align`                     | `--card-align`                       |
-| **Focus**        | `--focus-color`                    | `--focus-color`                      |
+| Category          | Variable Pattern                 | Example                              |
+| ----------------- | -------------------------------- | ------------------------------------ |
+| **Layout**        | `--card-{layout-property}`       | `--card-display`, `--card-direction` |
+| **Colors**        | `--card-{element}-{property}`    | `--card-bg`, `--card-header-bg`      |
+| **Spacing**       | `--card-{element}-padding`       | `--card-padding`, `--card-gap`       |
+| **Borders**       | `--card-{element}-border-{side}` | `--card-header-border-bottom`        |
+| **Border Radius** | `--card-radius`                  | `--card-radius`                      |
+| **Alignment**     | `--card-align`                   | `--card-align`                       |
+| **Focus**         | `--focus-color`                  | `--focus-color`                      |
 
 ### Common Variables Quick Reference
 
@@ -714,7 +723,9 @@ Don't add transitions to all card children:
 
 /* Good: Only transition what changes */
 [data-card="interactive"] {
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 ```
 
@@ -738,22 +749,22 @@ Prefer `transform` over properties like `top` or `margin`:
 
 ### From Tailwind CSS
 
-| Tailwind                                     | fpkit Card                                                 |
-| -------------------------------------------- | ---------------------------------------------------------- |
-| `class="bg-white rounded-lg shadow p-6"`     | `data-card` with `--card-bg: #fff; --card-padding: 1.5rem` |
-| `class="card card-bordered"`                 | `data-card` with custom `--card-header-border-bottom`      |
-| `class="hover:shadow-lg transition"`         | `data-card="interactive"`                                  |
-| `class="card-body"`                          | `data-card-body`                                           |
+| Tailwind                                 | fpkit Card                                                 |
+| ---------------------------------------- | ---------------------------------------------------------- |
+| `class="bg-white rounded-lg shadow p-6"` | `data-card` with `--card-bg: #fff; --card-padding: 1.5rem` |
+| `class="card card-bordered"`             | `data-card` with custom `--card-header-border-bottom`      |
+| `class="hover:shadow-lg transition"`     | `data-card="interactive"`                                  |
+| `class="card-body"`                      | `data-card-body`                                           |
 
 ### From Bootstrap
 
-| Bootstrap                                    | fpkit Card                                                 |
-| -------------------------------------------- | ---------------------------------------------------------- |
-| `class="card"`                               | `data-card`                                                |
-| `class="card-header"`                        | `<header>` or `data-card-header`                           |
-| `class="card-body"`                          | `data-card-body`                                           |
-| `class="card-footer"`                        | `<footer>` or `data-card-footer`                           |
-| `class="card-img-top"`                       | `<img>` as first child (automatic handling)                |
+| Bootstrap              | fpkit Card                                  |
+| ---------------------- | ------------------------------------------- |
+| `class="card"`         | `data-card`                                 |
+| `class="card-header"`  | `<header>` or `data-card-header`            |
+| `class="card-body"`    | `data-card-body`                            |
+| `class="card-footer"`  | `<footer>` or `data-card-footer`            |
+| `class="card-img-top"` | `<img>` as first child (automatic handling) |
 
 ## Related Resources
 

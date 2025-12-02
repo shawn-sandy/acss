@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/List/STYLES" />
+<Meta title="FP.REACT Components/List/Styles" />
 
 # List Styles
 
@@ -29,7 +29,9 @@ automatic nested list styling, multiple variants, and comprehensive theming.
 ### Base List Properties
 
 ```css
-ul, ol, dl {
+ul,
+ol,
+dl {
   /* Spacing */
   --list-margin-top: 0;
   --list-margin-bottom: 1rem; /* 16px */
@@ -58,7 +60,9 @@ ul, ol, dl {
 ### Definition List Properties
 
 ```css
-ul, ol, dl {
+ul,
+ol,
+dl {
   /* Definition Terms (dt) */
   --dt-font-weight: 600; /* Semi-bold */
   --dt-margin-bottom: 0.25rem; /* 4px */
@@ -129,9 +133,15 @@ Automatic marker changes for nested levels:
 **CSS:**
 
 ```css
-ul { list-style-type: disc; }
-ul ul { list-style-type: circle; }
-ul ul ul { list-style-type: square; }
+ul {
+  list-style-type: disc;
+}
+ul ul {
+  list-style-type: circle;
+}
+ul ul ul {
+  list-style-type: square;
+}
 ```
 
 ## Ordered Lists (ol)
@@ -179,9 +189,15 @@ Automatic numbering changes for nested levels:
 **CSS:**
 
 ```css
-ol { list-style-type: decimal; }
-ol ol { list-style-type: lower-alpha; }
-ol ol ol { list-style-type: lower-roman; }
+ol {
+  list-style-type: decimal;
+}
+ol ol {
+  list-style-type: lower-alpha;
+}
+ol ol ol {
+  list-style-type: lower-roman;
+}
 ```
 
 ## Definition Lists (dl)
@@ -275,7 +291,10 @@ Horizontal list for navigation:
 Custom list markers using `::before`:
 
 ```html
-<ul data-variant="custom" style="--list-marker-content: '✓'; --list-marker-color: green">
+<ul
+  data-variant="custom"
+  style="--list-marker-content: '✓'; --list-marker-color: green"
+>
   <li>Completed task</li>
   <li>Another task</li>
 </ul>
@@ -291,7 +310,9 @@ Custom list markers using `::before`:
 
 [data-variant="custom"] li {
   position: relative;
-  padding-inline-start: calc(var(--list-marker-size) + var(--list-marker-offset));
+  padding-inline-start: calc(
+    var(--list-marker-size) + var(--list-marker-offset)
+  );
 }
 
 [data-variant="custom"] li::before {
@@ -362,7 +383,10 @@ Increased spacing:
 ### Checklist with Custom Markers
 
 ```html
-<ul data-variant="custom" style="--list-marker-content: '☐'; --list-marker-size: 1.2em">
+<ul
+  data-variant="custom"
+  style="--list-marker-content: '☐'; --list-marker-size: 1.2em"
+>
   <li>Unchecked task</li>
   <li style="--list-marker-content: '☑'; --list-marker-color: green">
     Completed task
@@ -376,10 +400,14 @@ Increased spacing:
 ```html
 <dl>
   <dt>HTML</dt>
-  <dd>HyperText Markup Language - the standard markup language for web pages.</dd>
+  <dd>
+    HyperText Markup Language - the standard markup language for web pages.
+  </dd>
 
   <dt>CSS</dt>
-  <dd>Cascading Style Sheets - used for describing the presentation of a document.</dd>
+  <dd>
+    Cascading Style Sheets - used for describing the presentation of a document.
+  </dd>
 
   <dt>JavaScript</dt>
   <dd>A programming language that enables interactive web pages.</dd>
@@ -404,16 +432,17 @@ Increased spacing:
       <li>Follow on-screen instructions</li>
     </ul>
   </li>
-  <li>
-    <strong>Step 3:</strong> Launch and configure
-  </li>
+  <li><strong>Step 3:</strong> Launch and configure</li>
 </ol>
 ```
 
 ### Feature List with Icons
 
 ```html
-<ul data-variant="custom" style="--list-marker-content: '✨'; --list-marker-size: 1.5em">
+<ul
+  data-variant="custom"
+  style="--list-marker-content: '✨'; --list-marker-size: 1.5em"
+>
   <li>Fast performance</li>
   <li>Easy to use</li>
   <li>Fully responsive</li>
@@ -440,8 +469,12 @@ Increased spacing:
   <li>
     Project Planning
     <ul data-variant="custom" style="--list-marker-content: '☐'">
-      <li style="--list-marker-content: '☑'; --list-marker-color: green">Define scope</li>
-      <li style="--list-marker-content: '☑'; --list-marker-color: green">Set timeline</li>
+      <li style="--list-marker-content: '☑'; --list-marker-color: green">
+        Define scope
+      </li>
+      <li style="--list-marker-content: '☑'; --list-marker-color: green">
+        Set timeline
+      </li>
       <li>Assign resources</li>
     </ul>
   </li>
@@ -506,12 +539,15 @@ Lists automatically adjust for print:
 
 ```css
 @media print {
-  ul, ol, dl {
+  ul,
+  ol,
+  dl {
     --list-margin-bottom: 0.5rem;
     --list-item-margin-bottom: 0.25rem;
   }
 
-  ul, ol {
+  ul,
+  ol {
     list-style-position: inside; /* Keeps markers visible */
   }
 }
@@ -523,7 +559,12 @@ Respects user's motion preferences:
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  ul, ol, dl, li, dt, dd {
+  ul,
+  ol,
+  dl,
+  li,
+  dt,
+  dd {
     animation: none;
     transition: none;
   }
@@ -532,12 +573,12 @@ Respects user's motion preferences:
 
 ## CSS Variable Naming Convention
 
-| Category         | Variable Pattern                | Example                           |
-| ---------------- | ------------------------------- | --------------------------------- |
-| **List Spacing** | `--list-{spacing-type}`         | `--list-margin-bottom`, `--list-gap` |
-| **Markers**      | `--list-marker-{property}`      | `--list-marker-color`, `--list-marker-size` |
-| **Typography**   | `--list-{property}`             | `--list-font-size`, `--list-line-height` |
-| **List Items**   | `--list-item-{property}`        | `--list-item-margin-bottom`       |
+| Category         | Variable Pattern                     | Example                                        |
+| ---------------- | ------------------------------------ | ---------------------------------------------- |
+| **List Spacing** | `--list-{spacing-type}`              | `--list-margin-bottom`, `--list-gap`           |
+| **Markers**      | `--list-marker-{property}`           | `--list-marker-color`, `--list-marker-size`    |
+| **Typography**   | `--list-{property}`                  | `--list-font-size`, `--list-line-height`       |
+| **List Items**   | `--list-item-{property}`             | `--list-item-margin-bottom`                    |
 | **Definition**   | `--dt-{property}`, `--dd-{property}` | `--dt-font-weight`, `--dd-margin-inline-start` |
 
 ## Browser Support
@@ -568,22 +609,23 @@ Create reusable list classes:
 
 ### From Tailwind CSS
 
-| Tailwind                          | fpkit List                          |
-| --------------------------------- | ----------------------------------- |
-| `class="list-none"`               | `data-variant="none"`               |
-| `class="list-disc"`               | Default `<ul>`                      |
-| `class="space-y-2"`               | `style="--list-item-margin-bottom: 0.5rem"` |
-| `class="flex space-x-4"`          | `data-variant="inline"`             |
+| Tailwind                 | fpkit List                                  |
+| ------------------------ | ------------------------------------------- |
+| `class="list-none"`      | `data-variant="none"`                       |
+| `class="list-disc"`      | Default `<ul>`                              |
+| `class="space-y-2"`      | `style="--list-item-margin-bottom: 0.5rem"` |
+| `class="flex space-x-4"` | `data-variant="inline"`                     |
 
 ### From Bootstrap
 
-| Bootstrap                         | fpkit List                          |
-| --------------------------------- | ----------------------------------- |
-| `class="list-unstyled"`           | `data-variant="none"`               |
-| `class="list-inline"`             | `data-variant="inline"`             |
+| Bootstrap               | fpkit List              |
+| ----------------------- | ----------------------- |
+| `class="list-unstyled"` | `data-variant="none"`   |
+| `class="list-inline"`   | `data-variant="inline"` |
 
 ## Related Resources
 
 - **React Component** - See README for React List component API
 - **MDN: Lists** - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
-- **W3C: List Structure** - https://www.w3.org/WAI/tutorials/page-structure/content/
+- **W3C: List Structure** -
+  https://www.w3.org/WAI/tutorials/page-structure/content/

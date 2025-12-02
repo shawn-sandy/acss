@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Alert/STYLES" />
+<Meta title="FP.REACT Components/Alert/Styles" />
 
 # Alert Styles
 
@@ -213,12 +213,12 @@ transform.
 
 Control alert type using the `data-alert` attribute:
 
-| Data Attribute      | Type    | Description                  |
-| ------------------- | ------- | ---------------------------- |
-| `data-alert="success"` | Success | Positive feedback (green)    |
-| `data-alert="error"`   | Error   | Error messages (red)         |
-| `data-alert="warning"` | Warning | Warnings/cautions (orange)   |
-| `data-alert="info"`    | Info    | Informational messages (blue)|
+| Data Attribute         | Type    | Description                   |
+| ---------------------- | ------- | ----------------------------- |
+| `data-alert="success"` | Success | Positive feedback (green)     |
+| `data-alert="error"`   | Error   | Error messages (red)          |
+| `data-alert="warning"` | Warning | Warnings/cautions (orange)    |
+| `data-alert="info"`    | Info    | Informational messages (blue) |
 
 ### Success Alert
 
@@ -312,11 +312,11 @@ Control alert type using the `data-alert` attribute:
 
 Control visual style using the `data-variant` attribute:
 
-| Data Attribute          | Variant  | Description                               |
-| ----------------------- | -------- | ----------------------------------------- |
-| *(none)* or `"outlined"` | Outlined | Light background with colored border (default) |
-| `data-variant="filled"`  | Filled   | Solid colored background with white text  |
-| `data-variant="soft"`    | Soft     | Light background without border           |
+| Data Attribute           | Variant  | Description                                    |
+| ------------------------ | -------- | ---------------------------------------------- |
+| _(none)_ or `"outlined"` | Outlined | Light background with colored border (default) |
+| `data-variant="filled"`  | Filled   | Solid colored background with white text       |
+| `data-variant="soft"`    | Soft     | Light background without border                |
 
 ### Outlined Variant (Default)
 
@@ -428,7 +428,12 @@ Respects user's motion preferences:
 ### Success Notification
 
 ```html
-<div role="alert" data-alert="success" data-variant="filled" data-visible="true">
+<div
+  role="alert"
+  data-alert="success"
+  data-variant="filled"
+  data-visible="true"
+>
   <span class="alert-icon" aria-hidden="true">✓</span>
   <div class="alert-message">
     <strong class="alert-title">Account Created</strong>
@@ -502,7 +507,10 @@ Respects user's motion preferences:
   <span class="alert-icon" aria-hidden="true">✕</span>
   <div class="alert-message">
     <h3 class="alert-title">Payment Failed</h3>
-    <p>Your payment could not be processed. Please check your payment details and try again.</p>
+    <p>
+      Your payment could not be processed. Please check your payment details and
+      try again.
+    </p>
   </div>
 </div>
 ```
@@ -653,12 +661,12 @@ All alert CSS variables follow specific patterns:
 
 ### Property Mapping
 
-| Category       | Variable Pattern                        | Example                                  |
-| -------------- | --------------------------------------- | ---------------------------------------- |
-| **Type Colors**| `--alert-{type}-{property}`             | `--alert-success-bg`, `--alert-error-text` |
-| **Base Styles**| `--alert-{property}`                    | `--alert-bg`, `--alert-border`           |
-| **Title**      | `--alert-title-{property}`              | `--alert-title-fw`, `--alert-title-fs`   |
-| **Animation**  | `--alert-transition-{property}`         | `--alert-transition-duration`            |
+| Category        | Variable Pattern                | Example                                    |
+| --------------- | ------------------------------- | ------------------------------------------ |
+| **Type Colors** | `--alert-{type}-{property}`     | `--alert-success-bg`, `--alert-error-text` |
+| **Base Styles** | `--alert-{property}`            | `--alert-bg`, `--alert-border`             |
+| **Title**       | `--alert-title-{property}`      | `--alert-title-fw`, `--alert-title-fs`     |
+| **Animation**   | `--alert-transition-{property}` | `--alert-transition-duration`              |
 
 ### Common Variables Quick Reference
 
@@ -708,8 +716,8 @@ The alert styles use modern CSS features:
 - **Flexbox:** All modern browsers
 - **`:focus-visible`:** Chrome 86+, Firefox 85+, Safari 15.4+
 - **`@media (prefers-reduced-motion)`:** Chrome 74+, Firefox 63+, Safari 10.1+
-- **Logical properties** (`margin-block-start`): Chrome 87+, Firefox 66+,
-  Safari 14.1+
+- **Logical properties** (`margin-block-start`): Chrome 87+, Firefox 66+, Safari
+  14.1+
 - **`role="alert"`:** All browsers with screen reader support
 
 ## Performance Tips
@@ -752,23 +760,23 @@ Create reusable alert variants:
 
 ### From Tailwind CSS
 
-| Tailwind                                      | fpkit Alert                               |
-| --------------------------------------------- | ----------------------------------------- |
-| `class="alert alert-success"`                 | `role="alert" data-alert="success"`       |
-| `class="alert alert-error"`                   | `role="alert" data-alert="error"`         |
-| `class="bg-green-100 text-green-800"`         | `data-alert="success"`                    |
-| `class="border border-red-500"`               | `data-alert="error" data-variant="outlined"` |
-| Custom dismiss button                         | `<button data-btn="icon" aria-label="Close">` |
+| Tailwind                              | fpkit Alert                                   |
+| ------------------------------------- | --------------------------------------------- |
+| `class="alert alert-success"`         | `role="alert" data-alert="success"`           |
+| `class="alert alert-error"`           | `role="alert" data-alert="error"`             |
+| `class="bg-green-100 text-green-800"` | `data-alert="success"`                        |
+| `class="border border-red-500"`       | `data-alert="error" data-variant="outlined"`  |
+| Custom dismiss button                 | `<button data-btn="icon" aria-label="Close">` |
 
 ### From Bootstrap
 
-| Bootstrap                                     | fpkit Alert                               |
-| --------------------------------------------- | ----------------------------------------- |
-| `class="alert alert-success"`                 | `role="alert" data-alert="success"`       |
-| `class="alert alert-danger"`                  | `role="alert" data-alert="error"`         |
-| `class="alert alert-warning"`                 | `role="alert" data-alert="warning"`       |
-| `class="alert alert-info"`                    | `role="alert" data-alert="info"`          |
-| `class="alert-dismissible"`                   | Add close button with `data-btn="icon"`   |
+| Bootstrap                     | fpkit Alert                             |
+| ----------------------------- | --------------------------------------- |
+| `class="alert alert-success"` | `role="alert" data-alert="success"`     |
+| `class="alert alert-danger"`  | `role="alert" data-alert="error"`       |
+| `class="alert alert-warning"` | `role="alert" data-alert="warning"`     |
+| `class="alert alert-info"`    | `role="alert" data-alert="info"`        |
+| `class="alert-dismissible"`   | Add close button with `data-btn="icon"` |
 
 ## Related Resources
 

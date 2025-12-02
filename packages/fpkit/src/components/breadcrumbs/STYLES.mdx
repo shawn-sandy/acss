@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Breadcrumbs/STYLES" />
+<Meta title="FP.REACT Components/Breadcrumbs/Styles" />
 
 # Breadcrumb Styles
 
@@ -70,7 +70,9 @@ nav[data-breadcrumb] {
   <ol>
     <li><a href="/">Home</a><span aria-hidden="true">/</span></li>
     <li><a href="/shop">Shop</a><span aria-hidden="true">/</span></li>
-    <li><a href="/shop/clothing">Clothing</a><span aria-hidden="true">/</span></li>
+    <li>
+      <a href="/shop/clothing">Clothing</a><span aria-hidden="true">/</span>
+    </li>
     <li><a aria-current="page">Men's Shirts</a></li>
   </ol>
 </nav>
@@ -82,7 +84,9 @@ nav[data-breadcrumb] {
 <nav data-breadcrumb aria-label="Breadcrumb">
   <ol>
     <li><a href="/">Docs</a><span aria-hidden="true">›</span></li>
-    <li><a href="/components">Components</a><span aria-hidden="true">›</span></li>
+    <li>
+      <a href="/components">Components</a><span aria-hidden="true">›</span>
+    </li>
     <li><a aria-current="page">Button</a></li>
   </ol>
 </nav>
@@ -91,4 +95,5 @@ nav[data-breadcrumb] {
 ## Related Resources
 
 - **React Component** - See README for React Breadcrumb component API
-- **W3C ARIA: Breadcrumb Pattern** - https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/
+- **W3C ARIA: Breadcrumb Pattern** -
+  https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/

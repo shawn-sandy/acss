@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Buttons/STYLES" />
+<Meta title="FP.REACT Components/Buttons/Styles" />
 
 # Button Styles
 
@@ -16,8 +16,7 @@ accessibility.
 
 ### Key Features
 
-- **Size variants** - Extra small (xs) through large (lg) with fluid
-  typography
+- **Size variants** - Extra small (xs) through large (lg) with fluid typography
 - **Style variants** - Pill, icon, and text button styles
 - **Type-based styling** - Automatic styling for submit, reset button types
 - **State management** - Hover, focus, and disabled states with smooth
@@ -207,12 +206,12 @@ button[type="reset"] {
 
 Control button size using data attributes or classes:
 
-| Data Attribute | Class       | Font Size      | Pixel Equivalent | Description        |
-| -------------- | ----------- | -------------- | ---------------- | ------------------ |
-| `data-btn="xs"` | `.btn-xs`   | `0.6875rem`    | 11px             | Extra small button |
-| `data-btn="sm"` | `.btn-sm`   | `0.8125rem`    | 13px             | Small button       |
-| `data-btn="md"` | `.btn-md`   | `0.9375rem`    | 15px             | Medium (default)   |
-| `data-btn="lg"` | `.btn-lg`   | `1.125rem`     | 18px             | Large button       |
+| Data Attribute  | Class     | Font Size   | Pixel Equivalent | Description        |
+| --------------- | --------- | ----------- | ---------------- | ------------------ |
+| `data-btn="xs"` | `.btn-xs` | `0.6875rem` | 11px             | Extra small button |
+| `data-btn="sm"` | `.btn-sm` | `0.8125rem` | 13px             | Small button       |
+| `data-btn="md"` | `.btn-md` | `0.9375rem` | 15px             | Medium (default)   |
+| `data-btn="lg"` | `.btn-lg` | `1.125rem`  | 18px             | Large button       |
 
 ### Examples
 
@@ -359,7 +358,9 @@ button:is(:hover, :focus) {
 **Customization:**
 
 ```html
-<button style="--btn-hover-transform: scale(1.05); --btn-hover-filter: brightness(0.9)">
+<button
+  style="--btn-hover-transform: scale(1.05); --btn-hover-filter: brightness(0.9)"
+>
   Hover Me
 </button>
 ```
@@ -378,7 +379,9 @@ button:focus-visible {
 **Customization:**
 
 ```html
-<button style="--btn-focus-outline: 3px solid blue; --btn-focus-outline-offset: 2px">
+<button
+  style="--btn-focus-outline: 3px solid blue; --btn-focus-outline-offset: 2px"
+>
   Focus Me
 </button>
 ```
@@ -459,10 +462,7 @@ You can combine multiple variants using space-separated values:
 ### Danger Button
 
 ```html
-<button
-  type="button"
-  style="--btn-bg: #D32F2F; --btn-color: white"
->
+<button type="button" style="--btn-bg: #D32F2F; --btn-color: white">
   Delete
 </button>
 ```
@@ -509,9 +509,7 @@ You can combine multiple variants using space-separated values:
 ### Full Width Button
 
 ```html
-<button style="--btn-width: 100%" type="submit">
-  Continue
-</button>
+<button style="--btn-width: 100%" type="submit">Continue</button>
 ```
 
 ## Accessibility Considerations
@@ -581,14 +579,14 @@ Ensure sufficient color contrast (WCAG AA: 4.5:1 for text):
 
 ### Interactive States
 
-| State             | Selector                        | Description                   |
-| ----------------- | ------------------------------- | ----------------------------- |
-| **Default**       | `button`                        | Normal state                  |
-| **Hover**         | `button:hover`                  | Mouse hover                   |
-| **Focus**         | `button:focus`                  | Keyboard focus                |
-| **Focus Visible** | `button:focus-visible`          | Keyboard focus indicator      |
-| **Active**        | `button:active`                 | Being clicked                 |
-| **Disabled**      | `button[disabled]`              | Disabled (native)             |
+| State             | Selector                       | Description                   |
+| ----------------- | ------------------------------ | ----------------------------- |
+| **Default**       | `button`                       | Normal state                  |
+| **Hover**         | `button:hover`                 | Mouse hover                   |
+| **Focus**         | `button:focus`                 | Keyboard focus                |
+| **Focus Visible** | `button:focus-visible`         | Keyboard focus indicator      |
+| **Active**        | `button:active`                | Being clicked                 |
+| **Disabled**      | `button[disabled]`             | Disabled (native)             |
 | **ARIA Disabled** | `button[aria-disabled="true"]` | Disabled (ARIA, allows focus) |
 
 ### Visual Effects by State
@@ -615,15 +613,15 @@ All button CSS variables follow the `--btn-{property}` pattern:
 
 ### Property Mapping
 
-| Category       | Variable Pattern               | Example                         |
-| -------------- | ------------------------------ | ------------------------------- |
-| **Colors**     | `--btn-{property}`             | `--btn-bg`, `--btn-color`       |
-| **Sizing**     | `--btn-{dimension}`            | `--btn-fs`, `--btn-height`      |
-| **Spacing**    | `--btn-{spacing-type}`         | `--btn-padding-inline`, `--btn-gap` |
-| **Borders**    | `--btn-{border-property}`      | `--btn-border`, `--btn-radius`  |
-| **States**     | `--btn-{state}-{property}`     | `--btn-hover-filter`, `--btn-focus-outline` |
-| **Size Tokens**| `--btn-size-{size}`            | `--btn-size-xs`, `--btn-size-lg`|
-| **Variants**   | `--btn-{variant}`              | `--btn-pill`                    |
+| Category        | Variable Pattern           | Example                                     |
+| --------------- | -------------------------- | ------------------------------------------- |
+| **Colors**      | `--btn-{property}`         | `--btn-bg`, `--btn-color`                   |
+| **Sizing**      | `--btn-{dimension}`        | `--btn-fs`, `--btn-height`                  |
+| **Spacing**     | `--btn-{spacing-type}`     | `--btn-padding-inline`, `--btn-gap`         |
+| **Borders**     | `--btn-{border-property}`  | `--btn-border`, `--btn-radius`              |
+| **States**      | `--btn-{state}-{property}` | `--btn-hover-filter`, `--btn-focus-outline` |
+| **Size Tokens** | `--btn-size-{size}`        | `--btn-size-xs`, `--btn-size-lg`            |
+| **Variants**    | `--btn-{variant}`          | `--btn-pill`                                |
 
 ### Common Variables Quick Reference
 
@@ -734,27 +732,27 @@ Create reusable button classes for common patterns:
 
 ### From Tailwind CSS
 
-| Tailwind                              | fpkit Button                                                    |
-| ------------------------------------- | --------------------------------------------------------------- |
-| `class="btn btn-primary"`             | `type="submit"` or `style="--btn-bg: blue; --btn-color: white"` |
-| `class="btn-sm"`                      | `data-btn="sm"`                                                 |
-| `class="btn-lg"`                      | `data-btn="lg"`                                                 |
-| `class="rounded-full"`                | `data-btn="pill"`                                               |
-| `class="btn-ghost"`                   | `data-btn="text"`                                               |
-| `class="btn-circle"`                  | `data-btn="icon pill"`                                          |
-| `class="btn-disabled" disabled`       | `disabled` or `aria-disabled="true"`                            |
+| Tailwind                        | fpkit Button                                                    |
+| ------------------------------- | --------------------------------------------------------------- |
+| `class="btn btn-primary"`       | `type="submit"` or `style="--btn-bg: blue; --btn-color: white"` |
+| `class="btn-sm"`                | `data-btn="sm"`                                                 |
+| `class="btn-lg"`                | `data-btn="lg"`                                                 |
+| `class="rounded-full"`          | `data-btn="pill"`                                               |
+| `class="btn-ghost"`             | `data-btn="text"`                                               |
+| `class="btn-circle"`            | `data-btn="icon pill"`                                          |
+| `class="btn-disabled" disabled` | `disabled` or `aria-disabled="true"`                            |
 
 ### From Bootstrap
 
-| Bootstrap                             | fpkit Button                          |
-| ------------------------------------- | ------------------------------------- |
-| `class="btn btn-primary"`             | `type="submit"` or custom `--btn-bg`  |
-| `class="btn btn-secondary"`           | `type="reset"` or custom styling      |
-| `class="btn btn-sm"`                  | `data-btn="sm"`                       |
-| `class="btn btn-lg"`                  | `data-btn="lg"`                       |
-| `class="btn rounded-pill"`            | `data-btn="pill"`                     |
-| `class="btn btn-link"`                | `data-btn="text"`                     |
-| `class="btn" disabled`                | `disabled` or `aria-disabled="true"`  |
+| Bootstrap                   | fpkit Button                         |
+| --------------------------- | ------------------------------------ |
+| `class="btn btn-primary"`   | `type="submit"` or custom `--btn-bg` |
+| `class="btn btn-secondary"` | `type="reset"` or custom styling     |
+| `class="btn btn-sm"`        | `data-btn="sm"`                      |
+| `class="btn btn-lg"`        | `data-btn="lg"`                      |
+| `class="btn rounded-pill"`  | `data-btn="pill"`                    |
+| `class="btn btn-link"`      | `data-btn="text"`                    |
+| `class="btn" disabled`      | `disabled` or `aria-disabled="true"` |
 
 ## Related Resources
 
