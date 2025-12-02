@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.1.0...@fpkit/acss@3.1.1) (2025-12-02)
+
+
+### Bug Fixes
+
+* **fpkit:** resolve ESLint errors and improve code quality ([89eeae9](https://github.com/shawn-sandy/fpkit/commit/89eeae969d1ec56c34e953bd066496550db22dda))
+
+
+
+
+
 # [3.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.0.0...@fpkit/acss@3.1.0) (2025-12-01)
 
 
