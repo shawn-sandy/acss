@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.REACT Components/Badge/STYLES" />
+<Meta title="FP.REACT Components/Badge/Styles" />
 
 # Badge Styles
 
@@ -290,7 +290,9 @@ Large circular badge:
 ```html
 <span>
   Server Status
-  <sup style="--badge-bg: #34a853; --badge-color: white; --badge-radius: 0.25rem">
+  <sup
+    style="--badge-bg: #34a853; --badge-color: white; --badge-radius: 0.25rem"
+  >
     <span>Online</span>
   </sup>
 </span>
@@ -301,7 +303,9 @@ Large circular badge:
 ```html
 <h3>
   Premium Plan
-  <sup style="--badge-bg: gold; --badge-color: #333; --badge-padding: 0.25rem 0.5rem">
+  <sup
+    style="--badge-bg: gold; --badge-color: #333; --badge-padding: 0.25rem 0.5rem"
+  >
     <span>New</span>
   </sup>
 </h3>
@@ -326,7 +330,9 @@ Large circular badge:
 ```html
 <a href="/beta-features">
   Try New Features
-  <sup style="--badge-bg: #9c27b0; --badge-color: white; --badge-radius: 0.375rem">
+  <sup
+    style="--badge-bg: #9c27b0; --badge-color: white; --badge-radius: 0.375rem"
+  >
     <span>Beta</span>
   </sup>
 </a>
@@ -337,7 +343,9 @@ Large circular badge:
 ```html
 <div class="user-profile">
   <span>John Doe</span>
-  <sup style="--badge-bg: #0288d1; --badge-color: white; --badge-padding: 0.2rem 0.4rem">
+  <sup
+    style="--badge-bg: #0288d1; --badge-color: white; --badge-padding: 0.2rem 0.4rem"
+  >
     <span>Admin</span>
   </sup>
 </div>
@@ -364,9 +372,7 @@ Position badge relative to parent:
 
 ```html
 <div style="position: relative; display: inline-block">
-  <button type="button">
-    Profile
-  </button>
+  <button type="button">Profile</button>
   <sup
     data-badge="rounded"
     style="--badge-bg: red; --badge-color: white; position: absolute; top: -0.5rem; right: -0.5rem"
@@ -442,14 +448,14 @@ All badge CSS variables follow the `--badge-{property}` pattern:
 
 ### Property Mapping
 
-| Category       | Variable Pattern       | Example                              |
-| -------------- | ---------------------- | ------------------------------------ |
-| **Colors**     | `--badge-{property}`   | `--badge-bg`, `--badge-color`        |
-| **Shape**      | `--badge-radius`       | `--badge-radius`                     |
-| **Spacing**    | `--badge-{spacing}`    | `--badge-padding`                    |
-| **Position**   | `--badge-vertical-align` | `--badge-vertical-align`           |
-| **Typography** | `--badge-fs`           | `--badge-fs`                         |
-| **Size**       | `--badge-size`         | `--badge-size` (rounded variant)     |
+| Category       | Variable Pattern         | Example                          |
+| -------------- | ------------------------ | -------------------------------- |
+| **Colors**     | `--badge-{property}`     | `--badge-bg`, `--badge-color`    |
+| **Shape**      | `--badge-radius`         | `--badge-radius`                 |
+| **Spacing**    | `--badge-{spacing}`      | `--badge-padding`                |
+| **Position**   | `--badge-vertical-align` | `--badge-vertical-align`         |
+| **Typography** | `--badge-fs`             | `--badge-fs`                     |
+| **Size**       | `--badge-size`           | `--badge-size` (rounded variant) |
 
 ### Common Variables Quick Reference
 
@@ -554,20 +560,20 @@ Prefer classes over inline styles for better maintainability:
 
 ### From Tailwind CSS
 
-| Tailwind                                      | fpkit Badge                              |
-| --------------------------------------------- | ---------------------------------------- |
-| `class="badge badge-primary"`                 | `<sup style="--badge-bg: blue; --badge-color: white"><span>Text</span></sup>` |
-| `class="badge-sm"`                            | `<sup style="--badge-padding: 0.2rem"><span>Text</span></sup>` |
-| `class="badge-lg"`                            | `<sup style="--badge-padding: 0.5rem"><span>Text</span></sup>` |
-| `class="badge-circle"`                        | `<sup data-badge="rounded"><span>5</span></sup>` |
+| Tailwind                      | fpkit Badge                                                                   |
+| ----------------------------- | ----------------------------------------------------------------------------- |
+| `class="badge badge-primary"` | `<sup style="--badge-bg: blue; --badge-color: white"><span>Text</span></sup>` |
+| `class="badge-sm"`            | `<sup style="--badge-padding: 0.2rem"><span>Text</span></sup>`                |
+| `class="badge-lg"`            | `<sup style="--badge-padding: 0.5rem"><span>Text</span></sup>`                |
+| `class="badge-circle"`        | `<sup data-badge="rounded"><span>5</span></sup>`                              |
 
 ### From Bootstrap
 
-| Bootstrap                                     | fpkit Badge                              |
-| --------------------------------------------- | ---------------------------------------- |
-| `<span class="badge bg-primary">`             | `<sup style="--badge-bg: blue; --badge-color: white"><span>Text</span></sup>` |
-| `<span class="badge rounded-pill">`           | `<sup data-badge="rounded"><span>Text</span></sup>` |
-| `<span class="badge bg-success">`             | `<sup style="--badge-bg: green; --badge-color: white"><span>Text</span></sup>` |
+| Bootstrap                           | fpkit Badge                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------ |
+| `<span class="badge bg-primary">`   | `<sup style="--badge-bg: blue; --badge-color: white"><span>Text</span></sup>`  |
+| `<span class="badge rounded-pill">` | `<sup data-badge="rounded"><span>Text</span></sup>`                            |
+| `<span class="badge bg-success">`   | `<sup style="--badge-bg: green; --badge-color: white"><span>Text</span></sup>` |
 
 ## Semantic HTML Considerations
 
