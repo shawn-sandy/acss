@@ -32,9 +32,6 @@ export const useTextToSpeech = (initialVoice?: SpeechSynthesisVoice) => {
 
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false)
   const [isPaused, setIsPaused] = useState<boolean>(false)
-  const [utterance, setUtterance] = useState<SpeechSynthesisUtterance | null>(
-    null,
-  )
 
   useEffect(() => {
     const updateVoices = () => {
@@ -103,12 +100,11 @@ export const useTextToSpeech = (initialVoice?: SpeechSynthesisVoice) => {
 
     if ('speechSynthesis' in window) {
       window.speechSynthesis.speak(utterance)
-      setUtterance(utterance)
       setIsSpeaking(true)
       setIsPaused(false)
     } else {
-      console.error('Speech synthesis not supported')
-      // Handle the error appropriately
+      // Speech synthesis not supported - silently skip
+      setIsSpeaking(false)
     }
   }
 

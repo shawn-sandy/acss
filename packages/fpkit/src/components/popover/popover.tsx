@@ -10,7 +10,7 @@ import usePopover from '#hooks/popover/use-popover'
 export type PopoverProps = {
   children: React.ReactNode
   popoverTrigger: React.ReactNode
-  styles?: {}
+  styles?: React.CSSProperties
 }
 
 export const defaultStyles = {

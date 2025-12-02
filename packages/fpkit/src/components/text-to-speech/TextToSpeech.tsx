@@ -37,7 +37,6 @@ export const TextToSpeech: React.FC<TextToSpeechComponentProps> = ({
   voice,
   pitch = 1,
   rate = 1,
-  language,
   label,
   onEnd,
 }) => {
@@ -48,11 +47,8 @@ export const TextToSpeech: React.FC<TextToSpeechComponentProps> = ({
     cancel,
     isSpeaking,
     isPaused,
-    getAvailableLanguages,
-    availableVoices,
   } = useTextToSpeech()
   const [text, setText] = useState<string>(initialText)
-  console.log(getAvailableLanguages())
 
   useEffect(() => {
     setText(initialText)
