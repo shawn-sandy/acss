@@ -1,4 +1,3 @@
-import FP from '../fp'
 import { ComponentProps } from '../../types'
 
 export interface CBProps extends ComponentProps {

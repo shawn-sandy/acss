@@ -20,13 +20,13 @@ type PropsToOmit<C extends React.ElementType, P> = keyof (AsProp<C> & P)
 
 type PolymorphicComponentProp<
   C extends React.ElementType,
-  Props = {},
+  Props = object,
 > = React.PropsWithChildren<Props & AsProp<C>> &
   Omit<React.ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>
 
 type PolymorphicComponentPropWithRef<
   C extends React.ElementType,
-  Props = {},
+  Props = object,
 > = PolymorphicComponentProp<C, Props> & { ref?: PolymorphicRef<C> }
 
 type TextProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
@@ -36,9 +36,9 @@ type TextProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
 
 type TextComponent = <C extends React.ElementType = 'span'>(
   props: TextProps<C>,
-) => React.ReactElement | any
+) => React.ReactElement | null
 
-export const Text: TextComponent = React.forwardRef(
+const TextRef = React.forwardRef(
   <C extends React.ElementType = 'span'>(
     { as, color, children }: TextProps<C>,
     ref?: PolymorphicRef<C>,
@@ -54,3 +54,7 @@ export const Text: TextComponent = React.forwardRef(
     )
   },
 )
+
+TextRef.displayName = 'Text'
+
+export const Text = TextRef as unknown as TextComponent

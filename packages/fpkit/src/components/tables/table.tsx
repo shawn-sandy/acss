@@ -1,4 +1,4 @@
-import { Table, Caption, Thead, Tbody, Td, Tr } from './table-elements'
+import { Table, Caption, Thead, Tbody, Tr } from './table-elements'
 import { ComponentProps } from '../../types'
 
 import React from 'react'
@@ -24,7 +24,7 @@ export const RenderHead = (data: []) => {
 /**
  * Render the table body `tr`, `td` with the data provided
  */
-export const RenderBody = (data: {}[]) => {
+export const RenderBody = (data: Record<string, unknown>[]) => {
   const rec = data.map((item, index) => {
     return (
       <tr key={index}>
