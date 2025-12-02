@@ -32,5 +32,6 @@ export interface ComponentProps {
   /**
    * Component ref attribute
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref?: React.Ref<any>
 }

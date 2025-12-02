@@ -2,11 +2,6 @@ import { IconProps } from '../types'
 import React from 'react'
 import Svg from './svg'
 
-const defaultStyles = {
-  ...Svg.styles,
-  fill: 'currentColor',
-}
-
 /*
  * ArrowRight icon component.
  *

@@ -28,7 +28,7 @@ export type PopoverProps = {
  *
  * Transforms and opacity animate the popover enter/exit.
  */
-export const Popover = ({ children, ...props }: PopoverProps) => {
+export const Popover = ({ children }: PopoverProps) => {
   const hoverRef = React.useRef(null)
   const popOverRef = React.useRef(null)
   const { isVisible, popoverPosition, handlePointerEvent, handlePointerLeave } =

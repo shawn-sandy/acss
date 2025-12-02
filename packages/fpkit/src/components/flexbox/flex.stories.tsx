@@ -10,7 +10,7 @@ import "./flex.scss";
 const meta: Meta<typeof Flex> = {
   title: "FP.React Components/Layout/Flex",
   component: Flex,
-  tags: ["autodocs", "rc"],
+  tags: ["autodocs", "beta"],
   parameters: {
     docs: {
       description: {
@@ -88,13 +88,31 @@ export const FlexComponent: Story = {
     gap: "md",
     children: (
       <>
-        <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+        <div
+          style={{
+            padding: "1rem",
+            background: "#e3f2fd",
+            borderRadius: "0.25rem",
+          }}
+        >
           Item 1
         </div>
-        <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+        <div
+          style={{
+            padding: "1rem",
+            background: "#bbdefb",
+            borderRadius: "0.25rem",
+          }}
+        >
           Item 2
         </div>
-        <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+        <div
+          style={{
+            padding: "1rem",
+            background: "#90caf9",
+            borderRadius: "0.25rem",
+          }}
+        >
           Item 3
         </div>
       </>
@@ -104,7 +122,8 @@ export const FlexComponent: Story = {
     const canvas = within(canvasElement);
 
     await step("Flex container renders correctly", async () => {
-      const flexContainer = canvas.getByText("Item 1").parentElement?.parentElement;
+      const flexContainer =
+        canvas.getByText("Item 1").parentElement?.parentElement;
       expect(flexContainer).toBeInTheDocument();
       expect(flexContainer).toHaveClass("flex");
     });
@@ -126,41 +145,89 @@ export const FlexWithProps: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       <div>
-        <h4 style={{ marginBottom: "0.5rem" }}>Row direction with space between</h4>
+        <h4 style={{ marginBottom: "0.5rem" }}>
+          Row direction with space between
+        </h4>
         <Flex
           direction="row"
           justify="between"
           align="center"
           gap="md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Left
           </div>
-          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Center
           </div>
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Right
           </div>
         </Flex>
       </div>
 
       <div>
-        <h4 style={{ marginBottom: "0.5rem" }}>Column direction with center alignment</h4>
+        <h4 style={{ marginBottom: "0.5rem" }}>
+          Column direction with center alignment
+        </h4>
         <Flex
           direction="column"
           align="center"
           gap="sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Item 1
           </div>
-          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Item 2
           </div>
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Item 3
           </div>
         </Flex>
@@ -170,7 +237,8 @@ export const FlexWithProps: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Demonstrates different combinations of direction, justify, align, and gap props.",
+        story:
+          "Demonstrates different combinations of direction, justify, align, and gap props.",
       },
     },
   },
@@ -185,7 +253,11 @@ export const FlexResponsive: Story = {
       direction="column"
       gap="sm"
       md={{ direction: "row", gap: "lg", justify: "between" }}
-      style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+      style={{
+        padding: "1rem",
+        border: "2px dashed #ccc",
+        borderRadius: "0.5rem",
+      }}
     >
       <Flex.Item flex="none" md={{ flex: "1" }}>
         <div
@@ -196,7 +268,11 @@ export const FlexResponsive: Story = {
             minHeight: "6rem",
           }}
         >
-          Column on mobile<br />Row on medium+<br />flex="1" on medium+
+          Column on mobile
+          <br />
+          Row on medium+
+          <br />
+          flex="1" on medium+
         </div>
       </Flex.Item>
       <Flex.Item flex="none" md={{ flex: "1" }}>
@@ -248,20 +324,42 @@ export const FlexWithItems: Story = {
         <h4 style={{ marginBottom: "0.5rem" }}>Equal width items (flex="1")</h4>
         <Flex
           gap="md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           <Flex.Item flex="1">
-            <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "1rem",
+                background: "#e3f2fd",
+                borderRadius: "0.25rem",
+              }}
+            >
               flex="1"
             </div>
           </Flex.Item>
           <Flex.Item flex="1">
-            <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "1rem",
+                background: "#bbdefb",
+                borderRadius: "0.25rem",
+              }}
+            >
               flex="1"
             </div>
           </Flex.Item>
           <Flex.Item flex="1">
-            <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "1rem",
+                background: "#90caf9",
+                borderRadius: "0.25rem",
+              }}
+            >
               flex="1"
             </div>
           </Flex.Item>
@@ -269,18 +367,36 @@ export const FlexWithItems: Story = {
       </div>
 
       <div>
-        <h4 style={{ marginBottom: "0.5rem" }}>Mixed sizing (flex="none" + flex="1")</h4>
+        <h4 style={{ marginBottom: "0.5rem" }}>
+          Mixed sizing (flex="none" + flex="1")
+        </h4>
         <Flex
           gap="md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           <Flex.Item flex="none" styles={{ width: "8rem" }}>
-            <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "1rem",
+                background: "#e3f2fd",
+                borderRadius: "0.25rem",
+              }}
+            >
               Fixed 8rem
             </div>
           </Flex.Item>
           <Flex.Item flex="1">
-            <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "1rem",
+                background: "#bbdefb",
+                borderRadius: "0.25rem",
+              }}
+            >
               Fills remaining space
             </div>
           </Flex.Item>
@@ -299,17 +415,35 @@ export const FlexWithItems: Story = {
           }}
         >
           <Flex.Item alignSelf="start">
-            <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#e3f2fd",
+                borderRadius: "0.25rem",
+              }}
+            >
               Start
             </div>
           </Flex.Item>
           <Flex.Item alignSelf="center">
-            <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#bbdefb",
+                borderRadius: "0.25rem",
+              }}
+            >
               Center
             </div>
           </Flex.Item>
           <Flex.Item alignSelf="end">
-            <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#90caf9",
+                borderRadius: "0.25rem",
+              }}
+            >
               End
             </div>
           </Flex.Item>
@@ -337,33 +471,73 @@ export const FlexWithSpacer: Story = {
         <h4 style={{ marginBottom: "0.5rem" }}>Push items to opposite edges</h4>
         <Flex
           gap="md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Left side
           </div>
           <Flex.Spacer />
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Right side
           </div>
         </Flex>
       </div>
 
       <div>
-        <h4 style={{ marginBottom: "0.5rem" }}>Multiple spacers for even distribution</h4>
+        <h4 style={{ marginBottom: "0.5rem" }}>
+          Multiple spacers for even distribution
+        </h4>
         <Flex
           gap="md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Start
           </div>
           <Flex.Spacer />
-          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Middle
           </div>
           <Flex.Spacer />
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             End
           </div>
         </Flex>
@@ -397,7 +571,13 @@ export const FlexVariants: Story = {
             minHeight: "8rem",
           }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Centered both axes
           </div>
         </Flex>
@@ -407,12 +587,28 @@ export const FlexVariants: Story = {
         <h4 style={{ marginBottom: "0.5rem" }}>variant="between"</h4>
         <Flex
           variant="between"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Left
           </div>
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Right
           </div>
         </Flex>
@@ -422,20 +618,43 @@ export const FlexVariants: Story = {
         <h4 style={{ marginBottom: "0.5rem" }}>variant="stack"</h4>
         <Flex
           variant="stack"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Stacked Item 1
           </div>
-          <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Stacked Item 2
           </div>
-          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Stacked Item 3
           </div>
         </Flex>
         <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
-          Stack variant uses column layout by default, becomes row on medium+ screens
+          Stack variant uses column layout by default, becomes row on medium+
+          screens
         </p>
       </div>
 
@@ -444,15 +663,37 @@ export const FlexVariants: Story = {
         <Flex
           variant="spread"
           gap="sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Equal
           </div>
-          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Width
           </div>
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Items
           </div>
         </Flex>
@@ -477,21 +718,49 @@ export const NestedFlex: Story = {
     <Flex
       direction="column"
       gap="md"
-      style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+      style={{
+        padding: "1rem",
+        border: "2px dashed #ccc",
+        borderRadius: "0.5rem",
+      }}
     >
       <Flex justify="between" align="center" gap="md">
-        <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+        <div
+          style={{
+            padding: "0.75rem",
+            background: "#e3f2fd",
+            borderRadius: "0.25rem",
+          }}
+        >
           Header Left
         </div>
         <Flex.Spacer />
         <Flex gap="sm">
-          <div style={{ padding: "0.5rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Nav 1
           </div>
-          <div style={{ padding: "0.5rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Nav 2
           </div>
-          <div style={{ padding: "0.5rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Nav 3
           </div>
         </Flex>
@@ -514,19 +783,41 @@ export const NestedFlex: Story = {
           <Flex
             direction="column"
             gap="md"
-            style={{ padding: "1rem", background: "#f1f8e9", borderRadius: "0.25rem" }}
+            style={{
+              padding: "1rem",
+              background: "#f1f8e9",
+              borderRadius: "0.25rem",
+            }}
           >
-            <div style={{ padding: "0.75rem", background: "#dcedc8", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#dcedc8",
+                borderRadius: "0.25rem",
+              }}
+            >
               Main content area
             </div>
             <Flex gap="sm">
               <Flex.Item flex="1">
-                <div style={{ padding: "0.75rem", background: "#c5e1a5", borderRadius: "0.25rem" }}>
+                <div
+                  style={{
+                    padding: "0.75rem",
+                    background: "#c5e1a5",
+                    borderRadius: "0.25rem",
+                  }}
+                >
                   Column 1
                 </div>
               </Flex.Item>
               <Flex.Item flex="1">
-                <div style={{ padding: "0.75rem", background: "#c5e1a5", borderRadius: "0.25rem" }}>
+                <div
+                  style={{
+                    padding: "0.75rem",
+                    background: "#c5e1a5",
+                    borderRadius: "0.25rem",
+                  }}
+                >
                   Column 2
                 </div>
               </Flex.Item>
@@ -563,13 +854,31 @@ export const CustomStyling: Story = {
         } as React.CSSProperties
       }
     >
-      <div style={{ padding: "1rem", background: "white", borderRadius: "0.25rem" }}>
+      <div
+        style={{
+          padding: "1rem",
+          background: "white",
+          borderRadius: "0.25rem",
+        }}
+      >
         Custom gap via --flex-gap
       </div>
-      <div style={{ padding: "1rem", background: "white", borderRadius: "0.25rem" }}>
+      <div
+        style={{
+          padding: "1rem",
+          background: "white",
+          borderRadius: "0.25rem",
+        }}
+      >
         Custom styles
       </div>
-      <div style={{ padding: "1rem", background: "white", borderRadius: "0.25rem" }}>
+      <div
+        style={{
+          padding: "1rem",
+          background: "white",
+          borderRadius: "0.25rem",
+        }}
+      >
         Via styles prop
       </div>
     </Flex>
@@ -597,15 +906,40 @@ export const PolymorphicFlex: Story = {
           role="navigation"
           aria-label="Main navigation"
           gap="md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <a href="#" style={{ padding: "0.5rem", textDecoration: "none", color: "#1976d2" }}>
+          <a
+            href="#"
+            style={{
+              padding: "0.5rem",
+              textDecoration: "none",
+              color: "#1976d2",
+            }}
+          >
             Home
           </a>
-          <a href="#" style={{ padding: "0.5rem", textDecoration: "none", color: "#1976d2" }}>
+          <a
+            href="#"
+            style={{
+              padding: "0.5rem",
+              textDecoration: "none",
+              color: "#1976d2",
+            }}
+          >
             About
           </a>
-          <a href="#" style={{ padding: "0.5rem", textDecoration: "none", color: "#1976d2" }}>
+          <a
+            href="#"
+            style={{
+              padding: "0.5rem",
+              textDecoration: "none",
+              color: "#1976d2",
+            }}
+          >
             Contact
           </a>
         </Flex>
@@ -617,7 +951,11 @@ export const PolymorphicFlex: Story = {
           as="section"
           direction="column"
           gap="md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           <h3 style={{ margin: 0 }}>Section Title</h3>
           <p style={{ margin: 0 }}>Content in a semantic section element</p>
@@ -646,15 +984,37 @@ export const BasicFlex: Story = {
   render: () => (
     <div
       className="flex"
-      style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+      style={{
+        padding: "1rem",
+        border: "2px dashed #ccc",
+        borderRadius: "0.5rem",
+      }}
     >
-      <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+      <div
+        style={{
+          padding: "1rem",
+          background: "#e3f2fd",
+          borderRadius: "0.25rem",
+        }}
+      >
         Item 1
       </div>
-      <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+      <div
+        style={{
+          padding: "1rem",
+          background: "#bbdefb",
+          borderRadius: "0.25rem",
+        }}
+      >
         Item 2
       </div>
-      <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+      <div
+        style={{
+          padding: "1rem",
+          background: "#90caf9",
+          borderRadius: "0.25rem",
+        }}
+      >
         Item 3
       </div>
     </div>
@@ -662,7 +1022,8 @@ export const BasicFlex: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Basic flex container with default gap. The `.flex` class provides `display: flex` with automatic gap spacing.",
+        story:
+          "Basic flex container with default gap. The `.flex` class provides `display: flex` with automatic gap spacing.",
       },
     },
   },
@@ -678,11 +1039,39 @@ export const FlexDirection: Story = {
         <h3 style={{ marginBottom: "0.5rem" }}>Row (default)</h3>
         <div
           className="flex flex-row gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>1</div>
-          <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>2</div>
-          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>3</div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
+            1
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
+            2
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
+            3
+          </div>
         </div>
       </div>
 
@@ -690,11 +1079,39 @@ export const FlexDirection: Story = {
         <h3 style={{ marginBottom: "0.5rem" }}>Column</h3>
         <div
           className="flex flex-col gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>1</div>
-          <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>2</div>
-          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>3</div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
+            1
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
+            2
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
+            3
+          </div>
         </div>
       </div>
 
@@ -702,11 +1119,39 @@ export const FlexDirection: Story = {
         <h3 style={{ marginBottom: "0.5rem" }}>Row Reverse</h3>
         <div
           className="flex flex-row-reverse gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>1</div>
-          <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>2</div>
-          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>3</div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
+            1
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
+            2
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
+            3
+          </div>
         </div>
       </div>
     </div>
@@ -714,7 +1159,8 @@ export const FlexDirection: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Flex direction utilities: `.flex-row`, `.flex-col`, `.flex-row-reverse`, `.flex-col-reverse`",
+        story:
+          "Flex direction utilities: `.flex-row`, `.flex-col`, `.flex-row-reverse`, `.flex-col-reverse`",
       },
     },
   },
@@ -735,18 +1181,42 @@ export const JustifyContent: Story = {
         { class: "justify-evenly", label: "Space Evenly" },
       ].map(({ class: className, label }) => (
         <div key={className}>
-          <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>{label}</h4>
+          <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>
+            {label}
+          </h4>
           <div
             className={`flex ${className}`}
-            style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+            style={{
+              padding: "1rem",
+              border: "2px dashed #ccc",
+              borderRadius: "0.5rem",
+            }}
           >
-            <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#e3f2fd",
+                borderRadius: "0.25rem",
+              }}
+            >
               A
             </div>
-            <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#bbdefb",
+                borderRadius: "0.25rem",
+              }}
+            >
               B
             </div>
-            <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#90caf9",
+                borderRadius: "0.25rem",
+              }}
+            >
               C
             </div>
           </div>
@@ -778,7 +1248,9 @@ export const AlignItems: Story = {
         { class: "items-baseline", label: "Baseline" },
       ].map(({ class: className, label }) => (
         <div key={className}>
-          <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>{label}</h4>
+          <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>
+            {label}
+          </h4>
           <div
             className={`flex ${className}`}
             style={{
@@ -788,7 +1260,13 @@ export const AlignItems: Story = {
               minHeight: "6rem",
             }}
           >
-            <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#e3f2fd",
+                borderRadius: "0.25rem",
+              }}
+            >
               Small
             </div>
             <div
@@ -801,7 +1279,13 @@ export const AlignItems: Story = {
             >
               Medium
             </div>
-            <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#90caf9",
+                borderRadius: "0.25rem",
+              }}
+            >
               Small
             </div>
           </div>
@@ -834,18 +1318,42 @@ export const GapUtilities: Story = {
         { class: "gap-xl", label: "Extra Large (gap-xl)" },
       ].map(({ class: className, label }) => (
         <div key={className}>
-          <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>{label}</h4>
+          <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>
+            {label}
+          </h4>
           <div
             className={`flex ${className}`}
-            style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+            style={{
+              padding: "1rem",
+              border: "2px dashed #ccc",
+              borderRadius: "0.5rem",
+            }}
           >
-            <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#e3f2fd",
+                borderRadius: "0.25rem",
+              }}
+            >
               Item 1
             </div>
-            <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#bbdefb",
+                borderRadius: "0.25rem",
+              }}
+            >
               Item 2
             </div>
-            <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+            <div
+              style={{
+                padding: "0.75rem",
+                background: "#90caf9",
+                borderRadius: "0.25rem",
+              }}
+            >
               Item 3
             </div>
           </div>
@@ -875,23 +1383,39 @@ export const FlexSizing: Story = {
         </h4>
         <div
           className="flex gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           <div
             className="flex-1"
-            style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
           >
             flex-1
           </div>
           <div
             className="flex-1"
-            style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
           >
             flex-1
           </div>
           <div
             className="flex-1"
-            style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
           >
             flex-1
           </div>
@@ -904,23 +1428,39 @@ export const FlexSizing: Story = {
         </h4>
         <div
           className="flex gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           <div
             className="flex-auto"
-            style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
           >
             Short
           </div>
           <div
             className="flex-auto"
-            style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
           >
             Medium content here
           </div>
           <div
             className="flex-auto"
-            style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
           >
             Longer content that takes more space
           </div>
@@ -933,7 +1473,11 @@ export const FlexSizing: Story = {
         </h4>
         <div
           className="flex gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           <div
             className="flex-none"
@@ -948,7 +1492,11 @@ export const FlexSizing: Story = {
           </div>
           <div
             className="flex-1"
-            style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
           >
             flex-1 fills remaining
           </div>
@@ -985,7 +1533,13 @@ export const CommonPatterns: Story = {
             minHeight: "8rem",
           }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Centered Content
           </div>
         </div>
@@ -997,12 +1551,28 @@ export const CommonPatterns: Story = {
         </h4>
         <div
           className="flex-between"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Left
           </div>
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Right
           </div>
         </div>
@@ -1014,15 +1584,37 @@ export const CommonPatterns: Story = {
         </h4>
         <div
           className="flex-stack"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Item 1
           </div>
-          <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             Item 2
           </div>
-          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Item 3
           </div>
         </div>
@@ -1037,15 +1629,37 @@ export const CommonPatterns: Story = {
         </h4>
         <div
           className="flex-spread gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "0.75rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             A
           </div>
-          <div style={{ padding: "0.75rem", background: "#bbdefb", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
             B
           </div>
-          <div style={{ padding: "0.75rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "0.75rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             C
           </div>
         </div>
@@ -1070,28 +1684,50 @@ export const ResponsiveUtilities: Story = {
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       <div>
         <h3 style={{ marginBottom: "1rem" }}>Responsive Direction</h3>
-        <p style={{ marginBottom: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+        <p
+          style={{
+            marginBottom: "0.5rem",
+            fontSize: "0.875rem",
+            color: "#666",
+          }}
+        >
           Column on mobile, row on medium+ screens
         </p>
         <div
           className="flex flex-col md:flex-row gap-md"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           <div
             className="flex-1"
-            style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
           >
             Column 1
           </div>
           <div
             className="flex-1"
-            style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}
+            style={{
+              padding: "1rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
           >
             Column 2
           </div>
           <div
             className="flex-1"
-            style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
           >
             Column 3
           </div>
@@ -1100,32 +1736,88 @@ export const ResponsiveUtilities: Story = {
 
       <div>
         <h3 style={{ marginBottom: "1rem" }}>Responsive Gaps</h3>
-        <p style={{ marginBottom: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+        <p
+          style={{
+            marginBottom: "0.5rem",
+            fontSize: "0.875rem",
+            color: "#666",
+          }}
+        >
           Small gap on mobile, large gap on medium+ screens
         </p>
         <div
           className="flex gap-sm md:gap-lg"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>1</div>
-          <div style={{ padding: "1rem", background: "#bbdefb", borderRadius: "0.25rem" }}>2</div>
-          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>3</div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
+            1
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#bbdefb",
+              borderRadius: "0.25rem",
+            }}
+          >
+            2
+          </div>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
+            3
+          </div>
         </div>
       </div>
 
       <div>
         <h3 style={{ marginBottom: "1rem" }}>Responsive Justification</h3>
-        <p style={{ marginBottom: "0.5rem", fontSize: "0.875rem", color: "#666" }}>
+        <p
+          style={{
+            marginBottom: "0.5rem",
+            fontSize: "0.875rem",
+            color: "#666",
+          }}
+        >
           Start alignment on mobile, space between on large+ screens
         </p>
         <div
           className="flex justify-start lg:justify-between"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
-          <div style={{ padding: "1rem", background: "#e3f2fd", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#e3f2fd",
+              borderRadius: "0.25rem",
+            }}
+          >
             Left
           </div>
-          <div style={{ padding: "1rem", background: "#90caf9", borderRadius: "0.25rem" }}>
+          <div
+            style={{
+              padding: "1rem",
+              background: "#90caf9",
+              borderRadius: "0.25rem",
+            }}
+          >
             Right
           </div>
         </div>
@@ -1140,9 +1832,9 @@ export const ResponsiveUtilities: Story = {
           marginTop: "1rem",
         }}
       >
-        <strong>💡 Tip:</strong> Resize your browser window or use Storybook&apos;s viewport
-        toolbar to see responsive behavior at different breakpoints (sm: 480px, md: 768px, lg:
-        992px, xl: 1280px).
+        <strong>💡 Tip:</strong> Resize your browser window or use
+        Storybook&apos;s viewport toolbar to see responsive behavior at
+        different breakpoints (sm: 480px, md: 768px, lg: 992px, xl: 1280px).
       </div>
     </div>
   ),
@@ -1175,10 +1867,16 @@ export const FlexWrap: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
       <div>
-        <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>flex-wrap (default)</h4>
+        <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>
+          flex-wrap (default)
+        </h4>
         <div
           className="flex flex-wrap gap-sm"
-          style={{ padding: "1rem", border: "2px dashed #ccc", borderRadius: "0.5rem" }}
+          style={{
+            padding: "1rem",
+            border: "2px dashed #ccc",
+            borderRadius: "0.5rem",
+          }}
         >
           {Array.from({ length: 12 }, (_, i) => (
             <div
@@ -1196,7 +1894,9 @@ export const FlexWrap: Story = {
       </div>
 
       <div>
-        <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>flex-nowrap</h4>
+        <h4 style={{ marginBottom: "0.5rem", fontSize: "0.875rem" }}>
+          flex-nowrap
+        </h4>
         <div
           className="flex flex-nowrap gap-sm"
           style={{
@@ -1226,7 +1926,8 @@ export const FlexWrap: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Flex wrap utilities: `.flex-wrap`, `.flex-nowrap`, `.flex-wrap-reverse`",
+        story:
+          "Flex wrap utilities: `.flex-wrap`, `.flex-nowrap`, `.flex-wrap-reverse`",
       },
     },
   },
