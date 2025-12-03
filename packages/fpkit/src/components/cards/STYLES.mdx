@@ -32,22 +32,23 @@ Root-level variables define the card's overall appearance:
 
 ```css
 :root {
+  /* Semantic Color Tokens (Global) */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f8f9fa;
+  --color-border: #dee2e6;
+  --color-focus: #0066cc;
+
   /* Layout */
-  --card-display: flex;
-  --card-direction: column;
   --card-gap: 1rem; /* 16px */
 
   /* Colors */
-  --card-bg: #fff;
+  --card-bg: var(--color-surface, #ffffff);
 
   /* Spacing */
-  --card-padding: 2rem; /* 32px */
+  --card-padding: 1.5rem; /* 24px */
 
   /* Borders */
-  --card-radius: 0.5rem; /* 8px (calculated as card-padding / 4) */
-
-  /* Position */
-  --card-position: relative;
+  --card-radius: calc(var(--card-padding) / 4); /* 0.375rem */
 
   /* Alignment */
   --card-align: left; /* Text alignment */
@@ -56,13 +57,17 @@ Root-level variables define the card's overall appearance:
 
 ### Header Properties
 
-Variables specific to card headers:
+Variables specific to card headers (now with atomic border properties):
 
 ```css
 :root {
   --card-header-padding: 1rem 1.5rem; /* 16px 24px */
-  --card-header-bg: #f8f9fa;
-  --card-header-border-bottom: 1px solid #dee2e6;
+  --card-header-bg: var(--color-surface-secondary, #f8f9fa);
+
+  /* Border properties (atomic for flexibility) */
+  --card-header-border-bottom-width: 0.0625rem; /* 1px */
+  --card-header-border-bottom-style: solid;
+  --card-header-border-bottom-color: var(--color-border, #dee2e6);
 }
 ```
 
@@ -78,30 +83,52 @@ Variables for card body content:
 
 ### Footer Properties
 
-Variables for card footers:
+Variables for card footers (atomic border properties):
 
 ```css
 :root {
   --card-footer-padding: 1rem 1.5rem; /* 16px 24px */
-  --card-footer-bg: #f8f9fa;
-  --card-footer-border-top: 1px solid #dee2e6;
+  --card-footer-bg: var(--color-surface-secondary, #f8f9fa);
+
+  /* Border properties (atomic for flexibility) */
+  --card-footer-border-top-width: 0.0625rem; /* 1px */
+  --card-footer-border-top-style: solid;
+  --card-footer-border-top-color: var(--color-border, #dee2e6);
 }
 ```
 
 ### Interactive Card Properties
 
-For clickable/interactive cards:
+For clickable/interactive cards (fully customizable):
 
 ```css
 [data-card="interactive"] {
-  /* Focus indicator */
-  --focus-color: #0066cc; /* Focus outline color (3:1 contrast minimum) */
+  /* Transition timing (NEW - now customizable) */
+  --card-transition-duration: 0.2s;
+  --card-transition-timing: ease;
 
-  /* Hover effects (not customizable via variables) */
+  /* Hover effects (NEW - now customizable) */
+  --card-hover-lift: -0.125rem; /* -2px lift on hover */
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+
+  /* Focus indicator */
+  --color-focus: var(--color-focus, #0066cc); /* Uses global focus color */
+
   cursor: pointer;
   transition:
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    box-shadow var(--card-transition-duration) var(--card-transition-timing),
+    transform var(--card-transition-duration) var(--card-transition-timing);
+}
+
+/* Customize animations per card */
+[data-card="interactive"].slow {
+  --card-transition-duration: 0.6s;
+  --card-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-card="interactive"].dramatic {
+  --card-hover-lift: -0.5rem;
+  --card-hover-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
 }
 ```
 
@@ -765,6 +792,36 @@ Prefer `transform` over properties like `top` or `margin`:
 | `class="card-body"`    | `data-card-body`                            |
 | `class="card-footer"`  | `<footer>` or `data-card-footer`            |
 | `class="card-img-top"` | `<img>` as first child (automatic handling) |
+
+## Additional Documentation
+
+### Complete CSS Variables Reference
+
+See [CSS-VARIABLES.md](../../../CSS-VARIABLES.md) for:
+- Complete variable reference for all components
+- Global theme token system
+- Migration guide from px to rem
+- Best practices for CSS variable naming
+- Advanced theming patterns
+
+### Pre-Built Themes
+
+See [theme-examples.css](../../../theme-examples.css) for ready-to-use themes:
+- **Dark Theme** - High contrast dark mode
+- **Ocean Theme** - Cool blue tones
+- **Sunset Theme** - Warm orange/purple
+- **Forest Theme** - Natural greens
+- **Monochrome** - Grayscale design
+- **Midnight** - Deep blue dark mode
+- Plus custom component examples
+
+### Global Typography Styles
+
+See `src/sass/_globals.scss` for:
+- HR (horizontal rule) styling variables
+- Blockquote styling variables
+- Body layout variables
+- Typography system
 
 ## Related Resources
 
