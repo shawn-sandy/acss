@@ -1,0 +1,366 @@
+/**
+ * @fpkit/acss Theme Examples
+ *
+ * This file demonstrates how to create custom themes by overriding
+ * semantic CSS variables. Copy any theme to your :root selector
+ * or scope to specific elements for mixed themes.
+ *
+ * Usage:
+ * 1. Copy desired theme variables to your CSS
+ * 2. Adjust values to match your design system
+ * 3. Override at :root for global theme or scope to specific elements
+ */
+
+/* ============================================================================
+   DEFAULT LIGHT THEME (Built-in)
+   ============================================================================ */
+
+:root {
+  /* Surface colors */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f8f9fa;
+
+  /* Border colors */
+  --color-border: #dee2e6;
+  --color-border-subtle: #d3d3d3;
+
+  /* Interactive states */
+  --color-focus: #0066cc;
+
+  /* Accessibility */
+  --color-skip-link-bg: #f5f5f5;
+}
+
+
+/* ============================================================================
+   DARK THEME
+   High contrast dark mode with accessible colors
+   ============================================================================ */
+
+[data-theme="dark"],
+.theme-dark {
+  /* Surface colors - Dark backgrounds */
+  --color-surface: #1a1a1a;
+  --color-surface-secondary: #2d2d2d;
+
+  /* Border colors - Subtle borders for dark mode */
+  --color-border: #404040;
+  --color-border-subtle: #333333;
+
+  /* Interactive states - Brighter blue for dark backgrounds */
+  --color-focus: #4a9eff;
+
+  /* Accessibility - Dark skip link */
+  --color-skip-link-bg: #2d2d2d;
+
+  /* Card customization for dark mode */
+  --card-bg: var(--color-surface);
+  --card-header-bg: var(--color-surface-secondary);
+  --card-header-border-bottom-color: var(--color-border);
+  --card-footer-bg: var(--color-surface-secondary);
+  --card-footer-border-top-color: var(--color-border);
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(255, 255, 255, 0.1);
+
+  /* Typography adjustments */
+  color: #e5e5e5;
+
+  /* HR adjustments */
+  --hr-border-color: var(--color-border);
+
+  /* Blockquote adjustments */
+  --blockquote-border-color: var(--color-border);
+}
+
+
+/* ============================================================================
+   HIGH CONTRAST THEME (WCAG AAA)
+   Maximum contrast for accessibility
+   ============================================================================ */
+
+[data-theme="high-contrast"],
+.theme-high-contrast {
+  /* Surface colors - Pure black and white */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f0f0f0;
+
+  /* Border colors - Strong borders */
+  --color-border: #000000;
+  --color-border-subtle: #666666;
+
+  /* Interactive states - Strong focus indicator */
+  --color-focus: #0000ff;
+
+  /* Accessibility - High contrast skip link */
+  --color-skip-link-bg: #000000;
+
+  /* Card customization */
+  --card-header-border-bottom-width: 0.125rem; /* 2px - thicker borders */
+  --card-footer-border-top-width: 0.125rem;
+
+  /* Typography - Force black text */
+  color: #000000;
+
+  /* HR - Thicker, darker */
+  --hr-border-width: 0.125rem;
+  --hr-border-color: #000000;
+
+  /* Blockquote - Stronger border */
+  --blockquote-border-width: 0.5rem;
+  --blockquote-border-color: #000000;
+}
+
+
+/* ============================================================================
+   OCEAN THEME
+   Cool blue tones inspired by the ocean
+   ============================================================================ */
+
+[data-theme="ocean"],
+.theme-ocean {
+  /* Surface colors - Blue tints */
+  --color-surface: #f0f8ff;
+  --color-surface-secondary: #e6f3ff;
+
+  /* Border colors - Ocean blues */
+  --color-border: #b3d9ff;
+  --color-border-subtle: #cce6ff;
+
+  /* Interactive states - Deep ocean blue */
+  --color-focus: #0077be;
+
+  /* Accessibility */
+  --color-skip-link-bg: #e6f3ff;
+
+  /* Card hover - Blue shadow */
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(0, 119, 190, 0.2);
+}
+
+
+/* ============================================================================
+   SUNSET THEME
+   Warm orange and purple tones
+   ============================================================================ */
+
+[data-theme="sunset"],
+.theme-sunset {
+  /* Surface colors - Warm tints */
+  --color-surface: #fff5f0;
+  --color-surface-secondary: #ffe8dc;
+
+  /* Border colors - Warm oranges */
+  --color-border: #ffccb3;
+  --color-border-subtle: #ffe0cc;
+
+  /* Interactive states - Deep orange */
+  --color-focus: #ff6b35;
+
+  /* Accessibility */
+  --color-skip-link-bg: #ffe8dc;
+
+  /* Card hover - Warm glow */
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(255, 107, 53, 0.2);
+}
+
+
+/* ============================================================================
+   FOREST THEME
+   Natural green tones
+   ============================================================================ */
+
+[data-theme="forest"],
+.theme-forest {
+  /* Surface colors - Natural greens */
+  --color-surface: #f5faf5;
+  --color-surface-secondary: #e8f5e8;
+
+  /* Border colors - Forest greens */
+  --color-border: #c8e6c8;
+  --color-border-subtle: #d9f0d9;
+
+  /* Interactive states - Deep forest green */
+  --color-focus: #2d7a2d;
+
+  /* Accessibility */
+  --color-skip-link-bg: #e8f5e8;
+
+  /* Card hover - Green shadow */
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(45, 122, 45, 0.15);
+}
+
+
+/* ============================================================================
+   MONOCHROME THEME
+   Grayscale design
+   ============================================================================ */
+
+[data-theme="monochrome"],
+.theme-monochrome {
+  /* Surface colors - Pure grayscale */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f5f5f5;
+
+  /* Border colors - Gray scale */
+  --color-border: #cccccc;
+  --color-border-subtle: #e0e0e0;
+
+  /* Interactive states - Dark gray */
+  --color-focus: #333333;
+
+  /* Accessibility */
+  --color-skip-link-bg: #f5f5f5;
+
+  /* Card hover - Gray shadow */
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+
+  /* Typography - Pure black */
+  color: #000000;
+}
+
+
+/* ============================================================================
+   MIDNIGHT THEME
+   Deep blue dark mode
+   ============================================================================ */
+
+[data-theme="midnight"],
+.theme-midnight {
+  /* Surface colors - Deep blues */
+  --color-surface: #0f1419;
+  --color-surface-secondary: #1c2733;
+
+  /* Border colors - Blue-gray borders */
+  --color-border: #2d3748;
+  --color-border-subtle: #252e3a;
+
+  /* Interactive states - Bright cyan */
+  --color-focus: #00d4ff;
+
+  /* Accessibility */
+  --color-skip-link-bg: #1c2733;
+
+  /* Card customization */
+  --card-bg: var(--color-surface);
+  --card-header-bg: var(--color-surface-secondary);
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(0, 212, 255, 0.2);
+
+  /* Typography - Light blue-gray */
+  color: #cbd5e0;
+}
+
+
+/* ============================================================================
+   CUSTOM COMPONENT EXAMPLES
+   Override specific components without changing global theme
+   ============================================================================ */
+
+/* Example: Gradient Card */
+.card-gradient {
+  --card-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-header-bg: transparent;
+  --card-header-border-bottom-color: rgba(255, 255, 255, 0.2);
+  --card-footer-bg: transparent;
+  --card-footer-border-top-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Example: Glass Morphism Card */
+.card-glass {
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --card-header-bg: rgba(255, 255, 255, 0.05);
+  --card-header-border-bottom-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+}
+
+/* Example: Slow, Smooth Animations */
+.card-smooth {
+  --card-transition-duration: 0.6s;
+  --card-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --card-hover-lift: -0.5rem;
+}
+
+/* Example: Bouncy Animations */
+.card-bouncy {
+  --card-transition-duration: 0.4s;
+  --card-transition-timing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --card-hover-lift: -0.25rem;
+}
+
+/* Example: Thick Blockquote */
+.blockquote-thick {
+  --blockquote-border-width: 0.5rem;
+  --blockquote-border-color: #667eea;
+  --blockquote-padding: 1.5rem;
+}
+
+/* Example: Minimal HR */
+.hr-minimal {
+  --hr-border-width: 0.0625rem;
+  --hr-border-color: var(--color-border-subtle);
+  --hr-margin-block: 3rem;
+}
+
+
+/* ============================================================================
+   RESPONSIVE THEME SWITCHING
+   Auto-switch themes based on system preferences
+   ============================================================================ */
+
+/* Automatically use dark theme when user prefers dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* Apply dark theme variables */
+    --color-surface: #1a1a1a;
+    --color-surface-secondary: #2d2d2d;
+    --color-border: #404040;
+    --color-border-subtle: #333333;
+    --color-focus: #4a9eff;
+    --color-skip-link-bg: #2d2d2d;
+
+    color: #e5e5e5;
+  }
+}
+
+/* Use high contrast when user prefers increased contrast */
+@media (prefers-contrast: more) {
+  :root:not([data-theme]) {
+    --color-border: #000000;
+    --color-border-subtle: #666666;
+    --hr-border-width: 0.125rem;
+    --blockquote-border-width: 0.5rem;
+  }
+}
+
+
+/* ============================================================================
+   USAGE EXAMPLES IN HTML
+   ============================================================================
+
+   Global Theme:
+   <html data-theme="dark">
+     <!-- All elements use dark theme -->
+   </html>
+
+   Scoped Theme:
+   <div data-theme="ocean">
+     <!-- Only this section uses ocean theme -->
+   </div>
+
+   Component-Level Customization:
+   <div data-card class="card-gradient card-smooth">
+     <!-- Custom gradient with smooth animations -->
+   </div>
+
+   Mixed Themes:
+   <html data-theme="dark">
+     <section data-theme="ocean">
+       <!-- Ocean theme inside dark theme -->
+     </section>
+   </html>
+
+   CSS Override:
+   <div data-card style="--card-bg: #ff6b35; --card-hover-lift: -0.5rem;">
+     <!-- Inline variable overrides -->
+   </div>
+
+   ============================================================================ */

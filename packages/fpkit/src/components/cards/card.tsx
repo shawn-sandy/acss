@@ -5,6 +5,7 @@ import type {
   CardTitleProps,
   CardContentProps,
   CardFooterProps,
+  CardComponent,
 } from './card.types'
 import { cn, CARD_CLASSES, handleCardKeyDown, warnInteractiveUsage } from './card.utils'
 
@@ -218,7 +219,7 @@ Footer.displayName = 'Card.Footer'
  * </Card>
  * ```
  */
-export const Card = ({
+const CardRoot = ({
   as = 'div',
   styles,
   children,
@@ -275,11 +276,20 @@ export const Card = ({
   )
 }
 
-export default Card
+// Create compound component with proper TypeScript typing
+export const Card = CardRoot as CardComponent
 Card.displayName = 'Card'
 Card.Title = Title
 Card.Content = Content
 Card.Footer = Footer
 
+export default Card
+
 // Export types for external consumption
-export type { CardProps, CardTitleProps, CardContentProps, CardFooterProps } from './card.types'
+export type {
+  CardProps,
+  CardTitleProps,
+  CardContentProps,
+  CardFooterProps,
+  CardComponent,
+} from './card.types'
