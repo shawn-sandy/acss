@@ -1,0 +1,414 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as StackStories from './stack.stories';
+
+<Meta of={StackStories} title="Styles/Stack" />
+
+# Stack Component - CSS Custom Properties
+
+Complete reference for CSS custom properties and utility classes used by the Stack component.
+
+## Overview
+
+Stack uses CSS custom properties from the unified spacing scale for gap values, plus utility classes for flexbox layout control. All spacing values use `clamp()` for fluid responsive scaling.
+
+## Spacing Scale Variables
+
+Stack shares the unified spacing scale with Box, Cluster, and Grid components.
+
+| Variable | Value | Responsive Range | Use Case |
+|----------|-------|------------------|----------|
+| `--spacing-0` | `0` | - | No gap |
+| `--spacing-xs` | `clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem)` | 4-8px | Tight spacing (compact lists) |
+| `--spacing-sm` | `clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem)` | 8-12px | Small spacing (button groups) |
+| `--spacing-md` | `clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem)` | 12-18px | Medium spacing (content sections) |
+| `--spacing-lg` | `clamp(1rem, 0.85rem + 0.6vw, 1.5rem)` | 16-24px | Large spacing (major sections) |
+| `--spacing-xl` | `clamp(1.5rem, 1.25rem + 0.75vw, 2rem)` | 24-32px | Extra large spacing (page sections) |
+
+## Generated Utility Classes
+
+Stack generates utility classes from props for zero-runtime performance.
+
+### Base Stack Class
+
+```css
+.stack {
+  display: flex;
+  flex-direction: column; /* Default vertical */
+}
+```
+
+### Direction Classes
+
+```css
+.stack-vertical {
+  flex-direction: column;
+}
+
+.stack-horizontal {
+  flex-direction: row;
+}
+```
+
+**Usage:**
+```tsx
+<Stack direction="horizontal" gap="sm">
+  <Button>Cancel</Button>
+  <Button>Submit</Button>
+</Stack>
+```
+
+### Gap Classes
+
+```css
+.stack-gap-0 { gap: 0; }
+.stack-gap-xs { gap: var(--spacing-xs); }
+.stack-gap-sm { gap: var(--spacing-sm); }
+.stack-gap-md { gap: var(--spacing-md); }
+.stack-gap-lg { gap: var(--spacing-lg); }
+.stack-gap-xl { gap: var(--spacing-xl); }
+```
+
+**Usage:**
+```tsx
+<Stack gap="lg">
+  <Section />
+  <Section />
+</Stack>
+```
+
+### Align Classes (Cross-Axis)
+
+```css
+.stack-align-start { align-items: flex-start; }
+.stack-align-center { align-items: center; }
+.stack-align-end { align-items: flex-end; }
+.stack-align-stretch { align-items: stretch; }
+```
+
+**Usage:**
+```tsx
+<Stack direction="horizontal" align="center" gap="sm">
+  <Icon />
+  <span>Centered with icon</span>
+</Stack>
+```
+
+### Justify Classes (Main-Axis)
+
+```css
+.stack-justify-start { justify-content: flex-start; }
+.stack-justify-center { justify-content: center; }
+.stack-justify-end { justify-content: flex-end; }
+.stack-justify-between { justify-content: space-between; }
+```
+
+**Usage:**
+```tsx
+<Stack justify="between" style={{ minHeight: '100vh' }}>
+  <Header />
+  <Main />
+  <Footer />
+</Stack>
+```
+
+### Wrap Classes
+
+```css
+.stack-wrap { flex-wrap: wrap; }
+.stack-nowrap { flex-wrap: nowrap; }
+```
+
+**Usage:**
+```tsx
+<Stack direction="horizontal" wrap="wrap" gap="md">
+  {items.map(item => <Card key={item.id} />)}
+</Stack>
+```
+
+## Customization Examples
+
+### Global Theme Override
+
+Override spacing scale globally:
+
+```css
+:root {
+  /* Tighter spacing */
+  --spacing-xs: 0.125rem;
+  --spacing-sm: 0.25rem;
+  --spacing-md: 0.5rem;
+  --spacing-lg: 0.75rem;
+  --spacing-xl: 1rem;
+}
+```
+
+### Component-Level Override
+
+Override spacing on specific Stack:
+
+```tsx
+<Stack
+  gap="lg"
+  styles={{
+    '--spacing-lg': '3rem' // Custom large gap
+  } as React.CSSProperties}
+>
+  <Section />
+  <Section />
+</Stack>
+```
+
+### Context-Based Theming
+
+Create theme contexts:
+
+```css
+/* Compact theme */
+.theme-compact {
+  --spacing-xs: 0.125rem;
+  --spacing-sm: 0.25rem;
+  --spacing-md: 0.5rem;
+  --spacing-lg: 0.75rem;
+  --spacing-xl: 1rem;
+}
+
+/* Spacious theme */
+.theme-spacious {
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1.25rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+}
+```
+
+```tsx
+<div className="theme-compact">
+  <Stack gap="lg">
+    {/* Uses compact spacing values */}
+  </Stack>
+</div>
+```
+
+### Responsive Custom Values
+
+Combine with media queries:
+
+```css
+@media (min-width: 48rem) { /* 768px */
+  :root {
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+  }
+}
+
+@media (min-width: 80rem) { /* 1280px */
+  :root {
+    --spacing-xl: 4rem;
+  }
+}
+```
+
+## Advanced Customization
+
+### Custom Gap Values
+
+Add custom spacing tokens:
+
+```css
+:root {
+  --spacing-xxs: 0.125rem;  /* 2px */
+  --spacing-xxl: 3rem;      /* 48px */
+  --spacing-jumbo: 5rem;    /* 80px */
+}
+```
+
+Then override Stack classes:
+
+```css
+.stack-gap-custom {
+  gap: var(--spacing-jumbo);
+}
+```
+
+### Animated Transitions
+
+Animate gap changes:
+
+```css
+.stack-animated {
+  transition: gap 0.3s ease;
+}
+
+.stack-animated:hover {
+  --spacing-md: 1.5rem;
+}
+```
+
+```tsx
+<Stack gap="md" className="stack-animated">
+  <Item />
+  <Item />
+</Stack>
+```
+
+### Dark Mode Adjustments
+
+Adjust spacing for dark mode:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Slightly larger gaps for better readability */
+    --spacing-md: 1rem;
+    --spacing-lg: 1.75rem;
+    --spacing-xl: 2.5rem;
+  }
+}
+```
+
+## Class Combination Examples
+
+Stack applies multiple utility classes based on props:
+
+```tsx
+// Generates: .stack .stack-horizontal .stack-gap-lg .stack-align-center .stack-justify-between
+<Stack
+  direction="horizontal"
+  gap="lg"
+  align="center"
+  justify="between"
+>
+  Content
+</Stack>
+```
+
+```tsx
+// Generates: .stack .stack-vertical .stack-gap-md .stack-wrap
+<Stack
+  direction="vertical"
+  gap="md"
+  wrap="wrap"
+>
+  Content
+</Stack>
+```
+
+## Performance Considerations
+
+### CSS Variable Performance
+- Variables inherit through DOM tree (O(1) lookup)
+- Changing variables triggers repaint, not reflow (faster)
+- Minimal memory overhead vs inline styles
+
+### Utility Class Benefits
+- Zero runtime JavaScript
+- Classes generated at build time
+- Browser can optimize class-based styles
+- Tree-shakeable in production builds
+
+## Browser Compatibility
+
+### CSS Flexbox
+- **Supported**: All modern browsers (IE 11+ with prefixes)
+- **Fallback**: Not needed for modern browsers
+
+### CSS Custom Properties
+- **Supported**: Chrome 49+, Firefox 31+, Safari 9.1+, Edge 15+
+- **Fallback**: Use PostCSS custom properties plugin
+
+### CSS Gap Property
+- **Supported**: Chrome 84+, Firefox 63+, Safari 14.1+, Edge 84+
+- **Fallback**: For older browsers, use margin on children (less ideal)
+
+### CSS clamp()
+- **Supported**: Chrome 79+, Firefox 75+, Safari 13.1+, Edge 79+
+- **Fallback**: Use media queries with fixed rem values
+
+## Debugging CSS Variables
+
+Inspect values in browser DevTools:
+
+```javascript
+// Get computed gap value
+const stack = document.querySelector('.stack-gap-md');
+const gapValue = getComputedStyle(stack).getPropertyValue('--spacing-md');
+console.log(gapValue); // "clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem)"
+
+// Override programmatically
+stack.style.setProperty('--spacing-md', '2rem');
+```
+
+## Common Patterns
+
+### Card Grid with Responsive Gap
+
+```tsx
+<Stack gap="lg" styles={{
+  '--spacing-lg': 'clamp(1rem, 2vw, 2rem)'
+} as React.CSSProperties}>
+  <Card />
+  <Card />
+</Stack>
+```
+
+### Nested Stacks with Different Gaps
+
+```tsx
+<Stack gap="xl">
+  <Stack gap="sm">
+    <h3>Tight spacing group</h3>
+    <p>Item 1</p>
+    <p>Item 2</p>
+  </Stack>
+  <Stack gap="sm">
+    <h3>Another tight group</h3>
+    <p>Item 1</p>
+    <p>Item 2</p>
+  </Stack>
+</Stack>
+```
+
+### Responsive Direction
+
+Use inline styles for responsive direction:
+
+```tsx
+<Stack
+  direction="vertical"
+  gap="md"
+  styles={{
+    '@media (min-width: 768px)': {
+      flexDirection: 'row'
+    }
+  }}
+>
+  <Item />
+  <Item />
+</Stack>
+```
+
+Or use CSS:
+
+```css
+@media (min-width: 48rem) {
+  .stack-responsive {
+    flex-direction: row;
+  }
+}
+```
+
+```tsx
+<Stack className="stack-responsive" gap="md">
+  <Item />
+  <Item />
+</Stack>
+```
+
+## Related Documentation
+
+- [Stack Component README](./README.mdx)
+- [Box Component STYLES](../box/STYLES.mdx)
+- [CSS Flexbox (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout)
+- [CSS Custom Properties (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
+- [CSS Gap Property (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)

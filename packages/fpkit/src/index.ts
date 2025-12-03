@@ -82,18 +82,22 @@ export { TextToSpeech } from "./components/text-to-speech/TextToSpeech";
 /**
  * Layout Components
  *
- * Semantic HTML5 landmark elements and flexbox utilities for page structure.
+ * Semantic HTML5 landmark elements and layout primitives for page structure.
  *
  * Components include:
  * - **Landmarks**: Header, Main, Footer, Aside (semantic page regions)
+ * - **Box**: General-purpose container with spacing/sizing controls
+ * - **Stack**: Simplified vertical/horizontal layouts with gap spacing
+ * - **Cluster**: Wrapping flex layout for inline groups (tags, buttons)
  * - **Flex**: Flexbox container with responsive utilities and type-safe props
  *
  * Landmarks provide proper ARIA roles and improve screen reader navigation.
- * Flex component offers a polymorphic, type-safe API for flexible layouts.
+ * Layout primitives offer polymorphic, type-safe APIs for flexible layouts with
+ * unified spacing scales and CSS custom properties for theming.
  *
  * @example
  * ```tsx
- * import { Header, Main, Footer, Flex } from '@fpkit/acss';
+ * import { Header, Main, Footer, Box, Flex } from '@fpkit/acss';
  *
  * <Header>
  *   <Flex justify="space-between" align="center">
@@ -102,17 +106,22 @@ export { TextToSpeech } from "./components/text-to-speech/TextToSpeech";
  *   </Flex>
  * </Header>
  * <Main>
- *   <Flex direction="column" gap="lg">
+ *   <Box padding="lg" maxWidth="container" style={{ marginInline: 'auto' }}>
  *     <Article />
- *   </Flex>
+ *   </Box>
  * </Main>
  * <Footer />
  * ```
  *
  * @see {@link ./components/layout/landmarks} Landmark Components
+ * @see {@link ./components/box/box} Box Component
  * @see {@link ./components/flexbox/flex} Flex Component
  */
 export * from "./components/layout/landmarks";
+export { Box, type BoxProps } from "./components/box/box";
+export { Stack, type StackProps } from "./components/stack/stack";
+export { Cluster, type ClusterProps } from "./components/cluster/cluster";
+export { default as Grid, GridItem, type GridProps, type GridItemProps } from "./components/grid/grid";
 export { default as Flex } from "./components/flexbox/flex";
 export type {
   FlexProps,
@@ -309,7 +318,6 @@ export * from "./components/breadcrumbs/breadcrumb";
  */
 export { default as To } from "./components/link/link";
 export { default as FP } from "./components/fp";
-export { default as Box } from "./components/ui";
 export { default as UI } from "./components/ui";
 
 /**

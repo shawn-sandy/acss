@@ -265,6 +265,24 @@ svg[role=img] {
   --min-w: 20rem;
   --border-radius: 0.25rem;
   --padding: 1.5rem;
+  --spacing-0: 0;
+  --spacing-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem); /* 4-8px */
+  --spacing-sm: clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem); /* 8-12px */
+  --spacing-md: clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem); /* 12-18px */
+  --spacing-lg: clamp(1rem, 0.85rem + 0.6vw, 1.5rem); /* 16-24px */
+  --spacing-xl: clamp(1.5rem, 1.25rem + 0.75vw, 2rem); /* 24-32px */
+  --box-max-width-xs: 30rem; /* 480px */
+  --box-max-width-sm: 40rem; /* 640px */
+  --box-max-width-md: 48rem; /* 768px */
+  --box-max-width-lg: 64rem; /* 1024px */
+  --box-max-width-xl: 80rem; /* 1280px */
+  --box-max-width-container: 75rem; /* 1200px */
+  --box-radius-xs: 0.125rem; /* 2px */
+  --box-radius-sm: 0.25rem; /* 4px */
+  --box-radius-md: 0.375rem; /* 6px */
+  --box-radius-lg: 0.5rem; /* 8px */
+  --box-radius-xl: 0.75rem; /* 12px */
+  --box-radius-full: 9999px;
 }
 
 html {
@@ -1306,6 +1324,617 @@ footer > div {
   justify-content: center;
   min-height: 5rem;
   text-align: center;
+}
+
+/**
+ * Box Component Styles
+ *
+ * Utility classes for the Box layout primitive.
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+.box-padding-0 {
+  padding: 0;
+}
+
+.box-padding-xs {
+  padding: var(--spacing-xs);
+}
+
+.box-padding-sm {
+  padding: var(--spacing-sm);
+}
+
+.box-padding-md {
+  padding: var(--spacing-md);
+}
+
+.box-padding-lg {
+  padding: var(--spacing-lg);
+}
+
+.box-padding-xl {
+  padding: var(--spacing-xl);
+}
+
+.box-padding-inline-0 {
+  padding-inline: 0;
+}
+
+.box-padding-inline-xs {
+  padding-inline: var(--spacing-xs);
+}
+
+.box-padding-inline-sm {
+  padding-inline: var(--spacing-sm);
+}
+
+.box-padding-inline-md {
+  padding-inline: var(--spacing-md);
+}
+
+.box-padding-inline-lg {
+  padding-inline: var(--spacing-lg);
+}
+
+.box-padding-inline-xl {
+  padding-inline: var(--spacing-xl);
+}
+
+.box-padding-block-0 {
+  padding-block: 0;
+}
+
+.box-padding-block-xs {
+  padding-block: var(--spacing-xs);
+}
+
+.box-padding-block-sm {
+  padding-block: var(--spacing-sm);
+}
+
+.box-padding-block-md {
+  padding-block: var(--spacing-md);
+}
+
+.box-padding-block-lg {
+  padding-block: var(--spacing-lg);
+}
+
+.box-padding-block-xl {
+  padding-block: var(--spacing-xl);
+}
+
+.box-margin-0 {
+  margin: 0;
+}
+
+.box-margin-xs {
+  margin: var(--spacing-xs);
+}
+
+.box-margin-sm {
+  margin: var(--spacing-sm);
+}
+
+.box-margin-md {
+  margin: var(--spacing-md);
+}
+
+.box-margin-lg {
+  margin: var(--spacing-lg);
+}
+
+.box-margin-xl {
+  margin: var(--spacing-xl);
+}
+
+.box-margin-inline-0 {
+  margin-inline: 0;
+}
+
+.box-margin-inline-xs {
+  margin-inline: var(--spacing-xs);
+}
+
+.box-margin-inline-sm {
+  margin-inline: var(--spacing-sm);
+}
+
+.box-margin-inline-md {
+  margin-inline: var(--spacing-md);
+}
+
+.box-margin-inline-lg {
+  margin-inline: var(--spacing-lg);
+}
+
+.box-margin-inline-xl {
+  margin-inline: var(--spacing-xl);
+}
+
+.box-margin-block-0 {
+  margin-block: 0;
+}
+
+.box-margin-block-xs {
+  margin-block: var(--spacing-xs);
+}
+
+.box-margin-block-sm {
+  margin-block: var(--spacing-sm);
+}
+
+.box-margin-block-md {
+  margin-block: var(--spacing-md);
+}
+
+.box-margin-block-lg {
+  margin-block: var(--spacing-lg);
+}
+
+.box-margin-block-xl {
+  margin-block: var(--spacing-xl);
+}
+
+.box-width-auto {
+  width: auto;
+}
+
+.box-width-full {
+  width: 100%;
+}
+
+.box-width-fit {
+  width: fit-content;
+}
+
+.box-width-max {
+  width: max-content;
+}
+
+.box-max-width-xs {
+  max-width: var(--box-max-width-xs);
+}
+
+.box-max-width-sm {
+  max-width: var(--box-max-width-sm);
+}
+
+.box-max-width-md {
+  max-width: var(--box-max-width-md);
+}
+
+.box-max-width-lg {
+  max-width: var(--box-max-width-lg);
+}
+
+.box-max-width-xl {
+  max-width: var(--box-max-width-xl);
+}
+
+.box-max-width-container {
+  max-width: var(--box-max-width-container);
+}
+
+.box-radius-0 {
+  border-radius: 0;
+}
+
+.box-radius-xs {
+  border-radius: var(--box-radius-xs);
+}
+
+.box-radius-sm {
+  border-radius: var(--box-radius-sm);
+}
+
+.box-radius-md {
+  border-radius: var(--box-radius-md);
+}
+
+.box-radius-lg {
+  border-radius: var(--box-radius-lg);
+}
+
+.box-radius-xl {
+  border-radius: var(--box-radius-xl);
+}
+
+.box-radius-full {
+  border-radius: var(--box-radius-full);
+}
+
+/**
+ * Stack Component Styles
+ *
+ * Utility classes for the Stack layout primitive.
+ * Provides flexbox-based vertical/horizontal layouts with gap spacing.
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack-vertical {
+  flex-direction: column;
+}
+
+.stack-horizontal {
+  flex-direction: row;
+}
+
+.stack-gap-0 {
+  gap: 0;
+}
+
+.stack-gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.stack-gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.stack-gap-md {
+  gap: var(--spacing-md);
+}
+
+.stack-gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.stack-gap-xl {
+  gap: var(--spacing-xl);
+}
+
+.stack-align-start {
+  align-items: flex-start;
+}
+
+.stack-align-center {
+  align-items: center;
+}
+
+.stack-align-end {
+  align-items: flex-end;
+}
+
+.stack-align-stretch {
+  align-items: stretch;
+}
+
+.stack-justify-start {
+  justify-content: flex-start;
+}
+
+.stack-justify-center {
+  justify-content: center;
+}
+
+.stack-justify-end {
+  justify-content: flex-end;
+}
+
+.stack-justify-between {
+  justify-content: space-between;
+}
+
+.stack-wrap {
+  flex-wrap: wrap;
+}
+
+.stack-nowrap {
+  flex-wrap: nowrap;
+}
+
+/**
+ * Cluster Component Styles
+ *
+ * Utility classes for the Cluster layout primitive.
+ * Provides wrapping flex layout for inline groups (tags, badges, buttons).
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.cluster-gap-0 {
+  gap: 0;
+}
+
+.cluster-gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.cluster-gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.cluster-gap-md {
+  gap: var(--spacing-md);
+}
+
+.cluster-gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.cluster-gap-xl {
+  gap: var(--spacing-xl);
+}
+
+.cluster-justify-start {
+  justify-content: flex-start;
+}
+
+.cluster-justify-center {
+  justify-content: center;
+}
+
+.cluster-justify-end {
+  justify-content: flex-end;
+}
+
+.cluster-justify-between {
+  justify-content: space-between;
+}
+
+.cluster-align-start {
+  align-items: flex-start;
+}
+
+.cluster-align-center {
+  align-items: center;
+}
+
+.cluster-align-end {
+  align-items: flex-end;
+}
+
+.cluster-align-baseline {
+  align-items: baseline;
+}
+
+/**
+ * Grid Component Styles
+ *
+ * Utility classes for the Grid layout primitive and Grid.Item sub-component.
+ * Provides CSS Grid-based layouts with responsive columns, gap spacing, and alignment.
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.grid-cols-7 {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.grid-cols-8 {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.grid-cols-9 {
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.grid-cols-10 {
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.grid-cols-11 {
+  grid-template-columns: repeat(11, 1fr);
+}
+
+.grid-cols-12 {
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.grid-gap-0 {
+  gap: 0;
+}
+
+.grid-gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.grid-gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.grid-gap-md {
+  gap: var(--spacing-md);
+}
+
+.grid-gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.grid-gap-xl {
+  gap: var(--spacing-xl);
+}
+
+.grid-gap-x-0 {
+  column-gap: 0;
+}
+
+.grid-gap-x-xs {
+  column-gap: var(--spacing-xs);
+}
+
+.grid-gap-x-sm {
+  column-gap: var(--spacing-sm);
+}
+
+.grid-gap-x-md {
+  column-gap: var(--spacing-md);
+}
+
+.grid-gap-x-lg {
+  column-gap: var(--spacing-lg);
+}
+
+.grid-gap-x-xl {
+  column-gap: var(--spacing-xl);
+}
+
+.grid-gap-y-0 {
+  row-gap: 0;
+}
+
+.grid-gap-y-xs {
+  row-gap: var(--spacing-xs);
+}
+
+.grid-gap-y-sm {
+  row-gap: var(--spacing-sm);
+}
+
+.grid-gap-y-md {
+  row-gap: var(--spacing-md);
+}
+
+.grid-gap-y-lg {
+  row-gap: var(--spacing-lg);
+}
+
+.grid-gap-y-xl {
+  row-gap: var(--spacing-xl);
+}
+
+.grid-justify-items-start {
+  justify-items: start;
+}
+
+.grid-justify-items-center {
+  justify-items: center;
+}
+
+.grid-justify-items-end {
+  justify-items: end;
+}
+
+.grid-justify-items-stretch {
+  justify-items: stretch;
+}
+
+.grid-align-items-start {
+  align-items: start;
+}
+
+.grid-align-items-center {
+  align-items: center;
+}
+
+.grid-align-items-end {
+  align-items: end;
+}
+
+.grid-align-items-stretch {
+  align-items: stretch;
+}
+
+.grid-col-span-1 {
+  grid-column: span 1;
+}
+
+.grid-col-span-2 {
+  grid-column: span 2;
+}
+
+.grid-col-span-3 {
+  grid-column: span 3;
+}
+
+.grid-col-span-4 {
+  grid-column: span 4;
+}
+
+.grid-col-span-5 {
+  grid-column: span 5;
+}
+
+.grid-col-span-6 {
+  grid-column: span 6;
+}
+
+.grid-col-span-7 {
+  grid-column: span 7;
+}
+
+.grid-col-span-8 {
+  grid-column: span 8;
+}
+
+.grid-col-span-9 {
+  grid-column: span 9;
+}
+
+.grid-col-span-10 {
+  grid-column: span 10;
+}
+
+.grid-col-span-11 {
+  grid-column: span 11;
+}
+
+.grid-col-span-12 {
+  grid-column: span 12;
+}
+
+.grid-row-span-1 {
+  grid-row: span 1;
+}
+
+.grid-row-span-2 {
+  grid-row: span 2;
+}
+
+.grid-row-span-3 {
+  grid-row: span 3;
+}
+
+.grid-row-span-4 {
+  grid-row: span 4;
+}
+
+.grid-row-span-5 {
+  grid-row: span 5;
+}
+
+.grid-row-span-6 {
+  grid-row: span 6;
 }
 
 :root {

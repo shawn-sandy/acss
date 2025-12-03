@@ -1,0 +1,401 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as BoxStories from './box.stories';
+
+<Meta of={BoxStories} />
+
+# Box Component
+
+A fundamental container primitive for spacing and sizing control.
+
+## Overview
+
+The Box component is the foundational layout primitive in fpkit, providing a flexible, semantic container with comprehensive control over spacing (padding/margin), sizing, and visual appearance. It uses utility classes generated from props, ensuring consistent styling across your application.
+
+## Features
+
+- **Unified Spacing Scale**: Fluid responsive spacing using CSS `clamp()` for automatic adaptation across viewports
+- **Logical Properties**: Uses `padding-inline`/`padding-block` for better internationalization support
+- **Polymorphic Rendering**: Render as any semantic HTML element via the `as` prop
+- **CSS Custom Properties**: All values customizable for theming
+- **Type-Safe**: Full TypeScript support with IntelliSense
+- **Zero Runtime**: Utility classes compiled at build time
+
+## Installation
+
+```bash
+npm install @fpkit/acss
+```
+
+## Basic Usage
+
+```tsx
+import { Box } from '@fpkit/acss';
+import '@fpkit/acss/styles';
+
+function App() {
+  return (
+    <Box padding="md">
+      <h1>Content</h1>
+    </Box>
+  );
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `padding` | `SpacingScale` | - | Padding on all sides |
+| `paddingInline` | `SpacingScale` | - | Padding on inline axis (left/right in LTR) |
+| `paddingBlock` | `SpacingScale` | - | Padding on block axis (top/bottom) |
+| `margin` | `SpacingScale` | - | Margin on all sides |
+| `marginInline` | `SpacingScale` | - | Margin on inline axis |
+| `marginBlock` | `SpacingScale` | - | Margin on block axis |
+| `width` | `'auto' \| 'full' \| 'fit' \| 'max'` | `'auto'` | Width behavior |
+| `maxWidth` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'container'` | - | Maximum width constraint |
+| `radius` | `SpacingScale \| 'full'` | - | Border radius |
+| `as` | `BoxElement` | `'div'` | HTML element to render |
+| `className` | `string` | - | Additional CSS classes |
+| `styles` | `CSSProperties` | - | Inline styles |
+| `children` | `ReactNode` | - | Child elements |
+
+#### SpacingScale
+
+The spacing scale provides fluid, responsive values that adapt to viewport size:
+
+- `'0'`: No spacing (0)
+- `'xs'`: Extra small (4-8px responsive)
+- `'sm'`: Small (8-12px responsive)
+- `'md'`: Medium (12-18px responsive)
+- `'lg'`: Large (16-24px responsive)
+- `'xl'`: Extra large (24-32px responsive)
+
+#### BoxElement
+
+Semantic HTML elements supported via the `as` prop:
+
+- `'div'` (default)
+- `'section'`
+- `'article'`
+- `'aside'`
+- `'main'`
+- `'header'`
+- `'footer'`
+- `'nav'`
+
+## Usage Examples
+
+### Basic Container
+
+```tsx
+<Box padding="md">
+  <h1>Page Title</h1>
+  <p>Content goes here...</p>
+</Box>
+```
+
+### Centered Container
+
+A common pattern for page layouts with max-width and centered alignment:
+
+```tsx
+<Box
+  padding="lg"
+  maxWidth="container"
+  style={{ marginInline: 'auto' }}
+>
+  <article>
+    <h1>Article Title</h1>
+    <p>Centered content with 1200px max width...</p>
+  </article>
+</Box>
+```
+
+### Card-like Component
+
+Create a card with padding, border radius, and shadow:
+
+```tsx
+<Box
+  padding="lg"
+  radius="md"
+  as="article"
+  styles={{
+    backgroundColor: '#fff',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+    border: '1px solid #e0e0e0'
+  }}
+>
+  <h3>Card Title</h3>
+  <p>Card content goes here...</p>
+  <button>Action</button>
+</Box>
+```
+
+### Asymmetric Spacing
+
+Use logical properties for different horizontal and vertical padding:
+
+```tsx
+<Box
+  paddingInline="xl"
+  paddingBlock="md"
+  as="section"
+>
+  <p>Wide horizontal padding, narrow vertical padding</p>
+</Box>
+```
+
+### Semantic Sections
+
+Use semantic HTML elements for better accessibility:
+
+```tsx
+<Box as="main" padding="lg">
+  <Box as="section" padding="xl" margin="lg">
+    <h2>Section Title</h2>
+    <p>Section content...</p>
+  </Box>
+
+  <Box as="aside" padding="md" marginInline="lg">
+    <h3>Related Content</h3>
+    <p>Sidebar content...</p>
+  </Box>
+</Box>
+```
+
+### Full-Width Hero Section
+
+```tsx
+<Box
+  as="section"
+  width="full"
+  paddingBlock="xl"
+  paddingInline="lg"
+  styles={{
+    backgroundColor: '#0066cc',
+    color: '#fff'
+  }}
+>
+  <h1>Hero Title</h1>
+  <p>Hero subtitle or description...</p>
+</Box>
+```
+
+## Theming with CSS Custom Properties
+
+Override CSS variables to customize spacing and appearance:
+
+```tsx
+<Box
+  padding="lg"
+  radius="md"
+  styles={{
+    // Override spacing scale
+    '--spacing-lg': '2rem',
+    // Override border radius
+    '--box-radius-md': '1rem',
+    // Add custom styles
+    backgroundColor: '#f8f9fa'
+  } as React.CSSProperties}
+>
+  <h3>Themed Box</h3>
+  <p>Custom spacing and radius via CSS variables</p>
+</Box>
+```
+
+## Composition
+
+Box components can be nested for complex layouts:
+
+```tsx
+<Box padding="lg" styles={{ backgroundColor: '#f8f9fa' }}>
+  <h2>Outer Container</h2>
+
+  <Box
+    padding="md"
+    margin="md"
+    radius="md"
+    styles={{ backgroundColor: '#fff', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
+  >
+    <h3>Nested Box 1</h3>
+    <p>Independent spacing and styling</p>
+  </Box>
+
+  <Box
+    padding="md"
+    margin="md"
+    radius="md"
+    styles={{ backgroundColor: '#fff', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}
+  >
+    <h3>Nested Box 2</h3>
+    <p>Each Box is self-contained</p>
+  </Box>
+</Box>
+```
+
+## Accessibility
+
+### Semantic HTML
+
+Always prefer semantic HTML elements over generic divs:
+
+```tsx
+// ✅ Good - semantic elements
+<Box as="section" padding="lg">
+  <Box as="article" padding="md">
+    <h2>Article Title</h2>
+  </Box>
+</Box>
+
+// ❌ Avoid - generic divs when semantic elements make sense
+<Box padding="lg">
+  <Box padding="md">
+    <h2>Article Title</h2>
+  </Box>
+</Box>
+```
+
+### ARIA Attributes
+
+Box forwards all ARIA attributes for enhanced accessibility:
+
+```tsx
+<Box
+  as="section"
+  padding="lg"
+  aria-label="Featured content"
+  role="region"
+>
+  <h2>Featured Articles</h2>
+  <p>Content...</p>
+</Box>
+```
+
+### Focus Management
+
+Use refs for programmatic focus control:
+
+```tsx
+function ScrollToSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const scrollToSection = () => {
+    sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <>
+      <button onClick={scrollToSection}>Jump to Section</button>
+      <Box as="section" ref={sectionRef} padding="xl">
+        <h2>Target Section</h2>
+      </Box>
+    </>
+  );
+}
+```
+
+## Best Practices
+
+### 1. Use Semantic Elements
+
+Choose the most appropriate HTML element for your content:
+
+- Use `<section>` for thematic groupings
+- Use `<article>` for self-contained content
+- Use `<aside>` for tangentially related content
+- Use `<main>` for primary page content
+- Use `<header>`/`<footer>` for page or section headers/footers
+- Use `<nav>` for navigation landmarks
+
+### 2. Prefer Logical Properties
+
+Use `paddingInline`/`paddingBlock` instead of directional padding for better i18n support:
+
+```tsx
+// ✅ Good - adapts to text direction
+<Box paddingInline="lg" paddingBlock="md">
+  Content
+</Box>
+
+// ❌ Avoid - hardcoded direction
+<Box style={{ paddingLeft: '2rem', paddingRight: '2rem' }}>
+  Content
+</Box>
+```
+
+### 3. Leverage the Spacing Scale
+
+Use the spacing scale for consistency instead of arbitrary values:
+
+```tsx
+// ✅ Good - consistent spacing
+<Box padding="md" margin="lg">
+  Content
+</Box>
+
+// ❌ Avoid - arbitrary values
+<Box style={{ padding: '15px', margin: '22px' }}>
+  Content
+</Box>
+```
+
+### 4. Compose for Complex Layouts
+
+Build complex layouts by composing simple Box components:
+
+```tsx
+<Box as="main" maxWidth="container" style={{ marginInline: 'auto' }}>
+  <Box as="section" paddingBlock="xl">
+    <h1>Main Content</h1>
+  </Box>
+  <Box as="aside" padding="lg" radius="md">
+    <h2>Sidebar</h2>
+  </Box>
+</Box>
+```
+
+## Related Components
+
+- **Stack**: Simplified vertical/horizontal layouts with gap spacing
+- **Cluster**: Wrapping flex layout for inline groups (tags, buttons)
+- **Grid**: CSS Grid primitive with responsive columns
+- **Flex**: Full-featured flexbox container with advanced controls
+
+## CSS Variables
+
+See [STYLES.mdx](./STYLES.mdx) for a complete reference of CSS custom properties.
+
+## TypeScript Support
+
+Box is fully typed with TypeScript, providing IntelliSense and type checking:
+
+```tsx
+import type { BoxProps } from '@fpkit/acss';
+
+const MyBox: React.FC<BoxProps> = (props) => {
+  return <Box {...props} />;
+};
+
+// Type-safe polymorphic rendering
+const section: React.FC = () => (
+  <Box
+    as="section"
+    // TypeScript knows section-specific props are available
+    aria-labelledby="section-title"
+  >
+    <h2 id="section-title">Section</h2>
+  </Box>
+);
+```
+
+## Browser Support
+
+Box works in all modern browsers that support:
+- CSS Custom Properties
+- CSS Logical Properties
+- CSS `clamp()` function
+
+For legacy browser support, consider using PostCSS with appropriate polyfills.

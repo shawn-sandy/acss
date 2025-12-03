@@ -1,0 +1,238 @@
+/**
+ * Grid Component Styles
+ *
+ * Utility classes for the Grid layout primitive and Grid.Item sub-component.
+ * Provides CSS Grid-based layouts with responsive columns, gap spacing, and alignment.
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-cols-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.grid-cols-7 {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.grid-cols-8 {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.grid-cols-9 {
+  grid-template-columns: repeat(9, 1fr);
+}
+
+.grid-cols-10 {
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.grid-cols-11 {
+  grid-template-columns: repeat(11, 1fr);
+}
+
+.grid-cols-12 {
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.grid-gap-0 {
+  gap: 0;
+}
+
+.grid-gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.grid-gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.grid-gap-md {
+  gap: var(--spacing-md);
+}
+
+.grid-gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.grid-gap-xl {
+  gap: var(--spacing-xl);
+}
+
+.grid-gap-x-0 {
+  column-gap: 0;
+}
+
+.grid-gap-x-xs {
+  column-gap: var(--spacing-xs);
+}
+
+.grid-gap-x-sm {
+  column-gap: var(--spacing-sm);
+}
+
+.grid-gap-x-md {
+  column-gap: var(--spacing-md);
+}
+
+.grid-gap-x-lg {
+  column-gap: var(--spacing-lg);
+}
+
+.grid-gap-x-xl {
+  column-gap: var(--spacing-xl);
+}
+
+.grid-gap-y-0 {
+  row-gap: 0;
+}
+
+.grid-gap-y-xs {
+  row-gap: var(--spacing-xs);
+}
+
+.grid-gap-y-sm {
+  row-gap: var(--spacing-sm);
+}
+
+.grid-gap-y-md {
+  row-gap: var(--spacing-md);
+}
+
+.grid-gap-y-lg {
+  row-gap: var(--spacing-lg);
+}
+
+.grid-gap-y-xl {
+  row-gap: var(--spacing-xl);
+}
+
+.grid-justify-items-start {
+  justify-items: start;
+}
+
+.grid-justify-items-center {
+  justify-items: center;
+}
+
+.grid-justify-items-end {
+  justify-items: end;
+}
+
+.grid-justify-items-stretch {
+  justify-items: stretch;
+}
+
+.grid-align-items-start {
+  align-items: start;
+}
+
+.grid-align-items-center {
+  align-items: center;
+}
+
+.grid-align-items-end {
+  align-items: end;
+}
+
+.grid-align-items-stretch {
+  align-items: stretch;
+}
+
+.grid-col-span-1 {
+  grid-column: span 1;
+}
+
+.grid-col-span-2 {
+  grid-column: span 2;
+}
+
+.grid-col-span-3 {
+  grid-column: span 3;
+}
+
+.grid-col-span-4 {
+  grid-column: span 4;
+}
+
+.grid-col-span-5 {
+  grid-column: span 5;
+}
+
+.grid-col-span-6 {
+  grid-column: span 6;
+}
+
+.grid-col-span-7 {
+  grid-column: span 7;
+}
+
+.grid-col-span-8 {
+  grid-column: span 8;
+}
+
+.grid-col-span-9 {
+  grid-column: span 9;
+}
+
+.grid-col-span-10 {
+  grid-column: span 10;
+}
+
+.grid-col-span-11 {
+  grid-column: span 11;
+}
+
+.grid-col-span-12 {
+  grid-column: span 12;
+}
+
+.grid-row-span-1 {
+  grid-row: span 1;
+}
+
+.grid-row-span-2 {
+  grid-row: span 2;
+}
+
+.grid-row-span-3 {
+  grid-row: span 3;
+}
+
+.grid-row-span-4 {
+  grid-row: span 4;
+}
+
+.grid-row-span-5 {
+  grid-row: span 5;
+}
+
+.grid-row-span-6 {
+  grid-row: span 6;
+}
+
+/*# sourceMappingURL=grid.css.map */
