@@ -1,24 +1,25 @@
 :root {
-  --card-padding: 2rem;
-  --card-bg: #fff;
+  --card-padding: 1.5rem;
+  --card-bg: var(--color-surface, #ffffff);
   --card-radius: calc(var(--card-padding) / 4);
-  --card-position: relative;
-  --card-display: flex;
-  --card-direction: column;
   --card-gap: 1rem;
   --card-header-padding: 1rem 1.5rem;
-  --card-header-bg: #f8f9fa;
-  --card-header-border-bottom: 1px solid #dee2e6;
+  --card-header-bg: var(--color-surface-secondary, #f8f9fa);
+  --card-header-border-bottom-width: 0.0625rem;
+  --card-header-border-bottom-style: solid;
+  --card-header-border-bottom-color: var(--color-border, #dee2e6);
   --card-body-padding: 1.5rem;
   --card-footer-padding: 1rem 1.5rem;
-  --card-footer-bg: #f8f9fa;
-  --card-footer-border-top: 1px solid #dee2e6;
+  --card-footer-bg: var(--color-surface-secondary, #f8f9fa);
+  --card-footer-border-top-width: 0.0625rem;
+  --card-footer-border-top-style: solid;
+  --card-footer-border-top-color: var(--color-border, #dee2e6);
 }
 
 [data-card],
 [data-component~=card] {
-  display: var(--card-display);
-  flex-direction: var(--card-direction);
+  display: flex;
+  flex-direction: column;
   gap: var(--card-gap);
   border-radius: var(--card-radius);
   background-color: var(--card-bg);
@@ -59,7 +60,7 @@
 [data-component~=card] > [data-card-header] {
   padding: var(--card-header-padding);
   background-color: var(--card-header-bg);
-  border-bottom: var(--card-header-border-bottom);
+  border-bottom: var(--card-header-border-bottom-width) var(--card-header-border-bottom-style) var(--card-header-border-bottom-color);
   border-radius: var(--card-radius) var(--card-radius) 0 0;
 }
 [data-card] > [data-card-body],
@@ -73,20 +74,24 @@
 [data-component~=card] > [data-card-footer] {
   padding: var(--card-footer-padding);
   background-color: var(--card-footer-bg);
-  border-top: var(--card-footer-border-top);
+  border-top: var(--card-footer-border-top-width) var(--card-footer-border-top-style) var(--card-footer-border-top-color);
   border-radius: 0 0 var(--card-radius) var(--card-radius);
 }
 
 [data-card=interactive] {
+  --card-transition-duration: 0.2s;
+  --card-transition-timing: ease;
+  --card-hover-lift: -0.125rem;
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow var(--card-transition-duration) var(--card-transition-timing), transform var(--card-transition-duration) var(--card-transition-timing);
 }
 [data-card=interactive]:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  transform: translateY(var(--card-hover-lift));
+  box-shadow: var(--card-hover-shadow);
 }
 [data-card=interactive]:focus-visible {
-  outline: 0.125rem solid var(--focus-color, #0066CC);
+  outline: 0.125rem solid var(--color-focus, #0066cc);
   outline-offset: 0.125rem;
 }
 [data-card=interactive]:focus:not(:focus-visible) {

@@ -4,11 +4,13 @@
 These instructions are for AI assistants working in this project.
 
 Always open `@/openspec/AGENTS.md` when the request:
+
 - Mentions planning or proposals (words like proposal, spec, change, plan)
 - Introduces new capabilities, breaking changes, architecture shifts, or big performance/security work
 - Sounds ambiguous and you need the authoritative spec before coding
 
 Use `@/openspec/AGENTS.md` to learn:
+
 - How to create and apply change proposals
 - Spec format and conventions
 - Project structure and guidelines
@@ -24,6 +26,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 This is a **monorepo** managed by **Lerna** containing:
+
 - **@fpkit/acss** - A lightweight React UI component library in `packages/fpkit/`
 - **Root Storybook** - Component documentation and development playground
 - **astro-fpkit** - Astro integration demo app in `apps/astro-builds/`
@@ -35,6 +38,7 @@ The project follows independent versioning where each package maintains its own 
 ### Component Library (@fpkit/acss)
 
 Located in `packages/fpkit/`, this is the main React component library that:
+
 - Uses **CSS custom properties** for reactive styling (not Tailwind)
 - Built with TypeScript and React 18+
 - Exports components via multiple entry points: main, hooks, icons, styles
@@ -42,12 +46,14 @@ Located in `packages/fpkit/`, this is the main React component library that:
 - Includes SCSS source files alongside compiled CSS
 
 **Component Organization:**
+
 - Components live in `packages/fpkit/src/components/`
 - Each component has its own directory with component, styles (.scss), stories, and tests
 - Main exports defined in `packages/fpkit/src/index.ts`
 - Separate exports for hooks (`src/hooks.ts`) and icons (`src/icons.ts`)
 
 **Styling System:**
+
 - Uses **SASS/SCSS** exclusively (no Tailwind)
 - CSS custom properties for theming
 - Units must be in **rem** (not px) - base 16px = 1rem
@@ -57,6 +63,7 @@ Located in `packages/fpkit/`, this is the main React component library that:
 ### Storybook Setup
 
 The root project runs Storybook for component development:
+
 - Stories located in `packages/fpkit/**/*.stories.tsx`
 - Configured to load from fpkit package
 - Uses addons: a11y, docs, tag-badges, onboarding
@@ -65,6 +72,7 @@ The root project runs Storybook for component development:
 ## Common Commands
 
 ### Root Project (Storybook)
+
 ```bash
 npm start                # Start Storybook dev server on port 6006
 npm run storybook        # Alternative to start Storybook
@@ -74,6 +82,7 @@ npm run build            # Build root project with Vite
 ```
 
 ### fpkit Package (packages/fpkit/)
+
 ```bash
 # Development
 npm run dev              # Start Vite dev server
@@ -97,6 +106,7 @@ npm run lint-fix         # Auto-fix ESLint issues
 ```
 
 ### Astro Demo (apps/astro-builds/)
+
 ```bash
 npm run dev              # Start Astro dev server
 npm run build            # Build Astro site
@@ -127,11 +137,13 @@ npm run preview          # Preview production build
 All CSS custom properties must follow the standardized naming convention. See `docs/css-variables.md` for complete documentation.
 
 **Pattern:**
+
 ```
 --{component}-{element}-{variant}-{property}-{modifier}
 ```
 
 **Examples:**
+
 ```scss
 // Base properties
 --btn-bg
@@ -152,10 +164,12 @@ All CSS custom properties must follow the standardized naming convention. See `d
 ```
 
 **Approved Abbreviations:**
+
 - ✅ Use: `bg`, `fs`, `fw`, `radius`, `gap`
 - ❌ Don't use: `px`/`py` (use `padding-inline`/`padding-block`), `w`/`h` (use `width`/`height`), `cl` (use `color`), `dsp` (use `display`), `bdr` (use `border`)
 
 **Component Development Checklist:**
+
 - [ ] CSS variables follow `--{component}-{property}` pattern
 - [ ] Use full words for padding, margin, color, border, display, width, height
 - [ ] Use logical properties (`padding-inline`, `margin-block`) for spacing
@@ -166,6 +180,7 @@ All CSS custom properties must follow the standardized naming convention. See `d
 - [ ] Variables documented in component Storybook story
 
 **Resources:**
+
 - **CSS Variable Reference Guide**: `docs/css-variables.md`
 - **Migration Guide**: `MIGRATION-template.md` (for refactoring existing components)
 
@@ -209,3 +224,4 @@ All CSS custom properties must follow the standardized naming convention. See `d
 - Requires Node.js >= 20.9.0 (enforced in package.json engines)
 - `.nvmrc` specifies 20.9.0
 - when document components always add README.mdx for component documentation and STYLES.mdx for css documentation, these should always be fromatted for Storybook compatibility
+- always save plans to /openspec/plans

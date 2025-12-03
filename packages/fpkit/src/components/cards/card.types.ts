@@ -62,6 +62,19 @@ export interface CardFooterProps extends CardSubComponentProps {
 }
 
 /**
+ * Type for Card component with attached sub-components.
+ *
+ * This type ensures TypeScript recognizes Card.Title, Card.Content, and Card.Footer
+ * as valid properties on the Card component.
+ */
+export interface CardComponent extends React.FC<CardProps> {
+  Title: React.FC<CardTitleProps>
+  Content: React.FC<CardContentProps>
+  Footer: React.FC<CardFooterProps>
+  displayName: string
+}
+
+/**
  * Props for the main Card component.
  *
  * Extends all props from the UI component while adding Card-specific functionality.
