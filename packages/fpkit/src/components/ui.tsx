@@ -307,15 +307,15 @@ type UIComponent = (<C extends React.ElementType = "div">(
  */
 const UI: UIComponent = React.forwardRef(
   <C extends React.ElementType>(
-    { as, styles, classes, children, defaultStyles, ...props }: UIProps<C>,
+    { as, styles, style, classes, children, defaultStyles, ...props }: UIProps<C>,
     ref?: PolymorphicRef<C>
   ) => {
     const Component = as ?? "div";
 
-    const styleObj: React.CSSProperties = { ...defaultStyles, ...styles };
+    const styleObj: React.CSSProperties = { ...defaultStyles, ...styles, ...style };
 
     return (
-      <Component ref={ref} style={styleObj} className={classes} {...props}>
+      <Component {...props} ref={ref} style={styleObj} className={classes}>
         {children}
       </Component>
     );

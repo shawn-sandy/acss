@@ -1,0 +1,400 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as StackStories from './stack.stories';
+
+<Meta of={StackStories} />
+
+# Stack Component
+
+A simplified flexbox primitive for vertical or horizontal layouts with consistent gap spacing.
+
+## Overview
+
+Stack provides an easy-to-use layout component for the most common flexbox patterns: stacking items vertically or horizontally with consistent spacing. It's designed to be simpler than the full Flex component while covering 80% of typical use cases.
+
+## Features
+
+- **Simple API**: Fewer props than Flex for common stacking patterns
+- **Fluid Spacing**: Responsive gap using CSS `clamp()` for automatic viewport adaptation
+- **Flexbox-Based**: Reliable cross-browser layout engine
+- **Polymorphic**: Render as any semantic HTML element
+- **Type-Safe**: Full TypeScript support with IntelliSense
+- **Zero Runtime**: Utility classes compiled at build time
+
+## Installation
+
+```bash
+npm install @fpkit/acss
+```
+
+## Basic Usage
+
+```tsx
+import { Stack } from '@fpkit/acss';
+import '@fpkit/acss/styles';
+
+// Vertical stack (default)
+function App() {
+  return (
+    <Stack gap="md">
+      <h1>Title</h1>
+      <p>Paragraph 1</p>
+      <p>Paragraph 2</p>
+    </Stack>
+  );
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `gap` | `SpacingScale` | - | Gap between children |
+| `direction` | `'vertical' \| 'horizontal'` | `'vertical'` | Layout direction |
+| `align` | `'start' \| 'center' \| 'end' \| 'stretch'` | - | Cross-axis alignment |
+| `justify` | `'start' \| 'center' \| 'end' \| 'between'` | - | Main-axis alignment |
+| `wrap` | `'wrap' \| 'nowrap'` | `'nowrap'` | Allow wrapping |
+| `as` | `StackElement` | `'div'` | HTML element to render |
+| `className` | `string` | - | Additional CSS classes |
+| `styles` | `CSSProperties` | - | Inline styles |
+| `children` | `ReactNode` | - | Child elements |
+
+#### SpacingScale
+
+- `'0'`: No gap
+- `'xs'`: 4-8px (extra small)
+- `'sm'`: 8-12px (small)
+- `'md'`: 12-18px (medium)
+- `'lg'`: 16-24px (large)
+- `'xl'`: 24-32px (extra large)
+
+#### StackElement
+
+- `'div'` (default)
+- `'section'`
+- `'article'`
+- `'ul'` | `'ol'` (for lists)
+- `'nav'` (for navigation)
+
+## Usage Examples
+
+### Vertical Content Stack
+
+```tsx
+<Stack gap="lg">
+  <h1>Article Title</h1>
+  <p>Introduction paragraph...</p>
+  <p>Body paragraph...</p>
+</Stack>
+```
+
+### Horizontal Button Group
+
+```tsx
+<Stack direction="horizontal" gap="sm">
+  <Button>Cancel</Button>
+  <Button variant="primary">Submit</Button>
+</Stack>
+```
+
+### Centered Hero Section
+
+```tsx
+<Stack
+  gap="lg"
+  align="center"
+  justify="center"
+  style={{ minHeight: '100vh' }}
+>
+  <Logo />
+  <h1>Welcome</h1>
+  <p>Get started with our platform</p>
+  <Button>Get Started</Button>
+</Stack>
+```
+
+### Navigation Bar
+
+```tsx
+<Stack
+  as="nav"
+  direction="horizontal"
+  gap="md"
+  justify="between"
+  align="center"
+  style={{ padding: '1rem' }}
+>
+  <Logo />
+  <Stack direction="horizontal" gap="sm">
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </Stack>
+</Stack>
+```
+
+### Form Layout
+
+```tsx
+<Stack gap="lg">
+  <Stack gap="xs">
+    <label htmlFor="name">Name</label>
+    <input id="name" type="text" />
+  </Stack>
+  <Stack gap="xs">
+    <label htmlFor="email">Email</label>
+    <input id="email" type="email" />
+  </Stack>
+  <Stack direction="horizontal" gap="sm" justify="end">
+    <Button>Cancel</Button>
+    <Button variant="primary">Submit</Button>
+  </Stack>
+</Stack>
+```
+
+### Nested Stacks
+
+```tsx
+<Stack gap="xl">
+  <h2>Dashboard</h2>
+  <Stack direction="horizontal" gap="lg" wrap="wrap">
+    <Stack gap="md" style={{ flex: 1, minWidth: '250px' }}>
+      <h3>Card 1</h3>
+      <p>Content...</p>
+    </Stack>
+    <Stack gap="md" style={{ flex: 1, minWidth: '250px' }}>
+      <h3>Card 2</h3>
+      <p>Content...</p>
+    </Stack>
+  </Stack>
+</Stack>
+```
+
+## Alignment Guide
+
+### Cross-Axis Alignment (`align` prop)
+
+Controls alignment perpendicular to the direction:
+
+- **`start`**: Items at start (left in horizontal, top in vertical)
+- **`center`**: Items centered
+- **`end`**: Items at end (right in horizontal, bottom in vertical)
+- **`stretch`**: Items stretch to fill (default flexbox behavior)
+
+```tsx
+<Stack direction="horizontal" align="center" gap="sm">
+  <Icon />
+  <span>Vertically centered with icon</span>
+</Stack>
+```
+
+### Main-Axis Alignment (`justify` prop)
+
+Controls alignment along the direction:
+
+- **`start`**: Items at start (default)
+- **`center`**: Items centered
+- **`end`**: Items at end
+- **`between`**: Space evenly between items
+
+```tsx
+<Stack justify="between" style={{ minHeight: '100vh' }}>
+  <Header />
+  <Main />
+  <Footer />
+</Stack>
+```
+
+## When to Use
+
+### Use Stack When:
+- ✅ Simple vertical or horizontal layouts
+- ✅ Consistent spacing between items
+- ✅ Basic alignment needs
+- ✅ Form layouts
+- ✅ Content sections
+
+### Use Flex When:
+- 🔄 Complex responsive layouts
+- 🔄 Multiple breakpoint adjustments
+- 🔄 Advanced flex properties (grow, shrink, basis)
+- 🔄 Preset layout variants
+
+### Use Box When:
+- 📦 Padding/margin on containers
+- 📦 No gap spacing between children
+- 📦 Width constraints (max-width)
+
+## Accessibility
+
+### Semantic HTML
+
+Use appropriate semantic elements:
+
+```tsx
+// ✅ Good - semantic navigation
+<Stack as="nav" direction="horizontal" gap="md">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+</Stack>
+
+// ✅ Good - semantic list
+<Stack as="ul" gap="sm">
+  <li>Item 1</li>
+  <li>Item 2</li>
+</Stack>
+
+// ❌ Avoid - div soup when semantic elements available
+<Stack>
+  <div>Nav item</div>
+  <div>Nav item</div>
+</Stack>
+```
+
+### Focus Order
+
+Stack maintains natural focus order (visual order matches DOM order):
+
+```tsx
+<Stack direction="horizontal" gap="sm">
+  <button>First in focus order</button>
+  <button>Second in focus order</button>
+  <button>Third in focus order</button>
+</Stack>
+```
+
+### ARIA Attributes
+
+Stack forwards all ARIA attributes:
+
+```tsx
+<Stack
+  as="section"
+  aria-label="Features"
+  role="region"
+  gap="lg"
+>
+  <Feature />
+  <Feature />
+</Stack>
+```
+
+## Best Practices
+
+### 1. Choose Appropriate Direction
+
+```tsx
+// ✅ Good - vertical for content
+<Stack gap="md">
+  <h2>Title</h2>
+  <p>Content...</p>
+</Stack>
+
+// ✅ Good - horizontal for actions
+<Stack direction="horizontal" gap="sm">
+  <Button>Cancel</Button>
+  <Button>Submit</Button>
+</Stack>
+```
+
+### 2. Use Semantic Elements
+
+```tsx
+// ✅ Good
+<Stack as="article" gap="lg">
+  <h1>Article</h1>
+  <p>Content</p>
+</Stack>
+
+// ❌ Avoid
+<Stack>
+  <h1>Article</h1>
+  <p>Content</p>
+</Stack>
+```
+
+### 3. Leverage Wrapping
+
+```tsx
+// ✅ Good - responsive with wrap
+<Stack direction="horizontal" gap="md" wrap="wrap">
+  {items.map(item => <Card key={item.id} />)}
+</Stack>
+```
+
+### 4. Compose for Complex Layouts
+
+```tsx
+// ✅ Good - nested Stacks
+<Stack gap="xl">
+  <Stack direction="horizontal" justify="between">
+    <h1>Title</h1>
+    <Button>Action</Button>
+  </Stack>
+  <Stack gap="md">
+    <p>Content...</p>
+  </Stack>
+</Stack>
+```
+
+## Related Components
+
+- **Box**: Container with padding/margin controls (no gap)
+- **Cluster**: Wrapping flex for inline groups (tags, chips)
+- **Grid**: CSS Grid with responsive columns
+- **Flex**: Full-featured flexbox with advanced controls
+
+## CSS Variables
+
+Stack uses the unified spacing scale:
+
+```css
+--spacing-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);
+--spacing-sm: clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem);
+--spacing-md: clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem);
+--spacing-lg: clamp(1rem, 0.85rem + 0.6vw, 1.5rem);
+--spacing-xl: clamp(1.5rem, 1.25rem + 0.75vw, 2rem);
+```
+
+Override for custom spacing:
+
+```tsx
+<Stack
+  gap="lg"
+  styles={{ '--spacing-lg': '2rem' } as React.CSSProperties}
+>
+  Content with custom gap
+</Stack>
+```
+
+See [STYLES.mdx](./STYLES.mdx) for complete CSS reference.
+
+## TypeScript Support
+
+Stack is fully typed:
+
+```tsx
+import type { StackProps } from '@fpkit/acss';
+
+const MyStack: React.FC<StackProps> = (props) => {
+  return <Stack {...props} />;
+};
+
+// Type-safe polymorphic rendering
+<Stack
+  as="nav"
+  // TypeScript knows nav-specific props are available
+  aria-label="Primary navigation"
+>
+  <a href="/">Home</a>
+</Stack>
+```
+
+## Browser Support
+
+Works in all modern browsers supporting:
+- CSS Flexbox
+- CSS Custom Properties
+- CSS `clamp()` function
+
+For legacy support, consider PostCSS with appropriate polyfills.

@@ -1,0 +1,595 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as ClusterStories from './cluster.stories';
+
+<Meta of={ClusterStories} />
+
+# Cluster
+
+A wrapping flex layout primitive for inline groups that need to flow and wrap naturally.
+
+## Overview
+
+Cluster provides a flexible, wrapping layout for inline content like tags, badges, button groups, navigation links, or any inline content that needs to wrap responsively. Items automatically wrap to the next line when the container width is exceeded.
+
+**Key Characteristics:**
+- **Auto-Wrapping:** Uses `flex-wrap: wrap` for natural content flow
+- **Fluid Spacing:** Gap spacing using CSS custom properties with clamp()
+- **Inline Groups:** Perfect for tags, badges, buttons, links
+- **Semantic Naming:** Clear intent for grouped inline content
+- **Zero Runtime:** All styling via utility classes (no JavaScript)
+
+## When to Use
+
+### ✅ Use Cluster for:
+- **Tag Clouds:** Multiple keyword tags that wrap
+- **Button Groups:** Action buttons that wrap on smaller screens
+- **Navigation Links:** Horizontal nav that wraps responsively
+- **Badge Clusters:** Multiple status badges or labels
+- **Filter Pills:** Interactive filter buttons
+- **Inline Lists:** List items displayed inline with wrapping
+
+### ❌ Don't Use Cluster for:
+- **Vertical Layouts:** Use `Stack` for non-wrapping vertical layouts
+- **Horizontal Layouts without Wrapping:** Use `Stack direction="horizontal" wrap="nowrap"`
+- **Grid Layouts:** Use `Grid` for explicit column/row layouts
+- **Containers with Padding:** Use `Box` for padding/margin control
+
+## Usage
+
+### Basic Tag Cloud
+
+```tsx
+import { Cluster } from '@fpkit/acss';
+
+<Cluster gap="sm">
+  <Tag>React</Tag>
+  <Tag>TypeScript</Tag>
+  <Tag>CSS</Tag>
+  <Tag>Accessibility</Tag>
+  <Tag>Performance</Tag>
+</Cluster>
+```
+
+### Button Group
+
+```tsx
+<Cluster gap="md">
+  <Button>Save</Button>
+  <Button>Cancel</Button>
+  <Button>Delete</Button>
+</Cluster>
+```
+
+### Navigation with Baseline Alignment
+
+```tsx
+<Cluster as="nav" gap="lg" align="baseline" justify="center">
+  <a href="#home">Home</a>
+  <a href="#products">Products</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</Cluster>
+```
+
+### Centered Tag Cloud
+
+```tsx
+<Cluster gap="sm" justify="center">
+  <Tag>HTML</Tag>
+  <Tag>CSS</Tag>
+  <Tag>JavaScript</Tag>
+  <Tag>React</Tag>
+</Cluster>
+```
+
+### Filter Pills
+
+```tsx
+<Cluster gap="sm">
+  <button className="pill active">All</button>
+  <button className="pill">Active</button>
+  <button className="pill">Completed</button>
+  <button className="pill">Pending</button>
+</Cluster>
+```
+
+### Semantic List
+
+```tsx
+<Cluster as="ul" gap="md" styles={{ listStyle: 'none', padding: 0 }}>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</Cluster>
+```
+
+## Props
+
+### `gap`
+**Type:** `SpacingScale` (`"0" | "xs" | "sm" | "md" | "lg" | "xl"`)
+**Default:** `undefined` (uses default `.cluster` gap: `--spacing-sm`)
+
+Controls the spacing between items using the unified spacing scale.
+
+**CSS Variable Mapping:**
+- `0` → `--spacing-0` (0)
+- `xs` → `--spacing-xs` (clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem))
+- `sm` → `--spacing-sm` (clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem))
+- `md` → `--spacing-md` (clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem))
+- `lg` → `--spacing-lg` (clamp(1rem, 0.85rem + 0.6vw, 1.5rem))
+- `xl` → `--spacing-xl` (clamp(1.5rem, 1.25rem + 0.75vw, 2rem))
+
+**Usage:**
+
+```tsx
+<Cluster gap="xs">Tight spacing</Cluster>
+<Cluster gap="md">Medium spacing</Cluster>
+<Cluster gap="xl">Large spacing</Cluster>
+```
+
+### `justify`
+**Type:** `"start" | "center" | "end" | "between"`
+**Default:** `undefined` (defaults to `flex-start`)
+
+Controls horizontal alignment of items (justify-content).
+
+**Values:**
+- `start` → `justify-content: flex-start` (left-aligned)
+- `center` → `justify-content: center` (centered)
+- `end` → `justify-content: flex-end` (right-aligned)
+- `between` → `justify-content: space-between` (distributed)
+
+**Usage:**
+
+```tsx
+<Cluster justify="start">Left aligned</Cluster>
+<Cluster justify="center">Centered</Cluster>
+<Cluster justify="end">Right aligned</Cluster>
+<Cluster justify="between">Space between items</Cluster>
+```
+
+### `align`
+**Type:** `"start" | "center" | "end" | "baseline"`
+**Default:** `undefined` (defaults to `stretch`)
+
+Controls vertical alignment of items within each row (align-items).
+
+**Values:**
+- `start` → `align-items: flex-start` (top-aligned)
+- `center` → `align-items: center` (vertically centered)
+- `end` → `align-items: flex-end` (bottom-aligned)
+- `baseline` → `align-items: baseline` (text baseline alignment)
+
+**Usage:**
+
+```tsx
+<Cluster align="start">Top aligned</Cluster>
+<Cluster align="center">Vertically centered</Cluster>
+<Cluster align="baseline">Baseline aligned (for text)</Cluster>
+```
+
+### `as`
+**Type:** `ClusterElement` (`"div" | "ul" | "ol" | "nav" | "section"`)
+**Default:** `"div"`
+
+Polymorphic prop to render the Cluster as any semantic HTML element.
+
+**Usage:**
+
+```tsx
+<Cluster as="div">Default div container</Cluster>
+<Cluster as="ul">Unordered list</Cluster>
+<Cluster as="ol">Ordered list</Cluster>
+<Cluster as="nav">Navigation element</Cluster>
+<Cluster as="section">Section element</Cluster>
+```
+
+### `className` / `classes`
+**Type:** `string`
+**Default:** `undefined`
+
+Additional CSS classes to merge with utility classes.
+
+**Usage:**
+
+```tsx
+<Cluster className="custom-class">Content</Cluster>
+<Cluster classes="utility-class">Content</Cluster>
+```
+
+### `styles` / `style`
+**Type:** `React.CSSProperties`
+**Default:** `undefined`
+
+Inline styles for custom styling or CSS custom property overrides.
+
+**Usage:**
+
+```tsx
+<Cluster styles={{ maxWidth: '600px' }}>
+  Content
+</Cluster>
+
+<Cluster styles={{ '--spacing-md': '2rem' } as React.CSSProperties}>
+  Custom gap spacing
+</Cluster>
+```
+
+### `children`
+**Type:** `React.ReactNode`
+**Required:** Yes
+
+Content to display in the Cluster.
+
+**Usage:**
+
+```tsx
+<Cluster>
+  <Tag>Tag 1</Tag>
+  <Tag>Tag 2</Tag>
+  <Tag>Tag 3</Tag>
+</Cluster>
+```
+
+### Standard HTML Attributes
+
+Cluster accepts all standard HTML attributes including:
+- **ARIA:** `aria-label`, `aria-labelledby`, `aria-describedby`, etc.
+- **Data Attributes:** `data-*` for custom data
+- **Event Handlers:** `onClick`, `onFocus`, etc.
+- **ID:** `id` attribute
+
+**Usage:**
+
+```tsx
+<Cluster
+  aria-label="Technology tags"
+  data-component="tag-cloud"
+  id="tags"
+>
+  {tags.map(tag => <Tag key={tag.id}>{tag.name}</Tag>)}
+</Cluster>
+```
+
+## CSS Classes
+
+Cluster generates utility classes based on props:
+
+### Base Class
+- `.cluster` - Base flexbox container with `flex-wrap: wrap`
+
+### Gap Classes
+- `.cluster-gap-0` - No gap
+- `.cluster-gap-xs` - Extra small gap
+- `.cluster-gap-sm` - Small gap
+- `.cluster-gap-md` - Medium gap
+- `.cluster-gap-lg` - Large gap
+- `.cluster-gap-xl` - Extra large gap
+
+### Justify Classes
+- `.cluster-justify-start` - Left align
+- `.cluster-justify-center` - Center align
+- `.cluster-justify-end` - Right align
+- `.cluster-justify-between` - Space between
+
+### Align Classes
+- `.cluster-align-start` - Top align
+- `.cluster-align-center` - Center align
+- `.cluster-align-end` - Bottom align
+- `.cluster-align-baseline` - Baseline align
+
+## Composition Patterns
+
+### Nested Layout Primitives
+
+Combine Cluster with other layout primitives:
+
+```tsx
+<Stack gap="lg">
+  <Title level={2}>Filter by Tags</Title>
+  <Cluster gap="sm" justify="center">
+    <Tag>React</Tag>
+    <Tag>TypeScript</Tag>
+    <Tag>CSS</Tag>
+  </Cluster>
+</Stack>
+```
+
+### With Box Container
+
+```tsx
+<Box padding="lg" maxWidth="container">
+  <Cluster gap="md" justify="center">
+    <Button>Action 1</Button>
+    <Button>Action 2</Button>
+    <Button>Action 3</Button>
+  </Cluster>
+</Box>
+```
+
+### Responsive Button Group
+
+```tsx
+<Cluster gap="md" styles={{ maxWidth: '600px' }}>
+  {actions.map(action => (
+    <Button key={action.id} onClick={action.handler}>
+      {action.label}
+    </Button>
+  ))}
+</Cluster>
+```
+
+## Accessibility
+
+### Semantic Elements
+
+Use appropriate semantic elements via the `as` prop:
+
+```tsx
+{/* Navigation */}
+<Cluster as="nav" aria-label="Main navigation">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+</Cluster>
+
+{/* List of tags */}
+<Cluster as="ul" aria-label="Article tags">
+  <li><Tag>React</Tag></li>
+  <li><Tag>CSS</Tag></li>
+</Cluster>
+```
+
+### ARIA Labels
+
+Provide descriptive labels for screen readers:
+
+```tsx
+<Cluster aria-label="Technology stack">
+  <Tag>React</Tag>
+  <Tag>Node.js</Tag>
+  <Tag>PostgreSQL</Tag>
+</Cluster>
+```
+
+### Keyboard Navigation
+
+Ensure interactive items within Cluster are keyboard accessible:
+
+```tsx
+<Cluster gap="sm">
+  <button type="button" onClick={handleFilter}>All</button>
+  <button type="button" onClick={handleFilter}>Active</button>
+  <button type="button" onClick={handleFilter}>Completed</button>
+</Cluster>
+```
+
+## Comparison with Other Primitives
+
+### Cluster vs Stack
+
+| Feature | Cluster | Stack |
+|---------|---------|-------|
+| **Direction** | Horizontal with wrapping | Vertical or horizontal |
+| **Wrapping** | Always wraps (`flex-wrap: wrap`) | Optional (`wrap` prop) |
+| **Use Case** | Inline groups (tags, buttons) | Linear layouts (cards, sections) |
+| **Gap** | Unified spacing scale | Unified spacing scale |
+
+**When to use Cluster:**
+- Content needs to wrap naturally
+- Inline groups like tags, badges, buttons
+- Horizontal navigation that wraps on small screens
+
+**When to use Stack:**
+- Vertical or horizontal linear layouts
+- Content that should NOT wrap by default
+- Card stacks, form fields, page sections
+
+### Cluster vs Grid
+
+| Feature | Cluster | Grid |
+|---------|---------|------|
+| **Layout** | Flexbox with wrapping | CSS Grid |
+| **Columns** | Auto (based on content width) | Explicit column control |
+| **Use Case** | Inline groups | Multi-column layouts |
+
+**When to use Cluster:**
+- Content width varies (tags, buttons)
+- Natural wrapping based on container width
+- Simpler, one-dimensional inline layouts
+
+**When to use Grid:**
+- Fixed column layouts (2-col, 3-col, etc.)
+- Equal-width items
+- Complex two-dimensional layouts
+
+### Cluster vs Box
+
+| Feature | Cluster | Box |
+|---------|---------|-----|
+| **Purpose** | Layout inline groups | Control spacing/sizing |
+| **Gap** | Between items | N/A |
+| **Padding** | N/A | Full padding control |
+
+**When to use Cluster:**
+- Grouping inline items with spacing
+
+**When to use Box:**
+- Adding padding/margin to containers
+- Controlling width and border radius
+
+**Combine both:**
+
+```tsx
+<Box padding="lg" radius="md">
+  <Cluster gap="sm" justify="center">
+    <Tag>React</Tag>
+    <Tag>TypeScript</Tag>
+  </Cluster>
+</Box>
+```
+
+## Design Patterns
+
+### Tag Cloud
+
+```tsx
+<Cluster gap="sm" justify="center">
+  {tags.map(tag => (
+    <Tag key={tag.id} onRemove={() => handleRemove(tag.id)}>
+      {tag.name}
+    </Tag>
+  ))}
+</Cluster>
+```
+
+### Action Button Group
+
+```tsx
+<Cluster gap="md" justify="end">
+  <Button variant="secondary" onClick={handleCancel}>Cancel</Button>
+  <Button variant="primary" onClick={handleSave}>Save</Button>
+</Cluster>
+```
+
+### Navigation Breadcrumbs
+
+```tsx
+<Cluster as="nav" gap="xs" align="center" aria-label="Breadcrumb">
+  <a href="/">Home</a>
+  <span>/</span>
+  <a href="/products">Products</a>
+  <span>/</span>
+  <span aria-current="page">Product Name</span>
+</Cluster>
+```
+
+### Filter Pills with Active State
+
+```tsx
+const [activeFilter, setActiveFilter] = useState('all');
+
+<Cluster gap="sm">
+  {filters.map(filter => (
+    <button
+      key={filter.id}
+      className={activeFilter === filter.id ? 'pill active' : 'pill'}
+      onClick={() => setActiveFilter(filter.id)}
+    >
+      {filter.label}
+    </button>
+  ))}
+</Cluster>
+```
+
+### Badge Cluster
+
+```tsx
+<Cluster gap="xs">
+  <Badge variant="success">Active</Badge>
+  <Badge variant="info">New</Badge>
+  <Badge variant="warning">Beta</Badge>
+</Cluster>
+```
+
+## Customization
+
+### CSS Custom Properties
+
+Override spacing via CSS custom properties:
+
+```tsx
+<Cluster
+  gap="md"
+  styles={{
+    '--spacing-md': '2rem', // Override default medium gap
+  } as React.CSSProperties}
+>
+  <Tag>React</Tag>
+  <Tag>TypeScript</Tag>
+</Cluster>
+```
+
+### Custom Styling
+
+Add custom styles via className:
+
+```tsx
+<Cluster className="custom-cluster" gap="sm">
+  <Tag>React</Tag>
+</Cluster>
+
+<style>
+  .custom-cluster {
+    max-width: 600px;
+    margin-inline: auto;
+  }
+</style>
+```
+
+### Responsive Behavior
+
+Use container queries or media queries for responsive control:
+
+```tsx
+<Cluster
+  gap="sm"
+  justify="center"
+  className="responsive-cluster"
+>
+  <Button>Action 1</Button>
+  <Button>Action 2</Button>
+</Cluster>
+
+<style>
+  .responsive-cluster {
+    justify-content: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .responsive-cluster {
+      justify-content: center;
+    }
+  }
+</style>
+```
+
+## Performance
+
+- **Zero Runtime:** All layout via CSS classes (no JavaScript calculations)
+- **Fluid Spacing:** CSS clamp() for responsive gaps without media queries
+- **Minimal Footprint:** Lightweight utility classes (~200 bytes gzipped)
+- **No Re-renders:** Static utility classes don't cause re-renders
+
+## Browser Support
+
+- **Modern Browsers:** Chrome, Firefox, Safari, Edge (latest versions)
+- **Flexbox:** Fully supported in all modern browsers
+- **CSS clamp():** Supported in Chrome 79+, Firefox 75+, Safari 13.1+
+- **Logical Properties:** Supported in all modern browsers
+
+## Related Components
+
+- **Stack:** Vertical/horizontal layouts without wrapping
+- **Box:** Container with padding/margin/sizing control
+- **Grid:** Multi-column layouts with explicit column control
+- **Flex:** Advanced flexbox layouts with all flex properties
+
+## Examples
+
+<Canvas of={ClusterStories.Default} />
+<Canvas of={ClusterStories.ButtonGroup} />
+<Canvas of={ClusterStories.CenteredTags} />
+<Canvas of={ClusterStories.Navigation} />
+<Canvas of={ClusterStories.FilterPills} />
+
+## API Reference
+
+See the [STYLES.mdx](./STYLES.mdx) documentation for complete CSS custom properties reference.
+
+## Version
+
+Available since `@fpkit/acss` v0.5.11
+
+## License
+
+MIT

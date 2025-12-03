@@ -1,0 +1,360 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as BoxStories from './box.stories';
+
+<Meta of={BoxStories} title="Styles/Box" />
+
+# Box Component - CSS Custom Properties
+
+Complete reference for CSS custom properties used by the Box component.
+
+## Overview
+
+The Box component uses CSS custom properties (CSS variables) for all spacing, sizing, and appearance values. This enables:
+
+- **Runtime Theming**: Change values without recompiling
+- **Cascading Overrides**: Override at any level in the DOM tree
+- **Responsive Design**: Fluid values using `clamp()` adapt to viewport
+- **Consistency**: Unified spacing scale across all layout primitives
+
+## Spacing Scale Variables
+
+The unified spacing scale is shared across Box, Stack, Cluster, and Grid components. All values use `clamp()` for fluid, responsive scaling without media queries.
+
+### Spacing Scale
+
+| Variable | Value | Responsive Range | Use Case |
+|----------|-------|------------------|----------|
+| `--spacing-0` | `0` | - | No spacing |
+| `--spacing-xs` | `clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem)` | 4-8px | Tight spacing (badges, inline elements) |
+| `--spacing-sm` | `clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem)` | 8-12px | Small spacing (list items, compact layouts) |
+| `--spacing-md` | `clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem)` | 12-18px | Medium spacing (default padding/margin) |
+| `--spacing-lg` | `clamp(1rem, 0.85rem + 0.6vw, 1.5rem)` | 16-24px | Large spacing (section padding) |
+| `--spacing-xl` | `clamp(1.5rem, 1.25rem + 0.75vw, 2rem)` | 24-32px | Extra large spacing (page sections, heroes) |
+
+### How clamp() Works
+
+```css
+clamp(MIN, PREFERRED, MAX)
+```
+
+- **MIN**: Minimum value at smallest viewport (320px)
+- **PREFERRED**: Formula that scales with viewport width
+- **MAX**: Maximum value at largest viewport
+
+Example: `--spacing-md: clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem)`
+- At 320px viewport: 0.75rem (12px)
+- At 768px viewport: ~0.93rem (15px)
+- At 1920px+ viewport: 1.125rem (18px)
+
+## Max Width Variables
+
+Maximum width constraints for readable content and responsive containers.
+
+| Variable | Value (rem) | Value (px) | Use Case |
+|----------|-------------|------------|----------|
+| `--box-max-width-xs` | `30rem` | 480px | Mobile-first, narrow content |
+| `--box-max-width-sm` | `40rem` | 640px | Small devices, form containers |
+| `--box-max-width-md` | `48rem` | 768px | Tablets, readable text width |
+| `--box-max-width-lg` | `64rem` | 1024px | Desktop layouts, dashboards |
+| `--box-max-width-xl` | `80rem` | 1280px | Wide layouts, data tables |
+| `--box-max-width-container` | `75rem` | 1200px | Standard page container width |
+
+### Responsive Breakpoint Reference
+
+For context, these max-widths correspond to common breakpoints:
+
+- **xs (480px)**: Mobile landscape
+- **sm (640px)**: Large mobile/small tablet
+- **md (768px)**: Tablet portrait
+- **lg (1024px)**: Tablet landscape/small desktop
+- **xl (1280px)**: Desktop
+- **container (1200px)**: Standard content width
+
+## Border Radius Variables
+
+Border radius values for rounded corners.
+
+| Variable | Value (rem) | Value (px) | Use Case |
+|----------|-------------|------------|----------|
+| `--box-radius-xs` | `0.125rem` | 2px | Subtle rounding (inputs, badges) |
+| `--box-radius-sm` | `0.25rem` | 4px | Small rounding (buttons, chips) |
+| `--box-radius-md` | `0.375rem` | 6px | Medium rounding (cards, modals) |
+| `--box-radius-lg` | `0.5rem` | 8px | Large rounding (panels, containers) |
+| `--box-radius-xl` | `0.75rem` | 12px | Extra large rounding (hero sections) |
+| `--box-radius-full` | `9999px` | ~infinite | Fully rounded (pills, circles) |
+
+## Customization Examples
+
+### Global Theme Override
+
+Override variables globally in your root stylesheet:
+
+```css
+:root {
+  /* Increase spacing scale */
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2.5rem;
+
+  /* Adjust max widths */
+  --box-max-width-container: 80rem; /* 1280px */
+
+  /* More rounded corners */
+  --box-radius-md: 0.5rem;
+  --box-radius-lg: 1rem;
+}
+```
+
+### Component-Level Override
+
+Override variables on specific components:
+
+```tsx
+<Box
+  padding="lg"
+  radius="md"
+  styles={{
+    '--spacing-lg': '2rem',
+    '--box-radius-md': '1rem',
+    backgroundColor: '#f8f9fa'
+  } as React.CSSProperties}
+>
+  <p>This Box has custom spacing and radius values.</p>
+</Box>
+```
+
+### Context-Based Theming
+
+Create theme contexts with different variable values:
+
+```css
+/* Light theme */
+.theme-light {
+  --spacing-md: 1rem;
+  --box-radius-md: 0.375rem;
+}
+
+/* Dark theme */
+.theme-dark {
+  --spacing-md: 1.25rem;
+  --box-radius-md: 0.5rem;
+}
+
+/* Compact theme */
+.theme-compact {
+  --spacing-xs: 0.125rem;
+  --spacing-sm: 0.25rem;
+  --spacing-md: 0.5rem;
+  --spacing-lg: 0.75rem;
+  --spacing-xl: 1rem;
+}
+```
+
+```tsx
+<div className="theme-compact">
+  <Box padding="lg">
+    {/* Uses compact spacing values */}
+    <p>Compact theme with tighter spacing</p>
+  </Box>
+</div>
+```
+
+### Responsive Custom Values
+
+Combine CSS variables with media queries for advanced responsive design:
+
+```css
+@media (min-width: 48rem) { /* 768px */
+  :root {
+    --spacing-lg: 2rem;
+    --box-max-width-container: 80rem;
+  }
+}
+
+@media (min-width: 80rem) { /* 1280px */
+  :root {
+    --spacing-xl: 3rem;
+  }
+}
+```
+
+## Generated Utility Classes
+
+Box generates utility classes from props. These classes use the CSS variables above.
+
+### Padding Classes
+
+```css
+.box-padding-0 { padding: 0; }
+.box-padding-xs { padding: var(--spacing-xs); }
+.box-padding-sm { padding: var(--spacing-sm); }
+.box-padding-md { padding: var(--spacing-md); }
+.box-padding-lg { padding: var(--spacing-lg); }
+.box-padding-xl { padding: var(--spacing-xl); }
+```
+
+### Padding Inline Classes (Logical Properties)
+
+```css
+.box-padding-inline-xs { padding-inline: var(--spacing-xs); }
+.box-padding-inline-sm { padding-inline: var(--spacing-sm); }
+.box-padding-inline-md { padding-inline: var(--spacing-md); }
+.box-padding-inline-lg { padding-inline: var(--spacing-lg); }
+.box-padding-inline-xl { padding-inline: var(--spacing-xl); }
+```
+
+### Padding Block Classes (Logical Properties)
+
+```css
+.box-padding-block-xs { padding-block: var(--spacing-xs); }
+.box-padding-block-sm { padding-block: var(--spacing-sm); }
+.box-padding-block-md { padding-block: var(--spacing-md); }
+.box-padding-block-lg { padding-block: var(--spacing-lg); }
+.box-padding-block-xl { padding-block: var(--spacing-xl); }
+```
+
+### Margin Classes
+
+Similar pattern as padding:
+
+```css
+.box-margin-0 { margin: 0; }
+.box-margin-xs { margin: var(--spacing-xs); }
+/* ... etc */
+```
+
+### Width Classes
+
+```css
+.box-width-auto { width: auto; }
+.box-width-full { width: 100%; }
+.box-width-fit { width: fit-content; }
+.box-width-max { width: max-content; }
+```
+
+### Max-Width Classes
+
+```css
+.box-max-width-xs { max-width: var(--box-max-width-xs); }
+.box-max-width-sm { max-width: var(--box-max-width-sm); }
+.box-max-width-md { max-width: var(--box-max-width-md); }
+.box-max-width-lg { max-width: var(--box-max-width-lg); }
+.box-max-width-xl { max-width: var(--box-max-width-xl); }
+.box-max-width-container { max-width: var(--box-max-width-container); }
+```
+
+### Border Radius Classes
+
+```css
+.box-radius-0 { border-radius: 0; }
+.box-radius-xs { border-radius: var(--box-radius-xs); }
+.box-radius-sm { border-radius: var(--box-radius-sm); }
+.box-radius-md { border-radius: var(--box-radius-md); }
+.box-radius-lg { border-radius: var(--box-radius-lg); }
+.box-radius-xl { border-radius: var(--box-radius-xl); }
+.box-radius-full { border-radius: var(--box-radius-full); }
+```
+
+## Advanced Customization
+
+### Create Custom Spacing Tokens
+
+Extend the spacing scale with custom values:
+
+```css
+:root {
+  /* Add custom spacing values */
+  --spacing-xxs: 0.125rem; /* 2px */
+  --spacing-xxl: 3rem;     /* 48px */
+  --spacing-jumbo: 5rem;   /* 80px */
+}
+```
+
+### Animation with CSS Variables
+
+Animate spacing changes smoothly:
+
+```css
+.box-animated {
+  transition: padding 0.3s ease;
+}
+
+.box-animated:hover {
+  --spacing-md: 1.5rem;
+}
+```
+
+```tsx
+<Box
+  padding="md"
+  className="box-animated"
+  styles={{ backgroundColor: '#f0f0f0' }}
+>
+  Hover to see padding transition
+</Box>
+```
+
+### Dark Mode Integration
+
+Adjust spacing and radii for dark mode:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Slightly larger spacing for better readability in dark mode */
+    --spacing-md: 1rem;
+    --spacing-lg: 1.75rem;
+
+    /* More rounded corners for softer appearance */
+    --box-radius-md: 0.5rem;
+    --box-radius-lg: 0.75rem;
+  }
+}
+```
+
+## Browser Compatibility
+
+### CSS Custom Properties
+- **Supported**: All modern browsers (Chrome 49+, Firefox 31+, Safari 9.1+, Edge 15+)
+- **Fallback**: For legacy browsers, consider PostCSS custom properties plugin
+
+### CSS Logical Properties
+- **Supported**: Chrome 69+, Firefox 41+, Safari 12.1+, Edge 79+
+- **Fallback**: Use directional properties (padding-left/right) for older browsers
+
+### CSS clamp()
+- **Supported**: Chrome 79+, Firefox 75+, Safari 13.1+, Edge 79+
+- **Fallback**: Use media queries with fixed rem values for older browsers
+
+## Performance Considerations
+
+### CSS Variable Performance
+- **Inheritance**: CSS variables inherit through the DOM tree (O(1) lookup)
+- **Repainting**: Changing CSS variables triggers repaint, not reflow (faster)
+- **Memory**: Negligible memory overhead compared to inline styles
+
+### Build-Time Optimization
+- Unused utility classes can be tree-shaken in production builds
+- Consider PurgeCSS or similar tools to remove unused classes
+- CSS variables defined but unused have minimal impact
+
+## Debugging CSS Variables
+
+Use browser DevTools to inspect CSS variable values:
+
+```javascript
+// Get computed value of a CSS variable
+const box = document.querySelector('.box-padding-md');
+const paddingValue = getComputedStyle(box).getPropertyValue('--spacing-md');
+console.log(paddingValue); // e.g., "clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem)"
+
+// Set CSS variable programmatically
+box.style.setProperty('--spacing-md', '2rem');
+```
+
+## Related Documentation
+
+- [Box Component README](./README.mdx)
+- [CSS Custom Properties (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/--*)
+- [CSS Logical Properties (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties)
+- [CSS clamp() (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp)

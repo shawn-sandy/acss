@@ -1,0 +1,86 @@
+/**
+ * Stack Component Styles
+ *
+ * Utility classes for the Stack layout primitive.
+ * Provides flexbox-based vertical/horizontal layouts with gap spacing.
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack-vertical {
+  flex-direction: column;
+}
+
+.stack-horizontal {
+  flex-direction: row;
+}
+
+.stack-gap-0 {
+  gap: 0;
+}
+
+.stack-gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.stack-gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.stack-gap-md {
+  gap: var(--spacing-md);
+}
+
+.stack-gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.stack-gap-xl {
+  gap: var(--spacing-xl);
+}
+
+.stack-align-start {
+  align-items: flex-start;
+}
+
+.stack-align-center {
+  align-items: center;
+}
+
+.stack-align-end {
+  align-items: flex-end;
+}
+
+.stack-align-stretch {
+  align-items: stretch;
+}
+
+.stack-justify-start {
+  justify-content: flex-start;
+}
+
+.stack-justify-center {
+  justify-content: center;
+}
+
+.stack-justify-end {
+  justify-content: flex-end;
+}
+
+.stack-justify-between {
+  justify-content: space-between;
+}
+
+.stack-wrap {
+  flex-wrap: wrap;
+}
+
+.stack-nowrap {
+  flex-wrap: nowrap;
+}
+
+/*# sourceMappingURL=stack.css.map */

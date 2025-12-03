@@ -1,0 +1,709 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as GridStories from './grid.stories';
+
+<Meta of={GridStories} />
+
+# Grid
+
+A CSS Grid-based layout primitive for responsive multi-column layouts with Grid.Item sub-component.
+
+## Overview
+
+Grid provides a powerful, declarative API for creating CSS Grid layouts with explicit column control (1-12 columns), auto-fit/auto-fill responsive behavior, gap spacing, and alignment options. The Grid.Item sub-component enables flexible column and row spanning for complex layouts.
+
+**Key Characteristics:**
+- **CSS Grid**: True 2D layout with rows and columns
+- **12-Column System**: Explicit column layouts from 1-12 columns
+- **Auto-Fit/Auto-Fill**: Responsive grids without media queries
+- **Grid.Item**: Sub-component with column/row span control
+- **Fluid Spacing**: Gap spacing using CSS custom properties with clamp()
+- **Zero Runtime**: All styling via utility classes (no JavaScript)
+
+## When to Use
+
+### ✅ Use Grid for:
+- **Card Grids**: Multi-column layouts for cards, products, posts
+- **Dashboard Layouts**: Complex layouts with varying column spans
+- **Responsive Layouts**: Main content + sidebar with explicit column control
+- **Image Galleries**: Photo grids with consistent aspect ratios
+- **Form Layouts**: Label + input pairs in 2-column layouts
+
+### ❌ Don't Use Grid for:
+- **Simple Vertical Layouts**: Use `Stack` for simple vertical stacking
+- **Inline Groups that Wrap**: Use `Cluster` for tags, badges, buttons
+- **Single Row Layouts**: Use `Stack direction="horizontal"` or `Cluster`
+- **Containers with Padding Only**: Use `Box` for padding/margin control
+
+## Usage
+
+### Basic 3-Column Grid
+
+```tsx
+import { Grid } from '@fpkit/acss';
+
+<Grid columns={3} gap="md">
+  <div>Card 1</div>
+  <div>Card 2</div>
+  <div>Card 3</div>
+  <div>Card 4</div>
+  <div>Card 5</div>
+  <div>Card 6</div>
+</Grid>
+```
+
+### Auto-Fit Responsive Grid
+
+```tsx
+<Grid auto="fit" minColumnWidth="15rem" gap="lg">
+  <div>Card 1</div>
+  <div>Card 2</div>
+  <div>Card 3</div>
+</Grid>
+```
+
+### Two-Column Layout (Main + Sidebar)
+
+```tsx
+<Grid columns={12} gap="lg">
+  <Grid.Item span={8}>
+    <article>Main content (8/12 columns)</article>
+  </Grid.Item>
+  <Grid.Item span={4}>
+    <aside>Sidebar (4/12 columns)</aside>
+  </Grid.Item>
+</Grid>
+```
+
+### Dashboard with Mixed Spans
+
+```tsx
+<Grid columns={12} gap="md">
+  <Grid.Item span={12}>Header (full width)</Grid.Item>
+  <Grid.Item span={4}>Sidebar</Grid.Item>
+  <Grid.Item span={8}>Main content</Grid.Item>
+  <Grid.Item span={4}>Card 1</Grid.Item>
+  <Grid.Item span={4}>Card 2</Grid.Item>
+  <Grid.Item span={4}>Card 3</Grid.Item>
+</Grid>
+```
+
+### Image Gallery
+
+```tsx
+<Grid columns={4} gap="sm">
+  {images.map((img) => (
+    <img key={img.id} src={img.url} alt={img.alt} />
+  ))}
+</Grid>
+```
+
+## Props
+
+### Grid Component
+
+#### `columns`
+**Type:** `GridColumns` (`1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`)
+**Default:** `undefined`
+
+Number of columns in the grid. Creates an explicit column layout with equal-width columns. Mutually exclusive with `auto` prop.
+
+**Usage:**
+
+```tsx
+<Grid columns={3}>3 equal columns</Grid>
+<Grid columns={12}>12-column system</Grid>
+```
+
+#### `auto`
+**Type:** `"fit" | "fill"`
+**Default:** `undefined`
+
+Auto-fit or auto-fill behavior for responsive grids. Requires `minColumnWidth` to be set.
+
+- `fit`: Columns expand to fill available space
+- `fill`: Creates as many columns as fit, even if empty
+
+**Usage:**
+
+```tsx
+<Grid auto="fit" minColumnWidth="15rem" gap="md">
+  Responsive grid without media queries
+</Grid>
+```
+
+#### `minColumnWidth`
+**Type:** `string` (rem units)
+**Default:** `undefined`
+
+Minimum column width for auto-fit/auto-fill grids. Must be specified in rem units (e.g., "15rem", "20rem"). Used with `auto` prop.
+
+**Usage:**
+
+```tsx
+<Grid auto="fit" minColumnWidth="15rem">
+  Columns minimum 15rem wide
+</Grid>
+```
+
+#### `gap`
+**Type:** `SpacingScale` (`"0" | "xs" | "sm" | "md" | "lg" | "xl"`)
+**Default:** `undefined` (uses default `.grid` gap)
+
+Gap spacing between all grid items (both rows and columns). Uses the unified spacing scale.
+
+**CSS Variable Mapping:**
+- `0` → `--spacing-0` (0)
+- `xs` → `--spacing-xs` (clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem))
+- `sm` → `--spacing-sm` (clamp(0.5rem, 0.45rem + 0.35vw, 0.75rem))
+- `md` → `--spacing-md` (clamp(0.75rem, 0.65rem + 0.45vw, 1.125rem))
+- `lg` → `--spacing-lg` (clamp(1rem, 0.85rem + 0.6vw, 1.5rem))
+- `xl` → `--spacing-xl` (clamp(1.5rem, 1.25rem + 0.75vw, 2rem))
+
+**Usage:**
+
+```tsx
+<Grid columns={3} gap="md">Medium gap (12-18px)</Grid>
+<Grid columns={4} gap="lg">Large gap (16-24px)</Grid>
+```
+
+#### `gapX`
+**Type:** `SpacingScale` (`"0" | "xs" | "sm" | "md" | "lg" | "xl"`)
+**Default:** `undefined`
+
+Horizontal gap spacing (column gap). Overrides `gap` for horizontal spacing only. Uses the unified spacing scale.
+
+**Usage:**
+
+```tsx
+<Grid columns={3} gapX="lg" gapY="sm">
+  Wide columns, tight rows
+</Grid>
+```
+
+#### `gapY`
+**Type:** `SpacingScale` (`"0" | "xs" | "sm" | "md" | "lg" | "xl"`)
+**Default:** `undefined`
+
+Vertical gap spacing (row gap). Overrides `gap` for vertical spacing only. Uses the unified spacing scale.
+
+**Usage:**
+
+```tsx
+<Grid columns={3} gapX="sm" gapY="xl">
+  Tight columns, tall rows
+</Grid>
+```
+
+#### `justifyItems`
+**Type:** `"start" | "center" | "end" | "stretch"`
+**Default:** `undefined` (defaults to `stretch`)
+
+Horizontal alignment of grid items within their grid cells (justify-items).
+
+**Usage:**
+
+```tsx
+<Grid columns={3} justifyItems="center">
+  Items centered horizontally in cells
+</Grid>
+```
+
+#### `alignItems`
+**Type:** `"start" | "center" | "end" | "stretch"`
+**Default:** `undefined` (defaults to `stretch`)
+
+Vertical alignment of grid items within their grid cells (align-items).
+
+**Usage:**
+
+```tsx
+<Grid columns={3} alignItems="center">
+  Items centered vertically in cells
+</Grid>
+```
+
+#### `as`
+**Type:** `GridElement` (`"div" | "section" | "article" | "ul" | "ol"`)
+**Default:** `"div"`
+
+Polymorphic prop to render the Grid as any semantic HTML element.
+
+**Usage:**
+
+```tsx
+<Grid as="section" columns={3}>Semantic section</Grid>
+<Grid as="ul" columns={2}>Unordered list grid</Grid>
+```
+
+#### `className` / `classes`
+**Type:** `string`
+**Default:** `undefined`
+
+Additional CSS classes to merge with utility classes.
+
+**Usage:**
+
+```tsx
+<Grid className="custom-grid" columns={3}>Content</Grid>
+```
+
+#### `styles` / `style`
+**Type:** `React.CSSProperties`
+**Default:** `undefined`
+
+Inline styles for custom styling or CSS custom property overrides.
+
+**Usage:**
+
+```tsx
+<Grid styles={{ maxWidth: '1200px' }} columns={3}>
+  Content
+</Grid>
+```
+
+### Grid.Item Component
+
+#### `span`
+**Type:** `GridColumns` (`1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`)
+**Default:** `1`
+
+Number of columns this item should span. Determines the width of the grid item relative to the parent grid's columns.
+
+**Usage:**
+
+```tsx
+<Grid columns={12}>
+  <Grid.Item span={8}>Main content (8/12)</Grid.Item>
+  <Grid.Item span={4}>Sidebar (4/12)</Grid.Item>
+</Grid>
+```
+
+#### `rowSpan`
+**Type:** `number`
+**Default:** `undefined`
+
+Number of rows this item should span.
+
+**Usage:**
+
+```tsx
+<Grid columns={3}>
+  <Grid.Item rowSpan={2}>Tall item (2 rows)</Grid.Item>
+  <div>Normal item</div>
+  <div>Normal item</div>
+</Grid>
+```
+
+#### `as`
+**Type:** `GridItemElement` (`"div" | "section" | "article" | "li"`)
+**Default:** `"div"`
+
+Polymorphic prop to render the Grid.Item as any semantic HTML element.
+
+**Usage:**
+
+```tsx
+<Grid as="ul" columns={3}>
+  <Grid.Item as="li">List item 1</Grid.Item>
+  <Grid.Item as="li">List item 2</Grid.Item>
+</Grid>
+```
+
+## CSS Classes
+
+Grid and Grid.Item generate utility classes based on props:
+
+### Grid Classes
+
+**Base:**
+- `.grid` - Base CSS Grid container
+
+**Columns:**
+- `.grid-cols-1` to `.grid-cols-12` - Explicit column counts
+
+**Auto:**
+- `.grid-auto-fit` - Auto-fit layout (inline style applies grid-template-columns)
+- `.grid-auto-fill` - Auto-fill layout (inline style applies grid-template-columns)
+
+**Gap:**
+- `.grid-gap-0` to `.grid-gap-xl` - Overall gap
+- `.grid-gap-x-{scale}` - Column gap
+- `.grid-gap-y-{scale}` - Row gap
+
+**Alignment:**
+- `.grid-justify-items-{start|center|end|stretch}` - Horizontal alignment
+- `.grid-align-items-{start|center|end|stretch}` - Vertical alignment
+
+### Grid.Item Classes
+
+**Column Span:**
+- `.grid-col-span-1` to `.grid-col-span-12` - Column spanning
+
+**Row Span:**
+- `.grid-row-span-1` to `.grid-row-span-6` - Row spanning
+
+## Composition Patterns
+
+### Nested Layout Primitives
+
+Combine Grid with other layout primitives:
+
+```tsx
+<Grid columns={3} gap="lg">
+  <Box padding="md" radius="md">
+    <Stack gap="sm">
+      <Title level={3}>Card Title</Title>
+      <Text>Card content</Text>
+    </Stack>
+  </Box>
+</Grid>
+```
+
+### Responsive Dashboard
+
+```tsx
+<Grid columns={12} gap="md">
+  <Grid.Item span={12}>
+    <Header />
+  </Grid.Item>
+
+  <Grid.Item span={3}>
+    <Sidebar />
+  </Grid.Item>
+
+  <Grid.Item span={9}>
+    <Stack gap="lg">
+      <Section1 />
+      <Section2 />
+    </Stack>
+  </Grid.Item>
+
+  <Grid.Item span={12}>
+    <Footer />
+  </Grid.Item>
+</Grid>
+```
+
+### Auto-Fit Card Grid
+
+```tsx
+<Grid auto="fit" minColumnWidth="15rem" gap="md">
+  {products.map(product => (
+    <Card key={product.id}>
+      <CardTitle>{product.name}</CardTitle>
+      <CardContent>{product.description}</CardContent>
+    </Card>
+  ))}
+</Grid>
+```
+
+## Accessibility
+
+### Semantic Elements
+
+Use appropriate semantic elements via the `as` prop:
+
+```tsx
+{/* Grid of articles */}
+<Grid as="section" columns={3} aria-label="Featured posts">
+  <Grid.Item as="article">
+    <h2>Post Title</h2>
+    <p>Content</p>
+  </Grid.Item>
+</Grid>
+
+{/* List grid */}
+<Grid as="ul" columns={4} styles={{ listStyle: 'none' }}>
+  <Grid.Item as="li">Item 1</Grid.Item>
+</Grid>
+```
+
+### ARIA Labels
+
+Provide descriptive labels for screen readers:
+
+```tsx
+<Grid columns={3} aria-label="Product catalog">
+  {products.map(product => (
+    <article key={product.id} aria-labelledby={`product-${product.id}`}>
+      <h3 id={`product-${product.id}`}>{product.name}</h3>
+    </article>
+  ))}
+</Grid>
+```
+
+### Keyboard Navigation
+
+Ensure focusable items within grid cells are keyboard accessible:
+
+```tsx
+<Grid columns={3} gap="md">
+  {items.map(item => (
+    <button key={item.id} onClick={handleClick}>
+      {item.name}
+    </button>
+  ))}
+</Grid>
+```
+
+## Comparison with Other Primitives
+
+### Grid vs Cluster
+
+| Feature | Grid | Cluster |
+|---------|------|---------|
+| **Layout** | CSS Grid (2D) | Flexbox with wrapping (1D) |
+| **Columns** | Explicit (1-12) or auto-fit | No explicit columns |
+| **Use Case** | Multi-column layouts | Inline groups (tags, buttons) |
+| **Wrapping** | Grid-based | Flex-wrap: wrap |
+
+**When to use Grid:**
+- Need explicit column control
+- Multi-row layouts with alignment
+- Equal-width columns
+
+**When to use Cluster:**
+- Inline content that wraps naturally
+- Tags, badges, button groups
+- Variable-width items
+
+### Grid vs Stack
+
+| Feature | Grid | Stack |
+|---------|------|-------|
+| **Layout** | CSS Grid (2D) | Flexbox (1D) |
+| **Direction** | Both (rows + columns) | Vertical or horizontal |
+| **Use Case** | Multi-column layouts | Linear stacking |
+
+**When to use Grid:**
+- Multi-column card grids
+- Dashboard layouts
+- Responsive layouts with column control
+
+**When to use Stack:**
+- Simple vertical stacking
+- Horizontal button groups (no wrapping)
+- Form fields in sequence
+
+### Grid vs Flex
+
+| Feature | Grid | Flex |
+|---------|------|------|
+| **Layout System** | CSS Grid | Flexbox |
+| **Columns** | Explicit or auto-fit | No explicit columns |
+| **Use Case** | Multi-column grids | Advanced flex layouts |
+
+**When to use Grid:**
+- Explicit column layouts
+- Card grids, galleries
+- Dashboard layouts
+
+**When to use Flex:**
+- Need all flexbox properties
+- Complex flex alignment
+- Space distribution with flex-grow/shrink
+
+## Design Patterns
+
+### Product Grid
+
+```tsx
+<Grid columns={4} gap="md">
+  {products.map(product => (
+    <Card key={product.id}>
+      <img src={product.image} alt={product.name} />
+      <CardTitle>{product.name}</CardTitle>
+      <Text>${product.price}</Text>
+      <Button>Add to Cart</Button>
+    </Card>
+  ))}
+</Grid>
+```
+
+### Blog Layout
+
+```tsx
+<Grid columns={12} gap="lg">
+  <Grid.Item span={8}>
+    <Stack gap="xl">
+      {posts.map(post => (
+        <article key={post.id}>
+          <Title level={2}>{post.title}</Title>
+          <Text>{post.excerpt}</Text>
+        </article>
+      ))}
+    </Stack>
+  </Grid.Item>
+
+  <Grid.Item span={4}>
+    <aside>
+      <Title level={3}>Recent Posts</Title>
+      <List>...</List>
+    </aside>
+  </Grid.Item>
+</Grid>
+```
+
+### Form Layout
+
+```tsx
+<Grid columns={2} gap="md" styles={{ maxWidth: '40rem' }}>
+  <label htmlFor="name">Name</label>
+  <Input id="name" />
+
+  <label htmlFor="email">Email</label>
+  <Input id="email" type="email" />
+
+  <label htmlFor="message">Message</label>
+  <Textarea id="message" rows={4} />
+
+  <div></div>
+  <Button>Submit</Button>
+</Grid>
+```
+
+### Image Gallery
+
+```tsx
+<Grid columns={3} gap="xs">
+  {images.map(img => (
+    <div key={img.id} style={{ aspectRatio: '1' }}>
+      <img
+        src={img.url}
+        alt={img.alt}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+    </div>
+  ))}
+</Grid>
+```
+
+### Dashboard Layout
+
+```tsx
+<Grid columns={12} gap="md">
+  <Grid.Item span={12}>
+    <Header>Dashboard</Header>
+  </Grid.Item>
+
+  <Grid.Item span={3}>
+    <nav>
+      <List>Menu items</List>
+    </nav>
+  </Grid.Item>
+
+  <Grid.Item span={9}>
+    <Grid columns={3} gap="md">
+      <Card>Stat 1</Card>
+      <Card>Stat 2</Card>
+      <Card>Stat 3</Card>
+    </Grid>
+  </Grid.Item>
+</Grid>
+```
+
+## Customization
+
+### CSS Custom Properties
+
+Override spacing via CSS custom properties:
+
+```tsx
+<Grid
+  columns={3}
+  gap="md"
+  styles={{
+    '--spacing-md': '2rem', // Override default medium gap
+  } as React.CSSProperties}
+>
+  <div>Item 1</div>
+</Grid>
+```
+
+### Custom Column Widths
+
+Use inline styles for custom grid-template-columns:
+
+```tsx
+<Grid
+  styles={{
+    gridTemplateColumns: '200px 1fr 200px',
+  }}
+  gap="md"
+>
+  <div>Fixed 200px</div>
+  <div>Flexible</div>
+  <div>Fixed 200px</div>
+</Grid>
+```
+
+### Responsive Behavior
+
+Combine with media queries or container queries:
+
+```tsx
+<Grid
+  columns={4}
+  gap="md"
+  className="responsive-grid"
+>
+  {items.map(item => <Card key={item.id}>{item.name}</Card>)}
+</Grid>
+
+<style>
+  .responsive-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    .responsive-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .responsive-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+```
+
+## Performance
+
+- **Zero Runtime:** All layout via CSS classes (no JavaScript calculations)
+- **Fluid Spacing:** CSS clamp() for responsive gaps without media queries
+- **Minimal Footprint:** ~1KB gzipped for all utility classes
+- **No Re-renders:** Static utility classes don't cause re-renders
+
+## Browser Support
+
+- **CSS Grid:** Chrome 57+, Firefox 52+, Safari 10.1+, Edge 16+
+- **CSS clamp():** Chrome 79+, Firefox 75+, Safari 13.1+
+- **Gap Property:** Chrome 66+, Firefox 61+, Safari 12+
+
+## Related Components
+
+- **Stack:** Vertical/horizontal flexbox layouts without explicit columns
+- **Cluster:** Wrapping flex for inline groups (tags, buttons)
+- **Box:** Container with padding/margin/sizing control
+- **Flex:** Advanced flexbox layouts with all flex properties
+
+## Examples
+
+<Canvas of={GridStories.Default} />
+<Canvas of={GridStories.TwoColumn} />
+<Canvas of={GridStories.AutoFit} />
+<Canvas of={GridStories.Dashboard} />
+
+## API Reference
+
+See the [STYLES.mdx](./STYLES.mdx) documentation for complete CSS custom properties reference.
+
+## Version
+
+Available since `@fpkit/acss` v0.5.11
+
+## License
+
+MIT

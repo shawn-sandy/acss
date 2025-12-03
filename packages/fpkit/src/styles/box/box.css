@@ -1,0 +1,220 @@
+/**
+ * Box Component Styles
+ *
+ * Utility classes for the Box layout primitive.
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+.box-padding-0 {
+  padding: 0;
+}
+
+.box-padding-xs {
+  padding: var(--spacing-xs);
+}
+
+.box-padding-sm {
+  padding: var(--spacing-sm);
+}
+
+.box-padding-md {
+  padding: var(--spacing-md);
+}
+
+.box-padding-lg {
+  padding: var(--spacing-lg);
+}
+
+.box-padding-xl {
+  padding: var(--spacing-xl);
+}
+
+.box-padding-inline-0 {
+  padding-inline: 0;
+}
+
+.box-padding-inline-xs {
+  padding-inline: var(--spacing-xs);
+}
+
+.box-padding-inline-sm {
+  padding-inline: var(--spacing-sm);
+}
+
+.box-padding-inline-md {
+  padding-inline: var(--spacing-md);
+}
+
+.box-padding-inline-lg {
+  padding-inline: var(--spacing-lg);
+}
+
+.box-padding-inline-xl {
+  padding-inline: var(--spacing-xl);
+}
+
+.box-padding-block-0 {
+  padding-block: 0;
+}
+
+.box-padding-block-xs {
+  padding-block: var(--spacing-xs);
+}
+
+.box-padding-block-sm {
+  padding-block: var(--spacing-sm);
+}
+
+.box-padding-block-md {
+  padding-block: var(--spacing-md);
+}
+
+.box-padding-block-lg {
+  padding-block: var(--spacing-lg);
+}
+
+.box-padding-block-xl {
+  padding-block: var(--spacing-xl);
+}
+
+.box-margin-0 {
+  margin: 0;
+}
+
+.box-margin-xs {
+  margin: var(--spacing-xs);
+}
+
+.box-margin-sm {
+  margin: var(--spacing-sm);
+}
+
+.box-margin-md {
+  margin: var(--spacing-md);
+}
+
+.box-margin-lg {
+  margin: var(--spacing-lg);
+}
+
+.box-margin-xl {
+  margin: var(--spacing-xl);
+}
+
+.box-margin-inline-0 {
+  margin-inline: 0;
+}
+
+.box-margin-inline-xs {
+  margin-inline: var(--spacing-xs);
+}
+
+.box-margin-inline-sm {
+  margin-inline: var(--spacing-sm);
+}
+
+.box-margin-inline-md {
+  margin-inline: var(--spacing-md);
+}
+
+.box-margin-inline-lg {
+  margin-inline: var(--spacing-lg);
+}
+
+.box-margin-inline-xl {
+  margin-inline: var(--spacing-xl);
+}
+
+.box-margin-block-0 {
+  margin-block: 0;
+}
+
+.box-margin-block-xs {
+  margin-block: var(--spacing-xs);
+}
+
+.box-margin-block-sm {
+  margin-block: var(--spacing-sm);
+}
+
+.box-margin-block-md {
+  margin-block: var(--spacing-md);
+}
+
+.box-margin-block-lg {
+  margin-block: var(--spacing-lg);
+}
+
+.box-margin-block-xl {
+  margin-block: var(--spacing-xl);
+}
+
+.box-width-auto {
+  width: auto;
+}
+
+.box-width-full {
+  width: 100%;
+}
+
+.box-width-fit {
+  width: fit-content;
+}
+
+.box-width-max {
+  width: max-content;
+}
+
+.box-max-width-xs {
+  max-width: var(--box-max-width-xs);
+}
+
+.box-max-width-sm {
+  max-width: var(--box-max-width-sm);
+}
+
+.box-max-width-md {
+  max-width: var(--box-max-width-md);
+}
+
+.box-max-width-lg {
+  max-width: var(--box-max-width-lg);
+}
+
+.box-max-width-xl {
+  max-width: var(--box-max-width-xl);
+}
+
+.box-max-width-container {
+  max-width: var(--box-max-width-container);
+}
+
+.box-radius-0 {
+  border-radius: 0;
+}
+
+.box-radius-xs {
+  border-radius: var(--box-radius-xs);
+}
+
+.box-radius-sm {
+  border-radius: var(--box-radius-sm);
+}
+
+.box-radius-md {
+  border-radius: var(--box-radius-md);
+}
+
+.box-radius-lg {
+  border-radius: var(--box-radius-lg);
+}
+
+.box-radius-xl {
+  border-radius: var(--box-radius-xl);
+}
+
+.box-radius-full {
+  border-radius: var(--box-radius-full);
+}
+
+/*# sourceMappingURL=box.css.map */

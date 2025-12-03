@@ -1,0 +1,86 @@
+/**
+ * Cluster Component Styles
+ *
+ * Utility classes for the Cluster layout primitive.
+ * Provides wrapping flex layout for inline groups (tags, badges, buttons).
+ * All spacing values use the unified spacing scale from globals.
+ * All units are in rem (1rem = 16px base).
+ */
+
+// ============================================================================
+// Base Cluster
+// ============================================================================
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm); // Default small gap for inline items
+}
+
+// ============================================================================
+// Gap Utilities
+// ============================================================================
+
+.cluster-gap-0 {
+  gap: 0;
+}
+
+.cluster-gap-xs {
+  gap: var(--spacing-xs);
+}
+
+.cluster-gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.cluster-gap-md {
+  gap: var(--spacing-md);
+}
+
+.cluster-gap-lg {
+  gap: var(--spacing-lg);
+}
+
+.cluster-gap-xl {
+  gap: var(--spacing-xl);
+}
+
+// ============================================================================
+// Justify Utilities (Horizontal Alignment)
+// ============================================================================
+
+.cluster-justify-start {
+  justify-content: flex-start;
+}
+
+.cluster-justify-center {
+  justify-content: center;
+}
+
+.cluster-justify-end {
+  justify-content: flex-end;
+}
+
+.cluster-justify-between {
+  justify-content: space-between;
+}
+
+// ============================================================================
+// Align Utilities (Vertical Alignment)
+// ============================================================================
+
+.cluster-align-start {
+  align-items: flex-start;
+}
+
+.cluster-align-center {
+  align-items: center;
+}
+
+.cluster-align-end {
+  align-items: flex-end;
+}
+
+.cluster-align-baseline {
+  align-items: baseline;
+}
