@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.2.1...@fpkit/acss@3.3.0) (2025-12-04)
+
+
+### Features
+
+* **layout:** implement layout primitives - Box, Stack, Cluster, Grid ([9cd7225](https://github.com/shawn-sandy/fpkit/commit/9cd7225d6ab106374d8a0ac8c71431b57d47c207))
+
+
+
+
+
 ## [3.2.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.2.0...@fpkit/acss@3.2.1) (2025-12-04)
 
 **Note:** Version bump only for package @fpkit/acss
