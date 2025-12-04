@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.0.0...@fpkit/acss@3.2.0) (2025-12-04)
+
+
+### Bug Fixes
+
+* **fpkit:** improve link transition speed and focus behavior ([7f1cce2](https://github.com/shawn-sandy/fpkit/commit/7f1cce2338618fd0840ba56826ebcc5a06f25ff3))
+* **fpkit:** resolve ESLint errors and improve code quality ([0a6d422](https://github.com/shawn-sandy/fpkit/commit/0a6d422205bbc59784651b97d8ebae429e6f0206))
+* **fpkit:** resolve Link compound component TypeScript errors ([e835c49](https://github.com/shawn-sandy/fpkit/commit/e835c492995067ded1b04482281163e6b5b0d8c2))
+* **styles:** update titles and improve formatting across components ([11e82c9](https://github.com/shawn-sandy/fpkit/commit/11e82c9842c03450e57b0f2eeccf2d86a2cae71e))
+
+
+### Features
+
+* **fpkit:** add comprehensive responsive flexbox utility system ([d87a05a](https://github.com/shawn-sandy/fpkit/commit/d87a05a7318a133cc04f900dac96db28af107503))
+* **fpkit:** enable List compound component pattern in exports ([ca7f490](https://github.com/shawn-sandy/fpkit/commit/ca7f490bff9df9f5cfbb83285a587f15511cbce6))
+* **fpkit:** restrict Flex component as prop to semantic container elements ([372beba](https://github.com/shawn-sandy/fpkit/commit/372bebab74acc5c5d194266bc2dad85a56418db5))
+* **layout:** implement layout primitives - Box, Stack, Cluster, Grid ([ba05bc7](https://github.com/shawn-sandy/fpkit/commit/ba05bc76243599de95d53e39caddf4152d7c4436))
+
+
+
+
+
 ## [3.1.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.1.0...@fpkit/acss@3.1.1) (2025-12-02)
 
 
