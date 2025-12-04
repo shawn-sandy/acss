@@ -223,7 +223,7 @@ const CardRoot = ({
   as = 'div',
   styles,
   children,
-  classes = 'shadow',
+  classes = 'shadow-sm',
   id,
   interactive = false,
   onClick,
