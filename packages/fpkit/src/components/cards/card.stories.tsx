@@ -10,7 +10,7 @@ const meta: Meta<typeof Card> = {
   component: Card,
   args: {
     children: <p>{content}</p>,
-    classes: "shadow-md",
+    classes: "shadow-sm rounded-lg",
   },
   argTypes: {
     as: {

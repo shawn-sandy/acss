@@ -3,8 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.0.0...@fpkit/acss@3.2.0) (2025-12-04)
+## [3.2.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.2.0...@fpkit/acss@3.2.1) (2025-12-04)
 
+**Note:** Version bump only for package @fpkit/acss
+
+# [3.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.0.0...@fpkit/acss@3.2.0) (2025-12-04)
 
 ### Bug Fixes
 
@@ -13,7 +16,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **fpkit:** resolve Link compound component TypeScript errors ([e835c49](https://github.com/shawn-sandy/fpkit/commit/e835c492995067ded1b04482281163e6b5b0d8c2))
 * **styles:** update titles and improve formatting across components ([11e82c9](https://github.com/shawn-sandy/fpkit/commit/11e82c9842c03450e57b0f2eeccf2d86a2cae71e))
 
-
 ### Features
 
 * **fpkit:** add comprehensive responsive flexbox utility system ([d87a05a](https://github.com/shawn-sandy/fpkit/commit/d87a05a7318a133cc04f900dac96db28af107503))
@@ -21,29 +23,18 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **fpkit:** restrict Flex component as prop to semantic container elements ([372beba](https://github.com/shawn-sandy/fpkit/commit/372bebab74acc5c5d194266bc2dad85a56418db5))
 * **layout:** implement layout primitives - Box, Stack, Cluster, Grid ([ba05bc7](https://github.com/shawn-sandy/fpkit/commit/ba05bc76243599de95d53e39caddf4152d7c4436))
 
-
-
-
-
 ## [3.1.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.1.0...@fpkit/acss@3.1.1) (2025-12-02)
-
 
 ### Bug Fixes
 
 * **fpkit:** resolve ESLint errors and improve code quality ([89eeae9](https://github.com/shawn-sandy/fpkit/commit/89eeae969d1ec56c34e953bd066496550db22dda))
 
-
-
-
-
 # [3.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.0.0...@fpkit/acss@3.1.0) (2025-12-01)
-
 
 ### Bug Fixes
 
 * **fpkit:** improve link transition speed and focus behavior ([7f1cce2](https://github.com/shawn-sandy/fpkit/commit/7f1cce2338618fd0840ba56826ebcc5a06f25ff3))
 * **fpkit:** resolve Link compound component TypeScript errors ([e835c49](https://github.com/shawn-sandy/fpkit/commit/e835c492995067ded1b04482281163e6b5b0d8c2))
-
 
 ### Features
 
@@ -51,12 +42,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **fpkit:** enable List compound component pattern in exports ([ca7f490](https://github.com/shawn-sandy/fpkit/commit/ca7f490bff9df9f5cfbb83285a587f15511cbce6))
 * **fpkit:** restrict Flex component as prop to semantic container elements ([372beba](https://github.com/shawn-sandy/fpkit/commit/372bebab74acc5c5d194266bc2dad85a56418db5))
 
-
-
-
-
 # [3.0.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@0.5.8...@fpkit/acss@3.0.0) (2025-12-01)
-
 
 ### Bug Fixes
 
@@ -77,11 +63,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * update Node.js version requirements for Netlify compatibility - Add .nvmrc file specifying Node.js 20.9.0 - Add netlify.toml with proper build configuration - Add engines field to package.json files specifying Node >=20.9.0 - Resolves compatibility issues with react-docgen@8.0.0 and storybook-addon-tag-badges@2.0.0 ([cec70ce](https://github.com/shawn-sandy/fpkit/commit/cec70ce3477b7ddc5a9995f6323d828e50826678))
 * update Storybook imports for v9+ compatibility ([7cefae1](https://github.com/shawn-sandy/fpkit/commit/7cefae1aeeeee24014c379cb63b72a7031f9fbbd))
 
-
 ### Code Refactoring
 
 * **icon:** enforce WCAG AA compliance with aria-hidden by default ([5807018](https://github.com/shawn-sandy/fpkit/commit/5807018a12119da4762359489a3ecfd7b4530a31))
-
 
 ### Features
 
@@ -103,26 +87,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **styles:** enhance WCAG AA compliance for tag and nav components ([d29b0bf](https://github.com/shawn-sandy/fpkit/commit/d29b0bf05eb8f8796c088cb1508fc8b6e78c6bc0))
 * **tests:** add setup file for testing-library matchers and update tsconfig types ([9d40120](https://github.com/shawn-sandy/fpkit/commit/9d40120bc17f55ae50ee8e494e8b606efe01adfd))
 
-
 ### Performance Improvements
 
 * **img:** replace external placeholder with performant SVG gradient ([c004fc0](https://github.com/shawn-sandy/fpkit/commit/c004fc025eb0ef0db44b8d0b128aee009a0d3132)), closes [#6366f1](https://github.com/shawn-sandy/fpkit/issues/6366f1) [#8b5cf6](https://github.com/shawn-sandy/fpkit/issues/8b5cf6) [#ec4899](https://github.com/shawn-sandy/fpkit/issues/ec4899)
-
 
 ### BREAKING CHANGES
 
 * **breadcrumbs:** The data fetching functions now require an additional parameter to specify cache options.
 
 Files changed:
-- src/core/dataFetcher.js
-- src/core/cache.js
-- src/tests/dataFetcher.test.js
-- docs/architecture.md
+* src/core/dataFetcher.js
+* src/core/cache.js
+* src/tests/dataFetcher.test.js
+* docs/architecture.md
 
 * chore(release): publish %s
 
- - astro-fpkit@1.1.0
- - @fpkit/acss@2.0.0
+* astro-fpkit@1.1.0
+* @fpkit/acss@2.0.0
 
 * chore: update gitHead in package.json for v2.0.0 release
 
@@ -131,11 +113,11 @@ Files changed:
 Add Alert and UI components to main package exports, making them available for external consumption. Refactor Alert component declaration to use named export pattern for consistency with other exported components.
 
 Changes:
-- Export Alert component and AlertProps from main index
-- Add UI component to public exports
-- Change Alert from default to named export declaration
-- Standardize quote style to double quotes in type definitions
-- Update gitHead reference in package.json
+* Export Alert component and AlertProps from main index
+* Add UI component to public exports
+* Change Alert from default to named export declaration
+* Standardize quote style to double quotes in type definitions
+* Update gitHead reference in package.json
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
@@ -143,7 +125,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 * chore(release): publish %s
 
- - @fpkit/acss@2.1.0
+* @fpkit/acss@2.1.0
 
 * chore: update gitHead in package.json for v2.1.0 release
 
@@ -155,12 +137,12 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 * feat(nav): enhance hover behavior and update stories with Button component
 
-- Updated the hover state in nav.scss to include buttons alongside images for better UI consistency.
-- Added a Button component to nav.stories.tsx to demonstrate the new hover behavior.
+* Updated the hover state in nav.scss to include buttons alongside images for better UI consistency.
+* Added a Button component to nav.stories.tsx to demonstrate the new hover behavior.
 
 Files changed:
-- packages/fpkit/src/components/nav/nav.scss
-- packages/fpkit/src/components/nav/nav.stories.tsx
+* packages/fpkit/src/components/nav/nav.scss
+* packages/fpkit/src/components/nav/nav.stories.tsx
 
 * chore(styles): update compiled CSS for nav hover behavior
 
@@ -180,55 +162,47 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 Updated the gitHead in package.json to reflect the latest commit hash for accurate version tracking.
 
 Files changed:
-- packages/fpkit/package.json
+* packages/fpkit/package.json
+
 * **icon:** (Semantic):**
+
 - Icons now have aria-hidden="true" by default
-- Semantic icons (standalone without text) require aria-hidden={false}
-- Icon-only buttons must provide aria-label for accessibility
+* Semantic icons (standalone without text) require aria-hidden={false}
+* Icon-only buttons must provide aria-label for accessibility
 
 **Added:**
-- aria-hidden prop (default: true) to control screen reader visibility
-- aria-label prop for semantic icon accessible names
-- role prop for semantic role override (e.g., role="img")
-- Comprehensive JSDoc with decorative vs semantic patterns
-- README.mdx with WCAG compliance documentation
-- 4 new Storybook examples (3 accessible patterns, 1 anti-pattern)
+* aria-hidden prop (default: true) to control screen reader visibility
+* aria-label prop for semantic icon accessible names
+* role prop for semantic role override (e.g., role="img")
+* Comprehensive JSDoc with decorative vs semantic patterns
+* README.mdx with WCAG compliance documentation
+* 4 new Storybook examples (3 accessible patterns, 1 anti-pattern)
 
 **Changed:**
-- Icon wrapper now applies aria-hidden="true" by default
-- Updated IconProps type with accessibility-focused props
-- Deprecated alt prop in favor of aria-label (backward compatible)
+* Icon wrapper now applies aria-hidden="true" by default
+* Updated IconProps type with accessibility-focused props
+* Deprecated alt prop in favor of aria-label (backward compatible)
 
 **Documentation:**
-- Added 9.2KB README.mdx with complete accessibility guide
-- Documented all 30+ icons organized by category
-- Migration guide for updating existing icon usage
-- WCAG checklist for developers
+* Added 9.2KB README.mdx with complete accessibility guide
+* Documented all 30+ icons organized by category
+* Migration guide for updating existing icon usage
+* WCAG checklist for developers
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 
-
-
-
-
 # [2.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@2.1.0...@fpkit/acss@2.2.0) (2025-11-23)
-
 
 ### Bug Fixes
 
 * **breadcrumbs:** update test to use role instead of data-testid for link elements ([40b266f](https://github.com/shawn-sandy/fpkit/commit/40b266fe1d6fadc7a8b9fedf44cfa0e24bae9d66))
 
-
 ### Features
 
 * **fpkit:** export Alert and UI components in public API ([67548f2](https://github.com/shawn-sandy/fpkit/commit/67548f2219ad456358761a21e4f5e44d0a1b70d5))
 * **nav:** enhance hover behavior and update stories with Button component ([076879a](https://github.com/shawn-sandy/fpkit/commit/076879a4cc363df4987ae33d4de7313b82a25643))
-
-
-
-
 
 # [2.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@2.0.0...@fpkit/acss@2.1.0) (2025-11-17)
 
@@ -284,11 +258,13 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 * **icon:** (Semantic):**
 
-- Icons now have aria-hidden="true" by default
+* Icons now have aria-hidden="true" by default
+
 * Semantic icons (standalone without text) require aria-hidden={false}
 * Icon-only buttons must provide aria-label for accessibility
 
 **Added:**
+
 * aria-hidden prop (default: true) to control screen reader visibility
 * aria-label prop for semantic icon accessible names
 * role prop for semantic role override (e.g., role="img")
@@ -297,11 +273,13 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 * 4 new Storybook examples (3 accessible patterns, 1 anti-pattern)
 
 **Changed:**
+
 * Icon wrapper now applies aria-hidden="true" by default
 * Updated IconProps type with accessibility-focused props
 * Deprecated alt prop in favor of aria-label (backward compatible)
 
 **Documentation:**
+
 * Added 9.2KB README.mdx with complete accessibility guide
 * Documented all 30+ icons organized by category
 * Migration guide for updating existing icon usage
