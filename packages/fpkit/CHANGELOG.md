@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.2.0...@fpkit/acss@3.2.1) (2025-12-04)
+
+**Note:** Version bump only for package @fpkit/acss
+
+
+
+
+
 # [3.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.0.0...@fpkit/acss@3.2.0) (2025-12-04)
 
 
