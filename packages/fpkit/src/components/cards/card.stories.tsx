@@ -10,26 +10,28 @@ const meta: Meta<typeof Card> = {
   component: Card,
   args: {
     children: <p>{content}</p>,
+    classes: "shadow-md",
   },
   argTypes: {
     as: {
-      control: 'select',
-      options: ['div', 'article', 'section', 'aside'],
-      description: 'HTML element to render',
+      control: "select",
+      options: ["div", "article", "section", "aside"],
+      description: "HTML element to render",
     },
     interactive: {
-      control: 'boolean',
-      description: 'Enable keyboard navigation and button semantics',
+      control: "boolean",
+      description: "Enable keyboard navigation and button semantics",
     },
     role: {
-      control: 'text',
-      description: 'ARIA role attribute',
+      control: "text",
+      description: "ARIA role attribute",
     },
   },
   parameters: {
     docs: {
       description: {
-        component: 'A flexible, accessible card component with compound component pattern. Supports polymorphic rendering, interactive variants, and WCAG 2.1 AA compliance.',
+        component:
+          "A flexible, accessible card component with compound component pattern. Supports polymorphic rendering, interactive variants, and WCAG 2.1 AA compliance.",
       },
     },
   },
@@ -171,13 +173,13 @@ export const FlexibleContent: Story = {
 export const InteractiveCard: Story = {
   args: {
     interactive: true,
-    'aria-label': 'View product details',
+    "aria-label": "View product details",
   },
   render: (args) => (
     <Card
       {...args}
-      onClick={() => alert('Card clicked!')}
-      style={{ cursor: 'pointer' }}
+      onClick={() => alert("Card clicked!")}
+      style={{ cursor: "pointer" }}
     >
       <Card.Title>Interactive Product Card</Card.Title>
       <Card.Content>
@@ -185,12 +187,12 @@ export const InteractiveCard: Story = {
           This card is fully interactive! Click anywhere or use your keyboard
           (Tab to focus, Enter or Space to activate) to trigger the action.
         </p>
-        <p style={{ fontSize: '0.875rem', color: '#666', marginTop: '0.5rem' }}>
+        <p style={{ fontSize: "0.875rem", color: "#666", marginTop: "0.5rem" }}>
           Try it: Tab to focus this card, then press Enter or Space.
         </p>
       </Card.Content>
       <Card.Footer>
-        <span style={{ color: '#007bff', fontWeight: 'bold' }}>
+        <span style={{ color: "#007bff", fontWeight: "bold" }}>
           Click to learn more →
         </span>
       </Card.Footer>
@@ -199,7 +201,8 @@ export const InteractiveCard: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive cards support full keyboard navigation (Enter/Space keys) and automatically receive proper ARIA attributes for accessibility.',
+        story:
+          "Interactive cards support full keyboard navigation (Enter/Space keys) and automatically receive proper ARIA attributes for accessibility.",
       },
     },
   },
@@ -217,7 +220,7 @@ export const AccessibleCard: Story = {
           This card uses <code>aria-labelledby</code> to connect the title with
           the card container, providing an accessible name for screen readers.
         </p>
-        <p style={{ fontSize: '0.875rem', color: '#666', marginTop: '0.5rem' }}>
+        <p style={{ fontSize: "0.875rem", color: "#666", marginTop: "0.5rem" }}>
           Screen readers will announce: "Featured Product, article"
         </p>
       </Card.Content>
@@ -229,7 +232,8 @@ export const AccessibleCard: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstrates best practices for accessible cards using aria-labelledby to provide context to assistive technologies.',
+        story:
+          "Demonstrates best practices for accessible cards using aria-labelledby to provide context to assistive technologies.",
       },
     },
   },
@@ -240,7 +244,7 @@ export const AccessibleCard: Story = {
  */
 export const PolymorphicElements: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <Card as="article">
         <Card.Title as="h2">Article Card</Card.Title>
         <Card.Content>
@@ -266,7 +270,8 @@ export const PolymorphicElements: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'The Card component supports polymorphic rendering via the `as` prop, allowing you to use semantic HTML elements while maintaining consistent styling.',
+        story:
+          "The Card component supports polymorphic rendering via the `as` prop, allowing you to use semantic HTML elements while maintaining consistent styling.",
       },
     },
   },
@@ -277,7 +282,7 @@ export const PolymorphicElements: Story = {
  */
 export const CustomHeadingLevels: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <Card>
         <Card.Title as="h1">Level 1 Heading</Card.Title>
         <Card.Content>Main page title level</Card.Content>
@@ -290,7 +295,9 @@ export const CustomHeadingLevels: Story = {
 
       <Card>
         <Card.Title as="h3">Level 3 Heading (Default)</Card.Title>
-        <Card.Content>Subsection title level - this is the default</Card.Content>
+        <Card.Content>
+          Subsection title level - this is the default
+        </Card.Content>
       </Card>
 
       <Card>
@@ -302,7 +309,8 @@ export const CustomHeadingLevels: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Card.Title supports all heading levels (h1-h6) to maintain proper document outline and heading hierarchy.',
+        story:
+          "Card.Title supports all heading levels (h1-h6) to maintain proper document outline and heading hierarchy.",
       },
     },
   },
@@ -321,18 +329,23 @@ export const CustomHeadingLevels: Story = {
  */
 export const Customization: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       {/* Custom padding and spacing */}
       <div>
         <h4>Custom Padding & Spacing</h4>
-        <Card styles={{
-          "--card-padding": "3rem",
-          "--card-radius": "1rem",
-          "--card-gap": "1.5rem",
-        }}>
+        <Card
+          styles={{
+            "--card-padding": "3rem",
+            "--card-radius": "1rem",
+            "--card-gap": "1.5rem",
+          }}
+        >
           <Card.Title>Spacious Card</Card.Title>
           <Card.Content>
-            <p>This card uses custom padding (3rem) and larger border radius (1rem).</p>
+            <p>
+              This card uses custom padding (3rem) and larger border radius
+              (1rem).
+            </p>
           </Card.Content>
         </Card>
       </div>
@@ -340,14 +353,19 @@ export const Customization: Story = {
       {/* Compact card */}
       <div>
         <h4>Compact Card</h4>
-        <Card styles={{
-          "--card-padding": "1rem",
-          "--card-radius": "0.25rem",
-          "--card-gap": "0.5rem",
-        }}>
+        <Card
+          styles={{
+            "--card-padding": "1rem",
+            "--card-radius": "0.25rem",
+            "--card-gap": "0.5rem",
+          }}
+        >
           <Card.Title>Compact Card</Card.Title>
           <Card.Content>
-            <p>This card uses minimal padding and smaller gaps for a compact layout.</p>
+            <p>
+              This card uses minimal padding and smaller gaps for a compact
+              layout.
+            </p>
           </Card.Content>
         </Card>
       </div>
@@ -355,41 +373,53 @@ export const Customization: Story = {
       {/* Custom header/footer styling */}
       <div>
         <h4>Element-Specific Customization (Header, Body, Footer)</h4>
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Card styles={{
-            "--card-header-padding": "1.5rem 2rem",
-            "--card-header-bg": "#0066cc",
-            "--card-header-border-bottom": "none",
-            "--card-body-padding": "2rem",
-            "--card-footer-padding": "1rem 2rem",
-            "--card-footer-bg": "#f0f0f0",
-            "--card-footer-border-top": "2px solid #ddd",
-          }}>
-            <header data-card-header style={{ color: 'white' }}>
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <Card
+            styles={{
+              "--card-header-padding": "1.5rem 2rem",
+              "--card-header-bg": "#0066cc",
+              "--card-header-border-bottom": "none",
+              "--card-body-padding": "2rem",
+              "--card-footer-padding": "1rem 2rem",
+              "--card-footer-bg": "#f0f0f0",
+              "--card-footer-border-top": "2px solid #ddd",
+            }}
+          >
+            <header data-card-header style={{ color: "white" }}>
               <h3 style={{ margin: 0 }}>Custom Header</h3>
             </header>
             <div data-card-body>
-              <p>This card demonstrates element-specific customization using the new scoped variables.</p>
-              <p>Header has custom blue background, body has custom padding, footer has custom gray background.</p>
+              <p>
+                This card demonstrates element-specific customization using the
+                new scoped variables.
+              </p>
+              <p>
+                Header has custom blue background, body has custom padding,
+                footer has custom gray background.
+              </p>
             </div>
             <footer data-card-footer>
               <small>Custom Footer Content</small>
             </footer>
           </Card>
 
-          <Card styles={{
-            "--card-header-padding": "0.75rem 1.25rem",
-            "--card-header-bg": "#28a745",
-            "--card-header-border-bottom": "3px solid #1e7e34",
-            "--card-body-padding": "1.25rem",
-            "--card-footer-padding": "0.75rem 1.25rem",
-            "--card-footer-bg": "#e7f5ea",
-          }}>
-            <header data-card-header style={{ color: 'white' }}>
+          <Card
+            styles={{
+              "--card-header-padding": "0.75rem 1.25rem",
+              "--card-header-bg": "#28a745",
+              "--card-header-border-bottom": "3px solid #1e7e34",
+              "--card-body-padding": "1.25rem",
+              "--card-footer-padding": "0.75rem 1.25rem",
+              "--card-footer-bg": "#e7f5ea",
+            }}
+          >
+            <header data-card-header style={{ color: "white" }}>
               <h3 style={{ margin: 0 }}>Green Theme</h3>
             </header>
             <div data-card-body>
-              <p>Another example with green theme and custom element spacing.</p>
+              <p>
+                Another example with green theme and custom element spacing.
+              </p>
             </div>
             <footer data-card-footer>
               <small>Footer with light green background</small>
@@ -407,22 +437,27 @@ export const Customization: Story = {
         }}
       >
         <h4 style={{ color: "white", marginTop: 0 }}>Dark Theme Example</h4>
-        <Card styles={{
-          "--card-bg": "#2a2a2a",
-          "--card-padding": "2rem",
-          "--card-radius": "0.75rem",
-          "--card-header-bg": "#3a3a3a",
-          "--card-header-border-bottom": "1px solid #4a4a4a",
-          "--card-footer-bg": "#3a3a3a",
-          "--card-footer-border-top": "1px solid #4a4a4a",
-        }}>
+        <Card
+          styles={{
+            "--card-bg": "#2a2a2a",
+            "--card-padding": "2rem",
+            "--card-radius": "0.75rem",
+            "--card-header-bg": "#3a3a3a",
+            "--card-header-border-bottom": "1px solid #4a4a4a",
+            "--card-footer-bg": "#3a3a3a",
+            "--card-footer-border-top": "1px solid #4a4a4a",
+          }}
+        >
           <header data-card-header>
-            <h3 style={{ margin: 0, color: 'white' }}>Dark Mode Card</h3>
+            <h3 style={{ margin: 0, color: "white" }}>Dark Mode Card</h3>
           </header>
-          <div data-card-body style={{ color: '#e5e7eb' }}>
-            <p>This card demonstrates dark theme customization with all element-specific variables.</p>
+          <div data-card-body style={{ color: "#e5e7eb" }}>
+            <p>
+              This card demonstrates dark theme customization with all
+              element-specific variables.
+            </p>
           </div>
-          <footer data-card-footer style={{ color: '#9ca3af' }}>
+          <footer data-card-footer style={{ color: "#9ca3af" }}>
             <small>Styled with CSS custom properties</small>
           </footer>
         </Card>
@@ -431,19 +466,24 @@ export const Customization: Story = {
       {/* Brand card */}
       <div>
         <h4>Brand Card (No Radius, Custom Colors)</h4>
-        <Card styles={{
-          "--card-bg": "#fff5e6",
-          "--card-radius": "0",
-          "--card-padding": "2.5rem",
-          "--card-gap": "2rem",
-          "--card-header-bg": "#ff9800",
-          "--card-header-border-bottom": "4px solid #f57c00",
-        }}>
+        <Card
+          styles={{
+            "--card-bg": "#fff5e6",
+            "--card-radius": "0",
+            "--card-padding": "2.5rem",
+            "--card-gap": "2rem",
+            "--card-header-bg": "#ff9800",
+            "--card-header-border-bottom": "4px solid #f57c00",
+          }}
+        >
           <header data-card-header>
-            <h3 style={{ margin: 0, color: 'white' }}>Brand Card</h3>
+            <h3 style={{ margin: 0, color: "white" }}>Brand Card</h3>
           </header>
           <div data-card-body>
-            <p>This card uses brand colors and no border radius for a distinct look.</p>
+            <p>
+              This card uses brand colors and no border radius for a distinct
+              look.
+            </p>
           </div>
         </Card>
       </div>
