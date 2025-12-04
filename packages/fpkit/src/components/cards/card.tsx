@@ -1,13 +1,18 @@
-import React from 'react'
-import UI from '#components/ui'
+import React from "react";
+import UI from "#components/ui";
 import type {
   CardProps,
   CardTitleProps,
   CardContentProps,
   CardFooterProps,
   CardComponent,
-} from './card.types'
-import { cn, CARD_CLASSES, handleCardKeyDown, warnInteractiveUsage } from './card.utils'
+} from "./card.types";
+import {
+  cn,
+  CARD_CLASSES,
+  handleCardKeyDown,
+  warnInteractiveUsage,
+} from "./card.utils";
 
 /**
  * Card.Title - Title sub-component for Card
@@ -36,22 +41,22 @@ export const Title = ({
   children,
   className,
   style,
-  as = 'h3',
+  as = "h3",
   ...props
 }: CardTitleProps) => {
   return (
     <UI
       as={as}
-      className={cn(CARD_CLASSES.TITLE, className)}
+      classes={cn(CARD_CLASSES.TITLE, className)}
       styles={style}
       {...props}
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
-Title.displayName = 'Card.Title'
+Title.displayName = "Card.Title";
 
 /**
  * Card.Content - Content sub-component for Card
@@ -86,22 +91,22 @@ export const Content = ({
   children,
   className,
   style,
-  as = 'article',
+  as = "article",
   ...props
 }: CardContentProps) => {
   return (
     <UI
       as={as}
-      className={cn(CARD_CLASSES.CONTENT, className)}
+      classes={cn(CARD_CLASSES.CONTENT, className)}
       styles={style}
       {...props}
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
-Content.displayName = 'Card.Content'
+Content.displayName = "Card.Content";
 
 /**
  * Card.Footer - Footer sub-component for Card
@@ -133,22 +138,22 @@ export const Footer = ({
   children,
   className,
   style,
-  as = 'div',
+  as = "div",
   ...props
 }: CardFooterProps) => {
   return (
     <UI
       as={as}
-      className={cn(CARD_CLASSES.FOOTER, className)}
+      classes={cn(CARD_CLASSES.FOOTER, className)}
       styles={style}
       {...props}
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
-Footer.displayName = 'Card.Footer'
+Footer.displayName = "Card.Footer";
 
 /**
  * Card - A flexible, accessible card component with compound component pattern
@@ -220,35 +225,35 @@ Footer.displayName = 'Card.Footer'
  * ```
  */
 const CardRoot = ({
-  as = 'div',
+  as = "div",
   styles,
   children,
-  classes = 'shadow-sm',
+  classes,
   id,
   interactive = false,
   onClick,
   tabIndex,
   role,
-  'aria-label': ariaLabel,
-  'aria-labelledby': ariaLabelledBy,
-  'aria-describedby': ariaDescribedBy,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  "aria-describedby": ariaDescribedBy,
   ...props
 }: CardProps) => {
   // Development warnings for common accessibility issues
   React.useEffect(() => {
-    warnInteractiveUsage(!!onClick, interactive)
-  }, [onClick, interactive])
+    warnInteractiveUsage(!!onClick, interactive);
+  }, [onClick, interactive]);
 
   // Interactive card handling
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (interactive || onClick) {
-      handleCardKeyDown(event, onClick)
+      handleCardKeyDown(event, onClick);
     }
-  }
+  };
 
   const interactiveProps = interactive
     ? {
-        role: role || 'button',
+        role: role || "button",
         tabIndex: tabIndex ?? 0,
         onClick,
         onKeyDown: handleKeyDown,
@@ -256,34 +261,34 @@ const CardRoot = ({
     : {
         role,
         onClick,
-      }
+      };
 
   return (
     <UI
       as={as}
       id={id}
       styles={styles}
-      className={classes}
+      classes={classes}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
       aria-describedby={ariaDescribedBy}
-      data-card={interactive ? 'interactive' : true}
+      data-card={interactive ? "interactive" : true}
       {...interactiveProps}
       {...props}
     >
       {children}
     </UI>
-  )
-}
+  );
+};
 
 // Create compound component with proper TypeScript typing
-export const Card = CardRoot as CardComponent
-Card.displayName = 'Card'
-Card.Title = Title
-Card.Content = Content
-Card.Footer = Footer
+export const Card = CardRoot as CardComponent;
+Card.displayName = "Card";
+Card.Title = Title;
+Card.Content = Content;
+Card.Footer = Footer;
 
-export default Card
+export default Card;
 
 // Export types for external consumption
 export type {
@@ -292,4 +297,4 @@ export type {
   CardContentProps,
   CardFooterProps,
   CardComponent,
-} from './card.types'
+} from "./card.types";
