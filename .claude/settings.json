@@ -42,7 +42,8 @@
       "WebFetch(domain:github.com)",
       "Skill(npm-monorepo-publish)"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "plan"
   },
   "outputStyle": "Explanatory"
 }
