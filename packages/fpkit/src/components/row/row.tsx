@@ -93,8 +93,8 @@ export const Row = React.forwardRef<HTMLElement, RowProps>(
       utilityClasses.push(`col-row-align-${align}`);
     }
 
-    // Wrap utilities - only add if not default "wrap"
-    if (wrap && wrap !== "wrap") {
+    // Wrap utilities
+    if (wrap) {
       utilityClasses.push(`col-row-${wrap}`);
     }
 

@@ -2480,6 +2480,10 @@ dialog section {
 }
 
 /* Row Wrap Utilities */
+.col-row-wrap {
+  flex-wrap: wrap;
+}
+
 .col-row-nowrap {
   flex-wrap: nowrap;
 }
