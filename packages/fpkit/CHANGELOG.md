@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.3.0...@fpkit/acss@3.4.0) (2026-01-02)
+
+
+### Bug Fixes
+
+* **columns:** enable column shrinking at desktop breakpoint ([3c56787](https://github.com/shawn-sandy/fpkit/commit/3c567878082be2c901fd0c81c8b58a0e3641dad7))
+* **readme:** improve formatting and clarity in documentation ([ce022f3](https://github.com/shawn-sandy/fpkit/commit/ce022f3ef0b59ad16595be48899f6034abeffdae))
+
+
+### Features
+
+* **columns:** add proportional layout mode for Row component ([338f03f](https://github.com/shawn-sandy/fpkit/commit/338f03f1f72b3189d4ed1f0d8b7b81130d9843a8))
+* **columns:** add Row and Col React components for 12-column system ([5a9118b](https://github.com/shawn-sandy/fpkit/commit/5a9118bbfced0ffa824c38d55f998c5ad1eb6a71))
+* **columns:** complete 12-column utility system implementation ([a792474](https://github.com/shawn-sandy/fpkit/commit/a79247474917029ad985b8de2036f05dfb81d2c8))
+
+
+
+
+
 # [3.3.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.2.1...@fpkit/acss@3.3.0) (2025-12-04)
 
 
