@@ -1,20 +1,25 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from "@storybook/addon-docs/blocks";
 
 <Meta title="FP.React Components/Utilities/Columns/Documentation" />
 
 # 12-Column Utility System
 
-A Bootstrap/Foundation-compatible 12-column utility class system for creating flexible, responsive layouts using Flexbox.
+A Bootstrap/Foundation-compatible 12-column utility class system for creating
+flexible, responsive layouts using Flexbox.
 
 ## Overview
 
-The column utility system provides `.col-1` through `.col-12` classes that work with Flexbox containers, using percentage-based widths that automatically switch to 100% width on mobile screens.
+The column utility system provides `.col-1` through `.col-12` classes that work
+with Flexbox containers, using percentage-based widths that automatically switch
+to 100% width on mobile screens.
 
 ### Key Features
 
 - ✅ **12-column grid system** - `.col-1` (8.333%) through `.col-12` (100%)
-- ✅ **Mobile-first responsive** - 100% width on mobile (< 768px), percentage widths on desktop
-- ✅ **Flexbox-only** - Works with Flex component or `.col-row` utility (NOT with Grid component)
+- ✅ **Mobile-first responsive** - 100% width on mobile (< 768px), percentage
+  widths on desktop
+- ✅ **Flexbox-only** - Works with Flex component or `.col-row` utility (NOT
+  with Grid component)
 - ✅ **CSS custom properties** - Customizable breakpoints and column widths
 - ✅ **Optional utilities** - Offsets, auto-width, and visual ordering
 - ✅ **Accessibility-friendly** - Uses logical properties for RTL support
@@ -38,13 +43,13 @@ import { Flex } from "@fpkit/acss";
 <Flex wrap="wrap" gap="md">
   <div className="col-6">Left Half</div>
   <div className="col-6">Right Half</div>
-</Flex>
+</Flex>;
 ```
 
 ### Option 3: Custom Flex Container
 
 ```jsx
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+<div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
   <div className="col-6">Left Half</div>
   <div className="col-6">Right Half</div>
 </div>
@@ -52,20 +57,20 @@ import { Flex } from "@fpkit/acss";
 
 ## Column Classes Reference
 
-| Class | Width (Desktop) | Width (Mobile) | Use Case |
-|-------|----------------|----------------|----------|
-| `.col-1` | 8.333% | 100% | Narrow sidebar, icons |
-| `.col-2` | 16.667% | 100% | Small widgets |
-| `.col-3` | 25% | 100% | Quarter width, 4-column layouts |
-| `.col-4` | 33.333% | 100% | Third width, 3-column layouts |
-| `.col-5` | 41.667% | 100% | Asymmetric layouts |
-| `.col-6` | 50% | 100% | Half width, 2-column layouts |
-| `.col-7` | 58.333% | 100% | Asymmetric layouts |
-| `.col-8` | 66.667% | 100% | Two-thirds width, main content |
-| `.col-9` | 75% | 100% | Three-quarters width, primary content |
-| `.col-10` | 83.333% | 100% | Wide content area |
-| `.col-11` | 91.667% | 100% | Almost full width |
-| `.col-12` | 100% | 100% | Full width |
+| Class     | Width (Desktop) | Width (Mobile) | Use Case                              |
+| --------- | --------------- | -------------- | ------------------------------------- |
+| `.col-1`  | 8.333%          | 100%           | Narrow sidebar, icons                 |
+| `.col-2`  | 16.667%         | 100%           | Small widgets                         |
+| `.col-3`  | 25%             | 100%           | Quarter width, 4-column layouts       |
+| `.col-4`  | 33.333%         | 100%           | Third width, 3-column layouts         |
+| `.col-5`  | 41.667%         | 100%           | Asymmetric layouts                    |
+| `.col-6`  | 50%             | 100%           | Half width, 2-column layouts          |
+| `.col-7`  | 58.333%         | 100%           | Asymmetric layouts                    |
+| `.col-8`  | 66.667%         | 100%           | Two-thirds width, main content        |
+| `.col-9`  | 75%             | 100%           | Three-quarters width, primary content |
+| `.col-10` | 83.333%         | 100%           | Wide content area                     |
+| `.col-11` | 91.667%         | 100%           | Almost full width                     |
+| `.col-12` | 100%            | 100%           | Full width                            |
 
 ## Common Layout Patterns
 
@@ -136,16 +141,20 @@ import { Flex } from "@fpkit/acss";
 Push columns to the right using margin-inline-start:
 
 ```jsx
-{/* Center a 6-column element */}
+{
+  /* Center a 6-column element */
+}
 <div className="col-row">
   <div className="col-6 col-offset-3">Centered Content</div>
-</div>
+</div>;
 
-{/* Create asymmetric spacing */}
+{
+  /* Create asymmetric spacing */
+}
 <div className="col-row">
   <div className="col-4 col-offset-2">Offset Left by 2 columns</div>
   <div className="col-4 col-offset-1">Offset Left by 1 column</div>
-</div>
+</div>;
 ```
 
 **Available offset classes:** `.col-offset-0` through `.col-offset-11`
@@ -175,6 +184,7 @@ Visually reorder columns without changing HTML structure:
 ```
 
 **Available order classes:**
+
 - `.col-order-first` (order: -1)
 - `.col-order-last` (order: 13)
 - `.col-order-0` through `.col-order-12`
@@ -192,11 +202,13 @@ The `.col-row` utility provides a convenient Bootstrap-like container:
 ```
 
 **Properties:**
+
 - `display: flex`
 - `flex-wrap: wrap`
 - `gap: var(--spacing-md)` (default gap, customizable)
 
 **Benefits:**
+
 - ✅ Familiar to Bootstrap/Foundation users
 - ✅ Single class creates proper flex container
 - ✅ Works with existing gap utilities
@@ -205,46 +217,56 @@ The `.col-row` utility provides a convenient Bootstrap-like container:
 **Customizing gap:**
 
 ```jsx
-{/* Override gap with inline style */}
-<div className="col-row" style={{ gap: '2rem' }}>
+{
+  /* Override gap with inline style */
+}
+<div className="col-row" style={{ gap: "2rem" }}>
   <div className="col-4">Column</div>
-</div>
+</div>;
 
-{/* Or use gap utility classes (if available) */}
+{
+  /* Or use gap utility classes (if available) */
+}
 <div className="col-row gap-lg">
   <div className="col-4">Column</div>
-</div>
+</div>;
 ```
 
 ### When to Use Each Container
 
-| Container | Best For | Pros | Cons |
-|-----------|----------|------|------|
-| `.col-row` | Simple HTML layouts, Bootstrap-like | Familiar, concise, default gap | Less flexible than Flex component |
-| `<Flex>` | React apps, complex layouts | Responsive props, alignment controls | Requires React, more verbose |
-| Inline styles | One-off layouts, prototyping | Full control | Not reusable |
-| Utility classes | Custom containers | Flexible, reusable | Requires utility class system |
+| Container       | Best For                            | Pros                                 | Cons                              |
+| --------------- | ----------------------------------- | ------------------------------------ | --------------------------------- |
+| `.col-row`      | Simple HTML layouts, Bootstrap-like | Familiar, concise, default gap       | Less flexible than Flex component |
+| `<Flex>`        | React apps, complex layouts         | Responsive props, alignment controls | Requires React, more verbose      |
+| Inline styles   | One-off layouts, prototyping        | Full control                         | Not reusable                      |
+| Utility classes | Custom containers                   | Flexible, reusable                   | Requires utility class system     |
 
 ## Spacing and Gutters
 
-**Unlike Bootstrap**, these column utilities do NOT have built-in gutters. Instead, use the `gap` property on the container:
+**Unlike Bootstrap**, these column utilities do NOT have built-in gutters.
+Instead, use the `gap` property on the container:
 
 ```jsx
-{/* ✅ CORRECT: Use gap on container */}
+{
+  /* ✅ CORRECT: Use gap on container */
+}
 <div className="col-row">
   <div className="col-6">Proper spacing via gap</div>
   <div className="col-6">Proper spacing via gap</div>
-</div>
+</div>;
 
-{/* ❌ WRONG: Don't add padding to columns */}
+{
+  /* ❌ WRONG: Don't add padding to columns */
+}
 <div className="col-row">
-  <div className="col-6" style={{ padding: '0.5rem' }}>
+  <div className="col-6" style={{ padding: "0.5rem" }}>
     Breaks the 12-column math!
   </div>
-</div>
+</div>;
 ```
 
 **Available gap values** (when using fpkit gap utilities):
+
 - `gap-0` - No gap
 - `gap-xs` - Extra small (0.25-0.5rem)
 - `gap-sm` - Small (0.5-0.75rem)
@@ -257,11 +279,13 @@ The `.col-row` utility provides a convenient Bootstrap-like container:
 Columns automatically adapt to screen size using a mobile-first approach:
 
 ### Mobile (< 768px / 48rem)
+
 - All columns are **100% width**
 - Columns stack vertically
 - Perfect for small screens
 
 ### Desktop (≥ 768px / 48rem)
+
 - Columns use **percentage widths**
 - Columns display side-by-side
 - Creates multi-column layouts
@@ -276,8 +300,8 @@ Columns automatically adapt to screen size using a mobile-first approach:
 </div>
 ```
 
-**On mobile:** Cards stack (100% width each)
-**On desktop:** Cards display side-by-side (33.33% width each)
+**On mobile:** Cards stack (100% width each) **On desktop:** Cards display
+side-by-side (33.33% width each)
 
 ## Important Considerations
 
@@ -286,51 +310,62 @@ Columns automatically adapt to screen size using a mobile-first approach:
 Column utilities **require a flex container** to work correctly:
 
 ```jsx
-{/* ❌ WRONG: No flex container */}
+{
+  /* ❌ WRONG: No flex container */
+}
 <div>
   <div className="col-6">Won't work</div>
-</div>
+</div>;
 
-{/* ✅ CORRECT: Proper flex container */}
+{
+  /* ✅ CORRECT: Proper flex container */
+}
 <div className="col-row">
   <div className="col-6">Works correctly</div>
-</div>
+</div>;
 ```
 
 **Container must have:**
+
 - `display: flex`
 - `flex-wrap: wrap` (to allow wrapping)
 - Optional: `gap` property for spacing
 
 ### ⚠️ NOT Compatible with Grid Component
 
-Column utilities are designed for **Flexbox only**. The existing Grid component uses CSS Grid with different classes:
+Column utilities are designed for **Flexbox only**. The existing Grid component
+uses CSS Grid with different classes:
 
 ```jsx
-{/* ❌ WRONG: Grid uses CSS Grid, not Flexbox */}
+{
+  /* ❌ WRONG: Grid uses CSS Grid, not Flexbox */
+}
 <div className="grid gap-md">
   <div className="col-4">Won't work as expected</div>
-</div>
+</div>;
 
-{/* ✅ CORRECT: Use Grid's built-in column spanning */}
+{
+  /* ✅ CORRECT: Use Grid's built-in column spanning */
+}
 <div className="grid grid-cols-12 gap-md">
   <div className="grid-col-span-4">Sidebar</div>
   <div className="grid-col-span-8">Main Content</div>
-</div>
+</div>;
 ```
 
 **Two DIFFERENT systems:**
 
-| System | Display Mode | Classes | Use Case |
-|--------|--------------|---------|----------|
-| **Column Utilities** (NEW) | Flexbox | `.col-1` to `.col-12` | Bootstrap-style percentage widths |
-| **Grid Component** (Existing) | CSS Grid | `.grid-cols-*`, `.grid-col-span-*` | Multi-dimensional grid layouts |
+| System                        | Display Mode | Classes                            | Use Case                          |
+| ----------------------------- | ------------ | ---------------------------------- | --------------------------------- |
+| **Column Utilities** (NEW)    | Flexbox      | `.col-1` to `.col-12`              | Bootstrap-style percentage widths |
+| **Grid Component** (Existing) | CSS Grid     | `.grid-cols-*`, `.grid-col-span-*` | Multi-dimensional grid layouts    |
 
 ## Customization
 
 ### CSS Custom Properties
 
-All column widths and the breakpoint are defined as CSS custom properties and can be customized:
+All column widths and the breakpoint are defined as CSS custom properties and
+can be customized:
 
 ```css
 :root {
@@ -366,6 +401,7 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 ### Bootstrap Row/Col Pattern
 
 **Bootstrap:**
+
 ```html
 <div class="row">
   <div class="col-6">Column</div>
@@ -374,6 +410,7 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 ```
 
 **fpkit (Option 1 - Bootstrap-like):**
+
 ```jsx
 <div className="col-row">
   <div className="col-6">Column</div>
@@ -382,6 +419,7 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 ```
 
 **fpkit (Option 2 - React component):**
+
 ```jsx
 <Flex wrap="wrap" gap="md">
   <div className="col-6">Column</div>
@@ -392,6 +430,7 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 ### Foundation Grid Pattern
 
 **Foundation:**
+
 ```html
 <div class="grid-x grid-padding-x">
   <div class="cell medium-6">Column</div>
@@ -400,6 +439,7 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 ```
 
 **fpkit:**
+
 ```jsx
 <div className="col-row">
   <div className="col-6">Column</div>
@@ -424,38 +464,45 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 **Solution:** Add `flex-wrap: wrap` to the container
 
 ```jsx
-{/* ❌ WRONG */}
+{
+  /* ❌ WRONG */
+}
 <Flex>
   <div className="col-6">...</div>
   <div className="col-6">...</div>
-  <div className="col-6">...</div>  {/* Doesn't wrap! */}
-</Flex>
+  <div className="col-6">...</div> {/* Doesn't wrap! */}
+</Flex>;
 
-{/* ✅ CORRECT */}
+{
+  /* ✅ CORRECT */
+}
 <Flex wrap="wrap">
   <div className="col-6">...</div>
   <div className="col-6">...</div>
-  <div className="col-6">...</div>  {/* Wraps to new row */}
-</Flex>
+  <div className="col-6">...</div> {/* Wraps to new row */}
+</Flex>;
 ```
 
 ### Content Overflowing from Columns
 
 **Problem:** Long text or images overflow the column width
 
-**Solution:** The `min-width: 0` in the utility prevents this, but verify container has `flex-wrap: wrap`
+**Solution:** The `min-width: 0` in the utility prevents this, but verify
+container has `flex-wrap: wrap`
 
 ### Columns Not Sized Correctly on Mobile
 
 **Problem:** Columns show percentage widths on mobile screens
 
-**Solution:** Check browser width is actually < 768px (48rem). Use browser DevTools responsive mode to verify.
+**Solution:** Check browser width is actually < 768px (48rem). Use browser
+DevTools responsive mode to verify.
 
 ### Can't Use with Grid Component
 
 **Problem:** `.col-6` doesn't work inside `<Grid>` component
 
-**Solution:** Use `.grid-col-span-6` instead. Column utilities only work with Flexbox, not CSS Grid.
+**Solution:** Use `.grid-col-span-6` instead. Column utilities only work with
+Flexbox, not CSS Grid.
 
 ## Browser Support
 
@@ -474,9 +521,11 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 
 ### Optimization Tips
 
-1. **Remove unused features** - If you don't need offsets/ordering, remove those sections from `_columns.scss`
+1. **Remove unused features** - If you don't need offsets/ordering, remove those
+   sections from `_columns.scss`
 2. **Use gap utilities** - Instead of custom padding on every column
-3. **Leverage CSS custom properties** - One-time definition, reused across all columns
+3. **Leverage CSS custom properties** - One-time definition, reused across all
+   columns
 
 ## Examples in the Wild
 
@@ -484,7 +533,7 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 
 ```jsx
 <div className="col-row">
-  {products.map(product => (
+  {products.map((product) => (
     <div key={product.id} className="col-3">
       <Card>
         <CardTitle>{product.name}</CardTitle>
@@ -536,7 +585,8 @@ All column widths and the breakpoint are defined as CSS custom properties and ca
 ## Related Components
 
 - **Flex Component** - For complex flexbox layouts with responsive props
-- **Grid Component** - For CSS Grid-based layouts (NOT compatible with `.col-*` classes)
+- **Grid Component** - For CSS Grid-based layouts (NOT compatible with `.col-*`
+  classes)
 - **Stack Component** - For vertical stacking with consistent spacing
 - **Cluster Component** - For wrapping groups of items
 
