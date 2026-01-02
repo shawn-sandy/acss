@@ -122,6 +122,8 @@ export { Box, type BoxProps } from "./components/box/box";
 export { Stack, type StackProps } from "./components/stack/stack";
 export { Cluster, type ClusterProps } from "./components/cluster/cluster";
 export { default as Grid, GridItem, type GridProps, type GridItemProps } from "./components/grid/grid";
+export { Row, type RowProps } from "./components/row/row";
+export { Col, type ColProps } from "./components/col/col";
 export { default as Flex } from "./components/flexbox/flex";
 export type {
   FlexProps,
