@@ -35,6 +35,11 @@ const meta: Meta<typeof Row> = {
       options: ["wrap", "nowrap", "wrap-reverse"],
       description: "Flex wrap behavior",
     },
+    alwaysProportional: {
+      control: "boolean",
+      description:
+        "Maintains proportional layout on tablets+ (≥480px). Columns still stack on phones (<480px).",
+    },
     as: {
       control: "select",
       options: ["div", "section", "article", "ul", "ol", "nav"],
@@ -353,6 +358,177 @@ export const ResponsiveBehavior: Story = {
           "Resize the viewport to see responsive behavior. Columns stack on mobile (<768px) and display in a row on desktop (>=768px).",
       },
     },
+  },
+};
+
+/**
+ * Responsive Stacking - Default mobile-first behavior.
+ * Below 768px, columns stack vertically at 100% width.
+ * Demonstrates the default responsive stacking behavior.
+ */
+export const ResponsiveStacking: Story = {
+  args: {
+    gap: "md",
+    children: (
+      <>
+        <div
+          className="col-6"
+          style={{
+            padding: "1rem",
+            background: "#e0e7ff",
+            border: "1px solid #6366f1",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Column 1 (col-6)
+        </div>
+        <div
+          className="col-6"
+          style={{
+            padding: "1rem",
+            background: "#dbeafe",
+            border: "1px solid #3b82f6",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Column 2 (col-6)
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Default responsive behavior. Columns stack on mobile (< 768px) and display side-by-side on desktop (≥ 768px).",
+      },
+    },
+  },
+  play: async ({ canvasElement, step }) => {
+    await step("Row renders without proportional class", async () => {
+      const row = canvasElement.querySelector(".col-row");
+      expect(row).toBeInTheDocument();
+      expect(row).not.toHaveClass("col-row-proportional");
+    });
+  },
+};
+
+/**
+ * Always Proportional - Maintains layout on tablets and larger.
+ * Columns stack on phones (< 480px) but maintain 50/50 split on tablets+ (≥ 480px).
+ * Prevents wrapping on tablets and desktop while still stacking on phones.
+ */
+export const AlwaysProportional: Story = {
+  args: {
+    alwaysProportional: true,
+    gap: "md",
+    children: (
+      <>
+        <div
+          className="col-6"
+          style={{
+            padding: "1rem",
+            background: "#e0e7ff",
+            border: "1px solid #6366f1",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Column 1 (50% on tablets+)
+        </div>
+        <div
+          className="col-6"
+          style={{
+            padding: "1rem",
+            background: "#dbeafe",
+            border: "1px solid #3b82f6",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Column 2 (50% on tablets+)
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Proportional layout mode. Columns still stack on phones (< 480px) but maintain their proportional widths on tablets (≥ 480px) and larger. Resize to see the difference from default behavior.",
+      },
+    },
+  },
+  play: async ({ canvasElement, step }) => {
+    await step("Row has proportional class", async () => {
+      const row = canvasElement.querySelector(".col-row-proportional");
+      expect(row).toBeInTheDocument();
+    });
+  },
+};
+
+/**
+ * Three Column Proportional - Multiple columns with proportional layout.
+ * Demonstrates three-column layout that maintains proportions on tablets and larger.
+ */
+export const ThreeColumnsProportional: Story = {
+  args: {
+    alwaysProportional: true,
+    gap: "sm",
+    children: (
+      <>
+        <div
+          className="col-4"
+          style={{
+            padding: "1rem",
+            background: "#e0e7ff",
+            border: "1px solid #6366f1",
+            borderRadius: "0.25rem",
+          }}
+        >
+          33.33%
+        </div>
+        <div
+          className="col-4"
+          style={{
+            padding: "1rem",
+            background: "#dbeafe",
+            border: "1px solid #3b82f6",
+            borderRadius: "0.25rem",
+          }}
+        >
+          33.33%
+        </div>
+        <div
+          className="col-4"
+          style={{
+            padding: "1rem",
+            background: "#fce7f3",
+            border: "1px solid #db2777",
+            borderRadius: "0.25rem",
+          }}
+        >
+          33.33%
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Three-column layout with proportional mode. Columns remain in a 3-column layout on tablets and desktop, but stack on phones.",
+      },
+    },
+  },
+  play: async ({ canvasElement, step }) => {
+    await step("Row has proportional class", async () => {
+      const row = canvasElement.querySelector(".col-row-proportional");
+      expect(row).toBeInTheDocument();
+    });
+
+    await step("All three columns render", async () => {
+      const columns = canvasElement.querySelectorAll(".col-4");
+      expect(columns).toHaveLength(3);
+    });
   },
 };
 

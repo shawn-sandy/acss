@@ -261,6 +261,63 @@ describe("Row Component", () => {
     });
   });
 
+  describe("Proportional Layout Mode", () => {
+    it("applies col-row-proportional class when alwaysProportional is true", () => {
+      const { container } = render(
+        <Row alwaysProportional>
+          <div className="col-6">Column 1</div>
+          <div className="col-6">Column 2</div>
+        </Row>
+      );
+      const row = container.firstChild as HTMLElement;
+      expect(row).toHaveClass("col-row-proportional");
+    });
+
+    it("does not apply col-row-proportional class by default", () => {
+      const { container } = render(
+        <Row>
+          <div className="col-6">Column 1</div>
+          <div className="col-6">Column 2</div>
+        </Row>
+      );
+      const row = container.firstChild as HTMLElement;
+      expect(row).not.toHaveClass("col-row-proportional");
+    });
+
+    it("does not apply col-row-proportional class when explicitly false", () => {
+      const { container } = render(
+        <Row alwaysProportional={false}>
+          <div className="col-6">Column 1</div>
+          <div className="col-6">Column 2</div>
+        </Row>
+      );
+      const row = container.firstChild as HTMLElement;
+      expect(row).not.toHaveClass("col-row-proportional");
+    });
+
+    it("combines alwaysProportional with other row utilities", () => {
+      const { container } = render(
+        <Row alwaysProportional gap="lg" justify="center">
+          <div className="col-4">Column</div>
+        </Row>
+      );
+      const row = container.firstChild as HTMLElement;
+      expect(row).toHaveClass("col-row");
+      expect(row).toHaveClass("col-row-proportional");
+      expect(row).toHaveClass("col-row-gap-lg");
+      expect(row).toHaveClass("col-row-justify-center");
+    });
+
+    it("preserves base class with proportional mode", () => {
+      const { container } = render(
+        <Row alwaysProportional>Content</Row>
+      );
+      const row = container.firstChild as HTMLElement;
+      expect(row).toHaveClass("col-row");
+      expect(row).toHaveClass("col-row-proportional");
+    });
+  });
+
   describe("Ref Forwarding", () => {
     it("forwards ref to the underlying element", () => {
       const ref = { current: null };
