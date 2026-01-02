@@ -19,6 +19,7 @@
 @use "./components/grid/grid.scss";
 @use "./components/dialog/dialog.scss";
 @use "./sass/_grid.scss" as grid-legacy;
+@use "./sass/_columns.scss";
 @use "./components/badge/badge.scss";
 @use "./components/nav/nav.scss";
 @use "./components/form/form.scss";
