@@ -2209,41 +2209,45 @@ dialog section {
 
 /* Desktop Column Widths (>= 48rem / 768px) */
 @media (width >= 48rem) {
+  /* Prevent wrapping at desktop - columns shrink to fit instead */
+  .col-row {
+    flex-wrap: nowrap;
+  }
   .col-1 {
-    flex-basis: var(--col-1);
+    flex: 0 1 var(--col-1);
   }
   .col-2 {
-    flex-basis: var(--col-2);
+    flex: 0 1 var(--col-2);
   }
   .col-3 {
-    flex-basis: var(--col-3);
+    flex: 0 1 var(--col-3);
   }
   .col-4 {
-    flex-basis: var(--col-4);
+    flex: 0 1 var(--col-4);
   }
   .col-5 {
-    flex-basis: var(--col-5);
+    flex: 0 1 var(--col-5);
   }
   .col-6 {
-    flex-basis: var(--col-6);
+    flex: 0 1 var(--col-6);
   }
   .col-7 {
-    flex-basis: var(--col-7);
+    flex: 0 1 var(--col-7);
   }
   .col-8 {
-    flex-basis: var(--col-8);
+    flex: 0 1 var(--col-8);
   }
   .col-9 {
-    flex-basis: var(--col-9);
+    flex: 0 1 var(--col-9);
   }
   .col-10 {
-    flex-basis: var(--col-10);
+    flex: 0 1 var(--col-10);
   }
   .col-11 {
-    flex-basis: var(--col-11);
+    flex: 0 1 var(--col-11);
   }
   .col-12 {
-    flex-basis: var(--col-12);
+    flex: 0 1 var(--col-12);
   }
 }
 /* ============================================================================
@@ -2269,7 +2273,7 @@ dialog section {
 @media (width >= 30rem) {
   .col-row-proportional .col-1, .col-row-proportional .col-2, .col-row-proportional .col-3, .col-row-proportional .col-4, .col-row-proportional .col-5, .col-row-proportional .col-6,
   .col-row-proportional .col-7, .col-row-proportional .col-8, .col-row-proportional .col-9, .col-row-proportional .col-10, .col-row-proportional .col-11, .col-row-proportional .col-12 {
-    flex: 0 0 auto; /* Allow proportional sizing */
+    flex: 0 1 auto; /* Allow proportional sizing with shrink */
   }
   .col-row-proportional .col-1 {
     flex-basis: var(--col-1);
