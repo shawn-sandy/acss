@@ -117,3 +117,34 @@
   .col-order-11 { order: 11; }
   .col-order-12 { order: 12; }
 }
+
+/* ============================================================================
+   Row Variant Utilities (for Row React Component)
+   ========================================================================== */
+
+/* Row Gap Utilities - Override default gap */
+.col-row-gap-0 { gap: 0; }
+.col-row-gap-xs { gap: var(--spacing-xs); }
+.col-row-gap-sm { gap: var(--spacing-sm); }
+.col-row-gap-md { gap: var(--spacing-md); }
+.col-row-gap-lg { gap: var(--spacing-lg); }
+.col-row-gap-xl { gap: var(--spacing-xl); }
+
+/* Row Justify Content Utilities */
+.col-row-justify-start { justify-content: flex-start; }
+.col-row-justify-center { justify-content: center; }
+.col-row-justify-end { justify-content: flex-end; }
+.col-row-justify-between { justify-content: space-between; }
+.col-row-justify-around { justify-content: space-around; }
+.col-row-justify-evenly { justify-content: space-evenly; }
+
+/* Row Align Items Utilities */
+.col-row-align-start { align-items: flex-start; }
+.col-row-align-center { align-items: center; }
+.col-row-align-end { align-items: flex-end; }
+.col-row-align-baseline { align-items: baseline; }
+.col-row-align-stretch { align-items: stretch; }
+
+/* Row Wrap Utilities */
+.col-row-nowrap { flex-wrap: nowrap; }
+.col-row-wrap-reverse { flex-wrap: wrap-reverse; }
