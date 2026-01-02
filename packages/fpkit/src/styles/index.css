@@ -2246,6 +2246,68 @@ dialog section {
     flex-basis: var(--col-12);
   }
 }
+/* ============================================================================
+   Proportional Layout Mode (Opt-in)
+   ========================================================================== */
+/**
+ * .col-row-proportional prevents columns from stacking on tablets and larger.
+ * Columns still stack on mobile phones (< 30rem / 480px) for readability,
+ * but maintain proportional widths on tablets and desktops (>= 30rem / 480px).
+ *
+ * Usage with Row component:
+ *   <Row alwaysProportional>
+ *     <Col span={6}>Column 1</Col>
+ *     <Col span={6}>Column 2</Col>
+ *   </Row>
+ *
+ * Usage with vanilla HTML:
+ *   <div className="col-row col-row-proportional">
+ *     <div className="col-6">Column 1</div>
+ *     <div className="col-6">Column 2</div>
+ *   </div>
+ */
+@media (width >= 30rem) {
+  .col-row-proportional .col-1, .col-row-proportional .col-2, .col-row-proportional .col-3, .col-row-proportional .col-4, .col-row-proportional .col-5, .col-row-proportional .col-6,
+  .col-row-proportional .col-7, .col-row-proportional .col-8, .col-row-proportional .col-9, .col-row-proportional .col-10, .col-row-proportional .col-11, .col-row-proportional .col-12 {
+    flex: 0 0 auto; /* Allow proportional sizing */
+  }
+  .col-row-proportional .col-1 {
+    flex-basis: var(--col-1);
+  }
+  .col-row-proportional .col-2 {
+    flex-basis: var(--col-2);
+  }
+  .col-row-proportional .col-3 {
+    flex-basis: var(--col-3);
+  }
+  .col-row-proportional .col-4 {
+    flex-basis: var(--col-4);
+  }
+  .col-row-proportional .col-5 {
+    flex-basis: var(--col-5);
+  }
+  .col-row-proportional .col-6 {
+    flex-basis: var(--col-6);
+  }
+  .col-row-proportional .col-7 {
+    flex-basis: var(--col-7);
+  }
+  .col-row-proportional .col-8 {
+    flex-basis: var(--col-8);
+  }
+  .col-row-proportional .col-9 {
+    flex-basis: var(--col-9);
+  }
+  .col-row-proportional .col-10 {
+    flex-basis: var(--col-10);
+  }
+  .col-row-proportional .col-11 {
+    flex-basis: var(--col-11);
+  }
+  .col-row-proportional .col-12 {
+    flex-basis: var(--col-12);
+  }
+}
 /* Optional: Column Offset Utilities */
 @media (width >= 48rem) {
   .col-offset-0 {

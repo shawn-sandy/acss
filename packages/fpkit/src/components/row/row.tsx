@@ -50,6 +50,13 @@ export type { RowProps } from "./row.types";
  *   <Col as="li" span={4}>Item 3</Col>
  * </Row>
  *
+ * @example
+ * // Proportional layout - maintains columns on tablets and larger
+ * <Row alwaysProportional gap="lg">
+ *   <Col span={6}>Column 1 (50% on tablets+)</Col>
+ *   <Col span={6}>Column 2 (50% on tablets+)</Col>
+ * </Row>
+ *
  * @see {@link RowProps} for complete props documentation
  */
 export const Row = React.forwardRef<HTMLElement, RowProps>(
@@ -59,6 +66,7 @@ export const Row = React.forwardRef<HTMLElement, RowProps>(
       justify,
       align,
       wrap,
+      alwaysProportional = false,
       as = "div",
       className,
       classes,
@@ -88,6 +96,11 @@ export const Row = React.forwardRef<HTMLElement, RowProps>(
     // Wrap utilities - only add if not default "wrap"
     if (wrap && wrap !== "wrap") {
       utilityClasses.push(`col-row-${wrap}`);
+    }
+
+    // Proportional layout mode - prevents stacking on tablets and larger
+    if (alwaysProportional) {
+      utilityClasses.push("col-row-proportional");
     }
 
     // Merge all classes: utilities + className + classes
