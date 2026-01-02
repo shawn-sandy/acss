@@ -194,5 +194,6 @@
 .col-row-align-stretch { align-items: stretch; }
 
 /* Row Wrap Utilities */
+.col-row-wrap { flex-wrap: wrap; }
 .col-row-nowrap { flex-wrap: nowrap; }
 .col-row-wrap-reverse { flex-wrap: wrap-reverse; }

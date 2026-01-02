@@ -593,3 +593,141 @@ export const SemanticHTML: Story = {
     });
   },
 };
+
+/**
+ * Overflow Without Wrap - Default behavior when columns exceed 12.
+ * Shows proportional shrinking (nowrap) when column spans total more than 12.
+ * Columns compress to fit on one line rather than wrapping.
+ */
+export const OverflowWithoutWrap: Story = {
+  args: {
+    gap: "md",
+    children: (
+      <>
+        <div
+          className="col-8"
+          style={{
+            padding: "1rem",
+            background: "#dbeafe",
+            border: "2px solid #3b82f6",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Wide (.col-8)
+        </div>
+        <div
+          className="col-4"
+          style={{
+            padding: "1rem",
+            background: "#fce7f3",
+            border: "2px solid #db2777",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Narrow (.col-4)
+        </div>
+        <div
+          className="col-6"
+          style={{
+            padding: "1rem",
+            background: "#fef3c7",
+            border: "2px solid #f59e0b",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Half (.col-6)
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Default behavior (nowrap): When columns total more than 12 (8+4+6=18), they shrink proportionally to fit on one line. This maintains the relative proportions while compressing all columns to fit the available space.",
+      },
+    },
+  },
+  play: async ({ canvasElement, step }) => {
+    await step("Row has nowrap behavior (default)", async () => {
+      const row = canvasElement.querySelector(".col-row");
+      expect(row).toBeInTheDocument();
+      expect(row).not.toHaveClass("col-row-wrap");
+    });
+
+    await step("All columns render on same line", async () => {
+      expect(canvasElement.querySelector(".col-8")).toBeInTheDocument();
+      expect(canvasElement.querySelector(".col-4")).toBeInTheDocument();
+      expect(canvasElement.querySelector(".col-6")).toBeInTheDocument();
+    });
+  },
+};
+
+/**
+ * Overflow With Wrap - Opt-in wrapping when columns exceed 12.
+ * Demonstrates using wrap="wrap" to allow columns to wrap to next row
+ * instead of shrinking proportionally.
+ */
+export const OverflowWithWrap: Story = {
+  args: {
+    gap: "md",
+    wrap: "wrap",
+    children: (
+      <>
+        <div
+          className="col-8"
+          style={{
+            padding: "1rem",
+            background: "#dbeafe",
+            border: "2px solid #3b82f6",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Wide (.col-8)
+        </div>
+        <div
+          className="col-4"
+          style={{
+            padding: "1rem",
+            background: "#fce7f3",
+            border: "2px solid #db2777",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Narrow (.col-4)
+        </div>
+        <div
+          className="col-6"
+          style={{
+            padding: "1rem",
+            background: "#fef3c7",
+            border: "2px solid #f59e0b",
+            borderRadius: "0.25rem",
+          }}
+        >
+          Half (.col-6)
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'With wrap="wrap": When columns total more than 12 (8+4+6=18), they wrap to next row instead of shrinking. First row shows col-8 + col-4 (totaling 12), then col-6 wraps to a second row. Use this when you want natural wrapping behavior instead of proportional compression.',
+      },
+    },
+  },
+  play: async ({ canvasElement, step }) => {
+    await step("Row has wrap class", async () => {
+      const row = canvasElement.querySelector(".col-row-wrap");
+      expect(row).toBeInTheDocument();
+    });
+
+    await step("All columns render", async () => {
+      expect(canvasElement.querySelector(".col-8")).toBeInTheDocument();
+      expect(canvasElement.querySelector(".col-4")).toBeInTheDocument();
+      expect(canvasElement.querySelector(".col-6")).toBeInTheDocument();
+    });
+  },
+};
