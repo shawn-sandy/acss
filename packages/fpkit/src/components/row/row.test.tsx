@@ -187,11 +187,10 @@ describe("Row Component", () => {
   });
 
   describe("Wrap Utilities", () => {
-    it("does not apply wrap class for default wrap value", () => {
+    it("applies wrap utility class", () => {
       const { container } = render(<Row wrap="wrap">Content</Row>);
       const row = container.firstChild as HTMLElement;
-      expect(row.className).not.toMatch(/col-row-wrap/);
-      expect(row.className).not.toMatch(/col-row-nowrap/);
+      expect(row).toHaveClass("col-row-wrap");
     });
 
     it("applies nowrap utility class", () => {
