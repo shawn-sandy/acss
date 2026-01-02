@@ -1,0 +1,532 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+import * as ColStories from "./col.stories";
+
+<Meta of={ColStories} />
+
+# Col
+
+A column component for building responsive 12-column layouts within Row
+containers.
+
+## Overview
+
+Col provides a type-safe React wrapper around column utility classes, allowing
+developers to create responsive columns with precise control over width,
+positioning, and visual order. Unlike Row, Col has **no base class** - it's pure
+utility class composition following the Grid.Item pattern.
+
+## Key Features
+
+- **No Base Class**: Pure utility class mapping for maximum flexibility
+- **Span Control**: 1-12 column widths via the `span` prop
+- **Offset Positioning**: Push columns right with `offset` prop
+- **Visual Reordering**: Change display order with `order` prop
+- **Auto-Width**: Content-based width with `auto` prop
+- **Polymorphic**: Render as any semantic HTML element
+- **Type-Safe**: Full TypeScript support with literal types
+
+## When to Use
+
+Use Col when you need:
+
+- Responsive column layouts within Row containers
+- Precise control over column widths (12-column grid)
+- Offset positioning to create whitespace
+- Visual reordering without changing DOM order
+- Content-based column widths
+
+## Props
+
+### span
+
+Column span (width) from 1-12 columns. Ignored if `auto` is true.
+
+- **Type**: `1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`
+- **Default**: `undefined`
+- **CSS Class**: `.col-{span}`
+- **Calculation**: `span / 12 * 100%`
+
+**Examples:**
+
+- `span={12}` = 100% width (`.col-12`)
+- `span={6}` = 50% width (`.col-6`)
+- `span={4}` = 33.33% width (`.col-4`)
+- `span={3}` = 25% width (`.col-3`)
+
+### offset
+
+Column offset (left margin) from 0-11 columns. Pushes column to the right.
+
+- **Type**: `0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11`
+- **Default**: `undefined`
+- **CSS Class**: `.col-offset-{offset}`
+- **Calculation**: `offset / 12 * 100%`
+
+**Examples:**
+
+- `offset={3}` = Push right by 25% (`.col-offset-3`)
+- `offset={0}` = No offset (`.col-offset-0`)
+
+### order
+
+Visual display order using flexbox `order` property. Does not change DOM order.
+
+- **Type**:
+  `"first" | "last" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`
+- **Default**: `undefined`
+- **CSS Class**: `.col-order-{order}`
+
+**Examples:**
+
+- `order="first"` = Display first (order: -1)
+- `order="last"` = Display last (order: 13)
+- `order={1}` = Display in position 1
+
+### auto
+
+Auto-width column based on content. Takes precedence over `span`.
+
+- **Type**: `boolean`
+- **Default**: `false`
+- **CSS Class**: `.col-auto`
+
+When `true`, column width adjusts to fit content instead of spanning a fixed
+number of columns.
+
+### as
+
+Element type to render. Supports semantic HTML elements.
+
+- **Type**: `"div" | "section" | "article" | "li"`
+- **Default**: `"div"`
+
+### className
+
+Additional CSS classes to merge with utility classes.
+
+- **Type**: `string`
+- **Default**: `undefined`
+
+## Basic Usage
+
+```jsx
+import { Row, Col } from "@fpkit/acss";
+
+function MyLayout() {
+  return (
+    <Row>
+      <Col span={6}>Left column (50%)</Col>
+      <Col span={6}>Right column (50%)</Col>
+    </Row>
+  );
+}
+```
+
+## Examples
+
+### Column Spans
+
+```jsx
+<Row gap="md">
+  {/* Full width */}
+  <Col span={12}>100% width</Col>
+
+  {/* Half width */}
+  <Col span={6}>50% width</Col>
+  <Col span={6}>50% width</Col>
+
+  {/* Thirds */}
+  <Col span={4}>33.33% width</Col>
+  <Col span={4}>33.33% width</Col>
+  <Col span={4}>33.33% width</Col>
+
+  {/* Quarters */}
+  <Col span={3}>25%</Col>
+  <Col span={3}>25%</Col>
+  <Col span={3}>25%</Col>
+  <Col span={3}>25%</Col>
+</Row>
+```
+
+### Column Offsets
+
+```jsx
+<Row gap="md">
+  {/* Centered column */}
+  <Col span={6} offset={3}>
+    Centered (50% width, 25% left margin)
+  </Col>
+
+  {/* Two columns with gap in middle */}
+  <Col span={3}>Left column</Col>
+  <Col span={3} offset={6}>
+    Right column (50% gap between)
+  </Col>
+
+  {/* Multiple offsets */}
+  <Col span={2} offset={2}>
+    offset-2
+  </Col>
+  <Col span={2} offset={2}>
+    offset-2
+  </Col>
+  <Col span={2} offset={2}>
+    offset-2
+  </Col>
+</Row>
+```
+
+### Visual Reordering
+
+```jsx
+<Row gap="md">
+  {/* Source order: 1, 2, 3 */}
+  {/* Visual order: 3, 1, 2 */}
+  <Col span={4} order={2}>DOM 1st, Visual 3rd</Col>
+  <Col span={4} order={0}>DOM 2nd, Visual 1st</Col>
+  <Col span={4} order={1}>DOM 3rd, Visual 2nd</Col>
+</Row>
+
+<Row gap="md">
+  {/* order-first and order-last */}
+  <Col span={6} order="last">Appears last visually</Col>
+  <Col span={6} order="first">Appears first visually</Col>
+</Row>
+```
+
+### Auto-Width Columns
+
+```jsx
+<Row gap="sm">
+  {/* Content-based width */}
+  <Col auto>Button</Col>
+  <Col auto>Another Button</Col>
+  <Col auto>Third Button</Col>
+</Row>
+
+<Row gap="md">
+  {/* Mix fixed and auto */}
+  <Col span={3}>Fixed 25%</Col>
+  <Col auto>Auto (fills remaining)</Col>
+  <Col span={2}>Fixed 16.66%</Col>
+</Row>
+```
+
+### Responsive Columns
+
+```jsx
+<Row gap="md">
+  {/* Mobile: 100%, Tablet: 50%, Desktop: 33% */}
+  <Col span={12} className="col-md-6 col-lg-4">
+    Responsive column
+  </Col>
+  <Col span={12} className="col-md-6 col-lg-4">
+    Responsive column
+  </Col>
+  <Col span={12} className="col-md-6 col-lg-4">
+    Responsive column
+  </Col>
+</Row>
+```
+
+### Semantic HTML
+
+```jsx
+{
+  /* List items */
+}
+<Row as="ul" gap="sm">
+  <Col as="li" span={4}>
+    List item 1
+  </Col>
+  <Col as="li" span={4}>
+    List item 2
+  </Col>
+  <Col as="li" span={4}>
+    List item 3
+  </Col>
+</Row>;
+
+{
+  /* Article sections */
+}
+<Row as="section">
+  <Col as="article" span={6}>
+    Article content 1
+  </Col>
+  <Col as="article" span={6}>
+    Article content 2
+  </Col>
+</Row>;
+```
+
+## Accessibility
+
+### Visual vs. DOM Order
+
+**Important**: The `order` prop changes **visual order only**, not DOM order.
+Screen readers and keyboard navigation follow DOM order, not visual order.
+
+```jsx
+{
+  /* Screen readers read: "Column A", "Column B"
+    Visually displays: "Column B", "Column A" */
+}
+<Row>
+  <Col span={6} order={2}>
+    Column A
+  </Col>
+  <Col span={6} order={1}>
+    Column B
+  </Col>
+</Row>;
+```
+
+**Best Practice**: Only use `order` when visual reordering doesn't affect
+content comprehension. Avoid reordering critical content like navigation or form
+fields.
+
+### Semantic Elements
+
+Use appropriate HTML elements via the `as` prop:
+
+```jsx
+{
+  /* Good: Semantic list */
+}
+<Row as="ul">
+  <Col as="li" span={4}>
+    Item
+  </Col>
+</Row>;
+
+{
+  /* Good: Article sections */
+}
+<Row>
+  <Col as="article" span={6}>
+    Article 1
+  </Col>
+  <Col as="article" span={6}>
+    Article 2
+  </Col>
+</Row>;
+```
+
+### Focus Order
+
+Keyboard navigation follows DOM order, not visual `order`. Ensure tab order is
+logical:
+
+```jsx
+{
+  /* Tab order: Input 1 → Input 2 → Button
+    Visual order may differ if using order prop */
+}
+<Row>
+  <Col span={6} order={1}>
+    <input id="input1" />
+  </Col>
+  <Col span={6} order={2}>
+    <input id="input2" />
+  </Col>
+  <Col span={12} order={0}>
+    <button>Submit</button>
+  </Col>
+</Row>;
+```
+
+## Responsive Behavior
+
+Col uses a **mobile-first** approach:
+
+- **Mobile** (`<768px`): Columns default to 100% width and stack vertically
+- **Desktop** (`≥768px`): Columns use their specified span values
+
+### Responsive Classes
+
+Use responsive utility classes on Col for breakpoint-specific widths:
+
+```jsx
+<Col
+  span={12} // Mobile: 100%
+  className="col-md-6 col-lg-4" // Tablet: 50%, Desktop: 33%
+>
+  Responsive content
+</Col>
+```
+
+**Available Breakpoints:**
+
+- `col-md-*` - Tablet and up (`≥768px`)
+- `col-lg-*` - Desktop and up (`≥992px`)
+- `col-xl-*` - Large desktop and up (`≥1280px`)
+
+## Advanced Patterns
+
+### Asymmetric Layouts
+
+```jsx
+<Row gap="lg">
+  <Col span={8}>Main content (66.66%)</Col>
+  <Col span={4}>Sidebar (33.33%)</Col>
+</Row>
+
+<Row gap="lg">
+  <Col span={3}>Nav (25%)</Col>
+  <Col span={6}>Content (50%)</Col>
+  <Col span={3}>Aside (25%)</Col>
+</Row>
+```
+
+### Complex Grid
+
+```jsx
+<Row gap="md">
+  <Col span={12}>Header</Col>
+  <Col span={8} className="col-lg-9">
+    Main content
+  </Col>
+  <Col span={4} className="col-lg-3">
+    Sidebar
+  </Col>
+  <Col span={6} className="col-lg-3">
+    Footer column 1
+  </Col>
+  <Col span={6} className="col-lg-3">
+    Footer column 2
+  </Col>
+  <Col span={12} className="col-lg-6">
+    Footer column 3
+  </Col>
+</Row>
+```
+
+### Dashboard Metrics
+
+```jsx
+<Row gap="md" align="stretch">
+  {/* 4 equal columns on desktop, stacked on mobile */}
+  <Col span={12} className="col-sm-6 col-lg-3">
+    <Card>
+      <h3>Total Users</h3>
+      <p>1,234</p>
+    </Card>
+  </Col>
+  <Col span={12} className="col-sm-6 col-lg-3">
+    <Card>
+      <h3>Revenue</h3>
+      <p>$12,345</p>
+    </Card>
+  </Col>
+  <Col span={12} className="col-sm-6 col-lg-3">
+    <Card>
+      <h3>Conversions</h3>
+      <p>567</p>
+    </Card>
+  </Col>
+  <Col span={12} className="col-sm-6 col-lg-3">
+    <Card>
+      <h3>Growth</h3>
+      <p>+23%</p>
+    </Card>
+  </Col>
+</Row>
+```
+
+### Form Layout
+
+```jsx
+<Row gap="md">
+  <Col span={12} className="col-md-6">
+    <Field>
+      <FieldLabel htmlFor="first-name">First Name</FieldLabel>
+      <FieldInput id="first-name" />
+    </Field>
+  </Col>
+  <Col span={12} className="col-md-6">
+    <Field>
+      <FieldLabel htmlFor="last-name">Last Name</FieldLabel>
+      <FieldInput id="last-name" />
+    </Field>
+  </Col>
+  <Col span={12}>
+    <Field>
+      <FieldLabel htmlFor="email">Email</FieldLabel>
+      <FieldInput id="email" type="email" />
+    </Field>
+  </Col>
+  <Col span={12}>
+    <button type="submit">Submit</button>
+  </Col>
+</Row>
+```
+
+## Related Components
+
+- **Row** - Flex container for Col components
+- **Grid** - Alternative grid system using CSS Grid
+- **Grid.Item** - Item component for Grid (similar pattern to Col)
+
+## Best Practices
+
+1. **Always use Col within Row**: Col is designed for use within Row containers
+2. **Total span = 12**: Columns in a row should sum to 12 (or less if
+   intentional gaps)
+3. **Mobile-first responsive**: Start with mobile layout, enhance for desktop
+4. **Semantic HTML**: Use `as` prop for appropriate elements (li, article,
+   section)
+5. **Avoid order for critical content**: Only reorder decorative or non-critical
+   content
+6. **Consistent gaps**: Use Row's `gap` prop for uniform spacing
+
+## Technical Notes
+
+### CSS Classes
+
+Col renders with **no base class**. Only utility classes are applied:
+
+- Span: `.col-{1-12}`
+- Offset: `.col-offset-{0-11}`
+- Order: `.col-order-{first|last|0-12}`
+- Auto: `.col-auto`
+
+### Column Width Calculation
+
+Column widths are calculated as:
+
+```
+width = (span / 12) * 100%
+```
+
+**Examples:**
+
+- `.col-12` = 100% (12/12)
+- `.col-6` = 50% (6/12)
+- `.col-4` = 33.33% (4/12)
+- `.col-3` = 25% (3/12)
+- `.col-1` = 8.33% (1/12)
+
+### Offset Calculation
+
+Offsets use margin-inline-start:
+
+```
+margin-inline-start = (offset / 12) * 100%
+```
+
+**Examples:**
+
+- `.col-offset-3` = 25% left margin
+- `.col-offset-6` = 50% left margin
+
+### Auto-Width Behavior
+
+`.col-auto` uses `flex: 0 0 auto` with `width: auto`, allowing the column to
+size based on its content.
+
+### Performance
+
+Col is a lightweight wrapper with no runtime overhead. All layout calculations
+are handled via CSS utility classes at build time.

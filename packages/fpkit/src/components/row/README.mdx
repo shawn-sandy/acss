@@ -1,0 +1,324 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as RowStories from "./row.stories";
+
+<Meta of={RowStories} />
+
+# Row
+
+A flex container component for building responsive 12-column layouts with
+customizable spacing, alignment, and wrapping behavior.
+
+## Overview
+
+Row provides a type-safe React wrapper around the `.col-row` utility class,
+serving as the container element for column-based layouts. It always includes
+the base `.col-row` class and adds variant utilities based on props.
+
+## Key Features
+
+- **Flex Container**: Uses `display: flex` with `flex-wrap: wrap` by default
+- **Customizable Gap**: Control spacing between columns with the `gap` prop
+- **Alignment Control**: Horizontal (`justify`) and vertical (`align`) alignment
+  options
+- **Polymorphic**: Render as any semantic HTML element via the `as` prop
+- **Type-Safe**: Full TypeScript support with literal types for all props
+- **Mobile-First**: Columns automatically stack on mobile (`<768px`) and flow
+  horizontally on desktop
+
+## When to Use
+
+Use Row when you need:
+
+- Multi-column layouts (2-column, 3-column, etc.)
+- Responsive grid systems that adapt to viewport size
+- Card grids with consistent spacing
+- Dashboard layouts with multiple content areas
+- Form layouts with side-by-side fields
+
+## Props
+
+### gap
+
+Controls spacing between columns. Maps to CSS custom property `--spacing-*`.
+
+- **Type**: `"0" | "xs" | "sm" | "md" | "lg" | "xl"`
+- **Default**: `undefined` (uses `.col-row` default gap)
+- **CSS Class**: `.col-row-gap-{size}`
+
+### justify
+
+Horizontal alignment of columns (maps to `justify-content`).
+
+- **Type**: `"start" | "center" | "end" | "between" | "around" | "evenly"`
+- **Default**: `undefined` (flex-start)
+- **CSS Class**: `.col-row-justify-{value}`
+
+### align
+
+Vertical alignment of columns (maps to `align-items`).
+
+- **Type**: `"start" | "center" | "end" | "baseline" | "stretch"`
+- **Default**: `undefined` (stretch)
+- **CSS Class**: `.col-row-align-{value}`
+
+### wrap
+
+Flex wrap behavior.
+
+- **Type**: `"wrap" | "nowrap" | "wrap-reverse"`
+- **Default**: `"wrap"`
+- **CSS Class**: `.col-row-{value}` (only added if not "wrap")
+
+### as
+
+Element type to render. Supports semantic HTML elements.
+
+- **Type**: `"div" | "section" | "article" | "ul" | "ol" | "nav"`
+- **Default**: `"div"`
+
+### className
+
+Additional CSS classes to merge with utility classes.
+
+- **Type**: `string`
+- **Default**: `undefined`
+
+## Basic Usage
+
+```jsx
+import { Row, Col } from "@fpkit/acss";
+
+function MyLayout() {
+  return (
+    <Row>
+      <Col span={6}>Left column (50%)</Col>
+      <Col span={6}>Right column (50%)</Col>
+    </Row>
+  );
+}
+```
+
+## Examples
+
+### Two-Column Layout
+
+```jsx
+<Row gap="md">
+  <Col span={6}>
+    <h3>Column 1</h3>
+    <p>Content for the first column</p>
+  </Col>
+  <Col span={6}>
+    <h3>Column 2</h3>
+    <p>Content for the second column</p>
+  </Col>
+</Row>
+```
+
+### Centered Content
+
+```jsx
+<Row justify="center" align="center" gap="lg">
+  <Col span={4}>Centered column 1</Col>
+  <Col span={4}>Centered column 2</Col>
+  <Col span={4}>Centered column 3</Col>
+</Row>
+```
+
+### Responsive Grid
+
+```jsx
+<Row gap="md">
+  <Col span={12} className="col-md-4">
+    100% mobile, 33% desktop
+  </Col>
+  <Col span={12} className="col-md-4">
+    100% mobile, 33% desktop
+  </Col>
+  <Col span={12} className="col-md-4">
+    100% mobile, 33% desktop
+  </Col>
+</Row>
+```
+
+### Semantic HTML List
+
+```jsx
+<Row as="ul" gap="sm">
+  <Col as="li" span={4}>
+    Item 1
+  </Col>
+  <Col as="li" span={4}>
+    Item 2
+  </Col>
+  <Col as="li" span={4}>
+    Item 3
+  </Col>
+</Row>
+```
+
+## Accessibility
+
+### Semantic HTML
+
+Use the `as` prop to render Row with appropriate semantic elements:
+
+- `<nav>` for navigation layouts
+- `<section>` or `<article>` for content sections
+- `<ul>` or `<ol>` for lists of items
+
+```jsx
+<Row as="nav" aria-label="Main navigation">
+  <Col span={12}>...</Col>
+</Row>
+```
+
+### Landmark Regions
+
+When using Row for page layout, ensure proper landmark structure:
+
+```jsx
+<Row as="section" aria-labelledby="features-heading">
+  <Col span={12}>
+    <h2 id="features-heading">Features</h2>
+  </Col>
+  <Col span={4}>Feature 1</Col>
+  <Col span={4}>Feature 2</Col>
+  <Col span={4}>Feature 3</Col>
+</Row>
+```
+
+### Focus Order
+
+Row maintains natural DOM order for keyboard navigation. Visual reordering (via
+Col's `order` prop) does not affect focus order, ensuring keyboard users
+navigate in a logical sequence.
+
+## Responsive Behavior
+
+Row uses a **mobile-first** approach where columns stack vertically on small
+screens and flow horizontally on larger screens:
+
+- **Mobile** (`<768px`): Columns are 100% width and stack vertically
+- **Desktop** (`≥768px`): Columns use their specified span values and flow
+  horizontally
+
+Control responsive behavior using responsive utility classes on Col:
+
+```jsx
+<Row>
+  <Col span={12} className="col-md-6 col-lg-4">
+    {/* 100% mobile, 50% tablet, 33% desktop */}
+  </Col>
+</Row>
+```
+
+## Advanced Patterns
+
+### Complex Layouts
+
+Combine multiple Row props for sophisticated layouts:
+
+```jsx
+<Row gap="xl" justify="between" align="stretch">
+  <Col span={3}>Sidebar</Col>
+  <Col span={6}>Main content</Col>
+  <Col span={3}>Aside</Col>
+</Row>
+```
+
+### Nested Rows
+
+Rows can be nested for complex grid structures:
+
+```jsx
+<Row gap="lg">
+  <Col span={12}>
+    <h2>Section Title</h2>
+  </Col>
+  <Col span={6}>
+    <Row gap="sm">
+      <Col span={6}>Nested 1</Col>
+      <Col span={6}>Nested 2</Col>
+    </Row>
+  </Col>
+  <Col span={6}>Content</Col>
+</Row>
+```
+
+### Dashboard Layout
+
+```jsx
+<Row gap="md" align="stretch">
+  <Col span={12} className="col-lg-8">
+    <Card>Main chart</Card>
+  </Col>
+  <Col span={12} className="col-lg-4">
+    <Card>Side panel</Card>
+  </Col>
+  <Col span={6} className="col-lg-3">
+    <Card>Metric 1</Card>
+  </Col>
+  <Col span={6} className="col-lg-3">
+    <Card>Metric 2</Card>
+  </Col>
+  <Col span={6} className="col-lg-3">
+    <Card>Metric 3</Card>
+  </Col>
+  <Col span={6} className="col-lg-3">
+    <Card>Metric 4</Card>
+  </Col>
+</Row>
+```
+
+## Related Components
+
+- **Col** - Column component used within Row for responsive layouts
+- **Grid** - Alternative grid system using CSS Grid
+- **Flex** - Low-level flexbox utility component
+
+## Best Practices
+
+1. **Always use Row with Col**: Row is designed to contain Col components
+2. **Choose semantic elements**: Use `as` prop for appropriate HTML elements
+3. **Mobile-first responsive**: Design for mobile first, enhance for desktop
+4. **Consistent gap sizes**: Use design system spacing scale (xs, sm, md, lg,
+   xl)
+5. **Accessibility**: Ensure proper heading hierarchy and landmark structure
+
+## Technical Notes
+
+### CSS Classes
+
+Row always renders with the `.col-row` base class and conditionally adds variant
+utilities:
+
+- Base: `.col-row`
+- Gap: `.col-row-gap-{size}`
+- Justify: `.col-row-justify-{value}`
+- Align: `.col-row-align-{value}`
+- Wrap: `.col-row-{wrap-value}` (only if not default "wrap")
+
+### CSS Custom Properties
+
+The `.col-row` class uses CSS custom properties for customization:
+
+```css
+.col-row {
+  --col-row-gap: var(--spacing-md, 1rem);
+}
+```
+
+Override via inline styles:
+
+```jsx
+<Row style={{ "--col-row-gap": "2rem" }}>
+  <Col span={6}>Column 1</Col>
+  <Col span={6}>Column 2</Col>
+</Row>
+```
+
+### Performance
+
+Row is a lightweight wrapper with minimal overhead. All layout logic is handled
+via CSS utility classes, resulting in optimal runtime performance.
