@@ -4,21 +4,22 @@
 
 Create a Bootstrap/Foundation-compatible 12-column utility class system for the fpkit package. This system provides `.col-1` through `.col-12` classes that work with **Flexbox containers** (via the Flex component or custom flex containers), using percentage-based widths that switch to 100% on mobile screens.
 
-## Plan Optimizations (v2)
+## Plan Optimizations (v2.1)
 
 This plan has been reviewed and optimized for production use:
 
 ✅ **Fixed**: Changed from `width` to `flex-basis` for better flex container compatibility
 ✅ **Fixed**: Added `min-width: 0` to prevent content overflow in flex items
 ✅ **Fixed**: Corrected misleading examples (removed non-existent responsive classes)
+✅ **Added**: `.col-row` utility for convenient Bootstrap-like container (Hybrid approach)
 ✅ **Added**: Clear separation from existing Grid component (CSS Grid vs Flexbox)
-✅ **Added**: Container pattern recommendations (use Flex component)
+✅ **Added**: Container pattern recommendations (.col-row vs Flex component)
 ✅ **Added**: Comprehensive troubleshooting guide
 ✅ **Added**: Migration guide from Bootstrap/Foundation
-✅ **Added**: Performance analysis and bundle size estimates
+✅ **Added**: Performance analysis and bundle size estimates (~2KB minified)
 ✅ **Added**: Future enhancement roadmap (Phase 2 features)
 ✅ **Clarified**: Spacing/gutters pattern (use gap utilities, not padding)
-✅ **Clarified**: Optional features are included by default (~3.7KB total)
+✅ **Clarified**: Optional features are included by default (~4KB total)
 
 ## Requirements
 
@@ -68,7 +69,30 @@ This plan has been reviewed and optimized for production use:
   --col-12: 100%;
 }
 
-/* Base Column Classes - Mobile First (100% width) */
+/* ============================================================================
+   Row Container Utility (Optional)
+   ========================================================================== */
+
+/**
+ * .col-row provides a convenient flex container for column layouts.
+ * Alternative to using the Flex component for simple, standalone usage.
+ *
+ * Usage:
+ *   <div className="col-row">
+ *     <div className="col-6">Column 1</div>
+ *     <div className="col-6">Column 2</div>
+ *   </div>
+ */
+.col-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);  /* Default gap - can be overridden with gap utilities */
+}
+
+/* ============================================================================
+   Base Column Classes - Mobile First (100% width)
+   ========================================================================== */
+
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
 .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
   flex: 0 0 100%;       /* flex-grow flex-shrink flex-basis */
@@ -255,19 +279,27 @@ npm start
 
 **Important**: Column utilities (`.col-*`) are designed for **Flexbox only**. The existing Grid component uses CSS Grid with `.grid-col-span-*` classes instead.
 
-### Standalone (Requires Flex Container)
+### Standalone with .col-row Utility
 ```jsx
-{/* Create flex container with gap for spacing */}
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+{/* Use .col-row utility for convenient container */}
+<div className="col-row">
   <div className="col-6">Card 1</div>
   <div className="col-6">Card 2</div>
   <div className="col-4">Card 3</div>
   <div className="col-4">Card 4</div>
   <div className="col-4">Card 5</div>
 </div>
+
+{/* Or customize gap with gap utilities */}
+<div className="col-row gap-lg">
+  <div className="col-3">Quarter</div>
+  <div className="col-3">Quarter</div>
+  <div className="col-3">Quarter</div>
+  <div className="col-3">Quarter</div>
+</div>
 ```
 
-**Important**: Column utilities work with **Flexbox containers only** (`display: flex`). For standalone usage, you must create a flex container with `flex-wrap: wrap`.
+**Note**: `.col-row` provides a convenient Bootstrap-like container with default gap. For more control, use the Flex component instead.
 
 ### With Offset
 ```jsx
@@ -288,21 +320,64 @@ Column utilities **require a flex container** to work correctly. The container m
 **Recommended Container Patterns:**
 
 ```jsx
-// Option 1: Use existing Flex component (RECOMMENDED)
+// Option 1: Use .col-row utility (RECOMMENDED for simple layouts)
+<div className="col-row">
+  <div className="col-6">Column</div>
+</div>
+
+// Option 2: Use Flex component (RECOMMENDED for complex layouts)
 <Flex wrap="wrap" gap="md">
   <div className="col-6">Column</div>
 </Flex>
 
-// Option 2: Custom container with inline styles
+// Option 3: Custom container with inline styles
 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
   <div className="col-6">Column</div>
 </div>
 
-// Option 3: Custom container with utility classes
+// Option 4: Custom container with utility classes
 <div className="flex flex-wrap gap-md">
   <div className="col-6">Column</div>
 </div>
 ```
+
+**When to use each**:
+- `.col-row`: Simple HTML, Bootstrap-like convenience, default gap
+- `<Flex>`: React apps, need responsive props, custom alignment
+- Inline styles: One-off layouts, prototyping
+- Utility classes: Custom containers, need more control
+
+### .col-row Utility Benefits
+
+The `.col-row` utility provides a convenient, Bootstrap-like container:
+
+**Advantages:**
+- ✅ **Familiar**: Bootstrap/Foundation users recognize the pattern
+- ✅ **Simple**: Single class creates flex container with wrapping and gap
+- ✅ **Customizable**: Works with existing gap utilities (.gap-sm, .gap-lg, etc.)
+- ✅ **No React required**: Pure CSS, works in any HTML context
+- ✅ **Default spacing**: Includes sensible default gap (--spacing-md)
+
+**Example comparisons:**
+
+```jsx
+// Without .col-row (manual container)
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+  <div className="col-6">Content</div>
+</div>
+
+// With .col-row (convenient utility)
+<div className="col-row">
+  <div className="col-6">Content</div>
+</div>
+
+// With .col-row + custom gap
+<div className="col-row gap-lg">
+  <div className="col-6">Content</div>
+</div>
+```
+
+**Important**: `.col-row` is a convenience utility. For complex layouts with responsive behavior, alignment, or justify controls, use the `<Flex>` component instead.
 
 ### Grid vs Columns Clarification
 
@@ -406,7 +481,15 @@ The "optional" features (offsets, auto-width, ordering) are **included by defaul
 </div>
 ```
 
-**fpkit equivalent:**
+**fpkit equivalent (Option 1 - Bootstrap-like):**
+```jsx
+<div className="col-row">
+  <div className="col-6">Column</div>
+  <div className="col-6">Column</div>
+</div>
+```
+
+**fpkit equivalent (Option 2 - React component):**
 ```jsx
 <Flex wrap="wrap" gap="md">
   <div className="col-6">Column</div>
@@ -415,8 +498,8 @@ The "optional" features (offsets, auto-width, ordering) are **included by defaul
 ```
 
 **Key differences:**
-- No `.row` class needed - use `<Flex>` component instead
-- Add `gap` for spacing (Bootstrap uses negative margins on row + padding on columns)
+- Use `.col-row` utility (closest to Bootstrap's `.row`) OR `<Flex>` component
+- `.col-row` uses `gap` instead of negative margins + padding
 - Same class names (`.col-1` through `.col-12`)
 - Same percentage calculations
 - Mobile-first responsive (100% on small screens)
@@ -487,14 +570,15 @@ The "optional" features (offsets, auto-width, ordering) are **included by defaul
 
 | Feature | Lines of Code | Approx. Size | Included by Default |
 |---------|---------------|--------------|---------------------|
+| Row container utility (.col-row) | ~10 lines | ~0.3KB | ✅ Yes |
 | Core columns (.col-1 through .col-12) | ~30 lines | ~1KB | ✅ Yes |
 | CSS custom properties | ~15 lines | ~0.5KB | ✅ Yes |
 | Offset utilities | ~30 lines | ~1KB | ✅ Yes |
 | Auto-width utility | ~5 lines | ~0.2KB | ✅ Yes |
 | Order utilities | ~30 lines | ~1KB | ✅ Yes |
-| **Total** | **~110 lines** | **~3.7KB** | - |
+| **Total** | **~120 lines** | **~4KB** | - |
 
-**After minification**: Approximately **1.5-2KB** (compressed)
+**After minification**: Approximately **1.8-2.2KB** (compressed)
 
 **Impact on main CSS bundle**: Minimal (<2% for typical component library)
 
@@ -533,24 +617,7 @@ The current implementation provides a solid foundation. Future enhancements coul
 **Benefit**: More granular responsive control
 **Alternative**: Use existing responsive Flex component props instead
 
-### 2. Row Utility (Bootstrap-style Container)
-
-**Current**: Requires manual flex container creation
-**Future**: Optional `.col-row` utility
-
-```scss
-.col-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
-}
-```
-
-**Complexity**: Low (~10 lines)
-**Benefit**: Convenience for standalone usage
-**Trade-off**: Duplicates existing Flex component functionality
-
-### 3. Pull Utilities (Visual Reordering)
+### 2. Pull Utilities (Visual Reordering)
 
 **Current**: Only push (offsets with margin-inline-start)
 **Future**: Pull utilities (negative margins)
@@ -565,7 +632,7 @@ The current implementation provides a solid foundation. Future enhancements coul
 **Benefit**: More layout flexibility
 **Trade-off**: Rarely used in modern layouts (flexbox order is better)
 
-### 4. Alignment Utilities
+### 3. Alignment Utilities
 
 **Current**: No column-specific alignment
 **Future**: Per-column alignment
