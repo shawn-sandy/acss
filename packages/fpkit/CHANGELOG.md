@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.4.0...@fpkit/acss@3.5.0) (2026-01-03)
+
+
+### Features
+
+* **columns:** add flex-grow column with span="flex" support ([3702e51](https://github.com/shawn-sandy/fpkit/commit/3702e51483d211567e8fa8115f6bb9d12b514104))
+
+
+
+
+
 # [3.4.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.3.0...@fpkit/acss@3.4.0) (2026-01-02)
 
 
