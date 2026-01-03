@@ -2432,20 +2432,29 @@ dialog section {
   }
 }
 /* ============================================================================
-   Proportional Layout Mode (Opt-in)
+   DEPRECATED: Proportional Layout Mode
    ========================================================================== */
 /**
+ * @deprecated Use responsive utility classes instead (.col-sm-*, .col-md-*, .col-lg-*)
+ * This class will be removed in v5.0.0
+ *
  * .col-row-proportional prevents columns from stacking on tablets and larger.
  * Columns still stack on mobile phones (< 30rem / 480px) for readability,
  * but maintain proportional widths on tablets and desktops (>= 30rem / 480px).
  *
- * Usage with Row component:
+ * Migration:
+ *   Before: <Row alwaysProportional><Col span={6} /></Row>
+ *   After:  <Row><div className="col-sm-6" /></Row>
+ *
+ * Backward compatibility maintained for now, but use responsive utilities for new code.
+ *
+ * Usage with Row component (deprecated):
  *   <Row alwaysProportional>
  *     <Col span={6}>Column 1</Col>
  *     <Col span={6}>Column 2</Col>
  *   </Row>
  *
- * Usage with vanilla HTML:
+ * Usage with vanilla HTML (deprecated):
  *   <div className="col-row col-row-proportional">
  *     <div className="col-6">Column 1</div>
  *     <div className="col-6">Column 2</div>

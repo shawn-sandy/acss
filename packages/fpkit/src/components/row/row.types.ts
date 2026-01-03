@@ -56,21 +56,38 @@ export interface RowProps
   wrap?: FlexWrap;
 
   /**
-   * When true, columns maintain their proportional layout on tablets and larger
-   * instead of stacking to 100% width on all mobile devices (< 768px).
+   * @deprecated This prop will be removed in v5.0.0
    *
-   * Wrapping behavior with this prop:
-   * - Mobile phones (< 480px): Columns still stack at 100% width
-   * - Tablets & larger (≥ 480px): Columns maintain proportional layout
+   * Use responsive column utility classes instead for better control across breakpoints.
    *
-   * Use this when you want columns to stay side-by-side on tablets and desktops
-   * but still provide mobile-friendly stacking on phones.
+   * Migration path:
+   * - Before: `<Row alwaysProportional><Col span={6}>Column</Col></Row>`
+   * - After: `<Row><div className="col-sm-6">Column</div></Row>`
+   *
+   * Responsive utilities provide more flexibility:
+   * - Mobile phones (< 480px): `.col-12` (stack full width)
+   * - Tablets (≥ 480px): `.col-sm-6` (half width)
+   * - Desktops (≥ 1024px): `.col-lg-4` (third width)
    *
    * @default false
    * @example
+   * // Deprecated approach
    * <Row alwaysProportional>
    *   <Col span={6}>Column 1</Col>
    *   <Col span={6}>Column 2</Col>
+   * </Row>
+   *
+   * @example
+   * // Recommended approach with responsive utilities
+   * <Row>
+   *   <div className="col-12 col-sm-6 col-lg-4">Column 1</div>
+   *   <div className="col-12 col-sm-6 col-lg-4">Column 2</div>
+   * </Row>
+   *
+   * @example
+   * // Mix with Col component if needed
+   * <Row>
+   *   <Col span={12} className="col-sm-6 col-lg-4">Column</Col>
    * </Row>
    */
   alwaysProportional?: boolean;

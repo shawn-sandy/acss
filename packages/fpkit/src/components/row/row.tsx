@@ -75,6 +75,15 @@ export const Row = React.forwardRef<HTMLElement, RowProps>(
     },
     ref
   ) => {
+    // Deprecation warning in development
+    if (process.env.NODE_ENV === "development" && alwaysProportional) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "[fpkit] Row: alwaysProportional is deprecated and will be removed in v5.0.0. " +
+          'Use responsive column utilities instead: className="col-sm-6 col-md-4"'
+      );
+    }
+
     // Build utility classes array - ALWAYS include base class
     const utilityClasses: string[] = ["col-row"];
 
