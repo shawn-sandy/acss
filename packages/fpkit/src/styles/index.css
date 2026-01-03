@@ -2542,6 +2542,130 @@ dialog section {
     margin-inline-start: var(--col-11);
   }
 }
+/* ============================================================================
+   Responsive Column Offset Utilities (Generated)
+   ========================================================================== */
+/**
+ * Generate responsive offset utilities for all breakpoints
+ * Produces: .col-{sm|md|lg}-offset-{0-11}
+ *
+ * Responsive offsets enable pushing columns to the right at specific breakpoints.
+ * For example: .col-md-offset-3 adds left margin equal to 3 columns on tablets+
+ */
+@media (width >= 30rem) {
+  .col-sm-offset-0 {
+    margin-inline-start: 0;
+  }
+  .col-sm-offset-1 {
+    margin-inline-start: var(--col-1);
+  }
+  .col-sm-offset-2 {
+    margin-inline-start: var(--col-2);
+  }
+  .col-sm-offset-3 {
+    margin-inline-start: var(--col-3);
+  }
+  .col-sm-offset-4 {
+    margin-inline-start: var(--col-4);
+  }
+  .col-sm-offset-5 {
+    margin-inline-start: var(--col-5);
+  }
+  .col-sm-offset-6 {
+    margin-inline-start: var(--col-6);
+  }
+  .col-sm-offset-7 {
+    margin-inline-start: var(--col-7);
+  }
+  .col-sm-offset-8 {
+    margin-inline-start: var(--col-8);
+  }
+  .col-sm-offset-9 {
+    margin-inline-start: var(--col-9);
+  }
+  .col-sm-offset-10 {
+    margin-inline-start: var(--col-10);
+  }
+  .col-sm-offset-11 {
+    margin-inline-start: var(--col-11);
+  }
+}
+@media (width >= 48rem) {
+  .col-md-offset-0 {
+    margin-inline-start: 0;
+  }
+  .col-md-offset-1 {
+    margin-inline-start: var(--col-1);
+  }
+  .col-md-offset-2 {
+    margin-inline-start: var(--col-2);
+  }
+  .col-md-offset-3 {
+    margin-inline-start: var(--col-3);
+  }
+  .col-md-offset-4 {
+    margin-inline-start: var(--col-4);
+  }
+  .col-md-offset-5 {
+    margin-inline-start: var(--col-5);
+  }
+  .col-md-offset-6 {
+    margin-inline-start: var(--col-6);
+  }
+  .col-md-offset-7 {
+    margin-inline-start: var(--col-7);
+  }
+  .col-md-offset-8 {
+    margin-inline-start: var(--col-8);
+  }
+  .col-md-offset-9 {
+    margin-inline-start: var(--col-9);
+  }
+  .col-md-offset-10 {
+    margin-inline-start: var(--col-10);
+  }
+  .col-md-offset-11 {
+    margin-inline-start: var(--col-11);
+  }
+}
+@media (width >= 64rem) {
+  .col-lg-offset-0 {
+    margin-inline-start: 0;
+  }
+  .col-lg-offset-1 {
+    margin-inline-start: var(--col-1);
+  }
+  .col-lg-offset-2 {
+    margin-inline-start: var(--col-2);
+  }
+  .col-lg-offset-3 {
+    margin-inline-start: var(--col-3);
+  }
+  .col-lg-offset-4 {
+    margin-inline-start: var(--col-4);
+  }
+  .col-lg-offset-5 {
+    margin-inline-start: var(--col-5);
+  }
+  .col-lg-offset-6 {
+    margin-inline-start: var(--col-6);
+  }
+  .col-lg-offset-7 {
+    margin-inline-start: var(--col-7);
+  }
+  .col-lg-offset-8 {
+    margin-inline-start: var(--col-8);
+  }
+  .col-lg-offset-9 {
+    margin-inline-start: var(--col-9);
+  }
+  .col-lg-offset-10 {
+    margin-inline-start: var(--col-10);
+  }
+  .col-lg-offset-11 {
+    margin-inline-start: var(--col-11);
+  }
+}
 /* Optional: Auto-Width Columns */
 .col-auto {
   width: auto;
@@ -2625,6 +2749,158 @@ dialog section {
     order: 11;
   }
   .col-order-12 {
+    order: 12;
+  }
+}
+/* ============================================================================
+   Responsive Column Order Utilities (Generated)
+   ========================================================================== */
+/**
+ * Generate responsive order utilities for all breakpoints
+ * Produces: .col-{sm|md|lg}-order-{first|last|0-12}
+ *
+ * Responsive ordering enables reordering columns at specific breakpoints.
+ * Visual order changes don't affect DOM order (important for accessibility).
+ * For example: .col-md-order-2 sets order:2 on tablets+
+ */
+@media (width >= 30rem) {
+  .col-sm-order-first {
+    order: -1;
+  }
+  .col-sm-order-last {
+    order: 13;
+  }
+  .col-sm-order-0 {
+    order: 0;
+  }
+  .col-sm-order-1 {
+    order: 1;
+  }
+  .col-sm-order-2 {
+    order: 2;
+  }
+  .col-sm-order-3 {
+    order: 3;
+  }
+  .col-sm-order-4 {
+    order: 4;
+  }
+  .col-sm-order-5 {
+    order: 5;
+  }
+  .col-sm-order-6 {
+    order: 6;
+  }
+  .col-sm-order-7 {
+    order: 7;
+  }
+  .col-sm-order-8 {
+    order: 8;
+  }
+  .col-sm-order-9 {
+    order: 9;
+  }
+  .col-sm-order-10 {
+    order: 10;
+  }
+  .col-sm-order-11 {
+    order: 11;
+  }
+  .col-sm-order-12 {
+    order: 12;
+  }
+}
+@media (width >= 48rem) {
+  .col-md-order-first {
+    order: -1;
+  }
+  .col-md-order-last {
+    order: 13;
+  }
+  .col-md-order-0 {
+    order: 0;
+  }
+  .col-md-order-1 {
+    order: 1;
+  }
+  .col-md-order-2 {
+    order: 2;
+  }
+  .col-md-order-3 {
+    order: 3;
+  }
+  .col-md-order-4 {
+    order: 4;
+  }
+  .col-md-order-5 {
+    order: 5;
+  }
+  .col-md-order-6 {
+    order: 6;
+  }
+  .col-md-order-7 {
+    order: 7;
+  }
+  .col-md-order-8 {
+    order: 8;
+  }
+  .col-md-order-9 {
+    order: 9;
+  }
+  .col-md-order-10 {
+    order: 10;
+  }
+  .col-md-order-11 {
+    order: 11;
+  }
+  .col-md-order-12 {
+    order: 12;
+  }
+}
+@media (width >= 64rem) {
+  .col-lg-order-first {
+    order: -1;
+  }
+  .col-lg-order-last {
+    order: 13;
+  }
+  .col-lg-order-0 {
+    order: 0;
+  }
+  .col-lg-order-1 {
+    order: 1;
+  }
+  .col-lg-order-2 {
+    order: 2;
+  }
+  .col-lg-order-3 {
+    order: 3;
+  }
+  .col-lg-order-4 {
+    order: 4;
+  }
+  .col-lg-order-5 {
+    order: 5;
+  }
+  .col-lg-order-6 {
+    order: 6;
+  }
+  .col-lg-order-7 {
+    order: 7;
+  }
+  .col-lg-order-8 {
+    order: 8;
+  }
+  .col-lg-order-9 {
+    order: 9;
+  }
+  .col-lg-order-10 {
+    order: 10;
+  }
+  .col-lg-order-11 {
+    order: 11;
+  }
+  .col-lg-order-12 {
     order: 12;
   }
 }
