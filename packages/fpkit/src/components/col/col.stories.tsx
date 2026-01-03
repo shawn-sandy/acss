@@ -525,3 +525,378 @@ export const FlexColumn: Story = {
     },
   },
 };
+
+/**
+ * NEW: Responsive Utilities - Mobile-First Layout
+ * Demonstrates the new responsive column utilities (.col-sm-*, .col-md-*, .col-lg-*).
+ * Shows columns adapting across breakpoints: mobile (100%), tablet (50%), desktop (33.33%).
+ */
+export const ResponsiveUtilities: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Mobile-First Responsive Grid
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Resize viewport: Mobile &lt;480px (stacked), Tablet ≥480px (2 cols), Desktop ≥1024px (3 cols)
+        </p>
+        <Row>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            .col-12.col-sm-6.col-lg-4
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            .col-12.col-sm-6.col-lg-4
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            .col-12.col-sm-6.col-lg-4
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            .col-12.col-sm-6.col-lg-4
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            .col-12.col-sm-6.col-lg-4
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            .col-12.col-sm-6.col-lg-4
+          </div>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Different Widths Per Breakpoint
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: full width | Tablet ≥480px: 3 cols | Desktop ≥1024px: 2 cols
+        </p>
+        <Row>
+          <div className="col-12 col-sm-4 col-lg-6" style={{ ...colStyle, background: "#fef3c7" }}>
+            .col-12.col-sm-4.col-lg-6
+          </div>
+          <div className="col-12 col-sm-4 col-lg-6" style={{ ...colStyle, background: "#dbeafe" }}>
+            .col-12.col-sm-4.col-lg-6
+          </div>
+          <div className="col-12 col-sm-4 col-lg-12" style={{ ...colStyle, background: "#fce7f3" }}>
+            .col-12.col-sm-4.col-lg-12
+          </div>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Sidebar Layout (Responsive)
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked | Tablet+: sidebar (25%) + main (75%)
+        </p>
+        <Row>
+          <div className="col-12 col-md-3" style={{ ...colStyle, background: "#e0e7ff" }}>
+            Sidebar<br />.col-12.col-md-3
+          </div>
+          <div className="col-12 col-md-9" style={{ ...colStyle, background: "#fef3c7" }}>
+            Main Content<br />.col-12.col-md-9
+          </div>
+        </Row>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Responsive utility classes are applied", async () => {
+      const sm6Elements = canvasElement.querySelectorAll(".col-sm-6");
+      expect(sm6Elements.length).toBeGreaterThan(0);
+
+      const lg4Elements = canvasElement.querySelectorAll(".col-lg-4");
+      expect(lg4Elements.length).toBeGreaterThan(0);
+
+      const md3Element = canvasElement.querySelector(".col-md-3");
+      expect(md3Element).toBeInTheDocument();
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "NEW responsive utility classes enable mobile-first layouts. Use `.col-{breakpoint}-{span}` to control column widths at different screen sizes. Breakpoints: sm (≥480px), md (≥768px), lg (≥1024px). Classes cascade: smaller breakpoints apply unless overridden by larger ones.",
+      },
+    },
+    viewport: {
+      defaultViewport: "responsive",
+    },
+  },
+};
+
+/**
+ * NEW: Responsive Offsets - Centering and Positioning
+ * Demonstrates responsive offset utilities (.col-*-offset-*).
+ * Shows columns centering at different breakpoints.
+ */
+export const ResponsiveOffsets: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Responsive Centering
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: full width | Tablet+: centered with offset
+        </p>
+        <Row>
+          <div className="col-12 col-md-6 col-md-offset-3" style={{ ...colStyle, background: "#dbeafe" }}>
+            .col-12.col-md-6.col-md-offset-3<br />
+            <small>Centered on tablet+</small>
+          </div>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Different Offsets Per Breakpoint
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Offset changes at different screen sizes
+        </p>
+        <Row>
+          <div className="col-12 col-sm-6 col-sm-offset-0 col-lg-4 col-lg-offset-2" style={{ ...colStyle, background: "#fef3c7" }}>
+            .col-sm-6.col-sm-offset-0<br />
+            .col-lg-4.col-lg-offset-2
+          </div>
+          <div className="col-12 col-sm-6 col-sm-offset-0 col-lg-4 col-lg-offset-0" style={{ ...colStyle, background: "#fce7f3" }}>
+            .col-sm-6.col-sm-offset-0<br />
+            .col-lg-4.col-lg-offset-0
+          </div>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Push/Pull Layout
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Create space between columns responsively
+        </p>
+        <Row>
+          <div className="col-12 col-md-4" style={colStyle}>
+            Left column<br />.col-md-4
+          </div>
+          <div className="col-12 col-md-4 col-md-offset-4" style={{ ...colStyle, background: "#e0e7ff" }}>
+            Right column<br />.col-md-4.col-md-offset-4<br />
+            <small>(4 column gap in middle)</small>
+          </div>
+        </Row>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Responsive offset classes are applied", async () => {
+      const mdOffset3 = canvasElement.querySelector(".col-md-offset-3");
+      expect(mdOffset3).toBeInTheDocument();
+
+      const lgOffset2 = canvasElement.querySelector(".col-lg-offset-2");
+      expect(lgOffset2).toBeInTheDocument();
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Responsive offsets enable different spacing at different breakpoints. Use `.col-{breakpoint}-offset-{0-11}` to push columns right with margin. Perfect for centering or creating responsive gaps between columns.",
+      },
+    },
+  },
+};
+
+/**
+ * NEW: Responsive Ordering - Visual Reordering
+ * Demonstrates responsive order utilities (.col-*-order-*).
+ * Shows columns reordering at different breakpoints.
+ */
+export const ResponsiveOrdering: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Reverse Order on Desktop
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: 1-2-3 | Desktop ≥1024px: 3-2-1
+        </p>
+        <Row>
+          <div className="col-12 col-lg-4 col-lg-order-3" style={{ ...colStyle, background: "#dbeafe" }}>
+            DOM: 1st<br />
+            Mobile: 1st<br />
+            Desktop: 3rd
+          </div>
+          <div className="col-12 col-lg-4 col-lg-order-2" style={{ ...colStyle, background: "#fef3c7" }}>
+            DOM: 2nd<br />
+            Mobile: 2nd<br />
+            Desktop: 2nd
+          </div>
+          <div className="col-12 col-lg-4 col-lg-order-1" style={{ ...colStyle, background: "#fce7f3" }}>
+            DOM: 3rd<br />
+            Mobile: 3rd<br />
+            Desktop: 1st
+          </div>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Content Before/After Sidebar
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: sidebar first | Tablet+: sidebar last
+        </p>
+        <Row>
+          <div className="col-12 col-md-3 col-md-order-last" style={{ ...colStyle, background: "#e0e7ff" }}>
+            Sidebar<br />
+            .col-md-order-last<br />
+            <small>(First on mobile, last on tablet+)</small>
+          </div>
+          <div className="col-12 col-md-9 col-md-order-first" style={{ ...colStyle, background: "#fef3c7" }}>
+            Main Content<br />
+            .col-md-order-first<br />
+            <small>(Second on mobile, first on tablet+)</small>
+          </div>
+        </Row>
+      </div>
+
+      <div style={{
+        padding: "1rem",
+        background: "#fef3c7",
+        border: "1px solid #f59e0b",
+        borderRadius: "0.25rem",
+        marginTop: "1rem"
+      }}>
+        <strong>⚠️ Accessibility Note:</strong> Visual order changes don't affect DOM order.
+        Screen readers and keyboard navigation follow DOM order, not visual order.
+        Use ordering sparingly and ensure content makes sense in both orders.
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Responsive order classes are applied", async () => {
+      const lgOrder1 = canvasElement.querySelector(".col-lg-order-1");
+      expect(lgOrder1).toBeInTheDocument();
+
+      const mdOrderLast = canvasElement.querySelector(".col-md-order-last");
+      expect(mdOrderLast).toBeInTheDocument();
+
+      const mdOrderFirst = canvasElement.querySelector(".col-md-order-first");
+      expect(mdOrderFirst).toBeInTheDocument();
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Responsive ordering changes visual column order at different breakpoints. Use `.col-{breakpoint}-order-{0-12}` for numeric ordering, or `.col-{breakpoint}-order-first/last` for edge positioning. Remember: this only affects visual order, not DOM/accessibility order.",
+      },
+    },
+  },
+};
+
+/**
+ * NEW: Migration from alwaysProportional (DEPRECATED)
+ * Shows how to migrate from the deprecated alwaysProportional prop to responsive utilities.
+ */
+export const MigrationFromAlwaysProportional: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <div style={{
+        padding: "1rem",
+        background: "#fef3c7",
+        border: "1px solid #f59e0b",
+        borderRadius: "0.25rem"
+      }}>
+        <strong>⚠️ Deprecation Notice:</strong> The <code>alwaysProportional</code> prop is deprecated
+        and will be removed in v5.0.0. Use responsive utility classes instead for better control.
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Before (Deprecated) ❌
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          <code>&lt;Row alwaysProportional&gt;&lt;Col span=&#123;6&#125; /&gt;&lt;/Row&gt;</code>
+        </p>
+        <Row alwaysProportional>
+          <Col span={6} style={{ ...colStyle, opacity: 0.6 }}>
+            Old approach: span prop
+          </Col>
+          <Col span={6} style={{ ...colStyle, opacity: 0.6 }}>
+            Limited to one breakpoint
+          </Col>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          After (Recommended) ✅
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          <code>&lt;Row&gt;&lt;div className="col-sm-6" /&gt;&lt;/Row&gt;</code>
+        </p>
+        <Row>
+          <div className="col-12 col-sm-6" style={colStyle}>
+            New approach: utility classes
+          </div>
+          <div className="col-12 col-sm-6" style={colStyle}>
+            More control across breakpoints
+          </div>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Better: Multiple Breakpoints ✨
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Stack on mobile, 2 cols on tablet, 3 cols on desktop
+        </p>
+        <Row>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            Full control at each breakpoint
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            Mobile-first approach
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+            Professional responsive layouts
+          </div>
+        </Row>
+      </div>
+
+      <div style={{
+        padding: "1rem",
+        background: "#e0e7ff",
+        border: "1px solid #6366f1",
+        borderRadius: "0.25rem",
+        marginTop: "1rem"
+      }}>
+        <strong>💡 Pro Tip:</strong> You can still use Col component with className:
+        <br />
+        <code>&lt;Col span=&#123;12&#125; className="col-sm-6 col-lg-4"&gt;Content&lt;/Col&gt;</code>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Deprecated alwaysProportional still works", async () => {
+      const proportionalRow = canvasElement.querySelector(".col-row-proportional");
+      expect(proportionalRow).toBeInTheDocument();
+    });
+
+    await step("Recommended responsive utilities work", async () => {
+      const sm6Elements = canvasElement.querySelectorAll(".col-sm-6");
+      expect(sm6Elements.length).toBeGreaterThan(0);
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Migration guide from deprecated `alwaysProportional` prop to responsive utility classes. The new approach provides more flexibility with multiple breakpoints (sm/md/lg) and is easier to customize. Both approaches currently work, but responsive utilities are recommended for all new code.",
+      },
+    },
+  },
+};
