@@ -146,6 +146,44 @@ $col-breakpoints: (
 }
 
 /* ============================================================================
+   Responsive Column Span Utilities (Generated)
+   ========================================================================== */
+
+/**
+ * Generate responsive span utilities for all breakpoints
+ * Produces: .col-{sm|md|lg}-{1-12}, .col-{sm|md|lg}-auto, .col-{sm|md|lg}-flex
+ *
+ * These utilities enable mobile-first responsive layouts where columns can
+ * have different widths at different breakpoints. For example:
+ *   .col-12.col-md-6.col-lg-4 creates a layout that:
+ *   - Stacks full-width (100%) on mobile (< 768px)
+ *   - Shows 2 columns (50%) on tablets (>= 768px)
+ *   - Shows 3 columns (33.33%) on desktops (>= 1024px)
+ */
+@each $breakpoint, $min-width in $col-breakpoints {
+  @media (width >= #{$min-width}) {
+    // Generate .col-{breakpoint}-{1-12} classes
+    @for $i from 1 through 12 {
+      .col-#{$breakpoint}-#{$i} {
+        flex: 0 1 var(--col-#{$i});
+      }
+    }
+
+    // Auto-width variant - sizes to content
+    .col-#{$breakpoint}-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+
+    // Flex-grow variant - grows to fill remaining space
+    .col-#{$breakpoint}-flex {
+      flex: 1 1 0%;
+      min-width: 0;
+    }
+  }
+}
+
+/* ============================================================================
    Proportional Layout Mode (Opt-in)
    ========================================================================== */
 
