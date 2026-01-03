@@ -30,6 +30,32 @@
   --col-12: 100%;
 }
 
+/**
+ * Responsive Breakpoints (mobile-first)
+ * These CSS custom properties document the breakpoint values and can be
+ * accessed via JavaScript. SCSS uses literal values for media queries.
+ */
+:root {
+  --col-breakpoint-xs: 0rem;      /* 0px - base mobile */
+  --col-breakpoint-sm: 30rem;     /* 480px - large phones */
+  --col-breakpoint-md: 48rem;     /* 768px - tablets */
+  --col-breakpoint-lg: 64rem;     /* 1024px - desktops */
+
+  /* Legacy support - keep for backward compatibility */
+  --col-breakpoint: var(--col-breakpoint-md);
+}
+
+/**
+ * Breakpoint map for SCSS loop generation
+ * Uses literal rem values (not CSS custom properties) because
+ * @media queries require compile-time values, not runtime CSS variables.
+ */
+$col-breakpoints: (
+  'sm': 30rem,
+  'md': 48rem,
+  'lg': 64rem,
+);
+
 /* ============================================================================
    Row Container Utility (Optional)
    ========================================================================== */
