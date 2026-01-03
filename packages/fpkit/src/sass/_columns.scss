@@ -300,6 +300,27 @@ $col-breakpoints: (
   }
 }
 
+/* ============================================================================
+   Responsive Column Offset Utilities (Generated)
+   ========================================================================== */
+
+/**
+ * Generate responsive offset utilities for all breakpoints
+ * Produces: .col-{sm|md|lg}-offset-{0-11}
+ *
+ * Responsive offsets enable pushing columns to the right at specific breakpoints.
+ * For example: .col-md-offset-3 adds left margin equal to 3 columns on tablets+
+ */
+@each $breakpoint, $min-width in $col-breakpoints {
+  @media (width >= #{$min-width}) {
+    @for $i from 0 through 11 {
+      .col-#{$breakpoint}-offset-#{$i} {
+        margin-inline-start: if($i == 0, 0, var(--col-#{$i}));
+      }
+    }
+  }
+}
+
 /* Optional: Auto-Width Columns */
 .col-auto {
   width: auto;
@@ -385,6 +406,31 @@ $col-breakpoints: (
   }
   .col-order-12 {
     order: 12;
+  }
+}
+
+/* ============================================================================
+   Responsive Column Order Utilities (Generated)
+   ========================================================================== */
+
+/**
+ * Generate responsive order utilities for all breakpoints
+ * Produces: .col-{sm|md|lg}-order-{first|last|0-12}
+ *
+ * Responsive ordering enables reordering columns at specific breakpoints.
+ * Visual order changes don't affect DOM order (important for accessibility).
+ * For example: .col-md-order-2 sets order:2 on tablets+
+ */
+@each $breakpoint, $min-width in $col-breakpoints {
+  @media (width >= #{$min-width}) {
+    .col-#{$breakpoint}-order-first { order: -1; }
+    .col-#{$breakpoint}-order-last { order: 13; }
+
+    @for $i from 0 through 12 {
+      .col-#{$breakpoint}-order-#{$i} {
+        order: $i;
+      }
+    }
   }
 }
 
