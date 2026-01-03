@@ -70,9 +70,11 @@ export const Col = React.forwardRef<HTMLElement, ColProps>(
     // Build utility classes array - NO base class
     const utilityClasses: string[] = [];
 
-    // Auto takes precedence over span
+    // Auto takes precedence over span (including "flex")
     if (auto) {
       utilityClasses.push("col-auto");
+    } else if (span === "flex") {
+      utilityClasses.push("col-flex");
     } else if (span) {
       utilityClasses.push(`col-${span}`);
     }

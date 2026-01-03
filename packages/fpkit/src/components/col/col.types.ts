@@ -27,10 +27,22 @@ export interface ColProps
   extends Partial<ComponentProps>,
     Omit<React.HTMLAttributes<HTMLElement>, "className"> {
   /**
-   * Column span (1-12)
-   * Maps to .col-{span} utility class
-   * Ignored if auto is true
+   * Column span (1-12 or "flex")
+   *
+   * - Numeric values (1-12): Maps to .col-{span} utility class (fixed width)
+   * - "flex": Maps to .col-flex utility class (grows to fill space)
+   *
+   * Ignored if auto is true (auto takes precedence)
+   *
    * @default undefined
+   *
+   * @example
+   * // Fixed width column
+   * <Col span={6}>50% width on desktop</Col>
+   *
+   * @example
+   * // Flex column fills remaining space
+   * <Col span="flex">Grows to fill available space</Col>
    */
   span?: ColumnSpan;
 
@@ -53,8 +65,10 @@ export interface ColProps
   /**
    * Auto-width column
    * When true, uses .col-auto (content-based width)
-   * Takes precedence over span prop
+   * Takes precedence over span prop (including "flex")
    * @default false
+   *
+   * @see span - For flex-grow behavior, use span="flex" instead of auto
    */
   auto?: boolean;
 

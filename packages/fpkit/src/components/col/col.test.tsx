@@ -111,6 +111,51 @@ describe("Col Component", () => {
     });
   });
 
+  describe("Flex Column", () => {
+    it("applies col-flex utility class when span is 'flex'", () => {
+      const { container } = render(<Col span="flex">Content</Col>);
+      const col = container.firstChild as HTMLElement;
+      expect(col).toHaveClass("col-flex");
+    });
+
+    it("does not apply numeric col class when span is 'flex'", () => {
+      const { container } = render(<Col span="flex">Content</Col>);
+      const col = container.firstChild as HTMLElement;
+      expect(col.className).not.toMatch(/col-\d+/);
+    });
+
+    it("auto overrides flex when both provided", () => {
+      const { container } = render(<Col auto span="flex">Content</Col>);
+      const col = container.firstChild as HTMLElement;
+      expect(col).toHaveClass("col-auto");
+      expect(col).not.toHaveClass("col-flex");
+    });
+
+    it("flex column works with offset", () => {
+      const { container } = render(<Col span="flex" offset={2}>Content</Col>);
+      const col = container.firstChild as HTMLElement;
+      expect(col).toHaveClass("col-flex");
+      expect(col).toHaveClass("col-offset-2");
+    });
+
+    it("flex column works with order", () => {
+      const { container } = render(<Col span="flex" order="first">Content</Col>);
+      const col = container.firstChild as HTMLElement;
+      expect(col).toHaveClass("col-flex");
+      expect(col).toHaveClass("col-order-first");
+    });
+
+    it("flex column works with combined props", () => {
+      const { container } = render(
+        <Col span="flex" offset={1} order={2}>Content</Col>
+      );
+      const col = container.firstChild as HTMLElement;
+      expect(col).toHaveClass("col-flex");
+      expect(col).toHaveClass("col-offset-1");
+      expect(col).toHaveClass("col-order-2");
+    });
+  });
+
   describe("Offset Utilities", () => {
     it("applies col-offset-0 utility class", () => {
       const { container } = render(<Col offset={0}>Content</Col>);

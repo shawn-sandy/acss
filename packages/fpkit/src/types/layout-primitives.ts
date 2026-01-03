@@ -58,9 +58,29 @@ export type RowElement = "div" | "section" | "article" | "ul" | "ol" | "nav";
 export type ColElement = "div" | "section" | "article" | "li";
 
 /**
- * Column span values (1-12 columns)
+ * Column span values (1-12 columns) or "flex" for flex-grow behavior
+ *
+ * - Numeric values (1-12): Fixed fractional widths on desktop
+ * - "flex": Grows to fill remaining space on desktop (flex: 1 1 0%)
+ *
+ * All columns stack to 100% width on mobile (< 48rem / 768px)
+ *
+ * @example
+ * // Fixed width columns
+ * <Col span={6}>50% width</Col>
+ *
+ * @example
+ * // Flex column fills remaining space
+ * <Col span={3}>25% fixed</Col>
+ * <Col span="flex">Grows to fill 75%</Col>
+ *
+ * @example
+ * // Multiple flex columns share space equally
+ * <Col auto>Content width</Col>
+ * <Col span="flex">Flex 1</Col>
+ * <Col span="flex">Flex 2</Col>
  */
-export type ColumnSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type ColumnSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "flex";
 
 /**
  * Column offset values (0-11 columns)

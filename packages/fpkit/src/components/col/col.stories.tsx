@@ -18,8 +18,8 @@ const meta: Meta<typeof Col> = {
   argTypes: {
     span: {
       control: "select",
-      options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      description: "Column span (1-12 columns)",
+      options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "flex"],
+      description: "Column span (1-12 columns) or 'flex' for flex-grow behavior",
     },
     offset: {
       control: "select",
@@ -418,6 +418,109 @@ export const ResponsiveGrid: Story = {
       description: {
         story:
           "Resize the viewport to see mobile-first responsive behavior. Columns are 100% width on mobile (<768px) and fractional widths on desktop (>=768px).",
+      },
+    },
+  },
+};
+
+/**
+ * Flex Column - Demonstrates flex-grow behavior to fill remaining space.
+ * Shows how flex columns differ from auto columns and adapt responsively.
+ */
+export const FlexColumn: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      {/* Flex vs Auto comparison */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem" }}>Flex vs Auto Comparison</h3>
+        <Row>
+          <Col span={3} style={colStyle}>
+            Fixed (25%)
+          </Col>
+          <Col span="flex" style={{ ...colStyle, background: "#fef3c7", borderColor: "#f59e0b" }}>
+            Flex (grows to fill 75%)
+          </Col>
+        </Row>
+      </div>
+
+      <div>
+        <Row>
+          <Col span={3} style={colStyle}>
+            Fixed (25%)
+          </Col>
+          <Col auto style={{ ...colStyle, background: "#e0e7ff" }}>
+            Auto (sizes to content)
+          </Col>
+        </Row>
+      </div>
+
+      {/* Multiple flex columns */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem" }}>Multiple Flex Columns (Equal Distribution)</h3>
+        <Row>
+          <Col span={2} style={colStyle}>
+            Fixed col-2
+          </Col>
+          <Col span="flex" style={{ ...colStyle, background: "#fef3c7", borderColor: "#f59e0b" }}>
+            Flex 1
+          </Col>
+          <Col span="flex" style={{ ...colStyle, background: "#fef3c7", borderColor: "#f59e0b" }}>
+            Flex 2
+          </Col>
+        </Row>
+      </div>
+
+      {/* Flex with auto */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem" }}>Flex + Auto Combination</h3>
+        <Row>
+          <Col auto style={{ ...colStyle, background: "#e0e7ff" }}>
+            Button
+          </Col>
+          <Col span="flex" style={{ ...colStyle, background: "#fef3c7", borderColor: "#f59e0b" }}>
+            Main Content (fills remaining)
+          </Col>
+          <Col auto style={{ ...colStyle, background: "#e0e7ff" }}>
+            Icon
+          </Col>
+        </Row>
+      </div>
+
+      {/* Complex layout */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem" }}>Complex Layout</h3>
+        <Row>
+          <Col span={2} style={colStyle}>
+            Sidebar
+          </Col>
+          <Col span="flex" style={{ ...colStyle, background: "#fef3c7", borderColor: "#f59e0b" }}>
+            Main Content (grows)
+          </Col>
+          <Col span={3} style={colStyle}>
+            Aside
+          </Col>
+        </Row>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Flex classes are applied correctly", async () => {
+      const flexElements = canvasElement.querySelectorAll(".col-flex");
+      expect(flexElements.length).toBeGreaterThan(0);
+    });
+
+    await step("Flex columns exist alongside fixed columns", async () => {
+      const rows = canvasElement.querySelectorAll(".col-row");
+      const firstRow = rows[0];
+      expect(firstRow.querySelector(".col-3")).toBeInTheDocument();
+      expect(firstRow.querySelector(".col-flex")).toBeInTheDocument();
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Flex columns use `flex-grow: 1` to fill remaining space after fixed-width columns. Multiple flex columns share space equally. On mobile (<768px), all columns stack to 100% width. Yellow background indicates flex columns, blue indicates fixed/auto columns.",
       },
     },
   },

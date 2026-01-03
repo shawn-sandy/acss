@@ -47,17 +47,29 @@
 .col-row {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-md);  /* Default gap - can be overridden with gap utilities */
+  gap: var(
+    --spacing-md
+  ); /* Default gap - can be overridden with gap utilities */
 }
 
 /* ============================================================================
    Base Column Classes - Mobile First (100% width)
    ========================================================================== */
 
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
-.col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
-  flex: 0 0 100%;       /* flex-grow flex-shrink flex-basis */
-  min-width: 0;         /* Prevent content overflow in flex containers */
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+  flex: 0 0 100%; /* flex-grow flex-shrink flex-basis */
+  min-width: 0; /* Prevent content overflow in flex containers */
   box-sizing: border-box;
 }
 
@@ -68,18 +80,43 @@
     flex-wrap: nowrap;
   }
 
-  .col-1 { flex: 0 1 var(--col-1); }
-  .col-2 { flex: 0 1 var(--col-2); }
-  .col-3 { flex: 0 1 var(--col-3); }
-  .col-4 { flex: 0 1 var(--col-4); }
-  .col-5 { flex: 0 1 var(--col-5); }
-  .col-6 { flex: 0 1 var(--col-6); }
-  .col-7 { flex: 0 1 var(--col-7); }
-  .col-8 { flex: 0 1 var(--col-8); }
-  .col-9 { flex: 0 1 var(--col-9); }
-  .col-10 { flex: 0 1 var(--col-10); }
-  .col-11 { flex: 0 1 var(--col-11); }
-  .col-12 { flex: 0 1 var(--col-12); }
+  .col-1 {
+    flex: 0 1 var(--col-1);
+  }
+
+  .col-2 {
+    flex: 0 1 var(--col-2);
+  }
+  .col-3 {
+    flex: 0 1 var(--col-3);
+  }
+  .col-4 {
+    flex: 0 1 var(--col-4);
+  }
+  .col-5 {
+    flex: 0 1 var(--col-5);
+  }
+  .col-6 {
+    flex: 0 1 var(--col-6);
+  }
+  .col-7 {
+    flex: 0 1 var(--col-7);
+  }
+  .col-8 {
+    flex: 0 1 var(--col-8);
+  }
+  .col-9 {
+    flex: 0 1 var(--col-9);
+  }
+  .col-10 {
+    flex: 0 1 var(--col-10);
+  }
+  .col-11 {
+    flex: 0 1 var(--col-11);
+  }
+  .col-12 {
+    flex: 0 1 var(--col-12);
+  }
 }
 
 /* ============================================================================
@@ -105,40 +142,98 @@
  */
 @media (width >= 30rem) {
   .col-row-proportional {
-    .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
-    .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
-      flex: 0 1 auto;       /* Allow proportional sizing with shrink */
+    .col-1,
+    .col-2,
+    .col-3,
+    .col-4,
+    .col-5,
+    .col-6,
+    .col-7,
+    .col-8,
+    .col-9,
+    .col-10,
+    .col-11,
+    .col-12 {
+      flex: 0 1 auto; /* Allow proportional sizing with shrink */
     }
 
-    .col-1 { flex-basis: var(--col-1); }
-    .col-2 { flex-basis: var(--col-2); }
-    .col-3 { flex-basis: var(--col-3); }
-    .col-4 { flex-basis: var(--col-4); }
-    .col-5 { flex-basis: var(--col-5); }
-    .col-6 { flex-basis: var(--col-6); }
-    .col-7 { flex-basis: var(--col-7); }
-    .col-8 { flex-basis: var(--col-8); }
-    .col-9 { flex-basis: var(--col-9); }
-    .col-10 { flex-basis: var(--col-10); }
-    .col-11 { flex-basis: var(--col-11); }
-    .col-12 { flex-basis: var(--col-12); }
+    .col-1 {
+      flex-basis: var(--col-1);
+    }
+    .col-2 {
+      flex-basis: var(--col-2);
+    }
+    .col-3 {
+      flex-basis: var(--col-3);
+    }
+    .col-4 {
+      flex-basis: var(--col-4);
+    }
+    .col-5 {
+      flex-basis: var(--col-5);
+    }
+    .col-6 {
+      flex-basis: var(--col-6);
+    }
+    .col-7 {
+      flex-basis: var(--col-7);
+    }
+    .col-8 {
+      flex-basis: var(--col-8);
+    }
+    .col-9 {
+      flex-basis: var(--col-9);
+    }
+    .col-10 {
+      flex-basis: var(--col-10);
+    }
+    .col-11 {
+      flex-basis: var(--col-11);
+    }
+    .col-12 {
+      flex-basis: var(--col-12);
+    }
   }
 }
 
 /* Optional: Column Offset Utilities */
 @media (width >= 48rem) {
-  .col-offset-0 { margin-inline-start: 0; }
-  .col-offset-1 { margin-inline-start: var(--col-1); }
-  .col-offset-2 { margin-inline-start: var(--col-2); }
-  .col-offset-3 { margin-inline-start: var(--col-3); }
-  .col-offset-4 { margin-inline-start: var(--col-4); }
-  .col-offset-5 { margin-inline-start: var(--col-5); }
-  .col-offset-6 { margin-inline-start: var(--col-6); }
-  .col-offset-7 { margin-inline-start: var(--col-7); }
-  .col-offset-8 { margin-inline-start: var(--col-8); }
-  .col-offset-9 { margin-inline-start: var(--col-9); }
-  .col-offset-10 { margin-inline-start: var(--col-10); }
-  .col-offset-11 { margin-inline-start: var(--col-11); }
+  .col-offset-0 {
+    margin-inline-start: 0;
+  }
+  .col-offset-1 {
+    margin-inline-start: var(--col-1);
+  }
+  .col-offset-2 {
+    margin-inline-start: var(--col-2);
+  }
+  .col-offset-3 {
+    margin-inline-start: var(--col-3);
+  }
+  .col-offset-4 {
+    margin-inline-start: var(--col-4);
+  }
+  .col-offset-5 {
+    margin-inline-start: var(--col-5);
+  }
+  .col-offset-6 {
+    margin-inline-start: var(--col-6);
+  }
+  .col-offset-7 {
+    margin-inline-start: var(--col-7);
+  }
+  .col-offset-8 {
+    margin-inline-start: var(--col-8);
+  }
+  .col-offset-9 {
+    margin-inline-start: var(--col-9);
+  }
+  .col-offset-10 {
+    margin-inline-start: var(--col-10);
+  }
+  .col-offset-11 {
+    margin-inline-start: var(--col-11);
+  }
 }
 
 /* Optional: Auto-Width Columns */
@@ -147,23 +242,86 @@
   flex: 0 0 auto;
 }
 
+/* Optional: Flex-Grow Columns */
+/**
+ * .col-flex provides a column that grows to fill remaining space.
+ * Different from .col-auto (content-based) - this uses flex-grow.
+ *
+ * Key Differences:
+ * - .col-auto: Sizes to content width (flex: 0 0 auto)
+ * - .col-flex: Grows to fill space (flex: 1 1 0%)
+ *
+ * Responsive Behavior:
+ * - Mobile (< 48rem): 100% width (stacked)
+ * - Desktop (>= 48rem): Grows to fill remaining space
+ *
+ * Usage:
+ *   <Row>
+ *     <Col span={3}>Fixed 25%</Col>
+ *     <Col span="flex">Fills remaining 75%</Col>
+ *   </Row>
+ */
+.col-flex {
+  /* Mobile: Stack like all columns */
+  flex: 0 0 100%;
+  min-width: 0; /* Prevent content overflow */
+  box-sizing: border-box;
+}
+
+/* Desktop: Grow to fill available space */
+@media (width >= 48rem) {
+  .col-flex {
+    flex: 1 1 0%; /* flex-grow: 1, flex-shrink: 1, flex-basis: 0% */
+  }
+}
+
 /* Optional: Column Order Utilities */
 @media (width >= 48rem) {
-  .col-order-first { order: -1; }
-  .col-order-last { order: 13; }
-  .col-order-0 { order: 0; }
-  .col-order-1 { order: 1; }
-  .col-order-2 { order: 2; }
-  .col-order-3 { order: 3; }
-  .col-order-4 { order: 4; }
-  .col-order-5 { order: 5; }
-  .col-order-6 { order: 6; }
-  .col-order-7 { order: 7; }
-  .col-order-8 { order: 8; }
-  .col-order-9 { order: 9; }
-  .col-order-10 { order: 10; }
-  .col-order-11 { order: 11; }
-  .col-order-12 { order: 12; }
+  .col-order-first {
+    order: -1;
+  }
+  .col-order-last {
+    order: 13;
+  }
+  .col-order-0 {
+    order: 0;
+  }
+  .col-order-1 {
+    order: 1;
+  }
+  .col-order-2 {
+    order: 2;
+  }
+  .col-order-3 {
+    order: 3;
+  }
+  .col-order-4 {
+    order: 4;
+  }
+  .col-order-5 {
+    order: 5;
+  }
+  .col-order-6 {
+    order: 6;
+  }
+  .col-order-7 {
+    order: 7;
+  }
+  .col-order-8 {
+    order: 8;
+  }
+  .col-order-9 {
+    order: 9;
+  }
+  .col-order-10 {
+    order: 10;
+  }
+  .col-order-11 {
+    order: 11;
+  }
+  .col-order-12 {
+    order: 12;
+  }
 }
 
 /* ============================================================================
@@ -171,28 +329,66 @@
    ========================================================================== */
 
 /* Row Gap Utilities - Override default gap */
-.col-row-gap-0 { gap: 0; }
-.col-row-gap-xs { gap: var(--spacing-xs); }
-.col-row-gap-sm { gap: var(--spacing-sm); }
-.col-row-gap-md { gap: var(--spacing-md); }
-.col-row-gap-lg { gap: var(--spacing-lg); }
-.col-row-gap-xl { gap: var(--spacing-xl); }
+.col-row-gap-0 {
+  gap: 0;
+}
+.col-row-gap-xs {
+  gap: var(--spacing-xs);
+}
+.col-row-gap-sm {
+  gap: var(--spacing-sm);
+}
+.col-row-gap-md {
+  gap: var(--spacing-md);
+}
+.col-row-gap-lg {
+  gap: var(--spacing-lg);
+}
+.col-row-gap-xl {
+  gap: var(--spacing-xl);
+}
 
 /* Row Justify Content Utilities */
-.col-row-justify-start { justify-content: flex-start; }
-.col-row-justify-center { justify-content: center; }
-.col-row-justify-end { justify-content: flex-end; }
-.col-row-justify-between { justify-content: space-between; }
-.col-row-justify-around { justify-content: space-around; }
-.col-row-justify-evenly { justify-content: space-evenly; }
+.col-row-justify-start {
+  justify-content: flex-start;
+}
+.col-row-justify-center {
+  justify-content: center;
+}
+.col-row-justify-end {
+  justify-content: flex-end;
+}
+.col-row-justify-between {
+  justify-content: space-between;
+}
+.col-row-justify-around {
+  justify-content: space-around;
+}
+.col-row-justify-evenly {
+  justify-content: space-evenly;
+}
 
 /* Row Align Items Utilities */
-.col-row-align-start { align-items: flex-start; }
-.col-row-align-center { align-items: center; }
-.col-row-align-end { align-items: flex-end; }
-.col-row-align-baseline { align-items: baseline; }
-.col-row-align-stretch { align-items: stretch; }
+.col-row-align-start {
+  align-items: flex-start;
+}
+.col-row-align-center {
+  align-items: center;
+}
+.col-row-align-end {
+  align-items: flex-end;
+}
+.col-row-align-baseline {
+  align-items: baseline;
+}
+.col-row-align-stretch {
+  align-items: stretch;
+}
 
 /* Row Wrap Utilities */
-.col-row-nowrap { flex-wrap: nowrap; }
-.col-row-wrap-reverse { flex-wrap: wrap-reverse; }
+.col-row-nowrap {
+  flex-wrap: nowrap;
+}
+.col-row-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}

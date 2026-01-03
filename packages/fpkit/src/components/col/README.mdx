@@ -20,6 +20,7 @@ utility class composition following the Grid.Item pattern.
 
 - **No Base Class**: Pure utility class mapping for maximum flexibility
 - **Span Control**: 1-12 column widths via the `span` prop
+- **Flex-Grow Columns**: Fill remaining space with `span="flex"`
 - **Offset Positioning**: Push columns right with `offset` prop
 - **Visual Reordering**: Change display order with `order` prop
 - **Auto-Width**: Content-based width with `auto` prop
@@ -40,19 +41,26 @@ Use Col when you need:
 
 ### span
 
-Column span (width) from 1-12 columns. Ignored if `auto` is true.
+Column span (width) from 1-12 columns, or "flex" for flex-grow behavior. Ignored
+if `auto` is true.
 
-- **Type**: `1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12`
+- **Type**: `1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "flex"`
 - **Default**: `undefined`
-- **CSS Class**: `.col-{span}`
-- **Calculation**: `span / 12 * 100%`
+- **CSS Class**: `.col-{span}` or `.col-flex`
+- **Calculation**: `span / 12 * 100%` (for numeric values)
 
-**Examples:**
+**Numeric Examples:**
 
 - `span={12}` = 100% width (`.col-12`)
 - `span={6}` = 50% width (`.col-6`)
 - `span={4}` = 33.33% width (`.col-4`)
 - `span={3}` = 25% width (`.col-3`)
+
+**Flex Example:**
+
+- `span="flex"` = Grows to fill remaining space (`.col-flex`)
+  - Desktop: `flex: 1 1 0%` (grows to fill available space)
+  - Mobile: Stacks to 100% width like other columns
 
 ### offset
 
@@ -85,7 +93,8 @@ Visual display order using flexbox `order` property. Does not change DOM order.
 
 ### auto
 
-Auto-width column based on content. Takes precedence over `span`.
+Auto-width column based on content. Takes precedence over `span` (including
+`span="flex"`).
 
 - **Type**: `boolean`
 - **Default**: `false`
@@ -93,6 +102,9 @@ Auto-width column based on content. Takes precedence over `span`.
 
 When `true`, column width adjusts to fit content instead of spanning a fixed
 number of columns.
+
+**Note**: For columns that grow to fill remaining space (not content-based), use
+`span="flex"` instead of `auto`.
 
 ### as
 
@@ -208,10 +220,80 @@ function MyLayout() {
 <Row gap="md">
   {/* Mix fixed and auto */}
   <Col span={3}>Fixed 25%</Col>
-  <Col auto>Auto (fills remaining)</Col>
+  <Col auto>Auto width (content-based)</Col>
   <Col span={2}>Fixed 16.66%</Col>
 </Row>
 ```
+
+### Flex Columns (Fill Remaining Space)
+
+Use `span="flex"` to create columns that grow to fill available space after
+fixed-width columns. This is different from `auto` which sizes to content.
+
+```jsx
+{/* Flex vs Auto Comparison */}
+<Row gap="md">
+  <Col span={3}>Fixed 25%</Col>
+  <Col span="flex">Flex (grows to fill 75%)</Col>
+</Row>
+
+<Row gap="md">
+  <Col span={3}>Fixed 25%</Col>
+  <Col auto>Auto (sizes to content only)</Col>
+</Row>
+```
+
+**Multiple flex columns share space equally:**
+
+```jsx
+<Row gap="md">
+  <Col span={2}>Fixed sidebar</Col>
+  <Col span="flex">Section 1 (50% of remaining)</Col>
+  <Col span="flex">Section 2 (50% of remaining)</Col>
+</Row>
+```
+
+**Common Patterns:**
+
+```jsx
+{/* Sidebar layout */}
+<Row gap="lg">
+  <Col span={3}>Sidebar (25%)</Col>
+  <Col span="flex">Main content (grows to fill 75%)</Col>
+</Row>
+
+{/* Button group with spacer */}
+<Row gap="sm" align="center">
+  <Col auto><Button>Save</Button></Col>
+  <Col span="flex">{/* Flexible spacer */}</Col>
+  <Col auto><Button>Cancel</Button></Col>
+</Row>
+
+{/* App layout */}
+<Row gap="md">
+  <Col span={2}>Navigation</Col>
+  <Col span="flex">Main Content</Col>
+  <Col span={3}>Sidebar</Col>
+</Row>
+
+{/* Form layout with label and input */}
+<Row gap="sm" align="center">
+  <Col auto><Label>Email:</Label></Col>
+  <Col span="flex"><Input type="email" /></Col>
+  <Col auto><Button>Subscribe</Button></Col>
+</Row>
+```
+
+**Key Differences:**
+
+| Feature           | `auto`                 | `span="flex"`               |
+| ----------------- | ---------------------- | --------------------------- |
+| **CSS**           | `flex: 0 0 auto`       | `flex: 1 1 0%`              |
+| **Behavior**      | Sizes to content width | Grows to fill space         |
+| **Use case**      | Buttons, labels, icons | Main content areas          |
+| **Mobile**        | Content-based          | 100% width (stacked)        |
+| **Desktop**       | Content-based          | Fills remaining space       |
+| **Multiple cols** | Each sizes to content  | Share remaining space equally |
 
 ### Responsive Columns
 
@@ -487,10 +569,11 @@ Use responsive utility classes on Col for breakpoint-specific widths:
 
 Col renders with **no base class**. Only utility classes are applied:
 
-- Span: `.col-{1-12}`
+- Span: `.col-{1-12}` (fixed width columns)
+- Flex: `.col-flex` (flex-grow column)
 - Offset: `.col-offset-{0-11}`
 - Order: `.col-order-{first|last|0-12}`
-- Auto: `.col-auto`
+- Auto: `.col-auto` (content-based width)
 
 ### Column Width Calculation
 
@@ -525,6 +608,52 @@ margin-inline-start = (offset / 12) * 100%
 
 `.col-auto` uses `flex: 0 0 auto` with `width: auto`, allowing the column to
 size based on its content.
+
+### Flex-Grow Behavior
+
+`.col-flex` uses responsive flex properties to fill remaining space:
+
+**Mobile (`< 768px`):**
+
+```css
+.col-flex {
+  flex: 0 0 100%; /* Stack to full width */
+  min-width: 0;
+  box-sizing: border-box;
+}
+```
+
+**Desktop (`≥ 768px`):**
+
+```css
+.col-flex {
+  flex: 1 1 0%; /* Grow to fill available space */
+}
+```
+
+**How it works:**
+
+- `flex-grow: 1` - Column grows to fill available space
+- `flex-shrink: 1` - Column can shrink if constrained
+- `flex-basis: 0%` - Ensures equal distribution when multiple flex columns exist
+- Multiple flex columns share remaining space equally
+
+**Example calculations:**
+
+```jsx
+// Container width: 1200px
+<Row>
+  <Col span={3}>Fixed 300px (25%)</Col>
+  <Col span="flex">Grows to 900px (75%)</Col>
+</Row>
+
+// Multiple flex columns
+<Row>
+  <Col span={2}>Fixed 200px (16.67%)</Col>
+  <Col span="flex">Flex 1: 500px (41.67%)</Col>
+  <Col span="flex">Flex 2: 500px (41.67%)</Col>
+</Row>
+```
 
 ### Performance
 

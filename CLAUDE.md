@@ -224,4 +224,4 @@ All CSS custom properties must follow the standardized naming convention. See `d
 - Requires Node.js >= 20.9.0 (enforced in package.json engines)
 - `.nvmrc` specifies 20.9.0
 - when document components always add README.mdx for component documentation and STYLES.mdx for css documentation, these should always be fromatted for Storybook compatibility
-- always save plans to /openspec/plans
+- always save plans to .claude/plans
