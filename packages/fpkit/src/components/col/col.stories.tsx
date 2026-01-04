@@ -900,3 +900,575 @@ export const MigrationFromAlwaysProportional: Story = {
     },
   },
 };
+
+/**
+ * NEW: Real-World Layout Patterns
+ * Demonstrates common responsive UI patterns found in production applications.
+ * Shows practical examples: dashboard, product grid, pricing table, blog layout.
+ */
+export const RealWorldLayouts: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+      {/* Dashboard Layout */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Dashboard Layout
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked | Tablet: 2 cols | Desktop: 4 cols
+        </p>
+        <Row gap="md">
+          <div className="col-12 col-sm-6 col-lg-3" style={{ ...colStyle, background: "#dbeafe" }}>
+            <strong>Total Users</strong><br />
+            <div style={{ fontSize: "2rem", fontWeight: "bold", margin: "0.5rem 0" }}>1,234</div>
+            <small>+12% from last month</small>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-3" style={{ ...colStyle, background: "#fef3c7" }}>
+            <strong>Revenue</strong><br />
+            <div style={{ fontSize: "2rem", fontWeight: "bold", margin: "0.5rem 0" }}>$45.2K</div>
+            <small>+8% from last month</small>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-3" style={{ ...colStyle, background: "#fce7f3" }}>
+            <strong>Conversions</strong><br />
+            <div style={{ fontSize: "2rem", fontWeight: "bold", margin: "0.5rem 0" }}>892</div>
+            <small>+15% from last month</small>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-3" style={{ ...colStyle, background: "#e0e7ff" }}>
+            <strong>Bounce Rate</strong><br />
+            <div style={{ fontSize: "2rem", fontWeight: "bold", margin: "0.5rem 0" }}>34%</div>
+            <small>-5% from last month</small>
+          </div>
+        </Row>
+      </div>
+
+      {/* Product Grid */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Product Grid
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: 1 col | Tablet: 2 cols | Desktop: 3 cols
+        </p>
+        <Row gap="lg">
+          {[1, 2, 3, 4, 5, 6].map((item) => (
+            <div key={item} className="col-12 col-sm-6 col-lg-4" style={colStyle}>
+              <div style={{ width: "100%", height: "150px", background: "#e5e7eb", borderRadius: "0.25rem", marginBottom: "0.5rem" }} />
+              <strong>Product {item}</strong><br />
+              <small>$99.99</small>
+            </div>
+          ))}
+        </Row>
+      </div>
+
+      {/* Pricing Table */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Pricing Table
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked | Desktop: 3 equal columns
+        </p>
+        <Row gap="md">
+          <div className="col-12 col-md-4" style={{ ...colStyle, background: "#f3f4f6" }}>
+            <strong style={{ fontSize: "1.25rem" }}>Starter</strong><br />
+            <div style={{ fontSize: "2.5rem", fontWeight: "bold", margin: "1rem 0" }}>$9</div>
+            <ul style={{ textAlign: "left", paddingLeft: "1.5rem", margin: "1rem 0" }}>
+              <li>5 Projects</li>
+              <li>10 GB Storage</li>
+              <li>Email Support</li>
+            </ul>
+          </div>
+          <div className="col-12 col-md-4" style={{ ...colStyle, background: "#6366f1", color: "white" }}>
+            <strong style={{ fontSize: "1.25rem" }}>Pro ⭐</strong><br />
+            <div style={{ fontSize: "2.5rem", fontWeight: "bold", margin: "1rem 0" }}>$29</div>
+            <ul style={{ textAlign: "left", paddingLeft: "1.5rem", margin: "1rem 0" }}>
+              <li>Unlimited Projects</li>
+              <li>100 GB Storage</li>
+              <li>Priority Support</li>
+            </ul>
+          </div>
+          <div className="col-12 col-md-4" style={{ ...colStyle, background: "#f3f4f6" }}>
+            <strong style={{ fontSize: "1.25rem" }}>Enterprise</strong><br />
+            <div style={{ fontSize: "2.5rem", fontWeight: "bold", margin: "1rem 0" }}>$99</div>
+            <ul style={{ textAlign: "left", paddingLeft: "1.5rem", margin: "1rem 0" }}>
+              <li>Unlimited Everything</li>
+              <li>1 TB Storage</li>
+              <li>24/7 Phone Support</li>
+            </ul>
+          </div>
+        </Row>
+      </div>
+
+      {/* Blog Layout */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Blog Layout (Sidebar + Content)
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked (sidebar first) | Desktop: sidebar (25%) + content (75%)
+        </p>
+        <Row gap="lg">
+          <div className="col-12 col-lg-3 col-lg-order-1" style={{ ...colStyle, background: "#e0e7ff" }}>
+            <strong>Sidebar</strong><br />
+            <ul style={{ textAlign: "left", paddingLeft: "1.5rem", marginTop: "0.5rem" }}>
+              <li>Categories</li>
+              <li>Recent Posts</li>
+              <li>Archive</li>
+              <li>Tags</li>
+            </ul>
+          </div>
+          <div className="col-12 col-lg-9 col-lg-order-2" style={{ ...colStyle, background: "#fef3c7" }}>
+            <strong style={{ fontSize: "1.5rem" }}>Article Title</strong><br />
+            <p style={{ margin: "1rem 0", textAlign: "left" }}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Mobile users see this content below the sidebar, while desktop
+              users see it to the right of the sidebar.
+            </p>
+          </div>
+        </Row>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Dashboard uses 4-column responsive layout", async () => {
+      const dashboardCols = canvasElement.querySelectorAll(".col-sm-6.col-lg-3");
+      expect(dashboardCols.length).toBeGreaterThan(0);
+    });
+
+    await step("Product grid uses 3-column responsive layout", async () => {
+      const productCols = canvasElement.querySelectorAll(".col-sm-6.col-lg-4");
+      expect(productCols.length).toBeGreaterThan(0);
+    });
+
+    await step("Pricing table uses equal columns", async () => {
+      const pricingCols = canvasElement.querySelectorAll(".col-md-4");
+      expect(pricingCols.length).toBe(3);
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Real-world responsive layout patterns commonly used in production applications. Includes dashboard stats, product grids, pricing tables, and blog layouts. Each pattern demonstrates mobile-first responsive design with appropriate breakpoints.",
+      },
+    },
+  },
+};
+
+/**
+ * NEW: Hero Section Patterns
+ * Demonstrates responsive hero section layouts with content and media.
+ * Shows different approaches: centered, split, full-width with offset.
+ */
+export const HeroSectionPatterns: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+      {/* Centered Hero */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Centered Hero
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: full width | Desktop: centered with offset
+        </p>
+        <Row>
+          <div className="col-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3" style={{ ...colStyle, padding: "2rem" }}>
+            <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Welcome to Our Product</h1>
+            <p style={{ fontSize: "1.125rem", marginBottom: "1.5rem", color: "#666" }}>
+              Build amazing things with our platform. Start your free trial today.
+            </p>
+            <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+              <button style={{ padding: "0.75rem 1.5rem", fontSize: "1rem" }}>Get Started</button>
+              <button style={{ padding: "0.75rem 1.5rem", fontSize: "1rem" }}>Learn More</button>
+            </div>
+          </div>
+        </Row>
+      </div>
+
+      {/* Split Hero (Image + Content) */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Split Hero (50/50)
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked | Desktop: side-by-side
+        </p>
+        <Row gap="lg" align="center">
+          <div className="col-12 col-md-6" style={{ ...colStyle, background: "#dbeafe", padding: "2rem" }}>
+            <h2 style={{ fontSize: "2rem", marginBottom: "1rem" }}>Beautiful Design</h2>
+            <p style={{ fontSize: "1rem", marginBottom: "1rem", color: "#666" }}>
+              Create stunning interfaces with our component library. Responsive, accessible, and customizable.
+            </p>
+            <button style={{ padding: "0.75rem 1.5rem" }}>View Features</button>
+          </div>
+          <div className="col-12 col-md-6" style={{ ...colStyle, background: "#e5e7eb", height: "300px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontSize: "4rem" }}>🖼️</span>
+          </div>
+        </Row>
+      </div>
+
+      {/* Asymmetric Hero */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Asymmetric Hero (60/40)
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked | Desktop: 60% content, 40% image
+        </p>
+        <Row gap="lg" align="center">
+          <div className="col-12 col-lg-7" style={{ ...colStyle, background: "#fef3c7", padding: "2rem" }}>
+            <h2 style={{ fontSize: "2rem", marginBottom: "1rem" }}>Enterprise Solutions</h2>
+            <p style={{ fontSize: "1rem", marginBottom: "1rem", color: "#666" }}>
+              Powerful tools for teams of all sizes. Scalable infrastructure, advanced security, and dedicated support.
+            </p>
+            <ul style={{ textAlign: "left", marginBottom: "1rem" }}>
+              <li>99.9% Uptime SLA</li>
+              <li>Advanced Analytics</li>
+              <li>Priority Support</li>
+            </ul>
+            <button style={{ padding: "0.75rem 1.5rem" }}>Contact Sales</button>
+          </div>
+          <div className="col-12 col-lg-5" style={{ ...colStyle, background: "#e5e7eb", height: "350px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontSize: "5rem" }}>📊</span>
+          </div>
+        </Row>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Centered hero uses responsive offset", async () => {
+      const centeredHero = canvasElement.querySelector(".col-md-offset-2.col-lg-offset-3");
+      expect(centeredHero).toBeInTheDocument();
+    });
+
+    await step("Split hero uses equal columns on desktop", async () => {
+      const splitCols = canvasElement.querySelectorAll(".col-md-6");
+      expect(splitCols.length).toBeGreaterThan(0);
+    });
+
+    await step("Asymmetric hero uses 60/40 split", async () => {
+      const col7 = canvasElement.querySelector(".col-lg-7");
+      const col5 = canvasElement.querySelector(".col-lg-5");
+      expect(col7).toBeInTheDocument();
+      expect(col5).toBeInTheDocument();
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Common hero section patterns for landing pages and marketing sites. Includes centered heroes with responsive offsets, 50/50 split layouts, and asymmetric layouts. All patterns stack on mobile and display side-by-side on larger screens.",
+      },
+    },
+  },
+};
+
+/**
+ * NEW: Complex Responsive Combinations
+ * Demonstrates advanced patterns combining spans, offsets, and ordering.
+ * Shows how to create sophisticated layouts with multiple responsive features.
+ */
+export const ComplexResponsiveCombinations: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+      {/* Responsive Grid with Visual Reordering */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Content Priority Reordering
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: Primary content first | Desktop: Image first (visual order change)
+        </p>
+        <Row gap="lg">
+          <div className="col-12 col-md-6 col-md-order-2" style={{ ...colStyle, background: "#dbeafe" }}>
+            <strong>Primary Content</strong><br />
+            <p style={{ margin: "0.5rem 0", textAlign: "left" }}>
+              On mobile, users see this content first because it's higher in the DOM.
+              On desktop, it appears second (right side) due to visual ordering.
+            </p>
+          </div>
+          <div className="col-12 col-md-6 col-md-order-1" style={{ ...colStyle, background: "#e5e7eb", height: "200px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontSize: "3rem" }}>📷</span>
+            <br />
+            <small>Image (visual first on desktop)</small>
+          </div>
+        </Row>
+      </div>
+
+      {/* Changing Column Widths AND Offsets */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Dynamic Widths + Offsets
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Tablet: 2 cols centered | Desktop: 3 cols left-aligned
+        </p>
+        <Row gap="md">
+          <div className="col-12 col-md-5 col-md-offset-1 col-lg-4 col-lg-offset-0" style={{ ...colStyle, background: "#fef3c7" }}>
+            <strong>.col-md-5.col-md-offset-1</strong><br />
+            <strong>.col-lg-4.col-lg-offset-0</strong><br />
+            <small>Centered on tablet, left-aligned on desktop</small>
+          </div>
+          <div className="col-12 col-md-5 col-md-offset-0 col-lg-4 col-lg-offset-0" style={{ ...colStyle, background: "#fce7f3" }}>
+            <strong>.col-md-5.col-lg-4</strong><br />
+            <small>Width changes across breakpoints</small>
+          </div>
+          <div className="col-12 col-md-10 col-md-offset-1 col-lg-4 col-lg-offset-0" style={{ ...colStyle, background: "#dbeafe" }}>
+            <strong>.col-md-10.col-md-offset-1</strong><br />
+            <strong>.col-lg-4.col-lg-offset-0</strong><br />
+            <small>Full row centered on tablet, third of row on desktop</small>
+          </div>
+        </Row>
+      </div>
+
+      {/* Magazine-Style Layout */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Magazine-Style Layout
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked | Desktop: featured + grid
+        </p>
+        <Row gap="lg">
+          <div className="col-12 col-lg-8" style={{ ...colStyle, background: "#6366f1", color: "white", padding: "2rem", minHeight: "300px" }}>
+            <h2 style={{ fontSize: "2rem", marginBottom: "1rem" }}>Featured Article</h2>
+            <p>Large featured content area on desktop, full width on mobile</p>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={{ ...colStyle, background: "#fef3c7" }}>
+            <strong>Sidebar Item 1</strong><br />
+            <small>Half width on tablet, quarter on desktop</small>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={{ ...colStyle, background: "#fce7f3" }}>
+            <strong>Article 2</strong>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={{ ...colStyle, background: "#dbeafe" }}>
+            <strong>Article 3</strong>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-4" style={{ ...colStyle, background: "#e0e7ff" }}>
+            <strong>Article 4</strong>
+          </div>
+        </Row>
+      </div>
+
+      {/* Responsive Gap Pattern */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Form Layout with Responsive Grouping
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Mobile: stacked | Tablet: 2 cols | Desktop: mixed widths
+        </p>
+        <Row gap="md">
+          <div className="col-12 col-md-6" style={colStyle}>
+            <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>First Name</label>
+            <input type="text" style={{ width: "100%", padding: "0.5rem" }} />
+          </div>
+          <div className="col-12 col-md-6" style={colStyle}>
+            <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>Last Name</label>
+            <input type="text" style={{ width: "100%", padding: "0.5rem" }} />
+          </div>
+          <div className="col-12" style={colStyle}>
+            <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>Email</label>
+            <input type="email" style={{ width: "100%", padding: "0.5rem" }} />
+          </div>
+          <div className="col-12 col-md-8" style={colStyle}>
+            <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>Street Address</label>
+            <input type="text" style={{ width: "100%", padding: "0.5rem" }} />
+          </div>
+          <div className="col-12 col-md-4" style={colStyle}>
+            <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>ZIP Code</label>
+            <input type="text" style={{ width: "100%", padding: "0.5rem" }} />
+          </div>
+        </Row>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Content reordering works across breakpoints", async () => {
+      const orderedCol = canvasElement.querySelector(".col-md-order-2");
+      expect(orderedCol).toBeInTheDocument();
+    });
+
+    await step("Dynamic offsets are applied correctly", async () => {
+      const offsetCol = canvasElement.querySelector(".col-md-offset-1.col-lg-offset-0");
+      expect(offsetCol).toBeInTheDocument();
+    });
+
+    await step("Magazine layout uses 8-column featured area", async () => {
+      const featured = canvasElement.querySelector(".col-lg-8");
+      expect(featured).toBeInTheDocument();
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Advanced responsive patterns combining multiple features: spans + offsets + ordering. Demonstrates magazine layouts, form grouping, content priority reordering, and complex responsive behaviors. These patterns show how responsive utilities enable sophisticated designs without media queries in your components.",
+      },
+    },
+  },
+};
+
+/**
+ * NEW: Responsive with Row Props
+ * Demonstrates combining responsive column utilities with Row component props.
+ * Shows how gap, justify, and align props work with responsive layouts.
+ */
+export const ResponsiveWithRowProps: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "3rem" }}>
+      {/* Responsive Gap */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Custom Gap Spacing
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Large gap between columns (mobile stacks, desktop side-by-side)
+        </p>
+        <Row gap="xl">
+          <div className="col-12 col-md-6" style={colStyle}>
+            Column with xl gap
+          </div>
+          <div className="col-12 col-md-6" style={colStyle}>
+            Column with xl gap
+          </div>
+        </Row>
+      </div>
+
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Compact Gap
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Minimal gap for dense layouts
+        </p>
+        <Row gap="xs">
+          {[1, 2, 3, 4].map((item) => (
+            <div key={item} className="col-12 col-sm-6 col-lg-3" style={colStyle}>
+              Compact {item}
+            </div>
+          ))}
+        </Row>
+      </div>
+
+      {/* Centered Content */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Centered Columns (justify="center")
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Columns centered horizontally when they don't fill full width
+        </p>
+        <Row justify="center" gap="md">
+          <div className="col-auto col-md-3" style={colStyle}>
+            Auto width
+          </div>
+          <div className="col-auto col-md-3" style={colStyle}>
+            Centered
+          </div>
+          <div className="col-auto col-md-3" style={colStyle}>
+            Content
+          </div>
+        </Row>
+      </div>
+
+      {/* Space Between */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Spaced Columns (justify="between")
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Maximum space between columns
+        </p>
+        <Row justify="between" gap="0">
+          <div className="col-auto col-md-3" style={colStyle}>
+            Left
+          </div>
+          <div className="col-auto col-md-3" style={colStyle}>
+            Center
+          </div>
+          <div className="col-auto col-md-3" style={colStyle}>
+            Right
+          </div>
+        </Row>
+      </div>
+
+      {/* Vertical Alignment */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Vertical Alignment (align="center")
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Columns with different heights vertically centered
+        </p>
+        <Row align="center" gap="md">
+          <div className="col-12 col-md-4" style={{ ...colStyle, minHeight: "100px" }}>
+            Short content
+          </div>
+          <div className="col-12 col-md-4" style={{ ...colStyle, minHeight: "200px" }}>
+            Tall content<br />with<br />multiple<br />lines
+          </div>
+          <div className="col-12 col-md-4" style={{ ...colStyle, minHeight: "150px" }}>
+            Medium content<br />vertically centered
+          </div>
+        </Row>
+      </div>
+
+      {/* Flex Column with Row Props */}
+      <div>
+        <h3 style={{ marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>
+          Flex Columns with Alignment
+        </h3>
+        <p style={{ marginBottom: "1rem", fontSize: "0.875rem", color: "#666" }}>
+          Flex-grow columns combined with justify and align
+        </p>
+        <Row justify="between" align="center" gap="md">
+          <div className="col-auto col-md-3" style={colStyle}>
+            Fixed width
+          </div>
+          <div className="col-12 col-md-flex" style={{ ...colStyle, background: "#fef3c7", borderColor: "#f59e0b" }}>
+            Flex-grow (fills remaining space)
+          </div>
+          <div className="col-auto col-md-auto" style={colStyle}>
+            Auto width
+          </div>
+        </Row>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step("Row gap utilities are applied", async () => {
+      const xlGapRow = canvasElement.querySelector(".col-row-gap-xl");
+      expect(xlGapRow).toBeInTheDocument();
+
+      const xsGapRow = canvasElement.querySelector(".col-row-gap-xs");
+      expect(xsGapRow).toBeInTheDocument();
+    });
+
+    await step("Row justify utilities are applied", async () => {
+      const centerRow = canvasElement.querySelector(".col-row-justify-center");
+      expect(centerRow).toBeInTheDocument();
+
+      const betweenRow = canvasElement.querySelector(".col-row-justify-between");
+      expect(betweenRow).toBeInTheDocument();
+    });
+
+    await step("Row align utilities are applied", async () => {
+      const alignCenterRow = canvasElement.querySelector(".col-row-align-center");
+      expect(alignCenterRow).toBeInTheDocument();
+    });
+
+    await step("Flex columns work with Row props", async () => {
+      const flexCol = canvasElement.querySelector(".col-md-flex");
+      expect(flexCol).toBeInTheDocument();
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates combining responsive column utilities with Row component props (gap, justify, align). Shows how to control spacing, horizontal alignment, and vertical alignment while maintaining responsive behavior. Flex columns can be combined with Row props for sophisticated layouts.",
+      },
+    },
+  },
+};
