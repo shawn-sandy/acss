@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.4.0...@fpkit/acss@3.5.0) (2026-01-04)
+
+
+### Features
+
+* **columns:** add flex-grow column with span="flex" support ([4b29323](https://github.com/shawn-sandy/fpkit/commit/4b29323d0c5fbb4177d60460b92dac8df9e2063d))
+* **columns:** add responsive breakpoint system ([fee6e76](https://github.com/shawn-sandy/fpkit/commit/fee6e7629d0559a86351a0fc4352c602ff37359d))
+* **columns:** add responsive breakpoint system ([#92](https://github.com/shawn-sandy/fpkit/issues/92)) ([77ca55c](https://github.com/shawn-sandy/fpkit/commit/77ca55c0b97402795779da1efbc2a42819f49285))
+* **columns:** add responsive offset and order utilities ([16ca68e](https://github.com/shawn-sandy/fpkit/commit/16ca68e632d12b2457c8381c419fc9398594e60a))
+* **columns:** add responsive span utilities (sm/md/lg) ([d46b037](https://github.com/shawn-sandy/fpkit/commit/d46b037be25bfe6dd7ca94b0456c3a3cc58ae23b))
+* **columns:** deprecate alwaysProportional prop ([06110fc](https://github.com/shawn-sandy/fpkit/commit/06110fcbb145d47961af0b54ad5d6de18bcd5d64))
+
+
+
+
+
 # [3.4.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.3.0...@fpkit/acss@3.4.0) (2026-01-02)
 
 
