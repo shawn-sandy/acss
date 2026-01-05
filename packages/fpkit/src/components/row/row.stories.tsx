@@ -5,7 +5,7 @@ import { Row } from "./row";
 const meta: Meta<typeof Row> = {
   title: "FP.React Components/Layout/Row",
   component: Row,
-  tags: ["autodocs", "rc", "layout"],
+  tags: ["autodocs", "beta", "layout"],
   parameters: {
     docs: {
       description: {
