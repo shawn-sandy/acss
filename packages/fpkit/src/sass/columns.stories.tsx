@@ -416,7 +416,7 @@ export const CustomGapSpacing: Story = {
 };
 
 /**
- * Responsive behavior demonstration.
+ * Responsive behavior demonstration with actual responsive classes.
  * Resize browser to see columns stack on mobile (< 768px) and spread on desktop.
  */
 export const ResponsiveBehavior: Story = {
@@ -431,19 +431,24 @@ export const ResponsiveBehavior: Story = {
           fontSize: "0.875rem",
         }}
       >
-        <strong>💡 Try this:</strong> Resize your browser or use DevTools responsive mode.
-        <br />• <strong>Mobile (&lt; 768px):</strong> All columns stack to 100% width
-        <br />• <strong>Desktop (≥ 768px):</strong> Columns use percentage widths
+        <strong>💡 Try this:</strong> Resize your browser or use DevTools responsive
+        mode.
+        <br />• <strong>Mobile (&lt; 480px):</strong> 1 column (100% width)
+        <br />• <strong>Tablet (≥ 480px):</strong> 2 columns (50% width each)
+        <br />• <strong>Desktop (≥ 1024px):</strong> 3 columns (33.33% width each)
       </div>
       <div className="col-row">
-        <div className="col-4" style={demoCardStyle}>
-          Column 1<br />.col-4
+        <div className="col-12 col-sm-6 col-lg-4" style={demoCardStyle}>
+          Column 1<br />
+          .col-12 .col-sm-6 .col-lg-4
         </div>
-        <div className="col-4" style={demoCardStyle}>
-          Column 2<br />.col-4
+        <div className="col-12 col-sm-6 col-lg-4" style={demoCardStyle}>
+          Column 2<br />
+          .col-12 .col-sm-6 .col-lg-4
         </div>
-        <div className="col-4" style={demoCardStyle}>
-          Column 3<br />.col-4
+        <div className="col-12 col-sm-6 col-lg-4" style={demoCardStyle}>
+          Column 3<br />
+          .col-12 .col-sm-6 .col-lg-4
         </div>
       </div>
     </div>
@@ -453,4 +458,423 @@ export const ResponsiveBehavior: Story = {
       defaultViewport: "md",
     },
   },
+};
+
+/**
+ * Demonstrates how a single element responds across breakpoints.
+ * Resize browser to see width change at 480px, 768px, and 1024px.
+ */
+export const ResponsiveBreakpoints: Story = {
+  render: () => (
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <div
+        style={{
+          padding: "1rem",
+          backgroundColor: "#fef3c7",
+          borderRadius: "0.5rem",
+          marginBottom: "1rem",
+          fontSize: "0.875rem",
+        }}
+      >
+        <strong>💡 Resize to test:</strong>
+        <br />• <strong>Mobile (&lt; 480px):</strong> 100% width (1 column)
+        <br />• <strong>Tablet (≥ 480px):</strong> 50% width (2 columns)
+        <br />• <strong>Desktop (≥ 1024px):</strong> 33.33% width (3 columns)
+      </div>
+      <div className="col-row">
+        <div
+          className="col-12 col-sm-6 col-lg-4"
+          style={{
+            ...demoCardStyle,
+            minHeight: "100px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          .col-12 .col-sm-6 .col-lg-4
+          <br />
+          <small>Resize to see me change!</small>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+  },
+};
+
+/**
+ * Dashboard card grid that adapts across breakpoints.
+ * 1 column mobile, 2 columns tablet, 4 columns desktop.
+ */
+export const ResponsiveDashboard: Story = {
+  render: () => (
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <h3 style={{ marginBottom: "1rem" }}>Responsive Dashboard</h3>
+      <div className="col-row">
+        {[
+          { title: "Total Users", value: "1,234", color: "#dbeafe" },
+          { title: "Revenue", value: "$12,345", color: "#fef3c7" },
+          { title: "Conversions", value: "567", color: "#d1fae5" },
+          { title: "Growth", value: "+23%", color: "#fce7f3" },
+        ].map((card, i) => (
+          <div
+            key={i}
+            className="col-12 col-md-6 col-lg-3"
+            style={{
+              ...demoCardStyle,
+              backgroundColor: card.color,
+              minHeight: "120px",
+            }}
+          >
+            <h4
+              style={{
+                margin: 0,
+                fontSize: "0.875rem",
+                color: "#6366f1",
+                fontWeight: "500",
+              }}
+            >
+              {card.title}
+            </h4>
+            <p
+              style={{
+                margin: "0.5rem 0 0",
+                fontSize: "1.5rem",
+                fontWeight: "bold",
+              }}
+            >
+              {card.value}
+            </p>
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          marginTop: "1rem",
+          fontSize: "0.875rem",
+          color: "#666",
+        }}
+      >
+        <strong>Layout:</strong> 1 col mobile → 2 col tablet → 4 col desktop
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Blog-style layout with sidebar that stacks on mobile.
+ */
+export const ResponsiveSidebarLayout: Story = {
+  render: () => (
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <h3 style={{ marginBottom: "1rem" }}>Blog Sidebar Layout</h3>
+      <div className="col-row">
+        <div
+          className="col-12 col-md-8"
+          style={{
+            ...demoCardStyle,
+            minHeight: "200px",
+            textAlign: "left",
+          }}
+        >
+          <h4 style={{ margin: "0 0 0.5rem", fontSize: "1.125rem" }}>
+            Main Content
+          </h4>
+          <p style={{ margin: 0, fontSize: "0.875rem" }}>
+            .col-12 .col-md-8
+            <br />
+            Full-width on mobile, 66.67% (8/12) on tablet+
+          </p>
+        </div>
+        <div
+          className="col-12 col-md-4"
+          style={{
+            ...demoCardStyle,
+            backgroundColor: "#fef3c7",
+            minHeight: "200px",
+            textAlign: "left",
+          }}
+        >
+          <h4 style={{ margin: "0 0 0.5rem", fontSize: "1.125rem" }}>
+            Sidebar
+          </h4>
+          <p style={{ margin: 0, fontSize: "0.875rem" }}>
+            .col-12 .col-md-4
+            <br />
+            Full-width on mobile, 33.33% (4/12) on tablet+
+          </p>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Product grid with progressive column counts.
+ * 1 column mobile, 2 columns tablet, 3 columns desktop.
+ */
+export const ResponsiveProductGrid: Story = {
+  render: () => (
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <h3 style={{ marginBottom: "1rem" }}>Product Grid</h3>
+      <div className="col-row">
+        {Array.from({ length: 6 }, (_, i) => (
+          <div
+            key={i}
+            className="col-12 col-sm-6 col-lg-4"
+            style={demoCardStyle}
+          >
+            <div
+              style={{
+                height: "100px",
+                backgroundColor: "#e0e7ff",
+                borderRadius: "0.25rem",
+                marginBottom: "0.5rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "2rem",
+                color: "#6366f1",
+              }}
+            >
+              {i + 1}
+            </div>
+            <h4 style={{ margin: 0, fontSize: "1rem" }}>Product {i + 1}</h4>
+            <p style={{ margin: "0.25rem 0", fontSize: "0.875rem", color: "#666" }}>
+              $29.99
+            </p>
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          marginTop: "1rem",
+          fontSize: "0.875rem",
+          color: "#666",
+        }}
+      >
+        <strong>Layout:</strong> 1 col mobile → 2 col tablet → 3 col desktop
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Demonstrates responsive offsets for progressive centering.
+ */
+export const ResponsiveOffsets: Story = {
+  render: () => (
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <h3 style={{ marginBottom: "1rem" }}>
+        Progressive Centering with Offsets
+      </h3>
+      <div className="col-row">
+        <div
+          className="col-10 col-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3"
+          style={{
+            ...demoCardStyle,
+            textAlign: "left",
+          }}
+        >
+          <h4 style={{ margin: "0 0 0.5rem" }}>
+            Progressively Centered Content
+          </h4>
+          <p style={{ fontSize: "0.875rem", margin: "0.5rem 0 0" }}>
+            <strong>Mobile (&lt; 480px):</strong> 100% width, no offset
+            <br />
+            <strong>Small (≥ 480px):</strong> 83.33% width (10/12), 8.33% left
+            margin
+            <br />
+            <strong>Tablet (≥ 768px):</strong> 66.67% width (8/12), 16.67% left
+            margin
+            <br />
+            <strong>Desktop (≥ 1024px):</strong> 50% width (6/12), 25% left margin
+          </p>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Demonstrates visual reordering at different breakpoints.
+ * WARNING: Visual order doesn't change DOM order (accessibility concern).
+ */
+export const ResponsiveOrdering: Story = {
+  render: () => (
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <div
+        style={{
+          padding: "1rem",
+          backgroundColor: "#fef3c7",
+          borderRadius: "0.5rem",
+          marginBottom: "1rem",
+        }}
+      >
+        <strong>⚠️ Accessibility Note:</strong> Visual order changes but DOM order
+        stays the same. Screen readers and keyboard navigation follow DOM order, not
+        visual order.
+      </div>
+      <h4 style={{ marginBottom: "0.5rem" }}>
+        Mobile: A → B → C (natural order)
+      </h4>
+      <h4 style={{ marginBottom: "1rem" }}>
+        Desktop: B → A → C (reordered visually)
+      </h4>
+      <div className="col-row">
+        <div
+          className="col-12 col-md-4 col-md-order-2"
+          style={{
+            ...demoCardStyle,
+            backgroundColor: "#fecaca",
+          }}
+        >
+          <strong style={{ fontSize: "1.5rem" }}>A</strong>
+          <br />
+          DOM: 1st
+          <br />
+          Mobile: 1st
+          <br />
+          Desktop: 2nd (.col-md-order-2)
+        </div>
+        <div
+          className="col-12 col-md-4 col-md-order-first"
+          style={{
+            ...demoCardStyle,
+            backgroundColor: "#bbf7d0",
+          }}
+        >
+          <strong style={{ fontSize: "1.5rem" }}>B</strong>
+          <br />
+          DOM: 2nd
+          <br />
+          Mobile: 2nd
+          <br />
+          Desktop: 1st (.col-md-order-first)
+        </div>
+        <div
+          className="col-12 col-md-4 col-md-order-last"
+          style={{
+            ...demoCardStyle,
+            backgroundColor: "#bfdbfe",
+          }}
+        >
+          <strong style={{ fontSize: "1.5rem" }}>C</strong>
+          <br />
+          DOM: 3rd
+          <br />
+          Mobile: 3rd
+          <br />
+          Desktop: 3rd (.col-md-order-last)
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+/**
+ * Form with responsive multi-column layout.
+ */
+export const ResponsiveFormLayout: Story = {
+  render: () => (
+    <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+      <h3 style={{ marginBottom: "1rem" }}>Responsive Form</h3>
+      <div className="col-row">
+        <div className="col-12 col-md-6">
+          <div style={{ marginBottom: "1rem" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.25rem",
+                fontWeight: "500",
+              }}
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                border: "1px solid #ccc",
+                borderRadius: "0.25rem",
+              }}
+            />
+          </div>
+        </div>
+        <div className="col-12 col-md-6">
+          <div style={{ marginBottom: "1rem" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.25rem",
+                fontWeight: "500",
+              }}
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                border: "1px solid #ccc",
+                borderRadius: "0.25rem",
+              }}
+            />
+          </div>
+        </div>
+        <div className="col-12">
+          <div style={{ marginBottom: "1rem" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "0.25rem",
+                fontWeight: "500",
+              }}
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                border: "1px solid #ccc",
+                borderRadius: "0.25rem",
+              }}
+            />
+          </div>
+        </div>
+        <div className="col-12">
+          <button
+            style={{
+              padding: "0.5rem 1.5rem",
+              backgroundColor: "#6366f1",
+              color: "white",
+              border: "none",
+              borderRadius: "0.25rem",
+              fontWeight: "500",
+              cursor: "pointer",
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+      <div
+        style={{
+          marginTop: "1rem",
+          fontSize: "0.875rem",
+          color: "#666",
+        }}
+      >
+        <strong>Layout:</strong> Full-width mobile → 2-column tablet
+      </div>
+    </div>
+  ),
 };

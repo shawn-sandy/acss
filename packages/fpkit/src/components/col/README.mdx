@@ -297,20 +297,120 @@ fixed-width columns. This is different from `auto` which sizes to content.
 
 ### Responsive Columns
 
+The Col component supports responsive utility classes for breakpoint-specific
+widths. While the `span` prop is not responsive, you can use the `className`
+prop with responsive utility classes.
+
+**Basic Responsive Pattern:**
+
 ```jsx
 <Row gap="md">
   {/* Mobile: 100%, Tablet: 50%, Desktop: 33% */}
-  <Col span={12} className="col-md-6 col-lg-4">
-    Responsive column
+  <Col className="col-12 col-md-6 col-lg-4">Responsive column</Col>
+  <Col className="col-12 col-md-6 col-lg-4">Responsive column</Col>
+  <Col className="col-12 col-md-6 col-lg-4">Responsive column</Col>
+</Row>
+```
+
+**Layout Progression:**
+
+```
+Mobile (< 768px):       Tablet (≥ 768px):      Desktop (≥ 1024px):
+┌─────────────┐         ┌──────┬──────┐        ┌────┬────┬────┐
+│   Column 1  │         │ Col1 │ Col2 │        │ C1 │ C2 │ C3 │
+├─────────────┤         ├──────┼──────┤        └────┴────┴────┘
+│   Column 2  │         │ Col3 │      │
+├─────────────┤         └──────┘
+│   Column 3  │
+└─────────────┘
+
+1 column              2 columns            3 columns
+```
+
+**Dashboard Cards Example:**
+
+```jsx
+<Row gap="lg" align="stretch">
+  {/* 1 col mobile, 2 col tablet, 4 col desktop */}
+  <Col className="col-12 col-md-6 col-lg-3">
+    <Card>
+      <h3>Total Users</h3>
+      <p>1,234</p>
+    </Card>
   </Col>
-  <Col span={12} className="col-md-6 col-lg-4">
-    Responsive column
+  <Col className="col-12 col-md-6 col-lg-3">
+    <Card>
+      <h3>Revenue</h3>
+      <p>$12,345</p>
+    </Card>
   </Col>
-  <Col span={12} className="col-md-6 col-lg-4">
-    Responsive column
+  <Col className="col-12 col-md-6 col-lg-3">
+    <Card>
+      <h3>Conversions</h3>
+      <p>567</p>
+    </Card>
+  </Col>
+  <Col className="col-12 col-md-6 col-lg-3">
+    <Card>
+      <h3>Growth</h3>
+      <p>+23%</p>
+    </Card>
   </Col>
 </Row>
 ```
+
+**How it works:**
+
+- **Mobile** (< 768px): `.col-12` applies → 100% width, cards stack vertically
+- **Tablet** (≥ 768px): `.col-md-6` overrides → 50% width, 2 cards per row
+- **Desktop** (≥ 1024px): `.col-lg-3` overrides → 25% width, 4 cards per row
+
+**Available Responsive Utilities:**
+
+| Utility Type     | Classes                          | Example             | Description                  |
+| ---------------- | -------------------------------- | ------------------- | ---------------------------- |
+| **Span**         | `.col-{sm\|md\|lg}-{1-12}`       | `.col-md-6`         | Column width at breakpoint   |
+| **Auto-width**   | `.col-{sm\|md\|lg}-auto`         | `.col-md-auto`      | Content-based width          |
+| **Flex-grow**    | `.col-{sm\|md\|lg}-flex`         | `.col-lg-flex`      | Fill remaining space         |
+| **Offset**       | `.col-{sm\|md\|lg}-offset-{0-11}` | `.col-md-offset-2` | Left margin push             |
+| **Order**        | `.col-{sm\|md\|lg}-order-{first\|last\|0-12}` | `.col-lg-order-2`  | Visual reordering            |
+
+**See [STYLES.mdx](./STYLES.mdx) for complete responsive utility reference.**
+
+### Responsive Props vs Classes
+
+**Important Limitation:** The `span` prop is **not responsive**. It applies the same
+width at all screen sizes.
+
+**To create responsive layouts:**
+
+- Use the `className` prop with responsive utility classes
+- Combine base column class with breakpoint-specific overrides
+
+**Example:**
+
+```jsx
+// ❌ WRONG: span prop is not responsive
+<Col span={12} md={6} lg={4}>
+  This won't work
+</Col>
+
+// ✅ CORRECT: Use className with responsive utilities
+<Col className="col-12 col-md-6 col-lg-4">This works!</Col>
+
+// ✅ ALSO CORRECT: Combine span prop (mobile) with responsive classes
+<Col span={12} className="col-md-6 col-lg-4">
+  Mobile: span prop (100%), Tablet: .col-md-6, Desktop: .col-lg-4
+</Col>
+```
+
+**Best Practices:**
+
+1. **Simple Layouts:** Use `span` prop for non-responsive columns
+2. **Responsive Layouts:** Use `className` with `.col-{breakpoint}-*` classes
+3. **Hybrid:** Combine `span` for mobile base with responsive classes for larger
+   screens
+4. **Documentation:** See [STYLES.mdx](./STYLES.mdx) for complete class reference
 
 ### Semantic HTML
 
@@ -441,9 +541,33 @@ Use responsive utility classes on Col for breakpoint-specific widths:
 
 **Available Breakpoints:**
 
-- `col-md-*` - Tablet and up (`≥768px`)
-- `col-lg-*` - Desktop and up (`≥992px`)
-- `col-xl-*` - Large desktop and up (`≥1280px`)
+- `col-sm-*` - Large phones and up (`≥480px`)
+- `col-md-*` - Tablets and up (`≥768px`)
+- `col-lg-*` - Desktops and up (`≥1024px`)
+
+## Breakpoint Reference
+
+The columns system uses mobile-first responsive breakpoints:
+
+| Breakpoint    | Variable               | Min Width | Pixel Value | Target Devices                 | Utility Prefix   |
+| ------------- | ---------------------- | --------- | ----------- | ------------------------------ | ---------------- |
+| **xs** (base) | `--col-breakpoint-xs`  | `0rem`    | 0px         | Mobile portrait                | (none - base classes) |
+| **sm**        | `--col-breakpoint-sm`  | `30rem`   | 480px       | Mobile landscape, large phones | `.col-sm-*`      |
+| **md**        | `--col-breakpoint-md`  | `48rem`   | 768px       | Tablets, small laptops         | `.col-md-*`      |
+| **lg**        | `--col-breakpoint-lg`  | `64rem`   | 1024px      | Desktops, large screens        | `.col-lg-*`      |
+
+**Mobile-First Cascade:**
+
+```
+Mobile (base)    →    Tablet (≥768px)    →    Desktop (≥1024px)
+.col-12              .col-md-6              .col-lg-4
+100% width           50% width              33.33% width
+```
+
+Classes cascade upward: `.col-sm-6` applies at sm (480px+), md (768px+), AND lg
+(1024px+) unless overridden by `.col-md-*` or `.col-lg-*`.
+
+**For complete CSS utility reference, see [STYLES.mdx](./STYLES.mdx).**
 
 ## Advanced Patterns
 
@@ -544,6 +668,106 @@ Use responsive utility classes on Col for breakpoint-specific widths:
   </Col>
 </Row>
 ```
+
+## Common Responsive Patterns
+
+### Blog Sidebar Layout
+
+**Pattern:** Content stacks on mobile, sidebar appears on tablet+
+
+```jsx
+<Row gap="lg">
+  <Col className="col-12 col-md-8">
+    <article>Main blog content...</article>
+  </Col>
+  <Col className="col-12 col-md-4">
+    <aside>Sidebar widgets...</aside>
+  </Col>
+</Row>
+```
+
+**Layout:**
+
+```
+Mobile (< 768px):       Desktop (≥ 768px):
+┌─────────────┐         ┌─────────┬───────┐
+│   Content   │         │ Content │ Side  │
+├─────────────┤         │         │ bar   │
+│   Sidebar   │         │         │       │
+└─────────────┘         └─────────┴───────┘
+```
+
+### Product Grid
+
+**Pattern:** Progressive grid (1 → 2 → 3 columns)
+
+```jsx
+<Row gap="md">
+  {products.map((product) => (
+    <Col key={product.id} className="col-12 col-sm-6 col-lg-4">
+      <ProductCard product={product} />
+    </Col>
+  ))}
+</Row>
+```
+
+**Result:**
+
+- Mobile (< 480px): 1 column
+- Tablet (≥ 480px): 2 columns
+- Desktop (≥ 1024px): 3 columns
+
+### Form Layout
+
+**Pattern:** Full-width mobile, multi-column desktop
+
+```jsx
+<Row gap="md">
+  <Col className="col-12 col-md-6">
+    <Field>
+      <FieldLabel htmlFor="firstName">First Name</FieldLabel>
+      <FieldInput id="firstName" />
+    </Field>
+  </Col>
+  <Col className="col-12 col-md-6">
+    <Field>
+      <FieldLabel htmlFor="lastName">Last Name</FieldLabel>
+      <FieldInput id="lastName" />
+    </Field>
+  </Col>
+  <Col className="col-12">
+    <Field>
+      <FieldLabel htmlFor="email">Email</FieldLabel>
+      <FieldInput id="email" type="email" />
+    </Field>
+  </Col>
+  <Col className="col-12">
+    <button type="submit">Submit</button>
+  </Col>
+</Row>
+```
+
+### Centered Content with Progressive Margins
+
+**Pattern:** Content gets narrower and more centered on larger screens
+
+```jsx
+<Row>
+  <Col className="col-10 col-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <article>
+      <h1>Article Title</h1>
+      <p>Progressively centered content...</p>
+    </article>
+  </Col>
+</Row>
+```
+
+**Result:**
+
+- Mobile (< 480px): 100% width, no offset
+- Small (≥ 480px): 83.33% width (10/12), 8.33% left margin
+- Tablet (≥ 768px): 66.67% width (8/12), 16.67% left margin
+- Desktop (≥ 1024px): 50% width (6/12), 25% left margin
 
 ## Related Components
 

@@ -1,0 +1,1380 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Col/Styles" />
+
+# Column System Styles
+
+Comprehensive CSS utility system for building responsive 12-column layouts with mobile-first breakpoints.
+
+## Overview
+
+The fpkit column styling system provides a complete set of column utilities supporting responsive layouts, offsets, visual reordering, and flexible sizing. All styles use CSS custom properties for easy customization and theming, with rem-based sizing for accessibility.
+
+### Key Features
+
+- **12-column grid** - `.col-1` (8.333%) through `.col-12` (100%) classes
+- **Mobile-first responsive** - 3 breakpoints (sm, md, lg) with 183 generated utilities
+- **Flexbox-based** - Works with `.col-row`, Row component, or custom flex containers
+- **No base class** - Pure utility composition following Grid.Item pattern
+- **CSS custom properties** - Breakpoint and width variables for customization
+- **Rem-based sizing** - All measurements use rem units (1rem = 16px)
+- **Accessibility** - Proper focus handling and visual order warnings
+
+## CSS Custom Properties
+
+### Breakpoint Variables
+
+The column system exposes breakpoint values as CSS custom properties for JavaScript access and documentation. Media queries use literal SCSS values (not CSS variables).
+
+```css
+:root {
+  /* Breakpoint values (for JS access) */
+  --col-breakpoint-xs: 0rem;      /* 0px - base mobile */
+  --col-breakpoint-sm: 30rem;     /* 480px - large phones */
+  --col-breakpoint-md: 48rem;     /* 768px - tablets */
+  --col-breakpoint-lg: 64rem;     /* 1024px - desktops */
+
+  /* Legacy support */
+  --col-breakpoint: var(--col-breakpoint-md);
+}
+```
+
+| Variable | Value | Pixel Equivalent | Description | Utility Prefix |
+|----------|-------|------------------|-------------|----------------|
+| `--col-breakpoint-xs` | `0rem` | 0px | Mobile portrait (base) | (none - base classes) |
+| `--col-breakpoint-sm` | `30rem` | 480px | Mobile landscape, large phones | `.col-sm-*` |
+| `--col-breakpoint-md` | `48rem` | 768px | Tablets, small laptops | `.col-md-*` |
+| `--col-breakpoint-lg` | `64rem` | 1024px | Desktops, large screens | `.col-lg-*` |
+
+### Column Width Variables
+
+Column widths are defined as percentage-based CSS custom properties:
+
+```css
+:root {
+  /* Column width percentages (fractions of 12) */
+  --col-1: 8.333333%;    /* 1/12 */
+  --col-2: 16.666667%;   /* 2/12 */
+  --col-3: 25%;          /* 3/12 */
+  --col-4: 33.333333%;   /* 4/12 */
+  --col-5: 41.666667%;   /* 5/12 */
+  --col-6: 50%;          /* 6/12 */
+  --col-7: 58.333333%;   /* 7/12 */
+  --col-8: 66.666667%;   /* 8/12 */
+  --col-9: 75%;          /* 9/12 */
+  --col-10: 83.333333%;  /* 10/12 */
+  --col-11: 91.666667%;  /* 11/12 */
+  --col-12: 100%;        /* 12/12 */
+}
+```
+
+### Customizing Breakpoints
+
+You can override breakpoint values globally (affects JavaScript access only, not media queries):
+
+```css
+/* Custom breakpoints (CSS variable override) */
+:root {
+  --col-breakpoint-md: 50rem; /* Changes reference value to 800px */
+}
+```
+
+**Note:** Media queries use literal SCSS values and cannot be changed via CSS custom properties. To change actual breakpoint behavior, modify `$col-breakpoints` in `_columns.scss`.
+
+## Mobile-First Responsive System
+
+### How Mobile-First Works
+
+**Key Principle:** Styles cascade upward from smallest to largest breakpoint.
+
+```
+Mobile (< 480px)    →    Tablet (≥ 768px)    →    Desktop (≥ 1024px)
+     Base                  .col-md-*                 .col-lg-*
+  (no prefix)           (overrides base)        (overrides md & base)
+```
+
+**Example Cascade:**
+
+```html
+<div class="col-12 col-md-6 col-lg-4">
+  <!-- Mobile (< 768px): .col-12 applies → 100% width -->
+  <!-- Tablet (≥ 768px): .col-md-6 overrides → 50% width -->
+  <!-- Desktop (≥ 1024px): .col-lg-4 overrides → 33.33% width -->
+</div>
+```
+
+**How it works:**
+
+1. **Mobile** (< 768px): Only `.col-12` applies (100% width, column stacks)
+2. **Tablet** (≥ 768px): `.col-md-6` activates and overrides `.col-12` (50% width, 2 columns per row)
+3. **Desktop** (≥ 1024px): `.col-lg-4` activates and overrides both previous classes (33.33% width, 3 columns per row)
+
+### Breakpoint Reference
+
+| Breakpoint | Prefix | Min Width (rem) | Min Width (px) | Target Devices | When to Use |
+|------------|--------|-----------------|----------------|----------------|-------------|
+| **xs** | (none) | `0rem` | 0px | Mobile portrait | Default, always applies |
+| **sm** | `.col-sm-*` | `30rem` | 480px | Mobile landscape, large phones | iPhone Plus, Android phones |
+| **md** | `.col-md-*` | `48rem` | 768px | Tablets | iPad, Android tablets |
+| **lg** | `.col-lg-*` | `64rem` | 1024px | Desktops | Laptops, desktop monitors |
+
+**Progressive Enhancement Example:**
+
+```html
+<!-- 1 column mobile → 2 columns tablet → 4 columns desktop -->
+<div class="col-row">
+  <div class="col-12 col-md-6 col-lg-3">Column 1</div>
+  <div class="col-12 col-md-6 col-lg-3">Column 2</div>
+  <div class="col-12 col-md-6 col-lg-3">Column 3</div>
+  <div class="col-12 col-md-6 col-lg-3">Column 4</div>
+</div>
+```
+
+## Container Requirements
+
+### .col-row Utility
+
+Columns require a flex container with `flex-wrap: wrap`. The `.col-row` utility provides a convenient container:
+
+```css
+.col-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md); /* Default 1rem gap */
+}
+```
+
+**Usage:**
+
+```html
+<div class="col-row">
+  <div class="col-6">Column 1</div>
+  <div class="col-6">Column 2</div>
+</div>
+```
+
+### Alternative Containers
+
+**Option 1: Row React Component (recommended for React apps)**
+
+```jsx
+<Row gap="md">
+  <div className="col-6">Column 1</div>
+  <div className="col-6">Column 2</div>
+</Row>
+```
+
+**Option 2: Flex Component**
+
+```jsx
+<Flex wrap="wrap" gap="md">
+  <div className="col-6">Column 1</div>
+  <div className="col-6">Column 2</div>
+</Flex>
+```
+
+**Option 3: Custom Flex Container**
+
+```html
+<div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+  <div class="col-6">Column 1</div>
+  <div class="col-6">Column 2</div>
+</div>
+```
+
+## Base Column Classes
+
+### Column Span Utilities
+
+Base column classes provide fractional widths on desktop (≥ 768px) and stack to 100% width on mobile (< 768px).
+
+| Class | Width (Desktop ≥ 768px) | Width (Mobile < 768px) | CSS |
+|-------|-------------------------|------------------------|-----|
+| `.col-1` | 8.333% (1/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-1);` desktop |
+| `.col-2` | 16.667% (2/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-2);` desktop |
+| `.col-3` | 25% (3/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-3);` desktop |
+| `.col-4` | 33.333% (4/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-4);` desktop |
+| `.col-5` | 41.667% (5/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-5);` desktop |
+| `.col-6` | 50% (6/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-6);` desktop |
+| `.col-7` | 58.333% (7/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-7);` desktop |
+| `.col-8` | 66.667% (8/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-8);` desktop |
+| `.col-9` | 75% (9/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-9);` desktop |
+| `.col-10` | 83.333% (10/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-10);` desktop |
+| `.col-11` | 91.667% (11/12) | 100% (stacked) | `flex: 0 0 100%;` mobile, `flex: 0 0 var(--col-11);` desktop |
+| `.col-12` | 100% (full width) | 100% (full width) | `flex: 0 0 100%;` all sizes |
+
+**Example:**
+
+```html
+<div class="col-row">
+  <div class="col-6">50% on desktop, 100% on mobile</div>
+  <div class="col-6">50% on desktop, 100% on mobile</div>
+</div>
+```
+
+**CSS Implementation:**
+
+```css
+/* Mobile-first (all sizes) */
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+.col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+  flex: 0 0 100%; /* Stack on mobile */
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Desktop (≥ 768px) */
+@media (width >= 48rem) {
+  .col-1 { flex: 0 0 var(--col-1); max-width: var(--col-1); }
+  .col-2 { flex: 0 0 var(--col-2); max-width: var(--col-2); }
+  .col-3 { flex: 0 0 var(--col-3); max-width: var(--col-3); }
+  /* ... through col-12 */
+}
+```
+
+### Auto-Width Columns
+
+`.col-auto` - Width based on content, not grid fractions:
+
+```html
+<div class="col-row">
+  <div class="col-auto">Button</div>
+  <div class="col-auto">Another Button</div>
+</div>
+```
+
+**CSS:**
+
+```css
+.col-auto {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  box-sizing: border-box;
+}
+```
+
+**Use Cases:**
+- Buttons and button groups
+- Badges and tags
+- Icon containers
+- Navigation items
+
+### Flex-Grow Columns
+
+`.col-flex` - Grows to fill remaining space after fixed columns:
+
+```html
+<div class="col-row">
+  <div class="col-3">Fixed sidebar (25%)</div>
+  <div class="col-flex">Main content (fills remaining 75%)</div>
+</div>
+```
+
+**CSS:**
+
+```css
+/* Mobile (< 768px) - stacks like other columns */
+.col-flex {
+  flex: 0 0 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* Desktop (≥ 768px) - grows to fill space */
+@media (width >= 48rem) {
+  .col-flex {
+    flex: 1 1 0%;
+  }
+}
+```
+
+**How flex-basis: 0% works:**
+
+When multiple `.col-flex` columns exist, `flex-basis: 0%` ensures they share remaining space equally:
+
+```html
+<div class="col-row">
+  <div class="col-2">Fixed (16.67%)</div>
+  <div class="col-flex">Section 1 (41.67% - half of remaining)</div>
+  <div class="col-flex">Section 2 (41.67% - half of remaining)</div>
+</div>
+```
+
+### Comparison: .col-auto vs .col-flex
+
+| Feature | `.col-auto` | `.col-flex` |
+|---------|-------------|-------------|
+| **CSS** | `flex: 0 0 auto` | `flex: 1 1 0%` (desktop), `flex: 0 0 100%` (mobile) |
+| **Sizing** | Content-based width | Grows to fill available space |
+| **Use case** | Buttons, labels, icons | Main content areas, flexible sections |
+| **Mobile** | Content-based | 100% width (stacks) |
+| **Desktop** | Content-based | Fills remaining space |
+| **Multiple columns** | Each sizes to its content | Share remaining space equally |
+| **Example** | Button group | Sidebar + main content layout |
+
+## Responsive Column Utilities
+
+### Responsive Span Classes
+
+Apply different column widths at different breakpoints using responsive span utilities.
+
+**Available Classes:**
+
+| Breakpoint | Classes | Example | Applies At |
+|------------|---------|---------|------------|
+| Small (480px+) | `.col-sm-{1-12}` | `.col-sm-6` | ≥ 30rem (480px) |
+| Medium (768px+) | `.col-md-{1-12}` | `.col-md-4` | ≥ 48rem (768px) |
+| Large (1024px+) | `.col-lg-{1-12}` | `.col-lg-3` | ≥ 64rem (1024px) |
+
+**Progressive Enhancement Pattern:**
+
+```html
+<div class="col-row">
+  <!-- 1 column mobile, 2 columns tablet, 3 columns desktop -->
+  <div class="col-12 col-md-6 col-lg-4">Column 1</div>
+  <div class="col-12 col-md-6 col-lg-4">Column 2</div>
+  <div class="col-12 col-md-6 col-lg-4">Column 3</div>
+</div>
+```
+
+**How it works:**
+
+- **Mobile** (< 768px): `.col-12` applies → 100% width (1 column)
+- **Tablet** (≥ 768px): `.col-md-6` overrides → 50% width (2 columns)
+- **Desktop** (≥ 1024px): `.col-lg-4` overrides → 33.33% width (3 columns)
+
+**All Responsive Span Classes:**
+
+```
+.col-sm-1 through .col-sm-12  (applies at ≥ 480px)
+.col-md-1 through .col-md-12  (applies at ≥ 768px)
+.col-lg-1 through .col-lg-12  (applies at ≥ 1024px)
+```
+
+### Responsive Auto-Width
+
+Apply content-based width at specific breakpoints:
+
+| Class | Applies At | Behavior |
+|-------|-----------|----------|
+| `.col-auto` | All sizes | Content width |
+| `.col-sm-auto` | ≥ 480px | Content width |
+| `.col-md-auto` | ≥ 768px | Content width |
+| `.col-lg-auto` | ≥ 1024px | Content width |
+
+**Example:**
+
+```html
+<!-- Full-width mobile, auto-width tablet+ -->
+<div class="col-row">
+  <div class="col-12 col-md-auto">
+    <button>Save</button>
+  </div>
+  <div class="col-12 col-md-auto">
+    <button>Cancel</button>
+  </div>
+</div>
+```
+
+### Responsive Flex-Grow
+
+Apply flex-grow behavior at specific breakpoints:
+
+| Class | Applies At | Behavior |
+|-------|-----------|----------|
+| `.col-flex` | All sizes | Fills space (desktop), stacks (mobile) |
+| `.col-sm-flex` | ≥ 480px | Fills space |
+| `.col-md-flex` | ≥ 768px | Fills space |
+| `.col-lg-flex` | ≥ 1024px | Fills space |
+
+**Example:**
+
+```html
+<!-- Stacked mobile, sidebar layout tablet+ -->
+<div class="col-row">
+  <div class="col-12 col-md-3">Sidebar (25% on tablet+)</div>
+  <div class="col-12 col-md-flex">Main content (fills 75% on tablet+)</div>
+</div>
+```
+
+## Responsive Offset Utilities
+
+### Offset Classes
+
+Push columns to the right using left margin. Offsets are desktop-only by default (≥ 768px), with responsive variants available.
+
+**Base Offsets (Desktop ≥ 768px only):**
+
+| Class | Offset | Margin-Left | Use Case |
+|-------|--------|-------------|----------|
+| `.col-offset-0` | 0% | 0 | Reset offset |
+| `.col-offset-1` | 8.333% | 1/12 | 1-column push |
+| `.col-offset-2` | 16.667% | 2/12 | 2-column push |
+| `.col-offset-3` | 25% | 3/12 | 3-column push |
+| `.col-offset-4` | 33.333% | 4/12 | 4-column push |
+| `.col-offset-5` | 41.667% | 5/12 | 5-column push |
+| `.col-offset-6` | 50% | 6/12 | 6-column push |
+| `.col-offset-7` | 58.333% | 7/12 | 7-column push |
+| `.col-offset-8` | 66.667% | 8/12 | 8-column push |
+| `.col-offset-9` | 75% | 9/12 | 9-column push |
+| `.col-offset-10` | 83.333% | 10/12 | 10-column push |
+| `.col-offset-11` | 91.667% | 11/12 | 11-column push |
+
+**Responsive Offsets:**
+
+```
+.col-sm-offset-{0-11}  (applies at ≥ 480px)
+.col-md-offset-{0-11}  (applies at ≥ 768px)
+.col-lg-offset-{0-11}  (applies at ≥ 1024px)
+```
+
+**CSS Implementation:**
+
+```css
+@media (width >= 48rem) {
+  .col-offset-3 {
+    margin-inline-start: var(--col-3); /* 25% */
+  }
+}
+```
+
+### Centering Pattern
+
+Center a column by offsetting it:
+
+```html
+<!-- Centered column: 50% width, 25% left margin -->
+<div class="col-row">
+  <div class="col-6 col-offset-3">
+    Centered content
+  </div>
+</div>
+```
+
+**Math:** 6 columns (50%) + 3 column offset (25%) + 3 columns empty (25%) = 12 columns total
+
+### Progressive Centering
+
+Content gets narrower and more centered on larger screens:
+
+```html
+<div class="col-row">
+  <div class="col-10 col-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <article>Progressively centered article content</article>
+  </div>
+</div>
+```
+
+**Result:**
+
+- **Mobile** (< 480px): 100% width (`.col-10` doesn't apply yet), no offset
+- **Tablet** (≥ 480px): 83.33% width (10/12), 8.33% left margin (1/12)
+- **Desktop** (≥ 768px): 66.67% width (8/12), 16.67% left margin (2/12)
+- **Large Desktop** (≥ 1024px): 50% width (6/12), 25% left margin (3/12)
+
+## Responsive Order Utilities
+
+### Order Classes
+
+Change visual order without changing DOM structure using flexbox `order` property.
+
+**Base Order (Desktop ≥ 768px only):**
+
+| Class | Order Value | Description |
+|-------|-------------|-------------|
+| `.col-order-first` | `-1` | Display first (before order: 0) |
+| `.col-order-last` | `13` | Display last (after order: 12) |
+| `.col-order-0` | `0` | Default order (source order) |
+| `.col-order-1` | `1` | Order position 1 |
+| `.col-order-2` | `2` | Order position 2 |
+| ... | ... | ... |
+| `.col-order-12` | `12` | Order position 12 |
+
+**Responsive Order:**
+
+```
+.col-sm-order-{first|last|0-12}  (applies at ≥ 480px)
+.col-md-order-{first|last|0-12}  (applies at ≥ 768px)
+.col-lg-order-{first|last|0-12}  (applies at ≥ 1024px)
+```
+
+**Example:**
+
+```html
+<div class="col-row">
+  <!-- DOM order: A, B, C -->
+  <!-- Visual order desktop: B, A, C -->
+  <div class="col-4 col-order-2">A (DOM 1st, Visual 2nd)</div>
+  <div class="col-4 col-order-1">B (DOM 2nd, Visual 1st)</div>
+  <div class="col-4 col-order-3">C (DOM 3rd, Visual 3rd)</div>
+</div>
+```
+
+### ⚠️ CRITICAL ACCESSIBILITY WARNING
+
+**The `order` property changes VISUAL order only, NOT DOM order.**
+
+Screen readers and keyboard navigation follow DOM order, not visual order created by flexbox `order`.
+
+```html
+<div class="col-row">
+  <!-- Screen reader reads: "Column A", "Column B" -->
+  <!-- Visual display shows: "Column B", "Column A" -->
+  <div class="col-6 col-order-2">Column A</div>
+  <div class="col-6 col-order-1">Column B</div>
+</div>
+```
+
+**What users experience:**
+
+- **Sighted users:** See "Column B" first, "Column A" second
+- **Screen reader users:** Hear "Column A" first, "Column B" second
+- **Keyboard users:** Tab order is "Column A" → "Column B" (DOM order)
+
+**Best Practices:**
+
+1. **NEVER** reorder critical content (navigation, forms, important actions)
+2. **NEVER** create confusing tab order with visual reordering
+3. **ONLY** use `order` for decorative or non-critical content
+4. **ALWAYS** test with keyboard navigation (Tab order follows DOM)
+5. **ALWAYS** test with screen readers (announcement order follows DOM)
+
+**Safe Use Cases:**
+
+- Reordering decorative cards or images
+- Moving secondary content for visual balance
+- Adjusting layout of non-interactive elements
+
+**Unsafe Use Cases (NEVER DO THIS):**
+
+```html
+<!-- ❌ BAD: Confusing form tab order -->
+<div class="col-row">
+  <button class="col-6 col-order-2">Submit</button>
+  <button class="col-6 col-order-1">Cancel</button>
+  <!-- Visual: Cancel, Submit | Tab order: Submit, Cancel -->
+</div>
+
+<!-- ✅ GOOD: Change DOM order instead -->
+<div class="col-row">
+  <button class="col-6">Cancel</button>
+  <button class="col-6">Submit</button>
+</div>
+```
+
+## Real-World Responsive Examples
+
+### Dashboard Card Grid
+
+Create a responsive dashboard with cards that adapt to screen size.
+
+**Layout Progression:**
+
+```
+Mobile (< 768px):       Tablet (≥ 768px):      Desktop (≥ 1024px):
+┌─────────────┐         ┌──────┬──────┐        ┌────┬────┬────┬────┐
+│   Card 1    │         │ C1   │ C2   │        │ C1 │ C2 │ C3 │ C4 │
+├─────────────┤         ├──────┼──────┤        └────┴────┴────┴────┘
+│   Card 2    │         │ C3   │ C4   │
+├─────────────┤         └──────┴──────┘
+│   Card 3    │
+├─────────────┤
+│   Card 4    │
+└─────────────┘
+
+1 column              2 columns            4 columns
+```
+
+**HTML:**
+
+```html
+<div class="col-row">
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card">
+      <h3>Total Users</h3>
+      <p>1,234</p>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card">
+      <h3>Revenue</h3>
+      <p>$12,345</p>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card">
+      <h3>Conversions</h3>
+      <p>567</p>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card">
+      <h3>Growth</h3>
+      <p>+23%</p>
+    </div>
+  </div>
+</div>
+```
+
+### Blog Sidebar Layout
+
+Content stacks on mobile, sidebar appears on tablet and larger screens.
+
+**Layout Progression:**
+
+```
+Mobile (< 768px):       Desktop (≥ 768px):
+┌─────────────┐         ┌─────────┬───────┐
+│   Content   │         │ Content │ Side  │
+├─────────────┤         │         │ bar   │
+│   Sidebar   │         │         │       │
+└─────────────┘         └─────────┴───────┘
+
+Stacked                 Side-by-side (66% / 33%)
+```
+
+**HTML:**
+
+```html
+<div class="col-row">
+  <div class="col-12 col-md-8">
+    <article>
+      <h1>Blog Post Title</h1>
+      <p>Main blog content...</p>
+    </article>
+  </div>
+  <div class="col-12 col-md-4">
+    <aside>
+      <h2>Recent Posts</h2>
+      <ul>
+        <li>Post 1</li>
+        <li>Post 2</li>
+        <li>Post 3</li>
+      </ul>
+    </aside>
+  </div>
+</div>
+```
+
+### Product Grid
+
+Progressive grid: 1 column on mobile → 2 columns on tablet → 3 columns on desktop.
+
+**HTML:**
+
+```html
+<div class="col-row">
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="product-card">
+      <img src="product1.jpg" alt="Product 1" />
+      <h3>Product Name</h3>
+      <p>$29.99</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="product-card">
+      <img src="product2.jpg" alt="Product 2" />
+      <h3>Product Name</h3>
+      <p>$39.99</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="product-card">
+      <img src="product3.jpg" alt="Product 3" />
+      <h3>Product Name</h3>
+      <p>$49.99</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="product-card">
+      <img src="product4.jpg" alt="Product 4" />
+      <h3>Product Name</h3>
+      <p>$59.99</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="product-card">
+      <img src="product5.jpg" alt="Product 5" />
+      <h3>Product Name</h3>
+      <p>$69.99</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-lg-4">
+    <div class="product-card">
+      <img src="product6.jpg" alt="Product 6" />
+      <h3>Product Name</h3>
+      <p>$79.99</p>
+    </div>
+  </div>
+</div>
+```
+
+**Result:**
+
+- **Mobile** (< 480px): 1 column (100% width each)
+- **Tablet** (≥ 480px): 2 columns (50% width each)
+- **Desktop** (≥ 1024px): 3 columns (33.33% width each)
+
+### Form Layout
+
+Responsive multi-column form with smart field grouping.
+
+**HTML:**
+
+```html
+<form>
+  <div class="col-row">
+    <!-- Full-width mobile, 2-col tablet -->
+    <div class="col-12 col-md-6">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" />
+    </div>
+    <div class="col-12 col-md-6">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" />
+    </div>
+
+    <!-- Full-width email field -->
+    <div class="col-12">
+      <label for="email">Email</label>
+      <input type="email" id="email" />
+    </div>
+
+    <!-- 3-col address fields on desktop -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <label for="city">City</label>
+      <input type="text" id="city" />
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+      <label for="state">State</label>
+      <input type="text" id="state" />
+    </div>
+    <div class="col-12 col-lg-4">
+      <label for="zip">ZIP</label>
+      <input type="text" id="zip" />
+    </div>
+
+    <!-- Full-width submit -->
+    <div class="col-12">
+      <button type="submit">Submit</button>
+    </div>
+  </div>
+</form>
+```
+
+### Centered Content with Progressive Margins
+
+Content gets narrower and more centered as viewport increases.
+
+**HTML:**
+
+```html
+<div class="col-row">
+  <div class="col-10 col-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <article>
+      <h1>Article Title</h1>
+      <p>
+        This content progressively narrows and centers as the screen gets larger,
+        creating optimal reading width on all devices.
+      </p>
+    </article>
+  </div>
+</div>
+```
+
+**Result:**
+
+- **Mobile** (< 480px): 100% width, no margins
+- **Small** (≥ 480px): 83.33% width (10/12), 8.33% left margin (1/12), 8.33% right (1/12)
+- **Tablet** (≥ 768px): 66.67% width (8/12), 16.67% left margin (2/12), 16.67% right (2/12)
+- **Desktop** (≥ 1024px): 50% width (6/12), 25% left margin (3/12), 25% right (3/12)
+
+## Row Variant Utilities
+
+### Gap Control
+
+Control spacing between columns using gap utilities on the `.col-row` container.
+
+| Class | Gap Size | Value | Use Case |
+|-------|----------|-------|----------|
+| `.col-row-gap-0` | None | `0` | No spacing |
+| `.col-row-gap-xs` | Extra small | `var(--spacing-xs)` | Compact layouts |
+| `.col-row-gap-sm` | Small | `var(--spacing-sm)` | Tight spacing |
+| `.col-row-gap-md` | Medium (default) | `var(--spacing-md)` | Standard spacing |
+| `.col-row-gap-lg` | Large | `var(--spacing-lg)` | Generous spacing |
+| `.col-row-gap-xl` | Extra large | `var(--spacing-xl)` | Maximum spacing |
+
+**Example:**
+
+```html
+<div class="col-row col-row-gap-lg">
+  <div class="col-6">Column with large gap</div>
+  <div class="col-6">Column with large gap</div>
+</div>
+```
+
+### Justify Content
+
+Control horizontal alignment of columns along the main axis.
+
+| Class | Alignment | Behavior | Use Case |
+|-------|-----------|----------|----------|
+| `.col-row-justify-start` | Flex-start | Left-align columns | Default alignment |
+| `.col-row-justify-center` | Center | Center columns | Center column group |
+| `.col-row-justify-end` | Flex-end | Right-align columns | Right-align layout |
+| `.col-row-justify-between` | Space-between | Max space between, edges flush | Spread columns |
+| `.col-row-justify-around` | Space-around | Equal space around each | Even distribution |
+| `.col-row-justify-evenly` | Space-evenly | Equal space between and edges | Perfect distribution |
+
+**Example:**
+
+```html
+<!-- Center columns that don't fill full width -->
+<div class="col-row col-row-justify-center">
+  <div class="col-3">Column</div>
+  <div class="col-3">Column</div>
+</div>
+```
+
+### Align Items
+
+Control vertical alignment of columns along the cross axis.
+
+| Class | Alignment | Behavior | Use Case |
+|-------|-----------|----------|----------|
+| `.col-row-align-start` | Flex-start | Top-align | Align to top |
+| `.col-row-align-center` | Center | Vertically center | Center content |
+| `.col-row-align-end` | Flex-end | Bottom-align | Align to bottom |
+| `.col-row-align-baseline` | Baseline | Text baseline align | Align text baselines |
+| `.col-row-align-stretch` | Stretch | Equal heights | Match column heights |
+
+**Example:**
+
+```html
+<!-- Vertically center columns with different heights -->
+<div class="col-row col-row-align-center">
+  <div class="col-6">Short content</div>
+  <div class="col-6">
+    Much longer content that spans multiple lines...
+  </div>
+</div>
+```
+
+### Wrap Control
+
+Control how columns wrap within the container.
+
+| Class | Behavior | Use Case |
+|-------|----------|----------|
+| `.col-row-nowrap` | Prevent wrapping | Force single row |
+| `.col-row-wrap-reverse` | Wrap in reverse order | Reverse row stacking |
+
+**Example:**
+
+```html
+<!-- Prevent columns from wrapping (may cause overflow) -->
+<div class="col-row col-row-nowrap">
+  <div class="col-6">Column</div>
+  <div class="col-6">Column</div>
+</div>
+```
+
+## Combining Utilities
+
+### Multiple Breakpoints
+
+Combine multiple responsive classes for fine-grained control:
+
+```html
+<!-- Different width at each breakpoint -->
+<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+  Mobile: 100% → Tablet (480px): 50% → Desktop (768px): 33% → Large (1024px): 25%
+</div>
+```
+
+### Size + Offset
+
+Combine column spans with offsets for precise positioning:
+
+```html
+<!-- 6-column width, centered with 3-column offset -->
+<div class="col-6 col-offset-3">
+  Centered column
+</div>
+```
+
+### Size + Offset + Order
+
+Complex positioning with all three utilities:
+
+```html
+<div class="col-4 col-offset-2 col-order-2">
+  33.33% width, 16.67% left margin, visual order 2
+</div>
+```
+
+### Responsive Size + Responsive Offset
+
+Progressive centering across breakpoints:
+
+```html
+<!-- Mobile: full width, Tablet: 8-col centered, Desktop: 6-col more centered -->
+<div class="col-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+  Progressively centered content
+</div>
+```
+
+### Row Utilities + Responsive Columns
+
+Combine row utilities with responsive column classes:
+
+```html
+<div class="col-row col-row-gap-lg col-row-align-center">
+  <div class="col-12 col-md-6 col-lg-4">Column</div>
+  <div class="col-12 col-md-6 col-lg-4">Column</div>
+  <div class="col-12 col-md-6 col-lg-4">Column</div>
+</div>
+```
+
+## Migration Guide
+
+### From Bootstrap
+
+Bootstrap and fpkit columns share similar 12-column grid concepts with some key differences.
+
+| Bootstrap | fpkit Columns | Notes |
+|-----------|---------------|-------|
+| `.col-12` | `.col-12` | Same 100% width |
+| `.col-sm-6` | `.col-sm-6` | Different breakpoint value |
+| `.col-md-4` | `.col-md-4` | Same breakpoint (768px) |
+| `.col-lg-3` | `.col-lg-3` | Different breakpoint value |
+| `.offset-md-2` | `.col-md-offset-2` | Different prefix |
+| `.order-md-1` | `.col-md-order-1` | Different prefix |
+| `.col-md-auto` | `.col-md-auto` | Same auto-width |
+
+**Bootstrap Breakpoints:**
+
+- xs: 0px (default)
+- sm: 576px
+- md: 768px
+- lg: 992px
+- xl: 1200px
+- xxl: 1400px
+
+**fpkit Breakpoints:**
+
+- xs: 0px (default)
+- sm: 480px ← Different
+- md: 768px ✓ Same
+- lg: 1024px ← Different
+
+**Key Differences:**
+
+1. **Breakpoint values** - sm and lg differ between systems
+2. **Class naming** - fpkit uses `col-md-offset-*` vs Bootstrap's `offset-md-*`
+3. **Order prefix** - fpkit uses `col-md-order-*` vs Bootstrap's `order-md-*`
+4. **Container** - Bootstrap uses `.container` or `.row`, fpkit uses `.col-row`
+5. **Push/Pull** - Bootstrap has push/pull utilities, fpkit only has offset (use order for reordering)
+
+### From Tailwind
+
+Tailwind uses arbitrary fractional widths; fpkit uses a strict 12-column system.
+
+| Tailwind | fpkit Columns | Notes |
+|----------|---------------|-------|
+| `.w-full` | `.col-12` | 100% width |
+| `.w-1/2` | `.col-6` | 50% width |
+| `.w-1/3` | `.col-4` | 33.33% width |
+| `.w-1/4` | `.col-3` | 25% width |
+| `.w-2/3` | `.col-8` | 66.67% width |
+| `.w-3/4` | `.col-9` | 75% width |
+| `.sm:w-1/2` | `.col-sm-6` | Responsive 50% |
+| `.md:w-1/3` | `.col-md-4` | Responsive 33% |
+| `.lg:w-1/4` | `.col-lg-3` | Responsive 25% |
+
+**Tailwind Breakpoints:**
+
+- sm: 640px
+- md: 768px
+- lg: 1024px ✓ Same as fpkit
+- xl: 1280px
+- 2xl: 1536px
+
+**fpkit Breakpoints:**
+
+- sm: 480px ← Different
+- md: 768px ✓ Same
+- lg: 1024px ✓ Same
+
+**Key Differences:**
+
+1. **Width system** - Tailwind uses arbitrary fractions (1/2, 1/3, 2/5), fpkit uses strict 12-column grid
+2. **Breakpoint values** - sm differs
+3. **Container requirement** - fpkit requires `.col-row` flex container
+4. **Utility-first** - Tailwind is utility-first for everything, fpkit columns are just one utility system
+
+**Conversion Strategy:**
+
+Convert Tailwind fractions to 12-column equivalents:
+
+- 1/2 = 6/12 → `.col-6`
+- 1/3 = 4/12 → `.col-4`
+- 2/3 = 8/12 → `.col-8`
+- 1/4 = 3/12 → `.col-3`
+- 3/4 = 9/12 → `.col-9`
+
+### From Foundation
+
+Foundation uses a similar 12-column grid with different naming conventions.
+
+| Foundation | fpkit Columns | Notes |
+|------------|---------------|-------|
+| `.small-12` | `.col-12` | Base mobile width |
+| `.medium-6` | `.col-md-6` | Tablet width |
+| `.large-4` | `.col-lg-4` | Desktop width |
+| `.small-offset-2` | `.col-offset-2` | Offset differs |
+
+**Foundation Breakpoints:**
+
+- small: 0px (default)
+- medium: 640px
+- large: 1024px ✓ Same as fpkit lg
+
+**fpkit Breakpoints:**
+
+- xs: 0px (default)
+- sm: 480px
+- md: 768px
+- lg: 1024px ✓ Same
+
+**Key Differences:**
+
+1. **Class naming** - Foundation uses `.small-*`, fpkit uses `.col-*` for base and `.col-md-*` for responsive
+2. **Breakpoint values** - medium breakpoint differs (640px vs 768px)
+3. **Container** - Foundation uses `.row`, fpkit uses `.col-row`
+
+## Accessibility Considerations
+
+### Visual vs. DOM Order (CRITICAL)
+
+**The `order` property changes visual order ONLY.**
+
+Screen readers, keyboard navigation, and assistive technologies follow DOM order, not visual order.
+
+**Example Problem:**
+
+```html
+<div class="col-row">
+  <!-- DOM order: Input 1, Input 2, Submit -->
+  <!-- Visual order: Submit, Input 1, Input 2 -->
+  <input type="text" class="col-4 col-order-2" id="input1" />
+  <input type="text" class="col-4 col-order-3" id="input2" />
+  <button class="col-4 col-order-1">Submit</button>
+</div>
+```
+
+**What happens:**
+
+1. **Sighted users** see: Submit button → Input 1 → Input 2
+2. **Screen reader users** hear: Input 1 → Input 2 → Submit button
+3. **Keyboard users** tab: Input 1 → Input 2 → Submit button
+
+This creates a **confusing and inaccessible experience** where visual order doesn't match interaction order.
+
+**Solution: Change DOM Order**
+
+```html
+<div class="col-row">
+  <!-- DOM order matches visual order -->
+  <button class="col-4">Submit</button>
+  <input type="text" class="col-4" id="input1" />
+  <input type="text" class="col-4" id="input2" />
+</div>
+```
+
+**Best Practices:**
+
+1. ✅ **DO** use order for decorative elements (images, cards, badges)
+2. ✅ **DO** use order for non-interactive content
+3. ❌ **DON'T** use order for navigation links
+4. ❌ **DON'T** use order for form inputs and buttons
+5. ❌ **DON'T** use order for any interactive elements
+6. ❌ **DON'T** create confusing tab order
+
+**Safe Example:**
+
+```html
+<!-- ✅ SAFE: Decorative cards, no interaction -->
+<div class="col-row">
+  <div class="col-4 col-order-2">
+    <img src="photo2.jpg" alt="Photo 2" />
+  </div>
+  <div class="col-4 col-order-1">
+    <img src="photo1.jpg" alt="Photo 1" />
+  </div>
+  <div class="col-4 col-order-3">
+    <img src="photo3.jpg" alt="Photo 3" />
+  </div>
+</div>
+```
+
+### Responsive Focus Order
+
+When combining responsive classes with order utilities, ensure focus order remains logical at all breakpoints.
+
+**Problem:**
+
+```html
+<!-- Tab order changes at different screen sizes -->
+<div class="col-row">
+  <button class="col-12 col-md-order-2">Save</button>
+  <button class="col-12 col-md-order-1">Cancel</button>
+</div>
+```
+
+**Result:**
+
+- **Mobile**: Tab order is Save → Cancel (DOM order)
+- **Desktop**: Visual order is Cancel → Save (flexbox order)
+- **But Tab order is still**: Save → Cancel (DOM order!)
+
+**Solution:** Keep DOM order consistent or avoid order on interactive elements.
+
+### Semantic HTML
+
+Use appropriate semantic elements for better accessibility:
+
+```html
+<!-- ✅ GOOD: Semantic list -->
+<ul class="col-row">
+  <li class="col-4">Item 1</li>
+  <li class="col-4">Item 2</li>
+  <li class="col-4">Item 3</li>
+</ul>
+
+<!-- ✅ GOOD: Article sections -->
+<div class="col-row">
+  <article class="col-8">Main content</article>
+  <aside class="col-4">Sidebar</aside>
+</div>
+```
+
+## Browser Support
+
+The column system relies on modern CSS features with excellent browser support.
+
+### CSS Features Used
+
+| Feature | Support | Notes |
+|---------|---------|-------|
+| **Flexbox** | All modern browsers, IE10+ | Core layout mechanism |
+| **Media Queries** | All modern browsers, IE9+ | Responsive breakpoints |
+| **CSS Custom Properties** | All modern browsers (NO IE11) | Breakpoint and width variables |
+| **Logical Properties** | Chrome 87+, Firefox 66+, Safari 14.1+ | `margin-inline-start` for offsets |
+
+### Fallbacks
+
+**For IE11 (no CSS custom properties):**
+
+The column widths will still work as percentages are defined in media queries, but JavaScript access to breakpoint variables won't work.
+
+**For older browsers (no logical properties):**
+
+Use directional properties as fallback:
+
+```css
+/* Fallback for browsers without logical properties */
+.col-offset-3 {
+  margin-left: 25%; /* Fallback */
+  margin-inline-start: 25%; /* Modern browsers */
+}
+```
+
+## Troubleshooting
+
+### Columns Not Wrapping
+
+**Problem:** Columns stay on one line instead of wrapping to new rows.
+
+**Cause:** Missing `flex-wrap: wrap` on container.
+
+**Solution:**
+
+```html
+<!-- ❌ WRONG: Missing flex-wrap -->
+<div style="display: flex;">
+  <div class="col-6">Column</div>
+  <div class="col-6">Column</div>
+</div>
+
+<!-- ✅ CORRECT: Add .col-row class -->
+<div class="col-row">
+  <div class="col-6">Column</div>
+  <div class="col-6">Column</div>
+</div>
+```
+
+### Responsive Classes Not Applying
+
+**Problem:** `.col-md-6` doesn't activate on tablet-sized screens.
+
+**Cause:** Missing base class or viewport width below breakpoint.
+
+**Solution:**
+
+```html
+<!-- ❌ WRONG: Missing base class -->
+<div class="col-md-6">Column</div>
+
+<!-- ✅ CORRECT: Include base class for mobile -->
+<div class="col-12 col-md-6">Column</div>
+```
+
+**Also check:**
+
+- Actual viewport width (use DevTools)
+- md breakpoint is 768px (48rem)
+- Browser zoom level (affects viewport width)
+
+### Columns Always 100% Width
+
+**Problem:** Columns don't spread horizontally even on desktop.
+
+**Cause:** Viewport width is below the breakpoint (< 768px for base columns).
+
+**Solution:**
+
+- Verify actual viewport size in DevTools
+- Base `.col-*` classes activate at ≥ 768px (48rem)
+- Use `.col-sm-*` for smaller screens (≥ 480px)
+- Check for CSS overrides with higher specificity
+
+### Gap Not Working
+
+**Problem:** No space between columns.
+
+**Cause:** Container missing `gap` property or browser doesn't support flexbox gap.
+
+**Solution:**
+
+```html
+<!-- ✅ CORRECT: .col-row includes gap by default -->
+<div class="col-row">
+  <div class="col-6">Column</div>
+  <div class="col-6">Column</div>
+</div>
+
+<!-- OR: Customize gap -->
+<div class="col-row col-row-gap-lg">
+  <div class="col-6">Column</div>
+  <div class="col-6">Column</div>
+</div>
+```
+
+### Debugging Tips
+
+**1. Use DevTools Responsive Mode:**
+
+- Open DevTools (F12)
+- Click device toolbar icon (Ctrl+Shift+M / Cmd+Shift+M)
+- Select responsive mode
+- Resize viewport to test breakpoints
+
+**2. Inspect Computed Styles:**
+
+```javascript
+// Check which class is active
+const el = document.querySelector('.col-12');
+const styles = getComputedStyle(el);
+console.log('flex:', styles.flex);
+console.log('max-width:', styles.maxWidth);
+```
+
+**3. Test Breakpoints:**
+
+Common device widths to test:
+
+- **Mobile:** 375px (iPhone), 360px (Android)
+- **Tablet:** 768px (iPad portrait), 1024px (iPad landscape)
+- **Desktop:** 1280px (laptop), 1920px (monitor)
+
+**4. Verify Container:**
+
+```javascript
+// Check if container has flex-wrap
+const container = document.querySelector('.col-row');
+console.log('display:', getComputedStyle(container).display);
+console.log('flex-wrap:', getComputedStyle(container).flexWrap);
+```
+
+## Performance Tips
+
+### Minimize Class Churn
+
+Avoid redundant responsive classes that don't change behavior.
+
+**❌ AVOID:**
+
+```html
+<!-- Redundant: col-sm-12 is same as mobile default -->
+<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+  Column
+</div>
+```
+
+**✅ PREFER:**
+
+```html
+<!-- Cleaner: Only specify when width changes -->
+<div class="col-12 col-md-6">
+  Column
+</div>
+```
+
+### Use Semantic Breakpoints
+
+Choose breakpoints based on content needs, not specific devices.
+
+**✅ GOOD:**
+
+```html
+<!-- Breakpoint chosen based on when layout needs to change -->
+<div class="col-12 col-md-8">
+  Content becomes too narrow below 768px
+</div>
+```
+
+### Prefer CSS Over JavaScript
+
+Let media queries handle responsive behavior instead of JavaScript resize listeners.
+
+**❌ AVOID:**
+
+```javascript
+// Don't use JS for responsive layout
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 768) {
+    element.classList.add('col-md-6');
+  }
+});
+```
+
+**✅ PREFER:**
+
+```html
+<!-- Let CSS handle it -->
+<div class="col-12 col-md-6">
+  Responsive column
+</div>
+```
+
+## Related Resources
+
+- **[Col React Component README](./README.mdx)** - React component API and usage
+- **[Row Component](../row/README.mdx)** - Flex container component for columns
+- **[Grid Component](../grid/README.mdx)** - Alternative CSS Grid-based layout
+- **[MDN: Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout)** - CSS flexbox documentation
+- **[MDN: Media Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries)** - Responsive breakpoints
+- **[CSS Tricks: A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)** - Flexbox reference
+- **[W3C: Flexbox Spec](https://www.w3.org/TR/css-flexbox-1/)** - Official specification
