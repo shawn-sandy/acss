@@ -7,7 +7,7 @@ import "./grid.scss";
 const meta: Meta<typeof Grid> = {
   title: "FP.React Components/Layout/Grid",
   component: Grid,
-  tags: ["autodocs", "rc", "layout"],
+  tags: ["autodocs", "beta", "layout"],
   parameters: {
     docs: {
       description: {
@@ -187,32 +187,71 @@ export const Dashboard: Story = {
   render: () => (
     <Grid columns={12} gap="md">
       <GridItem span={12}>
-        <div style={{ padding: "1rem", backgroundColor: "#0066cc", color: "white", borderRadius: "0.5rem" }}>
+        <div
+          style={{
+            padding: "1rem",
+            backgroundColor: "#0066cc",
+            color: "white",
+            borderRadius: "0.5rem",
+          }}
+        >
           Header (Full Width)
         </div>
       </GridItem>
       <GridItem span={4}>
-        <div style={{ padding: "1.5rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem", minHeight: "15rem" }}>
+        <div
+          style={{
+            padding: "1.5rem",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "0.5rem",
+            minHeight: "15rem",
+          }}
+        >
           Sidebar (4 cols)
         </div>
       </GridItem>
       <GridItem span={8}>
-        <div style={{ padding: "1.5rem", backgroundColor: "#e8f4f8", borderRadius: "0.5rem", minHeight: "15rem" }}>
+        <div
+          style={{
+            padding: "1.5rem",
+            backgroundColor: "#e8f4f8",
+            borderRadius: "0.5rem",
+            minHeight: "15rem",
+          }}
+        >
           Main Content (8 cols)
         </div>
       </GridItem>
       <GridItem span={4}>
-        <div style={{ padding: "1rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem" }}>
+        <div
+          style={{
+            padding: "1rem",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "0.5rem",
+          }}
+        >
           Card 1
         </div>
       </GridItem>
       <GridItem span={4}>
-        <div style={{ padding: "1rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem" }}>
+        <div
+          style={{
+            padding: "1rem",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "0.5rem",
+          }}
+        >
           Card 2
         </div>
       </GridItem>
       <GridItem span={4}>
-        <div style={{ padding: "1rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem" }}>
+        <div
+          style={{
+            padding: "1rem",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "0.5rem",
+          }}
+        >
           Card 3
         </div>
       </GridItem>
@@ -229,7 +268,9 @@ export const GapSizes: Story = {
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       {["xs", "sm", "md", "lg", "xl"].map((size) => (
         <div key={size}>
-          <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Gap {size.toUpperCase()}</h4>
+          <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>
+            Gap {size.toUpperCase()}
+          </h4>
           <Grid columns={4} gap={size as SpacingScale}>
             {[...Array(4)].map((_, i) => (
               <div
@@ -305,16 +346,40 @@ export const RowSpan: Story = {
           Tall Item (2 rows)
         </div>
       </GridItem>
-      <div style={{ padding: "1.5rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem" }}>
+      <div
+        style={{
+          padding: "1.5rem",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "0.5rem",
+        }}
+      >
         Item 2
       </div>
-      <div style={{ padding: "1.5rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem" }}>
+      <div
+        style={{
+          padding: "1.5rem",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "0.5rem",
+        }}
+      >
         Item 3
       </div>
-      <div style={{ padding: "1.5rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem" }}>
+      <div
+        style={{
+          padding: "1.5rem",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "0.5rem",
+        }}
+      >
         Item 4
       </div>
-      <div style={{ padding: "1.5rem", backgroundColor: "#f0f0f0", borderRadius: "0.5rem" }}>
+      <div
+        style={{
+          padding: "1.5rem",
+          backgroundColor: "#f0f0f0",
+          borderRadius: "0.5rem",
+        }}
+      >
         Item 5
       </div>
     </Grid>
@@ -329,7 +394,9 @@ export const Alignment: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       <div>
-        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Justify Items: Center</h4>
+        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>
+          Justify Items: Center
+        </h4>
         <Grid columns={3} gap="md" justifyItems="center">
           {[...Array(3)].map((_, i) => (
             <div
@@ -348,8 +415,15 @@ export const Alignment: Story = {
         </Grid>
       </div>
       <div>
-        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Align Items: Center</h4>
-        <Grid columns={3} gap="md" alignItems="center" styles={{ minHeight: "10rem" }}>
+        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>
+          Align Items: Center
+        </h4>
+        <Grid
+          columns={3}
+          gap="md"
+          alignItems="center"
+          styles={{ minHeight: "10rem" }}
+        >
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
@@ -378,8 +452,13 @@ export const ColumnCounts: Story = {
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
       {[1, 2, 3, 4, 5, 6].map((cols) => (
         <div key={cols}>
-          <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>{cols} Column{cols > 1 ? "s" : ""}</h4>
-          <Grid columns={cols as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12} gap="sm">
+          <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>
+            {cols} Column{cols > 1 ? "s" : ""}
+          </h4>
+          <Grid
+            columns={cols as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12}
+            gap="sm"
+          >
             {[...Array(cols)].map((_, i) => (
               <div
                 key={i}
@@ -408,7 +487,9 @@ export const ColumnCounts: Story = {
 export const FormLayout: Story = {
   render: () => (
     <Grid columns={2} gap="md" styles={{ maxWidth: "40rem" }}>
-      <label htmlFor="name" style={{ alignSelf: "center", fontWeight: "500" }}>Name</label>
+      <label htmlFor="name" style={{ alignSelf: "center", fontWeight: "500" }}>
+        Name
+      </label>
       <input
         id="name"
         type="text"
@@ -419,7 +500,9 @@ export const FormLayout: Story = {
           borderRadius: "0.25rem",
         }}
       />
-      <label htmlFor="email" style={{ alignSelf: "center", fontWeight: "500" }}>Email</label>
+      <label htmlFor="email" style={{ alignSelf: "center", fontWeight: "500" }}>
+        Email
+      </label>
       <input
         id="email"
         type="email"
@@ -430,7 +513,12 @@ export const FormLayout: Story = {
           borderRadius: "0.25rem",
         }}
       />
-      <label htmlFor="message" style={{ alignSelf: "start", fontWeight: "500", paddingTop: "0.5rem" }}>Message</label>
+      <label
+        htmlFor="message"
+        style={{ alignSelf: "start", fontWeight: "500", paddingTop: "0.5rem" }}
+      >
+        Message
+      </label>
       <textarea
         id="message"
         rows={4}
@@ -466,21 +554,28 @@ export const FormLayout: Story = {
  */
 export const SemanticList: Story = {
   render: () => (
-    <Grid as="ul" columns={3} gap="md" styles={{ listStyle: "none", padding: 0 }}>
-      {["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"].map((item) => (
-        <GridItem
-          as="li"
-          key={item}
-          styles={{
-            padding: "1.5rem",
-            backgroundColor: "#f8f9fa",
-            border: "1px solid #e0e0e0",
-            borderRadius: "0.25rem",
-          }}
-        >
-          {item}
-        </GridItem>
-      ))}
+    <Grid
+      as="ul"
+      columns={3}
+      gap="md"
+      styles={{ listStyle: "none", padding: 0 }}
+    >
+      {["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"].map(
+        (item) => (
+          <GridItem
+            as="li"
+            key={item}
+            styles={{
+              padding: "1.5rem",
+              backgroundColor: "#f8f9fa",
+              border: "1px solid #e0e0e0",
+              borderRadius: "0.25rem",
+            }}
+          >
+            {item}
+          </GridItem>
+        )
+      )}
     </Grid>
   ),
 };

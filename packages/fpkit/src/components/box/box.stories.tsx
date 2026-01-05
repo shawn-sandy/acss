@@ -7,7 +7,7 @@ import "./box.scss";
 const meta: Meta<typeof Box> = {
   title: "FP.React Components/Layout/Box",
   component: Box,
-  tags: ["autodocs", "rc", "layout"],
+  tags: ["autodocs", "beta", "layout"],
   parameters: {
     docs: {
       description: {

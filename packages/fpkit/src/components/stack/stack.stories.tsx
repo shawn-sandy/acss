@@ -7,7 +7,7 @@ import "./stack.scss";
 const meta: Meta<typeof Stack> = {
   title: "FP.React Components/Layout/Stack",
   component: Stack,
-  tags: ["autodocs", "rc", "layout"],
+  tags: ["autodocs", "beta", "layout"],
   parameters: {
     docs: {
       description: {
@@ -49,9 +49,15 @@ export const Default: Story = {
     gap: "md",
     children: (
       <>
-        <div style={{ padding: "1rem", backgroundColor: "#f0f0f0" }}>Item 1</div>
-        <div style={{ padding: "1rem", backgroundColor: "#e0e0e0" }}>Item 2</div>
-        <div style={{ padding: "1rem", backgroundColor: "#d0d0d0" }}>Item 3</div>
+        <div style={{ padding: "1rem", backgroundColor: "#f0f0f0" }}>
+          Item 1
+        </div>
+        <div style={{ padding: "1rem", backgroundColor: "#e0e0e0" }}>
+          Item 2
+        </div>
+        <div style={{ padding: "1rem", backgroundColor: "#d0d0d0" }}>
+          Item 3
+        </div>
       </>
     ),
   },
@@ -82,41 +88,71 @@ export const GapSizes: Story = {
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Gap XS (4-8px)</h4>
         <Stack gap="xs">
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>Item</div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>
+            Item
+          </div>
         </Stack>
       </div>
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Gap SM (8-12px)</h4>
         <Stack gap="sm">
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>Item</div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>
+            Item
+          </div>
         </Stack>
       </div>
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Gap MD (12-18px)</h4>
         <Stack gap="md">
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>Item</div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>
+            Item
+          </div>
         </Stack>
       </div>
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Gap LG (16-24px)</h4>
         <Stack gap="lg">
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>Item</div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>
+            Item
+          </div>
         </Stack>
       </div>
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Gap XL (24-32px)</h4>
         <Stack gap="xl">
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>Item</div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>Item</div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0" }}>
+            Item
+          </div>
+          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0" }}>
+            Item
+          </div>
         </Stack>
       </div>
     </div>
@@ -133,7 +169,9 @@ export const Horizontal: Story = {
     gap: "sm",
     children: (
       <>
-        <button type="button" style={{ padding: "0.5rem 1rem" }}>Cancel</button>
+        <button type="button" style={{ padding: "0.5rem 1rem" }}>
+          Cancel
+        </button>
         <button
           type="button"
           style={{
@@ -218,7 +256,10 @@ export const Navigation: Story = {
           <a href="#about" style={{ textDecoration: "none", color: "#0066cc" }}>
             About
           </a>
-          <a href="#contact" style={{ textDecoration: "none", color: "#0066cc" }}>
+          <a
+            href="#contact"
+            style={{ textDecoration: "none", color: "#0066cc" }}
+          >
             Contact
           </a>
         </Stack>
@@ -244,23 +285,25 @@ export const ContentSections: Story = {
       <>
         <Stack gap="sm">
           <h1 style={{ margin: 0 }}>Article Title</h1>
-          <p style={{ margin: 0, color: "#666" }}>Published on December 3, 2025</p>
+          <p style={{ margin: 0, color: "#666" }}>
+            Published on December 3, 2025
+          </p>
         </Stack>
         <Stack gap="md">
           <p style={{ margin: 0 }}>
-            This is the introduction paragraph with some meaningful content about the
-            article topic.
+            This is the introduction paragraph with some meaningful content
+            about the article topic.
           </p>
           <p style={{ margin: 0 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </Stack>
         <Stack gap="md">
           <h2 style={{ margin: 0 }}>Section Heading</h2>
           <p style={{ margin: 0 }}>
-            More content goes here with proper spacing between sections using the
-            Stack component.
+            More content goes here with proper spacing between sections using
+            the Stack component.
           </p>
         </Stack>
       </>
@@ -276,50 +319,122 @@ export const Alignments: Story = {
   render: () => (
     <Stack gap="xl">
       <div>
-        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Align Start (default)</h4>
-        <Stack gap="sm" align="start" styles={{ border: "2px dashed #ccc", padding: "1rem" }}>
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0", width: "200px" }}>
+        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>
+          Align Start (default)
+        </h4>
+        <Stack
+          gap="sm"
+          align="start"
+          styles={{ border: "2px dashed #ccc", padding: "1rem" }}
+        >
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#f0f0f0",
+              width: "200px",
+            }}
+          >
             Short item
           </div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0", width: "300px" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#e0e0e0",
+              width: "300px",
+            }}
+          >
             Medium item
           </div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0", width: "150px" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#d0d0d0",
+              width: "150px",
+            }}
+          >
             Small
           </div>
         </Stack>
       </div>
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Align Center</h4>
-        <Stack gap="sm" align="center" styles={{ border: "2px dashed #ccc", padding: "1rem" }}>
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0", width: "200px" }}>
+        <Stack
+          gap="sm"
+          align="center"
+          styles={{ border: "2px dashed #ccc", padding: "1rem" }}
+        >
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#f0f0f0",
+              width: "200px",
+            }}
+          >
             Short item
           </div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0", width: "300px" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#e0e0e0",
+              width: "300px",
+            }}
+          >
             Medium item
           </div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0", width: "150px" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#d0d0d0",
+              width: "150px",
+            }}
+          >
             Small
           </div>
         </Stack>
       </div>
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Align End</h4>
-        <Stack gap="sm" align="end" styles={{ border: "2px dashed #ccc", padding: "1rem" }}>
-          <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0", width: "200px" }}>
+        <Stack
+          gap="sm"
+          align="end"
+          styles={{ border: "2px dashed #ccc", padding: "1rem" }}
+        >
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#f0f0f0",
+              width: "200px",
+            }}
+          >
             Short item
           </div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#e0e0e0", width: "300px" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#e0e0e0",
+              width: "300px",
+            }}
+          >
             Medium item
           </div>
-          <div style={{ padding: "0.5rem", backgroundColor: "#d0d0d0", width: "150px" }}>
+          <div
+            style={{
+              padding: "0.5rem",
+              backgroundColor: "#d0d0d0",
+              width: "150px",
+            }}
+          >
             Small
           </div>
         </Stack>
       </div>
       <div>
         <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Align Stretch</h4>
-        <Stack gap="sm" align="stretch" styles={{ border: "2px dashed #ccc", padding: "1rem" }}>
+        <Stack
+          gap="sm"
+          align="stretch"
+          styles={{ border: "2px dashed #ccc", padding: "1rem" }}
+        >
           <div style={{ padding: "0.5rem", backgroundColor: "#f0f0f0" }}>
             Stretched item (full width)
           </div>
@@ -343,16 +458,28 @@ export const Justifications: Story = {
   render: () => (
     <Stack gap="xl">
       <div>
-        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>Justify Start (default)</h4>
+        <h4 style={{ margin: 0, marginBottom: "0.5rem" }}>
+          Justify Start (default)
+        </h4>
         <Stack
           direction="horizontal"
           gap="sm"
           justify="start"
-          styles={{ border: "2px dashed #ccc", padding: "1rem", minHeight: "100px" }}
+          styles={{
+            border: "2px dashed #ccc",
+            padding: "1rem",
+            minHeight: "100px",
+          }}
         >
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>Item 1</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>Item 2</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>Item 3</div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>
+            Item 1
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>
+            Item 2
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>
+            Item 3
+          </div>
         </Stack>
       </div>
       <div>
@@ -361,11 +488,21 @@ export const Justifications: Story = {
           direction="horizontal"
           gap="sm"
           justify="center"
-          styles={{ border: "2px dashed #ccc", padding: "1rem", minHeight: "100px" }}
+          styles={{
+            border: "2px dashed #ccc",
+            padding: "1rem",
+            minHeight: "100px",
+          }}
         >
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>Item 1</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>Item 2</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>Item 3</div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>
+            Item 1
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>
+            Item 2
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>
+            Item 3
+          </div>
         </Stack>
       </div>
       <div>
@@ -374,11 +511,21 @@ export const Justifications: Story = {
           direction="horizontal"
           gap="sm"
           justify="end"
-          styles={{ border: "2px dashed #ccc", padding: "1rem", minHeight: "100px" }}
+          styles={{
+            border: "2px dashed #ccc",
+            padding: "1rem",
+            minHeight: "100px",
+          }}
         >
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>Item 1</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>Item 2</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>Item 3</div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>
+            Item 1
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>
+            Item 2
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>
+            Item 3
+          </div>
         </Stack>
       </div>
       <div>
@@ -387,11 +534,21 @@ export const Justifications: Story = {
           direction="horizontal"
           gap="sm"
           justify="between"
-          styles={{ border: "2px dashed #ccc", padding: "1rem", minHeight: "100px" }}
+          styles={{
+            border: "2px dashed #ccc",
+            padding: "1rem",
+            minHeight: "100px",
+          }}
         >
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>Item 1</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>Item 2</div>
-          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>Item 3</div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#f0f0f0" }}>
+            Item 1
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#e0e0e0" }}>
+            Item 2
+          </div>
+          <div style={{ padding: "0.5rem 1rem", backgroundColor: "#d0d0d0" }}>
+            Item 3
+          </div>
         </Stack>
       </div>
     </Stack>
@@ -474,7 +631,9 @@ export const NestedStacks: Story = {
           }}
         >
           <h3 style={{ margin: 0 }}>Card 2</h3>
-          <p style={{ margin: 0, color: "#666" }}>Each card is an independent Stack</p>
+          <p style={{ margin: 0, color: "#666" }}>
+            Each card is an independent Stack
+          </p>
           <button
             type="button"
             style={{ padding: "0.5rem 1rem", alignSelf: "flex-start" }}

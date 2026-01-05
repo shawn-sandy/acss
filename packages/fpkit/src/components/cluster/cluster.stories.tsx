@@ -7,7 +7,7 @@ import "./cluster.scss";
 const meta: Meta<typeof Cluster> = {
   title: "FP.React Components/Layout/Cluster",
   component: Cluster,
-  tags: ["autodocs", "rc", "layout"],
+  tags: ["autodocs", "beta", "layout"],
   parameters: {
     docs: {
       description: {

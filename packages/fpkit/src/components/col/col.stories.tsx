@@ -6,7 +6,7 @@ import { Col } from "./col";
 const meta: Meta<typeof Col> = {
   title: "FP.React Components/Layout/Col",
   component: Col,
-  tags: ["autodocs", "rc", "layout"],
+  tags: ["autodocs", "beta", "layout"],
   parameters: {
     docs: {
       description: {
