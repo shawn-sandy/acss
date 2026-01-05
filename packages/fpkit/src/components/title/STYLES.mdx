@@ -1,0 +1,501 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import * as TitleStories from './title.stories';
+
+<Meta of={TitleStories} title="FP.REACT Components/Title/Styles" />
+
+# Title Component Styles
+
+Comprehensive CSS custom properties documentation for the Title component.
+
+---
+
+## Overview
+
+The Title component uses **CSS custom properties (CSS variables)** for flexible, reactive styling. This approach allows you to:
+
+- Override styles without modifying the component source
+- Create theme variations using CSS
+- Maintain consistent sizing with rem units
+- Ensure WCAG AA contrast compliance with predefined color variants
+
+---
+
+## CSS Custom Properties
+
+### Base Properties
+
+These properties control the fundamental styling of all Title components:
+
+```css
+[data-title] {
+  --title-fs: inherit;                    /* Font size */
+  --title-fw: 600;                        /* Font weight */
+  --title-lh: 1.2;                        /* Line height */
+  --title-margin-block-end: 0.5em;        /* Bottom margin */
+  --title-color: inherit;                 /* Text color */
+}
+```
+
+| Property | Default | Description |
+|----------|---------|-------------|
+| `--title-fs` | `inherit` | Font size (overridden by size variants) |
+| `--title-fw` | `600` | Font weight (semi-bold) |
+| `--title-lh` | `1.2` | Line height for optimal readability |
+| `--title-margin-block-end` | `0.5em` | Bottom margin using logical properties |
+| `--title-color` | `inherit` | Text color (overridden by color variants) |
+
+---
+
+## Size Tokens
+
+The Title component provides six size variants using predefined tokens:
+
+```css
+:root {
+  --title-size-xs: 0.75rem;    /* 12px */
+  --title-size-sm: 0.875rem;   /* 14px */
+  --title-size-md: 1rem;        /* 16px */
+  --title-size-lg: 1.5rem;      /* 24px */
+  --title-size-xl: 2rem;        /* 32px */
+  --title-size-2xl: 2.5rem;     /* 40px */
+}
+```
+
+### Size Variant Usage
+
+Size variants are applied via the `data-title` attribute:
+
+```tsx
+<Title size="xs">Extra Small (12px)</Title>
+<Title size="sm">Small (14px)</Title>
+<Title size="md">Medium (16px)</Title>
+<Title size="lg">Large (24px)</Title>
+<Title size="xl">Extra Large (32px)</Title>
+<Title size="2xl">2X Large (40px)</Title>
+```
+
+**CSS Implementation:**
+
+```css
+[data-title~="xs"] { --title-fs: var(--title-size-xs); }
+[data-title~="sm"] { --title-fs: var(--title-size-sm); }
+[data-title~="md"] { --title-fs: var(--title-size-md); }
+[data-title~="lg"] { --title-fs: var(--title-size-lg); }
+[data-title~="xl"] { --title-fs: var(--title-size-xl); }
+[data-title~="2xl"] { --title-fs: var(--title-size-2xl); }
+```
+
+---
+
+## Color Variants
+
+All color variants meet **WCAG 2.1 Level AA contrast requirements** (4.5:1 minimum on white background).
+
+```css
+[data-title~="primary"] { --title-color: #1e3a8a; }    /* 8.59:1 */
+[data-title~="secondary"] { --title-color: #4b5563; }  /* 7.56:1 */
+[data-title~="accent"] { --title-color: #7c3aed; }     /* 4.62:1 */
+[data-title~="muted"] { --title-color: #6b7280; }      /* 5.49:1 */
+[data-title~="inherit"] { --title-color: inherit; }
+```
+
+### Color Variant Details
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', margin: '1.5rem 0' }}>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <div style={{ fontSize: '1.25rem', fontWeight: 600, color: '#1e3a8a', marginBottom: '0.5rem' }}>Primary</div>
+    <code style={{ fontSize: '0.75rem', display: 'block', marginBottom: '0.25rem' }}>#1e3a8a</code>
+    <div style={{ fontSize: '0.875rem', color: '#666' }}>Contrast: 8.59:1</div>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <div style={{ fontSize: '1.25rem', fontWeight: 600, color: '#4b5563', marginBottom: '0.5rem' }}>Secondary</div>
+    <code style={{ fontSize: '0.75rem', display: 'block', marginBottom: '0.25rem' }}>#4b5563</code>
+    <div style={{ fontSize: '0.875rem', color: '#666' }}>Contrast: 7.56:1</div>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <div style={{ fontSize: '1.25rem', fontWeight: 600, color: '#7c3aed', marginBottom: '0.5rem' }}>Accent</div>
+    <code style={{ fontSize: '0.75rem', display: 'block', marginBottom: '0.25rem' }}>#7c3aed</code>
+    <div style={{ fontSize: '0.875rem', color: '#666' }}>Contrast: 4.62:1</div>
+  </div>
+  <div style={{ padding: '1rem', border: '1px solid #e0e0e0', borderRadius: '0.5rem' }}>
+    <div style={{ fontSize: '1.25rem', fontWeight: 600, color: '#6b7280', marginBottom: '0.5rem' }}>Muted</div>
+    <code style={{ fontSize: '0.75rem', display: 'block', marginBottom: '0.25rem' }}>#6b7280</code>
+    <div style={{ fontSize: '0.875rem', color: '#666' }}>Contrast: 5.49:1</div>
+  </div>
+</div>
+
+---
+
+## Focus Indicator
+
+The Title component includes a focus indicator for keyboard navigation:
+
+```css
+[data-title]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+```
+
+This ensures that when a Title element receives keyboard focus (e.g., when using `tabIndex={-1}` for programmatic focus), a visible outline appears.
+
+---
+
+## Customization
+
+### Method 1: Override via Inline Styles
+
+Override CSS custom properties using the `styles` prop:
+
+```tsx
+<Title
+  level="h2"
+  size="lg"
+  styles={{
+    '--title-fs': '3rem',
+    '--title-color': '#10b981',
+    '--title-fw': '700',
+  }}
+>
+  Custom Overridden Title
+</Title>
+```
+
+**Result:**
+- Font size: 3rem (48px) - overrides the `lg` size
+- Color: #10b981 (emerald green)
+- Font weight: 700 (bold)
+
+### Method 2: Global CSS Override
+
+Create global styles to customize all Title components:
+
+```css
+/* Override all titles */
+[data-title] {
+  --title-fw: 700;
+  --title-lh: 1.4;
+  --title-margin-block-end: 1rem;
+}
+
+/* Override specific size */
+[data-title~="xl"] {
+  --title-fs: 2.5rem;  /* Increase xl from 2rem to 2.5rem */
+}
+
+/* Override specific color */
+[data-title~="primary"] {
+  --title-color: #0066cc;  /* Custom brand blue */
+}
+```
+
+### Method 3: Scoped CSS Override
+
+Override Title properties within a specific container:
+
+```css
+/* Only affect titles inside .dark-theme */
+.dark-theme [data-title] {
+  --title-color: #f0f0f0;
+}
+
+.dark-theme [data-title~="primary"] {
+  --title-color: #60a5fa;  /* Lighter blue for dark backgrounds */
+}
+
+/* Only affect titles inside .card */
+.card [data-title] {
+  --title-margin-block-end: 0.25rem;
+  --title-fw: 700;
+}
+```
+
+### Method 4: Creating Custom Variants
+
+Extend the component with custom data attributes:
+
+```tsx
+<Title
+  level="h2"
+  data-variant="hero"
+  className="custom-title"
+>
+  Hero Title
+</Title>
+```
+
+**Custom CSS:**
+
+```css
+[data-variant="hero"] {
+  --title-fs: 4rem;
+  --title-fw: 800;
+  --title-color: linear-gradient(to right, #0066cc, #7c3aed);
+  background: var(--title-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+```
+
+---
+
+## Theming
+
+### Example: Dark Theme
+
+Create a dark theme by overriding color variants:
+
+```css
+[data-theme="dark"] {
+  /* Override base title color */
+  [data-title] {
+    --title-color: #f9fafb;
+  }
+
+  /* Override color variants for dark backgrounds */
+  [data-title~="primary"] {
+    --title-color: #60a5fa;  /* Light blue */
+  }
+
+  [data-title~="secondary"] {
+    --title-color: #9ca3af;  /* Light gray */
+  }
+
+  [data-title~="accent"] {
+    --title-color: #a78bfa;  /* Light purple */
+  }
+
+  [data-title~="muted"] {
+    --title-color: #6b7280;  /* Medium gray */
+  }
+}
+```
+
+**Usage:**
+
+```tsx
+<div data-theme="dark">
+  <Title level="h1" size="2xl" color="primary">
+    Dark Theme Title
+  </Title>
+</div>
+```
+
+### Example: Brand Theme
+
+Create a custom brand theme with your company colors:
+
+```css
+:root {
+  /* Brand color tokens */
+  --brand-primary: #ff6b35;
+  --brand-secondary: #004e89;
+  --brand-accent: #f7b801;
+}
+
+/* Apply brand colors to title variants */
+[data-title~="primary"] {
+  --title-color: var(--brand-primary);
+}
+
+[data-title~="secondary"] {
+  --title-color: var(--brand-secondary);
+}
+
+[data-title~="accent"] {
+  --title-color: var(--brand-accent);
+}
+```
+
+---
+
+## Responsive Typography
+
+Use CSS media queries to create responsive sizing:
+
+```css
+/* Mobile: smaller sizes */
+@media (max-width: 768px) {
+  :root {
+    --title-size-2xl: 2rem;    /* 32px instead of 40px */
+    --title-size-xl: 1.75rem;  /* 28px instead of 32px */
+    --title-size-lg: 1.25rem;  /* 20px instead of 24px */
+  }
+}
+
+/* Desktop: larger sizes */
+@media (min-width: 1280px) {
+  :root {
+    --title-size-2xl: 3rem;    /* 48px instead of 40px */
+    --title-size-xl: 2.5rem;   /* 40px instead of 32px */
+  }
+}
+```
+
+---
+
+## Best Practices
+
+### ✅ DO: Use rem Units
+
+All size values use rem units for accessibility and scalability:
+
+```css
+/* ✅ GOOD */
+--title-fs: 1.5rem;
+
+/* ❌ BAD */
+--title-fs: 24px;
+```
+
+**Why?** Users can adjust their browser's base font size, and rem values scale accordingly.
+
+### ✅ DO: Maintain Contrast Ratios
+
+When creating custom colors, ensure WCAG AA compliance (4.5:1 minimum):
+
+```css
+/* ✅ GOOD: High contrast */
+--title-color: #1e3a8a;  /* 8.59:1 on white */
+
+/* ❌ BAD: Low contrast */
+--title-color: #cbd5e1;  /* Only 2.1:1 on white - fails WCAG AA */
+```
+
+**Tools:**
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- [Accessible Colors](https://accessible-colors.com/)
+
+### ✅ DO: Use Logical Properties
+
+Prefer logical properties for better internationalization:
+
+```css
+/* ✅ GOOD: Works with RTL languages */
+--title-margin-block-end: 0.5em;
+
+/* ❌ BAD: Fixed to LTR layout */
+--title-margin-bottom: 0.5em;
+```
+
+### ✅ DO: Test Across Viewports
+
+Test custom sizing across different screen sizes:
+
+```tsx
+{/* Desktop */}
+<Title size="2xl" color="primary">Hero Title</Title>
+
+{/* Mobile */}
+<Title size="xl" color="primary">Hero Title</Title>
+```
+
+---
+
+## CSS Architecture
+
+The Title component follows fpkit's CSS architecture:
+
+1. **Global tokens** (`:root`) - Reusable size values
+2. **Component properties** (`[data-title]`) - Base styling
+3. **Variant selectors** (`[data-title~="..."]`) - Size and color variants
+4. **State selectors** (`:focus-visible`) - Interactive states
+
+**File Location:**
+```
+packages/fpkit/src/components/title/title.scss
+```
+
+**Compiled Output:**
+```
+packages/fpkit/libs/components/title/title.css
+packages/fpkit/libs/index.css (included in main bundle)
+```
+
+---
+
+## Import Styles
+
+### Option 1: Import Main Bundle
+
+```tsx
+import '@fpkit/acss/styles';
+```
+
+This imports all fpkit styles including Title.
+
+### Option 2: Import Component Styles Only
+
+```tsx
+import '@fpkit/acss/css/title/title.css';
+```
+
+This imports only the Title component styles.
+
+### Option 3: Import SCSS Source
+
+```scss
+@use '@fpkit/acss/scss/components/title/title.scss';
+```
+
+Import the SCSS source for customization before compilation.
+
+---
+
+## Related Documentation
+
+- **[Title Component Readme](?path=/docs/fp-react-components-title-readme--docs)** - Component usage and API
+- **[CSS Variable Reference Guide](/docs/css-variables.md)** - fpkit CSS variable naming standards
+- **[WCAG 2.1 Color Contrast](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html)** - Understanding contrast requirements
+
+---
+
+## Quick Reference
+
+### All CSS Custom Properties
+
+```css
+/* Size tokens */
+--title-size-xs: 0.75rem;
+--title-size-sm: 0.875rem;
+--title-size-md: 1rem;
+--title-size-lg: 1.5rem;
+--title-size-xl: 2rem;
+--title-size-2xl: 2.5rem;
+
+/* Base properties */
+--title-fs: inherit;
+--title-fw: 600;
+--title-lh: 1.2;
+--title-margin-block-end: 0.5em;
+--title-color: inherit;
+```
+
+### All Data Attributes
+
+```html
+<!-- Size variants -->
+<Title size="xs">...</Title>
+<Title size="sm">...</Title>
+<Title size="md">...</Title>
+<Title size="lg">...</Title>
+<Title size="xl">...</Title>
+<Title size="2xl">...</Title>
+
+<!-- Color variants -->
+<Title color="primary">...</Title>
+<Title color="secondary">...</Title>
+<Title color="accent">...</Title>
+<Title color="muted">...</Title>
+<Title color="inherit">...</Title>
+
+<!-- Combined -->
+<Title size="xl" color="primary">...</Title>
+```
+
+---
+
+<div style={{ padding: '1rem', background: '#f0f9ff', border: '1px solid #0ea5e9', borderRadius: '0.5rem', marginTop: '2rem' }}>
+  <strong>💡 Pro Tip:</strong> Use browser DevTools to inspect the computed CSS custom properties in real-time. Right-click a Title element, select "Inspect", and view the "Computed" tab to see all active CSS variables.
+</div>

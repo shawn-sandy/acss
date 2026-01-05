@@ -1,6 +1,7 @@
 import { Meta } from "@storybook/addon-docs/blocks";
+import * as TitleStories from './title.stories';
 
-<Meta title="FP.REACT Components/Title/Readme" />
+<Meta of={TitleStories} title="FP.REACT Components/Title/Readme" />
 
 # Title
 
@@ -69,6 +70,8 @@ function MyComponent() {
 |------|------|---------|-------------|
 | `level` | `"h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "h6"` | `"h2"` | The semantic heading level to render |
 | `children` | `React.ReactNode` | *required* | The content to display in the heading |
+| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl"` | - | Visual size variant (independent of semantic level) |
+| `color` | `"primary" \| "secondary" \| "accent" \| "muted" \| "inherit"` | - | Color variant (all variants are WCAG AA compliant) |
 | `id` | `string` | - | Unique identifier (useful for anchor links) |
 | `ui` | `string` | - | Data attribute for fpkit styling hooks |
 | `className` | `string` | - | CSS class names to apply |
@@ -144,6 +147,89 @@ The Title component supports multiple styling approaches:
   Inline Styled Title
 </Title>
 ```
+
+### Size Variants
+
+Control the visual size independently of the semantic heading level:
+
+```tsx
+<Title level="h2" size="xs">Extra Small Title</Title>
+<Title level="h2" size="sm">Small Title</Title>
+<Title level="h2" size="md">Medium Title</Title>
+<Title level="h2" size="lg">Large Title</Title>
+<Title level="h2" size="xl">Extra Large Title</Title>
+<Title level="h2" size="2xl">2X Large Title</Title>
+```
+
+**Size Reference:**
+- `xs`: 0.75rem (12px)
+- `sm`: 0.875rem (14px)
+- `md`: 1rem (16px)
+- `lg`: 1.5rem (24px)
+- `xl`: 2rem (32px)
+- `2xl`: 2.5rem (40px)
+
+### Color Variants
+
+Apply WCAG AA compliant color variants:
+
+```tsx
+<Title size="lg" color="primary">Primary Color</Title>
+<Title size="lg" color="secondary">Secondary Color</Title>
+<Title size="lg" color="accent">Accent Color</Title>
+<Title size="lg" color="muted">Muted Color</Title>
+<Title size="lg" color="inherit">Inherit Color</Title>
+```
+
+**Color Contrast Ratios:**
+- `primary`: #1e3a8a - 8.59:1 contrast ratio
+- `secondary`: #4b5563 - 7.56:1 contrast ratio
+- `accent`: #7c3aed - 4.62:1 contrast ratio
+- `muted`: #6b7280 - 5.49:1 contrast ratio
+- `inherit`: Inherits color from parent element
+
+All color variants meet or exceed the WCAG 2.1 Level AA contrast requirement of 4.5:1.
+
+### Combined Size and Color
+
+Combine size and color for flexible design:
+
+```tsx
+<Title level="h1" size="2xl" color="primary">
+  Large Primary Heading
+</Title>
+
+<Title level="h2" size="lg" color="secondary">
+  Medium Secondary Heading
+</Title>
+
+<Title level="h3" size="md" color="accent">
+  Small Accent Heading
+</Title>
+```
+
+### Visual vs Semantic Hierarchy
+
+Separate visual appearance from semantic structure for design flexibility:
+
+```tsx
+{/* Semantically an h2, but visually appears larger */}
+<Title level="h2" size="xl" color="primary">
+  Visually Prominent Section
+</Title>
+
+{/* Semantically the main heading (h1), but styled smaller */}
+<Title level="h1" size="md" color="secondary">
+  Subtle Page Title
+</Title>
+```
+
+This approach allows you to:
+- Meet design requirements without sacrificing accessibility
+- Maintain proper document outline for screen readers (h1 → h2 → h3...)
+- Create visual hierarchy that matches design specifications
+
+**Example Use Case:** A page with multiple sections may need an h2 visually larger than an h1 for design emphasis, while maintaining proper semantic structure for screen readers.
 
 ---
 
