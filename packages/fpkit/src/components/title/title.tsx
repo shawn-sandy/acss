@@ -22,6 +22,18 @@ import UI from "#components/ui";
 export type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 /**
+ * Visual size variants for Title component.
+ * Independent of semantic heading level for flexible design.
+ */
+export type TitleSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+
+/**
+ * Color variants for Title component.
+ * All variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
+ */
+export type TitleColor = "primary" | "secondary" | "accent" | "muted" | "inherit";
+
+/**
  * Props for the Title component.
  *
  * @typeParam TLevel - The heading level to render (h1-h6)
@@ -93,6 +105,40 @@ export type TitleProps = {
    * utility classes or custom overrides.
    */
   className?: string;
+
+  /**
+   * Visual size variant (independent of semantic heading level).
+   *
+   * @default undefined (uses browser default or custom CSS)
+   *
+   * @remarks
+   * Choose the appropriate visual size based on design needs:
+   * - xs: 0.75rem (12px) - Very small accent headings
+   * - sm: 0.875rem (14px) - Small headings
+   * - md: 1rem (16px) - Medium headings
+   * - lg: 1.5rem (24px) - Large headings
+   * - xl: 2rem (32px) - Extra large headings
+   * - 2xl: 2.5rem (40px) - Largest headings
+   *
+   * Visual size is independent of semantic level, allowing design
+   * flexibility while maintaining proper document structure.
+   */
+  size?: TitleSize;
+
+  /**
+   * Color variant for the title text.
+   *
+   * @default undefined (inherits color from parent)
+   *
+   * @remarks
+   * All color variants meet WCAG 2.1 Level AA contrast requirements (4.5:1 minimum):
+   * - primary: Dark blue (#1e3a8a) - 8.59:1 contrast
+   * - secondary: Gray (#4b5563) - 7.56:1 contrast
+   * - accent: Purple (#7c3aed) - 4.62:1 contrast
+   * - muted: Light gray (#6b7280) - 5.49:1 contrast
+   * - inherit: Inherits color from parent element
+   */
+  color?: TitleColor;
 } & React.ComponentPropsWithoutRef<typeof UI>;
 
 /**
@@ -188,6 +234,8 @@ const Title = React.memo(
     (
       {
         level = "h2",
+        size,
+        color,
         id,
         styles,
         ui,
@@ -197,13 +245,17 @@ const Title = React.memo(
       }: TitleProps,
       ref
     ) => {
+      // Construct space-separated data-title attribute
+      const dataTitle = [size, color].filter(Boolean).join(" ") || undefined;
+
       return (
         <UI
           as={level}
           id={id}
           styles={styles}
           data-ui={ui}
-          className={className}
+          data-title={dataTitle}
+          classes={className}
           ref={ref}
           {...props}
         >

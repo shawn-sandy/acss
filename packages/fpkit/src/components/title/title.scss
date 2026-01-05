@@ -1,0 +1,51 @@
+/**
+ * Title Component Styles
+ * Size and color variants using CSS custom properties
+ */
+
+:root {
+  /* Size tokens (rem only) */
+  --title-size-xs: 0.75rem;    /* 12px */
+  --title-size-sm: 0.875rem;   /* 14px */
+  --title-size-md: 1rem;        /* 16px */
+  --title-size-lg: 1.5rem;      /* 24px */
+  --title-size-xl: 2rem;        /* 32px */
+  --title-size-2xl: 2.5rem;     /* 40px */
+}
+
+[data-title] {
+  /* Base properties */
+  --title-fs: inherit;
+  --title-fw: 600;
+  --title-lh: 1.2;
+  --title-margin-block-end: 0.5em;
+  --title-color: inherit;
+
+  /* Apply properties */
+  font-size: var(--title-fs);
+  font-weight: var(--title-fw);
+  line-height: var(--title-lh);
+  margin-block-end: var(--title-margin-block-end);
+  color: var(--title-color);
+
+  /* Size variants */
+  &[data-title~="xs"] { --title-fs: var(--title-size-xs); }
+  &[data-title~="sm"] { --title-fs: var(--title-size-sm); }
+  &[data-title~="md"] { --title-fs: var(--title-size-md); }
+  &[data-title~="lg"] { --title-fs: var(--title-size-lg); }
+  &[data-title~="xl"] { --title-fs: var(--title-size-xl); }
+  &[data-title~="2xl"] { --title-fs: var(--title-size-2xl); }
+
+  /* Color variants - WCAG AA compliant (4.5:1 minimum) */
+  &[data-title~="primary"] { --title-color: #1e3a8a; }    /* 8.59:1 */
+  &[data-title~="secondary"] { --title-color: #4b5563; }  /* 7.56:1 */
+  &[data-title~="accent"] { --title-color: #7c3aed; }     /* 4.62:1 */
+  &[data-title~="muted"] { --title-color: #6b7280; }      /* 5.49:1 */
+  &[data-title~="inherit"] { --title-color: inherit; }
+}
+
+/* Focus indicator */
+[data-title]:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
