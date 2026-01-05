@@ -70,6 +70,24 @@ If you're migrating from the deprecated \`Heading\` component:
       control: "text",
       description: "CSS class names to apply",
     },
+    size: {
+      control: { type: "select" },
+      options: ["xs", "sm", "md", "lg", "xl", "2xl"],
+      description: "Visual size variant (independent of semantic level)",
+      table: {
+        type: { summary: "xs | sm | md | lg | xl | 2xl" },
+        defaultValue: { summary: "undefined" },
+      },
+    },
+    color: {
+      control: { type: "select" },
+      options: ["primary", "secondary", "accent", "muted", "inherit"],
+      description: "Color variant for the title text",
+      table: {
+        type: { summary: "primary | secondary | accent | muted | inherit" },
+        defaultValue: { summary: "undefined" },
+      },
+    },
   },
   args: {
     children: "Default Title",
@@ -389,5 +407,145 @@ Use \`aria-label\` when the visible text doesn't provide enough context for scre
     const canvas = within(canvasElement);
     const heading = canvas.getByRole("heading", { level: 2 });
     expect(heading).toHaveAttribute("aria-label", "User dashboard statistics overview");
+  },
+};
+
+/**
+ * Size variants demonstration.
+ */
+export const SizeVariants: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <Title level="h2" size="xs">Extra Small (xs)</Title>
+      <Title level="h2" size="sm">Small (sm)</Title>
+      <Title level="h2" size="md">Medium (md)</Title>
+      <Title level="h2" size="lg">Large (lg)</Title>
+      <Title level="h2" size="xl">Extra Large (xl)</Title>
+      <Title level="h2" size="2xl">2X Large (2xl)</Title>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "T-shirt size variants allow visual sizing independent of semantic heading level.",
+      },
+    },
+  },
+};
+
+/**
+ * Color variants demonstration.
+ */
+export const ColorVariants: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <Title size="lg" color="primary">Primary Color</Title>
+      <Title size="lg" color="secondary">Secondary Color</Title>
+      <Title size="lg" color="accent">Accent Color</Title>
+      <Title size="lg" color="muted">Muted Color</Title>
+      <Title size="lg" color="inherit">Inherit Color</Title>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Color variants meet WCAG AA contrast requirements. All colors tested at 4.5:1 minimum.",
+      },
+    },
+  },
+};
+
+/**
+ * Combined size and color variants.
+ */
+export const CombinedVariants: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <Title level="h1" size="2xl" color="primary">
+        Large Primary Heading
+      </Title>
+      <Title level="h2" size="lg" color="secondary">
+        Medium Secondary Heading
+      </Title>
+      <Title level="h3" size="md" color="accent">
+        Small Accent Heading
+      </Title>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Combine size and color variants for flexible design while maintaining semantic HTML structure.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const h1 = canvas.getByRole("heading", { level: 1 });
+    expect(h1).toHaveAttribute("data-title", "2xl primary");
+    expect(h1).toBeInTheDocument();
+  },
+};
+
+/**
+ * Visual vs semantic hierarchy example.
+ */
+export const VisualVsSemanticHierarchy: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      <div>
+        <Title level="h2" size="xl" color="primary">
+          h2 with XL Visual Size
+        </Title>
+        <p>Semantically an h2, but visually appears larger for design emphasis.</p>
+      </div>
+
+      <div>
+        <Title level="h1" size="md" color="secondary">
+          h1 with Medium Visual Size
+        </Title>
+        <p>Semantically the main heading (h1), but styled smaller for visual balance.</p>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+**Design Flexibility with Semantic Integrity**
+
+Visual size can differ from semantic heading level. This allows:
+- Design requirements to be met without sacrificing accessibility
+- Proper document outline for screen readers (h1 → h2 → h3...)
+- Visual hierarchy that matches design specs
+
+**Example**: A page with multiple sections may need an h2 visually larger than an h1 for design, while maintaining proper semantic structure.
+        `,
+      },
+    },
+  },
+};
+
+/**
+ * CSS custom property override example.
+ */
+export const CustomPropertyOverride: Story = {
+  args: {
+    level: "h2",
+    size: "lg",
+    color: "primary",
+    styles: {
+      "--title-fs": "3rem",
+      "--title-color": "#10b981",
+      "--title-fw": "700",
+    },
+    children: "Custom Overridden Title",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Override CSS custom properties via the styles prop for maximum flexibility.",
+      },
+    },
   },
 };

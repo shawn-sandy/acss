@@ -249,3 +249,116 @@ describe("Title Component - Backwards Compatibility", () => {
     });
   });
 });
+
+describe("Title Size Variants", () => {
+  it("should render with size prop and correct data-title", () => {
+    render(<Title size="lg">Large</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("data-title", "lg");
+  });
+
+  it.each([
+    ["xs"],
+    ["sm"],
+    ["md"],
+    ["lg"],
+    ["xl"],
+    ["2xl"],
+  ] as const)("should render size variant %s", (size) => {
+    render(<Title size={size}>{size} Title</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("data-title", size);
+  });
+});
+
+describe("Title Color Variants", () => {
+  it("should render with color prop and correct data-title", () => {
+    render(<Title color="primary">Primary</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("data-title", "primary");
+  });
+
+  it.each([
+    ["primary"],
+    ["secondary"],
+    ["accent"],
+    ["muted"],
+    ["inherit"],
+  ] as const)("should render color variant %s", (color) => {
+    render(<Title color={color}>{color} Title</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("data-title", color);
+  });
+});
+
+describe("Combined Size and Color Variants", () => {
+  it("should combine size and color in data-title attribute", () => {
+    render(<Title size="lg" color="primary">Combined</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("data-title", "lg primary");
+  });
+
+  it("should render only size when no color provided", () => {
+    render(<Title size="xl">Size Only</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("data-title", "xl");
+  });
+
+  it("should render only color when no size provided", () => {
+    render(<Title color="accent">Color Only</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("data-title", "accent");
+  });
+
+  it("should render no data-title when no variants provided", () => {
+    render(<Title>No Variants</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).not.toHaveAttribute("data-title");
+  });
+});
+
+describe("Backward Compatibility with New Props", () => {
+  it("should maintain className functionality with variants", () => {
+    render(<Title size="lg" className="custom-class">Custom</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveClass("custom-class");
+    expect(heading).toHaveAttribute("data-title", "lg");
+  });
+
+  it("should maintain styles prop functionality with variants", () => {
+    render(<Title color="primary" styles={{ marginTop: "2rem" }}>Styled</Title>);
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveStyle({ marginTop: "2rem" });
+    expect(heading).toHaveAttribute("data-title", "primary");
+  });
+
+  it("should preserve semantic heading level with visual size", () => {
+    render(<Title level="h3" size="xl">Large h3</Title>);
+    const heading = screen.getByRole("heading", { level: 3 });
+    expect(heading).toBeInTheDocument();
+    expect(heading).toHaveAttribute("data-title", "xl");
+    expect(heading.tagName.toLowerCase()).toBe("h3");
+  });
+
+  it("should work with all existing props plus new variants", () => {
+    render(
+      <Title
+        level="h2"
+        size="lg"
+        color="primary"
+        id="test-id"
+        className="test-class"
+        ui="section-title"
+        styles={{ padding: "1rem" }}
+      >
+        Full Props Test
+      </Title>
+    );
+    const heading = screen.getByRole("heading", { level: 2 });
+    expect(heading).toHaveAttribute("id", "test-id");
+    expect(heading).toHaveClass("test-class");
+    expect(heading).toHaveAttribute("data-ui", "section-title");
+    expect(heading).toHaveAttribute("data-title", "lg primary");
+    expect(heading).toHaveStyle({ padding: "1rem" });
+  });
+});
