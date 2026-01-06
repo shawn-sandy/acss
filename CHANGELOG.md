@@ -5,6 +5,23 @@ All notable changes to @fpkit/acss will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.0] - 2026-01-06
+
+### Added
+- Title component with size variants (xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl) via `data-title` attribute
+- Title component with color variants (primary, secondary, accent, danger, warning, success, info) via `data-title` attribute
+- Comprehensive Storybook documentation for title size and color variants
+- Responsive documentation improvements for layout components
+
+### Fixed
+- Columns component JSX syntax error in responsive examples
+- Enhanced responsive documentation clarity for columns component
+
+### Changed
+- Layout components (Header, Main, Footer, Aside) marked as beta status in Storybook
+- Improved story formatting and organization for layout components
+- Updated Storybook stories with better examples and documentation
+
 ## [1.0.0-beta.0] - 2025-11-04
 
 > **Beta Release** - This is a pre-release version for testing. Please test thoroughly and report any issues before the final 1.0.0 release.
