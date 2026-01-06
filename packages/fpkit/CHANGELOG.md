@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.6.0...@fpkit/acss@3.7.0) (2026-01-06)
+
+
+### Bug Fixes
+
+* **columns:** resolve JSX syntax error and enhance responsive docs ([8d04c64](https://github.com/shawn-sandy/fpkit/commit/8d04c64e67ed64d1606f7162283aafa551bad0f1))
+
+
+### Features
+
+* **title:** add size and color variants with data-title attributes ([1e93884](https://github.com/shawn-sandy/fpkit/commit/1e93884becb94e8ae215180ba5adb9660fdbfa7f))
+
+
+
+
+
 # [3.6.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.4.0...@fpkit/acss@3.6.0) (2026-01-04)
 
 
