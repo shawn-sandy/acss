@@ -1,22 +1,27 @@
-import { Meta } from "@storybook/addon-docs/blocks";
-
 <Meta title="FP.REACT Forms/Form/Readme" />
 
 # Form Components
 
-A comprehensive set of accessible React form components built with TypeScript, designed for building robust, WCAG 2.1 AA compliant forms with proper validation, error handling, and status management.
+A comprehensive set of accessible React form components built with TypeScript,
+designed for building robust, WCAG 2.1 AA compliant forms with proper
+validation, error handling, and status management.
 
-> 💡 **Interactive Examples**: See the [Form stories](./?path=/docs/fp-react-forms-form--docs) for live, interactive examples with automated accessibility testing.
+> 💡 **Interactive Examples**: See the
+> [Form stories](./?path=/docs/fp-react-forms-form--docs) for live, interactive
+> examples with automated accessibility testing.
 
 ## Features
 
-- ✅ **WCAG 2.1 AA Compliant** - Full accessibility support with proper ARIA attributes
-- ✅ **Compound Component Pattern** - Intuitive API with Form.Field, Form.Input, etc.
+- ✅ **WCAG 2.1 AA Compliant** - Full accessibility support with proper ARIA
+  attributes
+- ✅ **Compound Component Pattern** - Intuitive API with Form.Field, Form.Input,
+  etc.
 - ✅ **TypeScript First** - Full type safety with comprehensive interfaces
 - ✅ **Status Management** - Built-in loading states and submission tracking
 - ✅ **Validation Support** - Client-side and server-side validation patterns
 - ✅ **Flexible** - Supports both controlled and uncontrolled form patterns
-- ✅ **Keyboard Navigation** - Full keyboard accessibility including Enter key handlers
+- ✅ **Keyboard Navigation** - Full keyboard accessibility including Enter key
+  handlers
 
 ---
 
@@ -24,22 +29,22 @@ A comprehensive set of accessible React form components built with TypeScript, d
 
 ### Core Components
 
-| Component | Purpose | Key Props |
-|-----------|---------|-----------|
-| **Form** | Form wrapper with submission handling | `onSubmit`, `status`, `noValidate` |
-| **Form.Field** | Label + input wrapper for accessibility | `label`, `labelFor`, `required`, `optional` |
-| **Form.Input** | Text input with validation | `type`, `validationState`, `onEnter` |
-| **Form.Textarea** | Multi-line text input | `rows`, `cols`, `onEnter` |
-| **Form.Select** | Dropdown select with options | `onSelectionChange`, `onEnter` |
+| Component         | Purpose                                 | Key Props                                   |
+| ----------------- | --------------------------------------- | ------------------------------------------- |
+| **Form**          | Form wrapper with submission handling   | `onSubmit`, `status`, `noValidate`          |
+| **Form.Field**    | Label + input wrapper for accessibility | `label`, `labelFor`, `required`, `optional` |
+| **Form.Input**    | Text input with validation              | `type`, `validationState`, `onEnter`        |
+| **Form.Textarea** | Multi-line text input                   | `rows`, `cols`, `onEnter`                   |
+| **Form.Select**   | Dropdown select with options            | `onSelectionChange`, `onEnter`              |
 
 ---
 
 ## Installation & Import
 
 ```tsx
-import Form from '@fpkit/acss';
+import Form from "@fpkit/acss";
 // Or import specific components
-import { Form, Input, Field } from '@fpkit/acss';
+import { Form, Input, Field } from "@fpkit/acss";
 ```
 
 ---
@@ -48,10 +53,11 @@ import { Form, Input, Field } from '@fpkit/acss';
 
 ### Simple Contact Form
 
-A basic form with required fields, proper label associations, and submission handling.
+A basic form with required fields, proper label associations, and submission
+handling.
 
 ```tsx
-import Form from '@fpkit/acss';
+import Form from "@fpkit/acss";
 
 function ContactForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,33 +91,34 @@ function ContactForm() {
 
 ### Form with Status Management
 
-Use the `status` prop to manage form submission states. This example shows how the form automatically sets `aria-busy` and disables fields during submission.
+Use the `status` prop to manage form submission states. This example shows how
+the form automatically sets `aria-busy` and disables fields during submission.
 
 ```tsx
-import { useState } from 'react';
-import Form, { FormStatus } from '@fpkit/acss';
+import { useState } from "react";
+import Form, { FormStatus } from "@fpkit/acss";
 
 function RegistrationForm() {
-  const [status, setStatus] = useState<FormStatus>('idle');
+  const [status, setStatus] = useState<FormStatus>("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setStatus('submitting');
+    setStatus("submitting");
 
     try {
       const formData = new FormData(e.currentTarget);
-      await fetch('/api/register', {
-        method: 'POST',
+      await fetch("/api/register", {
+        method: "POST",
         body: formData,
       });
-      setStatus('success');
+      setStatus("success");
     } catch (error) {
-      setStatus('error');
+      setStatus("error");
     }
   };
 
-  const isSubmitting = status === 'submitting';
+  const isSubmitting = status === "submitting";
 
   return (
     <Form
@@ -140,11 +147,11 @@ function RegistrationForm() {
       </Form.Field>
 
       <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting...' : 'Create Account'}
+        {isSubmitting ? "Submitting..." : "Create Account"}
       </button>
 
-      {status === 'success' && <p>Account created successfully!</p>}
-      {status === 'error' && <p>Error creating account. Please try again.</p>}
+      {status === "success" && <p>Account created successfully!</p>}
+      {status === "error" && <p>Error creating account. Please try again.</p>}
     </Form>
   );
 }
@@ -152,23 +159,24 @@ function RegistrationForm() {
 
 ### Form with Validation
 
-Implement client-side validation with error messages. Notice how the input uses `validationState` to show visual feedback and `aria-invalid` for screen readers.
+Implement client-side validation with error messages. Notice how the input uses
+`validationState` to show visual feedback and `aria-invalid` for screen readers.
 
 ```tsx
-import { useState } from 'react';
-import Form from '@fpkit/acss';
+import { useState } from "react";
+import Form from "@fpkit/acss";
 
 function ValidatedForm() {
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const validateEmail = (value: string) => {
     if (!value) {
-      setEmailError('Email is required');
+      setEmailError("Email is required");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      setEmailError('Please enter a valid email address');
+      setEmailError("Please enter a valid email address");
     } else {
-      setEmailError('');
+      setEmailError("");
     }
   };
 
@@ -194,7 +202,7 @@ function ValidatedForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           onBlur={(e) => validateEmail(e.target.value)}
-          validationState={emailError ? 'invalid' : email ? 'valid' : 'none'}
+          validationState={emailError ? "invalid" : email ? "valid" : "none"}
           required
         />
       </Form.Field>
@@ -207,17 +215,18 @@ function ValidatedForm() {
 
 ### Keyboard-Driven Workflows
 
-Use the `onEnter` prop for keyboard-friendly interactions. This example demonstrates `onEnter` on inputs, textareas, and selects.
+Use the `onEnter` prop for keyboard-friendly interactions. This example
+demonstrates `onEnter` on inputs, textareas, and selects.
 
 ```tsx
-import { useState } from 'react';
-import Form from '@fpkit/acss';
+import { useState } from "react";
+import Form from "@fpkit/acss";
 
 function SearchForm() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const handleSearch = () => {
-    console.log('Searching for:', query);
+    console.log("Searching for:", query);
     // Perform search
   };
 
@@ -268,23 +277,29 @@ function ServerSideForm() {
 
 ## Disabled State
 
-Form components support an accessible disabled state using the `aria-disabled` pattern, which provides better accessibility than the native HTML `disabled` attribute.
+Form components support an accessible disabled state using the `aria-disabled`
+pattern, which provides better accessibility than the native HTML `disabled`
+attribute.
 
 ### Why aria-disabled?
 
 The `aria-disabled` pattern offers key advantages:
 
-- **Keyboard Accessibility**: Disabled elements remain in the tab order, allowing keyboard users to discover them
-- **Screen Reader Discovery**: Screen readers can announce the disabled state and read associated tooltips or help text
-- **WCAG Compliance**: Meets WCAG 2.1.1 (Keyboard) and 4.1.2 (Name, Role, Value) requirements
-- **Interactive Help**: Enables tooltips or contextual help on disabled elements to explain why they're disabled
+- **Keyboard Accessibility**: Disabled elements remain in the tab order,
+  allowing keyboard users to discover them
+- **Screen Reader Discovery**: Screen readers can announce the disabled state
+  and read associated tooltips or help text
+- **WCAG Compliance**: Meets WCAG 2.1.1 (Keyboard) and 4.1.2 (Name, Role, Value)
+  requirements
+- **Interactive Help**: Enables tooltips or contextual help on disabled elements
+  to explain why they're disabled
 
 ### Basic Usage
 
 Use the `disabled` prop to disable form inputs, textareas, and selects:
 
 ```tsx
-import Form from '@fpkit/acss';
+import Form from "@fpkit/acss";
 
 function DisabledInputExample() {
   return (
@@ -300,11 +315,7 @@ function DisabledInputExample() {
       </Form.Field>
 
       <Form.Field label="Comments" labelFor="comments">
-        <Form.Textarea
-          id="comments"
-          name="comments"
-          disabled={true}
-        />
+        <Form.Textarea id="comments" name="comments" disabled={true} />
       </Form.Field>
 
       <Form.Field label="Country" labelFor="country">
@@ -320,48 +331,52 @@ function DisabledInputExample() {
 
 ### Migration from isDisabled
 
-For backward compatibility, the deprecated `isDisabled` prop is still supported but will be removed in a future version.
+For backward compatibility, the deprecated `isDisabled` prop is still supported
+but will be removed in a future version.
 
 **Before (deprecated):**
+
 ```tsx
 <Form.Input isDisabled={true} />
 ```
 
 **After (recommended):**
+
 ```tsx
 <Form.Input disabled={true} />
 ```
 
-Both props work identically, but `disabled` follows standard HTML conventions and should be used for all new code.
+Both props work identically, but `disabled` follows standard HTML conventions
+and should be used for all new code.
 
 ### Disabled State During Form Submission
 
 A common pattern is disabling all form fields while a form is submitting:
 
 ```tsx
-import { useState } from 'react';
-import Form, { FormStatus } from '@fpkit/acss';
+import { useState } from "react";
+import Form, { FormStatus } from "@fpkit/acss";
 
 function SubmitDisabledForm() {
-  const [status, setStatus] = useState<FormStatus>('idle');
+  const [status, setStatus] = useState<FormStatus>("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('submitting');
+    setStatus("submitting");
 
     try {
       const formData = new FormData(e.currentTarget);
-      await fetch('/api/save', {
-        method: 'POST',
+      await fetch("/api/save", {
+        method: "POST",
         body: formData,
       });
-      setStatus('success');
+      setStatus("success");
     } catch (error) {
-      setStatus('error');
+      setStatus("error");
     }
   };
 
-  const isSubmitting = status === 'submitting';
+  const isSubmitting = status === "submitting";
 
   return (
     <Form status={status} onSubmit={handleSubmit}>
@@ -375,15 +390,11 @@ function SubmitDisabledForm() {
       </Form.Field>
 
       <Form.Field label="Bio" labelFor="bio">
-        <Form.Textarea
-          id="bio"
-          name="bio"
-          disabled={isSubmitting}
-        />
+        <Form.Textarea id="bio" name="bio" disabled={isSubmitting} />
       </Form.Field>
 
       <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Saving...' : 'Save Profile'}
+        {isSubmitting ? "Saving..." : "Save Profile"}
       </button>
     </Form>
   );
@@ -394,10 +405,14 @@ function SubmitDisabledForm() {
 
 When a form control is disabled:
 
-- **Keyboard Navigation**: Element remains focusable via Tab key (maintains tab order)
-- **Interaction Prevention**: All interaction events are prevented (click, change, keydown, etc.)
-- **Focus Events**: Focus events still work, allowing screen readers to discover and announce the element
-- **Visual Styling**: `.is-disabled` class and `aria-disabled="true"` attribute are applied
+- **Keyboard Navigation**: Element remains focusable via Tab key (maintains tab
+  order)
+- **Interaction Prevention**: All interaction events are prevented (click,
+  change, keydown, etc.)
+- **Focus Events**: Focus events still work, allowing screen readers to discover
+  and announce the element
+- **Visual Styling**: `.is-disabled` class and `aria-disabled="true"` attribute
+  are applied
 - **Screen Readers**: Announce "disabled" state when focused
 
 ### Styling
@@ -406,9 +421,9 @@ Disabled elements can be styled using CSS custom properties:
 
 ```css
 :root {
-  --disabled-opacity: 0.6;            /* Visual opacity for disabled state */
-  --disabled-cursor: not-allowed;     /* Cursor style */
-  --disabled-color: hsl(0 0% 40%);    /* Text color (3:1 contrast minimum) */
+  --disabled-opacity: 0.6; /* Visual opacity for disabled state */
+  --disabled-cursor: not-allowed; /* Cursor style */
+  --disabled-color: hsl(0 0% 40%); /* Text color (3:1 contrast minimum) */
 }
 ```
 
@@ -418,13 +433,14 @@ Override these properties for custom styling:
 <Form.Input
   disabled={true}
   styles={{
-    '--disabled-opacity': '0.5',
-    '--disabled-color': '#666666',
+    "--disabled-opacity": "0.5",
+    "--disabled-color": "#666666",
   }}
 />
 ```
 
 **Selectors Available:**
+
 - `.is-disabled` - Class added to disabled elements
 - `[aria-disabled="true"]` - Attribute selector
 
@@ -433,9 +449,11 @@ Override these properties for custom styling:
 The `aria-disabled` pattern ensures compliance with:
 
 - **WCAG 2.1.1 (Keyboard)**: Elements remain in keyboard tab order for discovery
-- **WCAG 4.1.2 (Name, Role, Value)**: `aria-disabled` announces state to screen readers
+- **WCAG 4.1.2 (Name, Role, Value)**: `aria-disabled` announces state to screen
+  readers
 - **WCAG 1.4.3 (Contrast Minimum)**: Disabled text maintains 3:1 contrast ratio
-- **WCAG 2.4.7 (Focus Visible)**: Focus indicators preserved on disabled elements
+- **WCAG 2.4.7 (Focus Visible)**: Focus indicators preserved on disabled
+  elements
 
 ---
 
@@ -447,18 +465,18 @@ The main form wrapper component.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `onSubmit` | `(event: FormEvent) => void` | - | Form submission handler (prevents default) |
-| `status` | `'idle' \| 'submitting' \| 'success' \| 'error'` | `'idle'` | Current form status |
-| `action` | `string` | - | Form submission URL |
-| `formMethod` | `'get' \| 'post'` | `'post'` | HTTP method |
-| `noValidate` | `boolean` | `false` | Disable HTML5 validation |
-| `target` | `string` | - | Form submission target |
-| `id` | `string` | - | Unique form identifier |
-| `name` | `string` | - | Form name attribute |
-| `classes` | `string` | - | CSS class names |
-| `styles` | `CSSProperties` | - | Inline styles |
+| Prop         | Type                                             | Default  | Description                                |
+| ------------ | ------------------------------------------------ | -------- | ------------------------------------------ |
+| `onSubmit`   | `(event: FormEvent) => void`                     | -        | Form submission handler (prevents default) |
+| `status`     | `'idle' \| 'submitting' \| 'success' \| 'error'` | `'idle'` | Current form status                        |
+| `action`     | `string`                                         | -        | Form submission URL                        |
+| `formMethod` | `'get' \| 'post'`                                | `'post'` | HTTP method                                |
+| `noValidate` | `boolean`                                        | `false`  | Disable HTML5 validation                   |
+| `target`     | `string`                                         | -        | Form submission target                     |
+| `id`         | `string`                                         | -        | Unique form identifier                     |
+| `name`       | `string`                                         | -        | Form name attribute                        |
+| `classes`    | `string`                                         | -        | CSS class names                            |
+| `styles`     | `CSSProperties`                                  | -        | Inline styles                              |
 
 #### Accessibility
 
@@ -472,14 +490,14 @@ Wrapper component that associates labels with inputs for accessibility.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `label` | `ReactNode` | - | **Required.** Label text or element |
-| `labelFor` | `string` | - | ID of associated input (for `htmlFor`) |
-| `required` | `boolean` | `false` | Show required indicator (*) |
-| `optional` | `boolean` | `false` | Show optional indicator |
-| `errorMessage` | `string` | - | Error message to display |
-| `hintText` | `string` | - | Helper text below input |
+| Prop           | Type        | Default | Description                            |
+| -------------- | ----------- | ------- | -------------------------------------- |
+| `label`        | `ReactNode` | -       | **Required.** Label text or element    |
+| `labelFor`     | `string`    | -       | ID of associated input (for `htmlFor`) |
+| `required`     | `boolean`   | `false` | Show required indicator (\*)           |
+| `optional`     | `boolean`   | `false` | Show optional indicator                |
+| `errorMessage` | `string`    | -       | Error message to display               |
+| `hintText`     | `string`    | -       | Helper text below input                |
 
 ### Form.Input
 
@@ -487,17 +505,17 @@ Text input component with validation support.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `type` | `string` | `'text'` | Input type (text, email, password, etc.) |
-| `validationState` | `'none' \| 'valid' \| 'invalid'` | `'none'` | Validation state |
-| `errorMessage` | `string` | - | Error message for `aria-describedby` |
-| `hintText` | `string` | - | Hint text for `aria-describedby` |
-| `onEnter` | `(event: KeyboardEvent) => void` | - | Handler for Enter key press |
-| `disabled` | `boolean` | `false` | Disable input using `aria-disabled` pattern (remains focusable) |
-| `isDisabled` | `boolean` | `false` | **Deprecated.** Use `disabled` instead |
-| `readOnly` | `boolean` | `false` | Make input read-only |
-| `required` | `boolean` | `false` | Mark input as required |
+| Prop              | Type                             | Default  | Description                                                     |
+| ----------------- | -------------------------------- | -------- | --------------------------------------------------------------- |
+| `type`            | `string`                         | `'text'` | Input type (text, email, password, etc.)                        |
+| `validationState` | `'none' \| 'valid' \| 'invalid'` | `'none'` | Validation state                                                |
+| `errorMessage`    | `string`                         | -        | Error message for `aria-describedby`                            |
+| `hintText`        | `string`                         | -        | Hint text for `aria-describedby`                                |
+| `onEnter`         | `(event: KeyboardEvent) => void` | -        | Handler for Enter key press                                     |
+| `disabled`        | `boolean`                        | `false`  | Disable input using `aria-disabled` pattern (remains focusable) |
+| `isDisabled`      | `boolean`                        | `false`  | **Deprecated.** Use `disabled` instead                          |
+| `readOnly`        | `boolean`                        | `false`  | Make input read-only                                            |
+| `required`        | `boolean`                        | `false`  | Mark input as required                                          |
 
 ### Form.Textarea
 
@@ -505,13 +523,13 @@ Multi-line text input component.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `rows` | `number` | `5` | Number of visible rows |
-| `cols` | `number` | `25` | Number of visible columns |
-| `onEnter` | `(event: KeyboardEvent) => void` | - | Handler for Enter (without Shift) |
-| `disabled` | `boolean` | `false` | Disable textarea using `aria-disabled` pattern (remains focusable) |
-| `isDisabled` | `boolean` | `false` | **Deprecated.** Use `disabled` instead |
+| Prop         | Type                             | Default | Description                                                        |
+| ------------ | -------------------------------- | ------- | ------------------------------------------------------------------ |
+| `rows`       | `number`                         | `5`     | Number of visible rows                                             |
+| `cols`       | `number`                         | `25`    | Number of visible columns                                          |
+| `onEnter`    | `(event: KeyboardEvent) => void` | -       | Handler for Enter (without Shift)                                  |
+| `disabled`   | `boolean`                        | `false` | Disable textarea using `aria-disabled` pattern (remains focusable) |
+| `isDisabled` | `boolean`                        | `false` | **Deprecated.** Use `disabled` instead                             |
 
 **Note**: Shift+Enter adds a new line without triggering `onEnter`.
 
@@ -521,13 +539,13 @@ Dropdown select component with keyboard support.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `onSelectionChange` | `(event: ChangeEvent) => void` | - | Selection change handler |
-| `onEnter` | `(event: KeyboardEvent) => void` | - | Handler for Enter key press |
-| `required` | `boolean` | `false` | Mark select as required |
-| `disabled` | `boolean` | `false` | Disable select using `aria-disabled` pattern (remains focusable) |
-| `isDisabled` | `boolean` | `false` | **Deprecated.** Use `disabled` instead |
+| Prop                | Type                             | Default | Description                                                      |
+| ------------------- | -------------------------------- | ------- | ---------------------------------------------------------------- |
+| `onSelectionChange` | `(event: ChangeEvent) => void`   | -       | Selection change handler                                         |
+| `onEnter`           | `(event: KeyboardEvent) => void` | -       | Handler for Enter key press                                      |
+| `required`          | `boolean`                        | `false` | Mark select as required                                          |
+| `disabled`          | `boolean`                        | `false` | Disable select using `aria-disabled` pattern (remains focusable) |
+| `isDisabled`        | `boolean`                        | `false` | **Deprecated.** Use `disabled` instead                           |
 
 ---
 
@@ -538,21 +556,26 @@ Dropdown select component with keyboard support.
 All form components meet WCAG 2.1 Level AA standards:
 
 1. **WCAG 3.3.1 Error Identification** ✅
+
    - Error messages clearly associated with inputs via `aria-describedby`
    - Validation states communicated via `aria-invalid`
 
 2. **WCAG 3.3.2 Labels or Instructions** ✅
+
    - All inputs have associated labels via `<label htmlFor>`
    - Required fields marked with visual and programmatic indicators
 
 3. **WCAG 4.1.2 Name, Role, Value** ✅
+
    - All inputs have proper `role`, `name`, and `aria-` attributes
    - Form status communicated via `aria-busy`
 
 4. **WCAG 2.4.7 Focus Visible** ✅
+
    - Focus indicators styled via `:focus-visible` in SCSS
 
 5. **WCAG 2.1.1 Keyboard** ✅
+
    - All interactive elements keyboard accessible
    - `onEnter` prop for custom keyboard workflows
 
@@ -640,20 +663,20 @@ input[data-validation="valid"] {
 All components are fully typed with comprehensive interfaces:
 
 ```tsx
-import Form, {
-  FormProps,
-  FormStatus,
-  InputProps
-} from '@fpkit/acss';
+import Form, { FormProps, FormStatus, InputProps } from "@fpkit/acss";
 
 const MyForm: React.FC = () => {
-  const [status, setStatus] = useState<FormStatus>('idle');
+  const [status, setStatus] = useState<FormStatus>("idle");
 
-  const handleSubmit: FormProps['onSubmit'] = (e) => {
+  const handleSubmit: FormProps["onSubmit"] = (e) => {
     // Fully typed event
   };
 
-  return <Form status={status} onSubmit={handleSubmit}>...</Form>;
+  return (
+    <Form status={status} onSubmit={handleSubmit}>
+      ...
+    </Form>
+  );
 };
 ```
 
@@ -664,10 +687,10 @@ const MyForm: React.FC = () => {
 Form components are fully tested with Vitest and React Testing Library:
 
 ```tsx
-import { render, screen, userEvent } from '@testing-library/react';
-import Form from '@fpkit/acss';
+import { render, screen, userEvent } from "@testing-library/react";
+import Form from "@fpkit/acss";
 
-test('submits form data', async () => {
+test("submits form data", async () => {
   const handleSubmit = vi.fn();
   const user = userEvent.setup();
 
@@ -678,8 +701,8 @@ test('submits form data', async () => {
     </Form>
   );
 
-  await user.type(screen.getByRole('textbox'), 'test@example.com');
-  await user.click(screen.getByRole('button'));
+  await user.type(screen.getByRole("textbox"), "test@example.com");
+  await user.click(screen.getByRole("button"));
 
   expect(handleSubmit).toHaveBeenCalled();
 });
@@ -711,11 +734,13 @@ test('submits form data', async () => {
 
 ## More Examples
 
-See the [Form Interactive Guide](./?path=/docs/fp-react-forms-form--docs) for complete examples including:
+See the [Form Interactive Guide](./?path=/docs/fp-react-forms-form--docs) for
+complete examples including:
 
 ### Form with Hint Text
 
-Guide users with helpful hint text below fields, properly associated using `aria-describedby`.
+Guide users with helpful hint text below fields, properly associated using
+`aria-describedby`.
 
 ### Form with Select Dropdown
 
@@ -727,7 +752,8 @@ Clearly distinguish between required and optional fields for better UX.
 
 ### Complete Registration Form
 
-A comprehensive example combining all features: validation, hints, different field types, and proper accessibility.
+A comprehensive example combining all features: validation, hints, different
+field types, and proper accessibility.
 
 ---
 
@@ -743,7 +769,8 @@ A comprehensive example combining all features: validation, hints, different fie
 
 ## Contributing
 
-Found an issue or have a suggestion? Please [open an issue](https://github.com/your-repo/issues) or submit a pull request.
+Found an issue or have a suggestion? Please
+[open an issue](https://github.com/your-repo/issues) or submit a pull request.
 
 ---
 

@@ -1,11 +1,12 @@
-import { Meta, Story, Canvas } from "@storybook/blocks";
+import { Meta } from "@storybook/addon-docs/blocks";
 import * as CheckboxStories from "./checkbox.stories";
 
 <Meta of={CheckboxStories} />
 
 # Checkbox
 
-Accessible checkbox component with size and color variants, validation support, and comprehensive ARIA attributes.
+Accessible checkbox component with size and color variants, validation support,
+and comprehensive ARIA attributes.
 
 ## Features
 
@@ -24,12 +25,7 @@ Accessible checkbox component with size and color variants, validation support, 
 import { Checkbox } from "@fpkit/acss";
 
 function MyForm() {
-  return (
-    <Checkbox
-      id="terms"
-      label="I accept the terms and conditions"
-    />
-  );
+  return <Checkbox id="terms" label="I accept the terms and conditions" />;
 }
 ```
 
@@ -70,12 +66,7 @@ function UncontrolledExample() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Checkbox
-        id="agree"
-        name="agree"
-        label="I agree"
-        defaultChecked={true}
-      />
+      <Checkbox id="agree" name="agree" label="I agree" defaultChecked={true} />
       <button type="submit">Submit</button>
     </form>
   );
@@ -184,10 +175,14 @@ See [STYLES.mdx](./STYLES.mdx) for complete CSS variable reference.
 
 The Checkbox component implements multiple WCAG success criteria:
 
-- **3.2.2 On Input (Level A)** - Checking the box doesn't cause unexpected context changes
-- **4.1.2 Name, Role, Value (Level A)** - Proper ARIA attributes communicate state
-- **1.4.3 Contrast (Minimum) (Level AA)** - All color variants meet 4.5:1 contrast ratio
-- **2.4.7 Focus Visible (Level AA)** - Clear focus indicators on keyboard navigation
+- **3.2.2 On Input (Level A)** - Checking the box doesn't cause unexpected
+  context changes
+- **4.1.2 Name, Role, Value (Level A)** - Proper ARIA attributes communicate
+  state
+- **1.4.3 Contrast (Minimum) (Level AA)** - All color variants meet 4.5:1
+  contrast ratio
+- **2.4.7 Focus Visible (Level AA)** - Clear focus indicators on keyboard
+  navigation
 
 ### Keyboard Support
 
@@ -206,10 +201,12 @@ The Checkbox component implements multiple WCAG success criteria:
 
 ### Best Practices
 
-1. **Always provide labels** - Use `label` or `children` prop for accessible name
+1. **Always provide labels** - Use `label` or `children` prop for accessible
+   name
 2. **Use semantic colors** - Use `error` variant for validation failures
 3. **Provide descriptions** - Use `description` prop for additional context
-4. **Group related checkboxes** - Use `<fieldset>` and `<legend>` for checkbox groups
+4. **Group related checkboxes** - Use `<fieldset>` and `<legend>` for checkbox
+   groups
 5. **Don't mix modes** - Use either controlled or uncontrolled, not both
 
 ## Props
@@ -218,21 +215,21 @@ See TypeScript types for complete prop reference with JSDoc documentation.
 
 ### Key Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `id` | `string` | **required** | Unique identifier |
-| `label` | `ReactNode` | - | Label text |
-| `children` | `ReactNode` | - | Alternative to label |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size variant |
-| `color` | `"primary" \| "secondary" \| "error" \| "success"` | `"primary"` | Color variant |
-| `checked` | `boolean` | - | Controlled mode |
-| `defaultChecked` | `boolean` | - | Uncontrolled mode |
-| `indeterminate` | `boolean` | `false` | Indeterminate state |
-| `disabled` | `boolean` | - | Disabled state |
-| `required` | `boolean` | `false` | Required field |
-| `validationState` | `"valid" \| "invalid" \| "none"` | `"none"` | Validation state |
-| `errorMessage` | `string` | - | Error message |
-| `description` | `string` | - | Helper text |
+| Prop              | Type                                               | Default      | Description          |
+| ----------------- | -------------------------------------------------- | ------------ | -------------------- |
+| `id`              | `string`                                           | **required** | Unique identifier    |
+| `label`           | `ReactNode`                                        | -            | Label text           |
+| `children`        | `ReactNode`                                        | -            | Alternative to label |
+| `size`            | `"sm" \| "md" \| "lg"`                             | `"md"`       | Size variant         |
+| `color`           | `"primary" \| "secondary" \| "error" \| "success"` | `"primary"`  | Color variant        |
+| `checked`         | `boolean`                                          | -            | Controlled mode      |
+| `defaultChecked`  | `boolean`                                          | -            | Uncontrolled mode    |
+| `indeterminate`   | `boolean`                                          | `false`      | Indeterminate state  |
+| `disabled`        | `boolean`                                          | -            | Disabled state       |
+| `required`        | `boolean`                                          | `false`      | Required field       |
+| `validationState` | `"valid" \| "invalid" \| "none"`                   | `"none"`     | Validation state     |
+| `errorMessage`    | `string`                                           | -            | Error message        |
+| `description`     | `string`                                           | -            | Helper text          |
 
 ## Examples
 

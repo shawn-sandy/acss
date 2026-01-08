@@ -1,14 +1,17 @@
-import { Meta } from "@storybook/blocks";
+import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="FP.React Components/Checkbox/Styles" />
+<Meta title="FP.React Forms/Inputs/Checkbox/Styles" />
 
 # Checkbox CSS Variables
 
-Complete reference for customizing the Checkbox component using CSS custom properties.
+Complete reference for customizing the Checkbox component using CSS custom
+properties.
 
 ## Overview
 
-The Checkbox component uses CSS custom properties for flexible theming and customization. All properties follow the standardized naming convention: `--checkbox-{element}-{variant}-{property}`.
+The Checkbox component uses CSS custom properties for flexible theming and
+customization. All properties follow the standardized naming convention:
+`--checkbox-{element}-{variant}-{property}`.
 
 ## Quick Start
 
@@ -44,84 +47,91 @@ The Checkbox component uses CSS custom properties for flexible theming and custo
 Control checkbox dimensions with size tokens:
 
 ```css
---checkbox-size-sm: 1rem;        /* 16px - Small */
---checkbox-size-md: 1.25rem;     /* 20px - Medium (default) */
---checkbox-size-lg: 1.5rem;      /* 24px - Large */
+--checkbox-size-sm: 1rem; /* 16px - Small */
+--checkbox-size-md: 1.25rem; /* 20px - Medium (default) */
+--checkbox-size-lg: 1.5rem; /* 24px - Large */
 ```
 
 **Usage:**
+
 ```css
-[data-checkbox~="sm"] { --checkbox-size: var(--checkbox-size-sm); }
-[data-checkbox~="md"] { --checkbox-size: var(--checkbox-size-md); }
-[data-checkbox~="lg"] { --checkbox-size: var(--checkbox-size-lg); }
+[data-checkbox~="sm"] {
+  --checkbox-size: var(--checkbox-size-sm);
+}
+[data-checkbox~="md"] {
+  --checkbox-size: var(--checkbox-size-md);
+}
+[data-checkbox~="lg"] {
+  --checkbox-size: var(--checkbox-size-lg);
+}
 ```
 
 ## Base Properties
 
 Core checkbox styling properties:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `--checkbox-size` | `var(--checkbox-size-md)` | Width and height of checkbox |
-| `--checkbox-bg` | `#ffffff` | Background color (unchecked) |
-| `--checkbox-border` | `0.125rem solid #6b7280` | Border style |
-| `--checkbox-border-color` | `#6b7280` | Border color |
-| `--checkbox-radius` | `0.25rem` | Border radius (4px) |
-| `--checkbox-cursor` | `pointer` | Cursor style |
-| `--checkbox-transition` | `all 0.2s cubic-bezier(...)` | Transition animation |
+| Variable                  | Default                      | Description                  |
+| ------------------------- | ---------------------------- | ---------------------------- |
+| `--checkbox-size`         | `var(--checkbox-size-md)`    | Width and height of checkbox |
+| `--checkbox-bg`           | `#ffffff`                    | Background color (unchecked) |
+| `--checkbox-border`       | `0.125rem solid #6b7280`     | Border style                 |
+| `--checkbox-border-color` | `#6b7280`                    | Border color                 |
+| `--checkbox-radius`       | `0.25rem`                    | Border radius (4px)          |
+| `--checkbox-cursor`       | `pointer`                    | Cursor style                 |
+| `--checkbox-transition`   | `all 0.2s cubic-bezier(...)` | Transition animation         |
 
 ## Checkmark Properties
 
 Styling for the checkmark indicator:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `--checkbox-checkmark-color` | `#ffffff` | Checkmark color |
-| `--checkbox-checkmark-opacity` | `0` | Opacity when unchecked |
-| `--checkbox-checkmark-transform` | `scale(0.7)` | Scale when unchecked |
+| Variable                         | Default      | Description            |
+| -------------------------------- | ------------ | ---------------------- |
+| `--checkbox-checkmark-color`     | `#ffffff`    | Checkmark color        |
+| `--checkbox-checkmark-opacity`   | `0`          | Opacity when unchecked |
+| `--checkbox-checkmark-transform` | `scale(0.7)` | Scale when unchecked   |
 
 ## Label Properties
 
 Label text styling:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `--checkbox-label-gap` | `0.5rem` | Gap between checkbox and label (8px) |
-| `--checkbox-label-fs` | `1rem` | Label font size (16px) |
-| `--checkbox-label-color` | `inherit` | Label text color |
-| `--checkbox-label-cursor` | `pointer` | Label cursor style |
-| `--checkbox-label-fw` | `400` | Label font weight |
+| Variable                  | Default   | Description                          |
+| ------------------------- | --------- | ------------------------------------ |
+| `--checkbox-label-gap`    | `0.5rem`  | Gap between checkbox and label (8px) |
+| `--checkbox-label-fs`     | `1rem`    | Label font size (16px)               |
+| `--checkbox-label-color`  | `inherit` | Label text color                     |
+| `--checkbox-label-cursor` | `pointer` | Label cursor style                   |
+| `--checkbox-label-fw`     | `400`     | Label font weight                    |
 
 ## Description Properties
 
 Helper text styling:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `--checkbox-description-fs` | `0.875rem` | Font size (14px) |
-| `--checkbox-description-color` | `#6b7280` | Text color (Gray 500) |
-| `--checkbox-description-margin-block-start` | `0.25rem` | Top margin (4px) |
-| `--checkbox-description-padding-inline-start` | `calc(...)` | Left padding |
+| Variable                                      | Default     | Description           |
+| --------------------------------------------- | ----------- | --------------------- |
+| `--checkbox-description-fs`                   | `0.875rem`  | Font size (14px)      |
+| `--checkbox-description-color`                | `#6b7280`   | Text color (Gray 500) |
+| `--checkbox-description-margin-block-start`   | `0.25rem`   | Top margin (4px)      |
+| `--checkbox-description-padding-inline-start` | `calc(...)` | Left padding          |
 
 ## Error Message Properties
 
 Error text styling:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `--checkbox-error-fs` | `0.875rem` | Font size (14px) |
-| `--checkbox-error-color` | `#dc2626` | Text color (Red 600) |
-| `--checkbox-error-margin-block-start` | `0.25rem` | Top margin (4px) |
-| `--checkbox-error-padding-inline-start` | `calc(...)` | Left padding |
+| Variable                                | Default     | Description          |
+| --------------------------------------- | ----------- | -------------------- |
+| `--checkbox-error-fs`                   | `0.875rem`  | Font size (14px)     |
+| `--checkbox-error-color`                | `#dc2626`   | Text color (Red 600) |
+| `--checkbox-error-margin-block-start`   | `0.25rem`   | Top margin (4px)     |
+| `--checkbox-error-padding-inline-start` | `calc(...)` | Left padding         |
 
 ## Required Indicator
 
 Required asterisk styling:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
+| Variable                    | Default   | Description     |
+| --------------------------- | --------- | --------------- |
 | `--checkbox-required-color` | `#dc2626` | Color (Red 600) |
-| `--checkbox-required-fw` | `600` | Font weight |
+| `--checkbox-required-fw`    | `600`     | Font weight     |
 
 ## Color Variants
 
@@ -130,7 +140,7 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 ### Primary (Blue)
 
 ```css
---checkbox-primary-checked-bg: #2563eb;              /* 4.68:1 contrast */
+--checkbox-primary-checked-bg: #2563eb; /* 4.68:1 contrast */
 --checkbox-primary-checked-border: #2563eb;
 --checkbox-primary-hover-border: #3b82f6;
 --checkbox-primary-focus-outline-color: #93c5fd;
@@ -139,7 +149,7 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 ### Secondary (Gray)
 
 ```css
---checkbox-secondary-checked-bg: #4b5563;            /* 7.56:1 contrast */
+--checkbox-secondary-checked-bg: #4b5563; /* 7.56:1 contrast */
 --checkbox-secondary-checked-border: #4b5563;
 --checkbox-secondary-hover-border: #6b7280;
 --checkbox-secondary-focus-outline-color: #9ca3af;
@@ -148,7 +158,7 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 ### Error (Red)
 
 ```css
---checkbox-error-checked-bg: #dc2626;                /* 5.14:1 contrast */
+--checkbox-error-checked-bg: #dc2626; /* 5.14:1 contrast */
 --checkbox-error-checked-border: #dc2626;
 --checkbox-error-hover-border: #ef4444;
 --checkbox-error-focus-outline-color: #fca5a5;
@@ -157,7 +167,7 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 ### Success (Green)
 
 ```css
---checkbox-success-checked-bg: #16a34a;              /* 4.54:1 contrast */
+--checkbox-success-checked-bg: #16a34a; /* 4.54:1 contrast */
 --checkbox-success-checked-border: #16a34a;
 --checkbox-success-hover-border: #22c55e;
 --checkbox-success-focus-outline-color: #86efac;
@@ -234,9 +244,9 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 ```css
 .mobile-form {
   /* Increase size for mobile devices */
-  --checkbox-size: 1.75rem;           /* 28px */
-  --checkbox-label-fs: 1.125rem;      /* 18px */
-  --checkbox-label-gap: 0.75rem;      /* 12px */
+  --checkbox-size: 1.75rem; /* 28px */
+  --checkbox-label-fs: 1.125rem; /* 18px */
+  --checkbox-label-gap: 0.75rem; /* 12px */
 }
 ```
 
@@ -244,7 +254,7 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 
 ```css
 .rounded-checkboxes {
-  --checkbox-radius: 100rem;          /* Fully rounded */
+  --checkbox-radius: 100rem; /* Fully rounded */
 }
 ```
 
@@ -263,7 +273,7 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 
 ```css
 .high-contrast {
-  --checkbox-border: 0.1875rem solid #000000;     /* 3px black border */
+  --checkbox-border: 0.1875rem solid #000000; /* 3px black border */
   --checkbox-checked-bg: #000000;
   --checkbox-focus-outline: 0.1875rem solid #000000;
   --checkbox-focus-outline-offset: 0.25rem;
@@ -274,13 +284,13 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 
 ```css
 .dark-theme {
-  --checkbox-bg: #1f2937;                         /* Gray 800 */
-  --checkbox-border-color: #4b5563;               /* Gray 600 */
-  --checkbox-checked-bg: #3b82f6;                 /* Blue 500 */
+  --checkbox-bg: #1f2937; /* Gray 800 */
+  --checkbox-border-color: #4b5563; /* Gray 600 */
+  --checkbox-checked-bg: #3b82f6; /* Blue 500 */
   --checkbox-checked-border: #3b82f6;
-  --checkbox-label-color: #f3f4f6;                /* Gray 100 */
-  --checkbox-description-color: #9ca3af;          /* Gray 400 */
-  --checkbox-hover-bg: #374151;                   /* Gray 700 */
+  --checkbox-label-color: #f3f4f6; /* Gray 100 */
+  --checkbox-description-color: #9ca3af; /* Gray 400 */
+  --checkbox-hover-bg: #374151; /* Gray 700 */
 }
 ```
 
@@ -288,10 +298,10 @@ All color variants meet WCAG 2.1 AA contrast requirements (4.5:1 minimum).
 
 ```css
 .minimal-checkboxes {
-  --checkbox-border: 0.0625rem solid #d1d5db;     /* 1px thin border */
-  --checkbox-radius: 0.125rem;                    /* 2px small radius */
+  --checkbox-border: 0.0625rem solid #d1d5db; /* 1px thin border */
+  --checkbox-radius: 0.125rem; /* 2px small radius */
   --checkbox-checked-bg: #000000;
-  --checkbox-transition: none;                     /* No animation */
+  --checkbox-transition: none; /* No animation */
 }
 ```
 
