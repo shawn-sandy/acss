@@ -1,0 +1,266 @@
+import { Meta, Story, Canvas } from "@storybook/blocks";
+import * as CheckboxStories from "./checkbox.stories";
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+Accessible checkbox component with size and color variants, validation support, and comprehensive ARIA attributes.
+
+## Features
+
+- ✅ **WCAG 2.1 AA Compliant** - Meets accessibility standards
+- ✅ **Controlled & Uncontrolled** - Flexible state management
+- ✅ **Indeterminate State** - Three-state checkbox support
+- ✅ **Validation** - Built-in error messaging
+- ✅ **Size Variants** - sm, md, lg
+- ✅ **Color Variants** - primary, secondary, error, success
+- ✅ **Keyboard Navigation** - Full keyboard support
+- ✅ **Custom Styling** - CSS custom properties
+
+## Basic Usage
+
+```tsx
+import { Checkbox } from "@fpkit/acss";
+
+function MyForm() {
+  return (
+    <Checkbox
+      id="terms"
+      label="I accept the terms and conditions"
+    />
+  );
+}
+```
+
+## Controlled Mode
+
+Use controlled mode when you need to manage checkbox state in your component:
+
+```tsx
+import { useState } from "react";
+import { Checkbox } from "@fpkit/acss";
+
+function ControlledExample() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Checkbox
+      id="newsletter"
+      label="Subscribe to newsletter"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+}
+```
+
+## Uncontrolled Mode
+
+Use uncontrolled mode for simple forms where you read the value on submission:
+
+```tsx
+import { Checkbox } from "@fpkit/acss";
+
+function UncontrolledExample() {
+  const handleSubmit = (e) => {
+    const formData = new FormData(e.target);
+    console.log(formData.get("agree")); // "on" if checked
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Checkbox
+        id="agree"
+        name="agree"
+        label="I agree"
+        defaultChecked={true}
+      />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+## With Validation
+
+Display validation errors and helper text:
+
+```tsx
+<Checkbox
+  id="required"
+  label="Required checkbox"
+  required
+  validationState="invalid"
+  errorMessage="This field is required"
+  description="You must check this box to continue"
+/>
+```
+
+## Indeterminate State
+
+Use for "select all" patterns where some but not all items are selected:
+
+```tsx
+import { useState } from "react";
+import { Checkbox } from "@fpkit/acss";
+
+function SelectAllExample() {
+  const [selectedItems, setSelectedItems] = useState([]);
+  const totalItems = 4;
+
+  const allSelected = selectedItems.length === totalItems;
+  const someSelected = selectedItems.length > 0 && !allSelected;
+
+  return (
+    <Checkbox
+      id="select-all"
+      label="Select all"
+      checked={allSelected}
+      indeterminate={someSelected}
+      onChange={(e) => {
+        if (e.target.checked) {
+          setSelectedItems([1, 2, 3, 4]);
+        } else {
+          setSelectedItems([]);
+        }
+      }}
+    />
+  );
+}
+```
+
+## Size Variants
+
+Choose from three sizes:
+
+```tsx
+<Checkbox id="sm" label="Small" size="sm" />
+<Checkbox id="md" label="Medium (default)" size="md" />
+<Checkbox id="lg" label="Large" size="lg" />
+```
+
+## Color Variants
+
+All colors meet WCAG 2.1 AA contrast requirements:
+
+```tsx
+<Checkbox id="primary" label="Primary (Blue)" color="primary" />
+<Checkbox id="secondary" label="Secondary (Gray)" color="secondary" />
+<Checkbox id="error" label="Error (Red)" color="error" />
+<Checkbox id="success" label="Success (Green)" color="success" />
+```
+
+## Label Positioning
+
+Position labels before or after the checkbox:
+
+```tsx
+<Checkbox id="left" label="Label on left" labelPosition="left" />
+<Checkbox id="right" label="Label on right" labelPosition="right" />
+```
+
+## Custom Styling
+
+Customize appearance using CSS custom properties:
+
+```tsx
+<Checkbox
+  id="custom"
+  label="Custom styled"
+  styles={{
+    "--checkbox-size": "2rem",
+    "--checkbox-checked-bg": "#7c3aed",
+    "--checkbox-radius": "0.5rem",
+  }}
+/>
+```
+
+See [STYLES.mdx](./STYLES.mdx) for complete CSS variable reference.
+
+## Accessibility
+
+### WCAG 2.1 AA Compliance
+
+The Checkbox component implements multiple WCAG success criteria:
+
+- **3.2.2 On Input (Level A)** - Checking the box doesn't cause unexpected context changes
+- **4.1.2 Name, Role, Value (Level A)** - Proper ARIA attributes communicate state
+- **1.4.3 Contrast (Minimum) (Level AA)** - All color variants meet 4.5:1 contrast ratio
+- **2.4.7 Focus Visible (Level AA)** - Clear focus indicators on keyboard navigation
+
+### Keyboard Support
+
+- **Tab** - Move focus to/from checkbox
+- **Space** - Toggle checkbox state
+- **Shift+Tab** - Move focus backward
+
+### Screen Reader Support
+
+- Checkbox state announced (checked/unchecked/indeterminate)
+- Label text announced
+- Description text announced via `aria-describedby`
+- Error messages announced via `aria-errormessage`
+- Required state announced via `aria-required`
+- Disabled state announced via `aria-disabled`
+
+### Best Practices
+
+1. **Always provide labels** - Use `label` or `children` prop for accessible name
+2. **Use semantic colors** - Use `error` variant for validation failures
+3. **Provide descriptions** - Use `description` prop for additional context
+4. **Group related checkboxes** - Use `<fieldset>` and `<legend>` for checkbox groups
+5. **Don't mix modes** - Use either controlled or uncontrolled, not both
+
+## Props
+
+See TypeScript types for complete prop reference with JSDoc documentation.
+
+### Key Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `string` | **required** | Unique identifier |
+| `label` | `ReactNode` | - | Label text |
+| `children` | `ReactNode` | - | Alternative to label |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size variant |
+| `color` | `"primary" \| "secondary" \| "error" \| "success"` | `"primary"` | Color variant |
+| `checked` | `boolean` | - | Controlled mode |
+| `defaultChecked` | `boolean` | - | Uncontrolled mode |
+| `indeterminate` | `boolean` | `false` | Indeterminate state |
+| `disabled` | `boolean` | - | Disabled state |
+| `required` | `boolean` | `false` | Required field |
+| `validationState` | `"valid" \| "invalid" \| "none"` | `"none"` | Validation state |
+| `errorMessage` | `string` | - | Error message |
+| `description` | `string` | - | Helper text |
+
+## Examples
+
+See Storybook stories for interactive examples:
+
+- **Basic** - Simple checkbox with label
+- **Sizes** - All size variants
+- **Colors** - All color variants
+- **States** - Checked, unchecked, indeterminate, disabled
+- **WithDescription** - Checkbox with helper text
+- **WithError** - Checkbox with validation error
+- **LabelPositions** - Left and right label positioning
+- **Controlled** - Controlled mode example
+- **Uncontrolled** - Uncontrolled mode example
+- **Required** - Required field indicator
+- **ComplexForm** - Complete form example
+- **SelectAll** - Indeterminate "select all" pattern
+- **CustomStyling** - CSS custom property examples
+
+## Related Components
+
+- **Form** - Form wrapper component
+- **Field** - Form field with label and error handling
+- **Input** - Text input component
+- **Select** - Dropdown select component
+
+## Resources
+
+- [ARIA Checkbox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [CSS Variables Reference](./STYLES.mdx)
