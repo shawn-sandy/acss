@@ -63,6 +63,13 @@ export {
 export { Alert, type AlertProps } from "./components/alert/alert";
 export { Field, type FieldProps } from "./components/form/fields";
 export { Input, type InputProps } from "./components/form/inputs";
+export {
+  Checkbox,
+  type CheckboxProps,
+  type CheckboxSize,
+  type CheckboxColor,
+  type CheckboxLabelPosition,
+} from "./components/checkbox/checkbox";
 export { Icon, type IconProps } from "./components/icons/icon";
 export { Img } from "./components/images/img";
 export type { ImgProps } from "./components/images/img.types";

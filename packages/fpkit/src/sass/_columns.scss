@@ -36,10 +36,10 @@
  * accessed via JavaScript. SCSS uses literal values for media queries.
  */
 :root {
-  --col-breakpoint-xs: 0rem;      /* 0px - base mobile */
-  --col-breakpoint-sm: 30rem;     /* 480px - large phones */
-  --col-breakpoint-md: 48rem;     /* 768px - tablets */
-  --col-breakpoint-lg: 64rem;     /* 1024px - desktops */
+  --col-breakpoint-xs: 0rem; /* 0px - base mobile */
+  --col-breakpoint-sm: 30rem; /* 480px - large phones */
+  --col-breakpoint-md: 48rem; /* 768px - tablets */
+  --col-breakpoint-lg: 64rem; /* 1024px - desktops */
 
   /* Legacy support - keep for backward compatibility */
   --col-breakpoint: var(--col-breakpoint-md);
@@ -51,9 +51,9 @@
  * @media queries require compile-time values, not runtime CSS variables.
  */
 $col-breakpoints: (
-  'sm': 30rem,
-  'md': 48rem,
-  'lg': 64rem,
+  "sm": 30rem,
+  "md": 48rem,
+  "lg": 64rem,
 );
 
 /* ============================================================================
@@ -432,8 +432,12 @@ $col-breakpoints: (
  */
 @each $breakpoint, $min-width in $col-breakpoints {
   @media (width >= #{$min-width}) {
-    .col-#{$breakpoint}-order-first { order: -1; }
-    .col-#{$breakpoint}-order-last { order: 13; }
+    .col-#{$breakpoint}-order-first {
+      order: -1;
+    }
+    .col-#{$breakpoint}-order-last {
+      order: 13;
+    }
 
     @for $i from 0 through 12 {
       .col-#{$breakpoint}-order-#{$i} {
