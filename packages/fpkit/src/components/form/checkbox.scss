@@ -1,0 +1,129 @@
+/**
+ * Checkbox Wrapper Component Styles
+ *
+ * Modern CSS architecture using :has() selector with ARIA attributes.
+ * No JavaScript class management required - ARIA attributes drive both
+ * accessibility AND styling.
+ *
+ * CSS Custom Properties:
+ * - --checkbox-gap: Space between checkbox and label (default: 0.5rem)
+ * - --checkbox-disabled-opacity: Opacity for disabled state (default: 0.6)
+ * - --checkbox-disabled-color: Label color when disabled (default: #6b7280)
+ * - --checkbox-label-fs: Label font size (default: 1rem)
+ * - --checkbox-label-lh: Label line height (default: 1.5)
+ * - --color-required: Required indicator color (default: #dc2626)
+ * - --checkbox-focus-ring-color: Focus ring color (default: #2563eb)
+ * - --checkbox-focus-ring-width: Focus ring width (default: 0.125rem)
+ * - --checkbox-focus-ring-offset: Focus ring offset (default: 0.125rem)
+ * - --checkbox-hover-label-color: Label color on hover (default: inherit)
+ * - --checkbox-error-label-color: Label color when invalid (default: #dc2626)
+ * - --checkbox-valid-label-color: Label color when valid (default: #16a34a)
+ * - --checkbox-focus-radius: Focus outline border radius (default: 0.125rem)
+ *
+ * WCAG 2.1 AA Compliance:
+ * - 2.4.7 Focus Visible: Focus-visible indicators with sufficient contrast
+ * - 2.3.3 Animation from Interactions: Respects prefers-reduced-motion
+ * - 3.3.1 Error Identification: Visual error states with color + text
+ * - 4.1.2 Name, Role, Value: ARIA attributes for assistive technologies
+ * - 1.4.13 Content on Hover or Focus: Hover states for visual feedback
+ */
+
+// Checkbox wrapper styling using modern :has() selector
+div:has(> input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: var(--checkbox-gap, 0.5rem);
+  position: relative;
+
+  // Ensure checkbox doesn't overlap label
+  > input[type="checkbox"] {
+    flex-shrink: 0; // Prevent checkbox from shrinking
+    order: -1; // Ensure checkbox appears first
+  }
+
+  // Hover state (only when not disabled) - WCAG 1.4.13 Content on Hover
+  &:not(:has(> input[aria-disabled="true"])):hover {
+    .checkbox-label {
+      color: var(--checkbox-hover-label-color, inherit);
+    }
+  }
+
+  // Focus-visible state for keyboard navigation - WCAG 2.4.7 Focus Visible
+  // Using :focus-visible to only show focus ring for keyboard users
+  &:has(> input:focus-visible) {
+    .checkbox-label {
+      outline: var(--checkbox-focus-ring-width, 0.125rem) solid
+        var(--checkbox-focus-ring-color, #2563eb);
+      outline-offset: var(--checkbox-focus-ring-offset, 0.125rem);
+      border-radius: var(--checkbox-focus-radius, 0.125rem);
+    }
+  }
+
+  // Disabled state styling using aria-disabled attribute selector
+  // WCAG 4.1.2: aria-disabled remains focusable for screen readers
+  &:has(> input[aria-disabled="true"]) {
+    opacity: var(--checkbox-disabled-opacity, 0.6);
+    cursor: not-allowed;
+
+    .checkbox-label {
+      color: var(--checkbox-disabled-color, #6b7280);
+      cursor: not-allowed;
+    }
+  }
+
+  // Invalid state styling - WCAG 3.3.1 Error Identification
+  // Color alone is not sufficient - error message text must also be provided
+  &:has(> input[aria-invalid="true"]) {
+    .checkbox-label {
+      color: var(--checkbox-error-label-color, #dc2626);
+    }
+  }
+
+  // Valid state styling (when checked and explicitly marked valid)
+  &:has(> input[aria-invalid="false"]:checked) {
+    .checkbox-label {
+      color: var(--checkbox-valid-label-color, #16a34a);
+    }
+  }
+}
+
+// Checkbox label styling
+.checkbox-label {
+  cursor: pointer;
+  font-size: var(--checkbox-label-fs, 1rem);
+  line-height: var(--checkbox-label-lh, 1.5);
+  user-select: none;
+  margin: 0;
+  flex: 1; // Allow label to take remaining space
+  min-width: 0; // Prevent flex item from overflowing
+  transition: color 0.2s ease-in-out;
+
+  // Respect user's motion preferences - WCAG 2.3.3 Animation from Interactions
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  .checkbox-required {
+    color: var(--color-required, #dc2626);
+    font-weight: 600;
+    margin-inline-start: 0.125rem;
+  }
+}
+
+// Checkbox input element
+.checkbox-input {
+  // High contrast mode support (Windows High Contrast Mode)
+  // forced-color-adjust: auto respects user's color scheme
+  @media (forced-colors: active) {
+    forced-color-adjust: auto;
+  }
+}
+
+// Optional: Container query support for responsive layouts
+// Stacks checkbox and label vertically on small containers
+@container (max-width: 400px) {
+  div:has(> input[type="checkbox"]) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

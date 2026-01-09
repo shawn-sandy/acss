@@ -23,7 +23,7 @@
 @use "./components/badge/badge.scss";
 @use "./components/nav/nav.scss";
 @use "./components/form/form.scss";
-@use "./components/checkbox/checkbox.scss";
+// @use "./components/checkbox/checkbox.scss"; // Deprecated - checkbox styles now in form/checkbox.scss (imported by form.scss)
 @use "./components/breadcrumbs/breadcrumb.scss";
 @use "./components/list/list.scss";
 @use "./components/alert/alert.scss";

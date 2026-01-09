@@ -63,13 +63,13 @@ export {
 export { Alert, type AlertProps } from "./components/alert/alert";
 export { Field, type FieldProps } from "./components/form/fields";
 export { Input, type InputProps } from "./components/form/inputs";
-export {
-  Checkbox,
-  type CheckboxProps,
-  type CheckboxSize,
-  type CheckboxColor,
-  type CheckboxLabelPosition,
-} from "./components/checkbox/checkbox";
+
+/**
+ * Checkbox wrapper component (uses Input type="checkbox")
+ * This is the recommended checkbox component.
+ */
+export { Checkbox, type CheckboxProps } from "./components/form/checkbox";
+
 export { Icon, type IconProps } from "./components/icons/icon";
 export { Img } from "./components/images/img";
 export type { ImgProps } from "./components/images/img.types";
@@ -128,7 +128,12 @@ export * from "./components/layout/landmarks";
 export { Box, type BoxProps } from "./components/box/box";
 export { Stack, type StackProps } from "./components/stack/stack";
 export { Cluster, type ClusterProps } from "./components/cluster/cluster";
-export { default as Grid, GridItem, type GridProps, type GridItemProps } from "./components/grid/grid";
+export {
+  default as Grid,
+  GridItem,
+  type GridProps,
+  type GridItemProps,
+} from "./components/grid/grid";
 export { Row, type RowProps } from "./components/row/row";
 export { Col, type ColProps } from "./components/col/col";
 export { default as Flex } from "./components/flexbox/flex";
