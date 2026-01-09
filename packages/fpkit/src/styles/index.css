@@ -3183,9 +3183,7 @@ form label {
   display: block;
 }
 
-input[type]:not([type=checkbox], [type=radio]),
-textarea,
-select {
+input {
   -webkit-appearance: var(--input-appearance);
   -moz-appearance: var(--input-appearance);
   appearance: var(--input-appearance);
@@ -3197,6 +3195,19 @@ select {
   border-radius: var(--input-radius);
   background-color: var(--input-bg, #fff);
 }
+input:focus-visible, input:focus {
+  outline: var(--input-focus-outline);
+  outline-offset: var(--input-focus-outline-offset);
+}
+input[aria-disabled=true], input:disabled {
+  --input-border-color: lightgray;
+  background-color: var(--input-disabled-bg);
+  opacity: var(--input-disabled-opacity);
+  cursor: var(--input-disabled-cursor);
+  text-transform: capitalize;
+  text-decoration: line-through;
+}
+
 input[type]:not([type=checkbox], [type=radio])::placeholder,
 textarea::placeholder,
 select::placeholder {
@@ -3204,14 +3215,6 @@ select::placeholder {
   font-style: var(--placeholder-style);
   font-size: var(--placeholder-fs);
   text-transform: capitalize;
-}
-input[type]:not([type=checkbox], [type=radio]):focus-visible, input[type]:not([type=checkbox], [type=radio]):focus,
-textarea:focus-visible,
-textarea:focus,
-select:focus-visible,
-select:focus {
-  outline: var(--input-focus-outline);
-  outline-offset: var(--input-focus-outline-offset);
 }
 input[type]:not([type=checkbox], [type=radio])[aria-required=true]::placeholder,
 textarea[aria-required=true]::placeholder,
@@ -3223,18 +3226,6 @@ input[type]:not([type=checkbox], [type=radio])[aria-required=true]::placeholder:
 textarea[aria-required=true]::placeholder::after,
 select[aria-required=true]::placeholder::after {
   content: "* ";
-}
-input[type]:not([type=checkbox], [type=radio])[aria-disabled=true], input[type]:not([type=checkbox], [type=radio]):disabled,
-textarea[aria-disabled=true],
-textarea:disabled,
-select[aria-disabled=true],
-select:disabled {
-  --input-border-color: lightgray;
-  background-color: var(--input-disabled-bg);
-  opacity: var(--input-disabled-opacity);
-  cursor: var(--input-disabled-cursor);
-  text-transform: capitalize;
-  text-decoration: line-through;
 }
 
 select {
