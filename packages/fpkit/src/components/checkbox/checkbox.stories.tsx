@@ -10,12 +10,19 @@ const checkboxChanged = fn();
 const meta = {
   title: "FP.React Forms/Inputs/Checkbox",
   component: Checkbox,
-  tags: ["beta"],
+  tags: ["deprecated"],
   args: {
     onChange: checkboxChanged,
   },
   parameters: {
     actions: { argTypesRegex: "^on.*" },
+    docs: {
+      description: {
+        component:
+          "⚠️ **DEPRECATED**: This component is deprecated and will be removed in a future version. " +
+          "Please use the new `Input` component with `type=\"checkbox\"` instead.",
+      },
+    },
   },
 } as Meta<typeof Checkbox>;
 
