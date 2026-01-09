@@ -222,6 +222,23 @@ export const UrlInput: Story = {
   },
 } as Story;
 
+export const Checkbox: Story = {
+  args: {
+    type: "checkbox",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole("checkbox");
+    expect(input).toHaveAttribute("type", "checkbox");
+
+    await userEvent.click(input);
+    expect(input).toBeChecked();
+
+    await userEvent.click(input);
+    expect(input).not.toBeChecked();
+  },
+} as Story;
+
 /**
  * CSS Variable Customization
  *
@@ -237,7 +254,14 @@ export const UrlInput: Story = {
  */
 export const Customization: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "2rem", maxWidth: "600px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "2rem",
+        maxWidth: "600px",
+      }}
+    >
       {/* Custom brand styling */}
       <div>
         <h4>Custom Brand Styling</h4>

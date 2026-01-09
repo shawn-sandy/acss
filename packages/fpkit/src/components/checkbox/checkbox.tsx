@@ -37,6 +37,9 @@ export type CheckboxLabelPosition = "left" | "right";
 /**
  * Props for the Checkbox component.
  *
+ * @deprecated This component is deprecated and will be removed in a future version.
+ * Please use the new Input component with type="checkbox" instead.
+ *
  * @remarks
  * Checkbox supports both controlled and uncontrolled modes:
  * - Controlled: Pass `checked` prop and `onChange` handler
@@ -268,6 +271,9 @@ export interface CheckboxProps
 /**
  * Checkbox - Accessible checkbox input with size and color variants.
  *
+ * @deprecated This component is deprecated and will be removed in a future version.
+ * Please use the new Input component with type="checkbox" instead.
+ *
  * A fully accessible checkbox component that supports controlled and uncontrolled modes,
  * indeterminate state, validation, and comprehensive ARIA attributes for screen readers.
  *
@@ -440,6 +446,17 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         inputRef.current.indeterminate = indeterminate;
       }
     }, [indeterminate]);
+
+    // Deprecation warning in development mode
+    useEffect(() => {
+      if (process.env.NODE_ENV === "development") {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "[fpkit/acss] Checkbox component is deprecated and will be removed in a future version. " +
+            'Please migrate to the Input component with type="checkbox" instead.'
+        );
+      }
+    }, []); // Empty dependency array = runs once on mount
 
     // Determine validation state
     const isInvalid = validationState === "invalid";

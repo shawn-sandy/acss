@@ -3167,6 +3167,22 @@ nav button:focus-visible {
   --placeholder-fs: smaller;
   --form-direction: column;
   --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><polyline points='6,9 10,13 14,9' stroke='%23000000' stroke-width='1.5' fill='none' /></svg>");
+  /* ==========================================================================
+     Size Tokens
+     ========================================================================== */
+  --checkbox-size-sm: 1rem; /* 16px */
+  --checkbox-size-md: 1.25rem; /* 20px */
+  --checkbox-size-lg: 1.5rem; /* 24px */
+  /* ==========================================================================
+     Base Properties
+     ========================================================================== */
+  --checkbox-size: var(--checkbox-size-md);
+  --checkbox-bg: #ffffff;
+  --checkbox-border: 0.125rem solid #6b7280; /* 2px border */
+  --checkbox-border-color: #6b7280; /* Gray 500 */
+  --checkbox-radius: 0.25rem; /* 4px */
+  --checkbox-cursor: pointer;
+  --checkbox-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 form {
@@ -3226,6 +3242,20 @@ input[type]:not([type=checkbox], [type=radio])[aria-required=true]::placeholder:
 textarea[aria-required=true]::placeholder::after,
 select[aria-required=true]::placeholder::after {
   content: "* ";
+}
+
+input[type=checkbox] {
+  opacity: 1;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  margin: 0;
+  cursor: var(--checkbox-cursor);
+  z-index: 1;
+}
+input[type=checkbox]:checked {
+  background-color: var(--checkbox-bg, red);
+  outline: rebeccapurple solid 2px;
+  background: #dbeafe;
 }
 
 select {
