@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.6.0...@fpkit/acss@3.8.0) (2026-01-09)
+
+
+### Bug Fixes
+
+* **columns:** resolve JSX syntax error and enhance responsive docs ([8d04c64](https://github.com/shawn-sandy/fpkit/commit/8d04c64e67ed64d1606f7162283aafa551bad0f1))
+
+
+### Features
+
+* **checkbox:** add accessible checkbox component with size and color variants ([6aa1b50](https://github.com/shawn-sandy/fpkit/commit/6aa1b50a7d79f24bdcc435faf31312c0f2ecf747))
+* **title:** add size and color variants with data-title attributes ([e7f9b7a](https://github.com/shawn-sandy/fpkit/commit/e7f9b7a90363fe11d12f7431f185d4297c730c6a))
+* **title:** add size and color variants with data-title attributes ([1e93884](https://github.com/shawn-sandy/fpkit/commit/1e93884becb94e8ae215180ba5adb9660fdbfa7f))
+
+
+
+
+
 # [3.7.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.6.0...@fpkit/acss@3.7.0) (2026-01-06)
 
 
