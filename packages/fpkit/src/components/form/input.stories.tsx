@@ -1,7 +1,9 @@
 import { StoryObj, Meta } from "@storybook/react-vite";
 import { within, userEvent, expect } from "storybook/test";
+import React from "react";
 
 import Input from "./inputs";
+import { Checkbox as CheckboxComponent } from "./checkbox";
 import "./form.scss";
 
 const meta: Meta<typeof Input> = {
@@ -238,6 +240,237 @@ export const Checkbox: Story = {
     expect(input).not.toBeChecked();
   },
 } as Story;
+
+// ============================================================================
+// Checkbox Wrapper Component Stories
+// ============================================================================
+
+/**
+ * CheckboxWrapper - Basic checkbox with label
+ *
+ * Demonstrates the Checkbox wrapper component with simplified API.
+ * Features automatic label association, boolean onChange, and keyboard support.
+ */
+export const CheckboxWrapper: Story = {
+  render: () => (
+    <CheckboxComponent id="basic" label="I accept the terms and conditions" />
+  ),
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole("checkbox");
+
+    await step("Checkbox renders unchecked", async () => {
+      expect(checkbox).toBeInTheDocument();
+      expect(checkbox).not.toBeChecked();
+    });
+
+    await step("Checkbox can be checked by clicking", async () => {
+      await userEvent.click(checkbox);
+      expect(checkbox).toBeChecked();
+    });
+
+    await step("Label can be clicked to toggle", async () => {
+      const label = canvas.getByText("I accept the terms and conditions");
+      await userEvent.click(label);
+      expect(checkbox).not.toBeChecked();
+    });
+
+    await step("Space key toggles checkbox", async () => {
+      checkbox.focus();
+      await userEvent.keyboard(" ");
+      expect(checkbox).toBeChecked();
+    });
+  },
+};
+
+/**
+ * CheckboxControlled - Controlled checkbox with state management
+ *
+ * Demonstrates controlled mode with React state and boolean onChange API.
+ */
+const CheckboxControlledExample = () => {
+  const [checked, setChecked] = React.useState(false);
+  return (
+    <div>
+      <CheckboxComponent
+        id="controlled"
+        label="Subscribe to newsletter"
+        checked={checked}
+        onChange={setChecked}
+      />
+      <p style={{ marginTop: "1rem", fontSize: "0.875rem", color: "#6b7280" }}>
+        Status: {checked ? "✓ Subscribed" : "Not subscribed"}
+      </p>
+    </div>
+  );
+};
+
+export const CheckboxControlled: Story = {
+  render: () => <CheckboxControlledExample />,
+};
+
+/**
+ * CheckboxRequired - Required checkbox with asterisk indicator
+ *
+ * Shows required field indicator and aria-required attribute.
+ */
+export const CheckboxRequired: Story = {
+  render: () => (
+    <CheckboxComponent
+      id="required"
+      label="I accept the terms"
+      required
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole("checkbox");
+    expect(checkbox).toHaveAttribute("aria-required", "true");
+    expect(canvas.getByText("*")).toBeInTheDocument();
+  },
+};
+
+/**
+ * CheckboxDisabled - Disabled checkbox (WCAG compliant)
+ *
+ * Demonstrates aria-disabled pattern that remains focusable for screen readers.
+ */
+export const CheckboxDisabled: Story = {
+  render: () => (
+    <CheckboxComponent
+      id="disabled"
+      label="Disabled option"
+      disabled
+      defaultChecked
+    />
+  ),
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole("checkbox");
+
+    await step("Disabled checkbox has aria-disabled", async () => {
+      expect(checkbox).toHaveAttribute("aria-disabled", "true");
+    });
+
+    await step("Disabled checkbox remains focusable", async () => {
+      await userEvent.tab();
+      expect(checkbox).toHaveFocus();
+    });
+
+    await step("Disabled checkbox prevents interaction", async () => {
+      const wasChecked = checkbox.checked;
+      await userEvent.click(checkbox);
+      // Value should remain unchanged due to disabled state
+      expect(checkbox.checked).toBe(wasChecked);
+    });
+  },
+};
+
+/**
+ * CheckboxValidation - Checkbox with validation error
+ *
+ * Shows error state with aria-invalid and error message.
+ */
+export const CheckboxValidation: Story = {
+  render: () => (
+    <CheckboxComponent
+      id="validation"
+      label="I accept the terms"
+      validationState="invalid"
+      errorMessage="You must accept the terms to continue"
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const checkbox = canvas.getByRole("checkbox");
+    expect(checkbox).toHaveAttribute("aria-invalid", "true");
+    expect(checkbox).toHaveAttribute("aria-describedby");
+    expect(canvas.getByText("You must accept the terms to continue")).toBeInTheDocument();
+  },
+};
+
+/**
+ * CheckboxWithHint - Checkbox with hint text
+ *
+ * Demonstrates hint text for additional context.
+ */
+export const CheckboxWithHint: Story = {
+  render: () => (
+    <CheckboxComponent
+      id="hint"
+      label="Enable two-factor authentication"
+      hintText="Adds an extra layer of security to your account"
+    />
+  ),
+};
+
+/**
+ * CheckboxCustomSize - Custom sized checkboxes using CSS variables
+ *
+ * Demonstrates responsive sizing via --checkbox-size variable.
+ */
+export const CheckboxCustomSize: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "1.5rem", flexDirection: "column" }}>
+      <CheckboxComponent
+        id="small"
+        label="Small (1rem)"
+        styles={{ "--checkbox-gap": "0.375rem" } as React.CSSProperties}
+      />
+      <CheckboxComponent
+        id="medium"
+        label="Medium (1.25rem - default)"
+      />
+      <CheckboxComponent
+        id="large"
+        label="Large (1.5rem)"
+        styles={{ "--checkbox-gap": "0.75rem" } as React.CSSProperties}
+      />
+      <CheckboxComponent
+        id="xlarge"
+        label="Extra Large (2rem)"
+        styles={{ "--checkbox-gap": "1rem" } as React.CSSProperties}
+      />
+    </div>
+  ),
+};
+
+/**
+ * CheckboxGroup - Multiple checkboxes in a fieldset
+ *
+ * Demonstrates grouping related checkboxes with semantic HTML.
+ */
+export const CheckboxGroup: Story = {
+  render: () => (
+    <fieldset style={{ border: "1px solid #d1d5db", padding: "1.5rem", borderRadius: "0.5rem" }}>
+      <legend style={{ fontWeight: "600", fontSize: "1rem", padding: "0 0.5rem" }}>
+        Notification Preferences
+      </legend>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
+        <CheckboxComponent
+          id="email"
+          name="notifications"
+          value="email"
+          label="Email notifications"
+          defaultChecked
+        />
+        <CheckboxComponent
+          id="sms"
+          name="notifications"
+          value="sms"
+          label="SMS notifications"
+        />
+        <CheckboxComponent
+          id="push"
+          name="notifications"
+          value="push"
+          label="Push notifications"
+          defaultChecked
+        />
+      </div>
+    </fieldset>
+  ),
+};
 
 /**
  * CSS Variable Customization

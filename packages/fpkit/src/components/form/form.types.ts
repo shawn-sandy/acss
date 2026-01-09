@@ -376,3 +376,9 @@ export interface SelectProps extends Omit<React.ComponentPropsWithoutRef<'select
    */
   children?: React.ReactNode
 }
+
+/**
+ * Checkbox component props
+ * Re-exported from checkbox.tsx for convenience
+ */
+export type { CheckboxProps } from './checkbox'

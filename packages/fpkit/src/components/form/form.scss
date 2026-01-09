@@ -1,3 +1,6 @@
+// Import checkbox wrapper component styles
+@use "./checkbox";
+
 :root {
   --input-border-color: gray;
   --input-appearance: none;
@@ -118,7 +121,7 @@ input[type="checkbox"] {
   height: var(--checkbox-size);
   margin: 0;
   cursor: var(--checkbox-cursor);
-  z-index: 1;
+  flex-shrink: 0; // Prevent checkbox from shrinking in flex layout
 
   &:checked {
     background-color: var(--checkbox-bg, red);
