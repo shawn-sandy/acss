@@ -5,6 +5,7 @@
 This plan implements a comprehensive, accessible color system for the `@fpkit/acss` component library using industry-standard WCAG-compliant colors. The system will centralize the 48+ scattered hardcoded colors across 15+ components into a unified 3-tier token architecture with semantic utility classes.
 
 **Goals:**
+
 - ✅ Centralize all colors using CSS custom properties
 - ✅ Replace component hardcoded colors with semantic tokens
 - ✅ Create utility classes for quick styling (.text-primary, .bg-success, etc.)
@@ -39,6 +40,7 @@ This plan implements a comprehensive, accessible color system for the `@fpkit/ac
 ### Well-Designed Pattern (Alert Component)
 
 The Alert component demonstrates the target pattern:
+
 ```scss
 --alert-success-bg: #e6f4ea;
 --alert-success-border: #34a853;
@@ -62,11 +64,13 @@ Tier 1: Primitives → Tier 2: Semantic → Tier 3: Components
 ```
 
 #### Tier 1: Color Primitives
+
 **File:** `src/sass/tokens/_color-primitives.scss`
 **Purpose:** Foundation colors (WCAG-compliant, industry-standard)
 **Pattern:** `--color-{hue}-{scale}`
 
 Selected scales (50-900):
+
 - **Neutrals** - Gray scale for text, borders, surfaces
 - **Blue** - Primary brand, focus states, links
 - **Green** - Success states, positive feedback
@@ -77,22 +81,26 @@ Selected scales (50-900):
 All colors verified for WCAG AA contrast (4.5:1 text, 3:1 UI).
 
 #### Tier 2: Semantic Tokens
+
 **File:** `src/sass/tokens/_color-semantic.scss`
 **Purpose:** Intent-based mappings for common use cases
 **Pattern:** `--color-{purpose}-{variant}`
 
 Semantic categories:
+
 - **Brand:** `--color-primary`, `--color-secondary`
 - **States:** `--color-success`, `--color-error`, `--color-warning`, `--color-info`
 - **UI:** `--color-surface`, `--color-border`, `--color-text`
 - **Interactive:** `--color-focus`, `--color-hover-overlay`, `--color-disabled-bg`
 
 #### Tier 3: Component Tokens
+
 **Location:** Each component's SCSS file
 **Purpose:** Component-specific colors that reference semantic tokens
 **Pattern:** `--{component}-{property}` or `--{component}-{variant}-{property}`
 
 Example:
+
 ```scss
 button {
   --btn-bg: var(--color-primary);
@@ -181,6 +189,7 @@ packages/fpkit/src/
 All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 
 #### Neutral Scale (Grays)
+
 ```scss
 --color-neutral-0: #ffffff;      // Pure white
 --color-neutral-50: #fafafa;     // Off-white
@@ -196,6 +205,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 #### Blue Scale (Primary/Info)
+
 ```scss
 --color-blue-100: #dbeafe;       // Info background light
 --color-blue-200: #bfdbfe;       // Info background
@@ -209,6 +219,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 #### Green Scale (Success)
+
 ```scss
 --color-green-100: #dcfce7;      // Success background light
 --color-green-200: #bbf7d0;      // Success background
@@ -222,6 +233,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 #### Red Scale (Error/Danger)
+
 ```scss
 --color-red-100: #fee2e2;        // Error background light
 --color-red-200: #fecaca;        // Error background
@@ -235,6 +247,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 #### Amber Scale (Warning)
+
 ```scss
 --color-amber-100: #fef3c7;      // Warning background light
 --color-amber-200: #fde68a;      // Warning background
@@ -248,6 +261,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 #### Cyan Scale (Info Alternative)
+
 ```scss
 --color-cyan-100: #cffafe;       // Info alt background light
 --color-cyan-200: #a5f3fc;       // Info alt background
@@ -267,6 +281,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ## Semantic Token Mappings
 
 ### Brand Colors
+
 ```scss
 --color-primary: var(--color-blue-600);           // #2563eb
 --color-primary-hover: var(--color-blue-700);     // #1d4ed8
@@ -279,6 +294,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 ### State Colors
+
 ```scss
 // Success
 --color-success: var(--color-green-600);          // #16a34a
@@ -310,6 +326,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 ### UI Surface Colors
+
 ```scss
 --color-surface: var(--color-neutral-0);          // #ffffff
 --color-surface-secondary: var(--color-neutral-50);// #fafafa
@@ -319,6 +336,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 ### Border Colors
+
 ```scss
 --color-border: var(--color-neutral-300);         // #d4d4d4
 --color-border-subtle: var(--color-neutral-200);  // #e5e5e5
@@ -327,6 +345,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 ### Text Colors
+
 ```scss
 --color-text: var(--color-neutral-800);           // #262626
 --color-text-secondary: var(--color-neutral-700); // #404040
@@ -336,6 +355,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 ### Interactive States
+
 ```scss
 --color-focus: var(--color-blue-600);             // #2563eb
 --color-focus-ring: var(--color-blue-600);        // #2563eb
@@ -346,6 +366,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 ### Links
+
 ```scss
 --color-link: var(--color-blue-700);              // #1d4ed8
 --color-link-hover: var(--color-blue-800);        // #1e40af
@@ -354,6 +375,7 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 ```
 
 ### Validation
+
 ```scss
 --color-required: var(--color-red-600);           // #dc2626
 --color-valid: var(--color-green-600);            // #16a34a
@@ -362,40 +384,508 @@ All colors meet WCAG AA standards (4.5:1 for text, 3:1 for UI components).
 
 ---
 
+## Developer Extensibility Guide
+
+This section provides clear guidance for developers who need to extend the color system with new colors, semantic tokens, or utility classes.
+
+### Extension Philosophy
+
+The 3-tier architecture is designed for easy extension:
+- **Tier 1 (Primitives)**: Add new color scales or extend existing ones
+- **Tier 2 (Semantic)**: Map primitives to new purposes
+- **Tier 3 (Components)**: Reference semantic tokens in components
+- **Utilities**: Generate utilities from semantic tokens
+
+**Key Principle:** Always extend through the proper tier. Never skip from primitives directly to components.
+
+---
+
+### Adding New Primitive Color Scales
+
+**When to add:** You need a new color family (e.g., purple, orange, pink, teal)
+
+**Location:** `src/sass/tokens/_color-primitives.scss`
+
+**Pattern:** `--color-{hue}-{scale}` where scale is 50-900
+
+**Example: Adding an Orange scale**
+
+```scss
+// In _color-primitives.scss
+:root {
+  // Existing scales...
+
+  // Orange scale (50-900) - New addition
+  --color-orange-50: #fff7ed;      // Lightest
+  --color-orange-100: #ffedd5;
+  --color-orange-200: #fed7aa;
+  --color-orange-300: #fdba74;
+  --color-orange-400: #fb923c;
+  --color-orange-500: #f97316;     // Base
+  --color-orange-600: #ea580c;
+  --color-orange-700: #c2410c;
+  --color-orange-800: #9a3412;
+  --color-orange-900: #7c2d12;     // Darkest
+}
+```
+
+**Accessibility Check:**
+- Verify text contrast (4.5:1 for normal text, 3:1 for large text)
+- Verify UI element contrast (3:1 minimum)
+- Test with color blindness simulators
+
+---
+
+### Extending Existing Color Scales
+
+**When to add:** You need finer gradations (e.g., 25, 950) or mid-tones (e.g., 450, 550)
+
+**Example: Adding lighter/darker neutrals**
+
+```scss
+// In _color-primitives.scss
+:root {
+  --color-neutral-0: #ffffff;
+  --color-neutral-25: #fcfcfc;     // ← New: Between 0 and 50
+  --color-neutral-50: #fafafa;
+  // ... existing scales
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;    // ← New: Darker than 900
+}
+```
+
+**Naming Convention:**
+- Use multiples of 50 for standard scales (50, 100, 150, etc.)
+- Use 25 for very light shades
+- Use 950 for very dark shades
+- Use 450, 550, 650, 750 for mid-tones if needed
+
+---
+
+### Adding New Semantic Tokens
+
+**When to add:** You need a new semantic purpose (e.g., accent, tertiary brand, neutral state)
+
+**Location:** `src/sass/tokens/_color-semantic.scss`
+
+**Pattern:** `--color-{purpose}-{variant}`
+
+**Example: Adding an Accent color**
+
+```scss
+// In _color-semantic.scss
+:root {
+  // Existing semantic tokens...
+
+  // Accent color (new brand color)
+  --color-accent: var(--color-orange-500);       // #f97316
+  --color-accent-hover: var(--color-orange-600); // #ea580c
+  --color-accent-light: var(--color-orange-100); // #ffedd5
+  --color-accent-dark: var(--color-orange-800);  // #9a3412
+}
+```
+
+**Example: Adding a Neutral state**
+
+```scss
+// For components that need a neutral semantic state
+:root {
+  --color-neutral: var(--color-neutral-500);
+  --color-neutral-bg: var(--color-neutral-100);
+  --color-neutral-border: var(--color-neutral-400);
+  --color-neutral-text: var(--color-neutral-800);
+  --color-neutral-hover: var(--color-neutral-600);
+}
+```
+
+**Best Practices:**
+- Always reference primitive tokens (never hardcode hex)
+- Include variants: base, hover, light, dark, bg, border, text as needed
+- Follow the established naming convention
+- Document the purpose with comments
+
+---
+
+### Creating Component-Specific Color Tokens
+
+**When to add:** A component needs colors not covered by semantic tokens
+
+**Location:** Component's SCSS file (e.g., `src/components/badge/badge.scss`)
+
+**Pattern:** `--{component}-{variant}-{property}` or `--{component}-{property}`
+
+**Example: Badge with status colors**
+
+```scss
+// In badge.scss
+[data-badge] {
+  // Map semantic tokens to badge-specific tokens
+  --badge-neutral-bg: var(--color-neutral-bg);
+  --badge-neutral-text: var(--color-neutral-text);
+
+  --badge-accent-bg: var(--color-accent-light);   // Uses new accent token
+  --badge-accent-text: var(--color-accent-dark);
+  --badge-accent-border: var(--color-accent);
+
+  // Default
+  background-color: var(--badge-bg, var(--color-surface));
+  color: var(--badge-text, var(--color-text));
+
+  // Variants
+  &[data-badge~="accent"] {
+    --badge-bg: var(--badge-accent-bg);
+    --badge-text: var(--badge-accent-text);
+    border-color: var(--badge-accent-border);
+  }
+
+  &[data-badge~="neutral"] {
+    --badge-bg: var(--badge-neutral-bg);
+    --badge-text: var(--badge-neutral-text);
+  }
+}
+```
+
+**Guidelines:**
+- Component tokens should reference semantic tokens (Tier 2), not primitives (Tier 1)
+- Use fallbacks: `var(--component-token, var(--semantic-token))`
+- Keep component tokens scoped to the component selector
+- Document custom tokens in component README
+
+---
+
+### Adding Utility Classes
+
+**When to add:** Developers need quick styling for new semantic tokens
+
+**Location:** `src/sass/utilities/_color-{type}.scss`
+
+**Pattern:** `.{type}-{semantic-name}`
+
+**Example: Adding accent utilities**
+
+```scss
+// In _color-text.scss
+.text-accent { color: var(--color-accent); }
+.text-accent-dark { color: var(--color-accent-dark); }
+
+// In _color-bg.scss
+.bg-accent { background-color: var(--color-accent); }
+.bg-accent-light { background-color: var(--color-accent-light); }
+
+// In _color-border.scss
+.border-accent { border-color: var(--color-accent); }
+```
+
+**When NOT to add utilities:**
+- Don't create utilities for every primitive token (e.g., `.text-blue-437`)
+- Don't create utilities for component-specific tokens
+- Only create utilities for semantic tokens that developers will frequently use
+
+---
+
+### Common Extension Scenarios
+
+#### Scenario 1: Adding a Brand Accent Color
+
+**Need:** Your brand has a secondary accent color (e.g., orange)
+
+**Steps:**
+1. Add primitive scale to `_color-primitives.scss`:
+   ```scss
+   --color-orange-100: #ffedd5;
+   --color-orange-500: #f97316; // Base
+   --color-orange-700: #c2410c;
+   ```
+
+2. Add semantic tokens to `_color-semantic.scss`:
+   ```scss
+   --color-accent: var(--color-orange-500);
+   --color-accent-hover: var(--color-orange-700);
+   --color-accent-light: var(--color-orange-100);
+   ```
+
+3. Add utilities to `_color-*.scss`:
+   ```scss
+   .text-accent { color: var(--color-accent); }
+   .bg-accent { background-color: var(--color-accent); }
+   .border-accent { border-color: var(--color-accent); }
+   ```
+
+4. Use in components:
+   ```scss
+   &[data-variant="accent"] {
+     --btn-bg: var(--color-accent);
+     --btn-color: var(--color-text-inverse);
+   }
+   ```
+
+#### Scenario 2: Adding a Loading/Pending State
+
+**Need:** Components need a visual state for loading/processing
+
+**Steps:**
+1. Decide on primitive: Use existing neutral or blue
+   ```scss
+   // No new primitives needed - reuse existing
+   ```
+
+2. Add semantic tokens to `_color-semantic.scss`:
+   ```scss
+   --color-loading: var(--color-blue-400);
+   --color-loading-bg: var(--color-blue-50);
+   --color-loading-text: var(--color-blue-900);
+   ```
+
+3. Add utilities if needed:
+   ```scss
+   .text-loading { color: var(--color-loading-text); }
+   .bg-loading { background-color: var(--color-loading-bg); }
+   ```
+
+4. Use in component:
+   ```scss
+   &[aria-busy="true"] {
+     --btn-bg: var(--color-loading-bg);
+     --btn-color: var(--color-loading-text);
+     border-color: var(--color-loading);
+   }
+   ```
+
+#### Scenario 3: Dark Mode Support
+
+**Need:** Support dark theme with inverted colors
+
+**Steps:**
+1. Add dark mode primitives or use existing with inversion
+   ```scss
+   // Option A: Add dark-specific primitives
+   --color-neutral-dark-0: #0a0a0a;    // Dark background
+   --color-neutral-dark-900: #fafafa;  // Light text on dark
+
+   // Option B: Use CSS color functions
+   @media (prefers-color-scheme: dark) {
+     --color-surface: var(--color-neutral-900);
+     --color-text: var(--color-neutral-0);
+     --color-border: var(--color-neutral-700);
+   }
+   ```
+
+2. Semantic tokens automatically adapt:
+   ```scss
+   // In _color-semantic.scss
+   :root {
+     --color-surface: var(--color-neutral-0);
+     --color-text: var(--color-neutral-800);
+   }
+
+   @media (prefers-color-scheme: dark) {
+     :root {
+       --color-surface: var(--color-neutral-900);
+       --color-text: var(--color-neutral-100);
+     }
+   }
+   ```
+
+3. Components automatically use dark theme via semantic tokens
+
+#### Scenario 4: Adding Custom Component Variants
+
+**Need:** New button variant "ghost" with minimal styling
+
+**Steps:**
+1. No new primitives or semantic tokens needed
+
+2. Add component tokens in `button.scss`:
+   ```scss
+   &[data-btn~="ghost"] {
+     --btn-bg: transparent;
+     --btn-color: var(--color-primary);
+     --btn-border-color: transparent;
+
+     &:hover {
+       --btn-bg: var(--color-hover-overlay);
+     }
+   }
+   ```
+
+---
+
+### Extension Best Practices
+
+#### Naming Conventions
+
+**Primitives:**
+- Format: `--color-{hue}-{scale}`
+- Example: `--color-blue-600`, `--color-neutral-100`
+- Scales: 50, 100, 200, ..., 900 (optionally 25, 950)
+
+**Semantic:**
+- Format: `--color-{purpose}-{variant}`
+- Example: `--color-primary-hover`, `--color-success-bg`
+- Common purposes: primary, secondary, success, error, warning, info, accent
+- Common variants: hover, active, light, dark, bg, border, text
+
+**Component:**
+- Format: `--{component}-{variant}-{property}`
+- Example: `--btn-primary-bg`, `--alert-error-text`
+- Follow component-specific naming established in project
+
+**Utilities:**
+- Format: `.{type}-{semantic}`
+- Example: `.text-primary`, `.bg-success`, `.border-error`
+- Types: text, bg, border
+- Only for semantic tokens (not primitives)
+
+#### Token Reference Chain
+
+Always maintain proper token hierarchy:
+
+✅ **CORRECT:**
+```scss
+// Primitive → Semantic → Component
+--color-blue-600: #2563eb;                    // Primitive
+--color-primary: var(--color-blue-600);       // Semantic
+--btn-bg: var(--color-primary);               // Component
+```
+
+❌ **INCORRECT:**
+```scss
+// Skipping semantic tier
+--color-blue-600: #2563eb;                    // Primitive
+--btn-bg: var(--color-blue-600);              // ❌ Skip semantic tier
+```
+
+❌ **INCORRECT:**
+```scss
+// Hardcoding in component
+--btn-bg: #2563eb;                            // ❌ Hardcoded hex
+```
+
+#### Accessibility Requirements
+
+When adding new colors:
+
+1. **Contrast Testing:**
+   - Text on background: 4.5:1 (normal), 3:1 (large 18px+)
+   - UI components: 3:1 minimum
+   - Focus indicators: 3:1 against adjacent colors
+
+2. **Tools for Testing:**
+   - WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
+   - Chrome DevTools: Inspect > Contrast ratio
+   - Storybook a11y addon: Built-in
+
+3. **Test Matrix:**
+   ```
+   For each new color:
+   - Text on light background (test 800-900 scales)
+   - Text on dark background (test 50-200 scales)
+   - Border visibility (test 300-600 scales)
+   - Focus indicators (test against all surface colors)
+   ```
+
+#### Documentation
+
+When extending the color system:
+
+1. **Update Color System Docs** (`src/docs/color-system.stories.mdx`):
+   - Add new primitives to palette display
+   - Document new semantic tokens with use cases
+   - Show visual examples in Storybook
+
+2. **Update Component Docs** (component README.mdx):
+   - Document new component-specific tokens
+   - Show customization examples
+   - List available variants
+
+3. **Add Code Comments:**
+   ```scss
+   // Accent color - Used for call-to-action elements and highlights
+   // WCAG AA compliant: 4.6:1 contrast ratio on white
+   --color-accent: var(--color-orange-500);
+   ```
+
+---
+
+### Extension Checklist
+
+Use this checklist when extending the color system:
+
+**Adding New Primitive Color:**
+- [ ] Add full scale (50-900) to `_color-primitives.scss`
+- [ ] Verify WCAG AA contrast ratios
+- [ ] Test with color blindness simulators
+- [ ] Add inline comments documenting purpose
+
+**Adding New Semantic Token:**
+- [ ] Reference primitive tokens (no hardcoded hex)
+- [ ] Add all variants (base, hover, bg, text, border as needed)
+- [ ] Follow naming convention `--color-{purpose}-{variant}`
+- [ ] Update color system documentation
+
+**Adding Component Tokens:**
+- [ ] Reference semantic tokens (not primitives)
+- [ ] Use fallbacks: `var(--component-token, var(--semantic-token))`
+- [ ] Scope to component selector
+- [ ] Document in component README
+
+**Adding Utility Classes:**
+- [ ] Only create for semantic tokens (not primitives)
+- [ ] Follow naming: `.{type}-{semantic}`
+- [ ] Add to appropriate utility file (_color-text, _color-bg, _color-border)
+- [ ] Export from `_index.scss`
+- [ ] Test in Storybook
+
+**Testing:**
+- [ ] SCSS compiles without errors: `npm run sass:build`
+- [ ] Colors display correctly in Storybook
+- [ ] Accessibility addon shows no violations
+- [ ] Test all component variants using new colors
+- [ ] Verify dark mode (if applicable)
+
+---
+
 ## Implementation Phases
 
 ### Phase 1: Foundation Setup (Day 1)
+
 - Create token infrastructure (primitives + semantic)
 - Update main index.scss with token imports
 - Verify SCSS compilation
 
 ### Phase 2: Utility Classes (Day 1)
+
 - Create text, background, and border utility classes
 - Update utilities index
 - Test utilities in Storybook
 
 ### Phase 3: High-Priority Components (Days 2-3)
+
 - Alert, Form/Checkbox, Button, Card, Dialog
 - Replace hardcoded colors with semantic tokens
 - Comprehensive testing for each
 
 ### Phase 4: Remaining Components (Days 4-5)
+
 - Badge, Tag, Link, Nav, Title, Progress, Details, Text-to-Speech, List
 - Apply migration patterns
 - Test each component
 
 ### Phase 5: Global Updates & Deprecation (Day 6)
+
 - Update globals.scss
 - Deprecate old colors.scss
 - Full rebuild and verification
 
 ### Phase 6: Comprehensive Testing (Days 7-8)
+
 - Visual regression
 - Accessibility validation (WCAG AA)
 - Integration testing
 - Build verification
 
 ### Phase 7: Documentation & Examples (Days 9-10)
+
 - Color system documentation
 - Utility class guide
 - Theming examples
