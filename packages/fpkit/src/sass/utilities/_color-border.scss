@@ -1,0 +1,61 @@
+/**
+ * Border Color Utilities
+ *
+ * Semantic border color utility classes for quick styling.
+ * All utilities reference semantic tokens (Tier 2), not primitives.
+ *
+ * Note: These utilities only set border-color.
+ * You may need to set border-width and border-style separately.
+ *
+ * Usage:
+ * <div class="border-primary" style="border: 1px solid;">
+ * <div class="border-error" style="border-width: 2px; border-style: solid;">
+ */
+
+/* ========================================
+   Brand Borders
+   ======================================== */
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+
+/* ========================================
+   State Borders
+   ======================================== */
+
+.border-success {
+  border-color: var(--color-success-border);
+}
+
+.border-error {
+  border-color: var(--color-error-border);
+}
+
+.border-warning {
+  border-color: var(--color-warning-border);
+}
+
+.border-info {
+  border-color: var(--color-info-border);
+}
+
+/* ========================================
+   UI Borders
+   ======================================== */
+
+.border-default {
+  border-color: var(--color-border);
+}
+
+.border-subtle {
+  border-color: var(--color-border-subtle);
+}
+
+.border-transparent {
+  border-color: transparent;
+}

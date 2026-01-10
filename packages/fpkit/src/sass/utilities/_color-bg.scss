@@ -1,0 +1,62 @@
+/**
+ * Background Color Utilities
+ *
+ * Semantic background color utility classes for quick styling.
+ * All utilities reference semantic tokens (Tier 2), not primitives.
+ *
+ * Usage:
+ * <div class="bg-primary">Primary background</div>
+ * <div class="bg-success">Success background</div>
+ */
+
+/* ========================================
+   Brand Backgrounds
+   ======================================== */
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-primary-light {
+  background-color: var(--color-primary-light);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary-light);
+}
+
+/* ========================================
+   State Backgrounds
+   ======================================== */
+
+.bg-success {
+  background-color: var(--color-success-bg);
+}
+
+.bg-error {
+  background-color: var(--color-error-bg);
+}
+
+.bg-warning {
+  background-color: var(--color-warning-bg);
+}
+
+.bg-info {
+  background-color: var(--color-info-bg);
+}
+
+/* ========================================
+   Surface Backgrounds
+   ======================================== */
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+.bg-surface-secondary {
+  background-color: var(--color-surface-secondary);
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
