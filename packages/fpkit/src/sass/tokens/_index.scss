@@ -1,0 +1,15 @@
+/**
+ * Color Tokens - Main Export
+ *
+ * This file exports the complete color token system.
+ * Import order matters: primitives must load before semantic tokens.
+ *
+ * Usage in main index.scss:
+ * @use "./sass/tokens";
+ */
+
+/* Tier 1: Primitive color scales (foundation) */
+@forward "./color-primitives";
+
+/* Tier 2: Semantic color mappings (purpose-based) */
+@forward "./color-semantic";
