@@ -1,0 +1,17 @@
+/**
+ * Utilities - Main Export
+ *
+ * This file exports all utility classes.
+ * Utilities are loaded after tokens and base styles, before components.
+ *
+ * Usage in main index.scss:
+ * @use "./sass/utilities";
+ */
+
+/* Existing utilities */
+@forward "../../styles/utilities/disabled";
+
+/* New color utilities (semantic only) */
+@forward "./color-text";
+@forward "./color-bg";
+@forward "./color-border";

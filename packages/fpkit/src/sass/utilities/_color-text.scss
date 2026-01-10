@@ -1,0 +1,58 @@
+/**
+ * Text Color Utilities
+ *
+ * Semantic text color utility classes for quick styling.
+ * All utilities reference semantic tokens (Tier 2), not primitives.
+ *
+ * Usage:
+ * <p class="text-primary">Primary text</p>
+ * <span class="text-error">Error message</span>
+ */
+
+/* ========================================
+   Brand Text Colors
+   ======================================== */
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+/* ========================================
+   State Text Colors
+   ======================================== */
+
+.text-success {
+  color: var(--color-success-text);
+}
+
+.text-error {
+  color: var(--color-error-text);
+}
+
+.text-warning {
+  color: var(--color-warning-text);
+}
+
+.text-info {
+  color: var(--color-info-text);
+}
+
+/* ========================================
+   Text Hierarchy Colors
+   ======================================== */
+
+.text-muted {
+  color: var(--color-text-tertiary);
+}
+
+.text-disabled {
+  color: var(--color-text-disabled);
+}
+
+.text-inverse {
+  color: var(--color-text-inverse);
+}

@@ -15,9 +15,10 @@
 @use "./sass/elements";
 
 // ============================================
-// Utilities (will be updated in Phase 2)
+// Utilities
+// Loaded after tokens, before components
 // ============================================
-@use "./styles/utilities/disabled";
+@use "./sass/utilities";
 @use "./components/buttons/button.scss";
 @use "./components/tag/tag.scss";
 @use "./components/images/img.scss";
