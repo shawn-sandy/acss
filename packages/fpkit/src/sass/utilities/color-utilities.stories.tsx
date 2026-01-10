@@ -27,7 +27,7 @@ import type { Meta, StoryObj } from "@storybook/react";
  * - WCAG AA accessibility compliance (4.5:1 text, 3:1 UI)
  */
 const meta = {
-  title: "Utilities/Colors",
+  title: "FP.React Components/Utilities/Colors",
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -410,10 +410,7 @@ export const ThemingExample: Story = {
         <p className="text-primary">
           Primary text uses default blue from token system
         </p>
-        <div
-          className="bg-primary"
-          style={{ padding: "1rem", color: "white" }}
-        >
+        <div className="bg-primary" style={{ padding: "1rem", color: "white" }}>
           Primary background uses default blue
         </div>
       </div>
@@ -430,10 +427,7 @@ export const ThemingExample: Story = {
         <p className="text-primary">
           Primary text now uses purple via token override
         </p>
-        <div
-          className="bg-primary"
-          style={{ padding: "1rem", color: "white" }}
-        >
+        <div className="bg-primary" style={{ padding: "1rem", color: "white" }}>
           Primary background now uses purple
         </div>
         <div className="bg-primary-light" style={{ padding: "1rem" }}>
@@ -453,10 +447,7 @@ export const ThemingExample: Story = {
         <p className="text-primary">
           Primary text now uses red via token override
         </p>
-        <div
-          className="bg-primary"
-          style={{ padding: "1rem", color: "white" }}
-        >
+        <div className="bg-primary" style={{ padding: "1rem", color: "white" }}>
           Primary background now uses red
         </div>
         <div className="bg-primary-light" style={{ padding: "1rem" }}>
@@ -519,8 +510,8 @@ export const UsageGuidelines: Story = {
           conflict)
         </li>
         <li>
-          Don't reference primitive tokens directly (<code>--color-blue-600</code>
-          ) - use semantic tokens instead
+          Don't reference primitive tokens directly (
+          <code>--color-blue-600</code>) - use semantic tokens instead
         </li>
         <li>Don't create custom color utilities outside the token system</li>
         <li>
@@ -582,9 +573,7 @@ export const UsageGuidelines: Story = {
       </div>
 
       <h4 style={{ marginBlockStart: "1.5rem" }}>Accessibility</h4>
-      <p>
-        All color utilities meet WCAG AA standards when used appropriately:
-      </p>
+      <p>All color utilities meet WCAG AA standards when used appropriately:</p>
       <ul style={{ lineHeight: 1.6 }}>
         <li>
           <strong>Text colors:</strong> 4.5:1 contrast minimum on white
