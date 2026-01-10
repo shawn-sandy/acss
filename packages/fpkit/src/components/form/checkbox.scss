@@ -44,7 +44,7 @@ div:has(> input[type="checkbox"]) {
   // Hover state (only when not disabled) - WCAG 1.4.13 Content on Hover
   &:not(:has(> input[aria-disabled="true"])):hover {
     .checkbox-label {
-      color: var(--checkbox-hover-label-color, inherit);
+      // color: var(--checkbox-hover-label-color, inherit);
     }
   }
 
@@ -74,15 +74,15 @@ div:has(> input[type="checkbox"]) {
   // Invalid state styling - WCAG 3.3.1 Error Identification
   // Color alone is not sufficient - error message text must also be provided
   &:has(> input[aria-invalid="true"]) {
-    .checkbox-label {
-      color: var(--checkbox-error-label-color, #dc2626);
-    }
+    // .checkbox-label {
+    //   color: var(--checkbox-error-label-color, #dc2626);
+    // }
   }
 
   // Valid state styling (when checked and explicitly marked valid)
   &:has(> input[aria-invalid="false"]:checked) {
-    .checkbox-label {
-      color: var(--checkbox-valid-label-color, #16a34a);
+    label[for] {
+      color: var(--checkbox-valid-label-color, currentColor);
     }
   }
 }

@@ -49,6 +49,13 @@
   --checkbox-radius: 0.25rem; /* 4px */
   --checkbox-cursor: pointer;
   --checkbox-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ==========================================================================
+     Checked State Properties
+     ========================================================================== */
+
+  --checkbox-checked-outline-color: darkgreen;
+  --checkbox-checked-bg: green;
 }
 
 form {
@@ -125,8 +132,10 @@ input[type="checkbox"] {
 
   &:checked {
     background-color: var(--checkbox-bg, red);
-    outline: rebeccapurple solid 2px;
-    background: #dbeafe;
+    outline: var(--checkbox-checked-outline-color) solid 2px;
+    background: var(--checkbox-checked-bg)
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path d='M6.173 11.414l-3.89-3.89 1.414-1.414 2.476 2.475 5.657-5.657 1.414 1.414z'/></svg>")
+      no-repeat center center;
   }
 }
 
