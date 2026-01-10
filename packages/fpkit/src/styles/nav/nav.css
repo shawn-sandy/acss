@@ -29,7 +29,7 @@ body > nav ul > li,
 body > nav ul > li:hover,
 [aria-label~=navbar] ul > li:hover,
 .navbar ul > li:hover {
-  background-color: var(--nav-hover-bg, #e8e8e8);
+  background-color: var(--nav-hover-bg, var(--color-surface-secondary));
 }
 body > nav ul > li:hover:has(img, button),
 [aria-label~=navbar] ul > li:hover:has(img, button),

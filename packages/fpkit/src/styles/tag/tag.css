@@ -20,15 +20,15 @@ p[role=note],
 small > span,
 [data-tag] {
   /* Variant color tokens - WCAG AA compliant colors */
-  --beta: #fbbf24; /* Amber: 6.94:1 contrast with black */
-  --stable: #0f7c3e; /* Dark green: 4.56:1 contrast with white */
-  --production: #1e3a8a; /* Dark blue: 8.59:1 contrast with white */
+  --beta: var(--color-amber-400); /* Amber: 6.94:1 contrast with black */
+  --stable: var(--color-green-700); /* Dark green: 4.56:1 contrast with white */
+  --production: var(--color-blue-900); /* Dark blue: 8.59:1 contrast with white */
   /* Tag component tokens */
   --tag-padding-inline: 0.7rem; /* Horizontal padding (11.2px at 16px base) */
   --tag-padding-block: 0.2rem; /* Vertical padding (3.2px at 16px base) */
   --tag-fs: 0.8rem; /* Font size (12.8px at 16px base) */
   --tag-radius: 99rem; /* Fully rounded pill shape */
-  --tag-bg: lightgray; /* Default background color */
+  --tag-bg: var(--color-neutral-300); /* Default background color */
   --tag-fw: 500; /* Medium font weight */
   --tag-color: currentColor; /* Default text color (inherits) */
   --tag-display: inline-block; /* Display type */
@@ -72,7 +72,7 @@ p[role=note][data-tag~=alpha],
 [role=note][data-tag~=alpha],
 small > span[data-tag~=alpha],
 [data-tag][data-tag~=alpha] {
-  --tag-color: #000000; /* Black: maximum contrast with amber background */
+  --tag-color: var(--color-neutral-900); /* Black: maximum contrast with amber background */
   --tag-bg: var(--beta);
   /* Visual indicator beyond color - warning symbol */
 }
@@ -89,7 +89,7 @@ p[role=note][data-tag~=beta],
 [role=note][data-tag~=beta],
 small > span[data-tag~=beta],
 [data-tag][data-tag~=beta] {
-  --tag-color: #000000; /* Black: maximum contrast with amber background */
+  --tag-color: var(--color-neutral-900); /* Black: maximum contrast with amber background */
   --tag-bg: var(--beta);
   /* Visual indicator beyond color - warning symbol */
 }
@@ -106,7 +106,7 @@ p[role=note][data-tag~=stable],
 [role=note][data-tag~=stable],
 small > span[data-tag~=stable],
 [data-tag][data-tag~=stable] {
-  --tag-color: #ffffff; /* White: 4.56:1 contrast with dark green */
+  --tag-color: var(--color-text-inverse); /* White: 4.56:1 contrast with dark green */
   --tag-bg: var(--stable);
   /* Visual indicator beyond color - checkmark symbol */
 }

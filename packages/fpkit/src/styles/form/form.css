@@ -8,15 +8,15 @@
  * CSS Custom Properties:
  * - --checkbox-gap: Space between checkbox and label (default: 0.5rem)
  * - --checkbox-disabled-opacity: Opacity for disabled state (default: 0.6)
- * - --checkbox-disabled-color: Label color when disabled (default: #6b7280)
+ * - --checkbox-disabled-color: Label color when disabled (default: var(--color-disabled-text))
  * - --checkbox-label-fs: Label font size (default: 1rem)
  * - --checkbox-label-lh: Label line height (default: 1.5)
- * - --color-required: Required indicator color (default: #dc2626)
- * - --checkbox-focus-ring-color: Focus ring color (default: #2563eb)
+ * - --color-required: Required indicator color (default: var(--color-required))
+ * - --checkbox-focus-ring-color: Focus ring color (default: var(--color-focus-ring))
  * - --checkbox-focus-ring-width: Focus ring width (default: 0.125rem)
  * - --checkbox-focus-ring-offset: Focus ring offset (default: 0.125rem)
  * - --checkbox-hover-label-color: Label color on hover (default: inherit)
- * - --checkbox-error-label-color: Label color when invalid (default: #dc2626)
+ * - --checkbox-error-label-color: Label color when invalid (default: var(--color-error-text))
  * - --checkbox-valid-label-color: Label color when valid (default: #16a34a)
  * - --checkbox-focus-radius: Focus outline border radius (default: 0.125rem)
  *
@@ -38,10 +38,10 @@ div:has(> input[type=checkbox]) > input[type=checkbox] {
   order: -1;
 }
 div:has(> input[type=checkbox]):not(:has(> input[aria-disabled=true])):hover .checkbox-label {
-  color: var(--checkbox-hover-label-color, inherit);
+  color: var(--checkbox-hover-label-color, currentColor);
 }
 div:has(> input[type=checkbox]):has(> input:focus-visible) .checkbox-label {
-  outline: var(--checkbox-focus-ring-width, 0.125rem) solid var(--checkbox-focus-ring-color, #2563eb);
+  outline: var(--checkbox-focus-ring-width, 0.125rem) solid var(--checkbox-focus-ring-color, var(--color-focus-ring));
   outline-offset: var(--checkbox-focus-ring-offset, 0.125rem);
   border-radius: var(--checkbox-focus-radius, 0.125rem);
 }
@@ -50,14 +50,14 @@ div:has(> input[type=checkbox]):has(> input[aria-disabled=true]) {
   cursor: not-allowed;
 }
 div:has(> input[type=checkbox]):has(> input[aria-disabled=true]) .checkbox-label {
-  color: var(--checkbox-disabled-color, #6b7280);
+  color: var(--checkbox-disabled-color, var(--color-disabled-text));
   cursor: not-allowed;
 }
 div:has(> input[type=checkbox]):has(> input[aria-invalid=true]) .checkbox-label {
-  color: var(--checkbox-error-label-color, #dc2626);
+  color: var(--checkbox-error-label-color, var(--color-error-text));
 }
-div:has(> input[type=checkbox]):has(> input[aria-invalid=false]:checked) .checkbox-label {
-  color: var(--checkbox-valid-label-color, #16a34a);
+div:has(> input[type=checkbox]):has(> input[aria-invalid=false]:checked) label[for] {
+  color: var(--checkbox-valid-label-color, currentColor);
 }
 
 .checkbox-label {
@@ -76,7 +76,7 @@ div:has(> input[type=checkbox]):has(> input[aria-invalid=false]:checked) .checkb
   }
 }
 .checkbox-label .checkbox-required {
-  color: var(--color-required, #dc2626);
+  color: var(--color-required);
   font-weight: 600;
   margin-inline-start: 0.125rem;
 }
@@ -94,7 +94,7 @@ div:has(> input[type=checkbox]):has(> input[aria-invalid=false]:checked) .checkb
   }
 }
 :root {
-  --input-border-color: gray;
+  --input-border-color: var(--color-border);
   --input-appearance: none;
   --input-bg: inherit;
   --input-border: none;
@@ -106,10 +106,10 @@ div:has(> input[type=checkbox]):has(> input[aria-invalid=false]:checked) .checkb
   --input-width: clamp(200px, 100%, 500px);
   --input-focus-outline: medium solid var(--input-border-color);
   --input-focus-outline-offset: 0;
-  --input-disabled-bg: #f5f5f5;
+  --input-disabled-bg: var(--color-disabled-bg);
   --input-disabled-opacity: 0.6;
   --input-disabled-cursor: not-allowed;
-  --placeholder-color: gray;
+  --placeholder-color: var(--color-text-tertiary);
   --placeholder-style: italic;
   --placeholder-fs: smaller;
   --form-direction: column;
@@ -124,12 +124,17 @@ div:has(> input[type=checkbox]):has(> input[aria-invalid=false]:checked) .checkb
      Base Properties
      ========================================================================== */
   --checkbox-size: var(--checkbox-size-md);
-  --checkbox-bg: #ffffff;
-  --checkbox-border: 0.125rem solid #6b7280; /* 2px border */
-  --checkbox-border-color: #6b7280; /* Gray 500 */
+  --checkbox-bg: var(--color-surface);
+  --checkbox-border: 0.125rem solid var(--color-neutral-600); /* 2px border */
+  --checkbox-border-color: var(--color-neutral-600); /* Gray 500 */
   --checkbox-radius: 0.25rem; /* 4px */
   --checkbox-cursor: pointer;
   --checkbox-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ==========================================================================
+     Checked State Properties
+     ========================================================================== */
+  --checkbox-checked-outline-color: var(--color-success);
+  --checkbox-checked-bg: var(--color-success);
 }
 
 form {
@@ -156,14 +161,14 @@ input {
   padding-inline: var(--input-padding-inline);
   padding-block: var(--input-padding-block);
   border-radius: var(--input-radius);
-  background-color: var(--input-bg, #fff);
+  background-color: var(--input-bg, var(--color-surface));
 }
 input:focus-visible, input:focus {
   outline: var(--input-focus-outline);
   outline-offset: var(--input-focus-outline-offset);
 }
 input[aria-disabled=true], input:disabled {
-  --input-border-color: lightgray;
+  --input-border-color: var(--color-border-subtle);
   background-color: var(--input-disabled-bg);
   opacity: var(--input-disabled-opacity);
   cursor: var(--input-disabled-cursor);
@@ -201,8 +206,8 @@ input[type=checkbox] {
 }
 input[type=checkbox]:checked {
   background-color: var(--checkbox-bg, red);
-  outline: rebeccapurple solid 2px;
-  background: #dbeafe;
+  outline: var(--checkbox-checked-outline-color) solid 2px;
+  background: var(--checkbox-checked-bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path d='M6.173 11.414l-3.89-3.89 1.414-1.414 2.476 2.475 5.657-5.657 1.414 1.414z'/></svg>") no-repeat center center;
 }
 
 select {

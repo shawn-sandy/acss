@@ -7,7 +7,7 @@ button {
   --btn-pill: 100rem;
   --btn-fs: var(--btn-size-md);
   --btn-height: calc(var(--btn-fs) * 2.25);
-  --btn-bg: lightgray;
+  --btn-bg: var(--color-neutral-300);
   --btn-width: max-content;
 
   font-size: var(--btn-fs);
@@ -36,14 +36,14 @@ button {
   line-height: 0cap;
 
   &[type] {
-    background-color: var(--btn-bg, var(--neutral-300));
+    background-color: var(--btn-bg, var(--color-neutral-300));
     --btn-border: solid var(--btn-sg);
   }
 
   &[type="submit"],
   &[style*="submit"] {
-    --btn-bg: var(--primary-500, royal-blue);
-    --btn-color: white;
+    --btn-bg: var(--color-primary);
+    --btn-color: var(--color-text-inverse);
   }
 
   &[disabled],
@@ -81,13 +81,13 @@ button {
 
   &[type="reset"] {
     --btn-bg: transparent;
-    --btn-color: gray;
-    --btn-border: gray thin solid;
+    --btn-color: var(--color-text-secondary);
+    --btn-border: var(--color-border) thin solid;
   }
 
   &[type="submit"] {
-    --btn-bg: var(--primary-700, blue);
-    --btn-color: #fff;
+    --btn-bg: var(--color-primary);
+    --btn-color: var(--color-text-inverse);
     --btn-border: none;
   }
 

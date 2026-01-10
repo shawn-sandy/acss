@@ -2,7 +2,7 @@
 @use "./checkbox";
 
 :root {
-  --input-border-color: gray;
+  --input-border-color: var(--color-border);
   --input-appearance: none;
   --input-bg: inherit;
   --input-border: none;
@@ -18,12 +18,12 @@
   --input-focus-outline-offset: 0;
 
   // Disabled state variables (NEW)
-  --input-disabled-bg: #f5f5f5;
+  --input-disabled-bg: var(--color-disabled-bg);
   --input-disabled-opacity: 0.6;
   --input-disabled-cursor: not-allowed;
 
   // Placeholder variables
-  --placeholder-color: gray;
+  --placeholder-color: var(--color-text-tertiary);
   --placeholder-style: italic;
   --placeholder-fs: smaller;
 
@@ -43,9 +43,9 @@
      ========================================================================== */
 
   --checkbox-size: var(--checkbox-size-md);
-  --checkbox-bg: #ffffff;
-  --checkbox-border: 0.125rem solid #6b7280; /* 2px border */
-  --checkbox-border-color: #6b7280; /* Gray 500 */
+  --checkbox-bg: var(--color-surface);
+  --checkbox-border: 0.125rem solid var(--color-neutral-600); /* 2px border */
+  --checkbox-border-color: var(--color-neutral-600); /* Gray 500 */
   --checkbox-radius: 0.25rem; /* 4px */
   --checkbox-cursor: pointer;
   --checkbox-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -54,8 +54,8 @@
      Checked State Properties
      ========================================================================== */
 
-  --checkbox-checked-outline-color: darkgreen;
-  --checkbox-checked-bg: green;
+  --checkbox-checked-outline-color: var(--color-success);
+  --checkbox-checked-bg: var(--color-success);
 }
 
 form {
@@ -83,7 +83,7 @@ input {
   padding-inline: var(--input-padding-inline);
   padding-block: var(--input-padding-block);
   border-radius: var(--input-radius);
-  background-color: var(--input-bg, #fff);
+  background-color: var(--input-bg, var(--color-surface));
 
   &:focus-visible,
   &:focus {
@@ -93,7 +93,7 @@ input {
 
   &[aria-disabled="true"],
   &:disabled {
-    --input-border-color: lightgray;
+    --input-border-color: var(--color-border-subtle);
     background-color: var(--input-disabled-bg);
     opacity: var(--input-disabled-opacity);
     cursor: var(--input-disabled-cursor);
