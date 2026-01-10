@@ -1,5 +1,5 @@
 details {
-  --details-border: 0.0625rem solid #dfdfdf;
+  --details-border: 0.0625rem solid var(--color-border-subtle);
   --details-direction: column;
   --details-display: flex;
   --details-gap: 0rem;
@@ -33,7 +33,6 @@ details {
 @starting-style {
   details {
     transition: var(--summary-transitions);
-    color: red;
   }
 }
 details + details {
@@ -71,7 +70,7 @@ details summary::-webkit-details-marker {
 details summary:focus-within {
   outline: none;
   border-bottom: solid 2px currentColor;
-  background-color: whitesmoke;
+  background-color: var(--color-surface-secondary);
 }
 details summary:hover {
   cursor: var(--summary-cursor);

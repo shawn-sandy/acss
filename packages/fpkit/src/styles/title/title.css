@@ -51,16 +51,16 @@
   --title-fs: var(--title-size-2xl);
 }
 [data-title][data-title~=primary] {
-  --title-color: #1e3a8a;
+  --title-color: var(--color-primary);
 }
 [data-title][data-title~=secondary] {
-  --title-color: #4b5563;
+  --title-color: var(--color-text-secondary);
 }
 [data-title][data-title~=accent] {
-  --title-color: #7c3aed;
+  --title-color: var(--color-primary);
 }
 [data-title][data-title~=muted] {
-  --title-color: #6b7280;
+  --title-color: var(--color-text-tertiary);
 }
 [data-title][data-title~=inherit] {
   --title-color: inherit;

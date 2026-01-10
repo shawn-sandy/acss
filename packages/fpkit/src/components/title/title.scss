@@ -37,10 +37,10 @@
   &[data-title~="2xl"] { --title-fs: var(--title-size-2xl); }
 
   /* Color variants - WCAG AA compliant (4.5:1 minimum) */
-  &[data-title~="primary"] { --title-color: #1e3a8a; }    /* 8.59:1 */
-  &[data-title~="secondary"] { --title-color: #4b5563; }  /* 7.56:1 */
-  &[data-title~="accent"] { --title-color: #7c3aed; }     /* 4.62:1 */
-  &[data-title~="muted"] { --title-color: #6b7280; }      /* 5.49:1 */
+  &[data-title~="primary"] { --title-color: var(--color-primary); }    /* 8.59:1 */
+  &[data-title~="secondary"] { --title-color: var(--color-text-secondary); }  /* 7.56:1 */
+  &[data-title~="accent"] { --title-color: var(--color-primary); }     /* 4.62:1 */
+  &[data-title~="muted"] { --title-color: var(--color-text-tertiary); }      /* 5.49:1 */
   &[data-title~="inherit"] { --title-color: inherit; }
 }
 

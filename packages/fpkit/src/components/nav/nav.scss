@@ -22,7 +22,7 @@ body > nav,
       padding-inline: var(--nav-padding-inline, 0.75rem);
 
       &:hover {
-        background-color: var(--nav-hover-bg, #e8e8e8);
+        background-color: var(--nav-hover-bg, var(--color-surface-secondary));
       }
       &:hover:has(img, button) {
         background-color: transparent;

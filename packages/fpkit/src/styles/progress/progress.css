@@ -3,8 +3,8 @@ progress {
   all: revert;
   --progress-width: 100%;
   --progress-height: 1rem;
-  --progress-bg: #cccccc;
-  --progress-color: rgb(71, 71, 245);
+  --progress-bg: var(--color-neutral-300);
+  --progress-color: var(--color-primary);
   --progress-accent-color: var(--progress-color);
   /* This code changes the color of the progress bar. */
   /* The variable names indicate the colors that are used. */

@@ -10,7 +10,7 @@
  * - Uses :focus-visible for better UX (keyboard vs mouse)
  */
 a[href] {
-  --link-color: #085ab7;
+  --link-color: var(--color-link);
   --link-fw: 400;
   --link-fs: 1rem;
   --link-decoration: none;
