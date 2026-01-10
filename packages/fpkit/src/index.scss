@@ -1,9 +1,22 @@
+// ============================================
+// TOKENS - Foundation Layer (Tier 1 & 2)
+// Must load FIRST to be available to all components
+// ============================================
+@use "./sass/tokens";
+
+// ============================================
+// Base Styles
+// ============================================
 @use "./sass/reset";
 @use "./sass/layout";
 @use "./sass/type";
 @use "./sass/properties";
 @use "./sass/globals";
 @use "./sass/elements";
+
+// ============================================
+// Utilities (will be updated in Phase 2)
+// ============================================
 @use "./styles/utilities/disabled";
 @use "./components/buttons/button.scss";
 @use "./components/tag/tag.scss";
