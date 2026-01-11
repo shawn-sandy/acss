@@ -3,45 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [4.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.6.0...@fpkit/acss@4.1.0) (2026-01-11)
-
-
-### Bug Fixes
-
-* **columns:** resolve JSX syntax error and enhance responsive docs ([8d04c64](https://github.com/shawn-sandy/fpkit/commit/8d04c64e67ed64d1606f7162283aafa551bad0f1))
-
-
-* feat(checkbox)!: deprecate Checkbox component in favor of Input type="checkbox" ([f16ff10](https://github.com/shawn-sandy/fpkit/commit/f16ff10afe44590c575fafb48dbd0b8832eab70b))
+# [4.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@4.0.0...@fpkit/acss@4.1.0) (2026-01-11)
 
 
 ### Features
 
-* **checkbox:** add accessible checkbox component with size and color variants ([6aa1b50](https://github.com/shawn-sandy/fpkit/commit/6aa1b50a7d79f24bdcc435faf31312c0f2ecf747))
-* **checkbox:** implement Checkbox wrapper component with modern CSS architecture ([f971fec](https://github.com/shawn-sandy/fpkit/commit/f971fec36ef8c85295f4d38015ec198f37971f48))
-* **title:** add size and color variants with data-title attributes ([e7f9b7a](https://github.com/shawn-sandy/fpkit/commit/e7f9b7a90363fe11d12f7431f185d4297c730c6a))
-* **title:** add size and color variants with data-title attributes ([1e93884](https://github.com/shawn-sandy/fpkit/commit/1e93884becb94e8ae215180ba5adb9660fdbfa7f))
 * **tokens:** implement 3-tier color token system (Phase 1) ([2c910cd](https://github.com/shawn-sandy/fpkit/commit/2c910cdecf9a7af52b65a0da7a8b32a86da112af))
-* **tokens:** migrate all components to semantic color token system ([0608c92](https://github.com/shawn-sandy/fpkit/commit/0608c92b82058b4fd56c73033278d8b1cdfc53c8))
+  - Add color primitives (neutral, blue, green, red, amber scales)
+  - Create semantic color tokens layer (brand, state, surface, text, border)
+  - Set up component-specific tokens with fallbacks
+  - Enable centralized color management and theming
+
 * **utilities:** add semantic color utility classes (Phase 2) ([91444b1](https://github.com/shawn-sandy/fpkit/commit/91444b1992d34b4c06d3642e0f97e7509fef002d))
+  - Text utilities: .text-primary, .text-success, .text-error, etc.
+  - Background utilities: .bg-primary, .bg-surface, .bg-transparent, etc.
+  - Border utilities: .border-primary, .border-default, .border-subtle, etc.
+  - 27 total utility classes for rapid UI development
 
+* **tokens:** migrate all components to semantic color token system ([0608c92](https://github.com/shawn-sandy/fpkit/commit/0608c92b82058b4fd56c73033278d8b1cdfc53c8))
+  - Migrate 15 components from hardcoded colors to semantic tokens
+  - Replace 48+ hardcoded hex values with token references
+  - Update component tokens to use 3-tier architecture
+  - Maintain WCAG AA compliance (4.5:1 text, 3:1 UI)
+  - Components: Alert, Form, Checkbox, Button, Card, Dialog, Badge, Tag, Link, Nav, Title, Progress, Details, Text-to-Speech, List
 
-### BREAKING CHANGES
-
-* **checkbox:** Standalone Checkbox component deprecated in favor of form/Checkbox wrapper
-
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
-* The standalone Checkbox component is now deprecated and will be removed in a future version.
-
-- Add @deprecated JSDoc tags to CheckboxProps and Checkbox component
-- Add runtime console warning in development mode
-- Add deprecation notices to README.mdx and STYLES.mdx
-- Change Storybook tag from "beta" to "deprecated"
-- Add CSS variables for checkbox styling in form.scss
-- Add checkbox story to Input component demonstrating new pattern
-
-Migration path: Replace <Checkbox /> with <Input type="checkbox" />
-
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+* **utilities:** add comprehensive color utilities documentation ([3590462](https://github.com/shawn-sandy/fpkit/commit/3590462f7748040dff917da51c854933e1d37e1e))
+  - Interactive Storybook documentation for all 27 semantic color utility classes
+  - Text, background, and border color showcases
+  - Combined utilities examples (alert patterns, cards)
+  - Theming examples with token overrides
+  - WCAG AA compliance notes and best practices
 
 
 
