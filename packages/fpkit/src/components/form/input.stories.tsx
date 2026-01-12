@@ -407,7 +407,8 @@ export const CheckboxWithHint: Story = {
 /**
  * CheckboxCustomSize - Custom sized checkboxes using CSS variables
  *
- * Demonstrates responsive sizing via --checkbox-size variable.
+ * Demonstrates responsive sizing by overriding --checkbox-size and --checkbox-gap variables.
+ * Useful for contexts requiring larger touch targets or compact layouts.
  */
 export const CheckboxCustomSize: Story = {
   render: () => (
@@ -415,21 +416,33 @@ export const CheckboxCustomSize: Story = {
       <CheckboxComponent
         id="small"
         label="Small (1rem)"
-        styles={{ "--checkbox-gap": "0.375rem" } as React.CSSProperties}
+        styles={{
+          "--checkbox-size": "1rem",
+          "--checkbox-gap": "0.5rem",
+        } as React.CSSProperties}
       />
       <CheckboxComponent
         id="medium"
         label="Medium (1.25rem - default)"
+        styles={{
+          "--checkbox-gap": "0.5rem",
+        } as React.CSSProperties}
       />
       <CheckboxComponent
         id="large"
         label="Large (1.5rem)"
-        styles={{ "--checkbox-gap": "0.75rem" } as React.CSSProperties}
+        styles={{
+          "--checkbox-size": "1.5rem",
+          "--checkbox-gap": "0.625rem",
+        } as React.CSSProperties}
       />
       <CheckboxComponent
         id="xlarge"
         label="Extra Large (2rem)"
-        styles={{ "--checkbox-gap": "1rem" } as React.CSSProperties}
+        styles={{
+          "--checkbox-size": "2rem",
+          "--checkbox-gap": "0.75rem",
+        } as React.CSSProperties}
       />
     </div>
   ),

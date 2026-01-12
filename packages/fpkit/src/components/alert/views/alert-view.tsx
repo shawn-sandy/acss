@@ -143,8 +143,12 @@ export const AlertView = React.forwardRef<HTMLDivElement, AlertViewProps>(
         {...props}
       >
         <AlertScreenReaderText severity={severity} />
-        <AlertIcon severity={severity} iconProps={iconProps} hideIcon={hideIcon} />
-        <UI as="div" className="alert-message">
+        <AlertIcon
+          severity={severity}
+          iconProps={iconProps}
+          hideIcon={hideIcon}
+        />
+        <UI as="div" classes="alert-message">
           <AlertTitle title={title} titleLevel={titleLevel} />
           <AlertContent contentType={contentType}>{children}</AlertContent>
           <AlertActions actions={actions} />
