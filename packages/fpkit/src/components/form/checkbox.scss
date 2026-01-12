@@ -85,6 +85,34 @@ div:has(> input[type="checkbox"]) {
       color: var(--checkbox-valid-label-color, currentColor);
     }
   }
+
+  /* ==========================================================================
+     Size Variants - Applied via data-checkbox-size attribute
+     ========================================================================== */
+
+  // Extra Small variant
+  &[data-checkbox-size~="xs"] {
+    --checkbox-size: var(--checkbox-size-xs);
+    --checkbox-gap: var(--checkbox-gap-xs, 0.375rem);
+  }
+
+  // Small variant
+  &[data-checkbox-size~="sm"] {
+    --checkbox-size: var(--checkbox-size-sm);
+    --checkbox-gap: var(--checkbox-gap-sm, 0.5rem);
+  }
+
+  // Medium variant (default - no attribute needed, but included for explicitness)
+  &[data-checkbox-size~="md"] {
+    --checkbox-size: var(--checkbox-size-md);
+    --checkbox-gap: var(--checkbox-gap-md, 0.5rem);
+  }
+
+  // Large variant
+  &[data-checkbox-size~="lg"] {
+    --checkbox-size: var(--checkbox-size-lg);
+    --checkbox-gap: var(--checkbox-gap-lg, 0.625rem);
+  }
 }
 
 // Checkbox label styling

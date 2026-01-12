@@ -1,0 +1,766 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Forms/Checkbox/Styles" />
+
+# Checkbox CSS Documentation
+
+Comprehensive CSS customization guide for the Checkbox component using CSS
+custom properties (CSS variables).
+
+---
+
+## Table of Contents
+
+1. [Size & Spacing](#size--spacing)
+2. [Colors & Backgrounds](#colors--backgrounds)
+3. [States (Hover, Focus, Disabled)](#states)
+4. [Typography](#typography)
+5. [Borders & Radius](#borders--radius)
+6. [Advanced Customization](#advanced-customization)
+7. [CSS Variable Reference](#css-variable-reference)
+
+---
+
+## Size & Spacing
+
+### Checkbox Dimensions
+
+Control the checkbox input size using predefined tokens or custom values:
+
+```css
+/* Use predefined size tokens (recommended) */
+:root {
+  --checkbox-size-xs: 0.875rem; /* 14px */
+  --checkbox-size-sm: 1rem; /* 16px */
+  --checkbox-size-md: 1.25rem; /* 20px - default */
+  --checkbox-size-lg: 1.5rem; /* 24px */
+}
+
+/* Or override the base size directly */
+.custom-checkbox {
+  --checkbox-size: 2rem; /* 32px */
+}
+```
+
+**Via React Component:**
+
+```tsx
+{/* Semantic size prop */}
+<Checkbox size="lg" ... />
+
+{/* Custom CSS variable */}
+<Checkbox
+  styles={{ '--checkbox-size': '2rem' }}
+  ...
+/>
+```
+
+### Gap Between Checkbox and Label
+
+Control spacing between the checkbox input and label text:
+
+```css
+:root {
+  --checkbox-gap-xs: 0.375rem; /* 6px */
+  --checkbox-gap-sm: 0.5rem; /* 8px */
+  --checkbox-gap-md: 0.5rem; /* 8px - default */
+  --checkbox-gap-lg: 0.625rem; /* 10px */
+
+  /* Base gap variable */
+  --checkbox-gap: var(--checkbox-gap-md);
+}
+```
+
+**Override per component:**
+
+```tsx
+<Checkbox
+  styles={{
+    '--checkbox-gap': '1rem'  /* 16px */
+  }}
+  ...
+/>
+```
+
+---
+
+## Colors & Backgrounds
+
+### Checkbox Background
+
+```css
+:root {
+  /* Default unchecked background */
+  --checkbox-bg: var(--color-surface);
+
+  /* Checked state background */
+  --checkbox-checked-bg: var(--color-success);
+}
+```
+
+**Example: Brand colored checkbox**
+
+```tsx
+<Checkbox
+  styles={{
+    '--checkbox-checked-bg': '#0066cc',
+    '--checkbox-checked-outline-color': '#0066cc'
+  }}
+  ...
+/>
+```
+
+### Border Colors
+
+```css
+:root {
+  /* Default border color */
+  --checkbox-border-color: var(--color-neutral-600);
+
+  /* Border width */
+  --checkbox-border: 0.125rem solid var(--checkbox-border-color);
+}
+```
+
+### Checked State Outline
+
+```css
+:root {
+  /* Outline color when checked */
+  --checkbox-checked-outline-color: var(--color-success);
+}
+```
+
+**Example: Custom checked state**
+
+```tsx
+<Checkbox
+  styles={{
+    '--checkbox-checked-bg': '#10b981',
+    '--checkbox-checked-outline-color': '#10b981'
+  }}
+  defaultChecked
+  ...
+/>
+```
+
+---
+
+## States
+
+### Hover State
+
+Style the label when hovering over the checkbox wrapper:
+
+```css
+:root {
+  --checkbox-hover-label-color: currentColor;
+}
+
+/* Applied via CSS :has() selector */
+div:has(> input[type="checkbox"]):not(
+    :has(> input[aria-disabled="true"])
+  ):hover {
+  .checkbox-label {
+    color: var(--checkbox-hover-label-color, currentColor);
+  }
+}
+```
+
+**Example: Highlighted hover state**
+
+```tsx
+<Checkbox
+  styles={{
+    '--checkbox-hover-label-color': '#0066cc'
+  }}
+  ...
+/>
+```
+
+### Focus State
+
+Customize focus ring for keyboard navigation (WCAG 2.4.7 compliant):
+
+```css
+:root {
+  /* Focus ring color */
+  --checkbox-focus-ring-color: var(--color-focus-ring);
+
+  /* Focus ring width */
+  --checkbox-focus-ring-width: 0.125rem; /* 2px */
+
+  /* Focus ring offset (space between checkbox and ring) */
+  --checkbox-focus-ring-offset: 0.125rem;
+
+  /* Focus ring radius */
+  --checkbox-focus-radius: 0.125rem;
+}
+```
+
+**Example: High contrast focus indicator**
+
+```tsx
+<Checkbox
+  styles={{
+    '--checkbox-focus-ring-color': '#ff0000',
+    '--checkbox-focus-ring-width': '0.1875rem',
+    '--checkbox-focus-ring-offset': '0.25rem'
+  }}
+  ...
+/>
+```
+
+**Keyboard Navigation:**
+
+- Focus ring only appears with `:focus-visible` (keyboard users)
+- Mouse clicks don't show focus ring (better UX)
+
+### Disabled State
+
+```css
+:root {
+  /* Opacity for entire checkbox wrapper when disabled */
+  --checkbox-disabled-opacity: 0.6;
+
+  /* Label text color when disabled */
+  --checkbox-disabled-color: var(--color-disabled-text);
+}
+```
+
+**Applied automatically via aria-disabled:**
+
+```css
+div:has(> input[aria-disabled="true"]) {
+  opacity: var(--checkbox-disabled-opacity, 0.6);
+  cursor: not-allowed;
+
+  .checkbox-label {
+    color: var(--checkbox-disabled-color, var(--color-disabled-text));
+  }
+}
+```
+
+**Example: Custom disabled styling**
+
+```tsx
+<Checkbox
+  disabled
+  styles={{
+    '--checkbox-disabled-opacity': '0.4',
+    '--checkbox-disabled-color': '#999'
+  }}
+  ...
+/>
+```
+
+### Error (Invalid) State
+
+```css
+:root {
+  /* Label color when validation fails */
+  --checkbox-error-label-color: var(--color-error-text);
+}
+
+/* Applied automatically via aria-invalid */
+div:has(> input[aria-invalid="true"]) {
+  .checkbox-label {
+    color: var(--checkbox-error-label-color, var(--color-error-text));
+  }
+}
+```
+
+**Usage:**
+
+```tsx
+<Checkbox
+  validationState="invalid"
+  errorMessage="This field is required"
+  styles={{
+    '--checkbox-error-label-color': '#dc2626'
+  }}
+  ...
+/>
+```
+
+### Valid State
+
+```css
+:root {
+  /* Label color when validation passes */
+  --checkbox-valid-label-color: currentColor;
+}
+
+/* Applied when checked and explicitly valid */
+div:has(> input[aria-invalid="false"]:checked) {
+  label[for] {
+    color: var(--checkbox-valid-label-color, currentColor);
+  }
+}
+```
+
+---
+
+## Typography
+
+### Label Font Size & Line Height
+
+```css
+:root {
+  /* Label font size */
+  --checkbox-label-fs: 1rem; /* 16px */
+
+  /* Label line height */
+  --checkbox-label-lh: 1.5;
+}
+
+.checkbox-label {
+  font-size: var(--checkbox-label-fs, 1rem);
+  line-height: var(--checkbox-label-lh, 1.5);
+}
+```
+
+**Example: Larger label text**
+
+```tsx
+<Checkbox
+  styles={{
+    '--checkbox-label-fs': '1.125rem',
+    '--checkbox-label-lh': '1.6'
+  }}
+  ...
+/>
+```
+
+### Required Indicator (Asterisk)
+
+```css
+:root {
+  /* Required asterisk color */
+  --color-required: #dc2626;
+}
+
+.checkbox-required {
+  color: var(--color-required);
+  font-weight: 600;
+  margin-inline-start: 0.125rem;
+}
+```
+
+---
+
+## Borders & Radius
+
+### Border Radius
+
+```css
+:root {
+  /* Checkbox corner rounding */
+  --checkbox-radius: 0.25rem; /* 4px */
+}
+
+/* Applied to input */
+input[type="checkbox"] {
+  border-radius: var(--checkbox-radius, 0.25rem);
+}
+```
+
+**Example: Fully rounded checkbox**
+
+```tsx
+<Checkbox
+  styles={{
+    '--checkbox-radius': '50%'  /* Circle */
+  }}
+  ...
+/>
+```
+
+### Border Width & Style
+
+```css
+:root {
+  --checkbox-border: 0.125rem solid var(--checkbox-border-color);
+}
+```
+
+---
+
+## Advanced Customization
+
+### Transition & Animation
+
+```css
+:root {
+  --checkbox-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input[type="checkbox"] {
+  transition: var(--checkbox-transition);
+}
+
+/* Respect user motion preferences (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+  .checkbox-label {
+    transition: none;
+  }
+}
+```
+
+### Cursor Styles
+
+```css
+:root {
+  --checkbox-cursor: pointer;
+}
+
+input[type="checkbox"] {
+  cursor: var(--checkbox-cursor);
+}
+
+.checkbox-label {
+  cursor: pointer;
+}
+```
+
+### Dark Mode Example
+
+```css
+/* Automatically applied based on color-scheme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --checkbox-bg: #1a1a1a;
+    --checkbox-border-color: #4b5563;
+    --checkbox-checked-bg: #10b981;
+    --checkbox-label-fs: 1rem;
+    --color-disabled-text: #6b7280;
+  }
+}
+```
+
+**Via Component:**
+
+```tsx
+<div className="dark-theme">
+  <Checkbox
+    styles={{
+      '--checkbox-bg': '#1a1a1a',
+      '--checkbox-border-color': '#4b5563',
+      '--checkbox-checked-bg': '#10b981'
+    }}
+    ...
+  />
+</div>
+```
+
+### Custom Checkmark Icon
+
+The checked state uses an SVG checkmark. Override via CSS:
+
+```scss
+input[type="checkbox"]:checked {
+  background: var(--checkbox-checked-bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path d='M6.173 11.414l-3.89-3.89 1.414-1.414 2.476 2.475 5.657-5.657 1.414 1.414z'/></svg>")
+    no-repeat center center;
+}
+```
+
+**Custom icon example:**
+
+```css
+.custom-checkbox input[type="checkbox"]:checked {
+  background-image: url("data:image/svg+xml;utf8,<svg ...>YOUR_SVG_HERE</svg>");
+}
+```
+
+---
+
+## CSS Variable Reference
+
+### Complete List of Variables
+
+#### Size & Spacing
+
+| Variable             | Default                   | Description                           |
+| -------------------- | ------------------------- | ------------------------------------- |
+| `--checkbox-size-xs` | `0.875rem` (14px)         | Extra small size token                |
+| `--checkbox-size-sm` | `1rem` (16px)             | Small size token                      |
+| `--checkbox-size-md` | `1.25rem` (20px)          | Medium size token (default)           |
+| `--checkbox-size-lg` | `1.5rem` (24px)           | Large size token                      |
+| `--checkbox-size`    | `var(--checkbox-size-md)` | Active checkbox dimensions            |
+| `--checkbox-gap-xs`  | `0.375rem` (6px)          | Extra small gap                       |
+| `--checkbox-gap-sm`  | `0.5rem` (8px)            | Small gap                             |
+| `--checkbox-gap-md`  | `0.5rem` (8px)            | Medium gap (default)                  |
+| `--checkbox-gap-lg`  | `0.625rem` (10px)         | Large gap                             |
+| `--checkbox-gap`     | `var(--checkbox-gap-md)`  | Active gap between checkbox and label |
+
+#### Colors & Backgrounds
+
+| Variable                           | Default                    | Description                  |
+| ---------------------------------- | -------------------------- | ---------------------------- |
+| `--checkbox-bg`                    | `var(--color-surface)`     | Background color (unchecked) |
+| `--checkbox-border-color`          | `var(--color-neutral-600)` | Border color                 |
+| `--checkbox-checked-bg`            | `var(--color-success)`     | Background when checked      |
+| `--checkbox-checked-outline-color` | `var(--color-success)`     | Outline color when checked   |
+
+#### States
+
+| Variable                       | Default                      | Description                |
+| ------------------------------ | ---------------------------- | -------------------------- |
+| `--checkbox-hover-label-color` | `currentColor`               | Label color on hover       |
+| `--checkbox-focus-ring-color`  | `var(--color-focus-ring)`    | Focus ring color           |
+| `--checkbox-focus-ring-width`  | `0.125rem`                   | Focus ring width           |
+| `--checkbox-focus-ring-offset` | `0.125rem`                   | Focus ring offset distance |
+| `--checkbox-focus-radius`      | `0.125rem`                   | Focus ring border radius   |
+| `--checkbox-disabled-opacity`  | `0.6`                        | Opacity when disabled      |
+| `--checkbox-disabled-color`    | `var(--color-disabled-text)` | Label color when disabled  |
+| `--checkbox-error-label-color` | `var(--color-error-text)`    | Label color when invalid   |
+| `--checkbox-valid-label-color` | `currentColor`               | Label color when valid     |
+
+#### Typography
+
+| Variable              | Default   | Description             |
+| --------------------- | --------- | ----------------------- |
+| `--checkbox-label-fs` | `1rem`    | Label font size         |
+| `--checkbox-label-lh` | `1.5`     | Label line height       |
+| `--color-required`    | `#dc2626` | Required asterisk color |
+
+#### Borders & Effects
+
+| Variable                | Default                                       | Description       |
+| ----------------------- | --------------------------------------------- | ----------------- |
+| `--checkbox-radius`     | `0.25rem`                                     | Border radius     |
+| `--checkbox-border`     | `0.125rem solid var(--checkbox-border-color)` | Border style      |
+| `--checkbox-cursor`     | `pointer`                                     | Cursor style      |
+| `--checkbox-transition` | `all 0.2s cubic-bezier(0.4, 0, 0.2, 1)`       | Transition timing |
+
+---
+
+## Data Attributes
+
+### Size Variant Selector
+
+The `size` prop applies a `data-checkbox-size` attribute for CSS targeting:
+
+```css
+/* Extra small */
+div[data-checkbox-size~="xs"] {
+  --checkbox-size: var(--checkbox-size-xs);
+  --checkbox-gap: var(--checkbox-gap-xs);
+}
+
+/* Small */
+div[data-checkbox-size~="sm"] {
+  --checkbox-size: var(--checkbox-size-sm);
+  --checkbox-gap: var(--checkbox-gap-sm);
+}
+
+/* Medium */
+div[data-checkbox-size~="md"] {
+  --checkbox-size: var(--checkbox-size-md);
+  --checkbox-gap: var(--checkbox-gap-md);
+}
+
+/* Large */
+div[data-checkbox-size~="lg"] {
+  --checkbox-size: var(--checkbox-size-lg);
+  --checkbox-gap: var(--checkbox-gap-lg);
+}
+```
+
+**Usage in custom CSS:**
+
+```css
+/* Target all large checkboxes */
+[data-checkbox-size~="lg"] {
+  /* Custom styles for large checkboxes */
+  --checkbox-border: 0.1875rem solid var(--checkbox-border-color);
+}
+```
+
+---
+
+## SCSS Structure
+
+The checkbox styles use modern CSS with `:has()` selector for parent-based
+styling:
+
+```scss
+// Checkbox wrapper detects child input state
+div:has(> input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: var(--checkbox-gap, 0.5rem);
+
+  // Hover state (only when not disabled)
+  &:not(:has(> input[aria-disabled="true"])):hover {
+    .checkbox-label {
+      color: var(--checkbox-hover-label-color, currentColor);
+    }
+  }
+
+  // Focus-visible for keyboard users
+  &:has(> input:focus-visible) {
+    .checkbox-label {
+      outline: var(--checkbox-focus-ring-width) solid var(
+          --checkbox-focus-ring-color
+        );
+      outline-offset: var(--checkbox-focus-ring-offset);
+      border-radius: var(--checkbox-focus-radius);
+    }
+  }
+
+  // Disabled state via aria-disabled
+  &:has(> input[aria-disabled="true"]) {
+    opacity: var(--checkbox-disabled-opacity, 0.6);
+    cursor: not-allowed;
+  }
+
+  // Invalid state via aria-invalid
+  &:has(> input[aria-invalid="true"]) {
+    .checkbox-label {
+      color: var(--checkbox-error-label-color);
+    }
+  }
+
+  // Valid state (checked + explicitly valid)
+  &:has(> input[aria-invalid="false"]:checked) {
+    label[for] {
+      color: var(--checkbox-valid-label-color);
+    }
+  }
+}
+```
+
+---
+
+## Browser Compatibility
+
+### `:has()` Selector Support
+
+The checkbox styles use the modern `:has()` pseudo-class for parent-based
+styling:
+
+- ✅ Chrome 105+
+- ✅ Firefox 121+
+- ✅ Safari 15.4+
+- ✅ Edge 105+
+
+**Graceful Degradation:** Older browsers that don't support `:has()` will
+display standard checkbox styling without advanced hover/focus/disabled states.
+
+---
+
+## Naming Convention
+
+All CSS variables follow the @fpkit/acss standardized naming pattern:
+
+```
+--{component}-{element}-{variant}-{property}-{modifier}
+```
+
+**Examples:**
+
+| Variable                      | Breakdown                                                                  |
+| ----------------------------- | -------------------------------------------------------------------------- |
+| `--checkbox-size`             | component: `checkbox`, property: `size`                                    |
+| `--checkbox-label-fs`         | component: `checkbox`, element: `label`, property: `fs` (font-size)        |
+| `--checkbox-focus-ring-color` | component: `checkbox`, state: `focus`, property: `ring`, modifier: `color` |
+| `--checkbox-gap-sm`           | component: `checkbox`, property: `gap`, variant: `sm`                      |
+
+**Approved Abbreviations:**
+
+- `bg` → background
+- `fs` → font-size
+- `fw` → font-weight
+- `radius` → border-radius
+- `gap` → gap (already short)
+
+See `/docs/css-variables.md` for full naming guidelines.
+
+---
+
+## Theming Examples
+
+### Example 1: Brand Theme
+
+```tsx
+<Checkbox
+  id="brand"
+  label="Brand themed checkbox"
+  size="lg"
+  styles={{
+    "--checkbox-border-color": "#0066cc",
+    "--checkbox-checked-bg": "#0066cc",
+    "--checkbox-checked-outline-color": "#0066cc",
+    "--checkbox-focus-ring-color": "#0066cc",
+    "--checkbox-hover-label-color": "#0066cc",
+  }}
+/>
+```
+
+### Example 2: High Contrast
+
+```tsx
+<Checkbox
+  id="high-contrast"
+  label="High contrast checkbox"
+  styles={{
+    "--checkbox-border": "0.1875rem solid #000",
+    "--checkbox-checked-bg": "#000",
+    "--checkbox-focus-ring-width": "0.25rem",
+    "--checkbox-focus-ring-color": "#000",
+    "--checkbox-label-fs": "1.125rem",
+  }}
+/>
+```
+
+### Example 3: Minimal Style
+
+```tsx
+<Checkbox
+  id="minimal"
+  label="Minimal checkbox"
+  styles={{
+    "--checkbox-border-color": "#e5e7eb",
+    "--checkbox-checked-bg": "#000",
+    "--checkbox-radius": "0.125rem",
+    "--checkbox-focus-ring-offset": "0.25rem",
+  }}
+/>
+```
+
+---
+
+## Migration from Old Variables
+
+If you're upgrading from v4.x and used undocumented CSS variables:
+
+| Old (v4.x)        | New (v5.0)                    | Notes                 |
+| ----------------- | ----------------------------- | --------------------- |
+| `--checkbox-size` | `--checkbox-size`             | ✅ Still works        |
+| `--checkbox-gap`  | `--checkbox-gap`              | ✅ Still works        |
+| N/A               | `--checkbox-size-xs/sm/md/lg` | ✨ New size tokens    |
+| N/A               | `--checkbox-gap-xs/sm/md/lg`  | ✨ New gap tokens     |
+| N/A               | `data-checkbox-size`          | ✨ New data attribute |
+
+**No breaking changes** - all v4.x CSS variables continue to work in v5.0!
+
+---
+
+## Resources
+
+- **Main Component Guide**: [CHECKBOX.mdx](./CHECKBOX.mdx)
+- **CSS Variable Standard**: `/docs/css-variables.md`
+- **Storybook Examples**: View live checkbox examples
+- **Source Code**: `packages/fpkit/src/components/form/checkbox.scss`
+
+---
+
+## Support
+
+Questions about CSS customization?
+[Open an issue](https://github.com/your-org/fpkit/issues)
+
+---
+
+MIT © fpkit

@@ -31,7 +31,7 @@ import { Input, type InputProps } from "./inputs";
  */
 export interface CheckboxProps extends Omit<
   InputProps,
-  'type' | 'value' | 'onChange' | 'defaultValue' | 'placeholder'
+  'type' | 'value' | 'onChange' | 'defaultValue' | 'placeholder' | 'size'
 > {
   /**
    * Unique identifier for the checkbox input.
@@ -50,6 +50,30 @@ export interface CheckboxProps extends Omit<
    * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html|WCAG 3.3.2 Labels or Instructions}
    */
   label: React.ReactNode;
+
+  /**
+   * Predefined size variant for the checkbox.
+   * Maps to standardized size tokens for consistent sizing across the design system.
+   *
+   * Available sizes:
+   * - `xs`: Extra small (0.875rem / 14px) - Compact forms, tight spaces
+   * - `sm`: Small (1rem / 16px) - Dense layouts
+   * - `md`: Medium (1.25rem / 20px) - Default, optimal for most use cases
+   * - `lg`: Large (1.5rem / 24px) - Touch-friendly, prominent CTAs
+   *
+   * For custom sizes beyond these presets, use the `styles` prop:
+   * ```tsx
+   * styles={{ '--checkbox-size': '2rem' }}
+   * ```
+   *
+   * @default 'md'
+   * @example
+   * ```tsx
+   * <Checkbox id="small" label="Small checkbox" size="sm" />
+   * <Checkbox id="large" label="Large checkbox" size="lg" />
+   * ```
+   */
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 
   /**
    * Controlled mode: Current checked state.
@@ -113,33 +137,46 @@ export interface CheckboxProps extends Omit<
   inputClasses?: string;
 
   /**
-   * CSS custom properties for theming.
+   * CSS custom properties for theming and custom sizing.
    *
-   * Available variables:
-   * - --checkbox-gap: Space between checkbox and label (default: 0.5rem)
-   * - --checkbox-disabled-opacity: Opacity for disabled state (default: 0.6)
-   * - --checkbox-disabled-color: Label color when disabled (default: #6b7280)
-   * - --checkbox-label-fs: Label font size (default: 1rem)
-   * - --checkbox-label-lh: Label line height (default: 1.5)
-   * - --color-required: Required indicator color (default: #dc2626)
-   * - --checkbox-focus-ring-color: Focus ring color (default: #2563eb)
-   * - --checkbox-focus-ring-width: Focus ring width (default: 0.125rem)
-   * - --checkbox-focus-ring-offset: Focus ring offset (default: 0.125rem)
-   * - --checkbox-hover-label-color: Label color on hover
-   * - --checkbox-error-label-color: Label color when invalid (default: #dc2626)
-   * - --checkbox-valid-label-color: Label color when valid (default: #16a34a)
+   * Common variables:
+   * - `--checkbox-size`: Custom checkbox dimensions (for sizes beyond xs/sm/md/lg presets)
+   * - `--checkbox-gap`: Space between checkbox and label (default: 0.5rem)
+   * - `--checkbox-border-color`: Border color (default: var(--color-neutral-600))
+   * - `--checkbox-checked-bg`: Background color when checked (default: var(--color-success))
+   * - `--checkbox-radius`: Border radius (default: 0.25rem)
+   * - `--checkbox-focus-ring-color`: Focus ring color (default: var(--color-focus-ring))
+   * - `--checkbox-disabled-opacity`: Opacity for disabled state (default: 0.6)
+   * - `--checkbox-label-fs`: Label font size (default: 1rem)
+   *
+   * For custom sizes beyond the preset variants (xs/sm/md/lg), use `--checkbox-size`:
    *
    * @example
    * ```tsx
+   * // Custom size beyond presets
    * <Checkbox
    *   id="custom"
-   *   label="Custom styled"
+   *   label="Custom sized (2rem)"
    *   styles={{
-   *     '--checkbox-gap': '1rem',
-   *     '--checkbox-focus-ring-color': '#ff0000'
+   *     '--checkbox-size': '2rem',
+   *     '--checkbox-gap': '1rem'
+   *   }}
+   * />
+   *
+   * // Brand theming
+   * <Checkbox
+   *   id="branded"
+   *   label="Brand checkbox"
+   *   size="lg"
+   *   styles={{
+   *     '--checkbox-checked-bg': '#0066cc',
+   *     '--checkbox-focus-ring-color': '#0066cc'
    *   }}
    * />
    * ```
+   *
+   * @see {@link ./CHECKBOX-STYLES.mdx|CHECKBOX-STYLES.mdx} - Complete CSS variable reference
+   * @see {@link ./CHECKBOX.mdx|CHECKBOX.mdx} - Component documentation with examples
    */
   styles?: React.CSSProperties;
 }
@@ -152,6 +189,7 @@ export interface CheckboxProps extends Omit<
  * validation, disabled state, and ARIA logic from the base Input component.
  *
  * **Key Features:**
+ * - ✅ Semantic size variants (xs, sm, md, lg) via `size` prop
  * - ✅ Boolean onChange API (`onChange={(checked) => ...}`)
  * - ✅ Automatic label association via htmlFor
  * - ✅ WCAG 2.1 AA compliant (uses aria-disabled pattern)
@@ -199,11 +237,21 @@ export interface CheckboxProps extends Omit<
  *
  * @example
  * ```tsx
+ * // Size variants
+ * <Checkbox id="small" label="Small" size="sm" />
+ * <Checkbox id="large" label="Large" size="lg" />
+ * ```
+ *
+ * @example
+ * ```tsx
  * // Custom styling
  * <Checkbox
  *   id="custom"
- *   label="Large checkbox"
- *   styles={{ '--checkbox-gap': '1rem' }}
+ *   label="Custom sized"
+ *   styles={{
+ *     '--checkbox-size': '2rem',
+ *     '--checkbox-gap': '1rem'
+ *   }}
  * />
  * ```
  *
@@ -211,6 +259,8 @@ export interface CheckboxProps extends Omit<
  * @param {React.Ref<HTMLInputElement>} ref - Forwarded ref to the input element
  * @returns {JSX.Element} Checkbox wrapper with input and label
  *
+ * @see {@link ./CHECKBOX.mdx|CHECKBOX.mdx} - Complete component documentation
+ * @see {@link ./CHECKBOX-STYLES.mdx|CHECKBOX-STYLES.mdx} - CSS customization guide
  * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html|WCAG 4.1.2 Name, Role, Value}
  * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/focus-visible.html|WCAG 2.4.7 Focus Visible}
  * @see {@link https://www.w3.org/WAI/WCAG21/Understanding/error-identification.html|WCAG 3.3.1 Error Identification}
@@ -218,7 +268,7 @@ export interface CheckboxProps extends Omit<
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ({
     id, label, checked, defaultChecked, value = "on",
-    onChange, classes, inputClasses, styles,
+    onChange, classes, inputClasses, styles, size,
     name, disabled, required, validationState,
     errorMessage, hintText, onBlur, onFocus, autoFocus,
     ...props
@@ -264,7 +314,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     // Note: No need to manage disabled class - CSS uses :has() selector with aria-disabled
     // The Input component handles aria-disabled automatically via useDisabledState hook
     return (
-      <div className={classes} style={styles}>
+      <div className={classes} style={styles} data-checkbox-size={size}>
         <Input
           ref={ref}
           type="checkbox"
