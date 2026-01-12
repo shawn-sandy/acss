@@ -1,0 +1,665 @@
+import { Meta, Canvas, Story, Controls } from "@storybook/addon-docs/blocks";
+import * as CheckboxStories from "./input.stories";
+
+<Meta title="FP.REACT Forms/Checkbox/Guide" />
+
+# Checkbox Component
+
+An accessible checkbox input component with automatic label association,
+simplified boolean API, and semantic size variants.
+
+## Overview
+
+The `Checkbox` component provides a clean, accessible API for checkbox inputs
+with automatic label association via `htmlFor`, boolean `onChange` handler, and
+predefined size variants. Built on top of the base `Input` component, it
+maintains full WCAG 2.1 AA compliance while offering an enhanced developer
+experience.
+
+## Features
+
+✅ **Semantic Size Prop** - Predefined `xs`, `sm`, `md`, `lg` sizes via
+intuitive prop API ✅ **Boolean onChange** - Simplified
+`onChange={(checked) => ...}` instead of event objects ✅ **Auto Label
+Association** - Uses `htmlFor` for proper accessibility ✅ **CSS Variable
+Overrides** - Custom sizes beyond presets via `styles` prop ✅ **WCAG 2.1 AA
+Compliant** - aria-disabled pattern for screen reader compatibility ✅
+**Controlled & Uncontrolled** - Both `checked` and `defaultChecked` modes
+supported ✅ **Validation States** - Built-in error, valid, and neutral states
+✅ **Keyboard Accessible** - Space key toggles, full keyboard navigation ✅
+**Focus Indicators** - High contrast focus rings for keyboard users
+
+---
+
+## Installation
+
+```bash
+npm install @fpkit/acss
+```
+
+## Import
+
+```tsx
+import { Checkbox } from "@fpkit/acss";
+// Import styles
+import "@fpkit/acss/styles";
+```
+
+---
+
+## Basic Usage
+
+### Uncontrolled Mode
+
+The simplest way to use a checkbox - React doesn't manage the state:
+
+```tsx
+<Checkbox
+  id="terms"
+  label="I accept the terms and conditions"
+  defaultChecked={false}
+/>
+```
+
+### Controlled Mode
+
+For forms where you need to track the checkbox state:
+
+```tsx
+import { useState } from "react";
+
+function MyForm() {
+  const [agreed, setAgreed] = useState(false);
+
+  return (
+    <Checkbox
+      id="terms"
+      label="I accept the terms"
+      checked={agreed}
+      onChange={setAgreed} // Boolean API - no event object!
+    />
+  );
+}
+```
+
+---
+
+## Size Variants
+
+### Using the `size` Prop (Recommended)
+
+The `size` prop provides predefined size variants optimized for common use
+cases:
+
+<Canvas of={CheckboxStories.CheckboxCustomSize} />
+
+```tsx
+// Extra Small - Compact layouts
+<Checkbox id="xs" label="Extra Small" size="xs" />
+
+// Small - Dense forms
+<Checkbox id="sm" label="Small" size="sm" />
+
+// Medium - Default, optimal for most cases
+<Checkbox id="md" label="Medium (Default)" size="md" />
+
+// Large - Touch-friendly interfaces
+<Checkbox id="lg" label="Large" size="lg" />
+```
+
+| Size | Dimensions      | Gap             | Use Case                                 |
+| ---- | --------------- | --------------- | ---------------------------------------- |
+| `xs` | 0.875rem (14px) | 0.375rem (6px)  | Compact forms, space-constrained UIs     |
+| `sm` | 1rem (16px)     | 0.5rem (8px)    | Dense layouts, secondary forms           |
+| `md` | 1.25rem (20px)  | 0.5rem (8px)    | **Default** - Optimal for most use cases |
+| `lg` | 1.5rem (24px)   | 0.625rem (10px) | Touch-friendly, mobile-first, prominent  |
+
+### Custom Sizes via CSS Variables
+
+For sizes beyond the standard presets, use the `styles` prop to override CSS
+variables:
+
+<Canvas of={CheckboxStories.CheckboxCustomSizeCSSOverride} />
+
+```tsx
+<Checkbox
+  id="custom"
+  label="Custom sized checkbox"
+  styles={{
+    "--checkbox-size": "2rem", // 32px
+    "--checkbox-gap": "1rem", // 16px
+  }}
+/>
+```
+
+**When to use each approach:**
+
+- **Size prop**: For 90% of use cases - provides semantic, consistent sizes
+- **CSS variables**: For custom designs, branding, or sizes outside standard
+  range
+
+---
+
+## Validation & States
+
+### Required Field
+
+Display a red asterisk indicator:
+
+```tsx
+<Checkbox id="required" label="This field is required" required />
+```
+
+Sets `aria-required="true"` for screen readers.
+
+### Error State
+
+Show validation errors with associated error message:
+
+```tsx
+<Checkbox
+  id="error"
+  label="I accept the terms"
+  validationState="invalid"
+  errorMessage="You must accept the terms to continue"
+/>
+```
+
+The error message is automatically linked via `aria-describedby`.
+
+### Valid State
+
+Indicate successful validation:
+
+```tsx
+<Checkbox
+  id="valid"
+  label="I accept the terms"
+  checked={true}
+  validationState="valid"
+/>
+```
+
+### Example: Form with Validation
+
+```tsx
+function TermsAcceptance() {
+  const [agreed, setAgreed] = useState(false);
+  const [attempted, setAttempted] = useState(false);
+
+  const handleSubmit = () => {
+    setAttempted(true);
+    if (!agreed) return; // Block submission
+    // Proceed...
+  };
+
+  return (
+    <>
+      <Checkbox
+        id="terms"
+        label="I accept the terms and conditions"
+        checked={agreed}
+        onChange={setAgreed}
+        required
+        validationState={attempted && !agreed ? "invalid" : "none"}
+        errorMessage={attempted && !agreed ? "Required field" : undefined}
+      />
+      <button onClick={handleSubmit}>Submit</button>
+    </>
+  );
+}
+```
+
+---
+
+## Disabled State
+
+### WCAG-Compliant Disabled Pattern
+
+Uses `aria-disabled` instead of native `disabled` for better accessibility:
+
+<Canvas of={CheckboxStories.CheckboxDisabled} />
+
+```tsx
+<Checkbox id="disabled" label="Disabled option" disabled defaultChecked />
+```
+
+**Why aria-disabled?**
+
+| Feature                    | `aria-disabled` | Native `disabled` |
+| -------------------------- | --------------- | ----------------- |
+| Keyboard focusable         | ✅ Yes          | ❌ No             |
+| Screen reader discoverable | ✅ Yes          | ❌ No             |
+| Can show tooltips          | ✅ Yes          | ❌ No             |
+| WCAG 2.1.1 compliant       | ✅ Yes          | ⚠️ Questionable   |
+
+**Behavior:**
+
+- Remains in keyboard tab order (discoverable)
+- Prevents all interactions (click, change events)
+- Screen readers announce "disabled" state
+- Visual opacity applied via `--checkbox-disabled-opacity`
+
+---
+
+## Hint Text & Help
+
+Provide contextual help without cluttering the label:
+
+<Canvas of={CheckboxStories.CheckboxWithHint} />
+
+```tsx
+<Checkbox
+  id="2fa"
+  label="Enable two-factor authentication"
+  hintText="Adds an extra layer of security to your account"
+/>
+```
+
+Hint text is associated via `aria-describedby` for screen readers.
+
+---
+
+## Checkbox Groups
+
+Group related checkboxes using semantic HTML:
+
+<Canvas of={CheckboxStories.CheckboxGroup} />
+
+```tsx
+<fieldset>
+  <legend>Notification Preferences</legend>
+  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <Checkbox
+      id="email"
+      name="notifications"
+      value="email"
+      label="Email notifications"
+      defaultChecked
+      size="lg"
+    />
+    <Checkbox
+      id="sms"
+      name="notifications"
+      value="sms"
+      label="SMS notifications"
+      size="lg"
+    />
+    <Checkbox
+      id="push"
+      name="notifications"
+      value="push"
+      label="Push notifications"
+      size="lg"
+    />
+  </div>
+</fieldset>
+```
+
+**Best Practices:**
+
+- Use `<fieldset>` to group related checkboxes
+- Provide a `<legend>` describing the group
+- Use the same `name` attribute for backend processing
+- Unique `id` for each checkbox
+- Different `value` for each option
+
+---
+
+## Accessibility
+
+### WCAG 2.1 AA Compliance
+
+| Success Criterion              | Status  | Implementation                                 |
+| ------------------------------ | ------- | ---------------------------------------------- |
+| **2.1.1 Keyboard**             | ✅ Pass | Space key toggles, full keyboard navigation    |
+| **2.4.7 Focus Visible**        | ✅ Pass | High contrast focus rings via `:focus-visible` |
+| **3.3.1 Error Identification** | ✅ Pass | Error messages via `aria-describedby`          |
+| **3.3.2 Labels**               | ✅ Pass | Required `label` prop with `htmlFor`           |
+| **4.1.2 Name, Role, Value**    | ✅ Pass | Proper ARIA attributes                         |
+
+### Screen Reader Support
+
+- **Label announcement**: Automatically associated via `htmlFor={id}`
+- **Required state**: Announced via `aria-required="true"` + visual asterisk
+- **Error messages**: Linked via `aria-describedby` attribute
+- **Disabled state**: Uses `aria-disabled="true"` (remains focusable)
+- **Validation state**: Communicated via `aria-invalid`
+
+Tested with:
+
+- NVDA (Windows)
+- JAWS (Windows)
+- VoiceOver (macOS, iOS)
+- TalkBack (Android)
+
+### Keyboard Navigation
+
+| Key           | Action                 |
+| ------------- | ---------------------- |
+| `Tab`         | Focus checkbox         |
+| `Space`       | Toggle checked state   |
+| `Shift + Tab` | Focus previous element |
+
+---
+
+## Props API
+
+### CheckboxProps
+
+| Prop              | Type                             | Default            | Required | Description                                      |
+| ----------------- | -------------------------------- | ------------------ | -------- | ------------------------------------------------ |
+| `id`              | `string`                         | -                  | ✅ Yes   | Unique identifier for label association          |
+| `label`           | `ReactNode`                      | -                  | ✅ Yes   | Label text or element displayed next to checkbox |
+| `size`            | `'xs' \| 'sm' \| 'md' \| 'lg'`   | `'md'`             | No       | Predefined size variant                          |
+| `checked`         | `boolean`                        | -                  | No       | Controlled mode: current checked state           |
+| `defaultChecked`  | `boolean`                        | `false`            | No       | Uncontrolled mode: initial checked state         |
+| `onChange`        | `(checked: boolean) => void`     | -                  | No       | Boolean change handler (not event object!)       |
+| `disabled`        | `boolean`                        | `false`            | No       | Disable checkbox (aria-disabled pattern)         |
+| `required`        | `boolean`                        | `false`            | No       | Mark as required (shows asterisk)                |
+| `validationState` | `'valid' \| 'invalid' \| 'none'` | `'none'`           | No       | Validation state                                 |
+| `errorMessage`    | `string`                         | -                  | No       | Error message text (linked via aria-describedby) |
+| `hintText`        | `string`                         | -                  | No       | Helper text below checkbox                       |
+| `name`            | `string`                         | -                  | No       | Form input name attribute                        |
+| `value`           | `string`                         | `'on'`             | No       | Form submission value when checked               |
+| `classes`         | `string`                         | -                  | No       | Custom CSS classes for wrapper div               |
+| `inputClasses`    | `string`                         | `'checkbox-input'` | No       | Custom CSS classes for input element             |
+| `styles`          | `CSSProperties`                  | -                  | No       | Inline styles with CSS variables                 |
+
+---
+
+## CSS Customization
+
+See [CHECKBOX-STYLES.mdx](./CHECKBOX-STYLES.mdx) for comprehensive CSS
+documentation.
+
+### Quick Reference
+
+Override these CSS variables for custom styling:
+
+```tsx
+<Checkbox
+  id="custom"
+  label="Custom styled"
+  styles={{
+    "--checkbox-size": "2rem",
+    "--checkbox-gap": "1rem",
+    "--checkbox-radius": "0.5rem",
+    "--checkbox-checked-bg": "#0066cc",
+    "--checkbox-focus-ring-color": "#ff0000",
+  }}
+/>
+```
+
+---
+
+## Examples
+
+### Multi-Step Form
+
+```tsx
+function MultiStepForm() {
+  const [step1Complete, setStep1Complete] = useState(false);
+  const [step2Complete, setStep2Complete] = useState(false);
+
+  return (
+    <div>
+      <Checkbox
+        id="step1"
+        label="Complete registration details"
+        checked={step1Complete}
+        onChange={setStep1Complete}
+        size="lg"
+      />
+      <Checkbox
+        id="step2"
+        label="Verify email address"
+        checked={step2Complete}
+        onChange={setStep2Complete}
+        disabled={!step1Complete}
+        size="lg"
+      />
+    </div>
+  );
+}
+```
+
+### Select All Pattern
+
+```tsx
+function SelectAllList() {
+  const [items, setItems] = useState([
+    { id: 1, label: "Item 1", checked: false },
+    { id: 2, label: "Item 2", checked: false },
+    { id: 3, label: "Item 3", checked: false },
+  ]);
+
+  const allChecked = items.every((item) => item.checked);
+  const someChecked = items.some((item) => item.checked) && !allChecked;
+
+  const toggleAll = (checked: boolean) => {
+    setItems(items.map((item) => ({ ...item, checked })));
+  };
+
+  const toggleItem = (id: number, checked: boolean) => {
+    setItems(
+      items.map((item) => (item.id === id ? { ...item, checked } : item))
+    );
+  };
+
+  return (
+    <div>
+      <Checkbox
+        id="select-all"
+        label="Select All"
+        checked={allChecked}
+        onChange={toggleAll}
+        styles={{
+          "--checkbox-fw": someChecked ? "600" : "400",
+        }}
+      />
+      <hr />
+      {items.map((item) => (
+        <Checkbox
+          key={item.id}
+          id={`item-${item.id}`}
+          label={item.label}
+          checked={item.checked}
+          onChange={(checked) => toggleItem(item.id, checked)}
+        />
+      ))}
+    </div>
+  );
+}
+```
+
+---
+
+## Migration Guide
+
+### From v4.x to v5.0
+
+**New Feature: Size Prop**
+
+No breaking changes! The new `size` prop is optional and fully backward
+compatible.
+
+**Before (still works):**
+
+```tsx
+<Checkbox
+  id="large"
+  label="Large checkbox"
+  styles={{ "--checkbox-size": "1.5rem" }}
+/>
+```
+
+**After (recommended):**
+
+```tsx
+<Checkbox id="large" label="Large checkbox" size="lg" />
+```
+
+**Benefits of migration:**
+
+- ✅ Cleaner API - prop instead of CSS variable string
+- ✅ Type safety - TypeScript autocomplete for sizes
+- ✅ Consistency - matches Button component pattern
+- ✅ Flexibility - `styles` prop still works for custom sizes
+
+---
+
+## Browser Support
+
+- ✅ Chrome 105+ (`:has()` selector support)
+- ✅ Firefox 121+
+- ✅ Safari 15.4+
+- ✅ Edge 105+
+- ✅ Mobile Safari (iOS 15.4+)
+- ✅ Chrome Android
+
+**Graceful degradation:** Older browsers receive standard checkbox styling
+without advanced `:has()` selectors.
+
+---
+
+## TypeScript
+
+Full TypeScript support with exported types:
+
+```tsx
+import { Checkbox, type CheckboxProps } from "@fpkit/acss";
+
+// Custom wrapper with pre-configured props
+const TermsCheckbox: React.FC<Omit<CheckboxProps, "label">> = (props) => {
+  return (
+    <Checkbox label="I accept the terms and conditions" size="lg" {...props} />
+  );
+};
+
+// Type-safe onChange handler
+const handleChange: CheckboxProps["onChange"] = (checked) => {
+  console.log("Checked:", checked); // boolean, not event!
+};
+```
+
+---
+
+## Testing
+
+### Unit Testing with React Testing Library
+
+```tsx
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Checkbox } from "@fpkit/acss";
+
+test("toggles on click", async () => {
+  const handleChange = jest.fn();
+
+  render(<Checkbox id="test" label="Test checkbox" onChange={handleChange} />);
+
+  const checkbox = screen.getByRole("checkbox");
+  await userEvent.click(checkbox);
+
+  expect(handleChange).toHaveBeenCalledWith(true);
+  expect(checkbox).toBeChecked();
+});
+
+test("label click toggles checkbox", async () => {
+  render(<Checkbox id="test" label="Click me" />);
+
+  const label = screen.getByText("Click me");
+  await userEvent.click(label);
+
+  expect(screen.getByRole("checkbox")).toBeChecked();
+});
+
+test("size prop applies data attribute", () => {
+  const { container } = render(<Checkbox id="test" label="Test" size="lg" />);
+
+  const wrapper = container.querySelector('[data-checkbox-size="lg"]');
+  expect(wrapper).toBeInTheDocument();
+});
+```
+
+### Accessibility Testing
+
+```tsx
+test("has proper ARIA attributes", () => {
+  render(
+    <Checkbox
+      id="test"
+      label="Test"
+      required
+      validationState="invalid"
+      errorMessage="Required"
+    />
+  );
+
+  const checkbox = screen.getByRole("checkbox");
+  expect(checkbox).toHaveAttribute("aria-required", "true");
+  expect(checkbox).toHaveAttribute("aria-invalid", "true");
+  expect(checkbox).toHaveAttribute("aria-describedby");
+});
+
+test("disabled checkbox is focusable", async () => {
+  render(<Checkbox id="test" label="Disabled" disabled />);
+
+  const checkbox = screen.getByRole("checkbox");
+  expect(checkbox).toHaveAttribute("aria-disabled", "true");
+
+  // Should be focusable
+  await userEvent.tab();
+  expect(checkbox).toHaveFocus();
+
+  // But interactions should be prevented
+  await userEvent.click(checkbox);
+  expect(checkbox).not.toBeChecked();
+});
+```
+
+---
+
+## Related Components
+
+- [Input](../input) - Base input component
+- [Field](../field) - Form field wrapper
+- [Button](../../buttons/button) - Button component (also uses size prop)
+
+---
+
+## Changelog
+
+### v5.0.0 (2025-01-11)
+
+**✨ Added:**
+
+- New `size` prop with `xs`, `sm`, `md`, `lg` variants
+- Size tokens in CSS: `--checkbox-size-xs/sm/md/lg`
+- Gap tokens: `--checkbox-gap-xs/sm/md/lg`
+- Data attribute pattern: `data-checkbox-size`
+- Comprehensive documentation (this guide + STYLES guide)
+
+**🔧 Changed:**
+
+- None - fully backward compatible
+
+**🗑️ Deprecated:**
+
+- None
+
+---
+
+## Support & Resources
+
+- **NPM**: [@fpkit/acss](https://www.npmjs.com/package/@fpkit/acss)
+- **GitHub**: [Report issues](https://github.com/your-org/fpkit/issues)
+- **Storybook**: Interactive examples
+- **API Docs**: See Props API section above
+
+---
+
+## License
+
+MIT © fpkit

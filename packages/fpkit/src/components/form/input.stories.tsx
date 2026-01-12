@@ -405,47 +405,96 @@ export const CheckboxWithHint: Story = {
 };
 
 /**
- * CheckboxCustomSize - Custom sized checkboxes using CSS variables
+ * CheckboxCustomSize - Predefined size variants using size prop
  *
- * Demonstrates responsive sizing by overriding --checkbox-size and --checkbox-gap variables.
- * Useful for contexts requiring larger touch targets or compact layouts.
+ * Demonstrates semantic size prop for common size variants.
+ * For custom sizes beyond presets, see CheckboxCustomSizeCSSOverride story.
  */
 export const CheckboxCustomSize: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "1.5rem", flexDirection: "column" }}>
       <CheckboxComponent
-        id="small"
-        label="Small (1rem)"
+        id="xs"
+        label="Extra Small (0.875rem / 14px)"
+        size="xs"
+      />
+      <CheckboxComponent
+        id="sm"
+        label="Small (1rem / 16px)"
+        size="sm"
+      />
+      <CheckboxComponent
+        id="md"
+        label="Medium (1.25rem / 20px) - Default"
+        size="md"
+      />
+      <CheckboxComponent
+        id="lg"
+        label="Large (1.5rem / 24px)"
+        size="lg"
+      />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("XS checkbox has correct data attribute", async () => {
+      const checkbox = canvas.getByRole("checkbox", { name: /Extra Small/ });
+      const wrapper = checkbox.closest('div');
+      expect(wrapper).toHaveAttribute("data-checkbox-size", "xs");
+    });
+
+    await step("LG checkbox has correct data attribute", async () => {
+      const checkbox = canvas.getByRole("checkbox", { name: /Large/ });
+      const wrapper = checkbox.closest('div');
+      expect(wrapper).toHaveAttribute("data-checkbox-size", "lg");
+    });
+
+    await step("All checkboxes are functional", async () => {
+      const xsCheckbox = canvas.getByRole("checkbox", { name: /Extra Small/ });
+      await userEvent.click(xsCheckbox);
+      expect(xsCheckbox).toBeChecked();
+    });
+  },
+};
+
+/**
+ * CheckboxCustomSizeCSSOverride - Custom sizes via CSS variables
+ *
+ * Demonstrates that CSS variable overrides still work for custom sizes
+ * beyond the predefined xs/sm/md/lg variants.
+ */
+export const CheckboxCustomSizeCSSOverride: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "1.5rem", flexDirection: "column" }}>
+      <CheckboxComponent
+        id="custom-tiny"
+        label="Custom Tiny (0.75rem)"
         styles={{
-          "--checkbox-size": "1rem",
-          "--checkbox-gap": "0.5rem",
+          "--checkbox-size": "0.75rem",
+          "--checkbox-gap": "0.375rem",
         } as React.CSSProperties}
       />
       <CheckboxComponent
-        id="medium"
-        label="Medium (1.25rem - default)"
+        id="custom-huge"
+        label="Custom Huge (2.5rem)"
         styles={{
-          "--checkbox-gap": "0.5rem",
-        } as React.CSSProperties}
-      />
-      <CheckboxComponent
-        id="large"
-        label="Large (1.5rem)"
-        styles={{
-          "--checkbox-size": "1.5rem",
-          "--checkbox-gap": "0.625rem",
-        } as React.CSSProperties}
-      />
-      <CheckboxComponent
-        id="xlarge"
-        label="Extra Large (2rem)"
-        styles={{
-          "--checkbox-size": "2rem",
-          "--checkbox-gap": "0.75rem",
+          "--checkbox-size": "2.5rem",
+          "--checkbox-gap": "1rem",
         } as React.CSSProperties}
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: `
+For sizes outside the predefined variants, use the \`styles\` prop to override CSS variables directly.
+This provides maximum flexibility while keeping the API clean for common cases.
+        `,
+      },
+    },
+  },
 };
 
 /**
