@@ -4,7 +4,7 @@ import { within, expect } from 'storybook/test'
 import Img from './img'
 
 const meta: Meta<typeof Img> = {
-  title: 'FP.REACT Components/Img',
+  title: 'FP.React Components/Img',
   component: Img,
   tags: ['version:2.0.0', 'accessibility', 'responsive'],
   argTypes: {

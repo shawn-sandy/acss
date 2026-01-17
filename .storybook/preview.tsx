@@ -1,5 +1,7 @@
 import type { Preview } from "@storybook/react-vite";
+import React from "react";
 import "../packages/fpkit/src/styles/index.css";
+import { allModes } from "./modes";
 
 const preview: Preview = {
   parameters: {
@@ -8,13 +10,13 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
-      // exclude specific props from the controls panel
       exclude: ["children"],
-      docs: {
-        toc: true, // 👈 Enables the table of contents
-      },
+    },
+    docs: {
+      toc: true,
     },
     viewport: {
+      defaultViewport: "responsive",
       options: {
         reflow: {
           name: "Reflow 320px",
@@ -23,7 +25,6 @@ const preview: Preview = {
             height: "100%",
           },
         },
-
         nobreakpoint: {
           name: "375px",
           styles: {
@@ -61,14 +62,36 @@ const preview: Preview = {
         },
       },
     },
+    backgrounds: {
+      default: "light",
+      values: [
+        { name: "light", value: "#ffffff" },
+        { name: "gray", value: "#f5f5f5" },
+        { name: "dark", value: "#1a1a1a" },
+        { name: "brand", value: "#0288d1" },
+      ],
+    },
     chromatic: {
       delay: 300,
       pauseAnimationAtEnd: true,
       viewports: [375, 480, 768, 992, 1280],
+      modes: {
+        small: allModes.small,
+        medium: allModes.medium,
+        large: allModes.large,
+      },
     },
   },
 
-  tags: ["autodocs"]
+  decorators: [
+    (Story) => (
+      <div style={{ padding: "1rem" }}>
+        <Story />
+      </div>
+    ),
+  ],
+
+  tags: ["autodocs"],
 };
 
 export default preview;

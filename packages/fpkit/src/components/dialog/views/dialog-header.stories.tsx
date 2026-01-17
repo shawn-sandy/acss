@@ -4,11 +4,10 @@ import { within, expect } from "storybook/test";
 import DialogHeader from "./dialog-header";
 
 const meta: Meta<typeof DialogHeader> = {
-  title: "FP.REACT Components/Dialog/Views/DialogHeader",
+  title: "FP.React Components/Dialog/Views/DialogHeader",
   component: DialogHeader,
   parameters: {
     layout: "centered",
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component:

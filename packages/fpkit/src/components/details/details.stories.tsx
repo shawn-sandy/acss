@@ -29,7 +29,7 @@ const content = (
 const icon = <Icons.Add />;
 
 const meta: Meta<typeof Details> = {
-  title: "FP.REACT Components/Details",
+  title: "FP.React Components/Details",
   component: Details,
   tags: ["stable"],
   parameters: {
@@ -77,7 +77,6 @@ const meta: Meta<typeof Details> = {
     icon: icon,
     summary: <>Summary Section</>,
   },
-  actions: { argTypesRegex: "^on.*" },
   decorators: [
     (Story) => (
       <div className="container" style={{ minWidth: "50vw" }}>

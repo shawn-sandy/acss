@@ -598,6 +598,28 @@ Complex components with multiple visual sections use element scoping.
 }
 ```
 
+### Example 9: Themeable Select Arrow
+
+```css
+/* Customize select dropdown arrow color */
+:root {
+  --select-arrow-color: #0066cc;  /* Brand color for arrow */
+}
+
+.dark-theme {
+  --select-arrow-color: #66b3ff;  /* Lighter arrow for dark mode */
+}
+
+/* Note: Select elements share most styling through --input-* variables */
+/* Override shared input variables for all form controls including select */
+:root {
+  --input-border-color: #d0d0d0;
+  --input-bg: #fafafa;
+  --input-padding-inline: 1rem;
+  --input-radius: 0.5rem;
+}
+```
+
 ---
 
 ## Component Variable Reference
@@ -617,7 +639,7 @@ Complex components with multiple visual sections use element scoping.
 | Link | `--link-` | `--link-color`, `--link-hover-color`, `--link-visited-color` | 12+ |
 | List | `--list-` | `--list-item-padding`, `--list-marker-color` | 15+ |
 | Nav | `--nav-` | `--nav-bg`, `--nav-gap`, `--nav-link-color` | 18+ |
-| Select | `--select-` | `--select-bg`, `--select-padding`, `--select-border` | 16+ |
+| Select | `--select-` | `--select-arrow-color` (shares `--input-*` for other properties) | 1 select-specific + 16+ shared |
 | Table | `--table-` | `--table-bg`, `--table-header-bg`, `--table-border` | 22+ |
 | Tag | `--tag-` | `--tag-bg`, `--tag-color`, `--tag-radius` | 10+ |
 | Textarea | `--textarea-` | `--textarea-padding`, `--textarea-fs`, `--textarea-min-height` | 14+ |

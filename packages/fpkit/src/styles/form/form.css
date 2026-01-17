@@ -113,6 +113,79 @@ div:has(> input[type=checkbox])[data-checkbox-size~=lg] {
   }
 }
 :root {
+  --select-arrow-color: var(--color-text);
+  --select-width-mobile: 18.75rem; /* 300px minimum on mobile */
+  --select-width-desktop: 100%; /* Full width on larger screens */
+}
+
+select {
+  border: var(--input-outline);
+  border-radius: var(--input-radius);
+  outline: none;
+  background-color: var(--input-bg, var(--color-surface));
+  -webkit-appearance: none; /* Remove default arrow in Chrome and Safari */
+  -moz-appearance: none; /* Remove default arrow in Firefox */
+  appearance: none; /* Remove default arrow in other browsers */
+  background-image: linear-gradient(45deg, transparent 50%, var(--select-arrow-color, currentColor) 50%), linear-gradient(135deg, var(--select-arrow-color, currentColor) 50%, transparent 50%);
+  background-position: calc(100% - 1.25rem) center, calc(100% - 1rem) center;
+  background-size: 0.3125rem 0.3125rem, 0.3125rem 0.3125rem;
+  background-repeat: no-repeat;
+  padding-inline-start: var(--input-padding-inline);
+  padding-inline-end: 2.5rem;
+  padding-block: var(--input-padding-block);
+  width: max(var(--select-width-mobile), var(--select-width-desktop));
+}
+
+/* ==========================================================================
+   Option Styling with Data Attributes
+   ========================================================================== */
+/*
+option[data-option="primary"] {
+  background-color: var(--color-primary-light, #dbeafe);
+  color: var(--color-primary, #2563eb);
+  font-weight: 600;
+}
+
+option[data-option="success"] {
+  background-color: var(--color-success-bg, #dcfce7);
+  color: var(--color-success, #16a34a);
+}
+
+option[data-option="error"] {
+  background-color: var(--color-error-bg, #fee2e2);
+  color: var(--color-error, #dc2626);
+}
+
+option[data-option="warning"] {
+  background-color: var(--color-warning-bg, #fef3c7);
+  color: var(--color-warning, #d97706);
+}
+*/
+/*
+option[data-size="sm"] {
+  font-size: 0.875rem; // 14px
+  padding: 0.25rem 0.5rem;
+}
+
+option[data-size="lg"] {
+  font-size: 1.125rem; // 18px
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+}
+*/
+/*
+option[data-featured="true"] {
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+option[data-category="premium"] {
+  background-color: #fef3c7;
+  font-style: italic;
+}
+*/
+:root {
   --input-border-color: var(--color-border);
   --input-appearance: none;
   --input-bg: inherit;
@@ -120,9 +193,9 @@ div:has(> input[type=checkbox])[data-checkbox-size~=lg] {
   --input-outline: thin solid var(--input-border-color);
   --input-padding-inline: 0.6rem;
   --input-padding-block: 0.4rem;
-  --input-radius: --var(--radius);
+  --input-radius: var(--radius);
   --input-fs: var(--fs);
-  --input-width: clamp(200px, 100%, 500px);
+  --input-width: clamp(12.5rem, 100%, 31.25rem);
   --input-focus-outline: medium solid var(--input-border-color);
   --input-focus-outline-offset: 0;
   --input-disabled-bg: var(--color-disabled-bg);
@@ -132,7 +205,6 @@ div:has(> input[type=checkbox])[data-checkbox-size~=lg] {
   --placeholder-style: italic;
   --placeholder-fs: smaller;
   --form-direction: column;
-  --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><polyline points='6,9 10,13 14,9' stroke='%23000000' stroke-width='1.5' fill='none' /></svg>");
   /* ==========================================================================
      Size Tokens
      ========================================================================== */
@@ -233,17 +305,6 @@ input[type=checkbox]:checked {
   background-color: var(--checkbox-bg, red);
   outline: var(--checkbox-checked-outline-color) solid 2px;
   background: var(--checkbox-checked-bg) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path d='M6.173 11.414l-3.89-3.89 1.414-1.414 2.476 2.475 5.657-5.657 1.414 1.414z'/></svg>") no-repeat center center;
-}
-
-select {
-  border: var(--input-outline);
-  outline: none;
-  -webkit-appearance: none; /* Remove default arrow in Chrome and Safari */
-  -moz-appearance: none; /* Remove default arrow in Firefox */
-  appearance: none; /* Remove default arrow in other browsers */
-  background: var(--select-arrow) no-repeat;
-  background-position: right 0.5rem top 50%;
-  padding-inline-end: 0;
 }
 
 /*# sourceMappingURL=form.css.map */

@@ -4,7 +4,7 @@ import { within, expect } from "storybook/test";
 import Text from "./text";
 
 const meta: Meta<typeof Text> = {
-  title: "FP.REACT Components/Text",
+  title: "FP.React Components/Text",
   component: Text,
   tags: ["version:1.0.0"],
   args: {

@@ -28,7 +28,7 @@ const buttonDecorator = [
 ];
 
 const meta: Meta<typeof Dialog> = {
-  title: "FP.REACT Components/Dialog/Dialogs",
+  title: "FP.React Components/Dialog/Dialogs",
   component: Dialog,
   tags: ["alpha"],
   parameters: {

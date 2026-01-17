@@ -61,9 +61,21 @@ addons.setConfig({
     showRoots: true,
     collapsedRoots: ["other"],
     renderLabel: (item) => {
-      // Custom label rendering for sidebar items
+      // Add visual indicators for component status based on tags
       if (item.type === "story" || item.type === "docs") {
-        return item.name;
+        const tags = (item as { tags?: string[] }).tags || [];
+        if (tags.includes("deprecated")) {
+          return `⚠️ ${item.name}`;
+        }
+        if (tags.includes("beta")) {
+          return `🧪 ${item.name}`;
+        }
+        if (tags.includes("experimental")) {
+          return `🔬 ${item.name}`;
+        }
+        if (tags.includes("new")) {
+          return `✨ ${item.name}`;
+        }
       }
       return item.name;
     },

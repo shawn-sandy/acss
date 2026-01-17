@@ -4,11 +4,10 @@ import { within, expect, userEvent, waitFor } from "storybook/test";
 import DialogModal from "./dialog-modal";
 import WithInstructions from "#/decorators/instructions";
 const meta: Meta<typeof DialogModal> = {
-  title: "FP.REACT Components/Dialog/DialogModal",
+  title: "FP.React Components/Dialog/DialogModal",
   component: DialogModal,
   tags: ["autodocs", "experimental"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component:

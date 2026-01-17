@@ -4,11 +4,10 @@ import { within, expect } from "storybook/test";
 import Title from "./title";
 
 const meta: Meta<typeof Title> = {
-  title: "FP.REACT Components/Title",
+  title: "FP.React Components/Title",
   component: Title,
   tags: ["version:2.0.0", "autodocs"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: `

@@ -10,7 +10,7 @@ import "./form.scss";
 const FormComponent = Form as unknown as typeof Form;
 
 const meta: Meta<typeof FormComponent> = {
-  title: "FP.REACT Forms/Form",
+  title: "FP.React Forms/Form",
   tags: ["stable", "autodocs"],
   component: FormComponent,
   parameters: {
