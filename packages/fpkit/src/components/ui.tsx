@@ -117,7 +117,8 @@ type PolymorphicComponentPropWithRef<
  *   Styles are always rendered regardless of this prop value.
  * @property {React.CSSProperties} [styles] - Inline styles to apply (overrides defaultStyles)
  * @property {React.CSSProperties} [defaultStyles] - Base styles that can be overridden by styles prop
- * @property {string} [classes] - CSS class names to apply to the element
+ * @property {string} [classes] - CSS class names to apply to the element (custom prop)
+ * @property {string} [className] - CSS class names to apply to the element (React standard prop)
  * @property {string} [id] - HTML id attribute
  * @property {React.ReactNode} [children] - Child elements to render
  *
@@ -137,6 +138,7 @@ type UIProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
     styles?: React.CSSProperties;
     defaultStyles?: React.CSSProperties;
     classes?: string;
+    className?: string;
     id?: string;
     children?: React.ReactNode;
   }
@@ -187,7 +189,8 @@ type UIComponent = (<C extends React.ElementType = "div">(
  *
  * @param {C} [as='div'] - The HTML element type to render. Defaults to 'div'.
  * @param {React.CSSProperties} [styles] - Inline styles to apply. Overrides defaultStyles.
- * @param {string} [classes] - CSS class names to apply to the element.
+ * @param {string} [classes] - CSS class names to apply (custom prop). Takes precedence over className.
+ * @param {string} [className] - CSS class names to apply (React standard). Used if classes is not provided.
  * @param {React.CSSProperties} [defaultStyles] - Base styles that can be overridden by styles prop.
  * @param {React.ReactNode} [children] - Child elements to render inside the component.
  * @param {PolymorphicRef<C>} [ref] - Forwarded ref with proper typing for the element type.
@@ -307,15 +310,19 @@ type UIComponent = (<C extends React.ElementType = "div">(
  */
 const UI: UIComponent = React.forwardRef(
   <C extends React.ElementType>(
-    { as, styles, style, classes, children, defaultStyles, ...props }: UIProps<C>,
+    { as, styles, style, classes, className, children, defaultStyles, ...props }: UIProps<C>,
     ref?: PolymorphicRef<C>
   ) => {
     const Component = as ?? "div";
 
     const styleObj: React.CSSProperties = { ...defaultStyles, ...styles, ...style };
 
+    // Support both 'classes' (custom) and 'className' (React standard)
+    // 'classes' takes precedence if both are provided
+    const classNameValue = classes ?? className;
+
     return (
-      <Component {...props} ref={ref} style={styleObj} className={classes}>
+      <Component {...props} ref={ref} style={styleObj} className={classNameValue}>
         {children}
       </Component>
     );

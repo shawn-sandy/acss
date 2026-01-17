@@ -50,7 +50,7 @@ describe('Card', () => {
     it('applies default shadow class', () => {
       render(<Card data-testid="card">Content</Card>)
       const card = screen.getByTestId('card')
-      expect(card).toHaveClass('shadow')
+      expect(card).toHaveClass('shadow-sm')
     })
   })
 
