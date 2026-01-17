@@ -4,11 +4,10 @@ import { within, expect } from "storybook/test";
 import Figure from "./figure";
 
 const meta: Meta<typeof Figure> = {
-  title: "FP.REACT Components/Figure",
+  title: "FP.React Components/Figure",
   component: Figure,
   tags: ["version:1.0.0"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: `A semantic figure component for displaying images with captions, using CSS custom properties for flexible styling.

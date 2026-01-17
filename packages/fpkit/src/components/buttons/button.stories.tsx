@@ -14,9 +14,7 @@ const meta = {
     children: "Click me",
     onClick: buttonClicked,
   },
-  parameters: {
-    actions: { argTypesRegex: "^on.*" },
-  },
+  parameters: {},
 } as Meta;
 
 export default meta;

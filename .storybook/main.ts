@@ -10,9 +10,10 @@ const config: StorybookConfig = {
   ],
 
   addons: [
-    "@storybook/addon-onboarding",
     "@chromatic-com/storybook",
     "@storybook/addon-a11y",
+    "@storybook/addon-links",
+    "@storybook/addon-interactions",
     "storybook-addon-tag-badges",
     {
       name: "@storybook/addon-docs",
@@ -26,10 +27,20 @@ const config: StorybookConfig = {
     },
     "storybook-addon-test-codegen",
   ],
+
   framework: {
     name: "@storybook/react-vite",
-    options: {},
+    options: {
+      strictMode: true,
+    },
   },
+
+  core: {
+    disableTelemetry: true,
+  },
+
+  staticDirs: ["../public"],
+
   docs: {
     defaultName: "Interactive Guide",
   },
@@ -37,5 +48,10 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: "react-docgen-typescript",
   },
+
+  features: {
+    interactionsDebugger: true,
+  },
 };
+
 export default config;

@@ -8,11 +8,10 @@ import Link from "../link/link";
 import Button from "../buttons/button";
 
 const meta: Meta<typeof Nav> = {
-  title: "FP.REACT Components/Nav",
+  title: "FP.React Components/Nav",
   component: Nav,
   tags: ["stable"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: `Navigation component with accessible markup and customizable styling via CSS variables.

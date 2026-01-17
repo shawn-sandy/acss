@@ -7,11 +7,10 @@ import Heading from "./heading";
  * @deprecated This component is deprecated. Use Title component instead.
  */
 const meta: Meta<typeof Heading> = {
-  title: "FP.REACT Components/Heading (Deprecated)",
+  title: "FP.React Components/Heading (Deprecated)",
   component: Heading,
   tags: ["version:1.0.0", "deprecated"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: `

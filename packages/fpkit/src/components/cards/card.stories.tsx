@@ -5,7 +5,7 @@ const content =
   "Enim aliquip excepteur veniam esse culpa. Et exercitation incididunt occaecat incididunt proident consectetur. Voluptate elit reprehenderit nulla reprehenderit excepteur tempor adipisicing officia eiusmod est id aute. Nisi do et nulla fugiat enim id pariatur ex. Culpa aliquip excepteur velit fugiat qui magna deserunt adipisicing dolore quis. Esse proident qui consectetur Lorem id fugiat elit amet proident enim deserunt dolore sit.";
 
 const meta: Meta<typeof Card> = {
-  title: "FP.REACT Components/Card",
+  title: "FP.React Components/Card",
   tags: ["stable", "autodocs"],
   component: Card,
   args: {

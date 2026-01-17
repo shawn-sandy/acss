@@ -6,11 +6,10 @@ import Breadcrumb from "./breadcrumb";
 const linkClicked = fn();
 
 const meta: Meta<typeof Breadcrumb> = {
-  title: "FP.REACT Components/Breadcrumb",
+  title: "FP.React Components/Breadcrumb",
   component: Breadcrumb,
   tags: ["autodocs"],
   parameters: {
-    actions: { argTypesRegex: "^on.*" },
     docs: {
       description: {
         component: `A WCAG 2.1 AA compliant breadcrumb navigation component that helps users understand their current location within a site hierarchy.

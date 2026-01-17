@@ -5,30 +5,142 @@ import { useDisabledState } from '../../hooks/use-disabled-state'
 export type { SelectProps } from './form.types'
 import type { SelectProps } from './form.types'
 
-export type SelectOptionsProps = {
+/**
+ * Option component props interface
+ * Extends native HTML option props with fpkit component conventions
+ *
+ * @interface OptionProps
+ */
+export interface OptionProps extends Omit<React.ComponentPropsWithoutRef<'option'>, 'className'> {
   /**
-   * Label for the select option
+   * Value for the select option (required, unless using legacy selectValue)
    */
-  selectLabel: string
+  value?: string | number
 
   /**
-   * Value for the select option. Can be a number or string.
+   * Display label for the option (defaults to value if not provided)
    */
-  selectValue: string
+  label?: string
+
+  /**
+   * CSS class names (preferred over 'className' for consistency with fpkit components)
+   */
+  classes?: string
+
+  /**
+   * Inline CSS styles object
+   */
+  styles?: React.CSSProperties
+
+  /**
+   * Disabled state for the option
+   * @default false
+   */
+  disabled?: boolean
+
+  /**
+   * Children content (overrides label if provided)
+   */
+  children?: React.ReactNode
+
+  /**
+   * Visual variant for styling via data-option attribute
+   * Use with CSS: option[data-option="primary"] { ... }
+   * @example 'primary' | 'secondary' | 'success' | 'error'
+   */
+  variant?: string
+
+  /**
+   * Size variant for styling via data-size attribute
+   * @example 'sm' | 'md' | 'lg'
+   */
+  size?: string
+
+  /**
+   * Additional data attributes for custom styling
+   * @example { 'data-highlighted': true, 'data-category': 'premium' }
+   */
+  dataAttributes?: Record<string, string | boolean | number>
 }
 
 /**
- * Option component for select.
- * @param {SelectOptionsProps} param0 - The component props.
- * @param {string} param0.selectValue - Value for the option.
- * @param {string} [param0.selectLabel] - Label for the option.
+ * Option component - Select dropdown option element
+ *
+ * A component for creating accessible option elements within Select components.
+ * Follows fpkit component conventions with support for ref forwarding, custom styling,
+ * and consistent prop naming.
+ *
+ * @component
+ * @example
+ * // Basic option
+ * <Select.Option value="us" label="United States" />
+ *
+ * @example
+ * // Option with children
+ * <Select.Option value="uk">
+ *   United Kingdom
+ * </Select.Option>
+ *
+ * @example
+ * // Disabled option
+ * <Select.Option value="disabled" label="Not Available" disabled />
+ *
+ * @param {OptionProps} props - Component props
+ * @returns {JSX.Element} Option element
  */
-export const Option = ({ selectValue, selectLabel }: SelectOptionsProps) => {
-  return (
-    <option value={selectValue}>
-      {selectLabel || selectValue}
-    </option>
-  )
+export const Option = React.forwardRef<HTMLOptionElement, OptionProps & Partial<SelectOptionsProps>>(
+  (
+    {
+      value,
+      label,
+      classes,
+      styles,
+      disabled,
+      children,
+      variant,
+      size,
+      dataAttributes,
+      // Legacy props (backwards compatibility)
+      selectValue,
+      selectLabel,
+      ...props
+    },
+    ref
+  ) => {
+    // Map legacy props to new props
+    const optionValue = value ?? selectValue
+    const optionLabel = label ?? selectLabel
+
+    // Build data attributes object for styling
+    const combinedDataAttrs = {
+      ...(variant && { 'data-option': variant }),
+      ...(size && { 'data-size': size }),
+      ...dataAttributes,
+    }
+
+    return (
+      <UI
+        as="option"
+        ref={ref}
+        value={optionValue}
+        className={classes}
+        style={styles}
+        disabled={disabled}
+        {...combinedDataAttrs}
+        {...props}
+      >
+        {children || optionLabel || optionValue}
+      </UI>
+    )
+  }
+)
+
+Option.displayName = 'Select.Option'
+
+// Legacy type export for backwards compatibility
+export type SelectOptionsProps = Omit<OptionProps, 'classes' | 'styles'> & {
+  selectValue: string | number
+  selectLabel?: string
 }
 
 /**
@@ -151,8 +263,13 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
 Select.displayName = 'Select'
 
+// Create a compound component with proper typing
+type SelectComponent = typeof Select & {
+  Option: typeof Option
+}
+
 // Type assertion to allow adding static property to ForwardRefExoticComponent
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ;(Select as any).Option = Option
 
-export default Select
+export default Select as SelectComponent

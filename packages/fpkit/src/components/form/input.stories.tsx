@@ -7,7 +7,7 @@ import { Checkbox as CheckboxComponent } from "./checkbox";
 import "./form.scss";
 
 const meta: Meta<typeof Input> = {
-  title: "FP.REACT  Forms/Inputs",
+  title: "FP.React Forms/Inputs",
   component: Input,
   tags: ["stable"],
   args: {},

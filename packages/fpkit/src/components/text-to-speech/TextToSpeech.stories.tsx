@@ -3,7 +3,7 @@ import TextToSpeech from "./TextToSpeech";
 import "./text-to-speech.scss";
 
 const meta: Meta<typeof TextToSpeech> = {
-  title: "FP.REACT Components/TextToSpeech",
+  title: "FP.React Components/TextToSpeech",
   component: TextToSpeech,
   tags: ["experimental"],
   argTypes: {

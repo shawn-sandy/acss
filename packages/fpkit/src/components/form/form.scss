@@ -1,5 +1,7 @@
 // Import checkbox wrapper component styles
 @use "./checkbox";
+// Import select component styles
+@use "./select";
 
 :root {
   --input-border-color: var(--color-border);
@@ -9,9 +11,9 @@
   --input-outline: thin solid var(--input-border-color);
   --input-padding-inline: 0.6rem;
   --input-padding-block: 0.4rem;
-  --input-radius: --var(--radius);
+  --input-radius: var(--radius);
   --input-fs: var(--fs);
-  --input-width: clamp(200px, 100%, 500px);
+  --input-width: clamp(12.5rem, 100%, 31.25rem);
 
   // Focus state variables (NEW - for accessibility)
   --input-focus-outline: medium solid var(--input-border-color);
@@ -28,7 +30,6 @@
   --placeholder-fs: smaller;
 
   --form-direction: column;
-  --select-arrow: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><polyline points='6,9 10,13 14,9' stroke='%23000000' stroke-width='1.5' fill='none' /></svg>");
 
   /* ==========================================================================
      Size Tokens
@@ -144,15 +145,4 @@ input[type="checkbox"] {
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path d='M6.173 11.414l-3.89-3.89 1.414-1.414 2.476 2.475 5.657-5.657 1.414 1.414z'/></svg>")
       no-repeat center center;
   }
-}
-
-select {
-  border: var(--input-outline);
-  outline: none;
-  -webkit-appearance: none; /* Remove default arrow in Chrome and Safari */
-  -moz-appearance: none; /* Remove default arrow in Firefox */
-  appearance: none; /* Remove default arrow in other browsers */
-  background: var(--select-arrow) no-repeat;
-  background-position: right 0.5rem top 50%;
-  padding-inline-end: 0;
 }

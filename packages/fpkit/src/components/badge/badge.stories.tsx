@@ -5,7 +5,7 @@ import Badge from "./badge";
 import "./badge.scss";
 
 const meta: Meta<typeof Badge> = {
-  title: "FP.REACT Components/Badge",
+  title: "FP.React Components/Badge",
   component: Badge,
   tags: ["beta", "accessible"],
   parameters: {
