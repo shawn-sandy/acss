@@ -157,6 +157,8 @@ Save implementation plans to:
 - `.claude/plans/` - Claude-specific plans
 - `openspec/plans/` - OpenSpec change proposals
 
+**To review plans:** Ask "review plans" — always list all plans first so user can pick which to read
+
 ## Plan Mode
 
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
