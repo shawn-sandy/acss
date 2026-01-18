@@ -4,13 +4,8 @@ import { StoryObj, Meta } from "@storybook/react-vite";
  */
 import { within, expect } from "storybook/test";
 
-/**
- * Import jest matchers
- */
-
 import { Header } from "./landmarks";
-
-import Img from "#components/images/img";
+import Img from "../images/img";
 
 const meta: Meta<typeof Header> = {
   title: "FP.React Components/Layout/Landmarks",
@@ -61,6 +56,7 @@ const meta: Meta<typeof Header> = {
     children: "Default Header",
     "data-testid": "banner",
   },
+  tags: ["stable"],
 } as Meta;
 
 const headerChildren = () => (

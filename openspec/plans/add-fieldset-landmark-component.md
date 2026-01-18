@@ -5,6 +5,7 @@
 **Component**: fpkit/landmarks
 
 ## Overview
+
 Add Fieldset component to landmarks module following existing Header/Footer pattern with optional legend prop and section wrapper.
 
 ## User Requirements
@@ -21,14 +22,25 @@ Add Fieldset component to landmarks module following existing Header/Footer patt
 Add FieldsetProps type and component after Article component:
 
 ```typescript
+/**
+ * Props for the Fieldset component.
+ */
 type FieldsetProps = {
-  legend?: ReactNode  // Optional legend (text/elements)
+  /** Optional legend content (text/elements) */
+  legend?: ReactNode
 } & ComponentProps
 
 /**
  * Fieldset landmark for semantic content grouping.
+ *
+ * Renders a fieldset element with optional legend.
+ * Use for semantic grouping of related content (not form inputs).
+ *
  * @param legend - Optional legend content
- * @param children - Content inside fieldset section
+ * @param children - Content to render inside fieldset
+ * @param styles - Optional styles object
+ * @param classes - Optional CSS class names
+ * @param props - Other props
  */
 export const Fieldset = ({
   id,
@@ -41,13 +53,36 @@ export const Fieldset = ({
   return (
     <UI as="fieldset" id={id} styles={styles} className={classes} {...props}>
       {legend && <UI as="legend">{legend}</UI>}
-      <UI as="section">{children}</UI>
+      {children}
     </UI>
   )
 }
 ```
 
-Register compound export: `Landmarks.Fieldset = Fieldset`
+**Location in file**: Add Fieldset component after Article component, before the Landmarks container component.
+
+**Compound Export Pattern** (at end of file, update existing pattern):
+
+```typescript
+// Update the existing Landmarks compound component
+export default Landmarks
+
+Landmarks.displayName = 'Landmarks'
+Landmarks.Header = Header
+Landmarks.Main = Main
+Landmarks.Footer = Footer
+Landmarks.Aside = Aside
+Landmarks.Section = Section
+Landmarks.Article = Article
+Landmarks.Fieldset = Fieldset  // NEW - Add this line
+```
+
+**Individual Export**: Fieldset is automatically exported via existing `export * from ...` at top of file or add explicit export if needed:
+
+```typescript
+export { Fieldset }
+export type { FieldsetProps }
+```
 
 ### 2. SCSS Styling (`landmarks.scss`)
 
@@ -69,12 +104,6 @@ fieldset {
     font-weight: var(--legend-fw, 600);
     padding-inline: var(--legend-padding-inline, 0.5rem);
     color: var(--legend-color, currentColor);
-  }
-
-  > section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
   }
 }
 
@@ -186,10 +215,8 @@ Semantic grouping for related content:
 \`\`\`html
 <fieldset>
   <legend>Personal Information</legend>
-  <section>
-    <p>Name: John Doe</p>
-    <p>Email: john@example.com</p>
-  </section>
+  <p>Name: John Doe</p>
+  <p>Email: john@example.com</p>
 </fieldset>
 \`\`\`
 
@@ -198,9 +225,7 @@ Semantic grouping for related content:
 \`\`\`html
 <fieldset data-legend="inline">
   <legend>Status:</legend>
-  <section>
-    <p>Active</p>
-  </section>
+  <p>Active</p>
 </fieldset>
 \`\`\`
 
@@ -212,9 +237,7 @@ Semantic grouping for related content:
   style="--fieldset-border: 2px solid #0066cc"
 >
   <legend>Account Settings</legend>
-  <section>
-    <p><strong>Username:</strong> johndoe</p>
-  </section>
+  <p><strong>Username:</strong> johndoe</p>
 </fieldset>
 \`\`\`
 
@@ -253,16 +276,24 @@ Semantic grouping for related content:
 
 ## Design Decisions
 
-### Why Section Wrapper?
-Matches Header/Footer pattern for consistency. Provides hook for flex layout styling and maintains semantic clarity (legend describes the section).
+### Why No Section Wrapper?
+
+Unlike Header/Footer, Fieldset renders children directly without a section wrapper. This provides:
+- Simpler DOM structure with less nesting
+- More flexibility for users to structure content as needed
+- Natural fieldset behavior (legend + direct children)
+- Users can add their own section/div wrappers if layout control is needed
 
 ### Why Optional Legend?
+
 Flexibility for content grouping without visible label. Users may prefer aria-label instead of legend or use fieldset for styling only.
 
 ### Why Data Attributes for Variants?
+
 Follows project pattern (data-hero, data-grid). Provides semantic HTML without class soup and clear variant intention.
 
 ### CSS Variable Naming
+
 - Uses full words for clarity (padding-inline, not px)
 - Allows approved abbreviations: fs, fw, bg (per CLAUDE.md)
 - Uses logical properties throughout (padding-inline, padding-block, margin-block)
@@ -271,12 +302,15 @@ Follows project pattern (data-hero, data-grid). Provides semantic HTML without c
 ## Trade-offs
 
 ### Legend Positioning Complexity
+
 CSS legend positioning can conflict with floats/grid. Mitigation: Use simple float for inline variant, standard positioning otherwise.
 
 ### Browser Fieldset Quirks
+
 Fieldset has unique rendering behaviors across browsers. Mitigation: Test across browsers, use minimal resets.
 
 ### ARIA Roles
+
 Fieldset gets role="group" implicitly, may conflict with custom roles. Mitigation: Document role behavior, allow role override via props.
 
 ## Questions
