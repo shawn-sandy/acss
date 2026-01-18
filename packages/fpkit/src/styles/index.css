@@ -1742,7 +1742,7 @@ footer > div {
 }
 
 fieldset {
-  border: var(--fieldset-border, 1px solid #ccc);
+  border: var(--fieldset-border, 1px solid var(--border-default, #999));
   border-radius: var(--fieldset-border-radius, 0.5rem);
   padding: var(--fieldset-padding, 1rem);
   padding-inline: var(--fieldset-padding-inline, 1.5rem);
@@ -1759,6 +1759,30 @@ fieldset > legend {
   padding-inline: var(--legend-padding-inline, 0.5rem);
   color: var(--legend-color, currentColor);
 }
+fieldset .fieldset-description {
+  margin-block-start: 0.5rem;
+  margin-block-end: 0;
+  font-size: var(--fieldset-description-fs, 0.875rem);
+  color: var(--fieldset-description-color, var(--text-subtle, #666));
+}
+
+fieldset:focus-within {
+  outline: var(--fieldset-focus-outline, 2px solid var(--focus-color, #005a9c));
+  outline-offset: var(--fieldset-focus-offset, 2px);
+}
+
+@media (hover: hover) {
+  fieldset:focus-within:not(:focus-visible) {
+    outline: none;
+  }
+}
+fieldset:disabled {
+  opacity: var(--fieldset-disabled-opacity, 0.6);
+  cursor: not-allowed;
+}
+fieldset:disabled > legend {
+  color: var(--legend-disabled-color, var(--text-disabled, #757575));
+}
 
 fieldset[data-legend=inline] {
   --fieldset-border: none;
@@ -1771,15 +1795,34 @@ fieldset[data-legend=inline] > legend {
 }
 
 fieldset[data-fieldset=grouped] {
-  --fieldset-bg: var(--bg-subtle, #f9f9f9);
+  --fieldset-bg: var(--surface-subtle, #f5f5f5);
   --fieldset-padding-block: 1.5rem;
-  --fieldset-border: 2px solid var(--border-accent, #0066cc);
+  --fieldset-border: 2px solid var(--border-focus, #005a9c);
 }
 fieldset[data-fieldset=grouped] > legend {
   --legend-fs: 1.125rem;
   --legend-fw: 700;
 }
 
+@media (prefers-contrast: high) {
+  fieldset {
+    border-width: 2px;
+  }
+  fieldset > legend {
+    font-weight: 700;
+  }
+}
+@media (forced-colors: active) {
+  fieldset {
+    border: 1px solid CanvasText;
+  }
+  fieldset > legend {
+    color: CanvasText;
+  }
+  fieldset .fieldset-description {
+    color: CanvasText;
+  }
+}
 /**
  * Box Component Styles
  *
