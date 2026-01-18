@@ -1,17 +1,17 @@
-import UI from '../ui'
-import React, { ReactNode } from 'react'
+import UI from "../ui";
+import React, { ReactNode } from "react";
 
-type ComponentProps = React.ComponentProps<typeof UI>
+type ComponentProps = React.ComponentProps<typeof UI>;
 
 /**
  * Renders children elements without any wrapping component.
  * Can be used as a placeholder when no semantic landmark is needed.
  */
-export const Landmarks = (children?: React.FC) => <>{children}</>
+export const Landmarks = (children?: React.FC) => <>{children}</>;
 
 type HeaderProps = {
-  headerBackground?: ReactNode
-} & ComponentProps
+  headerBackground?: ReactNode;
+} & ComponentProps;
 /**
  * Header component.
  *
@@ -34,8 +34,8 @@ export const Header = ({
       {headerBackground}
       <UI as="section">{children}</UI>
     </UI>
-  )
-}
+  );
+};
 
 /**
  * Main component.
@@ -57,8 +57,8 @@ export const Main = ({
     <UI as="main" id={id} styles={styles} {...props} className={classes}>
       {children}
     </UI>
-  )
-}
+  );
+};
 
 /**
  * Footer component that renders a footer element with a section element inside.
@@ -76,10 +76,10 @@ export const Footer = ({
 }: ComponentProps) => {
   return (
     <UI as="footer" id={id} className={classes} styles={styles} {...props}>
-      <UI as="section">{children || 'Copyright © 2022'}</UI>
+      <UI as="section">{children || "Copyright © 2022"}</UI>
     </UI>
-  )
-}
+  );
+};
 
 export const Aside = ({
   id,
@@ -92,8 +92,8 @@ export const Aside = ({
     <UI as="aside" id={id} styles={styles} className={classes} {...props}>
       <UI as="section">{children}</UI>
     </UI>
-  )
-}
+  );
+};
 
 /**
  * Section component that renders a section element.
@@ -113,8 +113,8 @@ export const Section = ({
     <UI as="section" id={id} styles={styles} className={classes} {...props}>
       {children}
     </UI>
-  )
-}
+  );
+};
 
 /**
  * Article component renders an HTML <article> element.
@@ -135,15 +135,84 @@ export const Article = ({
     <UI as="article" id={id} styles={styles} className={classes} {...props}>
       {children}
     </UI>
-  )
-}
+  );
+};
 
-export default Landmarks
+type FieldsetProps = {
+  /**
+   * Optional legend content displayed as the fieldset's accessible name
+   */
+  legend?: ReactNode;
+  /**
+   * Additional description text for complex fieldsets
+   * Enhances accessibility via aria-describedby
+   */
+  description?: string;
+  /**
+   * Custom ID for the description element
+   * Auto-generated if description is provided without custom ID
+   */
+  descriptionId?: string;
+} & ComponentProps;
 
-Landmarks.displayName = 'Landmarks'
-Landmarks.Header = Header
-Landmarks.Main = Main
-Landmarks.Footer = Footer
-Landmarks.Aside = Aside
-Landmarks.Section = Section
-Landmarks.Article = Article
+/**
+ * Fieldset landmark for semantic content grouping.
+ * Provides WCAG 2.1 Level AA compliant form grouping with optional descriptions.
+ *
+ * @param legend - Optional legend content (accessible name)
+ * @param description - Optional description for additional context
+ * @param descriptionId - Custom ID for description element
+ * @param children - Content inside fieldset section
+ *
+ * @example
+ * ```tsx
+ * <Fieldset
+ *   legend="Shipping Address"
+ *   description="This address will be used for delivery"
+ * >
+ *   {/* form controls *\/}
+ * </Fieldset>
+ * ```
+ */
+export const Fieldset = ({
+  id,
+  children,
+  legend,
+  description,
+  descriptionId,
+  styles,
+  classes,
+  ...props
+}: FieldsetProps) => {
+  const descId = descriptionId || (description ? `${id}-desc` : undefined);
+
+  return (
+    <UI
+      as="fieldset"
+      id={id}
+      styles={styles}
+      className={classes}
+      aria-describedby={descId}
+      {...props}
+    >
+      {legend && <UI as="legend">{legend}</UI>}
+      {description && (
+        <p id={descId} className="fieldset-description">
+          {description}
+        </p>
+      )}
+      {children}
+    </UI>
+  );
+};
+
+export default Landmarks;
+
+Landmarks.displayName = "Landmarks";
+Landmarks.Header = Header;
+Landmarks.Main = Main;
+Landmarks.Footer = Footer;
+Landmarks.Aside = Aside;
+Landmarks.Section = Section;
+Landmarks.Article = Article;
+Landmarks.Fieldset = Fieldset;

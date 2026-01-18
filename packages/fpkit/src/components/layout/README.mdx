@@ -1,0 +1,843 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.REACT Components/Layout/Landmarks/Readme" />
+
+# Landmark Components
+
+Semantic HTML5 landmark components for building accessible page layouts with proper document structure. Includes Header, Main, Footer, Aside, Section, Article, and Fieldset components.
+
+## Features
+
+✅ **Semantic HTML5** - Uses proper landmark elements (`<header>`, `<main>`, `<footer>`, etc.)
+✅ **WCAG 2.1 AA Compliant** - Automatic ARIA landmark roles for screen readers
+✅ **TypeScript Support** - Full type definitions with IntelliSense
+✅ **CSS Custom Properties** - Complete theming control with CSS variables
+✅ **Responsive Layouts** - Built-in article/aside flexbox patterns
+✅ **Hero/Overlay System** - Grid-based hero sections with background images
+✅ **Rem-Based Sizing** - All measurements use rem units (1rem = 16px)
+✅ **Logical Properties** - RTL language support with `padding-inline`, `margin-block`
+✅ **Compound Exports** - Use as `<Landmarks.Header>` or destructured `<Header>`
+✅ **Flexible Content** - Section wrappers for consistent child layout
+
+---
+
+## Component Architecture
+
+The landmarks system consists of seven semantic components:
+
+| Component | Element | ARIA Role | Purpose |
+|-----------|---------|-----------|---------|
+| **`Header`** | `<header>` | `banner` (top-level) | Site header, hero sections, page banners |
+| **`Main`** | `<main>` | `main` | Primary page content (use once per page) |
+| **`Footer`** | `<footer>` | `contentinfo` (top-level) | Site footer, copyright, links |
+| **`Aside`** | `<aside>` | `complementary` | Sidebars, related content, callouts |
+| **`Section`** | `<section>` | `region` (with label) | Thematic content grouping |
+| **`Article`** | `<article>` | `article` | Self-contained content (blog posts, cards) |
+| **`Fieldset`** | `<fieldset>` | `group` | Form grouping or content grouping with legend |
+
+---
+
+## Quick Start
+
+### Basic Page Layout
+
+```tsx
+import { Landmarks } from "@fpkit/acss";
+
+function PageLayout() {
+  return (
+    <>
+      <Landmarks.Header>
+        <h1>Welcome to My Site</h1>
+        <p>Building accessible web experiences</p>
+      </Landmarks.Header>
+
+      <Landmarks.Main>
+        <h2>Main Content</h2>
+        <p>Your primary page content goes here.</p>
+      </Landmarks.Main>
+
+      <Landmarks.Footer>
+        <p>&copy; 2025 Company Name</p>
+      </Landmarks.Footer>
+    </>
+  );
+}
+```
+
+### Destructured Imports
+
+```tsx
+import { Header, Main, Footer } from "@fpkit/acss";
+
+function App() {
+  return (
+    <>
+      <Header>
+        <h1>Site Title</h1>
+      </Header>
+
+      <Main>
+        <p>Content here</p>
+      </Main>
+
+      <Footer>
+        <p>Footer content</p>
+      </Footer>
+    </>
+  );
+}
+```
+
+---
+
+## Header Component
+
+The Header component creates semantic page headers with built-in hero/overlay support.
+
+### Basic Header
+
+```tsx
+import { Header } from "@fpkit/acss";
+
+<Header>
+  <h1>Page Title</h1>
+  <p>Subtitle or description</p>
+</Header>
+```
+
+### Hero Header with Background
+
+```tsx
+import { Header } from "@fpkit/acss";
+import Img from "@fpkit/acss/images";
+
+<Header
+  headerBackground={<Img src="/hero.jpg" alt="" />}
+  styles={{ "--overlay-color": "white" }}
+>
+  <h1>Welcome</h1>
+  <p>Hero section with background image</p>
+  <button>Get Started</button>
+</Header>
+```
+
+### Custom Overlay Settings
+
+```tsx
+<Header
+  styles={{
+    "--overlay-height": "60vh",
+    "--overlay-bg": "#0066cc",
+    "--overlay-color": "white",
+  }}
+>
+  <h1>Custom Hero</h1>
+  <p>Customized height, background, and text color</p>
+</Header>
+```
+
+### Header Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `headerBackground` | `ReactNode` | - | Background image or element (placed in grid overlay) |
+| `children` | `ReactNode` | *required* | Content displayed in header section |
+| `id` | `string` | - | Unique identifier |
+| `styles` | `CSSProperties` | - | Inline CSS custom properties |
+| `classes` | `string` | - | Additional CSS classes |
+
+---
+
+## Main Component
+
+The Main component represents the primary content of the page. Use only **once per page**.
+
+### Basic Main
+
+```tsx
+import { Main } from "@fpkit/acss";
+
+<Main>
+  <h2>Page Heading</h2>
+  <p>Main content goes here.</p>
+</Main>
+```
+
+### Main with Article and Aside (Sidebar Layout)
+
+```tsx
+<Main>
+  <article>
+    <h2>Article Title</h2>
+    <p>Primary content takes majority of space...</p>
+  </article>
+  <aside>
+    <h3>Sidebar</h3>
+    <p>Related content or navigation...</p>
+  </aside>
+</Main>
+```
+
+The flexbox layout automatically:
+- Gives article 999 flex-grow (takes most space)
+- Sets aside min-width to 20rem (320px)
+- Wraps aside below article on narrow screens
+- Adds 2rem gap between elements
+
+### Main Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | *required* | Main page content |
+| `id` | `string` | - | Unique identifier |
+| `styles` | `CSSProperties` | - | Inline CSS custom properties |
+| `classes` | `string` | - | Additional CSS classes |
+
+---
+
+## Footer Component
+
+The Footer component creates semantic page footers with centered content by default.
+
+### Basic Footer
+
+```tsx
+import { Footer } from "@fpkit/acss";
+
+<Footer>
+  <p>&copy; 2025 Company Name. All rights reserved.</p>
+</Footer>
+```
+
+### Footer with Sections
+
+```tsx
+<Footer>
+  <div>
+    <h3>Company</h3>
+    <ul>
+      <li><a href="/about">About</a></li>
+      <li><a href="/careers">Careers</a></li>
+    </ul>
+  </div>
+  <div>
+    <h3>Support</h3>
+    <ul>
+      <li><a href="/help">Help</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div>
+</Footer>
+```
+
+### Footer Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | `"Copyright © 2022"` | Footer content |
+| `id` | `string` | - | Unique identifier |
+| `styles` | `CSSProperties` | - | Inline CSS custom properties |
+| `classes` | `string` | - | Additional CSS classes |
+
+---
+
+## Aside Component
+
+The Aside component creates complementary content sections (sidebars, callouts).
+
+### Basic Aside
+
+```tsx
+import { Aside } from "@fpkit/acss";
+
+<Aside>
+  <h3>Related Links</h3>
+  <ul>
+    <li><a href="#">Link 1</a></li>
+    <li><a href="#">Link 2</a></li>
+  </ul>
+</Aside>
+```
+
+### Aside Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | *required* | Aside content |
+| `id` | `string` | - | Unique identifier |
+| `styles` | `CSSProperties` | - | Inline CSS custom properties |
+| `classes` | `string` | - | Additional CSS classes |
+
+---
+
+## Section Component
+
+The Section component groups thematic content. Use `aria-label` for unnamed sections.
+
+### Basic Section
+
+```tsx
+import { Section } from "@fpkit/acss";
+
+<Section aria-label="Introduction">
+  <h2>About Us</h2>
+  <p>Company information...</p>
+</Section>
+```
+
+### Section Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | *required* | Section content |
+| `id` | `string` | - | Unique identifier |
+| `aria-label` | `string` | - | Accessible label for unnamed sections |
+| `styles` | `CSSProperties` | - | Inline CSS custom properties |
+| `classes` | `string` | - | Additional CSS classes |
+
+---
+
+## Article Component
+
+The Article component represents self-contained, reusable content.
+
+### Basic Article
+
+```tsx
+import { Article } from "@fpkit/acss";
+
+<Article>
+  <h2>Blog Post Title</h2>
+  <p>Article content that could stand alone...</p>
+</Article>
+```
+
+### Article in Card Layout
+
+```tsx
+<Article>
+  <header>
+    <h3>Product Review</h3>
+    <time datetime="2025-01-18">January 18, 2025</time>
+  </header>
+  <p>Review content...</p>
+  <footer>
+    <a href="/read-more">Read More</a>
+  </footer>
+</Article>
+```
+
+### Article Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | *required* | Article content |
+| `id` | `string` | - | Unique identifier |
+| `styles` | `CSSProperties` | - | Inline CSS custom properties |
+| `classes` | `string` | - | Additional CSS classes |
+
+---
+
+## Fieldset Component
+
+The Fieldset component provides semantic content grouping with an optional legend.
+
+### Basic Fieldset
+
+```tsx
+import { Fieldset } from "@fpkit/acss";
+
+<Fieldset legend="Personal Information">
+  <p>Name: John Doe</p>
+  <p>Email: john@example.com</p>
+</Fieldset>
+```
+
+### Fieldset Without Legend
+
+```tsx
+<Fieldset>
+  <p>Grouped content without visible legend</p>
+  <p>Still maintains semantic grouping (role="group")</p>
+</Fieldset>
+```
+
+### Inline Legend Variant
+
+For compact layouts where legend appears inline with content:
+
+```tsx
+<Fieldset legend="Status:" data-legend="inline">
+  <p>Active</p>
+</Fieldset>
+```
+
+### Grouped Variant (Emphasized)
+
+For important content sections needing visual emphasis:
+
+```tsx
+<Fieldset legend="Account Settings" data-fieldset="grouped">
+  <p><strong>Username:</strong> johndoe</p>
+  <p><strong>Role:</strong> Admin</p>
+  <p><strong>Status:</strong> Active</p>
+</Fieldset>
+```
+
+### Fieldset Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `legend` | `ReactNode` | - | Optional legend content (text or elements) |
+| `children` | `ReactNode` | *required* | Content inside fieldset section |
+| `data-legend` | `"inline"` | - | Variant: inline legend layout |
+| `data-fieldset` | `"grouped"` | - | Variant: emphasized styling |
+| `id` | `string` | - | Unique identifier |
+| `styles` | `CSSProperties` | - | Inline CSS custom properties |
+| `classes` | `string` | - | Additional CSS classes |
+
+---
+
+## CSS Custom Properties
+
+### Header/Overlay Variables
+
+```css
+:root {
+  /* Grid Layout */
+  --overlay-grid-area: overlay;
+  --overlay-display: grid;
+  --overlay-placement: center;
+
+  /* Dimensions */
+  --overlay-width: 100%;
+  --overlay-height: 40vh;
+  --overlay-max-height: 500px;
+
+  /* Content */
+  --overlay-content-width: 80%;
+  --overlay-gap: 2rem; /* 32px */
+
+  /* Colors */
+  --overlay-bg: whitesmoke;
+  --overlay-color: currentColor;
+
+  /* Spacing */
+  --overlay-padding: 2rem; /* 32px */
+  --overlay-padding-inline: auto;
+  --overlay-padding-block: auto;
+  --overlay-margin-inline: auto;
+  --overlay-margin-block: auto;
+
+  /* Typography */
+  --header-line-height: 1.1;
+}
+```
+
+### Main/Footer Variables
+
+```css
+:root {
+  /* Content Width */
+  --content-width: min(100%, 1480px);
+  --content-margin-inline: auto;
+  --content-padding-inline: 1rem; /* 16px */
+  --content-gap: 2rem; /* 32px - article/aside gap */
+}
+```
+
+### Fieldset Variables
+
+```css
+:root {
+  /* Border */
+  --fieldset-border: 1px solid #ccc;
+  --fieldset-border-radius: 0.5rem; /* 8px */
+
+  /* Spacing */
+  --fieldset-padding: 1rem; /* 16px */
+  --fieldset-padding-inline: 1.5rem; /* 24px */
+  --fieldset-padding-block: 1rem; /* 16px */
+  --fieldset-margin-block: 2rem; /* 32px */
+
+  /* Colors */
+  --fieldset-bg: transparent;
+
+  /* Legend */
+  --legend-fs: 1rem; /* 16px */
+  --legend-fw: 600;
+  --legend-padding-inline: 0.5rem; /* 8px */
+  --legend-color: currentColor;
+}
+```
+
+### Customization Example
+
+```tsx
+<Header
+  styles={{
+    "--overlay-height": "70vh",
+    "--overlay-bg": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    "--overlay-color": "white",
+    "--overlay-content-width": "50rem",
+  }}
+>
+  <h1>Customized Hero</h1>
+</Header>
+
+<Fieldset
+  legend="Themed Fieldset"
+  styles={{
+    "--fieldset-border": "2px dashed #666",
+    "--fieldset-bg": "#f0f0f0",
+    "--legend-color": "#0066cc",
+    "--legend-fs": "1.25rem",
+  }}
+>
+  <p>Custom styled content</p>
+</Fieldset>
+```
+
+---
+
+## Accessibility Features
+
+### Automatic ARIA Roles
+
+HTML5 landmarks automatically provide ARIA roles:
+
+| Element | ARIA Role | Condition |
+|---------|-----------|-----------|
+| `<header>` | `banner` | When direct child of `<body>` |
+| `<main>` | `main` | Always |
+| `<footer>` | `contentinfo` | When direct child of `<body>` |
+| `<aside>` | `complementary` | Always |
+| `<section>` | `region` | When has `aria-label` or `aria-labelledby` |
+| `<article>` | `article` | Always |
+| `<fieldset>` | `group` | Always |
+
+### Screen Reader Navigation
+
+Landmark elements enable screen reader users to:
+- Skip directly to main content
+- Navigate between page sections
+- Understand page structure
+- Jump to complementary content
+
+### Skip Links
+
+Provide skip navigation for keyboard users:
+
+```tsx
+<a href="#main-content" className="skip-link">
+  Skip to main content
+</a>
+
+<Header>...</Header>
+
+<Main id="main-content">
+  <h2>Main Content</h2>
+  <p>Primary page content...</p>
+</Main>
+```
+
+### Heading Hierarchy
+
+Maintain proper heading levels within landmarks:
+
+```tsx
+<Header>
+  <h1>Site Title</h1> {/* Only one h1 per page */}
+</Header>
+
+<Main>
+  <h2>Section Title</h2>
+  <h3>Subsection Title</h3>
+  <h4>Detail Heading</h4>
+</Main>
+```
+
+### Alternative Text for Hero Images
+
+Background images should use empty alt or `role="presentation"`:
+
+```tsx
+<Header
+  headerBackground={
+    <img src="/hero.jpg" alt="" role="presentation" />
+  }
+>
+  <h1>Descriptive Title</h1>
+</Header>
+```
+
+---
+
+## Layout Patterns
+
+### Full Page Layout
+
+```tsx
+function App() {
+  return (
+    <>
+      <Header
+        styles={{
+          "--overlay-height": "50vh",
+          "--overlay-bg": "#0066cc",
+          "--overlay-color": "white",
+        }}
+      >
+        <h1>Welcome to Our Site</h1>
+        <p>Discover amazing products and services</p>
+        <button>Get Started</button>
+      </Header>
+
+      <Main>
+        <Article>
+          <h2>Main Content</h2>
+          <p>Primary content area...</p>
+        </Article>
+        <Aside>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+          </ul>
+        </Aside>
+      </Main>
+
+      <Footer>
+        <p>&copy; 2025 Company Name. All rights reserved.</p>
+      </Footer>
+    </>
+  );
+}
+```
+
+### Blog Post Layout
+
+```tsx
+<Main>
+  <Article>
+    <header>
+      <h1>Blog Post Title</h1>
+      <time datetime="2025-01-18">January 18, 2025</time>
+    </header>
+
+    <Section aria-label="Introduction">
+      <p>Post introduction...</p>
+    </Section>
+
+    <Section aria-label="Main Content">
+      <h2>First Topic</h2>
+      <p>Content...</p>
+    </Section>
+
+    <footer>
+      <p>Tags: React, TypeScript, Accessibility</p>
+    </footer>
+  </Article>
+
+  <Aside>
+    <h2>Related Posts</h2>
+    <ul>
+      <li><a href="/post-1">Related Post 1</a></li>
+      <li><a href="/post-2">Related Post 2</a></li>
+    </ul>
+  </Aside>
+</Main>
+```
+
+### Form with Fieldsets
+
+```tsx
+<Main>
+  <form>
+    <Fieldset legend="Personal Information">
+      <label>
+        Name: <input type="text" name="name" />
+      </label>
+      <label>
+        Email: <input type="email" name="email" />
+      </label>
+    </Fieldset>
+
+    <Fieldset legend="Preferences" data-fieldset="grouped">
+      <label>
+        <input type="checkbox" name="newsletter" />
+        Subscribe to newsletter
+      </label>
+      <label>
+        <input type="checkbox" name="notifications" />
+        Enable notifications
+      </label>
+    </Fieldset>
+
+    <button type="submit">Submit</button>
+  </form>
+</Main>
+```
+
+### Multi-Column Card Layout
+
+```tsx
+<Main>
+  <div style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(20rem, 1fr))",
+    gap: "2rem"
+  }}>
+    <Article>
+      <h3>Card 1</h3>
+      <p>Self-contained content...</p>
+    </Article>
+    <Article>
+      <h3>Card 2</h3>
+      <p>Self-contained content...</p>
+    </Article>
+    <Article>
+      <h3>Card 3</h3>
+      <p>Self-contained content...</p>
+    </Article>
+  </div>
+</Main>
+```
+
+---
+
+## TypeScript Support
+
+### Import Types
+
+```tsx
+import type {
+  HeaderProps,
+  MainProps,
+  FooterProps,
+  AsideProps,
+  SectionProps,
+  ArticleProps,
+  FieldsetProps,
+} from "@fpkit/acss";
+```
+
+### Type-Safe Props
+
+```tsx
+const headerProps: HeaderProps = {
+  headerBackground: <img src="/bg.jpg" alt="" />,
+  styles: { "--overlay-height": "60vh" },
+  children: <h1>Title</h1>,
+};
+
+<Header {...headerProps} />
+
+const fieldsetProps: FieldsetProps = {
+  legend: "User Info",
+  "data-fieldset": "grouped",
+  children: <p>Content</p>,
+};
+
+<Fieldset {...fieldsetProps} />
+```
+
+---
+
+## Best Practices
+
+### ✅ Do
+
+```tsx
+// Use Header for hero sections
+<Header>
+  <h1>Page Title</h1>
+  <p>Description</p>
+</Header>
+
+// Use Main once per page
+<Main>
+  <h2>Primary content</h2>
+</Main>
+
+// Use Article for self-contained content
+<Article>
+  <h3>Blog Post</h3>
+  <p>Content that could stand alone...</p>
+</Article>
+
+// Provide legend for fieldsets when appropriate
+<Fieldset legend="Contact Information">
+  <p>Name, email, phone...</p>
+</Fieldset>
+
+// Use semantic heading hierarchy
+<h1>Page Title</h1>
+<h2>Section</h2>
+<h3>Subsection</h3>
+
+// Add aria-label to unnamed sections
+<Section aria-label="Features">
+  <div>...</div>
+</Section>
+```
+
+### ❌ Don't
+
+```tsx
+// Don't use multiple <Main> elements
+<Main>Content 1</Main>
+<Main>Content 2</Main> // ❌ Only one per page
+
+// Don't skip heading levels
+<h1>Title</h1>
+<h4>Subsection</h4> // ❌ Skip h2, h3
+
+// Don't use landmarks for styling only
+<Header className="blue-box"> // ❌ Use div for pure styling
+  <p>Not actually a header</p>
+</Header>
+
+// Don't forget alt text for hero images
+<Header headerBackground={<img src="/bg.jpg" />}> // ❌ Missing alt
+
+// Don't use px units in custom properties
+styles={{ "--overlay-height": "500px" }} // ❌ Use rem or vh
+```
+
+---
+
+## Browser Support
+
+- ✅ **HTML5 Landmarks**: All modern browsers
+- ✅ **CSS Grid**: Chrome 57+, Firefox 52+, Safari 10.1+
+- ✅ **CSS Custom Properties**: Chrome 49+, Firefox 31+, Safari 9.1+
+- ✅ **Flexbox**: All modern browsers
+- ✅ **`:has()` Selector**: Chrome 105+, Firefox 121+, Safari 15.4+
+- ✅ **`min()` Function**: Chrome 79+, Firefox 75+, Safari 11.1+
+
+---
+
+## Related Components
+
+- **[UI](?path=/docs/fp-react-components-ui--docs)** - Base component wrapper
+- **[Grid](?path=/docs/fp-react-components-grid--docs)** - Grid layout system
+- **[Flexbox](?path=/docs/fp-react-components-flexbox--docs)** - Flexbox utilities
+- **[Card](?path=/docs/fp-react-components-card--docs)** - Card components
+- **[STYLES.mdx](?path=/docs/fp-react-components-layout-styles--docs)** - Detailed CSS documentation
+
+---
+
+## Resources
+
+- [MDN: HTML5 Sectioning Elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Element#content_sectioning)
+- [W3C ARIA: Landmark Regions](https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/)
+- [WebAIM: Semantic Structure](https://webaim.org/techniques/semanticstructure/)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+
+---
+
+## License
+
+Part of the `@fpkit/acss` component library.

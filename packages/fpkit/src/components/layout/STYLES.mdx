@@ -344,6 +344,159 @@ footer > div {
 </footer>
 ```
 
+## Fieldset
+
+The `<fieldset>` element provides semantic grouping for related content with an optional `<legend>` label. Fieldsets automatically create an accessible group (`role="group"`) for better screen reader support.
+
+### Basic Fieldset
+
+```html
+<fieldset>
+  <legend>Personal Information</legend>
+  <section>
+    <p>Name: John Doe</p>
+    <p>Email: john@example.com</p>
+  </section>
+</fieldset>
+```
+
+**CSS Applied:**
+
+```css
+fieldset {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem; /* 8px */
+  padding: 1rem; /* 16px */
+  padding-inline: 1.5rem; /* 24px */
+  padding-block: 1rem; /* 16px */
+  margin-block: 2rem; /* 32px */
+  background: transparent;
+}
+
+fieldset > legend {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  padding-inline: 0.5rem; /* 8px */
+  color: currentColor;
+}
+
+fieldset > section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 16px */
+}
+```
+
+### Fieldset Without Legend
+
+Fieldsets can group content without a visible legend:
+
+```html
+<fieldset>
+  <section>
+    <p>Grouped content without visible legend</p>
+    <p>Still maintains semantic grouping</p>
+  </section>
+</fieldset>
+```
+
+### Inline Legend Variant
+
+For compact layouts, legends can be displayed inline:
+
+```html
+<fieldset data-legend="inline">
+  <legend>Status:</legend>
+  <section>
+    <p>Active</p>
+  </section>
+</fieldset>
+```
+
+**CSS Applied:**
+
+```css
+fieldset[data-legend="inline"] {
+  --fieldset-border: none;
+  --fieldset-padding: 0;
+}
+
+fieldset[data-legend="inline"] > legend {
+  float: inline-start;
+  margin-inline-end: 1rem; /* 16px */
+  margin-block-end: 0.5rem; /* 8px */
+}
+```
+
+### Grouped Variant
+
+Emphasized fieldsets for important content sections:
+
+```html
+<fieldset data-fieldset="grouped">
+  <legend>Account Settings</legend>
+  <section>
+    <p><strong>Username:</strong> johndoe</p>
+    <p><strong>Role:</strong> Admin</p>
+  </section>
+</fieldset>
+```
+
+**CSS Applied:**
+
+```css
+fieldset[data-fieldset="grouped"] {
+  --fieldset-bg: #f9f9f9;
+  --fieldset-padding-block: 1.5rem; /* 24px */
+  --fieldset-border: 2px solid #0066cc;
+}
+
+fieldset[data-fieldset="grouped"] > legend {
+  --legend-fs: 1.125rem; /* 18px */
+  --legend-fw: 700;
+}
+```
+
+### Fieldset CSS Custom Properties
+
+```css
+fieldset {
+  /* Border */
+  --fieldset-border: 1px solid #ccc;
+  --fieldset-border-radius: 0.5rem;
+
+  /* Spacing */
+  --fieldset-padding: 1rem;
+  --fieldset-padding-inline: 1.5rem;
+  --fieldset-padding-block: 1rem;
+  --fieldset-margin-block: 2rem;
+
+  /* Colors */
+  --fieldset-bg: transparent;
+
+  /* Legend */
+  --legend-fs: 1rem;
+  --legend-fw: 600;
+  --legend-padding-inline: 0.5rem;
+  --legend-color: currentColor;
+}
+```
+
+### Customizing Fieldset Styles
+
+Override CSS custom properties for themed fieldsets:
+
+```html
+<fieldset
+  style="--fieldset-border: 2px dashed #666; --fieldset-bg: #f0f0f0; --legend-color: #0066cc"
+>
+  <legend>Custom Styled Fieldset</legend>
+  <section>
+    <p>Content with custom styling</p>
+  </section>
+</fieldset>
+```
+
 ## Real-World Examples
 
 ### Full Page Layout
@@ -484,10 +637,12 @@ Hero background images should use empty alt or role="presentation":
 
 ## CSS Variable Naming Convention
 
-| Category    | Variable Pattern       | Example                            |
-| ----------- | ---------------------- | ---------------------------------- |
-| **Overlay** | `--overlay-{property}` | `--overlay-bg`, `--overlay-height` |
-| **Content** | `--content-{property}` | `--content-width`, `--content-gap` |
+| Category     | Variable Pattern        | Example                                  |
+| ------------ | ----------------------- | ---------------------------------------- |
+| **Overlay**  | `--overlay-{property}`  | `--overlay-bg`, `--overlay-height`       |
+| **Content**  | `--content-{property}`  | `--content-width`, `--content-gap`       |
+| **Fieldset** | `--fieldset-{property}` | `--fieldset-border`, `--fieldset-bg`     |
+| **Legend**   | `--legend-{property}`   | `--legend-fs`, `--legend-fw`             |
 
 ## Browser Support
 
