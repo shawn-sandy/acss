@@ -3,6 +3,63 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.6.0...@fpkit/acss@6.2.0) (2026-01-18)
+
+
+### Bug Fixes
+
+* **alert:** correct UI component prop from className to classes ([3a28851](https://github.com/shawn-sandy/fpkit/commit/3a288517a4382802f8f8be19fc6782c495d5c22c))
+* **changelog:** correct 4.1.0 entry to show only color system changes ([d6ef796](https://github.com/shawn-sandy/fpkit/commit/d6ef796cfe05541b52ff382c601a574482be1500))
+* **checkbox:** update Meta title for consistency in documentation ([42fedeb](https://github.com/shawn-sandy/fpkit/commit/42fedeb68734f94e671d5cdf86a83ed1df7fb832))
+* **columns:** resolve JSX syntax error and enhance responsive docs ([8d04c64](https://github.com/shawn-sandy/fpkit/commit/8d04c64e67ed64d1606f7162283aafa551bad0f1))
+* resolve test failures and add publishing automation ([fc825b5](https://github.com/shawn-sandy/fpkit/commit/fc825b56847b20b7f7e188f6993ac69159c57b79))
+
+
+* feat(checkbox)!: deprecate Checkbox component in favor of Input type="checkbox" ([f16ff10](https://github.com/shawn-sandy/fpkit/commit/f16ff10afe44590c575fafb48dbd0b8832eab70b))
+
+
+### Features
+
+* **checkbox:** add accessible checkbox component with size and color variants ([6aa1b50](https://github.com/shawn-sandy/fpkit/commit/6aa1b50a7d79f24bdcc435faf31312c0f2ecf747))
+* **checkbox:** add size prop with xs/sm/md/lg variants ([4683bb5](https://github.com/shawn-sandy/fpkit/commit/4683bb506e1888ce10f612a8c7f3cef92dc40af0))
+* **checkbox:** implement Checkbox wrapper component with modern CSS architecture ([f971fec](https://github.com/shawn-sandy/fpkit/commit/f971fec36ef8c85295f4d38015ec198f37971f48))
+* **layout:** add Fieldset component and enhance landmarks styles ([a9ad3eb](https://github.com/shawn-sandy/fpkit/commit/a9ad3eb01f3ee4ccfa299eed2bd79a9cd9fd7e63))
+* **layout:** enhance Fieldset accessibility with WCAG 2.1 Level AA compliance ([c23b51c](https://github.com/shawn-sandy/fpkit/commit/c23b51cb6d54bae8afd564e7c01171c4646a83a8))
+* **layout:** enhance section and legend styling in landmarks.css ([b3edb64](https://github.com/shawn-sandy/fpkit/commit/b3edb64d5945a36105a0afa70445cf0dbdebd0cd))
+* **title:** add size and color variants with data-title attributes ([e7f9b7a](https://github.com/shawn-sandy/fpkit/commit/e7f9b7a90363fe11d12f7431f185d4297c730c6a))
+* **title:** add size and color variants with data-title attributes ([1e93884](https://github.com/shawn-sandy/fpkit/commit/1e93884becb94e8ae215180ba5adb9660fdbfa7f))
+* **tokens:** implement 3-tier color token system (Phase 1) ([395c45c](https://github.com/shawn-sandy/fpkit/commit/395c45c409b803944a2e7033327662e2c1995bda))
+* **tokens:** migrate all components to semantic color token system ([1d66e22](https://github.com/shawn-sandy/fpkit/commit/1d66e22857346d194cdce7c908d6b94df1cd5ceb))
+* **utilities:** add semantic color utility classes (Phase 2) ([9f5dd71](https://github.com/shawn-sandy/fpkit/commit/9f5dd71e758f42401875b23d47047f5219030625))
+
+
+### BREAKING CHANGES
+
+* **layout:** The layout of legends has been modified to align with sections, which may affect existing designs relying on previous styles.
+
+Files changed:
+- packages/fpkit/src/styles/layout/landmarks.css
+- packages/fpkit/src/styles/layout/landmarks.css.map
+* **checkbox:** Standalone Checkbox component deprecated in favor of form/Checkbox wrapper
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+* The standalone Checkbox component is now deprecated and will be removed in a future version.
+
+- Add @deprecated JSDoc tags to CheckboxProps and Checkbox component
+- Add runtime console warning in development mode
+- Add deprecation notices to README.mdx and STYLES.mdx
+- Change Storybook tag from "beta" to "deprecated"
+- Add CSS variables for checkbox styling in form.scss
+- Add checkbox story to Input component demonstrating new pattern
+
+Migration path: Replace <Checkbox /> with <Input type="checkbox" />
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+
+
+
+
 # [6.1.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.6.0...@fpkit/acss@6.1.0) (2026-01-17)
 
 
