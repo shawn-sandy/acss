@@ -1,5 +1,4 @@
-@use './header';
-
+@use "./header";
 
 main,
 footer {
@@ -19,7 +18,8 @@ main {
   flex: 1;
   font-size: var(--fs-3);
   > section[aria-label],
-  > section {
+  > section,
+  > legend {
     width: var(--content-width);
     margin-inline: var(--content-margin-inline);
     &:has(> article, > aside) {

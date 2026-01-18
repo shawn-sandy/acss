@@ -163,6 +163,7 @@ Save implementation plans to:
 
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
 - At the end of each plan, give me a list of unresolved questions to answer, if any.
+- Break the plan into small, concise, numbered, testable steps.
 
 ## Build Output
 

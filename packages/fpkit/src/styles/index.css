@@ -1710,25 +1710,29 @@ main {
   font-size: var(--fs-3);
 }
 main > section[aria-label],
-main > section {
+main > section,
+main > legend {
   width: var(--content-width);
   margin-inline: var(--content-margin-inline);
 }
 main > section[aria-label]:has(> article, > aside),
-main > section:has(> article, > aside) {
+main > section:has(> article, > aside),
+main > legend:has(> article, > aside) {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
   gap: var(--content-gap);
 }
 main > section[aria-label]:has(> article, > aside) > article,
-main > section:has(> article, > aside) > article {
+main > section:has(> article, > aside) > article,
+main > legend:has(> article, > aside) > article {
   flex-basis: 0;
   flex-grow: 999;
   min-inline-size: 50%;
 }
 main > section[aria-label]:has(> article, > aside) > aside,
-main > section:has(> article, > aside) > aside {
+main > section:has(> article, > aside) > aside,
+main > legend:has(> article, > aside) > aside {
   flex-basis: 20rem;
   flex-grow: 1;
 }
