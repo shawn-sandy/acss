@@ -11,6 +11,7 @@ const meta: Meta<typeof Popover> = {
   component: Popover,
   tags: ["stable"],
   parameters: {
+    layout: "centered",
     docs: {
       description: {
         component:
@@ -18,7 +19,6 @@ const meta: Meta<typeof Popover> = {
       },
     },
   },
-  layout: "centered",
   argTypes: {
     mode: {
       control: "select",
@@ -232,7 +232,7 @@ const ControlledExample = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
       <Popover
         id="controlled-popover"
         triggerLabel="Toggle Popover"
@@ -252,8 +252,8 @@ const ControlledExample = () => {
           </button>
         </div>
       </Popover>
-      <div style={{ marginTop: "1rem" }}>
-        <p>Current state: {isOpen ? "Open" : "Closed"}</p>
+      <div style={{ textAlign: "center" }}>
+        <p style={{ margin: "0 0 0.5rem 0" }}>Current state: {isOpen ? "Open" : "Closed"}</p>
         <button onClick={() => setIsOpen(!isOpen)}>External Toggle</button>
       </div>
     </div>
