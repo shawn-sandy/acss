@@ -1,85 +1,188 @@
-import React from 'react'
-import usePopover from '#hooks/popover/use-popover'
+import React, { useEffect, useId, useRef } from 'react';
+import type {} from '../../types/popover';
 
 /**
- * Interface for props accepted by the Popover component
- *
- * @property {ReactNode} children - The content to show in the popover
- * @property {ReactNode} [content] - Optional alternative content for popover
+ * Props for the Popover component using native HTML popover API
  */
-export type PopoverProps = {
-  children: React.ReactNode
-  popoverTrigger: React.ReactNode
-  styles?: React.CSSProperties
+export interface PopoverProps {
+  /** Unique ID for popover (required for popovertarget attribute) */
+  id?: string;
+  /** Content to display inside the popover */
+  children: React.ReactNode;
+  /** Custom trigger element (default: button with triggerLabel) */
+  trigger?: React.ReactNode;
+  /** Aria-label for default trigger button */
+  triggerLabel?: string;
+  /** Popover mode: "auto" (light dismiss) or "manual" (explicit close) */
+  mode?: 'auto' | 'manual';
+  /** Preferred placement position relative to trigger */
+  placement?: 'top' | 'bottom' | 'left' | 'right';
+  /** Controlled open state (optional) */
+  isOpen?: boolean;
+  /** Callback when popover toggles open/closed */
+  onToggle?: (open: boolean) => void;
+  /** Show close button (default: true for manual mode, false for auto) */
+  showCloseButton?: boolean;
+  /** Aria-label for close button */
+  closeButtonLabel?: string;
+  /** Show positioning arrow */
+  showArrow?: boolean;
+  /** Custom CSS class for popover element */
+  className?: string;
+  /** Inline CSS variables for theming */
+  styles?: React.CSSProperties;
 }
 
-export const defaultStyles = {
-  display: 'block',
-  position: 'absolute',
-  background: '#000',
-  border: '1px solid #010101',
-  padding: '10px',
-  color: '#fff',
-  transition: 'opacity .5s ease-in-out',
-} as React.CSSProperties
-
 /**
- * Popover component to display popover content.
+ * Popover component using native HTML popover API
  *
- * @param props - The props for the component
- * @param props.children - The content to show in the popover
- * @param props.popoverTrigger - The element that triggers the popover on hover
+ * Provides automatic top-layer rendering, light dismiss behavior,
+ * and accessibility features built into the platform.
  *
- * @returns JSX.Element - The rendered JSX element for the Popover
- * @example - <Popover popoverTrigger={<button>Hover here</button>}>Popover content</Popover>
+ * **Browser Requirements:**
+ * - Chrome 125+, Edge 125+, Safari 17.4+
+ * - Requires CSS anchor positioning support for optimal placement
  *
- * The component uses the usePopover hook to handle popover visibility and positioning.
+ * @example
+ * ```tsx
+ * <Popover id="my-popover" triggerLabel="Open Menu">
+ *   <p>Popover content here</p>
+ * </Popover>
+ * ```
  *
- * It renders the triggerElement, and conditionally renders the popover content
- * positioned absolutely when visible.
+ * @example
+ * ```tsx
+ * <Popover
+ *   id="custom-popover"
+ *   mode="manual"
+ *   placement="top"
+ *   trigger={<button>Custom Trigger</button>}
+ * >
+ *   <h3>Popover Title</h3>
+ *   <p>This requires explicit close action.</p>
+ * </Popover>
+ * ```
  *
- * Inline styles handle visuals like background, border, padding, etc.
- *
- * Transforms and opacity animate the enter/exit transition of the popover.
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover
  */
-
-export const Popover = ({
+export const Popover: React.FC<PopoverProps> = ({
+  id,
   children,
-  popoverTrigger,
+  trigger,
+  triggerLabel = 'Open',
+  mode = 'auto',
+  placement = 'bottom',
+  isOpen,
+  onToggle,
+  showCloseButton,
+  showArrow = true,
+  closeButtonLabel = 'Close',
+  className = '',
   styles,
-  ...props
-}: PopoverProps): JSX.Element => {
-  const hoverRef = React.useRef(null)
-  const popOverRef = React.useRef(null)
-  const { isVisible, popoverPosition, handlePointerEvent, handlePointerLeave } =
-    usePopover(hoverRef, popOverRef)
-  const popoverStyles = {
-    opacity: isVisible ? 1 : 0,
-    top: popoverPosition.top,
-    left: popoverPosition.left,
-    // transform: `translateY(${isVisible ? '0px' : '-50px'})`,
-    zIndex: 999,
-  } as React.CSSProperties
+}) => {
+  const generatedId = useId();
+  const popoverId = id || generatedId;
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  // Default showCloseButton based on mode
+  const shouldShowCloseButton =
+    showCloseButton !== undefined ? showCloseButton : mode === 'manual';
+
+  // Handle controlled state
+  useEffect(() => {
+    const popover = popoverRef.current;
+    if (!popover) return;
+
+    if (isOpen !== undefined) {
+      try {
+        // Try to check if popover is open using :popover-open pseudo-class
+        // Fall back to checking data attribute for testing environments
+        const isCurrentlyOpen =
+          popover.matches(':popover-open') || popover.hasAttribute('data-popover-open');
+
+        if (isOpen && !isCurrentlyOpen) {
+          popover.showPopover();
+        } else if (!isOpen && isCurrentlyOpen) {
+          popover.hidePopover();
+        }
+      } catch {
+        // In environments without popover support, check data attribute
+        const isCurrentlyOpen = popover.hasAttribute('data-popover-open');
+        if (isOpen && !isCurrentlyOpen) {
+          popover.showPopover();
+        } else if (!isOpen && isCurrentlyOpen) {
+          popover.hidePopover();
+        }
+      }
+    }
+  }, [isOpen]);
+
+  // Listen to toggle events
+  useEffect(() => {
+    const popover = popoverRef.current;
+    if (!popover || !onToggle) return;
+
+    const handleToggle = (event: Event) => {
+      const toggleEvent = event as ToggleEvent;
+      onToggle(toggleEvent.newState === 'open');
+    };
+
+    popover.addEventListener('toggle', handleToggle);
+    return () => popover.removeEventListener('toggle', handleToggle);
+  }, [onToggle]);
+
+  // Custom trigger with popovertarget attribute
+  const renderTrigger = () => {
+    if (trigger) {
+      return React.cloneElement(trigger as React.ReactElement, {
+        popovertarget: popoverId,
+        popovertargetaction: 'toggle',
+      });
+    }
+
+    return (
+      <button
+        type="button"
+        popovertarget={popoverId}
+        popovertargetaction="toggle"
+        aria-label={triggerLabel}
+        className="fpkit-popover-trigger"
+      >
+        {triggerLabel}
+      </button>
+    );
+  };
 
   return (
     <>
+      {renderTrigger()}
       <div
-        ref={hoverRef}
-        onPointerEnter={handlePointerEvent}
-        onPointerLeave={handlePointerLeave}
-        {...props}
+        ref={popoverRef}
+        id={popoverId}
+        popover={mode}
+        className={`fpkit-popover ${className}`.trim()}
+        data-placement={placement}
+        style={styles}
       >
-        {popoverTrigger}
-      </div>
-      {isVisible && (
-        <div ref={popOverRef} style={{ ...popoverStyles, ...styles }}>
+        {showArrow && <div className="fpkit-popover-arrow" data-placement={placement} />}
+        <div className="fpkit-popover-content">
           {children}
+          {shouldShowCloseButton && (
+            <button
+              type="button"
+              popovertarget={popoverId}
+              popovertargetaction="hide"
+              aria-label={closeButtonLabel}
+              className="fpkit-popover-close"
+            >
+              ✕
+            </button>
+          )}
         </div>
-      )}
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Popover
-Popover.displayName = 'Popover'
-Popover.styles = defaultStyles
+export default Popover;
+Popover.displayName = 'Popover';

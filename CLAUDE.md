@@ -187,3 +187,11 @@ The skill handles:
 - Do not publish a major version bump without explicit approval.
 
 Package publishes to npm as `@fpkit/acss` with independent versioning.
+
+## Plan Mode Instructions
+
+- Keep descriptions minimal, clear and concise.
+- Avoid long paragraphs; Always break the plan into small, concise, numbered, testable steps.
+- Use bullet points or numbered lists for clarity.
+- At the end of each plan, give me a list of unresolved questions to answer, if any.
+- Rename the plan file to reflect the plan's purpose clearly.
