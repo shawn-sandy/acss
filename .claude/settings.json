@@ -45,5 +45,9 @@
     "deny": [],
     "defaultMode": "plan"
   },
-  "outputStyle": "Explanatory"
+  "outputStyle": "Explanatory",
+  "plansDirectory": "docs/planning",
+  "env": {
+    "CLAUDE_CODE_TASK_LIST_ID": "acss"
+  }
 }

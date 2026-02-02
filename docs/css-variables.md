@@ -639,6 +639,7 @@ Complex components with multiple visual sections use element scoping.
 | Link | `--link-` | `--link-color`, `--link-hover-color`, `--link-visited-color` | 12+ |
 | List | `--list-` | `--list-item-padding`, `--list-marker-color` | 15+ |
 | Nav | `--nav-` | `--nav-bg`, `--nav-gap`, `--nav-link-color` | 18+ |
+| Popover | `--popover-` | `--popover-bg`, `--popover-border`, `--popover-arrow-size` | 12+ |
 | Select | `--select-` | `--select-arrow-color` (shares `--input-*` for other properties) | 1 select-specific + 16+ shared |
 | Table | `--table-` | `--table-bg`, `--table-header-bg`, `--table-border` | 22+ |
 | Tag | `--tag-` | `--tag-bg`, `--tag-color`, `--tag-radius` | 10+ |

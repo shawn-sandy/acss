@@ -1,0 +1,231 @@
+import { Meta, Canvas, Story } from '@storybook/blocks';
+import * as PopoverStories from './popover.stories';
+
+<Meta of={PopoverStories} />
+
+# Popover
+
+The Popover component uses the native HTML Popover API to display floating content relative to a trigger element. It provides automatic top-layer rendering, light dismiss behavior, and built-in accessibility features.
+
+## Features
+
+- **Native API**: Uses HTML `popover` attribute for automatic layer management
+- **Dismiss Modes**: Auto (light dismiss) or manual (explicit close required)
+- **Positioning**: CSS anchor positioning with placement hints
+- **Accessibility**: Built-in focus management, Escape key handling, and ARIA support
+- **Customizable**: CSS custom properties for complete theming control
+- **TypeScript**: Full type safety with comprehensive prop types
+
+## Browser Requirements
+
+- Chrome 125+
+- Edge 125+
+- Safari 17.4+
+
+Requires native Popover API and CSS anchor positioning support.
+
+## Installation
+
+```bash
+npm install @fpkit/acss
+```
+
+## Basic Usage
+
+```tsx
+import { Popover } from '@fpkit/acss';
+import '@fpkit/acss/styles';
+
+function App() {
+  return (
+    <Popover id="my-popover" triggerLabel="Open Menu">
+      <h3>Menu</h3>
+      <p>Popover content here</p>
+    </Popover>
+  );
+}
+```
+
+## Examples
+
+### Default (Auto Mode)
+
+<Canvas of={PopoverStories.Default} />
+
+### Manual Mode
+
+Requires explicit close action and shows a backdrop overlay.
+
+<Canvas of={PopoverStories.ManualMode} />
+
+### Placement Options
+
+<Canvas of={PopoverStories.TopPlacement} />
+<Canvas of={PopoverStories.LeftPlacement} />
+<Canvas of={PopoverStories.RightPlacement} />
+
+### Custom Trigger
+
+Use any React element as the trigger.
+
+<Canvas of={PopoverStories.CustomTrigger} />
+
+### Custom Styling
+
+Theme the popover using CSS custom properties.
+
+<Canvas of={PopoverStories.CustomStyling} />
+
+### Controlled State
+
+Manage popover state externally.
+
+<Canvas of={PopoverStories.Controlled} />
+
+### With Form Content
+
+<Canvas of={PopoverStories.WithForm} />
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `string` | auto-generated | Unique identifier for popover |
+| `children` | `ReactNode` | required | Content to display in popover |
+| `trigger` | `ReactNode` | - | Custom trigger element |
+| `triggerLabel` | `string` | `"Open"` | Aria-label for default trigger |
+| `mode` | `"auto" \| "manual"` | `"auto"` | Dismiss behavior |
+| `placement` | `"top" \| "bottom" \| "left" \| "right"` | `"bottom"` | Preferred position |
+| `isOpen` | `boolean` | - | Controlled open state |
+| `onToggle` | `(open: boolean) => void` | - | Toggle callback |
+| `showCloseButton` | `boolean` | `true` for manual | Show close button |
+| `closeButtonLabel` | `string` | `"Close"` | Aria-label for close button |
+| `showArrow` | `boolean` | `true` | Show positioning arrow |
+| `className` | `string` | - | Custom CSS class |
+| `styles` | `CSSProperties` | - | Inline CSS variables |
+
+### Modes
+
+**Auto Mode** (default)
+- Light dismiss: closes on Escape or outside click
+- No backdrop overlay
+- Close button hidden by default
+
+**Manual Mode**
+- Requires explicit close action
+- Shows backdrop overlay
+- Close button shown by default
+
+## Styling
+
+The Popover component uses CSS custom properties for theming. See [STYLES.mdx](./STYLES.mdx) for complete styling documentation.
+
+### Quick Theme Example
+
+```tsx
+<Popover
+  id="themed-popover"
+  styles={{
+    '--popover-bg': '#1a1a2e',
+    '--popover-border': '2px solid #16213e',
+    '--popover-border-radius': '12px',
+    '--popover-padding': '24px',
+  }}
+>
+  <p>Themed popover</p>
+</Popover>
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: Escape key closes auto-mode popovers
+- **Focus Management**: Automatically managed by browser
+- **ARIA Labels**: Proper labeling for triggers and close buttons
+- **Screen Readers**: Semantic HTML with proper attributes
+
+## Best Practices
+
+1. **Always provide an ID**: While auto-generated IDs work, explicit IDs are more predictable
+2. **Use meaningful trigger labels**: Ensure `triggerLabel` or custom trigger has clear purpose
+3. **Choose appropriate mode**: Use auto for menus/tooltips, manual for forms/important content
+4. **Test across browsers**: Verify popover support in target browsers
+5. **Consider mobile**: Test touch interactions and viewport positioning
+
+## Controlled vs Uncontrolled
+
+### Uncontrolled (Default)
+
+Let the browser manage state automatically:
+
+```tsx
+<Popover id="uncontrolled" triggerLabel="Open">
+  <p>Content</p>
+</Popover>
+```
+
+### Controlled
+
+Manage state externally for complex scenarios:
+
+```tsx
+const [isOpen, setIsOpen] = useState(false);
+
+<Popover
+  id="controlled"
+  isOpen={isOpen}
+  onToggle={setIsOpen}
+  triggerLabel="Open"
+>
+  <p>Content</p>
+</Popover>
+```
+
+## Related Components
+
+- **Dialog**: For modal overlays requiring user response
+- **Tooltip**: For brief contextual information (consider Popover for richer content)
+- **Dropdown**: For selection lists (can be built with Popover)
+
+## Migration from Old Popover
+
+If upgrading from the previous hover-based Popover:
+
+**Before:**
+```tsx
+<Popover popoverTrigger={<button>Hover</button>}>
+  Content
+</Popover>
+```
+
+**After:**
+```tsx
+<Popover trigger={<button>Click</button>}>
+  Content
+</Popover>
+```
+
+Key changes:
+- `popoverTrigger` → `trigger`
+- Hover behavior → Click to open (native behavior)
+- Manual styling → CSS custom properties
+- No custom hook required → Native API
+
+## Troubleshooting
+
+### Popover not appearing
+
+Check browser support and console for errors about popover API.
+
+### Positioning issues
+
+CSS anchor positioning requires Chrome 125+. Older browsers use fallback positioning.
+
+### Animation not working
+
+Ensure `@starting-style` is supported or provide fallback transitions.
+
+### Close button not showing
+
+For auto mode, close button is hidden by default. Set `showCloseButton={true}` to show.

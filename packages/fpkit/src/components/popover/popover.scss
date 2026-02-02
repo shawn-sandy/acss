@@ -1,0 +1,249 @@
+/**
+ * Popover Component Styles
+ * Uses native HTML popover API with CSS custom properties
+ */
+
+// CSS Custom Properties
+.fpkit-popover {
+  // Background and border
+  --popover-bg: #ffffff;
+  --popover-border: 0.0625rem solid #ccc;
+  --popover-border-radius: 0.5rem;
+
+  // Spacing
+  --popover-padding: 1rem;
+  --popover-margin: 0.5rem;
+  --popover-max-width: 20rem;
+
+  // Shadow
+  --popover-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1),
+    0 0.125rem 0.25rem rgba(0, 0, 0, 0.06);
+
+  // Arrow
+  --popover-arrow-size: 0.5rem;
+  --popover-arrow-color: var(--popover-bg);
+
+  // Close button
+  --popover-close-size: 1.5rem;
+  --popover-close-color: #666;
+  --popover-close-hover-color: #000;
+  --popover-close-hover-bg: rgba(0, 0, 0, 0.05);
+
+  // Base styles
+  background: var(--popover-bg);
+  border: var(--popover-border);
+  border-radius: var(--popover-border-radius);
+  padding: var(--popover-padding);
+  max-width: var(--popover-max-width);
+  box-shadow: var(--popover-shadow);
+
+  // Remove default popover styles
+  margin: 0;
+
+  // Positioning margin
+  &[data-placement='top'] {
+    margin-bottom: var(--popover-margin);
+  }
+
+  &[data-placement='bottom'] {
+    margin-top: var(--popover-margin);
+  }
+
+  &[data-placement='left'] {
+    margin-right: var(--popover-margin);
+  }
+
+  &[data-placement='right'] {
+    margin-left: var(--popover-margin);
+  }
+}
+
+// Animation for popover open/close
+.fpkit-popover:popover-open {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out,
+    overlay 0.2s ease-out allow-discrete,
+    display 0.2s ease-out allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+// Closing animation
+.fpkit-popover:not(:popover-open) {
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity 0.2s ease-in,
+    transform 0.2s ease-in,
+    overlay 0.2s ease-in allow-discrete,
+    display 0.2s ease-in allow-discrete;
+}
+
+// Backdrop for manual mode
+.fpkit-popover::backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0.125rem);
+  transition:
+    background 0.2s ease-out,
+    backdrop-filter 0.2s ease-out,
+    overlay 0.2s ease-out allow-discrete,
+    display 0.2s ease-out allow-discrete;
+
+  @starting-style {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+// Popover content wrapper
+.fpkit-popover-content {
+  position: relative;
+  display: block;
+}
+
+// Close button
+.fpkit-popover-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: var(--popover-close-size);
+  height: var(--popover-close-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0.25rem;
+  color: var(--popover-close-color);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    background: var(--popover-close-hover-bg);
+    color: var(--popover-close-hover-color);
+  }
+
+  &:focus-visible {
+    outline: 0.125rem solid currentColor;
+    outline-offset: 0.125rem;
+  }
+}
+
+// Arrow styles
+.fpkit-popover-arrow {
+  position: absolute;
+  width: var(--popover-arrow-size);
+  height: var(--popover-arrow-size);
+  background: var(--popover-arrow-color);
+  transform: rotate(45deg);
+  border: inherit;
+
+  // Top placement - arrow at bottom
+  &[data-placement='top'] {
+    bottom: calc(var(--popover-arrow-size) / -2);
+    left: 50%;
+    margin-left: calc(var(--popover-arrow-size) / -2);
+    border-top: none;
+    border-left: none;
+  }
+
+  // Bottom placement - arrow at top
+  &[data-placement='bottom'] {
+    top: calc(var(--popover-arrow-size) / -2);
+    left: 50%;
+    margin-left: calc(var(--popover-arrow-size) / -2);
+    border-bottom: none;
+    border-right: none;
+  }
+
+  // Left placement - arrow at right
+  &[data-placement='left'] {
+    right: calc(var(--popover-arrow-size) / -2);
+    top: 50%;
+    margin-top: calc(var(--popover-arrow-size) / -2);
+    border-left: none;
+    border-bottom: none;
+  }
+
+  // Right placement - arrow at left
+  &[data-placement='right'] {
+    left: calc(var(--popover-arrow-size) / -2);
+    top: 50%;
+    margin-top: calc(var(--popover-arrow-size) / -2);
+    border-right: none;
+    border-top: none;
+  }
+}
+
+// Default trigger button
+.fpkit-popover-trigger {
+  padding: 0.5rem 1rem;
+  background: #0066cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    background: #0052a3;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: 0.125rem solid currentColor;
+    outline-offset: 0.125rem;
+  }
+}
+
+// CSS Anchor Positioning (Progressive Enhancement)
+// Only applies when browser supports anchor positioning
+@supports (anchor-name: --trigger) {
+  .fpkit-popover-trigger {
+    anchor-name: --trigger;
+  }
+
+  .fpkit-popover {
+    position-anchor: --trigger;
+
+    &[data-placement='top'] {
+      bottom: anchor(top);
+      left: anchor(center);
+      translate: -50% 0;
+    }
+
+    &[data-placement='bottom'] {
+      top: anchor(bottom);
+      left: anchor(center);
+      translate: -50% 0;
+    }
+
+    &[data-placement='left'] {
+      right: anchor(left);
+      top: anchor(center);
+      translate: 0 -50%;
+    }
+
+    &[data-placement='right'] {
+      left: anchor(right);
+      top: anchor(center);
+      translate: 0 -50%;
+    }
+  }
+}
