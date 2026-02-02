@@ -1,18 +1,18 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import Popover from './popover';
+import { Popover } from './popover';
 import type {} from '../../types/popover';
 
 // Mock showPopover and hidePopover methods
 beforeEach(() => {
   HTMLElement.prototype.showPopover = vi.fn(function (this: HTMLElement) {
     this.setAttribute('data-popover-open', 'true');
-  });
+  }) as unknown as () => void;
 
   HTMLElement.prototype.hidePopover = vi.fn(function (this: HTMLElement) {
     this.removeAttribute('data-popover-open');
-  });
+  }) as unknown as () => void;
 
   HTMLElement.prototype.togglePopover = vi.fn(function (this: HTMLElement) {
     if (this.hasAttribute('data-popover-open')) {
@@ -20,7 +20,7 @@ beforeEach(() => {
     } else {
       this.setAttribute('data-popover-open', 'true');
     }
-  });
+  }) as unknown as (force?: boolean) => void;
 });
 
 describe('Popover', () => {
@@ -150,18 +150,23 @@ describe('Popover', () => {
 
     const popover = container.querySelector('[popover]') as HTMLElement;
 
-    // Simulate toggle event
-    const toggleEvent = new Event('toggle') as ToggleEvent;
-    toggleEvent.newState = 'open';
-    popover.dispatchEvent(toggleEvent);
+    // Simulate toggle event - open
+    const toggleEventOpen = Object.assign(new Event('toggle'), {
+      newState: 'open' as const,
+      oldState: 'closed' as const,
+    }) as ToggleEvent;
+    popover.dispatchEvent(toggleEventOpen);
 
     await waitFor(() => {
       expect(handleToggle).toHaveBeenCalledWith(true);
     });
 
     // Simulate close
-    toggleEvent.newState = 'closed';
-    popover.dispatchEvent(toggleEvent);
+    const toggleEventClose = Object.assign(new Event('toggle'), {
+      newState: 'closed' as const,
+      oldState: 'open' as const,
+    }) as ToggleEvent;
+    popover.dispatchEvent(toggleEventClose);
 
     await waitFor(() => {
       expect(handleToggle).toHaveBeenCalledWith(false);

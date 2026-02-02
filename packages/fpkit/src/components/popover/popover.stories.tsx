@@ -1,41 +1,42 @@
-import { StoryObj, Meta } from '@storybook/react-vite';
-import { within, expect, userEvent } from 'storybook/test';
-import { useState } from 'react';
+import { StoryObj, Meta } from "@storybook/react-vite";
+import { within, expect, userEvent } from "storybook/test";
+import { useState } from "react";
 
-import Popover from './popover';
-import type {} from '../../types/popover';
-import './popover.scss';
+import { Popover } from "./popover";
+import type {} from "../../types/popover";
+import "./popover.scss";
 
 const meta: Meta<typeof Popover> = {
-  title: 'FP.React Components/Popover',
+  title: "FP.React Components/Popover",
   component: Popover,
-  tags: ['stable'],
+  tags: ["stable"],
   parameters: {
     docs: {
       description: {
         component:
-          'Native HTML Popover API component with automatic top-layer rendering, light dismiss, and accessibility features. Requires Chrome 125+, Edge 125+, or Safari 17.4+.',
+          "Native HTML Popover API component with automatic top-layer rendering, light dismiss, and accessibility features. Requires Chrome 125+, Edge 125+, or Safari 17.4+.",
       },
     },
   },
+  layout: "centered",
   argTypes: {
     mode: {
-      control: 'select',
-      options: ['auto', 'manual'],
-      description: 'Popover dismiss behavior',
+      control: "select",
+      options: ["auto", "manual"],
+      description: "Popover dismiss behavior",
     },
     placement: {
-      control: 'select',
-      options: ['top', 'bottom', 'left', 'right'],
-      description: 'Preferred placement position',
+      control: "select",
+      options: ["top", "bottom", "left", "right"],
+      description: "Preferred placement position",
     },
     showArrow: {
-      control: 'boolean',
-      description: 'Show positioning arrow',
+      control: "boolean",
+      description: "Show positioning arrow",
     },
     showCloseButton: {
-      control: 'boolean',
-      description: 'Show close button',
+      control: "boolean",
+      description: "Show close button",
     },
   },
 } as Meta;
@@ -48,13 +49,16 @@ type Story = StoryObj<typeof Popover>;
  */
 export const Default: Story = {
   args: {
-    id: 'default-popover',
-    triggerLabel: 'Open Popover',
+    id: "default-popover",
+    triggerLabel: "Open Popover",
     children: (
       <>
-        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>Popover Title</h3>
-        <p style={{ margin: 0, fontSize: '0.875rem' }}>
-          This popover dismisses automatically when you click outside or press Escape.
+        <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.125rem" }}>
+          Popover Title
+        </h3>
+        <p style={{ margin: 0, fontSize: "0.875rem" }}>
+          This popover dismisses automatically when you click outside or press
+          Escape.
         </p>
       </>
     ),
@@ -62,22 +66,22 @@ export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
-    await step('Render trigger button', async () => {
-      const trigger = canvas.getByRole('button', { name: 'Open Popover' });
+    await step("Render trigger button", async () => {
+      const trigger = canvas.getByRole("button", { name: "Open Popover" });
       expect(trigger).toBeInTheDocument();
     });
 
-    await step('Click trigger opens popover', async () => {
-      const trigger = canvas.getByRole('button', { name: 'Open Popover' });
+    await step("Click trigger opens popover", async () => {
+      const trigger = canvas.getByRole("button", { name: "Open Popover" });
       await userEvent.click(trigger);
-      expect(canvas.getByText('Popover Title')).toBeInTheDocument();
+      expect(canvas.getByText("Popover Title")).toBeInTheDocument();
     });
 
-    await step('Escape key closes popover (auto mode)', async () => {
-      await userEvent.keyboard('{Escape}');
+    await step("Escape key closes popover (auto mode)", async () => {
+      await userEvent.keyboard("{Escape}");
       // Wait for animation
       await new Promise((resolve) => setTimeout(resolve, 300));
-      expect(canvas.queryByText('Popover Title')).not.toBeInTheDocument();
+      expect(canvas.queryByText("Popover Title")).not.toBeInTheDocument();
     });
   },
 };
@@ -87,15 +91,17 @@ export const Default: Story = {
  */
 export const ManualMode: Story = {
   args: {
-    id: 'manual-popover',
-    triggerLabel: 'Open Manual Popover',
-    mode: 'manual',
+    id: "manual-popover",
+    triggerLabel: "Open Manual Popover",
+    mode: "manual",
     children: (
       <>
-        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.125rem' }}>Manual Popover</h3>
-        <p style={{ margin: 0, fontSize: '0.875rem' }}>
-          This popover requires clicking the close button or trigger to dismiss. It includes a
-          backdrop overlay.
+        <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.125rem" }}>
+          Manual Popover
+        </h3>
+        <p style={{ margin: 0, fontSize: "0.875rem" }}>
+          This popover requires clicking the close button or trigger to dismiss.
+          It includes a backdrop overlay.
         </p>
       </>
     ),
@@ -103,18 +109,20 @@ export const ManualMode: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
-    await step('Click trigger opens popover', async () => {
-      const trigger = canvas.getByRole('button', { name: 'Open Manual Popover' });
+    await step("Click trigger opens popover", async () => {
+      const trigger = canvas.getByRole("button", {
+        name: "Open Manual Popover",
+      });
       await userEvent.click(trigger);
-      expect(canvas.getByText('Manual Popover')).toBeInTheDocument();
+      expect(canvas.getByText("Manual Popover")).toBeInTheDocument();
     });
 
-    await step('Close button dismisses popover', async () => {
-      const closeButton = canvas.getByRole('button', { name: 'Close' });
+    await step("Close button dismisses popover", async () => {
+      const closeButton = canvas.getByRole("button", { name: "Close" });
       await userEvent.click(closeButton);
       // Wait for animation
       await new Promise((resolve) => setTimeout(resolve, 300));
-      expect(canvas.queryByText('Manual Popover')).not.toBeInTheDocument();
+      expect(canvas.queryByText("Manual Popover")).not.toBeInTheDocument();
     });
   },
 };
@@ -124,10 +132,12 @@ export const ManualMode: Story = {
  */
 export const TopPlacement: Story = {
   args: {
-    id: 'top-popover',
-    triggerLabel: 'Open Above',
-    placement: 'top',
-    children: <p style={{ margin: 0 }}>This popover appears above the trigger</p>,
+    id: "top-popover",
+    triggerLabel: "Open Above",
+    placement: "top",
+    children: (
+      <p style={{ margin: 0 }}>This popover appears above the trigger</p>
+    ),
   },
 };
 
@@ -136,9 +146,9 @@ export const TopPlacement: Story = {
  */
 export const LeftPlacement: Story = {
   args: {
-    id: 'left-popover',
-    triggerLabel: 'Open Left',
-    placement: 'left',
+    id: "left-popover",
+    triggerLabel: "Open Left",
+    placement: "left",
     children: <p style={{ margin: 0 }}>This popover appears to the left</p>,
   },
 };
@@ -148,9 +158,9 @@ export const LeftPlacement: Story = {
  */
 export const RightPlacement: Story = {
   args: {
-    id: 'right-popover',
-    triggerLabel: 'Open Right',
-    placement: 'right',
+    id: "right-popover",
+    triggerLabel: "Open Right",
+    placement: "right",
     children: <p style={{ margin: 0 }}>This popover appears to the right</p>,
   },
 };
@@ -160,12 +170,18 @@ export const RightPlacement: Story = {
  */
 export const CustomTrigger: Story = {
   args: {
-    id: 'custom-trigger-popover',
-    trigger: <button style={{ padding: '0.5rem 1rem', borderRadius: '2rem' }}>🎨 Custom</button>,
+    id: "custom-trigger-popover",
+    trigger: (
+      <button style={{ padding: "0.5rem 1rem", borderRadius: "2rem" }}>
+        🎨 Custom
+      </button>
+    ),
     children: (
       <>
-        <h4 style={{ margin: '0 0 0.5rem 0' }}>Custom Trigger</h4>
-        <p style={{ margin: 0, fontSize: '0.875rem' }}>You can use any React element as trigger</p>
+        <h4 style={{ margin: "0 0 0.5rem 0" }}>Custom Trigger</h4>
+        <p style={{ margin: 0, fontSize: "0.875rem" }}>
+          You can use any React element as trigger
+        </p>
       </>
     ),
   },
@@ -176,8 +192,8 @@ export const CustomTrigger: Story = {
  */
 export const NoArrow: Story = {
   args: {
-    id: 'no-arrow-popover',
-    triggerLabel: 'No Arrow',
+    id: "no-arrow-popover",
+    triggerLabel: "No Arrow",
     showArrow: false,
     children: <p style={{ margin: 0 }}>This popover has no arrow indicator</p>,
   },
@@ -188,20 +204,20 @@ export const NoArrow: Story = {
  */
 export const CustomStyling: Story = {
   args: {
-    id: 'custom-styled-popover',
-    triggerLabel: 'Custom Style',
+    id: "custom-styled-popover",
+    triggerLabel: "Custom Style",
     styles: {
-      '--popover-bg': '#1a1a2e',
-      '--popover-border': '0.125rem solid #16213e',
-      '--popover-border-radius': '0.75rem',
-      '--popover-padding': '1.5rem',
-      '--popover-shadow': '0 0.5rem 1rem rgba(0, 0, 0, 0.3)',
-      color: '#eee',
+      "--popover-bg": "#1a1a2e",
+      "--popover-border": "0.125rem solid #16213e",
+      "--popover-border-radius": "0.75rem",
+      "--popover-padding": "1.5rem",
+      "--popover-shadow": "0 0.5rem 1rem rgba(0, 0, 0, 0.3)",
+      color: "#eee",
     } as React.CSSProperties,
     children: (
       <>
-        <h3 style={{ margin: '0 0 0.5rem 0', color: '#0f3' }}>Dark Theme</h3>
-        <p style={{ margin: 0, fontSize: '0.875rem' }}>
+        <h3 style={{ margin: "0 0 0.5rem 0", color: "#0f3" }}>Dark Theme</h3>
+        <p style={{ margin: 0, fontSize: "0.875rem" }}>
           Customize appearance using CSS custom properties
         </p>
       </>
@@ -216,32 +232,32 @@ const ControlledExample = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-      <div>
-        <Popover
-          id="controlled-popover"
-          triggerLabel="Toggle Popover"
-          isOpen={isOpen}
-          onToggle={setIsOpen}
-        >
-          <div>
-            <h4 style={{ margin: '0 0 0.5rem 0' }}>Controlled Popover</h4>
-            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem' }}>
-              State is managed externally
-            </p>
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{ padding: '0.25rem 0.5rem', fontSize: '0.75rem' }}
-            >
-              Close via State
-            </button>
-          </div>
-        </Popover>
-        <div style={{ marginTop: '1rem' }}>
-          <p>Current state: {isOpen ? 'Open' : 'Closed'}</p>
-          <button onClick={() => setIsOpen(!isOpen)}>External Toggle</button>
+    <div>
+      <Popover
+        id="controlled-popover"
+        triggerLabel="Toggle Popover"
+        isOpen={isOpen}
+        onToggle={setIsOpen}
+      >
+        <div>
+          <h4 style={{ margin: "0 0 0.5rem 0" }}>Controlled Popover</h4>
+          <p style={{ margin: "0 0 0.5rem 0", fontSize: "0.875rem" }}>
+            State is managed externally
+          </p>
+          <button
+            onClick={() => setIsOpen(false)}
+            style={{ padding: "0.25rem 0.5rem", fontSize: "0.75rem" }}
+          >
+            Close via State
+          </button>
         </div>
+      </Popover>
+      <div style={{ marginTop: "1rem" }}>
+        <p>Current state: {isOpen ? "Open" : "Closed"}</p>
+        <button onClick={() => setIsOpen(!isOpen)}>External Toggle</button>
       </div>
-    );
+    </div>
+  );
 };
 
 export const Controlled: Story = {
@@ -253,36 +269,58 @@ export const Controlled: Story = {
  */
 export const WithForm: Story = {
   args: {
-    id: 'form-popover',
-    triggerLabel: 'Show Form',
-    mode: 'manual',
+    id: "form-popover",
+    triggerLabel: "Show Form",
+    mode: "manual",
     children: (
       <form
-        style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', minWidth: '15rem' }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+          minWidth: "15rem",
+        }}
         onSubmit={(e) => {
           e.preventDefault();
-          alert('Form submitted!');
+          alert("Form submitted!");
         }}
       >
         <h4 style={{ margin: 0 }}>Contact Form</h4>
         <input
           type="text"
           placeholder="Name"
-          style={{ padding: '0.5rem', border: '0.0625rem solid #ccc', borderRadius: '0.25rem' }}
+          style={{
+            padding: "0.5rem",
+            border: "0.0625rem solid #ccc",
+            borderRadius: "0.25rem",
+          }}
         />
         <input
           type="email"
           placeholder="Email"
-          style={{ padding: '0.5rem', border: '0.0625rem solid #ccc', borderRadius: '0.25rem' }}
+          style={{
+            padding: "0.5rem",
+            border: "0.0625rem solid #ccc",
+            borderRadius: "0.25rem",
+          }}
         />
         <textarea
           placeholder="Message"
           rows={3}
-          style={{ padding: '0.5rem', border: '0.0625rem solid #ccc', borderRadius: '0.25rem' }}
+          style={{
+            padding: "0.5rem",
+            border: "0.0625rem solid #ccc",
+            borderRadius: "0.25rem",
+          }}
         />
         <button
           type="submit"
-          style={{ padding: '0.5rem', background: '#0066cc', color: '#fff', border: 'none' }}
+          style={{
+            padding: "0.5rem",
+            background: "#0066cc",
+            color: "#fff",
+            border: "none",
+          }}
         >
           Submit
         </button>
