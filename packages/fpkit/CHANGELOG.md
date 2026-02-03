@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [Unreleased]
+
+### Deprecated
+
+* **popover:** Deprecate legacy `usePopover` hook and old Popover component in favor of native HTML Popover API implementation
+  - Add `@deprecated` JSDoc tags to `usePopover` hook and legacy Popover component
+  - Legacy implementations will be removed in v3.0.0
+  - New Popover component uses native HTML Popover API (Chrome 125+, Safari 17.4+, Edge 125+)
+  - Enhanced migration guide in README.mdx with comprehensive examples
+  - Updated documentation with comparison table and migration checklist
+
+**Migration Required:**
+```tsx
+// ❌ Old (deprecated)
+import { usePopover } from '@fpkit/acss/hooks';
+
+// ✅ New (recommended)
+import { Popover } from '@fpkit/acss';
+```
+
+See [Popover Migration Guide](./src/components/popover/README.mdx#migration-from-old-popover) for complete migration instructions.
+
 # [6.2.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@3.6.0...@fpkit/acss@6.2.0) (2026-01-18)
 
 

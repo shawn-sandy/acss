@@ -2,7 +2,12 @@ import React from 'react'
 import usePopover from './use-popover'
 
 /**
- * Interface for props accepted by the Popover component
+ * @deprecated This component is deprecated and will be removed in v3.0.0.
+ * Use the new native Popover component from `@fpkit/acss` instead.
+ *
+ * @see {@link ../components/popover/popover.tsx} New Popover Component
+ *
+ * Interface for props accepted by the legacy Popover component
  *
  * @property {ReactNode} children - The content to show in the popover
  * @property {ReactNode} [content] - Optional alternative content for popover
@@ -13,20 +18,31 @@ export type PopoverProps = {
 }
 
 /**
- * Popover component to display popover content.
+ * @deprecated This component is deprecated and will be removed in v3.0.0.
+ * Use the new Popover component which provides native HTML Popover API support,
+ * better accessibility, automatic layer management, and platform-native behavior.
  *
- * @param {Object} props - The props for the component.
- * @returns {JSX.Element} - The JSX element for the Popover component.
+ * **Migration Guide:**
+ * ```tsx
+ * // ❌ Old (deprecated)
+ * import { Popover } from '@fpkit/acss/hooks';
+ * <Popover>{children}</Popover>
  *
- * The component uses the usePopover hook to handle popover visibility and positioning.
+ * // ✅ New (recommended)
+ * import { Popover } from '@fpkit/acss';
+ * <Popover id="my-popover" triggerLabel="Open">{children}</Popover>
+ * ```
  *
- * It renders a button that shows the popover on hover using pointer events.
+ * @see {@link ../components/popover/popover.tsx} New Popover Component
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover} HTML Popover API
  *
- * The popover content itself is rendered absolutely positioned when visible.
+ * Legacy popover component using custom positioning logic.
+ * Uses the usePopover hook to handle visibility and positioning.
+ * Shows popover on hover using pointer events.
+ * Renders absolutely positioned content when visible.
  *
- * Styles like background, border, padding etc are applied inline.
- *
- * Transforms and opacity animate the popover enter/exit.
+ * @param {Object} props - The props for the component
+ * @returns {JSX.Element} The JSX element for the legacy Popover component
  */
 export const Popover = ({ children }: PopoverProps) => {
   const hoverRef = React.useRef(null)
