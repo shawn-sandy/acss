@@ -1,7 +1,6 @@
-import { Meta, Canvas, Story } from '@storybook/blocks';
-import * as PopoverStories from './popover.stories.tsx';
+import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta of={PopoverStories} />
+<Meta title="FP.React Components/Popover/Readme" />
 
 # Popover
 
@@ -50,41 +49,151 @@ function App() {
 
 ### Default (Auto Mode)
 
-<Canvas of={PopoverStories.Default} />
+```tsx
+<Popover id="default-popover" triggerLabel="Open Popover">
+  <h3>Popover Title</h3>
+  <p>
+    This popover dismisses automatically when you click outside or press
+    Escape.
+  </p>
+</Popover>
+```
 
 ### Manual Mode
 
 Requires explicit close action and shows a backdrop overlay.
 
-<Canvas of={PopoverStories.ManualMode} />
+```tsx
+<Popover
+  id="manual-popover"
+  triggerLabel="Open Manual Popover"
+  mode="manual"
+>
+  <h3>Manual Popover</h3>
+  <p>
+    This popover requires clicking the close button or trigger to dismiss.
+    It includes a backdrop overlay.
+  </p>
+</Popover>
+```
 
 ### Placement Options
 
-<Canvas of={PopoverStories.TopPlacement} />
-<Canvas of={PopoverStories.LeftPlacement} />
-<Canvas of={PopoverStories.RightPlacement} />
+```tsx
+{/* Top placement */}
+<Popover id="top-popover" triggerLabel="Open Above" placement="top">
+  <p>This popover appears above the trigger</p>
+</Popover>
+
+{/* Left placement */}
+<Popover id="left-popover" triggerLabel="Open Left" placement="left">
+  <p>This popover appears to the left</p>
+</Popover>
+
+{/* Right placement */}
+<Popover id="right-popover" triggerLabel="Open Right" placement="right">
+  <p>This popover appears to the right</p>
+</Popover>
+```
 
 ### Custom Trigger
 
 Use any React element as the trigger.
 
-<Canvas of={PopoverStories.CustomTrigger} />
+```tsx
+<Popover
+  id="custom-trigger-popover"
+  trigger={
+    <button style={{ padding: "0.5rem 1rem", borderRadius: "2rem" }}>
+      🎨 Custom
+    </button>
+  }
+>
+  <h4>Custom Trigger</h4>
+  <p>You can use any React element as trigger</p>
+</Popover>
+```
 
 ### Custom Styling
 
 Theme the popover using CSS custom properties.
 
-<Canvas of={PopoverStories.CustomStyling} />
+```tsx
+<Popover
+  id="custom-styled-popover"
+  triggerLabel="Custom Style"
+  styles={{
+    '--popover-bg': '#1a1a2e',
+    '--popover-border': '0.125rem solid #16213e',
+    '--popover-border-radius': '0.75rem',
+    '--popover-padding': '1.5rem',
+    '--popover-shadow': '0 0.5rem 1rem rgba(0, 0, 0, 0.3)',
+    color: '#eee',
+  }}
+>
+  <h3 style={{ color: '#0f3' }}>Dark Theme</h3>
+  <p>Customize appearance using CSS custom properties</p>
+</Popover>
+```
 
 ### Controlled State
 
 Manage popover state externally.
 
-<Canvas of={PopoverStories.Controlled} />
+```tsx
+import { useState } from 'react';
+
+function ControlledExample() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <Popover
+        id="controlled-popover"
+        triggerLabel="Toggle Popover"
+        isOpen={isOpen}
+        onToggle={setIsOpen}
+      >
+        <h4>Controlled Popover</h4>
+        <p>State is managed externally</p>
+        <button onClick={() => setIsOpen(false)}>
+          Close via State
+        </button>
+      </Popover>
+
+      <div>
+        <p>Current state: {isOpen ? "Open" : "Closed"}</p>
+        <button onClick={() => setIsOpen(!isOpen)}>
+          External Toggle
+        </button>
+      </div>
+    </>
+  );
+}
+```
 
 ### With Form Content
 
-<Canvas of={PopoverStories.WithForm} />
+```tsx
+<Popover
+  id="form-popover"
+  triggerLabel="Show Form"
+  mode="manual"
+>
+  <form
+    onSubmit={(e) => {
+      e.preventDefault();
+      alert('Form submitted!');
+    }}
+  >
+    <h4>Contact Form</h4>
+    <input type="text" placeholder="Name" />
+    <input type="email" placeholder="Email" />
+    <textarea placeholder="Message" rows={3} />
+    <button type="submit">Submit</button>
+  </form>
+</Popover>
+```
 
 ## API Reference
 
@@ -120,7 +229,7 @@ Manage popover state externally.
 
 ## Styling
 
-The Popover component uses CSS custom properties for theming. See [STYLES.mdx](./STYLES.mdx) for complete styling documentation.
+The Popover component uses CSS custom properties for theming. See the **Styling** page in Storybook for complete styling documentation.
 
 ### Quick Theme Example
 
