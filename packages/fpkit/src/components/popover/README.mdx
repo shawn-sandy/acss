@@ -299,27 +299,165 @@ const [isOpen, setIsOpen] = useState(false);
 
 ## Migration from Old Popover
 
-If upgrading from the previous hover-based Popover:
+If upgrading from the previous hook-based Popover implementation (`usePopover` or the old `Popover` component from `@fpkit/acss/hooks`), follow this guide:
 
-**Before:**
+### Breaking Changes
+
+The legacy Popover has been replaced with a new implementation using the native HTML Popover API. The old implementation is **deprecated** and will be removed in **v3.0.0**.
+
+### Component Migration
+
+**Before (Legacy - Deprecated):**
 ```tsx
-<Popover popoverTrigger={<button>Hover</button>}>
-  Content
+// Old hook-based approach
+import { Popover } from '@fpkit/acss/hooks'; // ❌ Deprecated
+// or
+import { usePopover } from '@fpkit/acss/hooks'; // ❌ Deprecated
+
+<Popover popoverTrigger={<button>Hover me</button>}>
+  <p>Hover-based popover content</p>
 </Popover>
 ```
 
-**After:**
+**After (New - Recommended):**
 ```tsx
-<Popover trigger={<button>Click</button>}>
-  Content
+// New native Popover API approach
+import { Popover } from '@fpkit/acss'; // ✅ Recommended
+
+<Popover
+  id="my-popover"
+  trigger={<button>Click me</button>}
+>
+  <p>Click-based popover content</p>
 </Popover>
 ```
 
-Key changes:
-- `popoverTrigger` → `trigger`
-- Hover behavior → Click to open (native behavior)
-- Manual styling → CSS custom properties
-- No custom hook required → Native API
+### Hook Migration
+
+If you were using the `usePopover` hook directly for custom implementations:
+
+**Before (Legacy - Deprecated):**
+```tsx
+import { usePopover } from '@fpkit/acss/hooks'; // ❌ Deprecated
+
+function CustomPopover() {
+  const hoverRef = useRef(null);
+  const popoverRef = useRef(null);
+  const { isVisible, popoverPosition, handlePointerEvent, handlePointerLeave } =
+    usePopover(hoverRef, popoverRef, 10);
+
+  return (
+    <div>
+      <div
+        ref={hoverRef}
+        onPointerEnter={handlePointerEvent}
+        onPointerLeave={handlePointerLeave}
+      >
+        Hover trigger
+      </div>
+      {isVisible && (
+        <div
+          ref={popoverRef}
+          style={{
+            position: 'absolute',
+            top: popoverPosition.top,
+            left: popoverPosition.left,
+          }}
+        >
+          Popover content
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+**After (New - Recommended):**
+```tsx
+import { Popover } from '@fpkit/acss'; // ✅ Recommended
+
+function CustomPopover() {
+  return (
+    <Popover
+      id="custom-popover"
+      trigger={<button>Click trigger</button>}
+      placement="bottom"
+    >
+      <p>Popover content</p>
+    </Popover>
+  );
+}
+```
+
+### Key Behavioral Changes
+
+| Feature | Old (Legacy) | New (Native API) |
+|---------|-------------|-----------------|
+| **Trigger Method** | Hover/pointer events | Click (default native behavior) |
+| **Positioning** | Manual calculation | Native CSS anchor positioning |
+| **Layer Management** | z-index stacking | Automatic top-layer rendering |
+| **Dismiss Behavior** | Manual pointer leave | Native light dismiss (Escape, outside click) |
+| **Focus Management** | Manual implementation | Automatic browser handling |
+| **Accessibility** | Limited ARIA support | Full native accessibility |
+| **Browser Support** | All modern browsers | Chrome 125+, Safari 17.4+, Edge 125+ |
+
+### Prop Mapping
+
+| Old Prop | New Prop | Notes |
+|----------|----------|-------|
+| `popoverTrigger` | `trigger` | Custom trigger element |
+| `content` | `children` | Popover content |
+| N/A | `id` | Required for native API (auto-generated if omitted) |
+| N/A | `mode` | `"auto"` or `"manual"` dismiss behavior |
+| N/A | `placement` | `"top"`, `"bottom"`, `"left"`, `"right"` |
+| N/A | `isOpen` | Controlled state support |
+| N/A | `onToggle` | Callback when popover opens/closes |
+| N/A | `showArrow` | Show positioning arrow indicator |
+| N/A | `styles` | CSS custom properties for theming |
+
+### Benefits of Migration
+
+✅ **Better Accessibility**: Native focus management and keyboard navigation
+✅ **Simpler API**: No manual positioning calculations required
+✅ **Better Performance**: Browser-native layer management
+✅ **Future-Proof**: Uses web platform standards
+✅ **Rich Features**: Built-in animations, backdrops, and light dismiss
+✅ **Type Safety**: Full TypeScript support with comprehensive prop types
+
+### Migration Checklist
+
+- [ ] Replace `import { Popover } from '@fpkit/acss/hooks'` with `import { Popover } from '@fpkit/acss'`
+- [ ] Replace `import { usePopover }` with the new Popover component
+- [ ] Change `popoverTrigger` prop to `trigger`
+- [ ] Move popover content to `children` prop
+- [ ] Add unique `id` prop (recommended but optional)
+- [ ] Choose `mode="auto"` (default) or `mode="manual"`
+- [ ] Test browser compatibility (Chrome 125+, Safari 17.4+, Edge 125+)
+- [ ] Update any custom styling to use CSS custom properties
+- [ ] Test keyboard navigation (Escape key, Tab order)
+- [ ] Verify accessibility with screen readers
+
+### Fallback for Older Browsers
+
+The native Popover API is not supported in older browsers. Consider:
+
+1. **Feature Detection**: Check for popover support before using
+2. **Polyfill**: Use a popover polyfill for older browser support
+3. **Progressive Enhancement**: Provide fallback UI for unsupported browsers
+
+```tsx
+// Feature detection example
+if (!HTMLElement.prototype.hasOwnProperty('popover')) {
+  console.warn('Popover API not supported - consider polyfill');
+}
+```
+
+### Need Help?
+
+- Review the **Examples** section above for common use cases
+- Check the **API Reference** for complete prop documentation
+- See the **Styling** page for theming and customization options
+- Open an issue on GitHub if you encounter migration problems
 
 ## Troubleshooting
 

@@ -14,16 +14,36 @@ type Position = {
 }
 
 /**
- * @description This is the hook to show/hide the popover.
- * @param elementRef - This is the ref of the element on which the popover should be shown.
- * @param hoverRef - This is the ref of the element on which the popover should be shown.
- * @param spacing - This is the spacing between the element and the popover.
- * @example - const { isVisible, popoverPosition, handlePointerEvent, handlePointerLeave } = usePopover(hoverRef, popOverRef, 1)
- * @returns - This is the object of the following properties.
- * @returns - isVisible - This is the boolean value to show/hide the popover.
- * @returns - popoverPosition - This is the position of the popover.
- * @returns - handlePointerEvent - This is the function to handle the pointer event.
- * @returns - handlePointerLeave - This is the function to handle the pointer leave event.
+ * @deprecated This hook is deprecated and will be removed in v3.0.0.
+ * Use the native Popover component instead, which provides better accessibility,
+ * automatic layer management, and platform-native behavior.
+ *
+ * @see {@link ../components/popover/popover.tsx} New Popover Component
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover} HTML Popover API
+ *
+ * @description Legacy hook for custom popover positioning with pointer events.
+ * Manually calculates popover position and handles show/hide logic.
+ *
+ * @param elementRef - Ref of the trigger element
+ * @param hoverRef - Ref of the popover element
+ * @param spacing - Spacing between trigger and popover (in pixels)
+ *
+ * @example
+ * ```tsx
+ * // ❌ Old approach (deprecated)
+ * const { isVisible, popoverPosition, handlePointerEvent, handlePointerLeave } =
+ *   usePopover(hoverRef, popOverRef, 1);
+ *
+ * // ✅ New approach (recommended)
+ * import { Popover } from '@fpkit/acss';
+ * <Popover id="my-popover" triggerLabel="Open">Content</Popover>
+ * ```
+ *
+ * @returns Hook state and handlers
+ * @returns isVisible - Boolean indicating popover visibility
+ * @returns popoverPosition - Position object with top/left coordinates
+ * @returns handlePointerEvent - Function to show popover on pointer enter
+ * @returns handlePointerLeave - Function to hide popover on pointer leave
  */
 export const usePopover = (
   elementRef: React.RefObject<HTMLElement | HTMLDivElement>,
