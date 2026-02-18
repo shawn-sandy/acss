@@ -1,8 +1,15 @@
-button[data-icon-btn~=has-label] {
+button[data-icon-btn],
+.icon-btn {
+  --btn-color: currentColor;
+}
+
+button[data-icon-btn~=has-label],
+.icon-btn[data-icon-btn~=has-label] {
   gap: 0.375rem;
   padding-inline: 0.75rem;
 }
-button[data-icon-btn~=has-label] [data-icon-label] {
+button[data-icon-btn~=has-label] [data-icon-label],
+.icon-btn[data-icon-btn~=has-label] [data-icon-label] {
   font-size: var(--btn-fs, 0.875rem);
   line-height: 1;
   white-space: nowrap;

@@ -3,10 +3,20 @@
 // NOTE: CSS custom properties cannot be used in @media conditions — this must be a SCSS variable.
 $icon-label-bp: 48rem !default; // 768px
 
+// Color reset for all IconButton instances.
+// background stays transparent (set by button[data-style~="icon"]);
+// color defaults to currentColor so the icon inherits from context.
+// Override via styles={{ "--btn-color": "..." }} when a specific color is needed.
+button[data-icon-btn],
+.icon-btn {
+  --btn-color: currentColor;
+}
+
 // Layout when a visible label is present alongside the icon.
 // Higher specificity than button[data-style~="icon"] (which uses padding: unset)
 // so padding is restored without needing a consumer override.
-button[data-icon-btn~="has-label"] {
+button[data-icon-btn~="has-label"],
+.icon-btn[data-icon-btn~="has-label"] {
   gap: 0.375rem;
   padding-inline: 0.75rem;
 
