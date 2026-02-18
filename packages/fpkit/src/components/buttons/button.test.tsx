@@ -79,6 +79,18 @@ describe("Button", () => {
     expect(handlePointerEvents).toHaveBeenCalledTimes(1);
   });
 
+  it("applies xl size via data-btn attribute", () => {
+    render(<Button type="button" size="xl">XL</Button>);
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("data-btn", "xl");
+  });
+
+  it("applies 2xl size via data-btn attribute", () => {
+    render(<Button type="button" size="2xl">2XL</Button>);
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("data-btn", "2xl");
+  });
+
   it("it is disabled when disabled is true", () => {
     const handleClick = jest.fn();
     render(

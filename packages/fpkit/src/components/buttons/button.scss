@@ -4,6 +4,8 @@ button {
   --btn-size-sm: 0.8125rem;
   --btn-size-md: 0.9375rem;
   --btn-size-lg: 1.125rem;
+  --btn-size-xl: 1.375rem;
+  --btn-size-2xl: 1.75rem;
   --btn-pill: 100vw;
   --btn-fs: var(--btn-size-md);
 
@@ -185,6 +187,16 @@ button {
   &[data-btn~="lg"],
   .btn-lg {
     --btn-fs: var(--btn-size-lg);
+  }
+
+  &[data-btn~="xl"],
+  .btn-xl {
+    --btn-fs: var(--btn-size-xl);
+  }
+
+  &[data-btn~="2xl"],
+  .btn-2xl {
+    --btn-fs: var(--btn-size-2xl);
   }
 
   &[data-btn~="text"],
