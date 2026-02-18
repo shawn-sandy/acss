@@ -18,16 +18,19 @@ supports various types and styles. It is designed to be reusable and accessible.
 
 ## Props
 
-| Name             | Type                                                 | Default    | Description                            |
-| ---------------- | ---------------------------------------------------- | ---------- | -------------------------------------- |
-| `type`           | `'button' \| 'submit' \| 'reset'`                    | `'button'` | The button type                        |
-| `styles`         | `React.CSSProperties`                                | -          | Inline styles for the button           |
-| `disabled`       | `boolean`                                            | `false`    | Disables the button when set to `true` |
-| `classes`        | `string`                                             | -          | Additional CSS classes for the button  |
-| `onPointerDown`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer down event        |
-| `onPointerOver`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer over event        |
-| `onPointerLeave` | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer leave event       |
-| `onClick`        | `(e: React.MouseEvent<HTMLButtonElement>) => void`   | -          | Callback for click event               |
+| Name             | Type                                                 | Default    | Description                                              |
+| ---------------- | ---------------------------------------------------- | ---------- | -------------------------------------------------------- |
+| `type`           | `'button' \| 'submit' \| 'reset'`                    | `'button'` | The button type                                          |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg'`                       | -          | Size variant — maps to `data-btn` attribute              |
+| `variant`        | `'text' \| 'pill' \| 'icon' \| 'outline'`            | -          | Style variant — maps to `data-style` attribute           |
+| `color`          | `'primary' \| 'secondary' \| 'danger' \| 'success' \| 'warning'` | - | Color variant using semantic tokens — maps to `data-color` |
+| `styles`         | `React.CSSProperties`                                | -          | Inline styles for the button                             |
+| `disabled`       | `boolean`                                            | `false`    | Disables the button when set to `true`                   |
+| `classes`        | `string`                                             | -          | Additional CSS classes for the button                    |
+| `onPointerDown`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer down event                          |
+| `onPointerOver`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer over event                          |
+| `onPointerLeave` | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer leave event                         |
+| `onClick`        | `(e: React.MouseEvent<HTMLButtonElement>) => void`   | -          | Callback for click event                                 |
 
 ## Technical Details
 
@@ -56,6 +59,43 @@ const BasicButton = () => (
 export default BasicButton;
 ```
 
+### Size, Variant & Color Props
+
+The `size`, `variant`, and `color` props provide a typed React API over the
+underlying `data-*` attributes. This gives consumers autocomplete and type
+safety without needing to know the attribute names.
+
+```tsx
+import Button from "#components/buttons/button";
+
+// Size variants
+<Button type="button" size="xs">Extra Small</Button>
+<Button type="button" size="sm">Small</Button>
+<Button type="button" size="lg">Large</Button>
+
+// Style variants
+<Button type="button" variant="outline">Outline</Button>
+<Button type="button" variant="pill">Pill</Button>
+<Button type="button" variant="text">Text Button</Button>
+<Button type="button" variant="icon" aria-label="Close">✕</Button>
+
+// Color variants (use semantic design tokens)
+<Button type="button" color="primary">Primary</Button>
+<Button type="button" color="secondary">Secondary</Button>
+<Button type="button" color="danger">Delete</Button>
+<Button type="button" color="success">Confirm</Button>
+<Button type="button" color="warning">Warning</Button>
+
+// Combine props freely
+<Button type="button" color="primary" variant="outline" size="lg">
+  Large Primary Outline
+</Button>
+<Button type="button" color="danger" variant="pill">Danger Pill</Button>
+```
+
+**Note:** The `size` prop merges with any `data-btn` attribute you pass directly,
+so `<Button size="lg" data-btn="pill">` resolves to `data-btn="lg pill"`.
+
 ### Advanced Usage
 
 ```tsx
@@ -77,7 +117,8 @@ const handlePointerLeave = (e: React.PointerEvent<HTMLButtonElement>) => {
 const AdvancedButton = () => (
   <Button
     type="submit"
-    styles={{ backgroundColor: "blue", color: "white" }}
+    color="primary"
+    size="lg"
     onPointerDown={handlePointerDown}
     onPointerOver={handlePointerOver}
     onPointerLeave={handlePointerLeave}
