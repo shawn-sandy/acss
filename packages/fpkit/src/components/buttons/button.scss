@@ -96,8 +96,9 @@ button {
 
   &[data-fp-btn~="pill"],
   &[data-btn~="pill"],
-  &[data-style~="pill"] {
-    border-radius: var(--btn-pill, 100rem);
+  &[data-style~="pill"],
+  .btn-pill {
+    border-radius: var(--btn-pill, 100vw);
   }
 
   // Color variants — map to semantic tokens from index.css
