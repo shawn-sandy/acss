@@ -22,6 +22,8 @@ export type IconButtonProps = Omit<ButtonProps, "children"> &
      * Override with a different variant (e.g. `variant="outline"`) for a padded layout.
      */
     label?: string;
+    /** Button type: button, submit, or reset. Required. */
+    type: "button" | "submit" | "reset";
   };
 
 /**
@@ -53,12 +55,14 @@ export const IconButton = ({
   icon,
   label,
   variant = "icon",
+  type = "button",
   ...props
 }: IconButtonProps) => (
   <Button
     variant={variant}
     data-icon-btn={label ? "has-label" : undefined}
     {...props}
+    type={type}
   >
     {icon}
     {label && <span data-icon-label>{label}</span>}
