@@ -1057,6 +1057,12 @@ button[data-btn~="2xl"],
 button .btn-2xl {
   --btn-fs: var(--btn-size-2xl);
 }
+button[data-btn~=block],
+button .btn-block {
+  --btn-width: 100%;
+  display: flex;
+  justify-content: center;
+}
 button[data-btn~=text],
 button .btn-text {
   --btn-bg: transparent;

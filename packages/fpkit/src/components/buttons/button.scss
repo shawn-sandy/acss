@@ -200,6 +200,13 @@ button {
     --btn-fs: var(--btn-size-2xl);
   }
 
+  &[data-btn~="block"],
+  .btn-block {
+    --btn-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   &[data-btn~="text"],
   .btn-text {
     --btn-bg: transparent;
