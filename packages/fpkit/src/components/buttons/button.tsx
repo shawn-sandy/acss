@@ -11,6 +11,26 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
      * Required - 'button' | 'submit' | 'reset'
      */
     type: "button" | "submit" | "reset";
+    /**
+     * Size variant - maps to `data-btn` attribute, aligns with SCSS size tokens.
+     * Can coexist with a directly passed `data-btn` attribute (values are merged).
+     * @example <Button size="sm">Small</Button>
+     */
+    size?: "xs" | "sm" | "md" | "lg";
+    /**
+     * Style variant - maps to `data-style` attribute.
+     * - `"outline"` — transparent bg with border (mirrors link button style)
+     * - `"pill"` — fully rounded corners
+     * - `"text"` — ghost text button with subtle hover
+     * - `"icon"` — square icon-only, no padding
+     * @example <Button variant="outline">Bordered</Button>
+     */
+    variant?: "text" | "pill" | "icon" | "outline";
+    /**
+     * Color variant - maps to `data-color` attribute using semantic color tokens.
+     * @example <Button color="danger">Delete</Button>
+     */
+    color?: "primary" | "secondary" | "danger" | "success" | "warning";
   };
 
 /**
@@ -73,6 +93,9 @@ export const Button = ({
   disabled,
   isDisabled,
   classes,
+  size,
+  variant,
+  color,
   onPointerDown,
   onPointerOver,
   onPointerLeave,
@@ -99,18 +122,27 @@ export const Button = ({
     }
   );
 
+  // Merge size prop with any explicit data-btn passed by the consumer.
+  // SCSS uses [data-btn~="value"] (whitespace word match), so "sm pill" targets both.
+  const { "data-btn": dataBtnProp, ...restProps } = props as Record<string, unknown>;
+  const dataBtnValue =
+    [size, dataBtnProp as string | undefined].filter(Boolean).join(" ") || undefined;
+
   /* Returning a button element with accessible disabled state */
   return (
     <UI
       as="button"
       type={type}
+      data-btn={dataBtnValue}
+      data-style={variant}
+      data-color={color}
       aria-disabled={disabledProps["aria-disabled"]}
       onPointerOver={onPointerOver}
       onPointerLeave={onPointerLeave}
       style={styles}
       className={disabledProps.className}
       {...handlers}
-      {...props}
+      {...restProps}
     >
       {children}
     </UI>

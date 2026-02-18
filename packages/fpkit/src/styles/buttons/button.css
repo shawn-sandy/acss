@@ -72,6 +72,63 @@ button[type=submit] {
 button[data-fp-btn~=pill], button[data-btn~=pill], button[data-style~=pill] {
   border-radius: var(--btn-pill, 100rem);
 }
+button[data-color=primary] {
+  --btn-bg: var(--color-primary);
+  --btn-color: var(--color-text-inverse);
+}
+button[data-color=secondary] {
+  --btn-bg: var(--color-secondary);
+  --btn-color: var(--color-text-inverse);
+}
+button[data-color=danger] {
+  --btn-bg: var(--color-error);
+  --btn-color: var(--color-text-inverse);
+}
+button[data-color=success] {
+  --btn-bg: var(--color-success);
+  --btn-color: var(--color-text-inverse);
+}
+button[data-color=warning] {
+  --btn-bg: var(--color-warning);
+  --btn-color: var(--color-text-inverse);
+}
+button[data-style~=outline] {
+  --btn-bg: transparent;
+  --btn-color: currentColor;
+  --btn-border: 0.125rem solid currentColor;
+}
+button[data-style~=outline]:is(:hover, :focus) {
+  background-color: color-mix(in srgb, currentColor 10%, transparent);
+  filter: none;
+  outline: 0.025rem solid currentColor;
+  outline-offset: 0;
+}
+button[data-style~=text] {
+  --btn-bg: transparent;
+  --btn-color: currentColor;
+  --btn-border: none;
+  --btn-height: unset;
+  --btn-width: unset;
+  --btn-padding-block: 0.75rem;
+  --btn-padding-inline: 0.75rem;
+}
+button[data-style~=text]:is(:hover, :focus) {
+  background-color: color-mix(in srgb, var(--btn-color) 10%, transparent);
+  outline: 0.025rem solid var(--btn-color);
+  outline-offset: 0;
+  filter: none;
+}
+button[data-style~=icon] {
+  padding: unset;
+  height: unset;
+  --btn-bg: transparent;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 button[data-btn~=xs],
 button .btn-xs {
   --btn-fs: var(--btn-size-xs);

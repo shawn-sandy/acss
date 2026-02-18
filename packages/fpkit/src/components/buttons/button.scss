@@ -97,6 +97,74 @@ button {
     border-radius: var(--btn-pill, 100rem);
   }
 
+  // Color variants — map to semantic tokens from index.css
+  &[data-color="primary"] {
+    --btn-bg: var(--color-primary);
+    --btn-color: var(--color-text-inverse);
+  }
+
+  &[data-color="secondary"] {
+    --btn-bg: var(--color-secondary);
+    --btn-color: var(--color-text-inverse);
+  }
+
+  &[data-color="danger"] {
+    --btn-bg: var(--color-error);
+    --btn-color: var(--color-text-inverse);
+  }
+
+  &[data-color="success"] {
+    --btn-bg: var(--color-success);
+    --btn-color: var(--color-text-inverse);
+  }
+
+  &[data-color="warning"] {
+    --btn-bg: var(--color-warning);
+    --btn-color: var(--color-text-inverse);
+  }
+
+  // Style variants via data-style (variant prop) — mirrors link button patterns
+  &[data-style~="outline"] {
+    --btn-bg: transparent;
+    --btn-color: currentColor;
+    --btn-border: 0.125rem solid currentColor;
+
+    &:is(:hover, :focus) {
+      background-color: color-mix(in srgb, currentColor 10%, transparent);
+      filter: none;
+      outline: 0.025rem solid currentColor;
+      outline-offset: 0;
+    }
+  }
+
+  &[data-style~="text"] {
+    --btn-bg: transparent;
+    --btn-color: currentColor;
+    --btn-border: none;
+    --btn-height: unset;
+    --btn-width: unset;
+    --btn-padding-block: 0.75rem;
+    --btn-padding-inline: 0.75rem;
+    &:is(:hover, :focus) {
+      background-color: color-mix(in srgb, var(--btn-color) 10%, transparent);
+      outline: 0.025rem solid var(--btn-color);
+      outline-offset: 0;
+      filter: none;
+    }
+  }
+
+  &[data-style~="icon"] {
+    padding: unset;
+    height: unset;
+    --btn-bg: transparent;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &[data-btn~="xs"],
   .btn-xs {
     --btn-fs: var(--btn-size-xs);
