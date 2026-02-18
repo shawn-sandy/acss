@@ -60,7 +60,7 @@ export const IconButton = ({
 }: IconButtonProps) => (
   <Button
     variant={variant}
-    data-icon-btn={label ? "has-label" : undefined}
+    data-icon-btn={label ? "has-label" : "icon"}
     {...props}
     type={type}
   >
