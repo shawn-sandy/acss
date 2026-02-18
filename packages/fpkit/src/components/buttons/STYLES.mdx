@@ -16,7 +16,7 @@ accessibility.
 
 ### Key Features
 
-- **Size variants** - Extra small (xs) through large (lg) with fluid typography
+- **Size variants** - Extra small (xs) through 2X large (2xl) with fluid typography
 - **Style variants** - Pill, outline, icon, and text button styles via `data-style`
 - **Color variants** - Semantic color tokens (primary, secondary, danger, success, warning) via `data-color`
 - **Type-based styling** - Automatic styling for submit, reset button types
@@ -38,7 +38,9 @@ button {
   --btn-size-xs: 0.6875rem; /* 11px */
   --btn-size-sm: 0.8125rem; /* 13px */
   --btn-size-md: 0.9375rem; /* 15px */
-  --btn-size-lg: 1.125rem; /* 18px */
+  --btn-size-lg: 1.125rem;  /* 18px */
+  --btn-size-xl: 1.375rem;  /* 22px */
+  --btn-size-2xl: 1.75rem;  /* 28px */
 
   /* Default font size */
   --btn-fs: var(--btn-size-md);
@@ -207,12 +209,14 @@ button[type="reset"] {
 
 Control button size using data attributes or classes:
 
-| Data Attribute  | Class     | Font Size   | Pixel Equivalent | Description        |
-| --------------- | --------- | ----------- | ---------------- | ------------------ |
-| `data-btn="xs"` | `.btn-xs` | `0.6875rem` | 11px             | Extra small button |
-| `data-btn="sm"` | `.btn-sm` | `0.8125rem` | 13px             | Small button       |
-| `data-btn="md"` | `.btn-md` | `0.9375rem` | 15px             | Medium (default)   |
-| `data-btn="lg"` | `.btn-lg` | `1.125rem`  | 18px             | Large button       |
+| Data Attribute   | Class      | Font Size   | Pixel Equivalent | Description        |
+| ---------------- | ---------- | ----------- | ---------------- | ------------------ |
+| `data-btn="xs"`  | `.btn-xs`  | `0.6875rem` | 11px             | Extra small button |
+| `data-btn="sm"`  | `.btn-sm`  | `0.8125rem` | 13px             | Small button       |
+| `data-btn="md"`  | `.btn-md`  | `0.9375rem` | 15px             | Medium (default)   |
+| `data-btn="lg"`  | `.btn-lg`  | `1.125rem`  | 18px             | Large button       |
+| `data-btn="xl"`  | `.btn-xl`  | `1.375rem`  | 22px             | Extra large button |
+| `data-btn="2xl"` | `.btn-2xl` | `1.75rem`   | 28px             | 2X large button    |
 
 ### Examples
 
@@ -229,6 +233,12 @@ Control button size using data attributes or classes:
 
 <!-- Large -->
 <button data-btn="lg">Large Button</button>
+
+<!-- Extra Large -->
+<button data-btn="xl">Extra Large Button</button>
+
+<!-- 2X Large -->
+<button data-btn="2xl">2X Large Button</button>
 ```
 
 ### Size Customization
@@ -755,7 +765,9 @@ All button CSS variables follow the `--btn-{property}` pattern:
 --btn-size-xs         /* 0.6875rem / 11px */
 --btn-size-sm         /* 0.8125rem / 13px */
 --btn-size-md         /* 0.9375rem / 15px */
---btn-size-lg         /* 1.125rem / 18px */
+--btn-size-lg         /* 1.125rem  / 18px */
+--btn-size-xl         /* 1.375rem  / 22px */
+--btn-size-2xl        /* 1.75rem   / 28px */
 ```
 
 ## Browser Support
@@ -837,6 +849,7 @@ Create reusable button classes for common patterns:
 | `class="btn btn-primary"`       | `data-color="primary"`       | `color="primary"`                |
 | `class="btn-sm"`                | `data-btn="sm"`              | `size="sm"`                      |
 | `class="btn-lg"`                | `data-btn="lg"`              | `size="lg"`                      |
+| `class="btn-xl"` (custom)       | `data-btn="xl"`              | `size="xl"`                      |
 | `class="rounded-full"`          | `data-style="pill"`          | `variant="pill"`                 |
 | `class="btn-ghost"`             | `data-style="text"`          | `variant="text"`                 |
 | `class="btn-outline"`           | `data-style="outline"`       | `variant="outline"`              |
@@ -855,6 +868,8 @@ Create reusable button classes for common patterns:
 | `class="btn btn-success"`   | `data-color="success"`            | `color="success"`           |
 | `class="btn btn-sm"`        | `data-btn="sm"`                   | `size="sm"`                 |
 | `class="btn btn-lg"`        | `data-btn="lg"`                   | `size="lg"`                 |
+| `class="btn btn-xl"` (n/a)  | `data-btn="xl"`                   | `size="xl"`                 |
+| `class="btn btn-xxl"` (n/a) | `data-btn="2xl"`                  | `size="2xl"`                |
 | `class="btn rounded-pill"`  | `data-style="pill"`               | `variant="pill"`            |
 | `class="btn btn-outline-*"` | `data-style="outline" data-color` | `variant="outline" color`   |
 | `class="btn btn-link"`      | `data-style="text"`               | `variant="text"`            |

@@ -21,7 +21,7 @@ supports various types and styles. It is designed to be reusable and accessible.
 | Name             | Type                                                 | Default    | Description                                              |
 | ---------------- | ---------------------------------------------------- | ---------- | -------------------------------------------------------- |
 | `type`           | `'button' \| 'submit' \| 'reset'`                    | `'button'` | The button type                                          |
-| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg'`                       | -          | Size variant — maps to `data-btn` attribute              |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`     | -          | Size variant — maps to `data-btn` attribute              |
 | `variant`        | `'text' \| 'pill' \| 'icon' \| 'outline'`            | -          | Style variant — maps to `data-style` attribute           |
 | `color`          | `'primary' \| 'secondary' \| 'danger' \| 'success' \| 'warning'` | - | Color variant using semantic tokens — maps to `data-color` |
 | `styles`         | `React.CSSProperties`                                | -          | Inline styles for the button                             |
@@ -72,6 +72,8 @@ import Button from "#components/buttons/button";
 <Button type="button" size="xs">Extra Small</Button>
 <Button type="button" size="sm">Small</Button>
 <Button type="button" size="lg">Large</Button>
+<Button type="button" size="xl">Extra Large</Button>
+<Button type="button" size="2xl">2X Large</Button>
 
 // Style variants
 <Button type="button" variant="outline">Outline</Button>

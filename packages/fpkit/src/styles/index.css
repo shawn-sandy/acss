@@ -903,6 +903,8 @@ button {
   --btn-size-sm: 0.8125rem;
   --btn-size-md: 0.9375rem;
   --btn-size-lg: 1.125rem;
+  --btn-size-xl: 1.375rem;
+  --btn-size-2xl: 1.75rem;
   --btn-pill: 100vw;
   --btn-fs: var(--btn-size-md);
   --btn-height: calc(var(--btn-fs) * 2.25);
@@ -1045,6 +1047,14 @@ button .btn-md {
 button[data-btn~=lg],
 button .btn-lg {
   --btn-fs: var(--btn-size-lg);
+}
+button[data-btn~=xl],
+button .btn-xl {
+  --btn-fs: var(--btn-size-xl);
+}
+button[data-btn~="2xl"],
+button .btn-2xl {
+  --btn-fs: var(--btn-size-2xl);
 }
 button[data-btn~=text],
 button .btn-text {

@@ -17,7 +17,7 @@ const meta = {
   argTypes: {
     size: {
       control: "select",
-      options: ["xs", "sm", "md", "lg"],
+      options: ["xs", "sm", "md", "lg", "xl", "2xl"],
       description: "Size token — maps to data-btn attribute",
     },
     variant: {
@@ -138,6 +138,14 @@ export const SizeSM: Story = {
 
 export const SizeLG: Story = {
   args: { size: "lg", children: "Large" },
+} as Story;
+
+export const SizeXL: Story = {
+  args: { size: "xl", children: "Extra Large" },
+} as Story;
+
+export const Size2XL: Story = {
+  args: { size: "2xl", children: "2X Large" },
 } as Story;
 
 // --- Variant stories ---
@@ -488,6 +496,8 @@ export const Customization: Story = {
 - \`--btn-size-sm\`: 0.8125rem (13px)
 - \`--btn-size-md\`: 0.9375rem (15px)
 - \`--btn-size-lg\`: 1.125rem (18px)
+- \`--btn-size-xl\`: 1.375rem (22px)
+- \`--btn-size-2xl\`: 1.75rem (28px)
 
 ### Base Properties
 - \`--btn-padding-inline\`: Horizontal padding (logical property)

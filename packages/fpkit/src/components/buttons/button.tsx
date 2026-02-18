@@ -16,7 +16,7 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
      * Can coexist with a directly passed `data-btn` attribute (values are merged).
      * @example <Button size="sm">Small</Button>
      */
-    size?: "xs" | "sm" | "md" | "lg";
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
     /**
      * Style variant - maps to `data-style` attribute.
      * - `"outline"` — transparent bg with border (mirrors link button style)
