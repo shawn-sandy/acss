@@ -149,9 +149,5 @@ export const Button = ({
   );
 };
 
-export const IconButton = ({ icon, ...props }: ButtonProps) => {
-  return <Button {...props}>{icon}</Button>;
-};
-
 export default Button;
 Button.displayName = "Button";

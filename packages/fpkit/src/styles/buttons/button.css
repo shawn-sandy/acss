@@ -146,18 +146,6 @@ button[data-btn~=lg],
 button .btn-lg {
   --btn-fs: var(--btn-size-lg);
 }
-button[data-btn~=icon],
-button .btn-icon {
-  padding: unset;
-  height: unset;
-  --btn-bg: transparent;
-  min-width: 1.5rem;
-  min-height: 1.5rem;
-  text-align: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
 button[data-btn~=text],
 button .btn-text {
   --btn-bg: transparent;

@@ -1,0 +1,17 @@
+button[data-icon-btn~=has-label] {
+  gap: 0.375rem;
+  padding-inline: 0.75rem;
+}
+button[data-icon-btn~=has-label] [data-icon-label] {
+  font-size: var(--btn-fs, 0.875rem);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 48rem) {
+  [data-icon-label] {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=icon-button.css.map */
