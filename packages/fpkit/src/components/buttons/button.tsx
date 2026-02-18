@@ -31,6 +31,13 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
      * @example <Button color="danger">Delete</Button>
      */
     color?: "primary" | "secondary" | "danger" | "success" | "warning";
+    /**
+     * Block layout — stretches the button to 100% of its container width.
+     * Composes with `size` and other `data-btn` values.
+     * @example <Button block>Full Width</Button>
+     * @example <Button size="lg" block>Large Full Width</Button>
+     */
+    block?: boolean;
   };
 
 /**
@@ -96,6 +103,7 @@ export const Button = ({
   size,
   variant,
   color,
+  block,
   onPointerDown,
   onPointerOver,
   onPointerLeave,
@@ -122,11 +130,13 @@ export const Button = ({
     }
   );
 
-  // Merge size prop with any explicit data-btn passed by the consumer.
-  // SCSS uses [data-btn~="value"] (whitespace word match), so "sm pill" targets both.
+  // Merge size, block, and any explicit data-btn passed by the consumer.
+  // SCSS uses [data-btn~="value"] (whitespace word match), so "lg block" targets both.
   const { "data-btn": dataBtnProp, ...restProps } = props as Record<string, unknown>;
   const dataBtnValue =
-    [size, dataBtnProp as string | undefined].filter(Boolean).join(" ") || undefined;
+    [size, block ? "block" : undefined, dataBtnProp as string | undefined]
+      .filter(Boolean)
+      .join(" ") || undefined;
 
   /* Returning a button element with accessible disabled state */
   return (

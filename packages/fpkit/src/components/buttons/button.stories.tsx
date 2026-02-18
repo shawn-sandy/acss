@@ -20,6 +20,10 @@ const meta = {
       options: ["xs", "sm", "md", "lg", "xl", "2xl"],
       description: "Size token — maps to data-btn attribute",
     },
+    block: {
+      control: "boolean",
+      description: "Stretch button to 100% container width — composes with size and variant",
+    },
     variant: {
       control: "select",
       options: ["text", "pill", "icon", "outline"],
@@ -146,6 +150,30 @@ export const SizeXL: Story = {
 
 export const Size2XL: Story = {
   args: { size: "2xl", children: "2X Large" },
+} as Story;
+
+// --- Block stories ---
+
+/**
+ * Block button — stretches to 100% container width at the default size.
+ */
+export const Block: Story = {
+  args: { block: true, children: "Block Button" },
+} as Story;
+
+/**
+ * Block button composed with size and color variants.
+ */
+export const BlockVariants: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "32rem" }}>
+      <Button type="button" block size="sm">Block Small</Button>
+      <Button type="button" block>Block Default</Button>
+      <Button type="button" block size="lg">Block Large</Button>
+      <Button type="button" block size="xl" color="primary">Block XL Primary</Button>
+      <Button type="button" block color="danger" variant="outline">Block Danger Outline</Button>
+    </div>
+  ),
 } as Story;
 
 // --- Variant stories ---
