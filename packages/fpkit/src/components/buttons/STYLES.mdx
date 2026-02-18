@@ -17,7 +17,8 @@ accessibility.
 ### Key Features
 
 - **Size variants** - Extra small (xs) through large (lg) with fluid typography
-- **Style variants** - Pill, icon, and text button styles
+- **Style variants** - Pill, outline, icon, and text button styles via `data-style`
+- **Color variants** - Semantic color tokens (primary, secondary, danger, success, warning) via `data-color`
 - **Type-based styling** - Automatic styling for submit, reset button types
 - **State management** - Hover, focus, and disabled states with smooth
   transitions
@@ -243,7 +244,68 @@ button[data-btn~="lg"] {
 }
 ```
 
+## Color Variants
+
+Color variants map to semantic design tokens defined in `index.css`. Using
+`data-color` (or the `color` prop in React) keeps button colors consistent with
+the global color system — no hardcoded hex values needed.
+
+| `data-color` value | Background token  | Text token              |
+| ------------------ | ----------------- | ----------------------- |
+| `primary`          | `--color-primary` | `--color-text-inverse`  |
+| `secondary`        | `--color-secondary` | `--color-text-inverse` |
+| `danger`           | `--color-error`   | `--color-text-inverse`  |
+| `success`          | `--color-success` | `--color-text-inverse`  |
+| `warning`          | `--color-warning` | `--color-text-inverse`  |
+
+### HTML Usage
+
+```html
+<button data-color="primary">Primary</button>
+<button data-color="secondary">Secondary</button>
+<button data-color="danger">Delete</button>
+<button data-color="success">Confirm</button>
+<button data-color="warning">Warning</button>
+```
+
+### React Usage
+
+```tsx
+<Button type="button" color="danger">Delete</Button>
+<Button type="button" color="success" variant="outline">Confirm</Button>
+```
+
+### CSS
+
+```css
+button[data-color="primary"] {
+  --btn-bg: var(--color-primary);
+  --btn-color: var(--color-text-inverse);
+}
+
+button[data-color="danger"] {
+  --btn-bg: var(--color-error);
+  --btn-color: var(--color-text-inverse);
+}
+/* etc. */
+```
+
+**Tip:** Color variants compose with style variants. `data-color="primary"` +
+`data-style="outline"` gives you a transparent primary-colored outlined button.
+
+---
+
 ## Style Variants
+
+Style variants are applied via the `data-style` attribute (or the `variant` prop
+in React). Multiple values can be space-separated.
+
+| `data-style` value | Description                                    |
+| ------------------ | ---------------------------------------------- |
+| `pill`             | Fully rounded corners (`border-radius: 100rem`) |
+| `outline`          | Transparent bg, border, subtle hover            |
+| `text`             | Ghost button — no bg or border, subtle hover    |
+| `icon`             | Square icon-only, no padding, min 1.5rem        |
 
 ### Pill Button
 
@@ -337,7 +399,41 @@ button[data-btn~="text"]:is(:hover, :focus) {
 
 ```html
 <button data-btn="text">Learn More</button>
-<button data-btn="text" style="--btn-color: #0066cc">View Details</button>
+<button data-style="text" style="--btn-color: #0066cc">View Details</button>
+```
+
+### Outline Button
+
+Transparent background with a visible border and subtle hover effect powered by
+`color-mix()`:
+
+```html
+<button data-style="outline">Outline</button>
+<button data-style="outline" data-color="primary">Primary Outline</button>
+```
+
+**CSS:**
+
+```css
+button[data-style~="outline"] {
+  --btn-bg: transparent;
+  --btn-color: currentColor;
+  --btn-border: 0.125rem solid currentColor;
+}
+
+button[data-style~="outline"]:is(:hover, :focus) {
+  background-color: color-mix(in srgb, currentColor 10%, transparent);
+  outline: 0.025rem solid currentColor;
+  outline-offset: 0;
+}
+```
+
+**React:**
+
+```tsx
+<Button type="button" variant="outline">Outline</Button>
+<Button type="button" color="primary" variant="outline">Primary Outline</Button>
+<Button type="button" color="danger" variant="outline">Danger Outline</Button>
 ```
 
 ## State Styles
@@ -439,6 +535,10 @@ You can combine multiple variants using space-separated values:
 ### Primary Action Button
 
 ```html
+<!-- Using semantic color token (recommended) -->
+<button type="submit" data-btn="lg" data-color="primary">Get Started</button>
+
+<!-- Or with custom override -->
 <button
   type="submit"
   data-btn="lg"
@@ -451,10 +551,8 @@ You can combine multiple variants using space-separated values:
 ### Secondary Button
 
 ```html
-<button
-  type="button"
-  style="--btn-bg: transparent; --btn-color: #1976D2; --btn-border: 2px solid #1976D2"
->
+<!-- Outline style using semantic tokens -->
+<button type="button" data-color="primary" data-style="outline">
   Learn More
 </button>
 ```
@@ -462,9 +560,11 @@ You can combine multiple variants using space-separated values:
 ### Danger Button
 
 ```html
-<button type="button" style="--btn-bg: #D32F2F; --btn-color: white">
-  Delete
-</button>
+<!-- Semantic token (recommended) -->
+<button type="button" data-color="danger">Delete</button>
+
+<!-- React -->
+<!-- <Button type="button" color="danger">Delete</Button> -->
 ```
 
 ### Icon Button Group
@@ -732,27 +832,33 @@ Create reusable button classes for common patterns:
 
 ### From Tailwind CSS
 
-| Tailwind                        | fpkit Button                                                    |
-| ------------------------------- | --------------------------------------------------------------- |
-| `class="btn btn-primary"`       | `type="submit"` or `style="--btn-bg: blue; --btn-color: white"` |
-| `class="btn-sm"`                | `data-btn="sm"`                                                 |
-| `class="btn-lg"`                | `data-btn="lg"`                                                 |
-| `class="rounded-full"`          | `data-btn="pill"`                                               |
-| `class="btn-ghost"`             | `data-btn="text"`                                               |
-| `class="btn-circle"`            | `data-btn="icon pill"`                                          |
-| `class="btn-disabled" disabled` | `disabled` or `aria-disabled="true"`                            |
+| Tailwind                        | fpkit Button (HTML)          | fpkit Button (React)             |
+| ------------------------------- | ---------------------------- | -------------------------------- |
+| `class="btn btn-primary"`       | `data-color="primary"`       | `color="primary"`                |
+| `class="btn-sm"`                | `data-btn="sm"`              | `size="sm"`                      |
+| `class="btn-lg"`                | `data-btn="lg"`              | `size="lg"`                      |
+| `class="rounded-full"`          | `data-style="pill"`          | `variant="pill"`                 |
+| `class="btn-ghost"`             | `data-style="text"`          | `variant="text"`                 |
+| `class="btn-outline"`           | `data-style="outline"`       | `variant="outline"`              |
+| `class="btn-circle"`            | `data-style="icon pill"`     | `variant="icon"`                 |
+| `class="btn-error"`             | `data-color="danger"`        | `color="danger"`                 |
+| `class="btn-success"`           | `data-color="success"`       | `color="success"`                |
+| `class="btn-disabled" disabled` | `disabled`                   | `disabled`                       |
 
 ### From Bootstrap
 
-| Bootstrap                   | fpkit Button                         |
-| --------------------------- | ------------------------------------ |
-| `class="btn btn-primary"`   | `type="submit"` or custom `--btn-bg` |
-| `class="btn btn-secondary"` | `type="reset"` or custom styling     |
-| `class="btn btn-sm"`        | `data-btn="sm"`                      |
-| `class="btn btn-lg"`        | `data-btn="lg"`                      |
-| `class="btn rounded-pill"`  | `data-btn="pill"`                    |
-| `class="btn btn-link"`      | `data-btn="text"`                    |
-| `class="btn" disabled`      | `disabled` or `aria-disabled="true"` |
+| Bootstrap                   | fpkit Button (HTML)               | fpkit Button (React)        |
+| --------------------------- | --------------------------------- | --------------------------- |
+| `class="btn btn-primary"`   | `data-color="primary"`            | `color="primary"`           |
+| `class="btn btn-secondary"` | `data-color="secondary"`          | `color="secondary"`         |
+| `class="btn btn-danger"`    | `data-color="danger"`             | `color="danger"`            |
+| `class="btn btn-success"`   | `data-color="success"`            | `color="success"`           |
+| `class="btn btn-sm"`        | `data-btn="sm"`                   | `size="sm"`                 |
+| `class="btn btn-lg"`        | `data-btn="lg"`                   | `size="lg"`                 |
+| `class="btn rounded-pill"`  | `data-style="pill"`               | `variant="pill"`            |
+| `class="btn btn-outline-*"` | `data-style="outline" data-color` | `variant="outline" color`   |
+| `class="btn btn-link"`      | `data-style="text"`               | `variant="text"`            |
+| `class="btn" disabled`      | `disabled`                        | `disabled`                  |
 
 ## Related Resources
 
