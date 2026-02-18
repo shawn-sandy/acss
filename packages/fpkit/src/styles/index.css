@@ -907,8 +907,9 @@ button {
   --btn-size-2xl: 1.75rem;
   --btn-pill: 100vw;
   --btn-fs: var(--btn-size-md);
-  --btn-height: calc(var(--btn-fs) * 2.25);
-  --btn-bg: var(--color-neutral-300);
+  --btn-height: calc(var(--btn-fs) * 2.75);
+  --btn-bg: var(--color-primary);
+  --btn-color: var(--color-text-inverse);
   --btn-width: max-content;
   font-size: var(--btn-fs);
   font-weight: var(--btn-fw, 500);
@@ -933,7 +934,7 @@ button {
   line-height: 0cap;
 }
 button[type] {
-  background-color: var(--btn-bg, var(--color-neutral-300));
+  background-color: var(--btn-bg, var(--color-primary));
   --btn-border: solid var(--btn-sg);
 }
 button[type=submit], button[style*=submit] {
