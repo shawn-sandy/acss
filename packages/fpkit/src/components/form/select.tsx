@@ -1,9 +1,9 @@
-import UI from '../ui'
-import React from 'react'
-import { useDisabledState } from '../../hooks/use-disabled-state'
+import UI from "../ui";
+import React from "react";
+import { useDisabledState } from "../../hooks/use-disabled-state";
 
-export type { SelectProps } from './form.types'
-import type { SelectProps } from './form.types'
+export type { SelectProps } from "./form.types";
+import type { SelectProps } from "./form.types";
 
 /**
  * Option component props interface
@@ -11,56 +11,57 @@ import type { SelectProps } from './form.types'
  *
  * @interface OptionProps
  */
-export interface OptionProps extends Omit<React.ComponentPropsWithoutRef<'option'>, 'className'> {
+export interface OptionProps
+  extends Omit<React.ComponentPropsWithoutRef<"option">, "className"> {
   /**
    * Value for the select option (required, unless using legacy selectValue)
    */
-  value?: string | number
+  value?: string | number;
 
   /**
    * Display label for the option (defaults to value if not provided)
    */
-  label?: string
+  label?: string;
 
   /**
    * CSS class names (preferred over 'className' for consistency with fpkit components)
    */
-  classes?: string
+  classes?: string;
 
   /**
    * Inline CSS styles object
    */
-  styles?: React.CSSProperties
+  styles?: React.CSSProperties;
 
   /**
    * Disabled state for the option
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
 
   /**
    * Children content (overrides label if provided)
    */
-  children?: React.ReactNode
+  children?: React.ReactNode;
 
   /**
    * Visual variant for styling via data-option attribute
    * Use with CSS: option[data-option="primary"] { ... }
    * @example 'primary' | 'secondary' | 'success' | 'error'
    */
-  variant?: string
+  variant?: string;
 
   /**
    * Size variant for styling via data-size attribute
    * @example 'sm' | 'md' | 'lg'
    */
-  size?: string
+  size?: string;
 
   /**
    * Additional data attributes for custom styling
    * @example { 'data-highlighted': true, 'data-category': 'premium' }
    */
-  dataAttributes?: Record<string, string | boolean | number>
+  dataAttributes?: Record<string, string | boolean | number>;
 }
 
 /**
@@ -88,7 +89,10 @@ export interface OptionProps extends Omit<React.ComponentPropsWithoutRef<'option
  * @param {OptionProps} props - Component props
  * @returns {JSX.Element} Option element
  */
-export const Option = React.forwardRef<HTMLOptionElement, OptionProps & Partial<SelectOptionsProps>>(
+export const Option = React.forwardRef<
+  HTMLOptionElement,
+  OptionProps & Partial<SelectOptionsProps>
+>(
   (
     {
       value,
@@ -105,18 +109,18 @@ export const Option = React.forwardRef<HTMLOptionElement, OptionProps & Partial<
       selectLabel,
       ...props
     },
-    ref
+    ref,
   ) => {
     // Map legacy props to new props
-    const optionValue = value ?? selectValue
-    const optionLabel = label ?? selectLabel
+    const optionValue = value ?? selectValue;
+    const optionLabel = label ?? selectLabel;
 
     // Build data attributes object for styling
     const combinedDataAttrs = {
-      ...(variant && { 'data-option': variant }),
-      ...(size && { 'data-size': size }),
+      ...(variant && { "data-option": variant }),
+      ...(size && { "data-size": size }),
       ...dataAttributes,
-    }
+    };
 
     return (
       <UI
@@ -131,17 +135,17 @@ export const Option = React.forwardRef<HTMLOptionElement, OptionProps & Partial<
       >
         {children || optionLabel || optionValue}
       </UI>
-    )
-  }
-)
+    );
+  },
+);
 
-Option.displayName = 'Select.Option'
+Option.displayName = "Select.Option";
 
 // Legacy type export for backwards compatibility
-export type SelectOptionsProps = Omit<OptionProps, 'classes' | 'styles'> & {
-  selectValue: string | number
-  selectLabel?: string
-}
+export type SelectOptionsProps = Omit<OptionProps, "classes" | "styles"> & {
+  selectValue: string | number;
+  selectLabel?: string;
+};
 
 /**
  * Select component - Accessible dropdown selection input with validation support
@@ -187,7 +191,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       children,
       required,
       selected,
-      validationState = 'none',
+      validationState = "none",
       errorMessage,
       hintText,
       onBlur,
@@ -197,7 +201,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       onEnter,
       ...props
     },
-    ref
+    ref,
   ) => {
     // Use the disabled state hook with enhanced API for automatic className merging
     const { disabledProps, handlers } = useDisabledState<HTMLSelectElement>(
@@ -210,33 +214,33 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           onKeyDown: (e: React.KeyboardEvent<HTMLSelectElement>) => {
             // Handle Enter key press for accessibility
             // Enables keyboard-only users to trigger actions after selection
-            if (e.key === 'Enter' && onEnter) {
-              onEnter(e)
+            if (e.key === "Enter" && onEnter) {
+              onEnter(e);
             }
             // Always call consumer's onKeyDown if provided
             if (onKeyDown) {
-              onKeyDown(e)
+              onKeyDown(e);
             }
           },
         },
         // Automatic className merging - hook combines disabled class with user classes
         className: classes,
-      }
-    )
+      },
+    );
 
     // Determine aria-invalid based on validation state
-    const isInvalid = validationState === 'invalid'
+    const isInvalid = validationState === "invalid";
 
     // Generate describedby IDs for error and hint text
-    const describedByIds: string[] = []
+    const describedByIds: string[] = [];
     if (errorMessage && id) {
-      describedByIds.push(`${id}-error`)
+      describedByIds.push(`${id}-error`);
     }
     if (hintText && id) {
-      describedByIds.push(`${id}-hint`)
+      describedByIds.push(`${id}-hint`);
     }
     const ariaDescribedBy =
-      describedByIds.length > 0 ? describedByIds.join(' ') : undefined
+      describedByIds.length > 0 ? describedByIds.join(" ") : undefined;
 
     return (
       <UI
@@ -249,7 +253,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {...handlers}
         required={required}
         aria-required={required}
-        aria-disabled={disabledProps['aria-disabled']}
+        aria-disabled={disabledProps["aria-disabled"]}
         aria-invalid={isInvalid}
         aria-describedby={ariaDescribedBy}
         style={styles}
@@ -257,19 +261,19 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       >
         {children || <option value="" />}
       </UI>
-    )
-  }
-)
+    );
+  },
+);
 
-Select.displayName = 'Select'
+Select.displayName = "Select";
 
 // Create a compound component with proper typing
 type SelectComponent = typeof Select & {
-  Option: typeof Option
-}
+  Option: typeof Option;
+};
 
 // Type assertion to allow adding static property to ForwardRefExoticComponent
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-;(Select as any).Option = Option
+(Select as any).Option = Option;
 
-export default Select as SelectComponent
+export default Select as SelectComponent;

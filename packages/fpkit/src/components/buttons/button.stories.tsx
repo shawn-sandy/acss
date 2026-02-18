@@ -14,6 +14,23 @@ const meta = {
     children: "Click me",
     onClick: buttonClicked,
   },
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["xs", "sm", "md", "lg"],
+      description: "Size token — maps to data-btn attribute",
+    },
+    variant: {
+      control: "select",
+      options: ["text", "pill", "icon", "outline"],
+      description: "Style variant — maps to data-style attribute",
+    },
+    color: {
+      control: "select",
+      options: ["primary", "secondary", "danger", "success", "warning"],
+      description: "Color variant using semantic design tokens — maps to data-color attribute",
+    },
+  },
   parameters: {},
 } as Meta;
 
@@ -107,6 +124,100 @@ export const Large: Story = {
     "data-btn": "lg",
     children: "Large",
   },
+} as Story;
+
+// --- Size prop stories (typed API instead of raw data-btn) ---
+
+export const SizeXS: Story = {
+  args: { size: "xs", children: "Extra Small" },
+} as Story;
+
+export const SizeSM: Story = {
+  args: { size: "sm", children: "Small" },
+} as Story;
+
+export const SizeLG: Story = {
+  args: { size: "lg", children: "Large" },
+} as Story;
+
+// --- Variant stories ---
+
+export const Outline: Story = {
+  args: { variant: "outline", children: "Outline" },
+} as Story;
+
+export const Pill: Story = {
+  args: { variant: "pill", children: "Pill" },
+} as Story;
+
+export const TextVariant: Story = {
+  args: { variant: "text", children: "Text Button" },
+} as Story;
+
+// --- Color stories ---
+
+export const Primary: Story = {
+  args: { color: "primary", children: "Primary" },
+} as Story;
+
+export const Secondary: Story = {
+  args: { color: "secondary", children: "Secondary" },
+} as Story;
+
+export const Danger: Story = {
+  args: { color: "danger", children: "Danger" },
+} as Story;
+
+export const Success: Story = {
+  args: { color: "success", children: "Success" },
+} as Story;
+
+export const Warning: Story = {
+  args: { color: "warning", children: "Warning" },
+} as Story;
+
+// --- Combination stories ---
+
+export const PrimaryOutline: Story = {
+  args: { color: "primary", variant: "outline", children: "Primary Outline" },
+} as Story;
+
+export const DangerPill: Story = {
+  args: { color: "danger", variant: "pill", children: "Danger Pill" },
+} as Story;
+
+export const SuccessOutline: Story = {
+  args: { color: "success", variant: "outline", children: "Success Outline" },
+} as Story;
+
+/**
+ * All color variants side by side.
+ */
+export const AllColors: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+      <Button type="button" color="primary">Primary</Button>
+      <Button type="button" color="secondary">Secondary</Button>
+      <Button type="button" color="danger">Danger</Button>
+      <Button type="button" color="success">Success</Button>
+      <Button type="button" color="warning">Warning</Button>
+    </div>
+  ),
+} as Story;
+
+/**
+ * All variant styles side by side.
+ */
+export const AllVariants: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+      <Button type="button" variant="outline">Outline</Button>
+      <Button type="button" variant="pill">Pill</Button>
+      <Button type="button" variant="text">Text</Button>
+      <Button type="button" color="primary" variant="outline">Primary Outline</Button>
+      <Button type="button" color="danger" variant="pill">Danger Pill</Button>
+    </div>
+  ),
 } as Story;
 
 export const Custom: Story = {
