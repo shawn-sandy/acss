@@ -1,0 +1,26 @@
+// Breakpoint at which the label hides (icon-only on mobile).
+// Override this variable in your own SCSS before importing to customise.
+// NOTE: CSS custom properties cannot be used in @media conditions — this must be a SCSS variable.
+$icon-label-bp: 48rem !default; // 768px
+
+// Layout when a visible label is present alongside the icon.
+// Higher specificity than button[data-style~="icon"] (which uses padding: unset)
+// so padding is restored without needing a consumer override.
+button[data-icon-btn~="has-label"] {
+  gap: 0.375rem;
+  padding-inline: 0.75rem;
+
+  [data-icon-label] {
+    font-size: var(--btn-fs, 0.875rem);
+    line-height: 1;
+    white-space: nowrap;
+  }
+}
+
+// Hide label text visually on mobile — icon only.
+// The span remains in the accessibility tree; screen readers always read it.
+@media (max-width: #{$icon-label-bp}) {
+  [data-icon-label] {
+    display: none;
+  }
+}

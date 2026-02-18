@@ -6,6 +6,7 @@ button {
   --btn-size-lg: 1.125rem;
   --btn-pill: 100vw;
   --btn-fs: var(--btn-size-md);
+
   --btn-height: calc(var(--btn-fs) * 2.25);
   --btn-bg: var(--color-neutral-300);
   --btn-width: max-content;
@@ -184,19 +185,6 @@ button {
   &[data-btn~="lg"],
   .btn-lg {
     --btn-fs: var(--btn-size-lg);
-  }
-
-  &[data-btn~="icon"],
-  .btn-icon {
-    padding: unset;
-    height: unset;
-    --btn-bg: transparent;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
   }
 
   &[data-btn~="text"],
