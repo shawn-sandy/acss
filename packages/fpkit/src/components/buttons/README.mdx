@@ -25,7 +25,7 @@ supports various types and styles. It is designed to be reusable and accessible.
 | `variant`        | `'text' \| 'pill' \| 'icon' \| 'outline'`                         | -          | Style variant — maps to `data-style`                                               |
 | `color`          | `'primary' \| 'secondary' \| 'danger' \| 'success' \| 'warning'`  | -          | Color variant using semantic tokens — maps to `data-color`                         |
 | `block`          | `boolean`                                                         | -          | Stretches button to 100% container width — merged into `data-btn` as `"block"`     |
-| `"data-btn"`     | `string`                                                          | -          | Raw `data-btn` tokens. Merged with `size` and `block` into the final attribute     |
+| `"data-btn"`     | `string`                                                          | -          | Raw `data-btn` tokens. Merged with `size` and `block` into the final attribute. `data-btn` tokens take precedence over `size` tokens — if both conflict, `data-btn` wins. |
 | `styles`         | `React.CSSProperties`                                             | -          | Inline styles — use to override CSS custom properties e.g. `--btn-bg`             |
 | `disabled`       | `boolean`                                                         | `false`    | Disables the button using the `aria-disabled` pattern (stays keyboard-focusable)   |
 | `classes`        | `string`                                                          | -          | Additional CSS classes (merged automatically with `.is-disabled` when disabled)    |
@@ -235,6 +235,10 @@ When `disabled={true}`:
 - ✅ Hover effects still work (visual feedback)
 - ✅ Can receive focus for tooltips/help text
 
+### Handler Precedence When Disabled
+
+When `disabled` or `isDisabled` is set, built-in pointer handlers (`onPointerDown`, `onPointerOver`, `onPointerLeave`, `onClick`) take precedence over any handlers passed via props. This prevents interaction callbacks from firing on a disabled button.
+
 ### Migration Guide
 
 No breaking changes! The API remains the same:
@@ -290,3 +294,10 @@ This implementation follows:
 - The `styles` prop can be used to apply inline styles to the button.
 - The `disabled` prop uses the accessible `aria-disabled` pattern instead of
   native `disabled` attribute.
+- **Breaking (height):** The `--btn-height` multiplier changed from `2.25` to
+  `2.75`. All buttons are ~22% taller. Override `--btn-height` via the `styles`
+  prop or a stylesheet rule to restore previous sizing.
+- **Breaking (`.btn-pill`):** The `.btn-pill` CSS class is now scoped to
+  `button.btn-pill` only. Non-button elements carrying the class no longer
+  receive pill border-radius. Prefer `variant="pill"` (React) or
+  `data-style="pill"` / `data-btn="pill"` (HTML) instead.
