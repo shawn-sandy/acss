@@ -5,6 +5,32 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [Unreleased]
 
+### BREAKING CHANGES
+
+* **button:** Default button background changed from `--color-neutral-300` (grey) to `--color-primary` (brand color)
+
+  The `--btn-bg` CSS custom property and its `background-color` fallback in the `[type]` selector now resolve to `--color-primary` instead of `--color-neutral-300`.
+
+  **Who is affected:** Any consuming application that has not explicitly set `--btn-bg` and previously expected buttons to render in a neutral grey. Those buttons will now render in the primary brand color.
+
+  **Migration:** To restore neutral grey as the default, override `--btn-bg` in your own stylesheet:
+
+  ```css
+  button {
+    --btn-bg: var(--color-neutral-300);
+  }
+  ```
+
+  Or to adopt the new default intentionally, use `color="primary"` on buttons that should be primary and rely on the base `--btn-bg` only for neutral actions.
+
+  ```tsx
+  /* previously relied on grey default */
+  <Button type="button">Action</Button>
+
+  /* now: opt in to primary explicitly */
+  <Button type="button" color="primary">Action</Button>
+  ```
+
 ### Deprecated
 
 * **popover:** Deprecate legacy `usePopover` hook and old Popover component in favor of native HTML Popover API implementation
