@@ -5,6 +5,33 @@ All notable changes to @fpkit/acss will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.3.0] - 2026-02-18
+
+### Added
+
+- **IconButton component** — standalone icon button with a11y support (`aria-label`, `aria-labelledby`), optional visible label with responsive hide, and `data-icon-btn` data attribute for styling hooks
+- **Button `xl` and `2xl` size variants** — new size values for the `size` prop and `data-btn` attribute
+- **Button `block` prop** — renders button at 100% width for full-width layout contexts
+- **Button `size`, `variant`, `color` typed props** — explicit TypeScript-typed props replacing generic data attribute passing
+
+### Fixed
+
+- **`.btn-pill` selector scoped to `button` element** — previously applied to any element with `.btn-pill`; now only matches `button.btn-pill` to prevent unintended styling on links
+
+### Changed
+
+- **Button height multiplier changed from `2.25` to `2.75`** — increases default button height for better touch target compliance (WCAG 2.5.5)
+
+### Breaking Changes
+
+| Change | Before | After | Migration |
+|--------|--------|-------|-----------|
+| `--btn-bg` default | (unset) | `var(--color-primary)` | Set `--btn-bg` explicitly if you relied on the previous default |
+| Button height multiplier | `2.25` | `2.75` | Override `--btn-height-multiplier` to restore previous height |
+| `.btn-pill` selector | `.btn-pill` | `button.btn-pill` | Use `button.btn-pill` in CSS; links need separate rule |
+
+---
+
 ## [6.2.0] - 2026-01-18
 
 ### Added

@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.3.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.2.0...@fpkit/acss@6.3.0) (2026-02-19)
+
+
+### Bug Fixes
+
+* **popover:** improve Storybook story centering and layout ([8dc2d2e](https://github.com/shawn-sandy/fpkit/commit/8dc2d2e1cf6ccb3f0c054a3cb8e26e16d75008e3))
+* **popover:** resolve MDX documentation imports and story references ([aa37ed9](https://github.com/shawn-sandy/fpkit/commit/aa37ed9b6d96c89111099d62556ed83ed7489b09))
+* **popover:** resolve TypeScript diagnostics and Storybook indexing issues ([d9756af](https://github.com/shawn-sandy/fpkit/commit/d9756af64282c4fdef1240efa9d07f28d1848495))
+* **test:** replace storybook/test and jest-mock with Vitest-native utilities in icon-button tests ([fffff39](https://github.com/shawn-sandy/fpkit/commit/fffff39aadc02734603d473257ff707142941800))
+* **ui:** add explicit type prop to IconButton for form safety ([72d1fb1](https://github.com/shawn-sandy/fpkit/commit/72d1fb18b1ef867b12d2b2a055f5324f878bd94a))
+* **ui:** ensure typed variant/color props win; update icon-btn tests and a11y ([adc4f71](https://github.com/shawn-sandy/fpkit/commit/adc4f71e82241d45b13f6a26779d4e21af043713))
+* **ui:** increase button height multiplier from 2.25 to 2.75 ([1fcebdb](https://github.com/shawn-sandy/fpkit/commit/1fcebdbcd044ce7217716887630f5d60116314e3))
+* **ui:** move handlers spread after restProps so disabled-state wrappers always take precedence ([87a506d](https://github.com/shawn-sandy/fpkit/commit/87a506db49fc517d40b1944405e750ad4811172b))
+* **ui:** restore currentColor for IconButton — scope color reset to icon-btn only ([9618c15](https://github.com/shawn-sandy/fpkit/commit/9618c15e758e2c01155779893df0db50fd566251))
+* **ui:** scope .btn-pill class selector to button element ([27196a1](https://github.com/shawn-sandy/fpkit/commit/27196a1223493369d8641ec00cd736877183bd37))
+* **ui:** update --btn-pill token from 100rem to 100vw ([d027106](https://github.com/shawn-sandy/fpkit/commit/d027106523a992e9d03d8f20405ac5c97a65347b))
+
+
+### Features
+
+* **popover:** implement native HTML Popover API component ([4903f08](https://github.com/shawn-sandy/fpkit/commit/4903f0899e669b9219f1e5d8a625da37f1b10038))
+* **stories:** add full variant, size, and color coverage to IconButton stories ([ba25f6a](https://github.com/shawn-sandy/fpkit/commit/ba25f6af9f0b2e7c912df58d8c60aee884742a71))
+* **ui:** add block prop to Button for 100% width layout ([fdbb4ad](https://github.com/shawn-sandy/fpkit/commit/fdbb4add686fa4a5f76e6cefa919db39380856cf))
+* **ui:** add size, variant, color typed props to Button ([bdb6a58](https://github.com/shawn-sandy/fpkit/commit/bdb6a5805caea759f22402ebf428c86e99210bd6))
+* **ui:** add xl and 2xl size variants to Button ([86ac484](https://github.com/shawn-sandy/fpkit/commit/86ac4840946e63a9523bf7f2bb8a8f17a5525c2c))
+* **ui:** extract IconButton to own file with a11y, label, and responsive hide ([9021585](https://github.com/shawn-sandy/fpkit/commit/9021585f4acd235f6696ddde34f4eac7f734b4c3))
+
+
+### BREAKING CHANGES
+
+* **popover:** API updated from hover-based (popoverTrigger prop) to click-based
+native implementation (trigger prop). See README.mdx for migration guide.
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+
+
+
+
 ## [Unreleased]
 
 ### BREAKING CHANGES
