@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { userEvent } from "storybook/test";
-import jest from "jest-mock";
+import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
 import { IconButton } from "./icon-button";
 
 const TestIcon = () => <svg data-testid="test-icon" aria-hidden="true" />;
@@ -81,7 +81,7 @@ describe("IconButton", () => {
   });
 
   it("fires the click handler when clicked", async () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     render(
       <IconButton
         type="button"
@@ -94,8 +94,8 @@ describe("IconButton", () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it("does not fire click handler when disabled", () => {
-    const handleClick = jest.fn();
+  it("does not fire click handler when disabled", async () => {
+    const handleClick = vi.fn();
     render(
       <IconButton
         type="button"
@@ -107,7 +107,7 @@ describe("IconButton", () => {
     );
     const button = screen.getByRole("button", { name: "Close" });
     expect(button).toHaveAttribute("aria-disabled", "true");
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(handleClick).toHaveBeenCalledTimes(0);
   });
 
