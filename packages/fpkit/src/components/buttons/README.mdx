@@ -18,19 +18,21 @@ supports various types and styles. It is designed to be reusable and accessible.
 
 ## Props
 
-| Name             | Type                                                 | Default    | Description                                              |
-| ---------------- | ---------------------------------------------------- | ---------- | -------------------------------------------------------- |
-| `type`           | `'button' \| 'submit' \| 'reset'`                    | `'button'` | The button type                                          |
-| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`     | -          | Size variant — maps to `data-btn` attribute              |
-| `variant`        | `'text' \| 'pill' \| 'icon' \| 'outline'`            | -          | Style variant — maps to `data-style` attribute           |
-| `color`          | `'primary' \| 'secondary' \| 'danger' \| 'success' \| 'warning'` | - | Color variant using semantic tokens — maps to `data-color` |
-| `styles`         | `React.CSSProperties`                                | -          | Inline styles for the button                             |
-| `disabled`       | `boolean`                                            | `false`    | Disables the button when set to `true`                   |
-| `classes`        | `string`                                             | -          | Additional CSS classes for the button                    |
-| `onPointerDown`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer down event                          |
-| `onPointerOver`  | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer over event                          |
-| `onPointerLeave` | `(e: React.PointerEvent<HTMLButtonElement>) => void` | -          | Callback for pointer leave event                         |
-| `onClick`        | `(e: React.MouseEvent<HTMLButtonElement>) => void`   | -          | Callback for click event                                 |
+| Name             | Type                                                              | Default    | Description                                                                        |
+| ---------------- | ----------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------- |
+| `type`           | `'button' \| 'submit' \| 'reset'`                                 | `'button'` | The button type                                                                    |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`                  | -          | Size variant — merged into `data-btn`                                              |
+| `variant`        | `'text' \| 'pill' \| 'icon' \| 'outline'`                         | -          | Style variant — maps to `data-style`                                               |
+| `color`          | `'primary' \| 'secondary' \| 'danger' \| 'success' \| 'warning'`  | -          | Color variant using semantic tokens — maps to `data-color`                         |
+| `block`          | `boolean`                                                         | -          | Stretches button to 100% container width — merged into `data-btn` as `"block"`     |
+| `"data-btn"`     | `string`                                                          | -          | Raw `data-btn` tokens. Merged with `size` and `block` into the final attribute     |
+| `styles`         | `React.CSSProperties`                                             | -          | Inline styles — use to override CSS custom properties e.g. `--btn-bg`             |
+| `disabled`       | `boolean`                                                         | `false`    | Disables the button using the `aria-disabled` pattern (stays keyboard-focusable)   |
+| `classes`        | `string`                                                          | -          | Additional CSS classes (merged automatically with `.is-disabled` when disabled)    |
+| `onPointerDown`  | `(e: React.PointerEvent<HTMLButtonElement>) => void`              | -          | Callback for pointer down event                                                    |
+| `onPointerOver`  | `(e: React.PointerEvent<HTMLButtonElement>) => void`              | -          | Callback for pointer over event                                                    |
+| `onPointerLeave` | `(e: React.PointerEvent<HTMLButtonElement>) => void`              | -          | Callback for pointer leave event                                                   |
+| `onClick`        | `(e: React.MouseEvent<HTMLButtonElement>) => void`                | -          | Callback for click event                                                           |
 
 ## Technical Details
 
@@ -95,8 +97,48 @@ import Button from "#components/buttons/button";
 <Button type="button" color="danger" variant="pill">Danger Pill</Button>
 ```
 
-**Note:** The `size` prop merges with any `data-btn` attribute you pass directly,
-so `<Button size="lg" data-btn="pill">` resolves to `data-btn="lg pill"`.
+**Note:** `size`, `block`, and `data-btn` are all merged into a single
+whitespace-separated `data-btn` attribute. `<Button size="lg" block data-btn="pill">`
+resolves to `data-btn="lg block pill"`.
+
+### Block Layout
+
+The `block` prop stretches the button to 100% of its container width. It
+composes freely with `size` and other `data-btn` tokens.
+
+```tsx
+<Button type="button" block>Full Width</Button>
+<Button type="button" size="lg" block color="primary">Large Full Width Primary</Button>
+```
+
+### IconButton
+
+`IconButton` wraps `Button` with enforced accessibility and icon-specific defaults.
+It requires exactly one of `aria-label` or `aria-labelledby` (XOR — passing
+both or neither is a TypeScript compile-time error).
+
+```tsx
+import { IconButton } from "@fpkit/acss";
+
+// Icon only
+<IconButton type="button" aria-label="Close menu" icon={<CloseIcon />} />
+
+// Icon + visible label (label hides on mobile, stays in a11y tree)
+<IconButton
+  type="button"
+  aria-label="Settings"
+  icon={<SettingsIcon />}
+  label="Settings"
+  variant="outline"
+/>
+
+// Labelled by external element
+<span id="btn-lbl">Delete item</span>
+<IconButton type="button" aria-labelledby="btn-lbl" icon={<TrashIcon />} />
+```
+
+**Defaults:** `variant="icon"` (transparent bg, `currentColor` icon color, square touch target).
+Override `variant` to restore padding when using a `label`.
 
 ### Advanced Usage
 
