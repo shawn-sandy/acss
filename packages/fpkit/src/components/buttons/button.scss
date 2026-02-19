@@ -98,7 +98,7 @@ button {
   &[data-fp-btn~="pill"],
   &[data-btn~="pill"],
   &[data-style~="pill"],
-  .btn-pill {
+  &.btn-pill {
     border-radius: var(--btn-pill, 100vw);
   }
 
