@@ -12,6 +12,12 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
      */
     type: "button" | "submit" | "reset";
     /**
+     * Raw data-btn tokens. Merged with `size` and `block` — all three contribute
+     * whitespace-separated words to the final `data-btn` attribute value.
+     * @example <Button data-btn="pill">Pill button</Button>
+     */
+    "data-btn"?: string;
+    /**
      * Size variant - maps to `data-btn` attribute, aligns with SCSS size tokens.
      * Can coexist with a directly passed `data-btn` attribute (values are merged).
      * @example <Button size="sm">Small</Button>
@@ -127,14 +133,14 @@ export const Button = ({
       className: classes,
       // Note: onPointerOver and onPointerLeave are intentionally NOT wrapped
       // to allow hover effects on disabled buttons for visual feedback
-    }
+    },
   );
 
   // Merge size, block, and any explicit data-btn passed by the consumer.
   // SCSS uses [data-btn~="value"] (whitespace word match), so "lg block" targets both.
-  const { "data-btn": dataBtnProp, ...restProps } = props as Record<string, unknown>;
+  const { "data-btn": dataBtnProp, ...restProps } = props;
   const dataBtnValue =
-    [size, block ? "block" : undefined, dataBtnProp as string | undefined]
+    [size, block ? "block" : undefined, dataBtnProp]
       .filter(Boolean)
       .join(" ") || undefined;
 
@@ -142,7 +148,6 @@ export const Button = ({
   return (
     <UI
       as="button"
-      {...restProps}
       {...handlers}
       type={type}
       data-btn={dataBtnValue}
