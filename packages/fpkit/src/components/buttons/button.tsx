@@ -148,7 +148,6 @@ export const Button = ({
   return (
     <UI
       as="button"
-      {...handlers}
       type={type}
       data-btn={dataBtnValue}
       data-style={variant}
@@ -159,6 +158,7 @@ export const Button = ({
       style={styles}
       className={disabledProps.className}
       {...restProps}
+      {...handlers}
     >
       {children}
     </UI>
