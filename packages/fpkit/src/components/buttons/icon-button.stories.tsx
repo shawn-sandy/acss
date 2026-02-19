@@ -109,28 +109,67 @@ export const IconButtonWithLabel: Story = {
 };
 
 /**
- * Size variants — xs through lg.
+ * All style variants — icon (default), outline, text, and pill.
+ * `icon` is the default: transparent background, currentColor icon, square touch target.
+ * Switch `variant` to restore background or border as needed.
  */
-export const IconButtonSizes: Story = {
+export const IconButtonVariants: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-      <IconButton type="button" aria-label="Close (xs)" icon={<CloseIcon />} size="xs" />
-      <IconButton type="button" aria-label="Close (sm)" icon={<CloseIcon />} size="sm" />
-      <IconButton type="button" aria-label="Close (md)" icon={<CloseIcon />} size="md" />
-      <IconButton type="button" aria-label="Close (lg)" icon={<CloseIcon />} size="lg" />
+    <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" }}>
+      <IconButton type="button" aria-label="Icon variant (default)" icon={<SettingsIcon />} />
+      <IconButton type="button" aria-label="Outline variant" icon={<SettingsIcon />} variant="outline" />
+      <IconButton type="button" aria-label="Text variant" icon={<SettingsIcon />} variant="text" />
+      <IconButton type="button" aria-label="Pill variant" icon={<SettingsIcon />} variant="pill" />
     </div>
   ),
 };
 
 /**
- * Color variants using semantic design tokens.
+ * Size variants — xs through 2xl. Height and touch target scale with font size
+ * via the `--btn-height: calc(var(--btn-fs) * 2.75)` formula.
+ */
+export const IconButtonSizes: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" }}>
+      <IconButton type="button" aria-label="Close (xs)" icon={<CloseIcon />} size="xs" />
+      <IconButton type="button" aria-label="Close (sm)" icon={<CloseIcon />} size="sm" />
+      <IconButton type="button" aria-label="Close (md)" icon={<CloseIcon />} size="md" />
+      <IconButton type="button" aria-label="Close (lg)" icon={<CloseIcon />} size="lg" />
+      <IconButton type="button" aria-label="Close (xl)" icon={<CloseIcon />} size="xl" />
+      <IconButton type="button" aria-label="Close (2xl)" icon={<CloseIcon />} size="2xl" />
+    </div>
+  ),
+};
+
+/**
+ * All semantic color variants. Color sets `--btn-bg` and `--btn-color` via
+ * `data-color` — icon buttons keep a transparent background by default so the
+ * icon itself inherits the color token via `currentColor`.
  */
 export const IconButtonColors: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-      <IconButton type="button" aria-label="Primary action" icon={<SettingsIcon />} color="primary" />
-      <IconButton type="button" aria-label="Secondary action" icon={<SettingsIcon />} color="secondary" />
-      <IconButton type="button" aria-label="Danger action" icon={<TrashIcon />} color="danger" />
+    <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" }}>
+      <IconButton type="button" aria-label="Primary" icon={<SettingsIcon />} color="primary" />
+      <IconButton type="button" aria-label="Secondary" icon={<SettingsIcon />} color="secondary" />
+      <IconButton type="button" aria-label="Danger" icon={<TrashIcon />} color="danger" />
+      <IconButton type="button" aria-label="Success" icon={<CloseIcon />} color="success" />
+      <IconButton type="button" aria-label="Warning" icon={<CloseIcon />} color="warning" />
+    </div>
+  ),
+};
+
+/**
+ * Outline variant across all color tokens. The `outline` variant restores a border
+ * and uses `currentColor` for both border and icon — color sets the inherited value.
+ */
+export const IconButtonOutlineColors: Story = {
+  render: () => (
+    <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" }}>
+      <IconButton type="button" aria-label="Primary outline" icon={<SettingsIcon />} variant="outline" color="primary" />
+      <IconButton type="button" aria-label="Secondary outline" icon={<SettingsIcon />} variant="outline" color="secondary" />
+      <IconButton type="button" aria-label="Danger outline" icon={<TrashIcon />} variant="outline" color="danger" />
+      <IconButton type="button" aria-label="Success outline" icon={<CloseIcon />} variant="outline" color="success" />
+      <IconButton type="button" aria-label="Warning outline" icon={<CloseIcon />} variant="outline" color="warning" />
     </div>
   ),
 };
