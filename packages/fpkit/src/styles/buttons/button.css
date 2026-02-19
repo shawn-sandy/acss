@@ -72,8 +72,7 @@ button[type=submit] {
   --btn-color: var(--color-text-inverse);
   --btn-border: none;
 }
-button[data-fp-btn~=pill], button[data-btn~=pill], button[data-style~=pill],
-button .btn-pill {
+button[data-fp-btn~=pill], button[data-btn~=pill], button[data-style~=pill], button.btn-pill {
   border-radius: var(--btn-pill, 100vw);
 }
 button[data-color=primary] {
