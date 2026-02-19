@@ -31,6 +31,34 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
   <Button type="button" color="primary">Action</Button>
   ```
 
+* **button:** Button height multiplier increased from `2.25` to `2.75`
+
+  The `--btn-height` calc multiplier was raised for better touch-target compliance (≥44 px at the default `--btn-size-md`). All buttons are approximately 22% taller than in the previous release.
+
+  **Who is affected:** Layouts that allocate a fixed vertical slot for buttons, or that depended on the previous `calc(var(--btn-fs) * 2.25)` computed height.
+
+  **Migration:** Override `--btn-height` in your stylesheet to restore previous sizing:
+
+  ```css
+  button {
+    --btn-height: calc(var(--btn-fs) * 2.25);
+  }
+  ```
+
+* **button:** `.btn-pill` CSS class now scoped to `button.btn-pill` only
+
+  The rule was changed from `.btn-pill { border-radius: ... }` to `button.btn-pill { ... }`, so pill border-radius no longer applies to non-`<button>` elements carrying the class (e.g. `<div class="btn-pill">` or `<a class="btn-pill">`).
+
+  **Who is affected:** Consumers who applied `.btn-pill` to non-button HTML elements.
+
+  **Migration:** Use `data-style="pill"` or `data-btn="pill"` attributes (element-agnostic), or apply the radius directly:
+
+  ```css
+  .my-pill-element {
+    border-radius: var(--btn-pill, 100vw);
+  }
+  ```
+
 ### Deprecated
 
 * **popover:** Deprecate legacy `usePopover` hook and old Popover component in favor of native HTML Popover API implementation

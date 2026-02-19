@@ -46,7 +46,7 @@ button {
   --btn-fs: var(--btn-size-md);
 
   /* Dynamic height based on font size */
-  --btn-height: calc(var(--btn-fs) * 2.75);
+  --btn-height: calc(var(--btn-fs) * 2.75); /* ⚠️ changed from * 2.25, see CHANGELOG */
 }
 ```
 
@@ -336,6 +336,8 @@ button[data-btn~="pill"] {
 }
 ```
 
+> **⚠️ Breaking change:** The `.btn-pill` CSS class selector was scoped to `button.btn-pill` only. Applying `.btn-pill` to non-`<button>` elements (e.g. `<div>`, `<a>`) no longer sets the border-radius. Use `data-style="pill"` or `data-btn="pill"` attributes instead, which remain element-agnostic.
+
 **Example:**
 
 ```html
@@ -376,6 +378,8 @@ button[data-btn~="icon"] {
 <button data-btn="icon" aria-label="Close">✕</button>
 <button data-btn="icon lg" aria-label="Menu">☰</button>
 ```
+
+**IconButton label visibility:** When using the `IconButton` React component with the `label` prop, the label text is visually hidden below `48rem` (768px) but remains in the accessibility tree at all viewport sizes.
 
 ### Text Button
 
