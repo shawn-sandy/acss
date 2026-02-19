@@ -74,10 +74,10 @@ describe("IconButton", () => {
     expect(document.querySelector("[data-icon-label]")).toBeNull();
   });
 
-  it("does not set data-icon-btn when label is omitted", () => {
+  it("sets data-icon-btn to 'icon' when label is omitted", () => {
     render(<IconButton type="button" aria-label="Close" icon={<TestIcon />} />);
     const button = screen.getByRole("button", { name: "Close" });
-    expect(button).not.toHaveAttribute("data-icon-btn");
+    expect(button).toHaveAttribute("data-icon-btn", "icon");
   });
 
   it("fires the click handler when clicked", async () => {

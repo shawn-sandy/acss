@@ -142,6 +142,8 @@ export const Button = ({
   return (
     <UI
       as="button"
+      {...restProps}
+      {...handlers}
       type={type}
       data-btn={dataBtnValue}
       data-style={variant}
@@ -151,7 +153,6 @@ export const Button = ({
       onPointerLeave={onPointerLeave}
       style={styles}
       className={disabledProps.className}
-      {...handlers}
       {...restProps}
     >
       {children}
