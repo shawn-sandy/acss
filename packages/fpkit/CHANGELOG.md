@@ -111,10 +111,6 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
   - Responsive variants for all four breakpoints: `sm:hide`, `sm:show`, `sm:invisible`, `md:hide`, `md:show`, `md:invisible`, `lg:hide`, `lg:show`, `lg:invisible`, `xl:hide`, `xl:show`, `xl:invisible`
   - All utilities use `!important` to override component-level specificity
 
-* **ui:** add `showLabel` prop to `IconButton`
-  - `showLabel={false}` (default): label is rendered as `sr-only` on all viewports — screen readers announce it, sighted users see icon only.
-  - `showLabel={true}`: label is visible; the `$icon-label-bp` SCSS breakpoint (`48rem` / 768px) controls responsive hiding (hidden below, visible above).
-
 ### Deprecated
 
 * **popover:** Deprecate legacy `usePopover` hook and old Popover component in favor of native HTML Popover API implementation

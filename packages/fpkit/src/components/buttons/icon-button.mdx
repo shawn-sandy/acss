@@ -28,9 +28,8 @@ is a compile-time error.
 | `icon`            | `React.ReactNode`                                                    | —          | **Required.** The icon element rendered inside the button.                                   |
 | `aria-label`      | `string`                                                             | —          | Accessible name for icon-only buttons. XOR with `aria-labelledby`.                          |
 | `aria-labelledby` | `string`                                                             | —          | References an external element's `id` as the accessible name. XOR with `aria-label`.        |
-| `label`           | `string`                                                             | —          | Optional label text. Always in the accessibility tree. Visual rendering controlled by `showLabel`.|
+| `label`           | `string`                                                             | —          | Optional label text alongside the icon. Hidden below `48rem` (768px); always in the accessibility tree.|
 | `type`            | `'button' \| 'submit' \| 'reset'`                                    | `'button'` | Button type attribute. Required.                                                             |
-| `showLabel`       | `boolean`                                                            | `false`    | `false`: label is `sr-only` (always visually hidden). `true`: label visible; CSS breakpoint hides it below `48rem`.|
 | `variant`         | `'icon' \| 'outline' \| 'text' \| 'pill'`                           | `'icon'`   | Style variant. Default `'icon'` gives a transparent, square, no-padding button.             |
 | `size`            | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`                    | —          | Size token. Scales font size and height via `--btn-fs`.                                      |
 | `color`           | `'primary' \| 'secondary' \| 'danger' \| 'success' \| 'warning'`   | —          | Semantic color token. Sets `--btn-bg` and `--btn-color` via `data-color`.                   |
@@ -67,30 +66,16 @@ for a consistent touch target.
 ## Label Visibility
 
 When `label` is provided, the text is rendered in a `<span data-icon-label>`.
-Visual rendering depends on the `showLabel` prop:
+Visibility is controlled entirely by CSS — no prop required:
 
-| `showLabel` | Result |
-| ----------- | ------ |
-| `false` (default) | Label receives the `sr-only` class — visually hidden on **all** viewport sizes. Screen readers always announce it. |
-| `true` | Label is fully visible. The `$icon-label-bp` CSS media query controls responsive hiding: hidden below `48rem` (768px), visible above. |
+- **Below `48rem` (768px):** the span is visually hidden via the visually-hidden
+  technique applied by the `[data-icon-label]` media query in `icon-button.scss`.
+  The span remains in the DOM and the accessibility tree — screen readers
+  announce the label at every viewport size.
+- **At `48rem` and above:** the label is fully visible alongside the icon.
 
-```tsx
-// Always sr-only — icon-only appearance at every breakpoint
-<IconButton type="button" aria-label="Settings" icon={<GearIcon />} label="Settings" />
-
-// Responsive — icon-only on mobile, icon + label on desktop
-<IconButton
-  type="button"
-  aria-label="Settings"
-  icon={<GearIcon />}
-  label="Settings"
-  showLabel
-  variant="outline"
-/>
-```
-
-The responsive breakpoint is a SCSS variable (not a CSS custom property) because
-media query conditions are evaluated at parse time and cannot reference runtime values:
+The breakpoint is a SCSS variable (not a CSS custom property) because media
+query conditions are evaluated at parse time and cannot reference runtime values:
 
 ```scss
 $icon-label-bp: 48rem !default; // Override before import to customise
@@ -117,9 +102,9 @@ import { IconButton } from "@fpkit/acss";
 
 ### Icon + visible label
 
-Pass `showLabel` to make the label visually rendered. Use `variant="outline"`
-(or any non-`icon` variant) to restore padding alongside the label. The default
-`variant="icon"` sets `padding: 0`, which collapses the layout around a label.
+Use `variant="outline"` (or any non-`icon` variant) to restore padding alongside
+the label. The default `variant="icon"` sets `padding: 0`, which collapses the
+layout around a label. The label hides automatically on mobile (< 48rem) via CSS.
 
 ```tsx
 <IconButton
@@ -127,17 +112,8 @@ Pass `showLabel` to make the label visually rendered. Use `variant="outline"`
   aria-label="Settings"
   icon={<SettingsIcon />}
   label="Settings"
-  showLabel
   variant="outline"
 />
-```
-
-Without `showLabel`, the label is sr-only regardless of viewport width — useful
-when you want screen reader announcement but an icon-only visual:
-
-```tsx
-// sr-only label: screen reader says "Settings", sighted users see icon only
-<IconButton type="button" aria-label="Settings" icon={<SettingsIcon />} label="Settings" />
 ```
 
 ### Labelled by external element

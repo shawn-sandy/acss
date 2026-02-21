@@ -14,37 +14,24 @@ export type IconButtonProps = Omit<ButtonProps, "children"> &
     /** The icon element rendered inside the button. */
     icon: React.ReactNode;
     /**
-     * Optional text label rendered alongside the icon.
-     * Always present in the accessibility tree — screen readers announce it regardless of
-     * visual state. Visual rendering depends on `showLabel`:
-     * - `showLabel={false}` (default): rendered as `sr-only` — never visually shown.
-     * - `showLabel={true}`: visible; the `$icon-label-bp` CSS breakpoint controls
-     *   responsive hiding (hidden below 48rem / 768px, shown above).
+     * Optional text shown alongside the icon at desktop widths.
+     * Visually hidden below the `$icon-label-bp` SCSS breakpoint (default 48rem / 768px)
+     * via a media query on `[data-icon-label]`, but always present in the accessibility
+     * tree — screen readers announce it at every viewport size.
      *
      * NOTE: When `label` is provided, the default `variant="icon"` removes padding.
-     * Use `variant="outline"` (or another padded variant) alongside `showLabel={true}`
-     * for a correctly spaced icon + label layout.
+     * Use `variant="outline"` (or another padded variant) to restore layout padding
+     * alongside the label.
      */
     label?: string;
     /** Button type: button, submit, or reset. Required. */
     type: "button" | "submit" | "reset";
-    /**
-     * Controls label visibility across all viewports.
-     * - `false` (default): label receives `sr-only` — screen readers always announce it,
-     *   but it is never visually rendered regardless of viewport width.
-     * - `true`: label is fully visible; the `$icon-label-bp` CSS media query then controls
-     *   responsive hiding (visible at `>= 48rem`, visually hidden below).
-     *
-     * Use `showLabel={true}` with a non-`icon` variant (e.g. `variant="outline"`)
-     * to restore layout padding alongside the label.
-     */
-    showLabel?: boolean;
   };
 
 /**
  * Accessible icon button component. Wraps `Button` with:
  * - Required accessible label via `aria-label` or `aria-labelledby` (XOR enforced)
- * - Optional `label` text (always in a11y tree; visual rendering controlled by `showLabel`)
+ * - Optional `label` text hidden on mobile (< 48rem), visible on desktop — always in a11y tree
  * - `variant="icon"` default (square, no padding)
  * - Fixed `3rem × 3rem` tap target (48px at default root font size — WCAG 2.5.5 AAA)
  *
@@ -53,13 +40,12 @@ export type IconButtonProps = Omit<ButtonProps, "children"> &
  * <IconButton type="button" aria-label="Close menu" icon={<CloseIcon />} />
  *
  * @example
- * // Icon + responsive label (visible at >= 48rem, sr-only below)
+ * // Icon + label (label hides on mobile, visible at >= 48rem / 768px)
  * <IconButton
  *   type="button"
  *   aria-label="Settings"
  *   icon={<SettingsIcon />}
  *   label="Settings"
- *   showLabel
  *   variant="outline"
  * />
  *
@@ -73,7 +59,6 @@ export const IconButton = ({
   label,
   variant = "icon",
   type = "button",
-  showLabel = false,
   ...props
 }: IconButtonProps) => (
   <Button
@@ -83,11 +68,7 @@ export const IconButton = ({
     type={type}
   >
     {icon}
-    {label && (
-      <span data-icon-label className={showLabel ? "" : "sr-only"}>
-        {label}
-      </span>
-    )}
+    {label && <span data-icon-label>{label}</span>}
   </Button>
 );
 
