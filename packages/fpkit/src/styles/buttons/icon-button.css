@@ -1,15 +1,21 @@
-button[data-icon-btn],
-.icon-btn {
+button[data-icon-btn], button.icon-btn {
   --btn-color: currentColor;
+  padding-inline: 0;
+  padding-block: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button[data-icon-btn~=has-label],
-.icon-btn[data-icon-btn~=has-label] {
+button.icon-btn[data-icon-btn~=has-label] {
   gap: 0.375rem;
   padding-inline: 0.75rem;
 }
 button[data-icon-btn~=has-label] [data-icon-label],
-.icon-btn[data-icon-btn~=has-label] [data-icon-label] {
+button.icon-btn[data-icon-btn~=has-label] [data-icon-label] {
   font-size: var(--btn-fs, 0.875rem);
   line-height: 1;
   white-space: nowrap;
