@@ -15,11 +15,13 @@ export type IconButtonProps = Omit<ButtonProps, "children"> &
     icon: React.ReactNode;
     /**
      * Optional text shown alongside the icon at desktop widths.
-     * Hidden visually below the `$icon-label-bp` SCSS breakpoint (default 48rem / 768px),
-     * but remains in the accessibility tree — screen readers always announce it.
+     * Visually hidden below the `$icon-label-bp` SCSS breakpoint (default 48rem / 768px)
+     * via a media query on `[data-icon-label]`, but always present in the accessibility
+     * tree — screen readers announce it at every viewport size.
      *
-     * NOTE: When `label` is used, the default `variant="icon"` removes padding.
-     * Override with a different variant (e.g. `variant="outline"`) for a padded layout.
+     * NOTE: When `label` is provided, the default `variant="icon"` removes padding.
+     * Use `variant="outline"` (or another padded variant) to restore layout padding
+     * alongside the label.
      */
     label?: string;
     /** Button type: button, submit, or reset. Required. */
@@ -29,15 +31,16 @@ export type IconButtonProps = Omit<ButtonProps, "children"> &
 /**
  * Accessible icon button component. Wraps `Button` with:
  * - Required accessible label via `aria-label` or `aria-labelledby` (XOR enforced)
- * - Optional visible `label` text that hides on mobile (visual only — always in a11y tree)
+ * - Optional `label` text hidden on mobile (< 48rem), visible on desktop — always in a11y tree
  * - `variant="icon"` default (square, no padding)
+ * - Fixed `3rem × 3rem` tap target (48px at default root font size — WCAG 2.5.5 AAA)
  *
  * @example
  * // Icon only
  * <IconButton type="button" aria-label="Close menu" icon={<CloseIcon />} />
  *
  * @example
- * // Icon + label (label hides on mobile)
+ * // Icon + label (label hides on mobile, visible at >= 48rem / 768px)
  * <IconButton
  *   type="button"
  *   aria-label="Settings"

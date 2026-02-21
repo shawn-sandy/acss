@@ -98,6 +98,19 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
   }
   ```
 
+### Bug Fixes
+
+* **ui:** convert `IconButton` tap-target dimensions from px to rem — `width: 3rem; height: 3rem` (48px at default root font size) replaces any previously-hardcoded pixel values, ensuring the touch target scales with the user's font-size preference (WCAG 2.5.5 AAA).
+
+### Features
+
+* **utilities:** add responsive display/visibility utilities (`_display.scss`)
+  - `.hide` / `.show` / `.invisible` — base display control
+  - `.sr-only` / `.sr-only-focusable` — accessibility (WCAG 1.3.1, 2.4.1) visually-hidden utilities
+  - `.print:hide` — suppress elements in print media
+  - Responsive variants for all four breakpoints: `sm:hide`, `sm:show`, `sm:invisible`, `md:hide`, `md:show`, `md:invisible`, `lg:hide`, `lg:show`, `lg:invisible`, `xl:hide`, `xl:show`, `xl:invisible`
+  - All utilities use `!important` to override component-level specificity
+
 ### Deprecated
 
 * **popover:** Deprecate legacy `usePopover` hook and old Popover component in favor of native HTML Popover API implementation
