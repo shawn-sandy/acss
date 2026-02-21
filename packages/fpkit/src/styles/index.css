@@ -898,6 +898,141 @@ h6:has(span:first-of-type) > span {
   border-color: transparent;
 }
 
+/* Display / visibility utilities */
+/* ============================================================================
+   DISPLAY UTILITIES - Visibility and Display Control
+   ============================================================================
+
+   Utility classes for showing/hiding elements at any breakpoint.
+   All utilities use !important to win specificity over component styles.
+
+   Breakpoints (matching flex.scss):
+   - sm: 30rem (480px)
+   - md: 48rem (768px)
+   - lg: 62rem (992px)
+   - xl: 80rem (1280px)
+
+   Usage:
+   <div class="hide">Always hidden</div>
+   <div class="hide md:show">Hidden on mobile, shown at md+</div>
+   <span class="sr-only">Screen reader only</span>
+   <a href="#main" class="sr-only-focusable">Skip link</a>
+   <nav class="print:hide">Not printed</nav>
+   ============================================================================ */
+/* Base utilities (no breakpoint)
+   ========================================================================== */
+/** Removes element from layout and accessibility tree */
+.hide {
+  display: none !important;
+}
+
+/** Restores browser default display per element type */
+.show {
+  display: revert !important;
+}
+
+/** Hides element visually but preserves layout space */
+.invisible {
+  visibility: hidden !important;
+}
+
+/* Accessibility utilities
+   ========================================================================== */
+/** Visually hidden but present in the accessibility tree */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/** sr-only that becomes visible on focus — for skip links (WCAG 2.4.1) */
+.sr-only-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.sr-only-focusable:focus, .sr-only-focusable:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Print variant
+   ========================================================================== */
+@media print {
+  .print\:hide {
+    display: none !important;
+  }
+}
+/* Responsive variants — sm (30rem / 480px)
+   ========================================================================== */
+@media (width >= 30rem) {
+  .sm\:hide {
+    display: none !important;
+  }
+  .sm\:show {
+    display: revert !important;
+  }
+  .sm\:invisible {
+    visibility: hidden !important;
+  }
+}
+/* Responsive variants — md (48rem / 768px)
+   ========================================================================== */
+@media (width >= 48rem) {
+  .md\:hide {
+    display: none !important;
+  }
+  .md\:show {
+    display: revert !important;
+  }
+  .md\:invisible {
+    visibility: hidden !important;
+  }
+}
+/* Responsive variants — lg (62rem / 992px)
+   ========================================================================== */
+@media (width >= 62rem) {
+  .lg\:hide {
+    display: none !important;
+  }
+  .lg\:show {
+    display: revert !important;
+  }
+  .lg\:invisible {
+    visibility: hidden !important;
+  }
+}
+/* Responsive variants — xl (80rem / 1280px)
+   ========================================================================== */
+@media (width >= 80rem) {
+  .xl\:hide {
+    display: none !important;
+  }
+  .xl\:show {
+    display: revert !important;
+  }
+  .xl\:invisible {
+    visibility: hidden !important;
+  }
+}
 button {
   --btn-size-xs: 0.6875rem;
   --btn-size-sm: 0.8125rem;
@@ -4453,19 +4588,6 @@ li:has(> button) {
     transition: none;
   }
 }
-/* Screen reader only utility class */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 [role=alert] {
   /* Success colors - WCAG AA compliant (mapped to semantic tokens) */
   --alert-success-bg: var(--color-success-bg);
