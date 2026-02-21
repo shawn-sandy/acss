@@ -1,0 +1,228 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.React Components/Buttons/IconButton/Readme" />
+
+# IconButton
+
+## Summary
+
+`IconButton` is an accessible icon-button component that wraps the base `Button`
+with enforced accessible labelling and icon-specific defaults.
+
+It handles the two most common icon-button patterns:
+
+- **Icon-only** — a square tap target with a screen-reader label
+- **Icon + label** — icon with visible text that hides on narrow viewports
+
+`IconButton` extends all `Button` props (`size`, `variant`, `color`, `disabled`,
+etc.) and enforces one critical constraint at the TypeScript level: exactly one
+of `aria-label` or `aria-labelledby` must be present — passing both or neither
+is a compile-time error.
+
+---
+
+## Props
+
+| Prop              | Type                                                                 | Default    | Description                                                                                  |
+| ----------------- | -------------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------- |
+| `icon`            | `React.ReactNode`                                                    | —          | **Required.** The icon element rendered inside the button.                                   |
+| `aria-label`      | `string`                                                             | —          | Accessible name for icon-only buttons. XOR with `aria-labelledby`.                          |
+| `aria-labelledby` | `string`                                                             | —          | References an external element's `id` as the accessible name. XOR with `aria-label`.        |
+| `label`           | `string`                                                             | —          | Optional label text. Always in the accessibility tree. Visual rendering controlled by `showLabel`.|
+| `type`            | `'button' \| 'submit' \| 'reset'`                                    | `'button'` | Button type attribute. Required.                                                             |
+| `showLabel`       | `boolean`                                                            | `false`    | `false`: label is `sr-only` (always visually hidden). `true`: label visible; CSS breakpoint hides it below `48rem`.|
+| `variant`         | `'icon' \| 'outline' \| 'text' \| 'pill'`                           | `'icon'`   | Style variant. Default `'icon'` gives a transparent, square, no-padding button.             |
+| `size`            | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`                    | —          | Size token. Scales font size and height via `--btn-fs`.                                      |
+| `color`           | `'primary' \| 'secondary' \| 'danger' \| 'success' \| 'warning'`   | —          | Semantic color token. Sets `--btn-bg` and `--btn-color` via `data-color`.                   |
+| `disabled`        | `boolean`                                                            | `false`    | Disables the button using WCAG-compliant `aria-disabled` (stays keyboard-focusable).        |
+| `onClick`         | `(e: React.MouseEvent<HTMLButtonElement>) => void`                   | —          | Click handler.                                                                               |
+| `styles`          | `React.CSSProperties`                                                | —          | Inline styles — use to override CSS custom properties e.g. `--btn-color: red`.             |
+| `classes`         | `string`                                                             | —          | Additional CSS classes appended to the button element.                                       |
+
+---
+
+## Sizing — 3rem Fixed Tap Target
+
+The default `variant="icon"` applies a fixed `width: 3rem; height: 3rem` to
+every `IconButton` instance:
+
+```css
+button[data-icon-btn] {
+  width: 3rem;   /* 48px at default font size */
+  height: 3rem;  /* 48px at default font size */
+}
+```
+
+`3rem` equals **48px** at the browser's default 16px root font size, meeting
+the WCAG 2.5.5 (AAA) minimum target size recommendation of 44×44 CSS pixels.
+The fixed size ensures a consistent, touchable target regardless of icon size
+or parent context.
+
+When a `label` is present (the `has-label` variant), width becomes `max-content`
+and padding is restored to `0.75rem` inline, but the `3rem` height is preserved
+for a consistent touch target.
+
+---
+
+## Label Visibility
+
+When `label` is provided, the text is rendered in a `<span data-icon-label>`.
+Visual rendering depends on the `showLabel` prop:
+
+| `showLabel` | Result |
+| ----------- | ------ |
+| `false` (default) | Label receives the `sr-only` class — visually hidden on **all** viewport sizes. Screen readers always announce it. |
+| `true` | Label is fully visible. The `$icon-label-bp` CSS media query controls responsive hiding: hidden below `48rem` (768px), visible above. |
+
+```tsx
+// Always sr-only — icon-only appearance at every breakpoint
+<IconButton type="button" aria-label="Settings" icon={<GearIcon />} label="Settings" />
+
+// Responsive — icon-only on mobile, icon + label on desktop
+<IconButton
+  type="button"
+  aria-label="Settings"
+  icon={<GearIcon />}
+  label="Settings"
+  showLabel
+  variant="outline"
+/>
+```
+
+The responsive breakpoint is a SCSS variable (not a CSS custom property) because
+media query conditions are evaluated at parse time and cannot reference runtime values:
+
+```scss
+$icon-label-bp: 48rem !default; // Override before import to customise
+```
+
+---
+
+## Usage Examples
+
+### Icon-only button
+
+Requires `aria-label`. The label is only announced by screen readers — not
+visible on screen.
+
+```tsx
+import { IconButton } from "@fpkit/acss";
+
+<IconButton
+  type="button"
+  aria-label="Close menu"
+  icon={<CloseIcon />}
+/>
+```
+
+### Icon + visible label
+
+Pass `showLabel` to make the label visually rendered. Use `variant="outline"`
+(or any non-`icon` variant) to restore padding alongside the label. The default
+`variant="icon"` sets `padding: 0`, which collapses the layout around a label.
+
+```tsx
+<IconButton
+  type="button"
+  aria-label="Settings"
+  icon={<SettingsIcon />}
+  label="Settings"
+  showLabel
+  variant="outline"
+/>
+```
+
+Without `showLabel`, the label is sr-only regardless of viewport width — useful
+when you want screen reader announcement but an icon-only visual:
+
+```tsx
+// sr-only label: screen reader says "Settings", sighted users see icon only
+<IconButton type="button" aria-label="Settings" icon={<SettingsIcon />} label="Settings" />
+```
+
+### Labelled by external element
+
+Use `aria-labelledby` to reference an existing label element in the DOM. Useful
+when the button sits next to a heading or description that already names the action.
+
+```tsx
+<span id="delete-label">Delete item</span>
+<IconButton
+  type="button"
+  aria-labelledby="delete-label"
+  icon={<TrashIcon />}
+/>
+```
+
+### Semantic color variants
+
+Color tokens apply to the icon via `currentColor` — the icon's `stroke` or
+`fill` inherits the button's `--btn-color`.
+
+```tsx
+<IconButton type="button" aria-label="Delete" icon={<TrashIcon />} color="danger" />
+<IconButton type="button" aria-label="Confirm" icon={<CheckIcon />} color="success" />
+<IconButton type="button" aria-label="Settings" icon={<GearIcon />} color="primary" variant="outline" />
+```
+
+### Disabled state
+
+Uses the WCAG-compliant `aria-disabled` pattern — the button remains focusable
+and visible in the tab order so keyboard users can discover it and read any
+associated tooltip or help text.
+
+```tsx
+<IconButton
+  type="button"
+  aria-label="Upload (unavailable)"
+  icon={<UploadIcon />}
+  disabled
+/>
+```
+
+### Custom color via CSS custom property
+
+```tsx
+<IconButton
+  type="button"
+  aria-label="Star"
+  icon={<StarIcon />}
+  styles={{ "--btn-color": "#f59e0b" }}
+/>
+```
+
+---
+
+## Accessibility Notes
+
+- **`aria-label` is required** for icon-only buttons. An icon with no label
+  gives screen reader users no indication of the button's purpose.
+- **XOR enforcement** — the TypeScript type allows exactly one of `aria-label`
+  or `aria-labelledby`. Passing both or neither is a compile-time error.
+- **`label` does not replace `aria-label`** — even when a visible `label` is
+  provided, you must still pass `aria-label` (or `aria-labelledby`). The `label`
+  prop controls visual presentation only; `aria-label` provides the computed
+  accessible name.
+- **`disabled` keeps focus** — `IconButton` uses `aria-disabled="true"` instead
+  of the native `disabled` attribute. The button stays in the tab order and can
+  receive focus, satisfying WCAG 2.1.1 (Keyboard) and 4.1.2 (Name, Role, Value).
+- **Icon `aria-hidden`** — always render icons with `aria-hidden="true"` so
+  screen readers do not double-announce both the SVG content and the button label.
+
+```tsx
+// Correct — icon is decorative, label carries the meaning
+<IconButton
+  type="button"
+  aria-label="Close"
+  icon={<svg aria-hidden="true">...</svg>}
+/>
+```
+
+---
+
+## Related
+
+- [Button README](./README.mdx) — base `Button` props and variants
+- [Button Styles](./STYLES.mdx) — full CSS custom property reference
+- [WCAG 2.5.5 Target Size](https://www.w3.org/WAI/WCAG21/Understanding/target-size.html)
+- [WCAG 2.4.1 Bypass Blocks](https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html)
