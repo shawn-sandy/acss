@@ -1,0 +1,203 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="FP.React Components/Utilities/Display/Readme" />
+
+# Display & Visibility Utilities
+
+## Summary
+
+`_display.scss` provides a set of atomic utility classes for controlling element
+visibility and display at any breakpoint. These utilities use `!important` to
+override component-level specificity, making them reliable for layout corrections
+and responsive show/hide patterns.
+
+The utility layer covers four concerns:
+
+- **Layout hiding** — remove an element from the layout and accessibility tree
+- **Visual hiding** — hide visually while preserving layout space
+- **Accessibility hiding** — hide visually but keep the element in the a11y tree
+- **Print control** — suppress elements when printing
+
+---
+
+## Base Class Reference
+
+| Class              | CSS Applied                          | Effect                                              |
+| ------------------ | ------------------------------------ | --------------------------------------------------- |
+| `.hide`            | `display: none !important`           | Removed from layout and accessibility tree           |
+| `.show`            | `display: revert !important`         | Restores browser default display for the element    |
+| `.invisible`       | `visibility: hidden !important`      | Visually hidden; layout space is preserved (ghost)  |
+| `.sr-only`         | Visually-hidden technique (absolute) | Hidden visually; announced by screen readers        |
+| `.sr-only-focusable` | sr-only + visible on `:focus`      | Skip-link pattern — visible on keyboard focus       |
+| `.print:hide`      | `display: none !important` in print  | Hidden when printing; visible on screen             |
+
+---
+
+## Responsive Class Reference
+
+Each breakpoint prefix applies its utility at that viewport width **and above**
+(mobile-first). Combine with a base class to create responsive patterns.
+
+| Class          | Breakpoint      | CSS Applied                     |
+| -------------- | --------------- | ------------------------------- |
+| `.sm:hide`     | `>= 30rem`      | `display: none !important`      |
+| `.sm:show`     | `>= 30rem`      | `display: revert !important`    |
+| `.sm:invisible`| `>= 30rem`      | `visibility: hidden !important` |
+| `.md:hide`     | `>= 48rem`      | `display: none !important`      |
+| `.md:show`     | `>= 48rem`      | `display: revert !important`    |
+| `.md:invisible`| `>= 48rem`      | `visibility: hidden !important` |
+| `.lg:hide`     | `>= 62rem`      | `display: none !important`      |
+| `.lg:show`     | `>= 62rem`      | `display: revert !important`    |
+| `.lg:invisible`| `>= 62rem`      | `visibility: hidden !important` |
+| `.xl:hide`     | `>= 80rem`      | `display: none !important`      |
+| `.xl:show`     | `>= 80rem`      | `display: revert !important`    |
+| `.xl:invisible`| `>= 80rem`      | `visibility: hidden !important` |
+
+---
+
+## Breakpoint Reference
+
+Breakpoints match the flex layout system (`flex.scss`).
+
+| Token | rem    | px     |
+| ----- | ------ | ------ |
+| `sm`  | 30rem  | 480px  |
+| `md`  | 48rem  | 768px  |
+| `lg`  | 62rem  | 992px  |
+| `xl`  | 80rem  | 1280px |
+
+---
+
+## Responsive Patterns
+
+### Mobile-only element (hide at `md` and above)
+
+```html
+<div class="md:hide">Only visible on mobile</div>
+```
+
+### Desktop-only element (hide by default, show at `md` and above)
+
+```html
+<div class="hide md:show">Only visible at 768px+</div>
+```
+
+### Large screen only
+
+```html
+<nav class="hide lg:show">Desktop navigation</nav>
+```
+
+### Invisible placeholder on wide screens
+
+Preserve the layout gap while hiding the element visually at `xl`:
+
+```html
+<div class="xl:invisible">Takes up space but invisible at 1280px+</div>
+```
+
+### Stacked responsive rules
+
+Classes compose additively. This element hides at `sm` but reappears at `lg`:
+
+```html
+<aside class="sm:hide lg:show">Sidebar</aside>
+```
+
+> **Note:** Because each breakpoint class uses `!important`, later (wider)
+> breakpoints win over earlier ones when viewport conditions overlap.
+
+---
+
+## Accessibility Utilities
+
+### `.sr-only` — Screen-reader-only content
+
+Hides an element visually using the established visually-hidden technique, while
+keeping it present in the accessibility tree so screen readers still announce it.
+
+```html
+<span class="sr-only">Current page: Home</span>
+
+<button>
+  <svg aria-hidden="true"><!-- icon --></svg>
+  <span class="sr-only">Close dialog</span>
+</button>
+```
+
+WCAG reference: SC 1.3.1 Info and Relationships — meaningful content must be
+programmatically determinable.
+
+### `.sr-only-focusable` — Skip links (WCAG 2.4.1)
+
+Behaves like `.sr-only` until the element receives keyboard focus, at which
+point it becomes fully visible. The standard pattern for skip-navigation links.
+
+```html
+<a href="#main-content" class="sr-only-focusable">Skip to main content</a>
+
+<main id="main-content">
+  <!-- page content -->
+</main>
+```
+
+On focus, the element snaps back to `position: static`, `width: auto`,
+`height: auto` — appearing at its natural position in the document flow.
+
+WCAG reference: SC 2.4.1 Bypass Blocks — a mechanism to skip repeated
+navigation is required for keyboard users.
+
+---
+
+## Print Utility
+
+### `.print:hide` — Hide in print
+
+The element renders normally on screen but is suppressed via
+`@media print { display: none !important }`. Use for navigation, ads,
+sidebars, or any chrome that clutters a printed page.
+
+```html
+<nav class="print:hide">Main navigation</nav>
+<aside class="print:hide">Related articles sidebar</aside>
+
+<article>
+  <!-- This content prints normally -->
+</article>
+```
+
+---
+
+## Best Practices
+
+### Prefer semantic HTML first
+
+Use proper `hidden` attribute or ARIA before reaching for `.hide`:
+
+```html
+<!-- Native hidden (preferred for static content) -->
+<div hidden>Not visible, not in a11y tree</div>
+
+<!-- .hide for dynamic responsive cases or JS-toggled visibility -->
+<div class="hide md:show">Conditionally visible</div>
+```
+
+### Use `.sr-only` instead of `aria-hidden` for meaningful content
+
+`aria-hidden="true"` removes content from the a11y tree entirely. `.sr-only`
+hides it visually but keeps it accessible. Choose based on intent:
+
+```html
+<!-- Decorative icon — hide from screen readers -->
+<svg aria-hidden="true">...</svg>
+
+<!-- Supplemental label — hide visually but announce -->
+<span class="sr-only">Opens in a new tab</span>
+```
+
+### `!important` is intentional
+
+All display utilities use `!important`. This is by design: utilities are
+override-layer rules meant to win over component styles. If you find yourself
+fighting a utility with `!important` in component CSS, that's a signal to
+reconsider the component's default state rather than escalating specificity.
