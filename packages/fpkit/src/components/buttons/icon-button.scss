@@ -7,24 +7,26 @@ $icon-label-bp: 48rem !default; // 768px
 // background stays transparent (set by button[data-style~="icon"]);
 // color defaults to currentColor so the icon inherits from context.
 // Override via styles={{ "--btn-color": "..." }} when a specific color is needed.
-button {
-  &[data-icon-btn],
-  &.icon-btn {
-    --btn-color: currentColor;
-    padding-inline: 0;
-    padding-block: 0;
-    width: 3rem;
-    height: 3rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+button[data-icon-btn],
+button.icon-btn,
+[data-icon-btn],
+.icon-btn {
+  --btn-color: currentColor;
+  padding-inline: 0;
+  padding-block: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   // Layout when a visible label is present alongside the icon.
   // Higher specificity than button[data-style~="icon"] (which uses padding: unset)
   // so padding is restored without needing a consumer override.
 
   &[data-icon-btn~="has-label"],
   &.icon-btn[data-icon-btn~="has-label"] {
+    width: max-content; // expand to fit content
+    min-width: 3rem; // keep the minimum tap target size even with a short label
     gap: 0.375rem;
     padding-inline: 0.75rem;
     [data-icon-label],
