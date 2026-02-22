@@ -23,8 +23,7 @@ button.icon-btn,
   // Higher specificity than button[data-style~="icon"] (which uses padding: unset)
   // so padding is restored without needing a consumer override.
 
-  &[data-icon-btn~="has-label"],
-  &.icon-btn[data-icon-btn~="has-label"] {
+  &[data-icon-btn~="has-label"] {
     width: max-content; // expand to fit content
     min-width: 3rem; // keep the minimum tap target size even with a short label
     gap: 0.375rem;
