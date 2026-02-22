@@ -86,7 +86,7 @@ No changes needed to `packages/fpkit/src/index.scss` — utilities already loade
 <!-- Always shown (restores browser default display per element) -->
 <div class="show">Always visible</div>
 
-<!-- Visually hidden, preserves layout space, stays in a11y tree -->
+<!-- Visually hidden, preserves layout space, not announced by assistive technologies (removed from a11y tree) -->
 <div class="invisible">Layout-preserving hide</div>
 
 <!-- Screen reader only -->
