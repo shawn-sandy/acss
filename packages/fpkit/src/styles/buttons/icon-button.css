@@ -4,25 +4,25 @@ button[data-icon-btn], button.icon-btn {
   padding-block: 0;
   width: 3rem;
   height: 3rem;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-
-button[data-icon-btn~=has-label],
-button.icon-btn[data-icon-btn~=has-label] {
+button[data-icon-btn~=has-label], button.icon-btn[data-icon-btn~=has-label] {
   gap: 0.375rem;
   padding-inline: 0.75rem;
 }
 button[data-icon-btn~=has-label] [data-icon-label],
-button.icon-btn[data-icon-btn~=has-label] [data-icon-label] {
+button[data-icon-btn~=has-label] .icon-label, button.icon-btn[data-icon-btn~=has-label] [data-icon-label],
+button.icon-btn[data-icon-btn~=has-label] .icon-label {
   font-size: var(--btn-fs, 0.875rem);
   line-height: 1;
   white-space: nowrap;
 }
 
 @media (max-width: 48rem) {
-  [data-icon-label] {
+  [data-icon-label],
+  .icon-label {
     position: absolute;
     width: 1px;
     height: 1px;
