@@ -47,6 +47,12 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
 ### BREAKING CHANGES
 
 * **button:** Default button background changed from `--color-neutral-300` (grey) to `--color-primary` (brand color)
+* **icon-button:** Responsive label media query changed from `max-width` (desktop-first) to `min-width: 48rem` (mobile-first). Labels are now visually hidden by default and revealed at ≥768px. If you relied on the label being visible below 768px, add `[data-icon-btn~="has-label"]` with static positioning for your breakpoint.
+
+### Features
+
+* **icon-button:** Add `:root`-scoped CSS custom properties for theme-level customization — `--icon-btn-size` (default `3rem`), `--icon-btn-gap` (default `0.375rem`), `--icon-btn-padding-inline` (default `0.75rem`)
+* **icon-button:** Replace deprecated `clip: rect(0,0,0,0)` with `clip-path: inset(50%)` (clip kept as legacy fallback); switch to `display: inline-grid` + `place-items: center` for cleaner centering; add `grid-auto-flow: column` to `has-label` variant for horizontal icon + label layout
 
   The `--btn-bg` CSS custom property and its `background-color` fallback in the `[type]` selector now resolve to `--color-primary` instead of `--color-neutral-300`.
 
