@@ -631,6 +631,7 @@ Complex components with multiple visual sections use element scoping.
 | Alert | `--alert-` | `--alert-bg`, `--alert-error-bg`, `--alert-padding` | 25+ |
 | Badge | `--badge-` | `--badge-bg`, `--badge-primary-color`, `--badge-fs` | 12+ |
 | Button | `--btn-` | `--btn-bg`, `--btn-primary-bg`, `--btn-hover-bg` | 30+ |
+| Icon Button | `--icon-btn-` | `--icon-btn-size`, `--icon-btn-gap`, `--icon-btn-padding-inline` | 3 |
 | Card | `--card-` | `--card-bg`, `--card-header-padding`, `--card-radius` | 20+ |
 | Checkbox | `--checkbox-` | `--checkbox-bg`, `--checkbox-checked-bg` | 15+ |
 | Dialog | `--dialog-` | `--dialog-bg`, `--dialog-width`, `--dialog-padding` | 18+ |
