@@ -5,11 +5,11 @@ This file provides guidance for working with the **@fpkit/acss** React component
 ## Package Overview
 
 **Package Name:** `@fpkit/acss`
-**Version:** 0.5.11 (independent versioning)
+**Version:** 6.3.0 (independent versioning)
 **Type:** Public React UI component library
 **Published to:** npm (public)
 
-A lightweight React UI component library with 25+ components using CSS custom properties for reactive styling. Emphasizes accessibility, component composition, and semantic HTML.
+A lightweight React UI component library with 44+ components using CSS custom properties for reactive styling. Emphasizes accessibility, component composition, and semantic HTML.
 
 ## Key Technologies
 
@@ -35,6 +35,10 @@ A lightweight React UI component library with 25+ components using CSS custom pr
 - Use CSS variables for theming and reactivity
 - Pattern: `--component-property` (e.g., `--btn-fs`, `--btn-color`)
 - Define in component SCSS files
+
+> See `.claude/rules/component-dev.md` (path-scoped to `packages/fpkit/src/**`) for the
+> authoritative SCSS patterns, CSS variable naming, and testing gotchas. This file takes
+> precedence over any SCSS guidance in this CLAUDE.md.
 
 ## Component Development Workflow
 

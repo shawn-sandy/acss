@@ -28,6 +28,7 @@ acss/
 │   │   └── index.ts         # Main exports
 │   └── libs/                # Build output
 ├── apps/astro-builds/       # Astro integration demo
+│   └── CLAUDE.md            # Astro-specific guidance
 ├── .storybook/              # Storybook config
 ├── openspec/                # Specs and change proposals
 ├── .claude/
@@ -55,6 +56,19 @@ npm run test:coverage        # Coverage report
 npm run lint-fix             # Auto-fix lint errors
 npm run test:snapshot        # Update Vitest snapshots
 npm test -- --run src/components/button/button.test.tsx  # Run single test
+```
+
+## Package Entry Points
+
+`@fpkit/acss` ships multiple entry points for tree-shaking:
+
+```ts
+import { Button } from '@fpkit/acss'                      // Main components
+import { useDisabledState } from '@fpkit/acss/hooks'       // Custom hooks
+import { Icon } from '@fpkit/acss/icons'                   // Icon components
+import '@fpkit/acss/styles'                                // Compiled CSS (full bundle)
+// Or source SCSS:
+// @use '@fpkit/acss/scss/button/button'                   // Per-component SCSS
 ```
 
 ## Component Development

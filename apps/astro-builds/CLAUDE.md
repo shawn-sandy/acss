@@ -5,7 +5,7 @@ This file provides guidance for working with the **astro-builds** demo applicati
 ## App Overview
 
 **App Name:** astro-builds
-**Version:** 0.0.12
+**Version:** 1.2.2
 **Type:** Private Astro demo application
 **Purpose:** Production-ready demo showcasing `@fpkit/acss` components in an Astro application
 
@@ -16,7 +16,7 @@ This app demonstrates how to integrate and use fpkit components within an Astro 
 - **Astro:** 5.1.1 (SSG/SSR framework)
 - **React:** 18.3.1 (via @astrojs/react integration)
 - **TypeScript:** Astro strict configuration
-- **Node:** >= 20.9.0
+- **Node:** >= 22.12.0
 
 ## Project Structure
 
