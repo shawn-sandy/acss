@@ -24,6 +24,8 @@ dist-ssr
 *.sw?
 
 *storybook.log
+# Claude Code session logs (timestamp-prefixed)
+[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*.txt
 
 packages/fp-kit/libs
 packages/fpkit/libs/*

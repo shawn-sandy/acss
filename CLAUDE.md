@@ -81,6 +81,12 @@ button/
 #decorators   → ./src/decorators/*
 ```
 
+**Example:**
+```ts
+import { Button } from '#components/button/button'
+import { useToggle } from '#hooks/use-toggle'
+```
+
 ### Creating Components
 
 1. Create component with TypeScript + JSDoc
