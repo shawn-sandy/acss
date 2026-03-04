@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "acss-plugins",
+  "version": "0.1.6",
+  "description": "Claude Code plugins for building applications with @fpkit/acss React components",
+  "owner": {
+    "name": "Shawn Sandy",
+    "url": "https://github.com/shawn-sandy/acss"
+  },
+  "plugins": [
+    {
+      "name": "fpkit-developer",
+      "source": "./.claude/plugins/fpkit-developer",
+      "version": "0.1.6",
+      "description": "Guides development of applications built with @fpkit/acss React components. Use when composing custom components from fpkit primitives, validating or customizing CSS variables, extending fpkit components, or ensuring WCAG accessibility compliance.",
+      "category": "development",
+      "tags": ["fpkit", "acss", "react", "css-variables", "accessibility", "wcag", "component-composition"]
+    }
+  ]
+}
