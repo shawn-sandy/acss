@@ -53,8 +53,7 @@ VALID_FULL_WORDS = {
 
 # Pattern for CSS variable declarations
 CSS_VAR_PATTERN = re.compile(
-    r'--([a-z][a-z0-9-]*)\s*:\s*([^;]+);',
-    re.IGNORECASE
+    r'--([a-z][a-z0-9-]*)\s*:\s*([^;]+);'
 )
 
 # Pattern for pixel values
@@ -99,11 +98,19 @@ def validate_variable_name(var_name: str) -> List[str]:
     component = parts[0]
     property_part = parts[-1]
 
-    # Check for forbidden abbreviations
+    # Check last segment for forbidden abbreviations
     for forbidden, replacement in FORBIDDEN_ABBREVIATIONS.items():
         if property_part == forbidden:
             errors.append(
                 f"Use '{replacement}' instead of '{forbidden}' (forbidden abbreviation)"
+            )
+
+    # Check intermediate segments (between component and final property)
+    for i, part in enumerate(parts[1:-1], start=1):
+        if part in FORBIDDEN_ABBREVIATIONS:
+            errors.append(
+                f"Segment '{part}' at position {i} uses forbidden abbreviation; "
+                f"use '{FORBIDDEN_ABBREVIATIONS[part]}' instead"
             )
 
     # Check if using valid abbreviation or full word
