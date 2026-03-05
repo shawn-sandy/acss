@@ -6,11 +6,5 @@
     "name": "Shawn Sandy",
     "url": "https://github.com/shawn-sandy/acss"
   },
-  "license": "MIT",
-  "skills": [
-    "skills/fpkit-developer"
-  ],
-  "commands": [
-    "commands/fpkit-dev.md"
-  ]
+  "license": "MIT"
 }
