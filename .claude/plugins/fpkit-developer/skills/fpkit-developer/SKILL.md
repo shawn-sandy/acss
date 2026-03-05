@@ -155,7 +155,7 @@ export const LoadingButton = ({
   children,
   ...props
 }: LoadingButtonProps) => {
-  const [isLoading, setIsLoading] = useState(loading)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleClick = async (e: React.MouseEvent) => {
     if (onClickAsync) {
@@ -171,7 +171,7 @@ export const LoadingButton = ({
   return (
     <Button
       {...props}
-      disabled={isLoading || props.disabled}
+      aria-disabled={isLoading || props.disabled}
       onClick={handleClick}
     >
       {isLoading ? 'Loading...' : children}
@@ -499,6 +499,6 @@ For advanced production-ready implementations, see `references/composition.md`:
 
 ---
 
-## Compatible with @fpkit/acss v0.1.x
+## Compatible with @fpkit/acss >= v0.1.x
 
-This skill is designed for applications using `@fpkit/acss` v0.1.x. For version-specific documentation, check the npm package documentation in `node_modules/@fpkit/acss/docs/`.
+This skill is designed for applications using `@fpkit/acss` >= v0.1.x. For version-specific documentation, check the npm package documentation in `node_modules/@fpkit/acss/docs/`.

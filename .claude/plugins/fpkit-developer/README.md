@@ -153,7 +153,7 @@ fpkit-developer/
 
 ## Compatibility
 
-- `@fpkit/acss` v0.1.x
+- `@fpkit/acss` >= v0.1.x
 - macOS, Linux, Windows
 - Claude Code >= v1.0.33
 
