@@ -137,7 +137,7 @@ import { Button } from '@fpkit/acss'
 import { useState } from 'react'
 
 export const LoadingButton = ({ loading, onClick, children, ...props }) => {
-  const [isLoading, setIsLoading] = useState(loading)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleClick = async (e) => {
     setIsLoading(true)
@@ -149,7 +149,7 @@ export const LoadingButton = ({ loading, onClick, children, ...props }) => {
   }
 
   return (
-    <Button {...props} disabled={isLoading || props.disabled} onClick={handleClick}>
+    <Button {...props} aria-disabled={isLoading || props.disabled} onClick={handleClick}>
       {isLoading && <span aria-label="Loading">⏳</span>}
       <span style={{ opacity: isLoading ? 0.6 : 1 }}>{children}</span>
     </Button>
@@ -604,7 +604,7 @@ export const LoadingButton = ({
   ...props
 }: LoadingButtonProps) => {
   return (
-    <Button {...props} disabled={loading || props.disabled}>
+    <Button {...props} aria-disabled={loading || props.disabled}>
       {loading ? loadingText : children}
     </Button>
   )
