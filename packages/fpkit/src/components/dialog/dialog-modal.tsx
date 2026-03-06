@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Dialog from "./dialog";
 import Button from "#components/buttons/button.jsx";
+import { IconButton } from "#components/buttons/icon-button.jsx";
 import type { DialogModalProps } from "./dialog.types";
 
 /**
@@ -34,6 +35,7 @@ import type { DialogModalProps } from "./dialog.types";
  * @param {boolean} [props.hideFooter=false] - If true, hides the footer with action buttons
  * @param {string} [props.className] - Additional CSS classes for the dialog
  * @param {string} [props.dialogLabel] - Optional aria-label for the dialog
+ * @param {ReactElement} [props.icon] - Optional icon element. When provided, renders IconButton as trigger.
  * @returns {JSX.Element} A dialog with trigger button and automatic state management
  *
  * @example
@@ -47,6 +49,19 @@ import type { DialogModalProps } from "./dialog.types";
  *   cancelLabel="Cancel"
  * >
  *   Are you sure you want to delete this item? This action cannot be undone.
+ * </DialogModal>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Icon trigger — renders IconButton with visible label at desktop widths
+ * <DialogModal
+ *   dialogTitle="Settings"
+ *   btnLabel="Settings"
+ *   icon={<SettingsIcon />}
+ *   btnProps={{ variant: "outline" }}
+ * >
+ *   Settings content here.
  * </DialogModal>
  * ```
  */
@@ -65,6 +80,7 @@ export const DialogModal: React.FC<DialogModalProps> = ({
   className,
   hideFooter = false,
   btnProps,
+  icon,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
@@ -103,16 +119,26 @@ export const DialogModal: React.FC<DialogModalProps> = ({
     }
   }, [isOpen]);
 
-  const triggerButtonProps = {
+  const sharedTriggerProps = {
     type: "button" as const,
     onClick: handleButtonClick,
-    "data-btn": btnSize,
+    "aria-haspopup": "dialog" as const,
     ...btnProps,
   };
 
   return (
     <>
-      <Button {...triggerButtonProps}>{btnLabel}</Button>
+      {icon ? (
+        <IconButton
+          icon={icon}
+          aria-label={btnLabel}
+          label={btnLabel}
+          size={btnSize}
+          {...sharedTriggerProps}
+        />
+      ) : (
+        <Button data-btn={btnSize} {...sharedTriggerProps}>{btnLabel}</Button>
+      )}
       <Dialog
         isOpen={isOpen}
         onOpenChange={handleOpenChange}

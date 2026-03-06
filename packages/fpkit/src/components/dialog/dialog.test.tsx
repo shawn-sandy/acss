@@ -446,5 +446,124 @@ describe("DialogModal", () => {
       expect(triggerButton).toBeInTheDocument();
       expect(triggerButton).not.toBeDisabled();
     });
+
+    it("adds aria-haspopup='dialog' to the regular button trigger", () => {
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Open">
+          Content
+        </DialogModal>
+      );
+
+      const triggerButton = screen.getByRole("button", { name: /open/i });
+      expect(triggerButton).toHaveAttribute("aria-haspopup", "dialog");
+    });
+  });
+
+  describe("Icon Button Trigger", () => {
+    const TestIcon = () => (
+      <svg data-testid="test-icon" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+      </svg>
+    );
+
+    it("renders IconButton when icon prop is provided", () => {
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Settings" icon={<TestIcon />}>
+          Content
+        </DialogModal>
+      );
+
+      const iconButton = screen.getByRole("button", { name: /settings/i });
+      expect(iconButton).toHaveAttribute("data-icon-btn");
+    });
+
+    it("renders regular Button when icon prop is not provided", () => {
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Open">
+          Content
+        </DialogModal>
+      );
+
+      const button = screen.getByRole("button", { name: /open/i });
+      expect(button).not.toHaveAttribute("data-icon-btn");
+    });
+
+    it("uses btnLabel as aria-label on the icon button", () => {
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Settings" icon={<TestIcon />}>
+          Content
+        </DialogModal>
+      );
+
+      const iconButton = screen.getByRole("button", { name: /settings/i });
+      expect(iconButton).toHaveAttribute("aria-label", "Settings");
+    });
+
+    it("passes btnLabel as visible label on the icon button", () => {
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Settings" icon={<TestIcon />}>
+          Content
+        </DialogModal>
+      );
+
+      // IconButton renders the label in a span with data-icon-label
+      const iconButton = screen.getByRole("button", { name: /settings/i });
+      expect(iconButton.querySelector("[data-icon-label]")).toHaveTextContent("Settings");
+    });
+
+    it("adds aria-haspopup='dialog' to the icon button trigger", () => {
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Settings" icon={<TestIcon />}>
+          Content
+        </DialogModal>
+      );
+
+      const iconButton = screen.getByRole("button", { name: /settings/i });
+      expect(iconButton).toHaveAttribute("aria-haspopup", "dialog");
+    });
+
+    it("opens dialog when icon button is clicked", async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DialogModal dialogTitle="Test Dialog" btnLabel="Settings" icon={<TestIcon />}>
+          Dialog content
+        </DialogModal>
+      );
+
+      const iconButton = screen.getByRole("button", { name: /settings/i });
+      await user.click(iconButton);
+
+      await waitFor(() => {
+        expect(screen.getByRole("dialog")).toBeInTheDocument();
+        expect(screen.getByText("Dialog content")).toBeInTheDocument();
+      });
+    });
+
+    it("applies btnSize to the icon button", () => {
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Settings" icon={<TestIcon />} btnSize="lg">
+          Content
+        </DialogModal>
+      );
+
+      const iconButton = screen.getByRole("button", { name: /settings/i });
+      expect(iconButton).toHaveAttribute("data-btn", "lg");
+    });
+
+    it("forwards btnProps to the icon button", () => {
+      render(
+        <DialogModal
+          dialogTitle="Test"
+          btnLabel="Settings"
+          icon={<TestIcon />}
+          btnProps={{ "data-testid": "icon-trigger" }}
+        >
+          Content
+        </DialogModal>
+      );
+
+      expect(screen.getByTestId("icon-trigger")).toBeInTheDocument();
+    });
   });
 });
