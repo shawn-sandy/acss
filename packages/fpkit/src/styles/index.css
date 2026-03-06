@@ -2709,6 +2709,7 @@ dialog section {
 .dialog-header button[type=button] {
   background-color: var(--dialog-button-bg);
   border: var(--dialog-button-border);
+  color: var(--dialog-close-color);
   cursor: pointer;
   /* Keyboard focus indicator */
   /* Remove default focus for mouse users */
