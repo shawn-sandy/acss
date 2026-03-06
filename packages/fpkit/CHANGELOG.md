@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.4.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.3.0...@fpkit/acss@6.4.0) (2026-03-06)
+
+
+### Bug Fixes
+
+* **dialog:** make close button icon visible by setting explicit color ([e1ec775](https://github.com/shawn-sandy/fpkit/commit/e1ec775a6f5972a3565e29c57ef0c3e3795a9aa8)), closes [#404040](https://github.com/shawn-sandy/fpkit/issues/404040)
+* **ui:** convert icon-button px units to rem ([1accaf9](https://github.com/shawn-sandy/fpkit/commit/1accaf9b7c13903fb426c8f126801cc4db5956be))
+
+
+### Code Refactoring
+
+* **icon-button:** modernize SCSS — mobile-first, CSS tokens, clip-path ([c12dd09](https://github.com/shawn-sandy/fpkit/commit/c12dd09a7c6ec8d4d8c48eb90810ccfc2272efe6))
+
+
+### Features
+
+* **dialog:** support IconButton trigger in DialogModal via icon prop ([e7dd95c](https://github.com/shawn-sandy/fpkit/commit/e7dd95c4e4de8569f497f760bfa711b061de0c94))
+* **icon-button:** change display property to inline-flex for better alignment ([be99b04](https://github.com/shawn-sandy/fpkit/commit/be99b04185689619f7bf03e383b1b7ebf35e4a67))
+* **icon-button:** enhance button styles for better responsiveness and accessibility ([1650634](https://github.com/shawn-sandy/fpkit/commit/165063429aec4306aed9b8d355a3c0c8a538e573))
+* **icon-button:** simplify label handling styles for icon buttons ([8782bc8](https://github.com/shawn-sandy/fpkit/commit/8782bc82c8ed030d6904a2422b6944b6fa72026a))
+* **icon-button:** update display properties and improve label handling ([10c2475](https://github.com/shawn-sandy/fpkit/commit/10c2475ed28bccd4c552480bea02d6444fa09f9a))
+* **utilities:** add responsive display/visibility utilities ([f2804ad](https://github.com/shawn-sandy/fpkit/commit/f2804add8178be574333293a45e6b90fdb0307c6))
+
+
+### BREAKING CHANGES
+
+* **icon-button:** label is now visually hidden by default (mobile-first);
+revealed at ≥48rem. Previously hidden only at ≤48rem (desktop-first).
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+
+
+
+
+
 # [6.3.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.2.0...@fpkit/acss@6.3.0) (2026-02-19)
 
 

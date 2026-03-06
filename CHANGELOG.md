@@ -5,6 +5,27 @@ All notable changes to @fpkit/acss will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.4.0] - 2026-03-06
+
+### Added
+
+- **Dialog `icon` prop** — DialogModal now supports an `icon` prop to render an IconButton as the trigger instead of a regular Button
+- **Responsive display/visibility utilities** — new CSS utility classes for responsive show/hide behavior across breakpoints
+- **Storybook MDX docs** for display utilities and IconButton component
+
+### Fixed
+
+- **Dialog close button icon visibility** — close button icon now has an explicit color set so it renders visibly in all contexts
+- **Icon-button px-to-rem conversion** — replaced remaining `px` units with `rem` for consistent scaling
+
+### Changed
+
+- **Icon-button SCSS modernized** — refactored to mobile-first approach with CSS custom properties and `clip-path` techniques
+- **Icon-button display changed to `inline-flex`** — improved alignment when used alongside text or other inline elements
+- **Icon-button label handling simplified** — streamlined label visibility styles for cleaner responsive behavior
+
+---
+
 ## [6.3.0] - 2026-02-18
 
 ### Added
