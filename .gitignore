@@ -31,3 +31,6 @@ packages/fp-kit/libs
 packages/fpkit/libs/*
 storybook-staticts-start/
 storybook-static/
+
+# Claude Code worktrees
+.claude/worktrees/
