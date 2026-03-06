@@ -83,6 +83,7 @@ dialog {
   button[type="button"] {
     background-color: var(--dialog-button-bg);
     border: var(--dialog-button-border);
+    color: var(--dialog-close-color);
     cursor: pointer;
 
     &:hover {
