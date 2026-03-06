@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactElement, ReactNode } from "react";
 
 /**
  * Base properties shared by all dialog variants.
@@ -70,6 +70,7 @@ export interface DialogProps extends BaseDialogProps {
  * @property {string} [btnLabel="Open Dialog"] - Text label for the trigger button
  * @property {"sm" | "md" | "lg"} [btnSize="sm"] - Size variant for the trigger button
  * @property {() => void} [btnOnClick] - Callback fired when trigger button is clicked (before opening)
+ * @property {ReactElement} [icon] - Optional icon element. When provided, renders IconButton instead of Button as trigger.
  */
 export interface DialogModalProps extends BaseDialogProps {
   /** If true, renders as non-modal inline alert using dialog.show() */
@@ -92,6 +93,12 @@ export interface DialogModalProps extends BaseDialogProps {
   btnOnClick?: () => void;
   /** Additional props to pass to the trigger button component */
   btnProps?: Record<string, unknown>;
+  /**
+   * Optional icon element. When provided, renders an IconButton instead of a regular Button as the trigger.
+   * `btnLabel` serves as both `aria-label` and the visible label text (shown at desktop widths via IconButton's responsive label).
+   * Note: `aria-labelledby` cannot be passed via `btnProps` when icon is set — use `btnLabel` instead.
+   */
+  icon?: ReactElement;
 }
 
 /**
