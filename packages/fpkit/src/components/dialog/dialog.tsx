@@ -48,6 +48,7 @@ import type { DialogProps } from "./dialog.types";
  * @param {string} [props.className] - Additional CSS classes to apply
  * @param {string} [props.dialogLabel] - Optional aria-label for the dialog
  * @param {CSSProperties} [props.styles] - Inline styles to apply to dialog element
+ * @param {number} [props.closeIconSize=24] - Size of the close icon in pixels
  * @returns {JSX.Element} A controlled dialog component
  */
 export const Dialog: React.FC<DialogProps> = ({
