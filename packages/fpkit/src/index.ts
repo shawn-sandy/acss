@@ -89,6 +89,7 @@ export { Popover, type PopoverProps } from "./components/popover/popover";
 export { RenderTable as TBL, type TableProps } from "./components/tables/table";
 export { Dialog } from "./components/dialog/dialog";
 export { DialogModal } from "./components/dialog/dialog-modal";
+export type { DialogProps, DialogModalProps } from "./components/dialog/dialog.types";
 export { TextToSpeech } from "./components/text-to-speech/TextToSpeech";
 
 /**
