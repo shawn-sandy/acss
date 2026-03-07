@@ -2,7 +2,7 @@
   "name": "@fpkit/acss",
   "description": "A lightweight React UI library for building modern and accessible components that leverage CSS custom properties for reactive Styles.",
   "private": false,
-  "version": "6.4.1",
+  "version": "6.4.2",
   "engines": {
     "node": ">=22.12.0",
     "npm": ">=8.0.0"
@@ -123,5 +123,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "267091cf42709bbb5e74aa9b1d75bc2ced157b04"
+  "gitHead": "5685f0cbe7cf2b67cd46f69b55b14c49cc6f70a7"
 }
