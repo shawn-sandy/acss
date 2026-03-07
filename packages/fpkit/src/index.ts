@@ -53,7 +53,10 @@
  * ```
  */
 export { Button, type ButtonProps } from "./components/buttons/button";
-export { IconButton, type IconButtonProps } from "./components/buttons/icon-button";
+export {
+  IconButton,
+  type IconButtonProps,
+} from "./components/buttons/icon-button";
 export {
   Card,
   Title as CardTitle,
@@ -85,6 +88,7 @@ export { Modal, type ModalProps } from "./components/modal/modal";
 export { Popover, type PopoverProps } from "./components/popover/popover";
 export { RenderTable as TBL, type TableProps } from "./components/tables/table";
 export { Dialog } from "./components/dialog/dialog";
+export { DialogModal } from "./components/dialog/dialog-modal";
 export { TextToSpeech } from "./components/text-to-speech/TextToSpeech";
 
 /**
