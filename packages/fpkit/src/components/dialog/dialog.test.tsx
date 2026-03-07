@@ -335,7 +335,7 @@ describe("Dialog", () => {
       expect(dialog).not.toHaveAttribute("data-size");
     });
 
-    it("does not apply data-position when position is undefined", () => {
+    it("defaults to data-position center when position is not specified", () => {
       const onOpenChange = vi.fn();
       render(
         <Dialog isOpen={true} onOpenChange={onOpenChange} dialogTitle="Test">
@@ -344,7 +344,7 @@ describe("Dialog", () => {
       );
 
       const dialog = screen.getByRole("dialog");
-      expect(dialog).not.toHaveAttribute("data-position");
+      expect(dialog).toHaveAttribute("data-position", "center");
     });
 
     it("applies both data-size and data-position together", () => {

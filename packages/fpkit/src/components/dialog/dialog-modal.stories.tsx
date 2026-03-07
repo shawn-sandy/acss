@@ -61,9 +61,14 @@ export const Default: Story = {
       "DialogModal is a modal dialog component that provides an accessible overlay for displaying content.",
   },
   decorators: [WithInstructions()],
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-    expect(canvas.getByRole("dialog")).toBeInTheDocument();
+
+    await step("Dialog renders with default center position", async () => {
+      const dialog = canvas.getByRole("dialog");
+      expect(dialog).toBeInTheDocument();
+      expect(dialog).toHaveAttribute("data-position", "center");
+    });
   },
 } as Story;
 
@@ -202,6 +207,15 @@ export const SmallDialog: Story = {
     btnLabel: "Open Small",
     size: "sm",
     children: "This is a small (25rem) dialog.",
+  },
+} as Story;
+
+export const MediumDialog: Story = {
+  args: {
+    dialogTitle: "Medium Dialog",
+    btnLabel: "Open Medium",
+    size: "md",
+    children: "This is a medium (32rem) dialog for forms and standard content.",
   },
 } as Story;
 
