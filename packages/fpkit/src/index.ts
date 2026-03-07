@@ -92,6 +92,8 @@ export { DialogModal } from "./components/dialog/dialog-modal";
 export type {
   DialogProps,
   DialogModalProps,
+  DialogSize,
+  DialogPosition,
 } from "./components/dialog/dialog.types";
 
 /**

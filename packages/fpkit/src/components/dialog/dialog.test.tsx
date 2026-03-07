@@ -297,6 +297,81 @@ describe("Dialog", () => {
       expect(dialog).toHaveStyle({ maxWidth: "600px" });
     });
   });
+
+  describe("Size and Position Props", () => {
+    it("applies data-size attribute when size prop is provided", () => {
+      const onOpenChange = vi.fn();
+      render(
+        <Dialog isOpen={true} onOpenChange={onOpenChange} dialogTitle="Test" size="lg">
+          Content
+        </Dialog>
+      );
+
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).toHaveAttribute("data-size", "lg");
+    });
+
+    it("applies data-position attribute when position prop is provided", () => {
+      const onOpenChange = vi.fn();
+      render(
+        <Dialog isOpen={true} onOpenChange={onOpenChange} dialogTitle="Test" position="top">
+          Content
+        </Dialog>
+      );
+
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).toHaveAttribute("data-position", "top");
+    });
+
+    it("does not apply data-size when size is undefined", () => {
+      const onOpenChange = vi.fn();
+      render(
+        <Dialog isOpen={true} onOpenChange={onOpenChange} dialogTitle="Test">
+          Content
+        </Dialog>
+      );
+
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).not.toHaveAttribute("data-size");
+    });
+
+    it("does not apply data-position when position is undefined", () => {
+      const onOpenChange = vi.fn();
+      render(
+        <Dialog isOpen={true} onOpenChange={onOpenChange} dialogTitle="Test">
+          Content
+        </Dialog>
+      );
+
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).not.toHaveAttribute("data-position");
+    });
+
+    it("applies both data-size and data-position together", () => {
+      const onOpenChange = vi.fn();
+      render(
+        <Dialog isOpen={true} onOpenChange={onOpenChange} dialogTitle="Test" size="sm" position="right">
+          Content
+        </Dialog>
+      );
+
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).toHaveAttribute("data-size", "sm");
+      expect(dialog).toHaveAttribute("data-position", "right");
+    });
+
+    it("applies data-size='full' for full screen dialog", () => {
+      const onOpenChange = vi.fn();
+      render(
+        <Dialog isOpen={true} onOpenChange={onOpenChange} dialogTitle="Test" size="full">
+          Content
+        </Dialog>
+      );
+
+      const dialog = screen.getByRole("dialog");
+      expect(dialog).toHaveAttribute("data-size", "full");
+    });
+  });
 });
 
 describe("DialogModal", () => {
@@ -564,6 +639,27 @@ describe("DialogModal", () => {
       );
 
       expect(screen.getByTestId("icon-trigger")).toBeInTheDocument();
+    });
+  });
+
+  describe("Size and Position Props", () => {
+    it("forwards size and position to the Dialog element", async () => {
+      const user = userEvent.setup();
+
+      render(
+        <DialogModal dialogTitle="Test" btnLabel="Open" size="sm" position="right">
+          Content
+        </DialogModal>
+      );
+
+      const triggerButton = screen.getByRole("button", { name: /open/i });
+      await user.click(triggerButton);
+
+      await waitFor(() => {
+        const dialog = screen.getByRole("dialog");
+        expect(dialog).toHaveAttribute("data-size", "sm");
+        expect(dialog).toHaveAttribute("data-position", "right");
+      });
     });
   });
 });
