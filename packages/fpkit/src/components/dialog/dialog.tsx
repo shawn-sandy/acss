@@ -66,6 +66,7 @@ export const Dialog: React.FC<DialogProps> = ({
   styles,
   size,
   position = "center",
+  closeIconSize,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -116,7 +117,7 @@ export const Dialog: React.FC<DialogProps> = ({
       {...(size && { "data-size": size })}
       {...(position && { "data-position": position })}
     >
-      <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} id={titleId} />
+      <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} id={titleId} closeIconSize={closeIconSize} />
 
       <UI
         as="section"

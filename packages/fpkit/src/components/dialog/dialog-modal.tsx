@@ -83,6 +83,7 @@ export const DialogModal: React.FC<DialogModalProps> = ({
   icon,
   size,
   position,
+  closeIconSize,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
@@ -154,6 +155,7 @@ export const DialogModal: React.FC<DialogModalProps> = ({
         hideFooter={hideFooter}
         size={size}
         position={position}
+        closeIconSize={closeIconSize}
       >
         {children}
       </Dialog>

@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import UI from "#components/ui";
 import Heading from "#components/heading/heading";
-import Button from "#components/buttons/button";
+import { IconButton } from "#components/buttons/icon-button";
 import Icon from "#components/icons/icon";
 import type { DialogHeaderProps } from "../dialog.types";
 
@@ -37,6 +37,7 @@ const DialogHeader: React.FC<DialogHeaderProps> = ({
   onClick,
   id,
   type = "h3",
+  closeIconSize = 24,
 }) => {
   const handleClose = useCallback(() => {
     onClick();
@@ -47,17 +48,17 @@ const DialogHeader: React.FC<DialogHeaderProps> = ({
       <Heading type={type} className="dialog-title" id={id}>
         {dialogTitle || "Dialog"}
       </Heading>
-      <Button
+      <IconButton
         type="button"
         onClick={handleClose}
         className="dialog-close"
         aria-label="Close dialog"
-        data-btn="icon"
-      >
-        <Icon>
-          <Icon.Remove size={16} />
-        </Icon>
-      </Button>
+        icon={
+          <Icon>
+            <Icon.Remove size={closeIconSize} />
+          </Icon>
+        }
+      />
     </UI>
   );
 };
