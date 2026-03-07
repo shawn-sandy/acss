@@ -41,6 +41,8 @@ export interface BaseDialogProps {
   size?: DialogSize;
   /** Position of the dialog on screen (center, top, bottom, left, right, corners) */
   position?: DialogPosition;
+  /** Size of the close button icon in pixels. @default 24 */
+  closeIconSize?: number;
 }
 
 /**
@@ -139,6 +141,8 @@ export interface DialogHeaderProps {
   id?: string;
   /** Heading level for the title */
   type?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  /** Size of the close button icon in pixels. @default 24 */
+  closeIconSize?: number;
 }
 
 /**
