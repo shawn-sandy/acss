@@ -15,6 +15,8 @@ A modern, accessible dialog component system built with React and TypeScript, le
 ✅ **Two Modes** - Modal dialogs (overlay) and inline alert dialogs
 ✅ **Focus Management** - Automatic focus restoration to trigger element
 ✅ **Flexible API** - Controlled `Dialog` or uncontrolled `DialogModal` wrapper
+✅ **Size Variants** - Small, medium, large, and full-screen dialog sizes
+✅ **Position Control** - Center, top, bottom, left/right drawers, and corner positioning
 ✅ **Customizable** - CSS custom properties for theming
 ✅ **Keyboard Accessible** - `:focus-visible` styles, Escape key support
 ✅ **High Contrast Mode** - Supports `prefers-contrast: high` media query
@@ -116,6 +118,8 @@ function MyComponent() {
 | `className` | `string` | `""` | Additional CSS classes to apply to the dialog |
 | `dialogLabel` | `string` | - | Optional `aria-label` for the dialog |
 | `styles` | `CSSProperties` | - | Inline styles to apply to the dialog element |
+| `size` | `"sm" \| "md" \| "lg" \| "full"` | - | Size variant controlling dialog dimensions |
+| `position` | `"center" \| "top" \| "bottom" \| "left" \| "right" \| "top-left" \| "top-right" \| "bottom-left" \| "bottom-right"` | - | Position of the dialog on screen |
 
 ---
 
@@ -251,6 +255,70 @@ function SimpleExample() {
 }
 ```
 
+### Size Variants
+
+```tsx
+import { DialogModal } from "@fpkit/acss";
+
+function SizeExample() {
+  return (
+    <>
+      {/* Small dialog (25rem) */}
+      <DialogModal dialogTitle="Small" btnLabel="Open Small" size="sm">
+        <p>A compact dialog for simple actions.</p>
+      </DialogModal>
+
+      {/* Medium dialog (32rem) */}
+      <DialogModal dialogTitle="Medium" btnLabel="Open Medium" size="md">
+        <p>A standard dialog for forms and content.</p>
+      </DialogModal>
+
+      {/* Large dialog (48rem) */}
+      <DialogModal dialogTitle="Large" btnLabel="Open Large" size="lg">
+        <p>A wide dialog for complex content.</p>
+      </DialogModal>
+
+      {/* Full-screen dialog */}
+      <DialogModal dialogTitle="Full Screen" btnLabel="Open Full" size="full">
+        <p>This dialog fills the entire viewport.</p>
+      </DialogModal>
+    </>
+  );
+}
+```
+
+### Position Variants
+
+```tsx
+import { DialogModal } from "@fpkit/acss";
+
+function PositionExample() {
+  return (
+    <>
+      {/* Top-positioned dialog */}
+      <DialogModal dialogTitle="Top" btnLabel="Open Top" position="top">
+        <p>Positioned at the top center of the viewport.</p>
+      </DialogModal>
+
+      {/* Bottom sheet */}
+      <DialogModal dialogTitle="Bottom Sheet" btnLabel="Open Bottom" position="bottom">
+        <p>Positioned at the bottom, like a mobile bottom sheet.</p>
+      </DialogModal>
+
+      {/* Right drawer (full-height side panel) */}
+      <DialogModal dialogTitle="Right Drawer" btnLabel="Open Drawer" size="sm" position="right">
+        <p>A full-height drawer sliding in from the right.</p>
+      </DialogModal>
+
+      {/* Corner positioning */}
+      <DialogModal dialogTitle="Corner" btnLabel="Open Corner" size="sm" position="bottom-right">
+        <p>Positioned in the bottom-right corner.</p>
+      </DialogModal>
+    </>
+  );
+}
+```
+
 ### Custom Styling
 
 ```tsx
@@ -370,7 +438,13 @@ Override these variables to customize the dialog appearance:
 ```css
 :root {
   /* Dimensions */
-  --dialog-min-w: max(20rem, 80%);
+  --dialog-min-width: max(20rem, 80%);
+  --dialog-width: var(--dialog-min-width);
+  --dialog-max-width: 90vw;
+  --dialog-height: auto;
+  --dialog-max-height: 85vh;
+  --dialog-margin: auto;
+  --dialog-inset: unset;
   --dialog-gap: 0.625rem;
   --dialog-padding: 1.5rem;
   --dialog-padding-inline: 1rem;
@@ -421,6 +495,8 @@ import type {
   DialogModalProps,
   DialogHeaderProps,
   DialogFooterProps,
+  DialogSize,
+  DialogPosition,
 } from "@fpkit/acss";
 ```
 
@@ -429,6 +505,13 @@ import type {
 All components are fully typed with comprehensive JSDoc comments:
 
 ```tsx
+type DialogSize = "sm" | "md" | "lg" | "full";
+type DialogPosition =
+  | "center" | "top" | "bottom"
+  | "left" | "right"
+  | "top-left" | "top-right"
+  | "bottom-left" | "bottom-right";
+
 interface DialogProps extends BaseDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
@@ -438,6 +521,8 @@ interface DialogProps extends BaseDialogProps {
   confirmLabel?: string;
   cancelLabel?: string;
   hideFooter?: boolean;
+  size?: DialogSize;
+  position?: DialogPosition;
 }
 ```
 
@@ -554,7 +639,7 @@ For older browsers, consider using a polyfill like [`dialog-polyfill`](https://g
 ## Testing
 
 The dialog component has comprehensive test coverage:
-- ✓ 24 tests covering all scenarios
+- ✓ 40 tests covering all scenarios
 - ✓ Controlled vs uncontrolled behavior
 - ✓ Modal vs non-modal rendering
 - ✓ ARIA attributes validation
