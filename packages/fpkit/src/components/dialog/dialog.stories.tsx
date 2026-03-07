@@ -41,6 +41,18 @@ const meta: Meta<typeof Dialog> = {
   args: {
     children: content,
   },
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg", "full"],
+      description: "Size variant controlling dialog dimensions",
+    },
+    position: {
+      control: "select",
+      options: ["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"],
+      description: "Position of the dialog on screen (defaults to center)",
+    },
+  },
   decorators: [
     (Story) => {
       return (
@@ -71,6 +83,15 @@ export const BasicDialog: Story = {
     onOpenChange: () => {},
     dialogTitle: "Basic Dialog",
   },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Dialog defaults to center position", async () => {
+      const dialog = canvas.getByRole("dialog");
+      await expect(dialog).toBeInTheDocument();
+      await expect(dialog).toHaveAttribute("data-position", "center");
+    });
+  },
 } as Story;
 
 /**
@@ -84,9 +105,14 @@ export const NonModalDialog: Story = {
     isAlertDialog: true,
     dialogTitle: "Non Modal Dialog",
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("alertdialog")).toBeInTheDocument();
+
+    await step("Alert dialog renders with default center position", async () => {
+      const dialog = canvas.getByRole("alertdialog");
+      await expect(dialog).toBeInTheDocument();
+      await expect(dialog).toHaveAttribute("data-position", "center");
+    });
   },
 } as Story;
 
@@ -106,8 +132,9 @@ export const DialogInteractions: Story = {
     const dialog = canvas.getByRole("dialog");
     const closeButton = canvas.getByRole("button", { name: /close dialog/i });
 
-    await step("Modal is rendered", async () => {
+    await step("Modal is rendered with default center position", async () => {
       await expect(dialog).toBeInTheDocument();
+      await expect(dialog).toHaveAttribute("data-position", "center");
       await expect(closeButton).toBeInTheDocument();
     });
 

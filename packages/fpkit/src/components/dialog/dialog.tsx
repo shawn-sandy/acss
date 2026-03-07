@@ -65,7 +65,7 @@ export const Dialog: React.FC<DialogProps> = ({
   hideFooter = false,
   styles,
   size,
-  position,
+  position = "center",
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
