@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.4.2](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.4.0...@fpkit/acss@6.4.2) (2026-03-07)
+
+
+### Bug Fixes
+
+* **dialog:** export DialogModal from package index ([269a245](https://github.com/shawn-sandy/fpkit/commit/269a245ffa1f1f5922427a07eb8c5c0219b57a8b))
+
+
+### Features
+
+* **dialog:** export DialogProps and DialogModalProps types from package index ([434c0cf](https://github.com/shawn-sandy/fpkit/commit/434c0cf9d41eda837878747ea965339df35e1025))
+
+
+
+
+
 ## [6.4.1](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.4.0...@fpkit/acss@6.4.1) (2026-03-07)
 
 
