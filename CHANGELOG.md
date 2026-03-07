@@ -5,6 +5,14 @@ All notable changes to @fpkit/acss will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.4.3] - 2026-03-07
+
+### Fixed
+
+- **Dialog type export formatting** — Corrected export format for `DialogProps` and `DialogModalProps` in the package index for proper type resolution by consumers.
+
+---
+
 ## [6.4.2] - 2026-03-07
 
 ### Added
