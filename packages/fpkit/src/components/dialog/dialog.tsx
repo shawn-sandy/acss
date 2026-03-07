@@ -64,6 +64,8 @@ export const Dialog: React.FC<DialogProps> = ({
   className = "",
   hideFooter = false,
   styles,
+  size,
+  position,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -111,6 +113,8 @@ export const Dialog: React.FC<DialogProps> = ({
       aria-label={dialogLabel}
       className={`dialog-modal ${className}`.trim()}
       style={styles}
+      {...(size && { "data-size": size })}
+      {...(position && { "data-position": position })}
     >
       <DialogHeader dialogTitle={dialogTitle} onClick={handleClose} id={titleId} />
 

@@ -81,6 +81,8 @@ export const DialogModal: React.FC<DialogModalProps> = ({
   hideFooter = false,
   btnProps,
   icon,
+  size,
+  position,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const lastFocusedElement = useRef<HTMLElement | null>(null);
@@ -150,6 +152,8 @@ export const DialogModal: React.FC<DialogModalProps> = ({
         confirmLabel={confirmLabel}
         cancelLabel={cancelLabel}
         hideFooter={hideFooter}
+        size={size}
+        position={position}
       >
         {children}
       </Dialog>

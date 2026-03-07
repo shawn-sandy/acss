@@ -38,6 +38,18 @@ const meta: Meta<typeof DialogModal> = {
     isOpen: false,
     onClose: () => {},
   },
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg", "full"],
+      description: "Size variant controlling dialog dimensions",
+    },
+    position: {
+      control: "select",
+      options: ["center", "top", "bottom", "left", "right", "top-left", "top-right", "bottom-left", "bottom-right"],
+      description: "Position of the dialog on screen",
+    },
+  },
 } as Meta;
 
 export default meta;
@@ -179,5 +191,84 @@ export const IconTriggerWithOutlineVariant: Story = {
       const cancelButton = canvas.getByRole("button", { name: /cancel/i });
       await userEvent.click(cancelButton, { delay: 500 });
     });
+  },
+} as Story;
+
+/* ── Size variant stories ──────────────────── */
+
+export const SmallDialog: Story = {
+  args: {
+    dialogTitle: "Small Dialog",
+    btnLabel: "Open Small",
+    size: "sm",
+    children: "This is a small (25rem) dialog.",
+  },
+} as Story;
+
+export const LargeDialog: Story = {
+  args: {
+    dialogTitle: "Large Dialog",
+    btnLabel: "Open Large",
+    size: "lg",
+    children: "This is a large (48rem) dialog with more room for complex content.",
+  },
+} as Story;
+
+export const FullScreenDialog: Story = {
+  args: {
+    dialogTitle: "Full Screen Dialog",
+    btnLabel: "Open Full Screen",
+    size: "full",
+    children: "This dialog takes up the entire viewport.",
+  },
+} as Story;
+
+/* ── Position variant stories ──────────────── */
+
+export const TopPositioned: Story = {
+  args: {
+    dialogTitle: "Top Dialog",
+    btnLabel: "Open Top",
+    position: "top",
+    children: "This dialog is positioned at the top center of the viewport.",
+  },
+} as Story;
+
+export const BottomSheet: Story = {
+  args: {
+    dialogTitle: "Bottom Sheet",
+    btnLabel: "Open Bottom Sheet",
+    position: "bottom",
+    children: "This dialog is positioned at the bottom, like a mobile bottom sheet.",
+  },
+} as Story;
+
+export const RightDrawer: Story = {
+  args: {
+    dialogTitle: "Right Drawer",
+    btnLabel: "Open Right Drawer",
+    size: "sm",
+    position: "right",
+    children: "This dialog slides in from the right as a full-height drawer panel.",
+  },
+} as Story;
+
+export const LeftDrawer: Story = {
+  args: {
+    dialogTitle: "Left Drawer",
+    btnLabel: "Open Left Drawer",
+    size: "sm",
+    position: "left",
+    children: "This dialog slides in from the left as a full-height drawer panel.",
+  },
+} as Story;
+
+export const BottomRightPositioned: Story = {
+  args: {
+    dialogTitle: "Bottom Right",
+    btnLabel: "Open Bottom Right",
+    size: "sm",
+    position: "bottom-right",
+    children: "This dialog appears in the bottom-right corner.",
   },
 } as Story;

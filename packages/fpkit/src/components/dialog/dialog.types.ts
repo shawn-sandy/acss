@@ -1,5 +1,20 @@
 import { CSSProperties, ReactElement, ReactNode } from "react";
 
+/** Size variant for the dialog. Controls width (and height for "full"). */
+export type DialogSize = "sm" | "md" | "lg" | "full";
+
+/** Position of the dialog on screen. "left"/"right" render as full-height drawer panels. */
+export type DialogPosition =
+  | "center"
+  | "top"
+  | "bottom"
+  | "left"
+  | "right"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right";
+
 /**
  * Base properties shared by all dialog variants.
  *
@@ -8,6 +23,8 @@ import { CSSProperties, ReactElement, ReactNode } from "react";
  * @property {ReactNode} children - Content to be displayed inside the dialog body
  * @property {string} [className] - Additional CSS classes to apply to the dialog
  * @property {CSSProperties} [styles] - Inline styles to apply to the dialog element
+ * @property {DialogSize} [size] - Size variant controlling dialog dimensions
+ * @property {DialogPosition} [position] - Position of the dialog on screen
  */
 export interface BaseDialogProps {
   /** The title displayed in the dialog header */
@@ -20,6 +37,10 @@ export interface BaseDialogProps {
   className?: string;
   /** Inline styles to apply to the dialog element */
   styles?: CSSProperties;
+  /** Size variant controlling dialog dimensions (sm, md, lg, full) */
+  size?: DialogSize;
+  /** Position of the dialog on screen (center, top, bottom, left, right, corners) */
+  position?: DialogPosition;
 }
 
 /**
