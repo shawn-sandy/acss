@@ -20,6 +20,7 @@ import type { DialogHeaderProps } from "../dialog.types";
  * @param {() => void} props.onClick - Callback function triggered when close button is clicked
  * @param {string} [props.id] - Optional ID for aria-labelledby linking. Auto-generated if not provided.
  * @param {"h1" | "h2" | "h3" | "h4" | "h5" | "h6"} [props.type="h3"] - Heading level for semantic structure
+ * @param {number} [props.closeIconSize=24] - Size of the close icon in pixels
  * @returns {JSX.Element} A dialog header with title and close button
  *
  * @example
