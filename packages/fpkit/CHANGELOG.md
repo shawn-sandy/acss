@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.5.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.4.0...@fpkit/acss@6.5.0) (2026-03-08)
+
+
+### Bug Fixes
+
+* **dialog:** default position to center and update stories with position assertions ([d634f5d](https://github.com/shawn-sandy/fpkit/commit/d634f5dc41ac68b96c7401d5a3fd8bc233c761c8))
+* **dialog:** ensure modal centers by default with fit-content height ([36517f7](https://github.com/shawn-sandy/fpkit/commit/36517f7009c5cb9d6b4b9245a49c6e64105dfa08))
+* **dialog:** export DialogModal from package index ([269a245](https://github.com/shawn-sandy/fpkit/commit/269a245ffa1f1f5922427a07eb8c5c0219b57a8b))
+* **dialog:** format export of DialogProps and DialogModalProps types ([94d6898](https://github.com/shawn-sandy/fpkit/commit/94d689856d51b6b01e069a965b69e7c407f84760))
+
+
+### Features
+
+* **dialog:** add size and position props for modal sizing and placement ([33d5cde](https://github.com/shawn-sandy/fpkit/commit/33d5cde587a9cf15db6e80f288dae928bd9a858e))
+* **dialog:** export DialogProps and DialogModalProps types from package index ([434c0cf](https://github.com/shawn-sandy/fpkit/commit/434c0cf9d41eda837878747ea965339df35e1025))
+
+
+
+
+
 ## [6.4.3](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.4.0...@fpkit/acss@6.4.3) (2026-03-07)
 
 
