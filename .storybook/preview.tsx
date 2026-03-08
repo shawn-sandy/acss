@@ -1,10 +1,13 @@
 import type { Preview } from "@storybook/react-vite";
 import React from "react";
+import addonPerformancePanel from "@github-ui/storybook-addon-performance-panel";
 import "../packages/fpkit/src/styles/index.css";
 import { allModes } from "./modes";
 
+
 const preview: Preview = {
   parameters: {
+    addons: [addonPerformancePanel],
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -63,13 +66,12 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: "light",
-      values: [
-        { name: "light", value: "#ffffff" },
-        { name: "gray", value: "#f5f5f5" },
-        { name: "dark", value: "#1a1a1a" },
-        { name: "brand", value: "#0288d1" },
-      ],
+      options: {
+        light: { name: "light", value: "#ffffff" },
+        gray: { name: "gray", value: "#f5f5f5" },
+        dark: { name: "dark", value: "#1a1a1a" },
+        brand: { name: "brand", value: "#0288d1" },
+      },
     },
     chromatic: {
       delay: 300,
@@ -92,6 +94,12 @@ const preview: Preview = {
   ],
 
   tags: ["autodocs"],
+
+  initialGlobals: {
+    backgrounds: {
+      value: "light",
+    },
+  },
 };
 
 export default preview;

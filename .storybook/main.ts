@@ -12,9 +12,8 @@ const config: StorybookConfig = {
   addons: [
     "@chromatic-com/storybook",
     "@storybook/addon-a11y",
-    "@storybook/addon-links",
-    "@storybook/addon-interactions",
     "storybook-addon-tag-badges",
+    "@github-ui/storybook-addon-performance-panel",
     {
       name: "@storybook/addon-docs",
       options: {
@@ -49,9 +48,6 @@ const config: StorybookConfig = {
     reactDocgen: "react-docgen-typescript",
   },
 
-  features: {
-    interactionsDebugger: true,
-  },
 };
 
 export default config;
