@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/shawn-sandy/acss/compare/astro-fpkit@1.2.2...astro-fpkit@1.3.0) (2026-03-08)
+
+
+### Features
+
+* **dialog:** add size and position props for modal sizing and placement ([33d5cde](https://github.com/shawn-sandy/acss/commit/33d5cde587a9cf15db6e80f288dae928bd9a858e))
+
+
+
+
+
 ## [1.2.2](https://github.com/shawn-sandy/acss/compare/astro-fpkit@1.2.1...astro-fpkit@1.2.2) (2025-12-04)
 
 **Note:** Version bump only for package astro-fpkit
