@@ -4,14 +4,19 @@
     {
       "name": "storybook",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["start"],
-      "port": 6006
+      "runtimeArgs": [
+        "start"
+      ],
+      "port": 6009
     },
     {
       "name": "astro-demo",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 4321
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 4326
     }
   ]
 }
