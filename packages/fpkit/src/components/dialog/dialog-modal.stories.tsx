@@ -34,8 +34,7 @@ const meta: Meta<typeof DialogModal> = {
   },
   args: {
     children: "Dialog Content",
-    title: "Dialog Title",
-    isOpen: false,
+    dialogTitle: "Dialog Title",
     onClose: () => {},
   },
   argTypes: {
