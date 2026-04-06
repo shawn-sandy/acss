@@ -1,5 +1,3 @@
-
-/* eslint-disable */
 import React from "react";
 
 /**
@@ -59,7 +57,7 @@ type PropsToOmit<C extends React.ElementType, P> = keyof (AsProp<C> & P);
  */
 type PolymorphicComponentProp<
   C extends React.ElementType,
-  Props = {},
+  Props extends object = Record<string, never>,
 > = React.PropsWithChildren<Props & AsProp<C>> &
   Omit<React.ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
 
@@ -71,7 +69,7 @@ type PolymorphicComponentProp<
  */
 type PolymorphicComponentPropWithRef<
   C extends React.ElementType,
-  Props = {},
+  Props extends object = Record<string, never>,
 > = PolymorphicComponentProp<C, Props> & {
   ref?: PolymorphicRef<C> | React.ForwardedRef<React.ElementRef<C>>;
 };
@@ -109,7 +107,7 @@ type UIProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
  */
 type UIComponent = (<C extends React.ElementType = "div">(
   props: UIProps<C>
-) => React.ReactElement | any) & { displayName?: string };
+) => React.ReactElement | null) & { displayName?: string };
 
 /**
  * UI - A polymorphic React component that can render as any HTML element.
@@ -144,6 +142,10 @@ type UIComponent = (<C extends React.ElementType = "div">(
  * const buttonRef = useRef<HTMLButtonElement>(null);
  * <UI as="button" ref={buttonRef}>Auto-focused Button</UI>
  */
+// `as unknown as UIComponent` is required: React.forwardRef returns ForwardRefExoticComponent which is
+// structurally incompatible with the polymorphic UIComponent call signature at the type level.
+// This double-cast is the standard pattern for polymorphic forwardRef components (used by Radix UI and similar libraries).
+// eslint-disable-next-line react/display-name -- displayName is set explicitly two lines below; ESLint can't see post-definition assignment
 const UI: UIComponent = React.forwardRef(
   <C extends React.ElementType>(
     { as, styles, style, classes, className, children, defaultStyles, ...props }: UIProps<C>,
@@ -163,7 +165,7 @@ const UI: UIComponent = React.forwardRef(
       </Component>
     );
   }
-);
+) as unknown as UIComponent;
 
 export default UI;
 UI.displayName = "UI";
