@@ -76,9 +76,9 @@ function useDisabledState<T extends HTMLElement = HTMLButtonElement>(
     className: mergedClassName,
   }
 
-  const wrapHandler = <E extends Event>(handler?: (e: any) => void) => {
+  const wrapHandler = <E extends React.SyntheticEvent>(handler?: (e: E) => void) => {
     if (!handler) return undefined
-    return (e: any) => {
+    return (e: E) => {
       if (isDisabled) {
         e.preventDefault()
         e.stopPropagation()

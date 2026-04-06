@@ -184,7 +184,7 @@ Generated components are fully customizable through CSS variables. Override at a
 }
 ```
 
-CSS variable naming follows the pattern: `--{component}-{element?}-{variant?}-{property}`. See the project's [CSS Variable Reference](../../../docs/css-variables.md) for the full naming convention and approved abbreviations.
+CSS variable naming follows the pattern: `--{component}-{element?}-{variant?}-{property}`. See [references/css-variables.md](skills/acss-kit-builder/references/css-variables.md) for the full naming convention and approved abbreviations.
 
 ## The UI Foundation Component
 
