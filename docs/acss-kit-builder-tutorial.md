@@ -54,10 +54,10 @@ You'll get a categorized listing similar to:
 
 | Category | Components |
 |---|---|
-| Simple (no deps) | `badge`, `tag`, `heading`, `text`, `link`, `icon` |
-| Interactive | `button` |
+| Simple (no dependencies) | `badge`, `tag`, `heading`, `text` |
+| Interactive (`useDisabledState` pattern) | `button`, `link` |
 | Layout | `card`, `nav` |
-| Complex | `alert`, `dialog`, `form` (input, textarea, select, checkbox, toggle) |
+| Complex (multiple dependencies) | `alert`, `dialog`, `form` (input, textarea, select, checkbox, toggle) |
 
 To inspect a single component's props, CSS variables, and dependencies:
 
