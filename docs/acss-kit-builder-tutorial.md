@@ -147,6 +147,12 @@ Import and usage:
   <Button type="button" data-color="primary" data-btn="lg">Primary Large</Button>
 ```
 
+> **Heads up about the variant syntax.** The summary above uses raw `data-*`
+> attributes because that's the lowest-level way to drive variants. The
+> typed props `color`, `size`, and `variant` shown in Step 3 are the
+> ergonomic equivalents — they compile to the same `data-color`, `data-btn`,
+> and `data-style` attributes. Prefer the typed props in your own code.
+
 ---
 
 ## Step 3 — Use the component
@@ -310,7 +316,14 @@ import './components/fpkit/button/button.scss'
 export default function ConfirmExample() {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const open = () => dialogRef.current?.showModal()
-  const close = () => dialogRef.current?.close()
+
+  // Single close handler used by Dialog's onClose AND the footer buttons,
+  // so any side-effect (logging, analytics, state reset) runs no matter
+  // how the dialog was dismissed.
+  const handleClose = () => {
+    dialogRef.current?.close()
+    console.log('closed')
+  }
 
   return (
     <>
@@ -322,13 +335,13 @@ export default function ConfirmExample() {
         dialogRef={dialogRef}
         title="Confirm Action"
         description="This action cannot be undone."
-        onClose={() => console.log('closed')}
+        onClose={handleClose}
         footer={
           <>
-            <Button type="button" variant="outline" onClick={close}>
+            <Button type="button" variant="outline" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="button" color="primary" onClick={close}>
+            <Button type="button" color="primary" onClick={handleClose}>
               Confirm
             </Button>
           </>
@@ -387,9 +400,9 @@ directory are untouched.
 | Symptom | Fix |
 |---|---|
 | `sass or sass-embedded not found in devDependencies` | `npm install -D sass`, then re-run `/kit-add`. |
-| `Component not in catalog` (or similar) | Run `/kit-list` to see valid names. Component names are kebab-case (e.g. `icon-button`, not `IconButton`). |
+| `Component not in catalog` (or similar) | Run `/kit-list` to see valid names. Component names are lowercase single words (e.g. `button`, `dialog`, `form`). |
 | You want to regenerate a file from scratch | Delete the file (or its directory) manually, then re-run `/kit-add <component>`. The preview will show it as **New** instead of **Skipped**. |
-| Wrong target directory chosen on first run | The choice is per-session. Restart your Claude Code session to re-prompt, or move the existing files manually and update imports. |
+| Wrong target directory chosen on first run | The choice is per-session. Run `/clear` (or restart your Claude Code session) to re-prompt, or move the existing files manually and update imports. |
 | TypeScript errors about JSX or `import.meta` after generation | Confirm `tsconfig.json` has `"jsx": "react-jsx"` and a modern `"moduleResolution"` (`"bundler"` for Vite, `"node16"` for Node ESM). |
 | Styles aren't applying | Make sure you imported the matching `.scss` file alongside the component (`import './components/fpkit/button/button.scss'`). The SCSS is not auto-loaded. |
 | `useDisabledState` is missing — I want to share it | It's deliberately inlined per component. If you'd rather have one shared hook, extract it into `src/components/fpkit/use-disabled-state.ts` after generation and update each component's import. |
@@ -404,8 +417,8 @@ directory are untouched.
   [`SKILL.md`](../.claude/plugins/acss-kit-builder/skills/acss-kit-builder/SKILL.md)
 - **CSS variable naming standard and theming recipes:**
   [`docs/css-variables.md`](./css-variables.md)
-- **Per-component contracts (props, CSS vars, dependencies):**
-  [`references/components/`](../.claude/plugins/acss-kit-builder/skills/acss-kit-builder/references/components/)
+- **Component catalog (entry point for all components):**
+  [`references/components/catalog.md`](../.claude/plugins/acss-kit-builder/skills/acss-kit-builder/references/components/catalog.md)
 - **Accessibility deep-dive:**
   [`references/accessibility.md`](../.claude/plugins/acss-kit-builder/skills/acss-kit-builder/references/accessibility.md)
 - **Architecture of the polymorphic `UI` base component:**
