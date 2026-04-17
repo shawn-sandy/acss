@@ -1,0 +1,88 @@
+name: Deploy docs
+
+# Publishes the Astro docs site from apps/astro-builds to GitHub Pages.
+# Chosen as the default deploy target because it requires no external
+# account setup — if the team prefers Cloudflare Pages or Vercel, the
+# `build-and-deploy` job can be swapped for the relevant provider's
+# action without changing the build job.
+#
+# Prerequisites (one-time, in repo settings):
+#   - Settings → Pages → Source: GitHub Actions
+# No secrets required for GitHub Pages; provider switches need tokens.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      # Rebuild only when docs content or the underlying package changes;
+      # avoids unnecessary deploys on unrelated CI tweaks.
+      - 'apps/astro-builds/**'
+      - 'packages/fpkit/**'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    name: Build Astro site
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            packages/fpkit/package-lock.json
+            apps/astro-builds/package-lock.json
+
+      - name: Install root deps
+        run: npm ci --no-audit --no-fund
+
+      - name: Install and build fpkit
+        # The docs site imports @fpkit/acss/tokens and @fpkit/acss/styles —
+        # both are build artifacts that need to exist before the Astro
+        # build can resolve them.
+        working-directory: packages/fpkit
+        run: |
+          npm ci --no-audit --no-fund
+          npm run tokens:build
+          npm run package
+          npm run sass:build
+
+      - name: Install and build docs site
+        working-directory: apps/astro-builds
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/astro-builds/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

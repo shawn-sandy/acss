@@ -1,0 +1,125 @@
+---
+/**
+ * Foundations → Motion.
+ *
+ * Demonstrates duration + easing tokens with a live transition preview.
+ * Respects prefers-reduced-motion automatically because the duration
+ * tokens collapse to 1ms under that media query (see sass/tokens/_motion.scss).
+ */
+import Layout from "../../layouts/Layout.astro";
+
+const DURATIONS = [
+  { name: "duration-instant", value: "0ms", use: "Reduced-motion target" },
+  { name: "duration-fast", value: "120ms", use: "Hover, focus transitions" },
+  { name: "duration-base", value: "200ms", use: "Default UI transitions" },
+  { name: "duration-slow", value: "320ms", use: "Entrances, layout shifts" },
+  { name: "duration-slower", value: "480ms", use: "Modals, page-level moves" },
+];
+
+const EASES = [
+  { name: "ease-standard", use: "Natural acceleration + ease-out" },
+  { name: "ease-accelerate", use: "Content exiting the viewport" },
+  { name: "ease-decelerate", use: "Content entering the viewport" },
+  { name: "ease-emphasized", use: "Attention-grabbing snap" },
+];
+---
+
+<Layout
+  title="Motion · Foundations · @fpkit/acss"
+  description="Duration and easing tokens; respects prefers-reduced-motion."
+>
+  <h1>Motion</h1>
+  <p>
+    Motion tokens cover two axes: how long something takes
+    (<code>--duration-*</code>) and how it accelerates
+    (<code>--ease-*</code>). All durations collapse to 1ms when the user
+    has <code>prefers-reduced-motion: reduce</code> set, so component
+    authors get accessibility-aware motion for free.
+  </p>
+
+  <h2>Durations</h2>
+  <p>Hover each row to see the transition at that speed.</p>
+  <ul class="motion-list">
+    {DURATIONS.map((d) => (
+      <li class="motion-row">
+        <div class="motion-row__meta">
+          <strong>{d.name}</strong>
+          <code>{d.value}</code>
+          <span>{d.use}</span>
+        </div>
+        <div
+          class="motion-row__demo"
+          style={`--demo-duration: var(--${d.name})`}
+        >
+          <div class="motion-row__dot"></div>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Easings</h2>
+  <ul class="motion-list">
+    {EASES.map((e) => (
+      <li class="motion-row">
+        <div class="motion-row__meta">
+          <strong>{e.name}</strong>
+          <span>{e.use}</span>
+        </div>
+        <div
+          class="motion-row__demo"
+          style={`--demo-duration: 480ms; --demo-ease: var(--${e.name})`}
+        >
+          <div class="motion-row__dot motion-row__dot--ease"></div>
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  <style>
+    .motion-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .motion-row {
+      display: grid;
+      grid-template-columns: 14rem 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+    .motion-row__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+      font-size: 0.875rem;
+    }
+    .motion-row__meta code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.75rem;
+      color: var(--color-text-tertiary);
+    }
+    .motion-row__demo {
+      background: var(--color-surface-tertiary);
+      border-radius: 0.25rem;
+      height: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .motion-row__dot {
+      position: absolute;
+      left: 0.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background: var(--color-primary);
+      transition: left var(--demo-duration, 200ms) var(--demo-ease, linear);
+    }
+    .motion-row:hover .motion-row__dot {
+      left: calc(100% - 1.75rem);
+    }
+  </style>
+</Layout>
