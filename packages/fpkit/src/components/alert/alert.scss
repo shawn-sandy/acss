@@ -150,8 +150,8 @@
     }
 
     &[data-alert~="default"] {
-      --alert-bg: #757575;
-      --alert-color: white;
+      --alert-bg: var(--color-neutral-500);
+      --alert-color: var(--color-text-inverse);
     }
   }
 
