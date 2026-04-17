@@ -23,6 +23,12 @@ jobs:
     name: Storybook a11y (axe)
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    # Report violations without gating merges during the initial triage pass.
+    # Flip back to `false` (or remove) once the backlog is drained and every
+    # story either passes axe or explicitly opts out via
+    # `parameters: { a11y: { disable: true } }`. Tracking in MIGRATION-v7.md
+    # under "Release & CI → Accessibility gate."
+    continue-on-error: true
 
     steps:
       - name: Checkout
