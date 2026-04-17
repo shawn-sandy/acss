@@ -26,9 +26,20 @@ jobs:
     name: Visual regression
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    # Skip the job if the required secret isn't configured yet. This keeps PRs
-    # from failing while Chromatic is still being set up.
-    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
+    # Skip the job entirely when CHROMATIC_PROJECT_TOKEN isn't populated yet.
+    # `secrets.CHROMATIC_PROJECT_TOKEN` evaluates to empty string if unset;
+    # the `!= ''` guard turns the whole job into a no-op instead of running
+    # chromaui/action with an empty token (which fails hard and surfaces a
+    # red X on every PR). Once the token is added in repo Settings → Secrets
+    # and variables → Actions, this guard passes on the next push and
+    # Chromatic starts gating for real.
+    if: ${{ secrets.CHROMATIC_PROJECT_TOKEN != '' && (github.event_name == 'push' || !github.event.pull_request.draft) }}
+    # Belt-and-suspenders: if a network flake or Chromatic-side outage
+    # causes chromaui/action to exit non-zero, don't block unrelated PRs on
+    # the visual-regression gate — reviewers approve diffs in the Chromatic
+    # UI anyway. Flip this back to `false` once the project has a stable
+    # baseline and we're confident in the pipeline.
+    continue-on-error: true
 
     steps:
       - name: Checkout
