@@ -1,6 +1,7 @@
 import React from "react";
 import UI from "../ui";
 import type { LinkProps } from "./link.types";
+import { useDisabledState } from "../../hooks/use-disabled-state";
 
 /**
  * Link - A semantic, accessible anchor component with enhanced security and styling.
@@ -105,10 +106,22 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       btnStyle,
       onClick,
       onPointerDown,
+      disabled,
+      className,
       ...props
     },
     ref
   ) => {
+    // Anchor elements have no native `disabled` attribute; the library's
+    // convention is aria-disabled via the shared hook so the link stays in
+    // tab order (WCAG 2.1.1) and screen readers announce the state.
+    const { disabledProps, handlers } = useDisabledState<HTMLAnchorElement>(
+      disabled,
+      {
+        handlers: { onClick, onPointerDown },
+        className,
+      }
+    );
     /**
      * Compute the final `rel` attribute value with security defaults.
      *
@@ -143,17 +156,30 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return rel;
     }, [target, rel, prefetch]);
 
+    // Disabled links shouldn't navigate on keyboard activation either; the
+    // hook already blocks onClick, but removing href closes the loop for
+    // screen readers and prevents URL flashes on activation.
+    const safeHref = disabled ? undefined : href;
+
+    // Only emit the disabled attributes when actually disabled — default
+    // `aria-disabled="false"` adds noise to the DOM and invalidates
+    // snapshot tests of callers that render Links (breadcrumbs, nav, etc).
+    const disabledAttrs = disabled
+      ? { ...disabledProps }
+      : { className: className || undefined };
+
     return (
       <UI
         as="a"
         ref={ref}
-        href={href}
+        href={safeHref}
         target={target}
         rel={computedRel}
         styles={styles}
         data-btn={btnStyle}
-        onClick={onClick}
-        onPointerDown={onPointerDown}
+        {...disabledAttrs}
+        onClick={handlers.onClick}
+        onPointerDown={handlers.onPointerDown}
         {...props}
       >
         {children}
