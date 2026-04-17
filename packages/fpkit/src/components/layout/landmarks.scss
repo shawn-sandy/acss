@@ -53,7 +53,7 @@ footer {
 // WCAG 2.1 Level AA compliant with verified contrast ratios
 fieldset {
   // Border - Contrast verified: 3:1 minimum against white background
-  border: var(--fieldset-border, 1px solid var(--color-border));
+  border: var(--fieldset-border, 0.0625rem solid var(--color-border));
   border-radius: var(--fieldset-border-radius, 0.5rem);
   padding: var(--fieldset-padding, 1rem);
   padding-inline: var(--fieldset-padding-inline, 1.5rem);
@@ -87,8 +87,8 @@ fieldset {
 // Focus-within indicator for keyboard navigation
 // WCAG 2.4.7 (Focus Visible)
 fieldset:focus-within {
-  outline: var(--fieldset-focus-outline, 2px solid var(--color-focus));
-  outline-offset: var(--fieldset-focus-offset, 2px);
+  outline: var(--fieldset-focus-outline, 0.125rem solid var(--color-focus));
+  outline-offset: var(--fieldset-focus-offset, 0.125rem);
 }
 
 // Remove outline for mouse users, keep for keyboard
@@ -128,7 +128,7 @@ fieldset[data-fieldset="grouped"] {
   --fieldset-padding-block: 1.5rem;
 
   // Border - Verified 3:1 contrast against background
-  --fieldset-border: 2px solid var(--color-focus);
+  --fieldset-border: 0.125rem solid var(--color-focus);
 
   > legend {
     --legend-fs: 1.125rem;

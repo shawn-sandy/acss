@@ -36,7 +36,7 @@ This repo historically uses three plan directories. **Going forward, please foll
 | `openspec/changes/` | Formal change proposals with specs | **RFC-grade changes**: new public APIs, breaking changes, cross-component conventions, architectural shifts. Must include `proposal.md`, `tasks.md`, and `specs/`. |
 | `openspec/plans/` | Long-lived implementation plans tied to OpenSpec proposals | Multi-week implementation tracks for approved OpenSpec proposals. |
 | `.claude/plans/` | Personal/working plans for a single contributor's current task | Short-lived planning notes for in-flight work. Not source of truth. |
-| `docs/planning/` | **Deprecated for new plans.** Historical archive only. | Do not add new files here. Existing files are preserved for history. |
+| `docs/planning/` | **Deprecated for new plans.** Historical archive only. | Do not add new files here. Existing files are preserved for history. **Explicit exception:** the cross-cutting design-system roadmap `docs/planning/i-want-to-convert-nested-waffle.md` lives here because it spans every directory covered by OpenSpec (tokens, components, CI, docs site) — a single-spec home would misrepresent its scope. New plans still go to `openspec/plans/` or `openspec/changes/` unless they have the same scale. |
 
 **Decision tree:**
 

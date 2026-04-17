@@ -10,14 +10,12 @@ Consumers write:
 
 ```tsx
 <Button variant="pill" color="primary" size="lg">Save</Button>
-<Alert severity="error" variant="filled">Oops</Alert>
 ```
 
 The component writes to the DOM:
 
 ```html
 <button data-style="pill" data-color="primary" data-btn="lg">Save</button>
-<div data-alert data-color="error" data-style="filled">Oops</div>
 ```
 
 The SCSS matches on the attribute:
@@ -25,8 +23,15 @@ The SCSS matches on the attribute:
 ```scss
 button[data-color="primary"] { --btn-bg: var(--color-primary); }
 button[data-btn~="lg"]       { --btn-fs: var(--btn-size-lg); }
-[data-alert][data-style="filled"] { /* … */ }
 ```
+
+**Alert is a documented exception** — its public API is the same
+(typed `severity` + `variant` props), but the internal DOM emits
+`data-alert={severity}` and `data-variant={variant}` rather than the
+generic `data-color` / `data-style`. See the _Exceptions & Open Issues_
+section below for why. If you're authoring Alert overrides, match
+`[data-alert~="error"]` and `[data-variant="filled"]`, not the
+generic axes.
 
 ## The Three Axes
 

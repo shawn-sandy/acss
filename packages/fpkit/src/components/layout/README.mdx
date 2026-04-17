@@ -621,22 +621,28 @@ Tested and verified in:
 
 ### CSS Variables for Accessibility
 
+Fieldset composition uses the library's semantic colour tokens
+(`--color-focus`, `--color-text-tertiary`, `--color-text-disabled`). These
+were standardised as part of the design-system conversion — previous
+versions of this doc referenced ad-hoc names like `--border-default` and
+`--focus-color` which no longer exist.
+
 ```css
 /* Focus indicators */
---fieldset-focus-outline: 2px solid var(--focus-color, #005a9c);
---fieldset-focus-offset: 2px;
+--fieldset-focus-outline: 0.125rem solid var(--color-focus);
+--fieldset-focus-offset: 0.125rem;
 
 /* Disabled state */
 --fieldset-disabled-opacity: 0.6;
---legend-disabled-color: var(--text-disabled, #757575);
+--legend-disabled-color: var(--color-text-disabled);
 
 /* Description text */
 --fieldset-description-fs: 0.875rem;
---fieldset-description-color: var(--text-subtle, #666);
+--fieldset-description-color: var(--color-text-tertiary);
 
 /* High contrast overrides */
 @media (prefers-contrast: high) {
-  --fieldset-border-width: 2px;
+  --fieldset-border-width: 0.125rem;
   --legend-fw: 700;
 }
 ```
@@ -706,35 +712,35 @@ The Fieldset component addresses these WCAG 2.1 Level AA success criteria:
 ```css
 :root {
   /* Border - WCAG compliant contrast ratios */
-  --fieldset-border: 1px solid var(--border-default, #999);
-  --fieldset-border-radius: 0.5rem; /* 8px */
+  --fieldset-border: 0.0625rem solid var(--color-border);
+  --fieldset-border-radius: 0.5rem;
 
   /* Spacing */
-  --fieldset-padding: 1rem; /* 16px */
-  --fieldset-padding-inline: 1.5rem; /* 24px */
-  --fieldset-padding-block: 1rem; /* 16px */
-  --fieldset-margin-block: 2rem; /* 32px */
+  --fieldset-padding: 1rem;
+  --fieldset-padding-inline: 1.5rem;
+  --fieldset-padding-block: 1rem;
+  --fieldset-margin-block: 2rem;
 
   /* Colors */
   --fieldset-bg: transparent;
 
   /* Legend */
-  --legend-fs: 1rem; /* 16px */
+  --legend-fs: 1rem;
   --legend-fw: 600;
-  --legend-padding-inline: 0.5rem; /* 8px */
+  --legend-padding-inline: 0.5rem;
   --legend-color: currentColor;
 
   /* Description (for aria-describedby) */
-  --fieldset-description-fs: 0.875rem; /* 14px */
-  --fieldset-description-color: var(--text-subtle, #666);
+  --fieldset-description-fs: 0.875rem;
+  --fieldset-description-color: var(--color-text-tertiary);
 
   /* Focus indicators - WCAG 2.4.7 */
-  --fieldset-focus-outline: 2px solid var(--focus-color, #005a9c);
-  --fieldset-focus-offset: 2px;
+  --fieldset-focus-outline: 0.125rem solid var(--color-focus);
+  --fieldset-focus-offset: 0.125rem;
 
   /* Disabled state - WCAG 1.4.3 */
   --fieldset-disabled-opacity: 0.6;
-  --legend-disabled-color: var(--text-disabled, #757575);
+  --legend-disabled-color: var(--color-text-disabled);
 }
 
 /* Grouped variant */
