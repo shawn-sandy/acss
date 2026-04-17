@@ -26,7 +26,7 @@
     "test:coverage": "vitest --coverage",
     "test:ui:coverage": "vitest --coverage --ui",
     "test:snapshot": "vitest --run --update",
-    "test:a11y": "test-storybook --url http://localhost:6006",
+    "test:a11y": "test-storybook --config-dir ../../.storybook --url http://localhost:6006",
     "size": "size-limit",
     "size:why": "size-limit --why",
     "lint": "eslint .",
