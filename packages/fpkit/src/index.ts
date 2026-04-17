@@ -407,3 +407,25 @@ export * from "./components/ui";
  * @see {@link ./types/component-props} ComponentProps Interface
  */
 export type { ComponentProps } from "./types";
+
+/**
+ * Theme primitives — light/dark theming runtime built on `data-theme` attribute
+ * switching. ThemeProvider owns the user's preference (light/dark/system),
+ * resolves it against `prefers-color-scheme`, and writes the result to
+ * `document.documentElement`. `getThemeFoucScript()` returns an inline script
+ * string for SSR consumers to avoid a flash of the wrong theme.
+ */
+export {
+  ThemeProvider,
+  ThemeToggle,
+  useTheme,
+  getThemeFoucScript,
+  THEME_STORAGE_KEY,
+} from "./components/theme";
+export type {
+  ThemePreference,
+  ResolvedTheme,
+  ThemeContextValue,
+  ThemeProviderProps,
+  ThemeToggleProps,
+} from "./components/theme";
