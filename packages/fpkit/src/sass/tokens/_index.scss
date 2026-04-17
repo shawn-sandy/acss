@@ -13,3 +13,9 @@
 
 /* Tier 2: Semantic color mappings (purpose-based) */
 @forward "./color-semantic";
+
+/* Motion scale — durations and easings */
+@forward "./motion";
+
+/* Breakpoints — responsive layout thresholds */
+@forward "./breakpoints";

@@ -1,0 +1,33 @@
+/**
+ * Breakpoint Tokens — responsive layout thresholds
+ *
+ * Breakpoints are exposed as custom properties so token consumers (Figma,
+ * docs site, native apps) can read them as values. They are NOT directly
+ * usable inside @media queries — CSS custom properties aren't allowed
+ * there. For SCSS-side media queries, use the SCSS variables below instead.
+ *
+ * The two layers are kept in sync by convention. If you update one, update
+ * the other.
+ */
+
+:root {
+  /* Custom properties — for JS/TS consumers and design-token tooling */
+  --breakpoint-reflow: 20rem;     /* 320px — WCAG 1.4.10 reflow minimum */
+  --breakpoint-xs: 23.4375rem;    /* 375px — iPhone SE and similar */
+  --breakpoint-sm: 30rem;         /* 480px — small devices */
+  --breakpoint-md: 48rem;         /* 768px — tablets */
+  --breakpoint-lg: 62rem;         /* 992px — desktops */
+  --breakpoint-xl: 80rem;         /* 1280px — large screens */
+  --breakpoint-2xl: 96rem;        /* 1536px — extra large screens */
+}
+
+// SCSS variables — for @media queries. Mirror the custom properties above.
+// Use via: @media (min-width: $bp-md) { … }
+// (Silent // comments avoid sass interpolation inside /* */ blocks.)
+$bp-reflow: 20rem;
+$bp-xs: 23.4375rem;
+$bp-sm: 30rem;
+$bp-md: 48rem;
+$bp-lg: 62rem;
+$bp-xl: 80rem;
+$bp-2xl: 96rem;
