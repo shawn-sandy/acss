@@ -80,7 +80,8 @@
   --color-surface-secondary: var(--color-neutral-50);/* #fafafa - Secondary background */
   --color-surface-tertiary: var(--color-neutral-100);/* #f5f5f5 - Tertiary background */
   --color-surface-elevated: var(--color-neutral-0); /* #ffffff - Cards, modals, raised elements */
-  --color-surface-overlay: rgba(0, 0, 0, 0.5);      /* Modal overlay, backdrop */
+  /* Modal backdrop — stays black-biased in both light and dark modes so content below dims */
+  --color-surface-overlay: rgba(0, 0, 0, 0.5);
 
   /* ========================================
      Border Colors
@@ -110,8 +111,14 @@
 
   --color-focus: var(--color-blue-600);             /* #2563eb - Focus outlines (WCAG 3:1 contrast) */
   --color-focus-ring: var(--color-blue-600);        /* #2563eb - Focus rings on inputs */
-  --color-hover-overlay: rgba(0, 0, 0, 0.05);       /* Subtle hover overlay on buttons */
-  --color-active-overlay: rgba(0, 0, 0, 0.1);       /* Active/pressed overlay on buttons */
+  /*
+   * UI overlay base (RGB triplet, no alpha) — darkens surfaces on light theme (black),
+   * lightens surfaces on dark theme (white). Consumed by hover/active overlays via rgba().
+   * Dark-mode override lives in the [data-theme="dark"] block below.
+   */
+  --color-ui-overlay-base: 0, 0, 0;
+  --color-hover-overlay: rgba(var(--color-ui-overlay-base), 0.05);  /* Subtle hover on buttons */
+  --color-active-overlay: rgba(var(--color-ui-overlay-base), 0.1);  /* Active/pressed overlay */
   --color-disabled-bg: var(--color-neutral-100);    /* #f5f5f5 - Disabled backgrounds */
   --color-disabled-text: var(--color-neutral-500);  /* #737373 - Disabled text */
 
@@ -141,4 +148,13 @@
 
   --color-skip-link-bg: var(--color-neutral-100);   /* #f5f5f5 - Skip link background */
   --color-skip-link-text: var(--color-text);        /* Inherits default text color */
+}
+
+/*
+ * Dark-theme scaffold — Phase 3 will populate this with semantic overrides.
+ * Today it flips only the UI overlay base so hover/active overlays remain visible
+ * on dark surfaces. Do not hand-author hex literals here; reference primitives.
+ */
+[data-theme="dark"] {
+  --color-ui-overlay-base: 255, 255, 255;
 }

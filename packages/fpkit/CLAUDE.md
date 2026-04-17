@@ -5,11 +5,11 @@ This file provides guidance for working with the **@fpkit/acss** React component
 ## Package Overview
 
 **Package Name:** `@fpkit/acss`
-**Version:** 0.5.11 (independent versioning)
+**Version:** 6.5.0 (independent versioning — check `package.json` for current)
 **Type:** Public React UI component library
 **Published to:** npm (public)
 
-A lightweight React UI component library with 25+ components using CSS custom properties for reactive styling. Emphasizes accessibility, component composition, and semantic HTML.
+A React UI component library with 30+ components using CSS custom properties for reactive styling. Emphasizes accessibility, component composition, and semantic HTML. Ships primitive → semantic → component-scoped design tokens with WCAG AA color contrast.
 
 ## Key Technologies
 
@@ -115,7 +115,7 @@ npm run lint-fix            # Auto-fix issues
 
 ## Storybook Development
 
-The fpkit package uses **Storybook 9** (React Vite) for component development, documentation, and interactive testing. Storybook runs from the **monorepo root** and automatically loads all stories from the fpkit package.
+The fpkit package uses **Storybook 10** (React Vite) for component development, documentation, and interactive testing. Storybook runs from the **monorepo root** and automatically loads all stories from the fpkit package.
 
 ### Starting Storybook
 
@@ -211,7 +211,7 @@ export const Custom: Story = {
   args: {
     styles: {
       "--btn-fs": "1.5rem",
-      "--btn-primary-bg": "#0066cc",
+      "--btn-bg": "var(--color-primary)",
     },
     children: "Custom Styled",
   },
@@ -557,7 +557,7 @@ The package exports through multiple entry points:
 
 ```
 src/
-├── components/              # All UI components (25+)
+├── components/              # All UI components (30+)
 │   ├── alert/              # Alert component
 │   ├── buttons/            # Button components
 │   ├── cards/              # Card layout components
@@ -717,26 +717,29 @@ npm run test:ui         # Interactive UI with coverage
 
 ### Component SCSS Pattern
 
+Follow the standardized variable naming from `docs/css-variables.md`: `--{component}-{element?}-{variant?}-{property}-{state?}`. Use `padding-inline` / `padding-block` (not `px`/`py`), `color` (not `cl`), `radius` (not `rds`), and reference semantic tokens (`--color-primary`, `--color-text-inverse`) rather than raw hex values.
+
 ```scss
-// button.scss
-.btn {
-  // Use CSS custom properties
-  font-size: var(--btn-fs, 1rem);      // 1rem = 16px
-  padding: var(--btn-py, 0.5rem) var(--btn-px, 1rem);
+// button.scss — follows the naming standard in docs/css-variables.md
+button {
+  // Use CSS custom properties with standardized names
+  font-size: var(--btn-fs, 1rem);                          // 1rem = 16px
+  padding-inline: var(--btn-padding-inline, 1rem);
+  padding-block: var(--btn-padding-block, 0.5rem);
   border-radius: var(--btn-radius, 0.25rem);
 
   // Use rem units only
   margin-bottom: 1rem;                  // NOT 16px
   gap: 0.5rem;                          // NOT 8px
 
-  // Variants
-  &--primary {
-    background: var(--btn-primary-bg, #0066cc);
+  // Variants via data-attributes (see .claude/rules/component-conventions.md)
+  &[data-color="primary"] {
+    --btn-bg: var(--color-primary);           // semantic token, not raw hex
+    --btn-color: var(--color-text-inverse);
   }
 
-  &--large {
-    font-size: 1.125rem;                // NOT 18px
-    padding: 0.75rem 1.5rem;            // NOT 12px 24px
+  &[data-btn~="lg"] {
+    --btn-fs: var(--btn-size-lg);
   }
 }
 ```
@@ -807,25 +810,14 @@ npm run build
 
 ## Publishing
 
-### Release Process
-
-```bash
-npm run release         # Lerna publish with version bump
-```
-
-This will:
-1. Run tests and linting
-2. Build the package
-3. Bump version (follows semver)
-4. Publish to npm as `@fpkit/acss`
-5. Create git tag
+**Always use the `npm-monorepo-publish` skill** when publishing. See `.claude/rules/publishing.md` for the full workflow (release-branch PR, OTP/2FA, and validation). Do NOT bump major versions without explicit approval.
 
 ### Version Management
 
-- **Strategy:** Independent versioning (Lerna)
-- **Current:** 0.5.11
-- **Semver:** Follows semantic versioning
-- **Public:** Published to npm (not private)
+- **Strategy:** Independent versioning (Lerna for task orchestration; Changesets is the planned versioning authority — see `docs/planning/i-want-to-convert-nested-waffle.md` Phase 5)
+- **Current:** See `package.json` for the current version (recent: 6.5.0)
+- **Semver:** Strictly followed
+- **Public:** Published to npm as `@fpkit/acss`
 
 ## Common Tasks
 

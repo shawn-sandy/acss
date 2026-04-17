@@ -107,7 +107,7 @@ small > span,
 
   /* Production variant - live environment indicator */
   &[data-tag~='production'] {
-    --tag-color: #ffffff;      /* White: 8.59:1 contrast with dark blue */
+    --tag-color: var(--color-text-inverse);  /* White: 8.59:1 contrast with dark blue */
     --tag-bg: var(--production);
 
     /* Visual indicator beyond color - live indicator symbol */

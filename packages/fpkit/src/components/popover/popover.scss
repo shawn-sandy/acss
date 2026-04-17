@@ -6,8 +6,8 @@
 // CSS Custom Properties
 .fpkit-popover {
   // Background and border
-  --popover-bg: #ffffff;
-  --popover-border: 0.0625rem solid #ccc;
+  --popover-bg: var(--color-surface-elevated);
+  --popover-border: 0.0625rem solid var(--color-border);
   --popover-border-radius: 0.5rem;
 
   // Spacing
@@ -15,9 +15,9 @@
   --popover-margin: 0.5rem;
   --popover-max-width: 20rem;
 
-  // Shadow
-  --popover-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1),
-    0 0.125rem 0.25rem rgba(0, 0, 0, 0.06);
+  // Shadow — uses --color-ui-overlay-base so it inverts correctly in dark mode
+  --popover-shadow: 0 0.25rem 0.5rem rgba(var(--color-ui-overlay-base), 0.1),
+    0 0.125rem 0.25rem rgba(var(--color-ui-overlay-base), 0.06);
 
   // Arrow
   --popover-arrow-size: 0.5rem;
@@ -25,9 +25,9 @@
 
   // Close button
   --popover-close-size: 1.5rem;
-  --popover-close-color: #666;
-  --popover-close-hover-color: #000;
-  --popover-close-hover-bg: rgba(0, 0, 0, 0.05);
+  --popover-close-color: var(--color-text-tertiary);
+  --popover-close-hover-color: var(--color-text);
+  --popover-close-hover-bg: var(--color-hover-overlay);
 
   // Base styles
   background: var(--popover-bg);
@@ -85,9 +85,9 @@
     display 0.2s ease-in allow-discrete;
 }
 
-// Backdrop for manual mode
+// Backdrop for manual mode — uses ui-overlay-base so the recede effect reads correctly in both themes
 .fpkit-popover::backdrop {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(var(--color-ui-overlay-base), 0.3);
   backdrop-filter: blur(0.125rem);
   transition:
     background 0.2s ease-out,
@@ -96,7 +96,7 @@
     display 0.2s ease-out allow-discrete;
 
   @starting-style {
-    background: rgba(0, 0, 0, 0);
+    background: rgba(var(--color-ui-overlay-base), 0);
     backdrop-filter: blur(0);
   }
 }
@@ -188,8 +188,8 @@
 // Default trigger button
 .fpkit-popover-trigger {
   padding: 0.5rem 1rem;
-  background: #0066cc;
-  color: #ffffff;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
@@ -199,7 +199,7 @@
     transform 0.1s ease;
 
   &:hover {
-    background: #0052a3;
+    background: var(--color-primary-hover);
   }
 
   &:active {
