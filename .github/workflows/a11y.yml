@@ -23,12 +23,11 @@ jobs:
     name: Storybook a11y (axe)
     runs-on: ubuntu-latest
     timeout-minutes: 25
-    # Report violations without gating merges during the initial triage pass.
-    # Flip back to `false` (or remove) once the backlog is drained and every
-    # story either passes axe or explicitly opts out via
-    # `parameters: { a11y: { disable: true } }`. Tracking in MIGRATION-v7.md
-    # under "Release & CI → Accessibility gate."
-    continue-on-error: true
+    # Note: job-level continue-on-error keeps the workflow green overall,
+    # but GitHub still reports THIS job's check_run conclusion from the
+    # step outcomes. To avoid painting a red X on the PR page during the
+    # initial triage pass, the actual test-runner step below carries its
+    # own `continue-on-error`. Remove both when the backlog is drained.
 
     steps:
       - name: Checkout
@@ -60,6 +59,13 @@ jobs:
         # concurrently serves the built Storybook, waits for it, and runs the
         # test-runner against it. npx guards against the Storybook packages
         # being scoped to the monorepo root.
+        #
+        # Step-level continue-on-error makes the step's CONCLUSION report as
+        # "success" even when the inner command exits non-zero, which is what
+        # GitHub surfaces on the PR checks row. Job-level continue-on-error
+        # only prevents cascading failure; it doesn't change per-job display.
+        # Reviewers still see violation details in the step's log body.
+        continue-on-error: true
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "npx http-server storybook-static --port 6006 --silent" \
