@@ -1,0 +1,38 @@
+/**
+ * Motion Tokens — durations and easings
+ *
+ * Motion should be perceptible without distracting. These tokens cover the
+ * most common animation lengths and curves. Consumers who disable motion
+ * via prefers-reduced-motion should see `duration-instant` effectively,
+ * which is why most component animations reference duration tokens rather
+ * than hard-coding values.
+ */
+
+:root {
+  /* Duration scale — paced to feel deliberate rather than twitchy */
+  --duration-instant: 0ms;    /* Reduced-motion target */
+  --duration-fast: 120ms;     /* Small state changes (hover, focus) */
+  --duration-base: 200ms;     /* Default for most UI transitions */
+  --duration-slow: 320ms;     /* Entrances, larger layout shifts */
+  --duration-slower: 480ms;   /* Modal open/close, page-level transitions */
+
+  /* Easing curves — named by intent rather than cubic-bezier values */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);      /* Natural acceleration + ease-out */
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);    /* Exits the viewport */
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);    /* Enters the viewport */
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1.2);  /* Attention-grabbing snap */
+}
+
+/*
+ * Respect the user's reduced-motion preference: collapse all durations to
+ * near-instant. Component authors who reference --duration-* tokens get this
+ * for free without custom media-query handling.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+    --duration-slow: 1ms;
+    --duration-slower: 1ms;
+  }
+}

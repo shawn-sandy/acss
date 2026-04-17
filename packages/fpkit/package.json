@@ -10,7 +10,9 @@
   "scripts": {
     "start": "run-p package:watch sass:watch",
     "dev": "vite --open",
-    "build": "run-s package sass build:sass build:css",
+    "build": "run-s tokens:build package sass build:sass build:css",
+    "tokens:extract": "node scripts/extract-tokens.mjs",
+    "tokens:build": "npm run tokens:extract && style-dictionary build --config style-dictionary.config.mjs",
     "package": "tsc && tsup --dts",
     "package:watch": "tsc && tsup --watch --dts",
     "build::css": "postcss ./libs/components/**/*.css --base libs/components/  --use autoprefixer -d ./libs/components/ --ext min.css",
@@ -56,6 +58,7 @@
     "prettier": "^3.2.4",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.64.1",
+    "style-dictionary": "^5.4.0",
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",
     "vite": "^4.4.6",
@@ -93,6 +96,7 @@
       "require": "./libs/index.css",
       "default": "./libs/index.css"
     },
+    "./tokens": "./libs/tokens.json",
     "./css": "./libs/components",
     "./scss": "./src/components"
   },
