@@ -1,0 +1,64 @@
+---
+/**
+ * SpacingScale — renders a single spacing token as a visual bar with label.
+ *
+ * Spacing tokens in @fpkit/acss are expressed as rem values (most via
+ * clamp() for fluid scaling). The visual bar uses the token's own value
+ * so the rendered width IS the actual size designers should expect.
+ */
+
+export interface Props {
+  /** CSS var name without leading "--" (e.g. "spacing-md"). */
+  name: string;
+  /** Resolved value from tokens.json for display. */
+  value: string;
+}
+
+const { name, value } = Astro.props;
+---
+
+<div class="spacing-row">
+  <div class="spacing-row__meta">
+    <strong>{name}</strong>
+    <code>{value}</code>
+  </div>
+  <div class="spacing-row__bar-track" aria-hidden="true">
+    <div class="spacing-row__bar" style={`width: var(--${name})`}></div>
+  </div>
+</div>
+
+<style>
+  .spacing-row {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .spacing-row:last-child {
+    border-bottom: none;
+  }
+  .spacing-row__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    font-size: 0.875rem;
+  }
+  .spacing-row__meta code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary);
+  }
+  .spacing-row__bar-track {
+    background: var(--color-surface-tertiary);
+    border-radius: 0.25rem;
+    height: 1.25rem;
+    overflow: hidden;
+  }
+  .spacing-row__bar {
+    height: 100%;
+    background: var(--color-primary);
+    min-width: 0.25rem;
+  }
+</style>

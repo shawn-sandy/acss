@@ -1,0 +1,70 @@
+---
+/**
+ * Foundations → Typography.
+ *
+ * Renders every --fs-* token as a live preview row. Sizes come from
+ * src/sass/_type.scss in fpkit (fluid clamp()-based scale, fs-0..fs-12
+ * plus semantic aliases xs/sm/base/md/lg/xl/xxl/xxxl).
+ */
+import Layout from "../../layouts/Layout.astro";
+import TypeScale from "../../components/TypeScale.astro";
+
+// Hand-listed because type.scss uses a SCSS mixin (@mixin props) that the
+// token extractor doesn't walk into. If fs-* tokens ever move into a plain
+// :root block, this list can become a JSON-driven map like colors.astro.
+const NUMERIC_SCALE = [
+  "fs-0",
+  "fs-1",
+  "fs-2",
+  "fs-3",
+  "fs-4",
+  "fs-5",
+  "fs-6",
+  "fs-7",
+  "fs-8",
+  "fs-9",
+  "fs-10",
+  "fs-11",
+  "fs-12",
+];
+
+const SEMANTIC_ALIASES = [
+  { name: "fs-xs", label: "xs — caption" },
+  { name: "fs-sm", label: "sm — small body" },
+  { name: "fs-base", label: "base — default body" },
+  { name: "fs-md", label: "md — lead paragraph" },
+  { name: "fs-lg", label: "lg — section heading" },
+  { name: "fs-xl", label: "xl — page heading" },
+  { name: "fs-xxl", label: "xxl — display" },
+  { name: "fs-xxxl", label: "xxxl — hero" },
+];
+---
+
+<Layout
+  title="Typography · Foundations · @fpkit/acss"
+  description="Fluid type scale for @fpkit/acss."
+>
+  <h1>Typography</h1>
+  <p>
+    The type scale is fluid — every size uses <code>clamp()</code> so
+    typography scales smoothly between the viewport minimum (320px reflow)
+    and your largest breakpoint. Use the <strong>semantic aliases</strong>
+    for intent-driven sizing; drop to the numeric scale only when you need
+    a step that doesn't map cleanly to an alias.
+  </p>
+
+  <h2>Semantic aliases</h2>
+  <div class="type-scale">
+    {SEMANTIC_ALIASES.map((a) => (
+      <TypeScale name={a.name} label={a.label} />
+    ))}
+  </div>
+
+  <h2>Numeric scale</h2>
+  <p>The raw scale that the semantic aliases reference.</p>
+  <div class="type-scale">
+    {NUMERIC_SCALE.map((name) => (
+      <TypeScale name={name} />
+    ))}
+  </div>
+</Layout>

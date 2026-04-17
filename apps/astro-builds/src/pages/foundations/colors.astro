@@ -1,0 +1,158 @@
+---
+/**
+ * Foundations → Colors.
+ *
+ * Data-driven from the generated tokens JSON — the page NEVER hand-authors
+ * token values, so the docs stay in sync with the SCSS source.
+ *
+ * Path note: @fpkit/acss/tokens is declared in fpkit's package.json exports
+ * and resolves to libs/tokens.json. That artifact is built by
+ * `npm run tokens:build` in packages/fpkit.
+ */
+import Layout from "../../layouts/Layout.astro";
+import TokenSwatch from "../../components/TokenSwatch.astro";
+import tokens from "@fpkit/acss/tokens";
+
+/**
+ * Style Dictionary preserves a rich shape. For each palette we flatten the
+ * nested "shade" objects into a sorted array of { name, value } pairs.
+ */
+type ShadeNode = { $value?: string };
+type PaletteNode = Record<string, ShadeNode>;
+
+function palette(node: PaletteNode, prefix: string) {
+  return Object.entries(node)
+    .filter(([, v]) => typeof v === "object" && v !== null && "$value" in v)
+    .map(([shade, v]) => ({
+      name: `${prefix}-${shade}`,
+      shade,
+      value: String(v.$value ?? ""),
+    }))
+    .sort((a, b) => Number(a.shade) - Number(b.shade));
+}
+
+const primitives = tokens.color as Record<string, PaletteNode>;
+const primitivePalettes = ["neutral", "blue", "green", "red", "amber"]
+  .filter((name) => primitives[name])
+  .map((name) => ({ name, entries: palette(primitives[name], `color-${name}`) }));
+
+/**
+ * Semantic tokens are nested deeper — each slot holds { $value, $extensions }
+ * where $extensions.com.fpkit.themeModes.dark (if present) is the dark override.
+ */
+type SemanticToken = {
+  $value?: string;
+  $extensions?: { "com.fpkit.themeModes"?: { dark?: string } };
+};
+
+const SEMANTIC_GROUPS: Array<{ title: string; names: string[] }> = [
+  {
+    title: "Brand",
+    names: [
+      "color-primary",
+      "color-primary-hover",
+      "color-primary-active",
+      "color-primary-light",
+      "color-secondary",
+      "color-secondary-hover",
+      "color-secondary-light",
+    ],
+  },
+  {
+    title: "State",
+    names: [
+      "color-success",
+      "color-success-bg",
+      "color-success-text",
+      "color-error",
+      "color-error-bg",
+      "color-error-text",
+      "color-warning",
+      "color-warning-bg",
+      "color-warning-text",
+      "color-info",
+      "color-info-bg",
+      "color-info-text",
+    ],
+  },
+  {
+    title: "Surface & text",
+    names: [
+      "color-surface",
+      "color-surface-secondary",
+      "color-surface-tertiary",
+      "color-surface-elevated",
+      "color-text",
+      "color-text-secondary",
+      "color-text-tertiary",
+      "color-text-disabled",
+      "color-text-inverse",
+    ],
+  },
+];
+
+function resolveSemantic(name: string): string {
+  // tokens.color is nested; walk from "color.<segments>" to find the node.
+  const segments = name.replace(/^color-/, "").split("-");
+  let node: unknown = (tokens.color as unknown);
+  for (const seg of segments) {
+    if (node && typeof node === "object" && seg in (node as Record<string, unknown>)) {
+      node = (node as Record<string, unknown>)[seg];
+    } else {
+      return "(unresolved)";
+    }
+  }
+  const token = node as SemanticToken;
+  return token.$value ?? "(unresolved)";
+}
+---
+
+<Layout
+  title="Colors · Foundations · @fpkit/acss"
+  description="Colour primitives (WCAG AA) and semantic tokens for @fpkit/acss."
+>
+  <h1>Colors</h1>
+  <p>
+    The colour system has two tiers. <strong>Primitives</strong> are the raw
+    palette (WCAG-AA contrast verified). <strong>Semantic tokens</strong> map
+    primitives to intent (brand, state, surface, text) and are what component
+    SCSS references — override at the semantic tier to re-skin the whole
+    library.
+  </p>
+
+  <h2>Semantic tokens</h2>
+  {SEMANTIC_GROUPS.map((group) => (
+    <section>
+      <h3>{group.title}</h3>
+      <div class="swatch-grid">
+        {group.names.map((n) => (
+          <TokenSwatch name={n} value={resolveSemantic(n)} />
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <h2>Primitive palettes</h2>
+  {primitivePalettes.map((p) => (
+    <section>
+      <h3 class="capitalize">{p.name}</h3>
+      <div class="swatch-grid">
+        {p.entries.map((e) => (
+          <TokenSwatch name={e.name} value={e.value} label={e.shade} />
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <style>
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+      gap: 0.75rem;
+      margin-block: 1rem 2rem;
+    }
+    .capitalize {
+      text-transform: capitalize;
+    }
+  </style>
+</Layout>

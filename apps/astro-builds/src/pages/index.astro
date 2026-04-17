@@ -1,15 +1,153 @@
 ---
-import Welcome from "../components/Welcome.astro";
+/**
+ * Docs home — the public entry point for @fpkit/acss.
+ *
+ * Keep this page fast and scannable: the design system's value prop, a
+ * minimal feature grid, and direct jumps into Foundations and Guides.
+ * Component pages and patterns join later.
+ */
 import Layout from "../layouts/Layout.astro";
-import { DialogModal } from "@fpkit/acss";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-  <Welcome />
-  <DialogModal dialogTitle="demo" btnLabel="Orders">
-    <p>This is a dialog modal.</p>
-  </DialogModal>
+  <section class="hero">
+    <h1>@fpkit/acss</h1>
+    <p class="hero__tagline">
+      An accessibility-first React design system with a three-tier token
+      architecture, a runtime theme switcher, and components that compose.
+    </p>
+    <div class="hero__actions">
+      <a href="/foundations/colors" class="btn btn--primary">
+        Explore foundations
+      </a>
+      <a
+        href="https://github.com/shawn-sandy/acss"
+        class="btn"
+        target="_blank"
+        rel="noopener"
+      >
+        GitHub
+      </a>
+    </div>
+  </section>
+
+  <section class="features">
+    <article>
+      <h2>Tokens as contract</h2>
+      <p>
+        Primitive → semantic → component. Override at the semantic tier to
+        re-skin the entire library without touching a single component.
+      </p>
+      <a href="/foundations/colors">Browse the colour tokens →</a>
+    </article>
+
+    <article>
+      <h2>Light and dark, in one line</h2>
+      <p>
+        Wrap your app in <code>ThemeProvider</code>, drop in
+        <code>ThemeToggle</code>, and every component inverts correctly.
+        No per-component dark styles, no CSS-in-JS, no flash on load.
+      </p>
+      <a href="/foundations/motion">Try the toggle in the header →</a>
+    </article>
+
+    <article>
+      <h2>Accessibility is the default</h2>
+      <p>
+        WCAG 2.1 AA baseline, <code>aria-disabled</code> over native
+        disabled, keyboard-first focus handling. The a11y addon runs in CI
+        on every story.
+      </p>
+      <a href="/guides/accessibility">Read the accessibility guide →</a>
+    </article>
+
+    <article>
+      <h2>Composition over configuration</h2>
+      <p>
+        Small primitives (<code>Box</code>, <code>Stack</code>,
+        <code>Cluster</code>, <code>Grid</code>) combined with polymorphic
+        <code>as</code> props beat monolithic components with fifty
+        flags.
+      </p>
+      <a href="/guides/composition">Read the composition guide →</a>
+    </article>
+  </section>
+
+  <style>
+    .hero {
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: var(--fs-9, 3rem);
+      margin: 0 0 1rem;
+      letter-spacing: -0.025em;
+    }
+    .hero__tagline {
+      font-size: var(--fs-md, 1.25rem);
+      color: var(--color-text-secondary);
+      max-width: 42rem;
+      margin: 0 auto 2rem;
+      line-height: 1.5;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero__actions .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      background: var(--color-surface-elevated);
+      transition: transform var(--duration-fast) var(--ease-standard);
+    }
+    .hero__actions .btn:hover {
+      transform: translateY(-1px);
+    }
+    .hero__actions .btn--primary {
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      border-color: var(--color-primary);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+      gap: 1.25rem;
+      margin-block: 2rem 4rem;
+    }
+    .features article {
+      padding: 1.5rem;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+    }
+    .features h2 {
+      font-size: var(--fs-md, 1.25rem);
+      margin: 0 0 0.5rem;
+    }
+    .features p {
+      color: var(--color-text-secondary);
+      margin: 0 0 1rem;
+      line-height: 1.55;
+    }
+    .features a {
+      color: var(--color-link);
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .features code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.9em;
+      background: var(--color-surface-tertiary);
+      padding: 0.125em 0.375em;
+      border-radius: 0.25em;
+    }
+  </style>
 </Layout>

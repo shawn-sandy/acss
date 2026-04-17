@@ -1,0 +1,40 @@
+---
+/**
+ * Foundations → Spacing.
+ *
+ * Shows each --spacing-* token as a visual bar. Values come from
+ * src/sass/_globals.scss in fpkit; most are fluid (clamp-based) so the
+ * rendered bar width IS the value you'll get at the current viewport.
+ */
+import Layout from "../../layouts/Layout.astro";
+import SpacingScale from "../../components/SpacingScale.astro";
+
+const SPACING = [
+  { name: "spacing-0", value: "0" },
+  { name: "spacing-xs", value: "clamp(0.25rem, 0.5vw, 0.5rem)" },
+  { name: "spacing-sm", value: "clamp(0.5rem, 1vw, 0.75rem)" },
+  { name: "spacing-md", value: "clamp(0.75rem, 1.5vw, 1rem)" },
+  { name: "spacing-lg", value: "clamp(1rem, 2vw, 1.5rem)" },
+  { name: "spacing-xl", value: "clamp(1.5rem, 3vw, 2rem)" },
+];
+---
+
+<Layout
+  title="Spacing · Foundations · @fpkit/acss"
+  description="Fluid spacing scale for @fpkit/acss."
+>
+  <h1>Spacing</h1>
+  <p>
+    Spacing tokens follow a six-step scale keyed to intent (extra-small
+    through extra-large). Most use <code>clamp()</code> for fluid scaling;
+    at smaller viewports they shrink, at larger viewports they plateau.
+    Use these for padding, margin, and flex/grid gaps rather than
+    hand-authoring rem values.
+  </p>
+
+  <div class="spacing-scale">
+    {SPACING.map((s) => (
+      <SpacingScale name={s.name} value={s.value} />
+    ))}
+  </div>
+</Layout>

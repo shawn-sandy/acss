@@ -1,0 +1,65 @@
+---
+/**
+ * TypeScale — renders a single typography size token as a preview row.
+ *
+ * Consumers pass the CSS var name (`fs-0`, `fs-1`, etc.) and the scale row
+ * renders a "The quick brown fox" preview at that size along with the
+ * token name for copy-paste.
+ */
+
+export interface Props {
+  /** The CSS custom property name without the leading "--" (e.g. "fs-5"). */
+  name: string;
+  /** Optional label (defaults to the var name). */
+  label?: string;
+  /** Optional sample text; defaults to a pangram. */
+  sample?: string;
+}
+
+const {
+  name,
+  label,
+  sample = "The quick brown fox jumps over the lazy dog.",
+} = Astro.props;
+---
+
+<div class="type-scale-row">
+  <div class="type-scale-row__meta">
+    <strong>{label ?? name}</strong>
+    <code>var(--{name})</code>
+  </div>
+  <p class="type-scale-row__sample" style={`font-size: var(--${name})`}>
+    {sample}
+  </p>
+</div>
+
+<style>
+  .type-scale-row {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) 3fr;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .type-scale-row:last-child {
+    border-bottom: none;
+  }
+  .type-scale-row__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+  .type-scale-row__meta code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary);
+  }
+  .type-scale-row__sample {
+    margin: 0;
+    line-height: 1.3;
+    color: var(--color-text);
+  }
+</style>
