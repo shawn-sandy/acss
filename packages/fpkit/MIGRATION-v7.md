@@ -103,6 +103,50 @@ If you author SCSS overrides for Alert, no change is needed. A future release ma
 
 ---
 
+## Release & CI
+
+### Changesets replaces `lerna version` / `lerna publish` (⚠️ action required for maintainers)
+
+The repository now uses [Changesets](https://github.com/changesets/changesets) for versioning and changelog generation. Lerna remains only for task orchestration (`lerna run`).
+
+**What changed:**
+- `.changeset/` directory with `config.json` and `README.md`.
+- New root scripts: `npm run changeset`, `npm run version-packages`, `npm run release`.
+- Old `npm run publish` / `npm run publish:ci` scripts have been removed.
+- `npm run lerna:version` and `npm run lerna:publish` exist but exit 1 with a redirect message so muscle memory redirects to Changesets.
+
+**Action required (maintainers only):** after merging a PR that adds a changeset, review the auto-opened "Version Packages" PR and merge it to publish. See `.changeset/README.md` for the full flow. Consumers: no action needed.
+
+### CI quality gates (✅ additive)
+
+Four new workflows under `.github/workflows/`:
+- `test.yml` — lint, vitest with coverage thresholds, size-limit on built artifacts. Blocks PRs on lint/test/size regressions.
+- `chromatic.yml` — visual regression via Chromatic. Gated on the `CHROMATIC_PROJECT_TOKEN` repo secret; scaffold is live, baselines captured on first run after Phase 2 tokens land.
+- `a11y.yml` — Storybook test-runner + axe checks. Expect the first post-Phase-3 run to surface genuine dark-mode a11y issues masked by old hardcoded colors; treat those as a triage backlog, not a regression.
+- `release.yml` — Changesets-driven release flow (opens a Version Packages PR on main; publishes to npm when that PR merges).
+
+### Coverage thresholds (✅ additive)
+
+`packages/fpkit/vitest.config.js` now enforces minimum coverage:
+- Lines: 89% (baseline 91.1%)
+- Branches: 90% (baseline 92.8%)
+- Functions: 66% (baseline 68.4%)
+- Statements: 89% (baseline 91.1%)
+
+Thresholds sit ~2pp below the baseline at Phase 5 landing. Roadmap target: 95%+ lines/statements, 85%+ functions.
+
+### Bundle-size budget (✅ additive)
+
+`packages/fpkit/.size-limit.cjs` enforces gzipped budgets on the four public entry points:
+- Main entry: 18 KB (baseline 15.5 KB)
+- Hooks subpath: 3 KB (baseline 2.33 KB)
+- Icons subpath: 6 KB (baseline 4.59 KB)
+- Compiled CSS: 18 KB (baseline 17.36 KB — tight)
+
+Run `npm run size` locally after `npm run package && npm run sass:build`. The CSS budget is within ~3% of baseline; expect to revisit when Phase 6 (Astro docs site) lands or new components ship.
+
+---
+
 ## Tooling & docs
 
 ### Plan directory policy (no code impact)

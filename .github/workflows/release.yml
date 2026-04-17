@@ -1,0 +1,67 @@
+name: Release
+
+# Changesets-driven release flow. On merges to main:
+#   1. If there are pending changesets, open/update a "Version Packages" PR
+#      that bumps versions and writes CHANGELOG.md entries.
+#   2. When that PR merges back to main, publish to npm using NPM_TOKEN.
+#
+# This workflow REPLACES the previous `lerna publish` flow. Lerna remains for
+# task orchestration only (lerna run <script>) — see root package.json scripts
+# `lerna:version` and `lerna:publish` which now error with a redirect message.
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  # Serialize releases so two overlapping merges can't race each other into
+  # inconsistent npm + git-tag states.
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Changesets release
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write     # to push the Version Packages branch + tags
+      pull-requests: write # to open the Version Packages PR
+      id-token: write     # for npm provenance
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # full history for Changesets' changelog rendering
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            packages/fpkit/package-lock.json
+
+      - name: Install deps
+        run: |
+          npm ci --no-audit --no-fund
+          npm ci --no-audit --no-fund --prefix packages/fpkit
+
+      - name: Create Release PR or publish
+        uses: changesets/action@v1
+        with:
+          # `npm run release` runs the build first, then `changeset publish`.
+          publish: npm run release
+          # Commit message for the Version Packages PR's version-bump commit.
+          commit: 'chore(release): version packages'
+          title: 'chore(release): version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # Enable npm provenance attestation so consumers can verify the
+          # build came from this repo + workflow.
+          NPM_CONFIG_PROVENANCE: 'true'

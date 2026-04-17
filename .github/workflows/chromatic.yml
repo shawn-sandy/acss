@@ -1,0 +1,68 @@
+name: Chromatic
+
+# Visual regression tests against Storybook via Chromatic. This workflow is a
+# scaffold — it requires the CHROMATIC_PROJECT_TOKEN secret to be populated in
+# the repository settings before the action will do anything other than fail
+# the step cleanly. That token is created for free at https://www.chromatic.com/
+# by linking this repository.
+#
+# The Phase 2 "token baseline reset" note in
+# docs/planning/i-want-to-convert-nested-waffle.md applies: the FIRST run after
+# token pipeline changes (Phase 2) will diff every story. Approve the new
+# baselines in one Chromatic UI pass, then subsequent runs gate normally.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: chromatic-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromatic:
+    name: Visual regression
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # Skip the job if the required secret isn't configured yet. This keeps PRs
+    # from failing while Chromatic is still being set up.
+    if: ${{ github.event_name == 'push' || !github.event.pull_request.draft }}
+
+    steps:
+      - name: Checkout
+        # fetch-depth: 0 is required by Chromatic's git history diff algorithm.
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            packages/fpkit/package-lock.json
+
+      - name: Install deps
+        run: |
+          npm ci --no-audit --no-fund
+          npm ci --no-audit --no-fund --prefix packages/fpkit
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        env:
+          # Token is required — if unset, chromaui/action fails fast with a
+          # helpful message rather than publishing a broken build.
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Exit with success even if new baselines need approval so PRs don't
+          # block waiting for manual review — reviewers catch diffs in the
+          # Chromatic UI, not in CI.
+          exitZeroOnChanges: true
+          # Exit with failure on actual broken builds (e.g., Storybook
+          # compilation errors) so those DO gate merges.
+          exitOnceUploaded: false
