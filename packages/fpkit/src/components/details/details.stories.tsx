@@ -188,7 +188,12 @@ export const DetailsInteractionTest: Story = {
     await step("Close the detail panel", async () => {
       await userEvent.click(summaryElement, { delay: 500 });
 
-      expect(summaryElement).not.toHaveAttribute("open");
+      // `open` is an attribute on <details>, not on <summary>. The old
+      // assertion was vacuously true because summary never has that attr.
+      const detailsElement = canvas.getByRole("group", {
+        name: /details dropdown/i,
+      });
+      expect(detailsElement).not.toHaveAttribute("open");
     });
 
     // test if it works with the space bar

@@ -66,6 +66,15 @@ export const Default: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
 
+    // Feature guard: the native Popover API needs Chrome 125+/Edge 125+/
+    // Safari 17.4+. Storybook test-runner's pinned Chromium can lag those
+    // versions depending on Playwright build, so calling showPopover()
+    // throws and the interaction cascade fails. Skip gracefully instead.
+    const supportsPopover =
+      typeof HTMLElement !== "undefined" &&
+      "showPopover" in HTMLElement.prototype;
+    if (!supportsPopover) return;
+
     await step("Render trigger button", async () => {
       const trigger = canvas.getByRole("button", { name: "Open Popover" });
       expect(trigger).toBeInTheDocument();
@@ -108,6 +117,12 @@ export const ManualMode: Story = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+
+    // Same Popover-API feature guard as the Default story above.
+    const supportsPopover =
+      typeof HTMLElement !== "undefined" &&
+      "showPopover" in HTMLElement.prototype;
+    if (!supportsPopover) return;
 
     await step("Click trigger opens popover", async () => {
       const trigger = canvas.getByRole("button", {

@@ -112,6 +112,9 @@ type Story = StoryObj<typeof Alert>;
 export const DefaultAlert: Story = {
   args: {
     open: true,
+    // Override meta.args.children so the assertion below has a stable
+    // string to match rather than inheriting the long default description.
+    children: "This is an alert message",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
