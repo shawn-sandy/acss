@@ -149,9 +149,12 @@ export const WithValidation: Story = {
     });
 
     await step("Error message is displayed", async () => {
-      expect(
-        canvas.getByText(/please enter a valid email/i)
-      ).toBeInTheDocument();
+      // findByText waits for the async validation state to propagate from
+      // the onBlur handler into the DOM; getByText here was asserting too
+      // soon and flaking under the test-runner's tight timing.
+      await expect(
+        canvas.findByText(/please enter a valid email/i)
+      ).resolves.toBeInTheDocument();
     });
 
     await step("Input has aria-invalid", async () => {
