@@ -121,7 +121,7 @@ The repository now uses [Changesets](https://github.com/changesets/changesets) f
 
 Four new workflows under `.github/workflows/`:
 - `test.yml` — lint, vitest with coverage thresholds, size-limit on built artifacts. Blocks PRs on lint/test/size regressions.
-- `chromatic.yml` — visual regression via Chromatic. Gated on the `CHROMATIC_PROJECT_TOKEN` repo secret; scaffold is live, baselines captured on first run after Phase 2 tokens land.
+- `chromatic.yml` — visual regression via Chromatic. **Currently skips cleanly when `CHROMATIC_PROJECT_TOKEN` is unset** (`if: secrets.CHROMATIC_PROJECT_TOKEN != ''`) and runs with `continue-on-error: true` once the token lands, so the job can't red-X a PR before the baseline is ready. Once the token is populated in repo settings and the first baseline is approved in the Chromatic UI, remove `continue-on-error` to flip it back to blocking.
 - `a11y.yml` — Storybook test-runner + axe checks. **Currently runs with `continue-on-error: true`** so violations surface in the logs without gating PRs during the initial triage pass. Once `.storybook/test-runner.ts` is exercised locally and every story either passes axe or explicitly opts out via `parameters: { a11y: { disable: true } }`, flip the job back to blocking. Expect the first post-Phase-3 run to surface genuine dark-mode a11y issues masked by old hardcoded colors.
 - `release.yml` — Changesets-driven release flow (opens a Version Packages PR on main; publishes to npm when that PR merges).
 
