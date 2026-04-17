@@ -26,6 +26,9 @@
     "test:coverage": "vitest --coverage",
     "test:ui:coverage": "vitest --coverage --ui",
     "test:snapshot": "vitest --run --update",
+    "test:a11y": "test-storybook --url http://localhost:6006",
+    "size": "size-limit",
+    "size:why": "size-limit --why",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
   },
@@ -37,6 +40,8 @@
   },
   "devDependencies": {
     "@shawnsandy/first-paint": "^2.18.13",
+    "@size-limit/preset-small-lib": "^12.1.0",
+    "@storybook/test-runner": "^0.24.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -58,6 +63,7 @@
     "prettier": "^3.2.4",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.64.1",
+    "size-limit": "^12.1.0",
     "style-dictionary": "^5.4.0",
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",

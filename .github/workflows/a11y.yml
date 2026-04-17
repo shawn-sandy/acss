@@ -1,0 +1,60 @@
+name: Accessibility
+
+# Runs @storybook/addon-a11y's axe checks against every story via the
+# Storybook test-runner. Reports hard violations (color-contrast, missing
+# labels, keyboard traps) as failing checks.
+#
+# NOTE: The first run after Phase 1's hex-literal cleanup + Phase 3's dark
+# mode may surface genuine a11y issues that were masked by the old hardcoded
+# colors. Treat the first N failures as a backlog to triage, not a regression.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: a11y-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  a11y:
+    name: Storybook a11y (axe)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            packages/fpkit/package-lock.json
+
+      - name: Install deps
+        run: |
+          npm ci --no-audit --no-fund
+          npm ci --no-audit --no-fund --prefix packages/fpkit
+
+      - name: Install Playwright browsers
+        # test-runner drives a real Chromium via Playwright. Full browser
+        # install is ~100MB; matches Storybook's documented setup.
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Serve and run a11y tests
+        # concurrently serves the built Storybook, waits for it, and runs the
+        # test-runner against it. npx guards against the Storybook packages
+        # being scoped to the monorepo root.
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:6006 && npm run test:a11y --prefix packages/fpkit"
