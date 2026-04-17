@@ -36,7 +36,7 @@ export type ButtonProps = Partial<React.ComponentProps<typeof UI>> &
      * Color variant - maps to `data-color` attribute using semantic color tokens.
      * @example <Button color="danger">Delete</Button>
      */
-    color?: "primary" | "secondary" | "danger" | "success" | "warning";
+    color?: "primary" | "secondary" | "danger" | "success" | "warning" | "info";
     /**
      * Block layout — stretches the button to 100% of its container width.
      * Composes with `size` and other `data-btn` values.

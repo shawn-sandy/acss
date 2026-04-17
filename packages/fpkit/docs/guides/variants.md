@@ -111,6 +111,11 @@ This is the third axis — arguably the most powerful — and lives alongside th
 
 - **Legacy**: a few older components (Text, Heading) still use className-based variants. These are slated for migration to the data-attribute pattern.
 - **Custom props per component**: some components have component-specific props that don't fit the three-axis model (e.g., Alert's `dismissible`, Dialog's `modal`). These stay as typed React props and don't need data-attribute mirrors unless styling depends on them.
+- **Alert uses `data-alert` + `data-variant` (documented exception)**: Alert exposes `severity` and `variant` props mapped to `data-alert={severity}` and `data-variant={variant}` rather than the generic `data-color` + `data-style`. This exception is deliberate:
+  - `data-alert="error"` reads more semantically than `data-color="error"` — an alert *is* an error, not just coloured red.
+  - The Alert SCSS has ~12 selectors tied to these attributes; a rename would cascade through every downstream consumer that overrides Alert styling.
+  - Consumers can still access the same data via the public props (`severity`, `variant`); only the internal DOM selector differs.
+  A future major version may add `data-color` / `data-style` as aliases alongside the current attributes to enable cross-component overrides; the rename itself is not planned.
 - **SSR hydration**: data attributes serialize cleanly, so no hydration mismatch concerns.
 
 ## Migration Note

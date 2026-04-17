@@ -242,7 +242,31 @@ export type LinkProps = {
    * ```
    */
   icon?: React.ReactNode;
-} & Omit<React.ComponentPropsWithoutRef<"a">, 'style'>;
+
+  /**
+   * Whether the link should be disabled.
+   *
+   * Anchors have no native `disabled` attribute, so this is implemented via
+   * `aria-disabled` + the shared `useDisabledState` hook. The element stays
+   * in tab order (WCAG 2.1.1), screen readers announce "dimmed/disabled",
+   * click/pointerdown handlers no-op, and `href` is suppressed so keyboard
+   * activation doesn't navigate.
+   *
+   * @default false
+   * @example
+   * ```tsx
+   * <Link href="/settings" disabled={!user.canEditSettings}>
+   *   Edit settings
+   * </Link>
+   * ```
+   */
+  disabled?: boolean;
+
+  /**
+   * Additional className to merge with any disabled-state class the hook applies.
+   */
+  className?: string;
+} & Omit<React.ComponentPropsWithoutRef<"a">, 'style' | 'className'>;
 
 /**
  * Props for the Link component with ref support.
