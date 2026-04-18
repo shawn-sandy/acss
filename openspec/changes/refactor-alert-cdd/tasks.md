@@ -4,7 +4,7 @@
 
 ## 1. Preparation & Validation
 - [ ] 1.1 Review OpenSpec proposal and design documents (simplified versions)
-- [ ] 1.2 Run existing test suite to establish baseline (`npm test` in packages/fpkit)
+- [ ] 1.2 Run existing test suite to establish baseline (`npm test` in packages/acss)
 - [ ] 1.3 Run Storybook to verify all stories work (`npm start` in root)
 - [ ] 1.4 Document current file metrics (line count, function count)
 
@@ -51,11 +51,11 @@
 - [ ] 5.3 Add section banner comment: `// MAIN COMPONENT`
 - [ ] 5.4 Verify all section comments use consistent formatting (`//` with `=` underlines)
 - [ ] 5.5 Ensure proper spacing between sections
-- [ ] 5.6 Run lint (`npm run lint` in packages/fpkit)
-- [ ] 5.7 Run lint-fix if needed (`npm run lint-fix` in packages/fpkit)
+- [ ] 5.6 Run lint (`npm run lint` in packages/acss)
+- [ ] 5.7 Run lint-fix if needed (`npm run lint-fix` in packages/acss)
 
 ## 6. Testing & Validation
-- [ ] 6.1 Run full test suite (`npm test` in packages/fpkit)
+- [ ] 6.1 Run full test suite (`npm test` in packages/acss)
   - [ ] 6.1.1 Verify all existing tests pass
   - [ ] 6.1.2 Fix any test failures
   - [ ] 6.1.3 Verify no new console warnings
@@ -65,7 +65,7 @@
   - [ ] 6.2.3 Test auto-dismiss with pause on hover
   - [ ] 6.2.4 Test keyboard interactions (ESC key)
   - [ ] 6.2.5 Test auto-focus functionality
-- [ ] 6.3 Run build process (`npm run build` in packages/fpkit)
+- [ ] 6.3 Run build process (`npm run build` in packages/acss)
   - [ ] 6.3.1 Verify no TypeScript errors
   - [ ] 6.3.2 Verify no build warnings
   - [ ] 6.3.3 Check that build completes successfully

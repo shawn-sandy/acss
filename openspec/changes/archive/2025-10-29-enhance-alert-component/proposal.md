@@ -40,16 +40,16 @@ This proposal introduces three phases of improvements to the Alert component:
 
 ### Affected Code
 - **Components**:
-  - [packages/fpkit/src/components/alert/alert.tsx](../../packages/fpkit/src/components/alert/alert.tsx) - Main component logic
-  - [packages/fpkit/src/components/alert/alert.scss](../../packages/fpkit/src/components/alert/alert.scss) - Component styles
-  - [packages/fpkit/src/components/alert/elements/dismiss-button.tsx](../../packages/fpkit/src/components/alert/elements/dismiss-button.tsx) - Dismiss button element
+  - [packages/acss/src/components/alert/alert.tsx](../../packages/acss/src/components/alert/alert.tsx) - Main component logic
+  - [packages/acss/src/components/alert/alert.scss](../../packages/acss/src/components/alert/alert.scss) - Component styles
+  - [packages/acss/src/components/alert/elements/dismiss-button.tsx](../../packages/acss/src/components/alert/elements/dismiss-button.tsx) - Dismiss button element
 
 - **New Files**:
-  - `packages/fpkit/src/components/alert/alert.test.tsx` - Unit tests
+  - `packages/acss/src/components/alert/alert.test.tsx` - Unit tests
 
 - **Documentation**:
-  - `packages/fpkit/src/components/alert/alert.stories.tsx` - Storybook stories update
-  - `packages/fpkit/src/components/alert/README.mdx` - Component documentation update
+  - `packages/acss/src/components/alert/alert.stories.tsx` - Storybook stories update
+  - `packages/acss/src/components/alert/README.mdx` - Component documentation update
 
 ### Breaking Changes
 

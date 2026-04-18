@@ -173,7 +173,7 @@ npm run build-storybook  # Build Storybook static site
 npm run lint             # Run ESLint
 ```
 
-#### fpkit Package (packages/fpkit/)
+#### fpkit Package (packages/acss/)
 ```bash
 # Development
 npm run dev              # Start Vite dev server

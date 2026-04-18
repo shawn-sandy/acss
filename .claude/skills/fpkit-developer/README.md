@@ -582,7 +582,7 @@ This skill is part of the @fpkit/acss project. To suggest improvements:
 
 ### Official Documentation
 
-- **[fpkit Docs](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/docs)** - Complete documentation
+- **[fpkit Docs](https://github.com/shawn-sandy/acss/tree/main/packages/acss/docs)** - Complete documentation
 - **[Storybook](https://fpkit.netlify.app/)** - Interactive component examples
 - **[npm Package](https://www.npmjs.com/package/@fpkit/acss)** - Installation and API reference
 

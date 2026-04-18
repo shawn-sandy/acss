@@ -141,14 +141,14 @@ This proposal implements the CSS variable naming standard (from `establish-css-v
 ### Affected Code
 
 **SCSS Files (Breaking Changes):**
-- `packages/fpkit/src/components/buttons/button.scss` - 26 variables refactored
-- `packages/fpkit/src/components/form/form.scss` - 12 variables refactored
-- `packages/fpkit/src/components/cards/card.scss` - 8 variables refactored
+- `packages/acss/src/components/buttons/button.scss` - 26 variables refactored
+- `packages/acss/src/components/form/form.scss` - 12 variables refactored
+- `packages/acss/src/components/cards/card.scss` - 8 variables refactored
 
 **Storybook Files (Non-Breaking):**
-- `packages/fpkit/src/components/buttons/button.stories.tsx` - Update controls/examples
-- `packages/fpkit/src/components/form/form.stories.tsx` - Update controls/examples
-- `packages/fpkit/src/components/cards/card.stories.tsx` - Update controls/examples
+- `packages/acss/src/components/buttons/button.stories.tsx` - Update controls/examples
+- `packages/acss/src/components/form/form.stories.tsx` - Update controls/examples
+- `packages/acss/src/components/cards/card.stories.tsx` - Update controls/examples
 
 **Component Files (No Changes):**
 - Component TypeScript files remain unchanged (CSS-only changes)

@@ -49,7 +49,7 @@ You are a specialized reviewer for Storybook story files in the @fpkit/acss comp
 Report results as:
 
 ```
-FILE: packages/fpkit/src/components/{name}/{name}.stories.tsx
+FILE: packages/acss/src/components/{name}/{name}.stories.tsx
 
 VIOLATIONS (must fix):
 - [line N] <rule name>: <description of problem>

@@ -111,7 +111,7 @@ Key advantages over the copy-paste model:
 **Key references:**
 
 - `.claude/plugins/fpkit-developer/` -- plugin structure precedent
-- `packages/fpkit/src/` -- component source for reference doc content
+- `packages/acss/src/` -- component source for reference doc content
 
 ### 2. Write the plugin manifest
 
@@ -129,7 +129,7 @@ Key advantages over the copy-paste model:
 
 The `UI` base component is the **only** file copied verbatim into developer projects. It requires only React -- no npm package dependency.
 
-Source: `packages/fpkit/src/components/ui.tsx` (333 lines, imports only React)
+Source: `packages/acss/src/components/ui.tsx` (333 lines, imports only React)
 
 Copy into: `assets/foundation/ui.tsx`
 
@@ -305,9 +305,9 @@ For each: confirm imports resolve, SCSS compiles, component renders.
 
 **Existing files to read (not modified):**
 
-- `packages/fpkit/src/components/` -- component source for reference doc content
+- `packages/acss/src/components/` -- component source for reference doc content
   - Note: `buttons/` (plural), `cards/` (plural) -- not `button/`, `card/`
-- `packages/fpkit/src/hooks/use-disabled-state.ts` -- for condensed version in references
+- `packages/acss/src/hooks/use-disabled-state.ts` -- for condensed version in references
 - `.claude/plugins/fpkit-developer/skills/fpkit-developer/references/` -- for context (not copying)
 
 ## Verification

@@ -1,7 +1,7 @@
 # Alert Component Enhancement Proposal
 
 **Status**: Draft
-**Component**: Alert ([alert.tsx](../../packages/fpkit/src/components/alert/alert.tsx))
+**Component**: Alert ([alert.tsx](../../packages/acss/src/components/alert/alert.tsx))
 **Author**: Claude Code
 **Date**: 2025-10-16
 **Priority**: Medium

@@ -4,9 +4,9 @@ import remarkGfm from "remark-gfm";
 const config: StorybookConfig = {
   stories: [
     "../src/**/*.mdx",
-    "../packages/fpkit/src/docs/*.mdx",
-    "../packages/fpkit/**/*.stories.@(js|jsx|mjs|ts|tsx)",
-    "../packages/fpkit/**/*.mdx",
+    "../packages/acss/src/docs/*.mdx",
+    "../packages/acss/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../packages/acss/**/*.mdx",
   ],
 
   addons: [

@@ -59,32 +59,32 @@ Implementation of React wrapper components (Row and Col) for the existing 12-col
 ### Files Created
 
 **Row Component** (4 files):
-- `packages/fpkit/src/components/row/row.tsx` - Component implementation (95 lines)
-- `packages/fpkit/src/components/row/row.types.ts` - TypeScript types (68 lines)
-- `packages/fpkit/src/components/row/row.stories.tsx` - Storybook stories (422 lines, 7 stories)
-- `packages/fpkit/src/components/row/row.test.tsx` - Vitest tests (301 lines, 38 tests)
+- `packages/acss/src/components/row/row.tsx` - Component implementation (95 lines)
+- `packages/acss/src/components/row/row.types.ts` - TypeScript types (68 lines)
+- `packages/acss/src/components/row/row.stories.tsx` - Storybook stories (422 lines, 7 stories)
+- `packages/acss/src/components/row/row.test.tsx` - Vitest tests (301 lines, 38 tests)
 
 **Col Component** (4 files):
-- `packages/fpkit/src/components/col/col.tsx` - Component implementation (103 lines)
-- `packages/fpkit/src/components/col/col.types.ts` - TypeScript types (72 lines)
-- `packages/fpkit/src/components/col/col.stories.tsx` - Storybook stories (537 lines, 7 stories)
-- `packages/fpkit/src/components/col/col.test.tsx` - Vitest tests (321 lines, 73 tests)
+- `packages/acss/src/components/col/col.tsx` - Component implementation (103 lines)
+- `packages/acss/src/components/col/col.types.ts` - TypeScript types (72 lines)
+- `packages/acss/src/components/col/col.stories.tsx` - Storybook stories (537 lines, 7 stories)
+- `packages/acss/src/components/col/col.test.tsx` - Vitest tests (321 lines, 73 tests)
 
 ### Files Modified
 
-**SCSS Enhancements** (`packages/fpkit/src/sass/_columns.scss`):
+**SCSS Enhancements** (`packages/acss/src/sass/_columns.scss`):
 - Added 24 new utility classes for Row variants (~30 lines)
 - Gap utilities: `.col-row-gap-{0|xs|sm|md|lg|xl}` (6 classes)
 - Justify utilities: `.col-row-justify-{start|center|end|between|around|evenly}` (6 classes)
 - Align utilities: `.col-row-align-{start|center|end|baseline|stretch}` (5 classes)
 - Wrap utilities: `.col-row-{nowrap|wrap-reverse}` (2 classes)
 
-**TypeScript Types** (`packages/fpkit/src/types/layout-primitives.ts`):
+**TypeScript Types** (`packages/acss/src/types/layout-primitives.ts`):
 - Added 9 new type definitions (~60 lines)
 - `RowElement`, `ColElement`, `ColumnSpan`, `ColumnOffset`, `ColumnOrder`
 - `JustifyContent`, `AlignItems`, `FlexWrap`
 
-**Package Exports** (`packages/fpkit/src/index.ts`):
+**Package Exports** (`packages/acss/src/index.ts`):
 - Added Row and Col exports to Layout Components section
 - Exports: `Row`, `RowProps`, `Col`, `ColProps`
 

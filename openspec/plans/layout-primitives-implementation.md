@@ -1325,7 +1325,7 @@ Test at breakpoints:
 After implementation, the file structure will be:
 
 ```
-packages/fpkit/src/
+packages/acss/src/
 ├── components/
 │   ├── box/
 │   │   ├── box.tsx
@@ -1369,7 +1369,7 @@ packages/fpkit/src/
 
 **Build Output:**
 ```
-packages/fpkit/libs/
+packages/acss/libs/
 ├── components/
 │   ├── box/
 │   │   └── box.css  # Compiled SCSS
@@ -1578,25 +1578,25 @@ packages/fpkit/libs/
 ### Key Files to Reference During Implementation
 
 **Component Examples:**
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/buttons/button.tsx`
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/cards/card.tsx`
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/flexbox/flex.tsx`
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/buttons/button.tsx`
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/cards/card.tsx`
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/flexbox/flex.tsx`
 
 **Type Definitions:**
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/types/component-props.ts`
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/flexbox/flex.types.ts`
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/types/component-props.ts`
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/flexbox/flex.types.ts`
 
 **Styling:**
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/_globals.scss`
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/flexbox/flex.scss`
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/_globals.scss`
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/flexbox/flex.scss`
 
 **Documentation:**
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/CLAUDE.md`
+- `/Users/shawnsandy/devbox/acss/packages/acss/CLAUDE.md`
 - `/Users/shawnsandy/devbox/acss/docs/css-variables.md`
 
 **Configuration:**
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/tsconfig.json`
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/package.json`
+- `/Users/shawnsandy/devbox/acss/packages/acss/tsconfig.json`
+- `/Users/shawnsandy/devbox/acss/packages/acss/package.json`
 
 ### External Resources
 

@@ -55,12 +55,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             package-lock.json
-            packages/fpkit/package-lock.json
+            packages/acss/package-lock.json
 
       - name: Install deps
         run: |
           npm ci --no-audit --no-fund
-          npm ci --no-audit --no-fund --prefix packages/fpkit
+          npm ci --no-audit --no-fund --prefix packages/acss
 
       - name: Run Chromatic
         uses: chromaui/action@latest

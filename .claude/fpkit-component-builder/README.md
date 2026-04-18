@@ -55,7 +55,7 @@ This analyzes your request and recommends:
 python3 scripts/scaffold_component.py StatusButton \
   --mode compose \
   --uses Badge,Button \
-  --path ./packages/fpkit/src/components/status-button
+  --path ./packages/acss/src/components/status-button
 ```
 
 #### Extend Existing Component
@@ -63,13 +63,13 @@ python3 scripts/scaffold_component.py StatusButton \
 python3 scripts/scaffold_component.py EnhancedAlert \
   --mode extend \
   --uses Alert \
-  --path ./packages/fpkit/src/components/enhanced-alert
+  --path ./packages/acss/src/components/enhanced-alert
 ```
 
 #### Create New Component
 ```bash
 python3 scripts/scaffold_component.py AlertBox \
-  --path ./packages/fpkit/src/components/alert-box
+  --path ./packages/acss/src/components/alert-box
 ```
 
 ### Step 3: Validate and Build
@@ -227,7 +227,7 @@ python3 scripts/recommend_approach.py IconButton
 python3 scripts/scaffold_component.py IconButton \
   --mode compose \
   --uses Button,Icon \
-  --path ./packages/fpkit/src/components/icon-button
+  --path ./packages/acss/src/components/icon-button
 
 # Result: Component that combines Button and Icon primitives
 ```
@@ -245,7 +245,7 @@ python3 scripts/recommend_approach.py LoadingButton
 python3 scripts/scaffold_component.py LoadingButton \
   --mode extend \
   --uses Button \
-  --path ./packages/fpkit/src/components/loading-button
+  --path ./packages/acss/src/components/loading-button
 
 # Result: Component that extends Button with loading feature
 ```
@@ -261,7 +261,7 @@ python3 scripts/recommend_approach.py Timeline
 
 # Step 2: Scaffold
 python3 scripts/scaffold_component.py Timeline \
-  --path ./packages/fpkit/src/components/timeline
+  --path ./packages/acss/src/components/timeline
 
 # Result: Brand new component built from UI primitive
 ```
@@ -387,7 +387,7 @@ For detailed documentation, see:
 
 - **SKILL.md** - Complete skill documentation with step-by-step workflow
 - **references/** - Detailed guides for patterns, accessibility, testing, etc.
-- **fpkit Project** - See `/packages/fpkit/` for existing component examples
+- **fpkit Project** - See `/packages/acss/` for existing component examples
 
 ## Requirements
 
@@ -402,7 +402,7 @@ For issues or questions:
 
 1. Check **SKILL.md** for detailed documentation
 2. Review reference guides in **references/**
-3. Examine existing components in **packages/fpkit/src/components/**
+3. Examine existing components in **packages/acss/src/components/**
 4. Consult the project's **CLAUDE.md** for fpkit-specific patterns
 
 ## Key Principle

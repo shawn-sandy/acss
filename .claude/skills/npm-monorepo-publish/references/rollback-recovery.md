@@ -512,7 +512,7 @@ npm view @fpkit/acss version      # Published ✅
 npm view @fpkit/utils version     # Failed ❌
 
 # 2. Verify package.json versions
-cat packages/fpkit/package.json | grep version    # 6.2.0
+cat packages/acss/package.json | grep version    # 6.2.0
 cat packages/utils/package.json | grep version    # 1.5.0
 
 # 3. Get fresh OTP

@@ -88,18 +88,18 @@ it("applies 2xl size via data-btn", () => { ... })
 
 | File | Path |
 |------|------|
-| Styles | `packages/fpkit/src/components/buttons/button.scss` |
-| Component | `packages/fpkit/src/components/buttons/button.tsx` |
-| Stories | `packages/fpkit/src/components/buttons/button.stories.tsx` |
-| Tests | `packages/fpkit/src/components/buttons/button.test.tsx` |
+| Styles | `packages/acss/src/components/buttons/button.scss` |
+| Component | `packages/acss/src/components/buttons/button.tsx` |
+| Stories | `packages/acss/src/components/buttons/button.stories.tsx` |
+| Tests | `packages/acss/src/components/buttons/button.test.tsx` |
 
 ---
 
 ## Verification
 
-1. `npm start` in `packages/fpkit/` — confirm SCSS compiles without error
+1. `npm start` in `packages/acss/` — confirm SCSS compiles without error
 2. Storybook: `npm start` at repo root — verify XL/2XL stories render with correct size
-3. `npm test` in `packages/fpkit/` — all tests pass
+3. `npm test` in `packages/acss/` — all tests pass
 4. Visual check: compare rendered heights across all 6 sizes in Storybook
 
 ---

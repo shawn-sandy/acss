@@ -1,7 +1,7 @@
 # WCAG 2.1 Level AA Accessibility Review
 
 **Component:** Textarea
-**File:** `packages/fpkit/src/components/form/textarea.tsx` (Lines 1-158)
+**File:** `packages/acss/src/components/form/textarea.tsx` (Lines 1-158)
 **Review Date:** November 1, 2025
 **Reviewer:** WCAG Compliance Reviewer (AI Assistant)
 **Standard:** WCAG 2.1 Level AA
@@ -1171,7 +1171,7 @@ Placeholders are not replacements for labels:
 
 ### Current Implementation Analysis
 
-**File:** `packages/fpkit/src/components/form/textarea.tsx`
+**File:** `packages/acss/src/components/form/textarea.tsx`
 
 **Lines analyzed:** 1-158
 

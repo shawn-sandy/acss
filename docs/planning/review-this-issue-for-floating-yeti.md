@@ -13,13 +13,13 @@ This plan therefore covers **two sub-phases**:
 
 ## Verified prerequisites (from Phase 1–6)
 
-- Token build: `packages/fpkit/scripts/extract-tokens.mjs` + `style-dictionary.config.mjs` produce `libs/tokens.json` and `src/tokens/index.ts` via `npm run tokens:build`. `libs/tokens.json` is a **build artifact**, not on disk in git.
-- Theme runtime: `packages/fpkit/src/components/theme/` has `theme-provider.tsx`, `theme-toggle.tsx`, `fouc-script.ts`, plus story + test.
+- Token build: `packages/acss/scripts/extract-tokens.mjs` + `style-dictionary.config.mjs` produce `libs/tokens.json` and `src/tokens/index.ts` via `npm run tokens:build`. `libs/tokens.json` is a **build artifact**, not on disk in git.
+- Theme runtime: `packages/acss/src/components/theme/` has `theme-provider.tsx`, `theme-toggle.tsx`, `fouc-script.ts`, plus story + test.
 - Lifecycle tags: 5 of 41 components already use string tags in story meta (`cluster`, `form`, `input`, `select`, `box` → `stable` or `beta`). `storybook-addon-tag-badges@3.0.2` is enabled in `.storybook/main.ts:15`. Issue's "zero tags" claim is outdated.
-- Icons: 33 React icon components under `packages/fpkit/src/components/icons/components/`; no raw SVGs. Subpath `"./icons"` already exported by `packages/fpkit/package.json` → `./libs/icons.js`.
+- Icons: 33 React icon components under `packages/acss/src/components/icons/components/`; no raw SVGs. Subpath `"./icons"` already exported by `packages/acss/package.json` → `./libs/icons.js`.
 - Monorepo: Lerna 8 (independent versioning), workspaces = `["packages/*", "apps/*"]`. Only one package under `packages/` today.
 - Changesets: `.changeset/config.json` exists, `access: "public"`, `baseBranch: "main"`, GitHub changelog plugin configured. Ready for scoped multi-package publishing.
-- size-limit: `@size-limit/preset-small-lib@^12` devDep + `size` / `size:why` scripts in `packages/fpkit/package.json`.
+- size-limit: `@size-limit/preset-small-lib@^12` devDep + `size` / `size:why` scripts in `packages/acss/package.json`.
 
 ## Locked decisions
 
@@ -40,9 +40,9 @@ Ship a `/status` page on `apps/astro-builds` that lists every component with its
 
 ### Steps
 
-1. **Lock a lifecycle-tag vocabulary** (documented in a new `packages/fpkit/docs/guides/component-lifecycle.md` if not present) — `experimental` | `beta` | `rc` | `stable` | `deprecated`. The two existing values (`stable`, `beta`) already match; no rename needed.
-2. **Add lifecycle tags to every component story** under `packages/fpkit/src/components/*/\*.stories.tsx`. Default unadopted components to `beta` (safer than `stable`; can be promoted later). Mechanical edit, 36 files.
-3. **Write a build-time tag extractor** at `apps/astro-builds/src/lib/component-status.ts` that globs `../../packages/fpkit/src/components/*/*.stories.tsx`, parses the `meta` export with a lightweight AST read (regex on `tags:` literal is sufficient for our pattern — no need for ts-morph), and returns `{ name, lifecycle, tags }[]`. Build-time glob is cheaper than Astro Content Collections for this one-off and avoids a schema migration.
+1. **Lock a lifecycle-tag vocabulary** (documented in a new `packages/acss/docs/guides/component-lifecycle.md` if not present) — `experimental` | `beta` | `rc` | `stable` | `deprecated`. The two existing values (`stable`, `beta`) already match; no rename needed.
+2. **Add lifecycle tags to every component story** under `packages/acss/src/components/*/\*.stories.tsx`. Default unadopted components to `beta` (safer than `stable`; can be promoted later). Mechanical edit, 36 files.
+3. **Write a build-time tag extractor** at `apps/astro-builds/src/lib/component-status.ts` that globs `../../packages/acss/src/components/*/*.stories.tsx`, parses the `meta` export with a lightweight AST read (regex on `tags:` literal is sufficient for our pattern — no need for ts-morph), and returns `{ name, lifecycle, tags }[]`. Build-time glob is cheaper than Astro Content Collections for this one-off and avoids a schema migration.
 4. **Create `apps/astro-builds/src/pages/status.astro`** — table rendering rows = components, columns = lifecycle / test / story / a11y / dark-mode. For the latter three, read story frontmatter markers (see step 5). Use existing `@fpkit/acss` `tables` component for consistency.
 5. **Add signal markers to story meta** — a single `tags` array on each meta, e.g. `tags: ["stable", "tested", "a11y-verified", "dark-mode-verified"]`. This keeps the source-of-truth in one place (no parallel README.mdx frontmatter) and the tag-badges addon picks them up automatically in Storybook.
 6. **Add site nav** — introduce a minimal `<SiteNav />` island in `apps/astro-builds/src/layouts/Layout.astro` with links to Home / Guides / Status. Pure Astro/HTML, no React hydration needed.
@@ -54,8 +54,8 @@ Ship a `/status` page on `apps/astro-builds` that lists every component with its
 - `apps/astro-builds/src/lib/component-status.ts` (new)
 - `apps/astro-builds/src/layouts/Layout.astro` (modify — add nav)
 - `apps/astro-builds/src/components/SiteNav.astro` (new)
-- `packages/fpkit/src/components/*/*.stories.tsx` (modify 36 files — add `tags`)
-- `packages/fpkit/docs/guides/component-lifecycle.md` (new if not present)
+- `packages/acss/src/components/*/*.stories.tsx` (modify 36 files — add `tags`)
+- `packages/acss/docs/guides/component-lifecycle.md` (new if not present)
 
 ### Reuse
 
@@ -68,7 +68,7 @@ Ship a `/status` page on `apps/astro-builds` that lists every component with its
 - `cd apps/astro-builds && npm run build` succeeds.
 - `/status` renders all 41 components.
 - Storybook sidebar shows the new tag badges on every component.
-- Tests pass: `cd packages/fpkit && npm test` (adding tags does not break snapshots).
+- Tests pass: `cd packages/acss && npm test` (adding tags does not break snapshots).
 
 ---
 
@@ -78,11 +78,11 @@ Ship a `/status` page on `apps/astro-builds` that lists every component with its
 
 High-level scope, to be detailed into its own plan file when 7A lands:
 - Create `packages/tokens/` → `@fpkit/tokens@0.1.0` (tokens.json + TS consts, zero runtime deps). Retarget `npm run tokens:build` output here.
-- Create `packages/icons/` → `@fpkit/icons@0.1.0`. Move `packages/fpkit/src/components/icons/` wholesale; React 18 as peer dep.
-- Update `packages/fpkit/package.json` to depend on both (`workspace:*`), and replace `exports["./icons"]` with a re-export shim at `src/icons-shim.ts` — existing consumer imports keep working.
+- Create `packages/icons/` → `@fpkit/icons@0.1.0`. Move `packages/acss/src/components/icons/` wholesale; React 18 as peer dep.
+- Update `packages/acss/package.json` to depend on both (`workspace:*`), and replace `exports["./icons"]` with a re-export shim at `src/icons-shim.ts` — existing consumer imports keep working.
 - Changeset: `@fpkit/tokens` + `@fpkit/icons` minors, `@fpkit/acss` minor.
 - Publish via `npm-monorepo-publish` skill.
-- Open decision deferred to that plan: rename `packages/fpkit/` → `packages/acss/` at the same time, or leave as-is.
+- Open decision deferred to that plan: rename `packages/acss/` → `packages/acss/` at the same time, or leave as-is.
 
 ---
 

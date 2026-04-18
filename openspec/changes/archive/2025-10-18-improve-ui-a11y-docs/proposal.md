@@ -17,8 +17,8 @@ The UI polymorphic component currently lacks comprehensive accessibility documen
 
 - **Affected specs**: `ui-component` (new specification)
 - **Affected code**:
-  - `packages/fpkit/src/components/ui.tsx` - JSDoc improvements, default element alignment
-  - `packages/fpkit/src/components/ui.stories.tsx` - Add accessibility-focused stories (if exists)
+  - `packages/acss/src/components/ui.tsx` - JSDoc improvements, default element alignment
+  - `packages/acss/src/components/ui.stories.tsx` - Add accessibility-focused stories (if exists)
   - Documentation/README updates to highlight accessibility features
 
 **Breaking Changes**: None. This is a documentation and minor implementation fix (aligning default element type) that maintains backward compatibility.

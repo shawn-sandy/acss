@@ -19,7 +19,7 @@ Dialog component received significant updates since v6.4.3: size/position props,
 
 ### Phase 2: Validate
 
-4. Run build: `cd packages/fpkit && npm run build`
+4. Run build: `cd packages/acss && npm run build`
 5. Run lint: `npm run lint`
 6. Run tests: `npm test`
 7. Confirm `npm whoami` succeeds (user must `npm login` if not)
@@ -46,7 +46,7 @@ Dialog component received significant updates since v6.4.3: size/position props,
 
 ## Key files
 
-- `packages/fpkit/package.json` — version field
+- `packages/acss/package.json` — version field
 - `CHANGELOG.md` — release notes
 - `lerna.json` — versioning config
 

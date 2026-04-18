@@ -40,12 +40,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             package-lock.json
-            packages/fpkit/package-lock.json
+            packages/acss/package-lock.json
 
       - name: Install deps
         run: |
           npm ci --no-audit --no-fund
-          npm ci --no-audit --no-fund --prefix packages/fpkit
+          npm ci --no-audit --no-fund --prefix packages/acss
 
       - name: Install Playwright browsers
         # test-runner drives a real Chromium via Playwright. Full browser
@@ -69,4 +69,4 @@ jobs:
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "npx http-server storybook-static --port 6006 --silent" \
-            "npx wait-on tcp:6006 && npm run test:a11y --prefix packages/fpkit"
+            "npx wait-on tcp:6006 && npm run test:a11y --prefix packages/acss"

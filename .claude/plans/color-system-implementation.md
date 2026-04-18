@@ -115,7 +115,7 @@ button {
 ### New Files to Create
 
 ```
-packages/fpkit/src/
+packages/acss/src/
 ├── sass/
 │   ├── tokens/                          # NEW - Token directory
 │   │   ├── _index.scss                 # Exports all tokens
@@ -131,7 +131,7 @@ packages/fpkit/src/
 ### Files to Modify
 
 ```
-packages/fpkit/src/
+packages/acss/src/
 ├── index.scss                           # Add token imports first
 ├── sass/
 │   └── styles/

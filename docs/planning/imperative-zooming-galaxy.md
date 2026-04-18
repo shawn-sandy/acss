@@ -2,11 +2,11 @@
 
 ## Context
 
-`Dialog` and `DialogModal` are exported from `packages/fpkit/src/index.ts` (lines 90-91) but their TypeScript types (`DialogProps`, `DialogModalProps`) are **not** re-exported. Every other component follows the pattern of co-exporting props types (e.g., `export { Button, type ButtonProps }`). This forces consumers to use deep imports for the types, which is incorrect for a published package.
+`Dialog` and `DialogModal` are exported from `packages/acss/src/index.ts` (lines 90-91) but their TypeScript types (`DialogProps`, `DialogModalProps`) are **not** re-exported. Every other component follows the pattern of co-exporting props types (e.g., `export { Button, type ButtonProps }`). This forces consumers to use deep imports for the types, which is incorrect for a published package.
 
 ## Changes
 
-### 1. Update `packages/fpkit/src/index.ts` (lines 90-92)
+### 1. Update `packages/acss/src/index.ts` (lines 90-92)
 
 Add type exports from `./components/dialog/dialog.types`:
 
@@ -21,7 +21,7 @@ export { DialogModal } from "./components/dialog/dialog-modal";
 export type { DialogProps, DialogModalProps } from "./components/dialog/dialog.types";
 ```
 
-### 2. Build and test (`packages/fpkit/`)
+### 2. Build and test (`packages/acss/`)
 
 - `npm run build` — confirm `.d.ts` output includes the new type exports
 - `npm test` — all tests pass

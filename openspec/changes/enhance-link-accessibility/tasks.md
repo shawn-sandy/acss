@@ -46,7 +46,7 @@
 
 ## 6. Build & Compilation
 
-- [ ] 6.1 Run `npm run build` in packages/fpkit/
+- [ ] 6.1 Run `npm run build` in packages/acss/
 - [ ] 6.2 Verify SCSS compiles without errors
 - [ ] 6.3 Check compiled CSS includes media queries
 - [ ] 6.4 Verify TypeScript builds with required href

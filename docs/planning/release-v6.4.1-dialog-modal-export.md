@@ -2,9 +2,9 @@
 
 ## Context
 
-`DialogModal` was developed and included in v6.4.0 internally, but its public export was accidentally omitted from `packages/fpkit/src/index.ts`. This patch release adds that missing export so consumers can import `DialogModal` directly from `@fpkit/acss`.
+`DialogModal` was developed and included in v6.4.0 internally, but its public export was accidentally omitted from `packages/acss/src/index.ts`. This patch release adds that missing export so consumers can import `DialogModal` directly from `@fpkit/acss`.
 
-**Change:** Add `export { DialogModal }` to `packages/fpkit/src/index.ts`
+**Change:** Add `export { DialogModal }` to `packages/acss/src/index.ts`
 **Bump type:** Patch (`6.4.0` → `6.4.1`)
 
 ---
@@ -17,7 +17,7 @@
 | Node | v24.10.0 (OK) |
 | npm | 11.6.0 (OK) |
 | npm auth | NOT LOGGED IN — must run `npm login` before Step 8 |
-| Uncommitted change | `packages/fpkit/src/index.ts` — must commit to main first |
+| Uncommitted change | `packages/acss/src/index.ts` — must commit to main first |
 | Local version | 6.4.0 |
 | npm registry version | 6.4.0 |
 
@@ -26,12 +26,12 @@
 ## Steps
 
 1. **Commit the export fix to main**
-   - Stage and commit `packages/fpkit/src/index.ts`
+   - Stage and commit `packages/acss/src/index.ts`
    - Message: `fix(dialog): export DialogModal from package index`
 
 2. **Validate: build, lint, test**
    ```bash
-   cd packages/fpkit
+   cd packages/acss
    npm run build && npm run lint && npm test
    cd ../..
    ```
@@ -45,14 +45,14 @@
    ```bash
    lerna version patch --no-push --no-git-tag-version
    ```
-   - Updates `packages/fpkit/package.json` version to `6.4.1`
+   - Updates `packages/acss/package.json` version to `6.4.1`
 
 5. **Update CHANGELOG.md**
    - Add entry for `6.4.1` documenting the `DialogModal` export fix
 
 6. **Commit version + changelog**
    ```bash
-   git add packages/fpkit/package.json CHANGELOG.md
+   git add packages/acss/package.json CHANGELOG.md
    git commit -m "chore(release): publish @fpkit/acss@6.4.1"
    ```
 
@@ -83,8 +83,8 @@
 
 | File | Change |
 |------|--------|
-| `packages/fpkit/src/index.ts` | Add `export { DialogModal }` (already staged) |
-| `packages/fpkit/package.json` | Version bump `6.4.0` → `6.4.1` (via Lerna) |
+| `packages/acss/src/index.ts` | Add `export { DialogModal }` (already staged) |
+| `packages/acss/package.json` | Version bump `6.4.0` → `6.4.1` (via Lerna) |
 | `CHANGELOG.md` | Add `6.4.1` release notes |
 
 ---

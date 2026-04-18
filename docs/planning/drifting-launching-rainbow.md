@@ -9,7 +9,7 @@ The `icon-button.scss` file contains several issues that deviate from:
 
 This plan optimizes the file without changing any visual output or component behavior.
 
-**File:** `packages/fpkit/src/components/buttons/icon-button.scss`
+**File:** `packages/acss/src/components/buttons/icon-button.scss`
 
 ---
 
@@ -152,8 +152,8 @@ button.icon-btn,
 1. **Storybook grid test** — Run `npm start` from root; verify all icon button stories render identically with `display: inline-grid`
 2. **Responsive label** — Toggle viewport to below 48rem; confirm label is visually hidden but readable by screen reader (Storybook a11y panel)
 3. **Customization** — Override `--icon-btn-size` in `:root`; confirm button resizes correctly across all variants
-4. **Build** — `npm run build:sass` in `packages/fpkit/` — confirm no SCSS compile errors
-5. **Tests** — `npm test` in `packages/fpkit/`
+4. **Build** — `npm run build:sass` in `packages/acss/` — confirm no SCSS compile errors
+5. **Tests** — `npm test` in `packages/acss/`
 6. **CHANGELOG** — Add breaking change entry for mobile-first media query flip
 7. **CSS variables doc** — Update `docs/css-variables.md` to document `--icon-btn-size`, `--icon-btn-gap`, `--icon-btn-padding-inline`
 

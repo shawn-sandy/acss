@@ -174,8 +174,8 @@ const getSeverityIcon = (severity: Severity, props: IconProps): JSX.Element => {
 
 **Migration Path (if needed in future):**
 If `useAlertBehavior` proves useful in other components (Modal, Toast, Snackbar):
-1. Move hook to `packages/fpkit/src/hooks/useAlertBehavior.ts`
-2. Move constants to `packages/fpkit/src/constants/alert-constants.ts` (optional)
+1. Move hook to `packages/acss/src/hooks/useAlertBehavior.ts`
+2. Move constants to `packages/acss/src/constants/alert-constants.ts` (optional)
 3. Keep component in `alert.tsx` as-is
 
 ### Decision 5: Consolidate Event Handlers (UNCHANGED - Still Applies)

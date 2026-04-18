@@ -82,7 +82,7 @@ form/
 └── ...
 ```
 
-**File**: `packages/fpkit/src/components/form/checkbox.tsx`
+**File**: `packages/acss/src/components/form/checkbox.tsx`
 
 ```typescript
 import React from "react";
@@ -341,7 +341,7 @@ div:has(> input[type="checkbox"]) {
 
 ### 2. Type Exports
 
-**File**: `packages/fpkit/src/components/form/form.types.ts`
+**File**: `packages/acss/src/components/form/form.types.ts`
 
 Add export at end of file:
 
@@ -351,7 +351,7 @@ export type { CheckboxProps } from './checkbox';
 
 ### 3. CSS Styles
 
-**File**: `packages/fpkit/src/components/form/checkbox.scss` (new file)
+**File**: `packages/acss/src/components/form/checkbox.scss` (new file)
 
 Create a dedicated stylesheet for the Checkbox wrapper component:
 
@@ -468,7 +468,7 @@ div:has(> input[type="checkbox"]) {
 }
 ```
 
-**File**: `packages/fpkit/src/components/form/form.scss`
+**File**: `packages/acss/src/components/form/form.scss`
 
 Add at the top or in the appropriate section with other module imports:
 
@@ -481,7 +481,7 @@ Add at the top or in the appropriate section with other module imports:
 
 ### 4. Storybook Stories
 
-**File**: `packages/fpkit/src/components/form/input.stories.tsx`
+**File**: `packages/acss/src/components/form/input.stories.tsx`
 
 Add these 9 stories after existing stories (around line 225+).
 
@@ -745,7 +745,7 @@ export const CheckboxPerformance: Story = {
 
 ### 5. Unit Tests
 
-**File**: `packages/fpkit/src/components/form/checkbox.test.tsx`
+**File**: `packages/acss/src/components/form/checkbox.test.tsx`
 
 Create comprehensive test suite with 29+ tests covering:
 
@@ -813,7 +813,7 @@ Create comprehensive test suite with 29+ tests covering:
 
 ### 6. Documentation
 
-**File**: `packages/fpkit/src/components/form/README.mdx` (new file or update existing)
+**File**: `packages/acss/src/components/form/README.mdx` (new file or update existing)
 
 Add Checkbox component documentation:
 
@@ -1038,7 +1038,7 @@ See Storybook for interactive examples and play functions demonstrating:
 
 ### 7. Package Exports
 
-**File**: `packages/fpkit/src/index.ts`
+**File**: `packages/acss/src/index.ts`
 
 Add after existing form component exports:
 
@@ -1057,21 +1057,21 @@ export {
 
 | File | Purpose |
 |------|---------|
-| `packages/fpkit/src/components/form/checkbox.tsx` | Main Checkbox wrapper component with JSDoc (new file) |
-| `packages/fpkit/src/components/form/checkbox.scss` | Enhanced styles with focus, hover, validation states (new file) |
-| `packages/fpkit/src/components/form/checkbox.test.tsx` | Comprehensive unit tests - 35+ tests (new file) |
-| `packages/fpkit/src/components/form/README.mdx` | Complete component documentation (new file or update) |
-| `packages/fpkit/src/components/form/form.types.ts` | Add CheckboxProps export |
-| `packages/fpkit/src/components/form/form.scss` | Add @use './checkbox' import |
-| `packages/fpkit/src/components/form/input.stories.tsx` | Add 9 new Checkbox stories including performance |
-| `packages/fpkit/src/index.ts` | Export Checkbox component |
+| `packages/acss/src/components/form/checkbox.tsx` | Main Checkbox wrapper component with JSDoc (new file) |
+| `packages/acss/src/components/form/checkbox.scss` | Enhanced styles with focus, hover, validation states (new file) |
+| `packages/acss/src/components/form/checkbox.test.tsx` | Comprehensive unit tests - 35+ tests (new file) |
+| `packages/acss/src/components/form/README.mdx` | Complete component documentation (new file or update) |
+| `packages/acss/src/components/form/form.types.ts` | Add CheckboxProps export |
+| `packages/acss/src/components/form/form.scss` | Add @use './checkbox' import |
+| `packages/acss/src/components/form/input.stories.tsx` | Add 9 new Checkbox stories including performance |
+| `packages/acss/src/index.ts` | Export Checkbox component |
 
 ## Verification Plan
 
 ### 1. Development Testing
 
 ```bash
-cd /Users/shawnsandy/devbox/acss/packages/fpkit
+cd /Users/shawnsandy/devbox/acss/packages/acss
 npm start  # Watch mode: builds + SASS (will auto-compile checkbox.scss)
 ```
 
@@ -1106,7 +1106,7 @@ npm start  # Launch Storybook on port 6006
 ### 3. Unit Test Verification
 
 ```bash
-cd /Users/shawnsandy/devbox/acss/packages/fpkit
+cd /Users/shawnsandy/devbox/acss/packages/acss
 npm test checkbox.test.tsx  # Run checkbox tests
 npm run test:ui             # Interactive test UI
 ```
@@ -1121,7 +1121,7 @@ npm run test:ui             # Interactive test UI
 ### 4. Type Checking
 
 ```bash
-cd /Users/shawnsandy/devbox/acss/packages/fpkit
+cd /Users/shawnsandy/devbox/acss/packages/acss
 npm run lint       # ESLint checks
 npx tsc --noEmit   # TypeScript type checking
 ```
@@ -1135,7 +1135,7 @@ npx tsc --noEmit   # TypeScript type checking
 ### 5. Build Verification
 
 ```bash
-cd /Users/shawnsandy/devbox/acss/packages/fpkit
+cd /Users/shawnsandy/devbox/acss/packages/acss
 npm run build  # Full build pipeline
 ```
 
@@ -1149,7 +1149,7 @@ npm run build  # Full build pipeline
 
 ### 6. Integration Testing
 
-**Create test file**: `packages/fpkit/src/components/form/__test-examples__/checkbox-demo.tsx`
+**Create test file**: `packages/acss/src/components/form/__test-examples__/checkbox-demo.tsx`
 
 ```typescript
 import React, { useState } from "react";

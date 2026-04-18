@@ -4,7 +4,7 @@
   "version": "1.3.0",
   "private": true,
   "scripts": {
-    "ensure-fpkit-build": "test -f ../../packages/fpkit/libs/index.js && test -f ../../packages/fpkit/libs/tokens.json || npm --prefix ../../packages/fpkit run build",
+    "ensure-fpkit-build": "test -f ../../packages/acss/libs/index.js && test -f ../../packages/acss/libs/tokens.json || npm --prefix ../../packages/acss run build",
     "predev": "npm run ensure-fpkit-build",
     "dev": "astro dev",
     "prebuild": "npm run ensure-fpkit-build",
@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.1.2",
-    "@fpkit/acss": "file:../../packages/fpkit",
+    "@fpkit/acss": "file:../../packages/acss",
+    "@fpkit/tokens": "file:../../packages/tokens",
     "astro": "^5.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

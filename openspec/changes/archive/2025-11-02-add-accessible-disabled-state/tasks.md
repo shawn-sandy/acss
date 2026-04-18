@@ -2,7 +2,7 @@
 
 ## 1. Core Hook Implementation
 
-- [x] 1.1 Create `packages/fpkit/src/hooks/use-disabled-state.ts` with hook implementation
+- [x] 1.1 Create `packages/acss/src/hooks/use-disabled-state.ts` with hook implementation
 - [x] 1.2 Implement event handler wrapping logic with `preventDefault()` and `stopPropagation()`
 - [x] 1.3 Add TypeScript generic support for element types (`<T extends HTMLElement>`)
 - [x] 1.4 Use `useMemo` for `disabledProps` object to prevent unnecessary re-renders
@@ -10,7 +10,7 @@
 - [x] 1.6 Add comprehensive JSDoc documentation with `@description`, `@param`, `@returns`, `@example`
 - [x] 1.7 Include WCAG 2.1 references in JSDoc (2.1.1, 4.1.2)
 - [x] 1.8 Add multiple usage examples in JSDoc (button, input, custom handlers)
-- [x] 1.9 Export hook from `packages/fpkit/src/hooks.ts`
+- [x] 1.9 Export hook from `packages/acss/src/hooks.ts`
 - [ ] 1.10 Create unit tests in `use-disabled-state.test.ts` covering:
   - [ ] Returns correct `aria-disabled` value
   - [ ] Returns `.is-disabled` className when disabled
@@ -22,7 +22,7 @@
 
 ## 2. Accessibility Utilities
 
-- [x] 2.1 Create `packages/fpkit/src/utils/accessibility.ts` utility file
+- [x] 2.1 Create `packages/acss/src/utils/accessibility.ts` utility file
 - [x] 2.2 Implement `getDisabledStyles()` function returning CSS-in-JS styles object
 - [x] 2.3 Add `wrapEventHandler()` utility for advanced use cases
 - [x] 2.4 Add JSDoc documentation with WCAG contrast requirements
@@ -30,7 +30,7 @@
 
 ## 3. SCSS Styling System
 
-- [x] 3.1 Create `packages/fpkit/src/styles/utilities/_disabled.scss`
+- [x] 3.1 Create `packages/acss/src/styles/utilities/_disabled.scss`
 - [x] 3.2 Implement `.is-disabled` utility class with:
   - [x] `--disabled-opacity: 0.6` CSS custom property
   - [x] `--disabled-cursor: not-allowed` CSS custom property
@@ -40,12 +40,12 @@
   - [x] `color` using `var(--disabled-color)`
 - [x] 3.3 Add selector for `[aria-disabled="true"]` matching `.is-disabled` styles
 - [x] 3.4 Ensure all values use rem units (no px except for calculated values)
-- [x] 3.5 Import `_disabled.scss` in `packages/fpkit/src/index.scss`
+- [x] 3.5 Import `_disabled.scss` in `packages/acss/src/index.scss`
 - [x] 3.6 Add comments documenting WCAG 1.4.3 compliance (3:1 minimum)
 
 ## 4. Type System Updates
 
-- [x] 4.1 Update `packages/fpkit/src/types/shared.ts` with `DisabledProps` interface
+- [x] 4.1 Update `packages/acss/src/types/shared.ts` with `DisabledProps` interface
 - [x] 4.2 Add JSDoc to `DisabledProps` documenting `disabled` prop
 - [x] 4.3 Add JSDoc `@deprecated` tag to `isDisabled` with migration guidance
 - [ ] 4.4 Ensure `DisabledProps` extends base interfaces properly
@@ -53,7 +53,7 @@
 
 ## 5. Button Component Refactoring
 
-- [x] 5.1 Update `packages/fpkit/src/components/buttons/button.tsx`
+- [x] 5.1 Update `packages/acss/src/components/buttons/button.tsx`
 - [x] 5.2 Import `useDisabledState` hook
 - [x] 5.3 Replace manual event handler check with hook usage
 - [x] 5.4 Update component to spread `{...disabledProps} {...handlers}`
@@ -68,7 +68,7 @@
 
 ## 6. Input Component Refactoring
 
-- [x] 6.1 Update `packages/fpkit/src/components/form/inputs.tsx`
+- [x] 6.1 Update `packages/acss/src/components/form/inputs.tsx`
 - [x] 6.2 Import `useDisabledState` hook
 - [x] 6.3 Resolve `disabled` vs `isDisabled` prop (use `disabled ?? isDisabled`)
 - [x] 6.4 Replace manual event handler check with hook usage
@@ -79,7 +79,7 @@
 
 ## 7. Textarea Component Refactoring
 
-- [x] 7.1 Update `packages/fpkit/src/components/form/textarea.tsx`
+- [x] 7.1 Update `packages/acss/src/components/form/textarea.tsx`
 - [x] 7.2 Import `useDisabledState` hook
 - [x] 7.3 Replace manual `handleChange` disabled check with hook usage
 - [x] 7.4 Update component to spread `{...disabledProps} {...handlers}`
@@ -88,7 +88,7 @@
 
 ## 8. Select Component Refactoring
 
-- [x] 8.1 Update `packages/fpkit/src/components/form/select.tsx`
+- [x] 8.1 Update `packages/acss/src/components/form/select.tsx`
 - [x] 8.2 Import `useDisabledState` hook
 - [x] 8.3 Replace manual event handler check with hook usage
 - [x] 8.4 Update component to spread `{...disabledProps} {...handlers}`
@@ -160,7 +160,7 @@
 
 ## 15. Build & Compilation
 
-- [x] 15.1 Run `npm run build` in `packages/fpkit/` directory
+- [x] 15.1 Run `npm run build` in `packages/acss/` directory
 - [x] 15.2 Verify TypeScript compilation succeeds with no errors (new files compile cleanly)
 - [x] 15.3 Verify SCSS compilation succeeds with no errors
 - [x] 15.4 Check that compiled CSS includes `.is-disabled` utility class
@@ -170,7 +170,7 @@
 
 ## 16. Testing & Validation
 
-- [ ] 16.1 Run `npm test` in `packages/fpkit/` and ensure all tests pass
+- [ ] 16.1 Run `npm test` in `packages/acss/` and ensure all tests pass
 - [ ] 16.2 Run `npm run test:coverage` and verify ≥90% coverage for new code
 - [ ] 16.3 Run `npm run lint` and fix any linting issues
 - [ ] 16.4 Run `npm run lint-fix` to auto-fix issues

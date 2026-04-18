@@ -1,0 +1,50 @@
+{
+  "name": "@fpkit/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for the @fpkit/acss design system. DTCG-compliant JSON plus typed CSS-variable references.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./tokens.json": "./libs/tokens.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "libs/tokens.json",
+    "dist",
+    "src/index.ts",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shawn-sandy/acss.git",
+    "directory": "packages/tokens"
+  },
+  "keywords": [
+    "design-tokens",
+    "dtcg",
+    "style-dictionary",
+    "fpkit",
+    "design-system"
+  ],
+  "author": "shawn-sandy",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "npm --prefix ../acss run tokens:build",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "clean": "rm -rf dist libs"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}

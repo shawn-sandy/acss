@@ -28,7 +28,7 @@
 ## Phase 2: Documentation (README.mdx)
 
 ### 4. README Structure Setup
-- [x] 4.1 Create `packages/fpkit/src/components/README-UI.mdx` file (opted for README-UI.mdx to avoid file moves)
+- [x] 4.1 Create `packages/acss/src/components/README-UI.mdx` file (opted for README-UI.mdx to avoid file moves)
 - [x] 4.2 Add markdown content with proper structure
 - [x] 4.3 Create heading structure (all sections)
 
@@ -75,7 +75,7 @@
 ## Phase 3: Storybook Stories
 
 ### 10. Story Setup
-- [x] 10.1 Create `packages/fpkit/src/components/ui.stories.tsx` file
+- [x] 10.1 Create `packages/acss/src/components/ui.stories.tsx` file
 - [x] 10.2 Add imports (Meta, StoryObj) - Note: @storybook/test not available in this version
 - [x] 10.3 Configure meta object with title, component, tags
 - [x] 10.4 Add default args and parameters
@@ -110,7 +110,7 @@
 ## Phase 4: Unit Tests
 
 ### 15. Test Setup
-- [x] 15.1 Create `packages/fpkit/src/components/ui.test.tsx` file
+- [x] 15.1 Create `packages/acss/src/components/ui.test.tsx` file
 - [x] 15.2 Add imports (React, render, screen, useRef, useEffect from React)
 - [x] 15.3 Create describe block for "UI component"
 - [x] 15.4 Verify test setup with simple smoke test
@@ -163,7 +163,7 @@
 ## Phase 5: Directory Organization (OPTIONAL)
 
 ### 22. File Migration
-- [ ] 22.1 Create `packages/fpkit/src/components/ui/` directory
+- [ ] 22.1 Create `packages/acss/src/components/ui/` directory
 - [ ] 22.2 Move `ui.tsx` to `ui/ui.tsx`
 - [ ] 22.3 Move `ui.stories.tsx` to `ui/ui.stories.tsx`
 - [ ] 22.4 Move `ui.test.tsx` to `ui/ui.test.tsx`
@@ -171,30 +171,30 @@
 - [ ] 22.6 Create `ui/index.ts` barrel export: `export { default } from './ui';`
 
 ### 23. Import Updates
-- [ ] 23.1 Update `packages/fpkit/src/components/badge/badge.tsx` import
-- [ ] 23.2 Update `packages/fpkit/src/components/tag/tag.tsx` import
-- [ ] 23.3 Update `packages/fpkit/src/components/heading/heading.tsx` import
-- [ ] 23.4 Update `packages/fpkit/src/components/text/text.tsx` import
-- [ ] 23.5 Update `packages/fpkit/src/components/buttons/button.tsx` import
-- [ ] 23.6 Update `packages/fpkit/src/components/nav/nav.tsx` import
-- [ ] 23.7 Update `packages/fpkit/src/components/form/textarea.tsx` import
-- [ ] 23.8 Update `packages/fpkit/src/components/form/select.tsx` import
-- [ ] 23.9 Update `packages/fpkit/src/components/form/fields.tsx` import
-- [ ] 23.10 Update `packages/fpkit/src/components/breadcrumbs/breadcrumb.tsx` import
+- [ ] 23.1 Update `packages/acss/src/components/badge/badge.tsx` import
+- [ ] 23.2 Update `packages/acss/src/components/tag/tag.tsx` import
+- [ ] 23.3 Update `packages/acss/src/components/heading/heading.tsx` import
+- [ ] 23.4 Update `packages/acss/src/components/text/text.tsx` import
+- [ ] 23.5 Update `packages/acss/src/components/buttons/button.tsx` import
+- [ ] 23.6 Update `packages/acss/src/components/nav/nav.tsx` import
+- [ ] 23.7 Update `packages/acss/src/components/form/textarea.tsx` import
+- [ ] 23.8 Update `packages/acss/src/components/form/select.tsx` import
+- [ ] 23.9 Update `packages/acss/src/components/form/fields.tsx` import
+- [ ] 23.10 Update `packages/acss/src/components/breadcrumbs/breadcrumb.tsx` import
 - [ ] 23.11 Update all alert view component imports (5 files)
 - [ ] 23.12 Update all dialog view component imports (2 files)
-- [ ] 23.13 Update `packages/fpkit/src/components/layout/landmarks.tsx` import
-- [ ] 23.14 Update `packages/fpkit/src/components/list/list.tsx` import
-- [ ] 23.15 Update `packages/fpkit/src/components/link/link.tsx` import
-- [ ] 23.16 Update `packages/fpkit/src/components/modal/dialog.tsx` import
-- [ ] 23.17 Update `packages/fpkit/src/components/text-to-speech/views/TextToSpeechControls.tsx` import
-- [ ] 23.18 Update `packages/fpkit/src/components/icons/icon.tsx` import
-- [ ] 23.19 Update `packages/fpkit/src/components/details/details.tsx` import
-- [ ] 23.20 Update `packages/fpkit/src/components/images/figure.tsx` import
-- [ ] 23.21 Update `packages/fpkit/src/components/images/img.tsx` import
-- [ ] 23.22 Update `packages/fpkit/src/components/cards/card.tsx` import
-- [ ] 23.23 Update `packages/fpkit/src/index.ts` export if needed
-- [ ] 23.24 Search for any remaining imports: `rg "from.*ui['\"]" packages/fpkit/src`
+- [ ] 23.13 Update `packages/acss/src/components/layout/landmarks.tsx` import
+- [ ] 23.14 Update `packages/acss/src/components/list/list.tsx` import
+- [ ] 23.15 Update `packages/acss/src/components/link/link.tsx` import
+- [ ] 23.16 Update `packages/acss/src/components/modal/dialog.tsx` import
+- [ ] 23.17 Update `packages/acss/src/components/text-to-speech/views/TextToSpeechControls.tsx` import
+- [ ] 23.18 Update `packages/acss/src/components/icons/icon.tsx` import
+- [ ] 23.19 Update `packages/acss/src/components/details/details.tsx` import
+- [ ] 23.20 Update `packages/acss/src/components/images/figure.tsx` import
+- [ ] 23.21 Update `packages/acss/src/components/images/img.tsx` import
+- [ ] 23.22 Update `packages/acss/src/components/cards/card.tsx` import
+- [ ] 23.23 Update `packages/acss/src/index.ts` export if needed
+- [ ] 23.24 Search for any remaining imports: `rg "from.*ui['\"]" packages/acss/src`
 
 ### 24. Verification (Phase 5)
 - [ ] 24.1 Run `npm run build` and verify no import errors

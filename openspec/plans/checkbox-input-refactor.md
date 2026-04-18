@@ -8,7 +8,7 @@ This plan outlines refactoring the Checkbox component to use the Input component
 
 ## Current Architecture
 
-### Checkbox Component (`packages/fpkit/src/components/checkbox/checkbox.tsx`)
+### Checkbox Component (`packages/acss/src/components/checkbox/checkbox.tsx`)
 
 **Key Implementation Details:**
 - Lines 494-511: Native `<input type="checkbox">` element
@@ -30,7 +30,7 @@ This plan outlines refactoring the Checkbox component to use the Input component
 </div>
 ```
 
-### Input Component (`packages/fpkit/src/components/form/inputs.tsx`)
+### Input Component (`packages/acss/src/components/form/inputs.tsx`)
 
 **Key Implementation Details:**
 - Lines 53-167: Full component implementation
@@ -97,7 +97,7 @@ This plan outlines refactoring the Checkbox component to use the Input component
 
 ### Phase 1: Import Input Component
 
-**File:** `packages/fpkit/src/components/checkbox/checkbox.tsx`
+**File:** `packages/acss/src/components/checkbox/checkbox.tsx`
 
 **Action:** Add Input import
 
@@ -112,7 +112,7 @@ import { Input } from "../form/inputs";
 
 ### Phase 2: Remove Checkbox's useDisabledState Hook
 
-**File:** `packages/fpkit/src/components/checkbox/checkbox.tsx`
+**File:** `packages/acss/src/components/checkbox/checkbox.tsx`
 
 **Action:** Delete lines 425-435 (entire useDisabledState call)
 
@@ -138,7 +138,7 @@ const { disabledProps, handlers } = useDisabledState<HTMLInputElement>(
 
 ### Phase 3: Update Wrapper Class Name Logic
 
-**File:** `packages/fpkit/src/components/checkbox/checkbox.tsx`
+**File:** `packages/acss/src/components/checkbox/checkbox.tsx`
 
 **Action:** Modify lines 465-470 (wrapper className construction)
 
@@ -169,7 +169,7 @@ const wrapperClassName = [
 
 ### Phase 4: Replace Native Input with Input Component
 
-**File:** `packages/fpkit/src/components/checkbox/checkbox.tsx`
+**File:** `packages/acss/src/components/checkbox/checkbox.tsx`
 
 **Action:** Replace lines 494-511 (entire native input element)
 
@@ -263,7 +263,7 @@ useEffect(() => {
 
 ## Critical Files to Modify
 
-1. **`/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/checkbox/checkbox.tsx`**
+1. **`/Users/shawnsandy/devbox/acss/packages/acss/src/components/checkbox/checkbox.tsx`**
    - Add Input import (after line 2)
    - Remove useDisabledState call (delete lines 425-435)
    - Update wrapperClassName logic (lines 465-470)
@@ -424,7 +424,7 @@ If critical issues arise during implementation:
 
 **Option 1: Revert Changes**
 ```bash
-git checkout packages/fpkit/src/components/checkbox/checkbox.tsx
+git checkout packages/acss/src/components/checkbox/checkbox.tsx
 ```
 
 **Option 2: Keep Native Input**

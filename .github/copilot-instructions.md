@@ -4,7 +4,7 @@
 
 This is a **Lerna monorepo** containing:
 
-- **@fpkit/acss** - React UI component library in `packages/fpkit/`
+- **@fpkit/acss** - React UI component library in `packages/acss/`
 - **Root Storybook** - Component documentation playground
 - **astro-fpkit** - Astro integration demo in `apps/astro-builds/`
 
@@ -13,11 +13,11 @@ This is a **Lerna monorepo** containing:
 ### Component Architecture
 
 - **UI Base Component**: All components extend
-  `packages/fpkit/src/components/ui.tsx` - a polymorphic component using `as`
+  `packages/acss/src/components/ui.tsx` - a polymorphic component using `as`
   prop
 - **Component Structure**: Each component has its own directory with `.tsx`,
   `.scss`, `.stories.tsx`, and `.test.tsx` files
-- **Export Pattern**: Components exported via `packages/fpkit/src/index.ts` with
+- **Export Pattern**: Components exported via `packages/acss/src/index.ts` with
   separate entry points for hooks and icons
 
 ### Styling System (CRITICAL)
@@ -59,10 +59,10 @@ npm test                 # Run Vitest tests
 
 ### Adding Components
 
-1. Create in `packages/fpkit/src/components/{name}/`
+1. Create in `packages/acss/src/components/{name}/`
 2. Extend UI component: `import UI from '../ui'`
 3. Add `.scss` file using rem units and CSS custom properties
-4. Export from `packages/fpkit/src/index.ts`
+4. Export from `packages/acss/src/index.ts`
 5. Create `.stories.tsx` for Storybook
 6. Add `.test.tsx` using Vitest + React Testing Library
 
@@ -90,7 +90,7 @@ export const MyComponent = ({
 
 ### Build Outputs
 
-- **fpkit**: Compiled to `packages/fpkit/libs/` (JS, CSS, types)
+- **fpkit**: Compiled to `packages/acss/libs/` (JS, CSS, types)
 - **Storybook**: Static build to `storybook-static/`
 
 ## Critical Dependencies

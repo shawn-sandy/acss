@@ -17,7 +17,7 @@ on:
       # Rebuild only when docs content or the underlying package changes;
       # avoids unnecessary deploys on unrelated CI tweaks.
       - 'apps/astro-builds/**'
-      - 'packages/fpkit/**'
+      - 'packages/acss/**'
       - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:
 
@@ -47,7 +47,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: |
             package-lock.json
-            packages/fpkit/package-lock.json
+            packages/acss/package-lock.json
             apps/astro-builds/package-lock.json
 
       - name: Install root deps
@@ -57,7 +57,7 @@ jobs:
         # The docs site imports @fpkit/acss/tokens and @fpkit/acss/styles —
         # both are build artifacts that need to exist before the Astro
         # build can resolve them.
-        working-directory: packages/fpkit
+        working-directory: packages/acss
         run: |
           npm ci --no-audit --no-fund
           npm run tokens:build

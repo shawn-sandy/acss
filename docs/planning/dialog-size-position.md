@@ -8,13 +8,13 @@ The Dialog/DialogModal components currently have no way to control their size or
 
 | File | Change |
 |------|--------|
-| `packages/fpkit/src/components/dialog/dialog.types.ts` | Add `DialogSize`, `DialogPosition` types to `BaseDialogProps` |
-| `packages/fpkit/src/components/dialog/dialog.tsx` | Pass `data-size` and `data-position` attributes to `<dialog>` |
-| `packages/fpkit/src/components/dialog/dialog-modal.tsx` | Destructure and forward `size`/`position` to `<Dialog>` |
-| `packages/fpkit/src/components/dialog/dialog.scss` | Add size/position CSS rules via attribute selectors |
-| `packages/fpkit/src/components/dialog/dialog-modal.stories.tsx` | Add stories for sizes and positions |
-| `packages/fpkit/src/components/dialog/dialog.test.tsx` | Add tests for data attribute rendering |
-| `packages/fpkit/src/index.ts` | Export `DialogSize` and `DialogPosition` types |
+| `packages/acss/src/components/dialog/dialog.types.ts` | Add `DialogSize`, `DialogPosition` types to `BaseDialogProps` |
+| `packages/acss/src/components/dialog/dialog.tsx` | Pass `data-size` and `data-position` attributes to `<dialog>` |
+| `packages/acss/src/components/dialog/dialog-modal.tsx` | Destructure and forward `size`/`position` to `<Dialog>` |
+| `packages/acss/src/components/dialog/dialog.scss` | Add size/position CSS rules via attribute selectors |
+| `packages/acss/src/components/dialog/dialog-modal.stories.tsx` | Add stories for sizes and positions |
+| `packages/acss/src/components/dialog/dialog.test.tsx` | Add tests for data attribute rendering |
+| `packages/acss/src/index.ts` | Export `DialogSize` and `DialogPosition` types |
 
 ## Implementation Steps
 
@@ -157,10 +157,10 @@ Add `DialogSize` and `DialogPosition` to the existing type export block.
 
 ## Verification
 
-1. Run `npm test` in `packages/fpkit/` -- all tests pass
+1. Run `npm test` in `packages/acss/` -- all tests pass
 2. Run `npm start` from root -- open Storybook, verify new stories render correctly
 3. Test each size visually: sm, md, lg, full
 4. Test each position visually: center, top, bottom, left, right, corners
 5. Test `size="full"` + `position` combinations (full should win)
 6. Verify keyboard/escape still works at all sizes/positions
-7. Run `npm run build` in `packages/fpkit/` -- build succeeds
+7. Run `npm run build` in `packages/acss/` -- build succeeds

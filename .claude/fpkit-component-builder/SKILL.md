@@ -106,7 +106,7 @@ Generate component using composition template:
 python3 scripts/scaffold_component.py ComponentName \
   --mode compose \
   --uses Component1,Component2 \
-  --path ./packages/fpkit/src/components/component-name
+  --path ./packages/acss/src/components/component-name
 ```
 
 **Example: StatusButton composed from Badge + Button**
@@ -115,7 +115,7 @@ python3 scripts/scaffold_component.py ComponentName \
 python3 scripts/scaffold_component.py StatusButton \
   --mode compose \
   --uses Badge,Button \
-  --path ./packages/fpkit/src/components/status-button
+  --path ./packages/acss/src/components/status-button
 ```
 
 This creates:
@@ -141,7 +141,7 @@ Generate component using extension template:
 python3 scripts/scaffold_component.py ComponentName \
   --mode extend \
   --uses BaseComponent \
-  --path ./packages/fpkit/src/components/component-name
+  --path ./packages/acss/src/components/component-name
 ```
 
 **Example: EnhancedAlert extending Alert**
@@ -150,7 +150,7 @@ python3 scripts/scaffold_component.py ComponentName \
 python3 scripts/scaffold_component.py EnhancedAlert \
   --mode extend \
   --uses Alert \
-  --path ./packages/fpkit/src/components/enhanced-alert
+  --path ./packages/acss/src/components/enhanced-alert
 ```
 
 **Alternative**: Consider adding variant to existing component instead of creating new one.
@@ -164,7 +164,7 @@ python3 scripts/scaffold_component.py EnhancedAlert \
 **Use when**: Analysis recommends SCAFFOLD approach (no reuse opportunities).
 
 ```bash
-python3 scripts/scaffold_component.py AlertBox --path ./packages/fpkit/src/components/alert-box
+python3 scripts/scaffold_component.py AlertBox --path ./packages/acss/src/components/alert-box
 ```
 
 This creates:
@@ -256,7 +256,7 @@ Create styles following fpkit CSS variable conventions:
 
 **Validation:**
 ```bash
-python3 scripts/validate_css_vars.py ./packages/fpkit/src/components/alert-box/alert-box.scss
+python3 scripts/validate_css_vars.py ./packages/acss/src/components/alert-box/alert-box.scss
 ```
 
 **Approved abbreviations:** `bg`, `fs`, `fw`, `radius`, `gap`
@@ -327,7 +327,7 @@ describe('ComponentName', () => {
 Add component exports to `src/index.ts`:
 
 ```bash
-python3 scripts/add_to_exports.py AlertBox ./components/alert-box/alert-box --index ./packages/fpkit/src/index.ts
+python3 scripts/add_to_exports.py AlertBox ./components/alert-box/alert-box --index ./packages/acss/src/index.ts
 ```
 
 **Manual export format:**
@@ -352,7 +352,7 @@ Validate the component before committing:
 
 ```bash
 # Validate CSS variables
-python3 scripts/validate_css_vars.py ./packages/fpkit/src/components/alert-box/alert-box.scss
+python3 scripts/validate_css_vars.py ./packages/acss/src/components/alert-box/alert-box.scss
 
 # Run linter
 npm run lint
@@ -489,19 +489,19 @@ python3 scripts/scaffold_component.py <ComponentName> \
 
 ```bash
 # New component (default)
-python3 scripts/scaffold_component.py AlertBox --path ./packages/fpkit/src/components/alert-box
+python3 scripts/scaffold_component.py AlertBox --path ./packages/acss/src/components/alert-box
 
 # Composed component
 python3 scripts/scaffold_component.py StatusButton \
   --mode compose \
   --uses Badge,Button \
-  --path ./packages/fpkit/src/components/status-button
+  --path ./packages/acss/src/components/status-button
 
 # Extended component
 python3 scripts/scaffold_component.py EnhancedAlert \
   --mode extend \
   --uses Alert \
-  --path ./packages/fpkit/src/components/enhanced-alert
+  --path ./packages/acss/src/components/enhanced-alert
 ```
 
 **Modes:**
@@ -557,7 +557,7 @@ python3 scripts/add_to_exports.py <ComponentName> <component-path> [--index <ind
 
 **Example:**
 ```bash
-python3 scripts/add_to_exports.py AlertBox ./components/alert-box/alert-box --index ./packages/fpkit/src/index.ts
+python3 scripts/add_to_exports.py AlertBox ./components/alert-box/alert-box --index ./packages/acss/src/index.ts
 ```
 
 **Options:**
@@ -816,7 +816,7 @@ npm run storybook
 
 ### fpkit Component Library
 
-- **Location**: `packages/fpkit/`
+- **Location**: `packages/acss/`
 - **Built with**: React 18+, TypeScript, SCSS
 - **Build tool**: tsup (generates ESM and CJS)
 - **Test framework**: Vitest + React Testing Library
@@ -825,8 +825,8 @@ npm run storybook
 
 ### File Paths
 
-- **Components**: `packages/fpkit/src/components/`
-- **Main export**: `packages/fpkit/src/index.ts`
+- **Components**: `packages/acss/src/components/`
+- **Main export**: `packages/acss/src/index.ts`
 - **Styles**: Component SCSS compiled to `libs/components/`
 - **Tests**: Co-located with components (`.test.tsx`)
 - **Stories**: Co-located with components (`.stories.tsx`)

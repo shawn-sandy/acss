@@ -13,14 +13,14 @@ Enhance the fpkit columns system documentation to make responsive and mobile uti
 ## Current State
 
 ### What Exists ✓
-- Full responsive implementation in `/packages/fpkit/src/sass/_columns.scss` (514 lines)
+- Full responsive implementation in `/packages/acss/src/sass/_columns.scss` (514 lines)
   - 3 breakpoints: sm (30rem/480px), md (48rem/768px), lg (64rem/1024px)
   - 183 generated utility classes: `.col-{sm|md|lg}-{1-12}`, offsets, order, auto, flex
   - CSS custom properties: `--col-1` through `--col-12`, breakpoint variables
-- Col component README at `/packages/fpkit/src/components/col/README.mdx` (662 lines)
+- Col component README at `/packages/acss/src/components/col/README.mdx` (662 lines)
   - Comprehensive React API documentation
   - Basic responsive section (lines 298-313, 422-447)
-- Storybook stories at `/packages/fpkit/src/sass/columns.stories.tsx`
+- Storybook stories at `/packages/acss/src/sass/columns.stories.tsx`
   - 8 basic stories, 1 basic responsive example
 
 ### What's Missing ✗
@@ -36,11 +36,11 @@ Enhance the fpkit columns system documentation to make responsive and mobile uti
 
 ### File 1: Create STYLES.mdx (NEW FILE - Priority: HIGHEST)
 
-**Path:** `/packages/fpkit/src/components/col/STYLES.mdx`
+**Path:** `/packages/acss/src/components/col/STYLES.mdx`
 
 **Reason:** Follows established fpkit pattern (22 other components have STYLES.mdx). Provides CSS-only reference for developers not using React.
 
-**Pattern Reference:** `/packages/fpkit/src/components/buttons/STYLES.mdx` (structure and tone)
+**Pattern Reference:** `/packages/acss/src/components/buttons/STYLES.mdx` (structure and tone)
 
 **Structure (~900-1000 lines):**
 
@@ -220,7 +220,7 @@ Links to Col README, Row component, Grid component, external docs
 
 ### File 2: Enhance README.mdx (EXISTING FILE - Priority: HIGH)
 
-**Path:** `/packages/fpkit/src/components/col/README.mdx`
+**Path:** `/packages/acss/src/components/col/README.mdx`
 
 **Changes (~300 lines of additions):**
 
@@ -299,7 +299,7 @@ Insert new section explaining:
 
 ### File 3: Enhance Storybook Stories (EXISTING FILE - Priority: MEDIUM)
 
-**Path:** `/packages/fpkit/src/sass/columns.stories.tsx`
+**Path:** `/packages/acss/src/sass/columns.stories.tsx`
 
 **Changes (~500 lines of additions):**
 
@@ -362,13 +362,13 @@ Insert new section explaining:
 
 ## Critical Files Modified
 
-1. **CREATE:** `/packages/fpkit/src/components/col/STYLES.mdx` (~900-1000 lines)
-2. **ENHANCE:** `/packages/fpkit/src/components/col/README.mdx` (+~300 lines)
-3. **ENHANCE:** `/packages/fpkit/src/sass/columns.stories.tsx` (+~500 lines)
+1. **CREATE:** `/packages/acss/src/components/col/STYLES.mdx` (~900-1000 lines)
+2. **ENHANCE:** `/packages/acss/src/components/col/README.mdx` (+~300 lines)
+3. **ENHANCE:** `/packages/acss/src/sass/columns.stories.tsx` (+~500 lines)
 
 **Reference Files (read-only):**
-- `/packages/fpkit/src/sass/_columns.scss` - Implementation source of truth
-- `/packages/fpkit/src/components/buttons/STYLES.mdx` - Pattern template
+- `/packages/acss/src/sass/_columns.scss` - Implementation source of truth
+- `/packages/acss/src/components/buttons/STYLES.mdx` - Pattern template
 
 ---
 

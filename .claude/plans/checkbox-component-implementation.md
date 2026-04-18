@@ -123,7 +123,7 @@ export interface CheckboxProps extends Omit<React.ComponentPropsWithoutRef<"inpu
 
 ### Files to Create
 
-All files will be created in: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/checkbox/`
+All files will be created in: `/Users/shawnsandy/devbox/acss/packages/acss/src/components/checkbox/`
 
 ```
 checkbox/
@@ -137,7 +137,7 @@ checkbox/
 
 ### Export Updates
 
-Add to `/Users/shawnsandy/devbox/acss/packages/fpkit/src/index.ts`:
+Add to `/Users/shawnsandy/devbox/acss/packages/acss/src/index.ts`:
 
 ```typescript
 // Checkbox Component
@@ -662,15 +662,15 @@ export const CheckboxComponent: Story = {
 
 ### Implementation References
 
-1. **`packages/fpkit/src/hooks/use-disabled-state.ts`**
+1. **`packages/acss/src/hooks/use-disabled-state.ts`**
    - Study WCAG-compliant disabled state pattern
    - Use this hook for disabled state management
 
-2. **`packages/fpkit/src/components/title/title.tsx`**
+2. **`packages/acss/src/components/title/title.tsx`**
    - Reference for data attribute variant pattern
    - Study how size and color props are combined
 
-3. **`packages/fpkit/src/components/form/inputs.tsx`**
+3. **`packages/acss/src/components/form/inputs.tsx`**
    - Reference for form validation patterns
    - Study aria-describedby and aria-invalid usage
 
@@ -678,7 +678,7 @@ export const CheckboxComponent: Story = {
    - Mandatory CSS variable naming standard
    - Must follow this exactly for all variables
 
-5. **`packages/fpkit/src/components/buttons/button.stories.tsx`**
+5. **`packages/acss/src/components/buttons/button.stories.tsx`**
    - Reference for Storybook story patterns
    - Study play function examples
 

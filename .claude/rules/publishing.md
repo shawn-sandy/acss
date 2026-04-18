@@ -1,6 +1,6 @@
 ---
 paths:
-  - "packages/fpkit/package.json"
+  - "packages/acss/package.json"
   - "lerna.json"
 ---
 

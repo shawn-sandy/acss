@@ -5,13 +5,14 @@
  * Data-driven from the generated tokens JSON — the page NEVER hand-authors
  * token values, so the docs stay in sync with the SCSS source.
  *
- * Path note: @fpkit/acss/tokens is declared in fpkit's package.json exports
- * and resolves to libs/tokens.json. That artifact is built by
- * `npm run tokens:build` in packages/fpkit.
+ * Path note: `@fpkit/tokens/tokens.json` is the DTCG JSON artifact produced by
+ * the design-system's Style Dictionary pipeline. It ships as a standalone npm
+ * package so designers and non-JS consumers can pick it up without installing
+ * the full `@fpkit/acss` component library.
  */
 import Layout from "../../layouts/Layout.astro";
 import TokenSwatch from "../../components/TokenSwatch.astro";
-import tokens from "@fpkit/acss/tokens";
+import tokens from "@fpkit/tokens/tokens.json";
 
 /**
  * Style Dictionary preserves a rich shape. For each palette we flatten the

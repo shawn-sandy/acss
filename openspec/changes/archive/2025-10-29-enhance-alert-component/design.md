@@ -5,7 +5,7 @@
 The Alert component is a critical UI element used for displaying status messages, notifications, and user feedback. It currently lacks modern UX patterns found in established design systems (Material-UI, Chakra UI, Ant Design). The component needs enhancement without breaking existing implementations, while improving performance, accessibility, and developer experience.
 
 ### Current Implementation
-- **File**: `packages/fpkit/src/components/alert/alert.tsx`
+- **File**: `packages/acss/src/components/alert/alert.tsx`
 - **Styling**: SCSS with CSS custom properties
 - **State**: Mix of controlled (`open` prop) and internal (`isVisible` state)
 - **Dependencies**: Icons from internal icon library, DismissButton sub-component
@@ -809,7 +809,7 @@ ACCESSIBILITY.md
 - ✅ Links to W3C ARIA practices and WCAG documentation
 
 **README.mdx Updates**:
-- Located at `packages/fpkit/src/components/alert/README.mdx`
+- Located at `packages/acss/src/components/alert/README.mdx`
 - MDX format enables interactive Storybook integration
 - Must update Props section with new props: `titleLevel`, `autoHideDuration`, `variant`, `actions`, `autoFocus`, `pauseOnHover`
 - Add usage examples for new features (auto-dismiss, keyboard support, variants, heading levels)

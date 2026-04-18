@@ -1,7 +1,7 @@
 /**
  * Build-time extractor for the component maturity dashboard.
  *
- * Walks `packages/fpkit/src/components/` from this app's location, reads each
+ * Walks `packages/acss/src/components/` from this app's location, reads each
  * `*.stories.tsx` file, and parses the Storybook `meta` object for:
  *
  * - `title` — used as the component's display name
@@ -27,7 +27,7 @@ export type Lifecycle =
 export interface ComponentStatus {
   /** Display name — last segment of the Storybook title. */
   name: string;
-  /** Story file path relative to `packages/fpkit/src/components/`. */
+  /** Story file path relative to `packages/acss/src/components/`. */
   storyPath: string;
   /** First lifecycle tag found, or `null` if none. */
   lifecycle: Lifecycle | null;
@@ -53,7 +53,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const COMPONENTS_ROOT = join(
   __dirname,
-  "../../../../packages/fpkit/src/components"
+  "../../../../packages/acss/src/components"
 );
 
 async function fileIsPresent(path: string): Promise<boolean> {

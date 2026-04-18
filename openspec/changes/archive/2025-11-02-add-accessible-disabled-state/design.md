@@ -209,7 +209,7 @@ const isComponentDisabled = disabled ?? isDisabled ?? false;
 ### Hook Structure
 
 ```
-packages/fpkit/src/hooks/use-disabled-state.ts
+packages/acss/src/hooks/use-disabled-state.ts
 ├── useDisabledState<T extends HTMLElement>()
 │   ├── Parameters:
 │   │   ├── disabled: boolean | undefined
@@ -225,7 +225,7 @@ packages/fpkit/src/hooks/use-disabled-state.ts
 ### File Organization
 
 ```
-packages/fpkit/src/
+packages/acss/src/
 ├── hooks/
 │   ├── use-disabled-state.ts       # NEW: Core hook
 │   └── (other hooks)

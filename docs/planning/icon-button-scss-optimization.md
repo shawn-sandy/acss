@@ -9,7 +9,7 @@ The `icon-button.scss` file contains several issues that deviate from:
 
 This plan optimizes the file without changing any visual output or component behavior.
 
-**File:** `packages/fpkit/src/components/buttons/icon-button.scss`
+**File:** `packages/acss/src/components/buttons/icon-button.scss`
 
 ---
 
@@ -155,7 +155,7 @@ button.icon-btn,
 2. **Accessibility** — Check Storybook a11y panel: screen reader label still accessible in mobile viewport
 3. **Customization** — Confirm `--icon-btn-size`, `--icon-btn-gap`, `--icon-btn-padding-inline` can be overridden via `styles={{}}`
 4. **Build** — Run `npm run build:sass` and confirm no SCSS compile errors
-5. **Tests** — Run `npm test` in `packages/fpkit/`
+5. **Tests** — Run `npm test` in `packages/acss/`
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## 1. Button Component Refactoring
 
-- [x] 1.1 Read current `packages/fpkit/src/components/buttons/button.scss`
+- [x] 1.1 Read current `packages/acss/src/components/buttons/button.scss`
 - [x] 1.2 Create backup of button.scss
 - [x] 1.3 Refactor size tokens: `--btn-xs` → `--btn-size-xs`, etc. (4 variables)
 - [x] 1.4 Refactor logical properties: `--btn-px` → `--btn-padding-inline`, `--btn-py` → `--btn-padding-block`
@@ -25,7 +25,7 @@
 
 ## 2. Form/Input Component Refactoring
 
-- [x] 2.1 Read current `packages/fpkit/src/components/form/form.scss`
+- [x] 2.1 Read current `packages/acss/src/components/form/form.scss`
 - [x] 2.2 Create backup of form.scss
 - [x] 2.3 Refactor logical properties: `--input-px` → `--input-padding-inline`, `--input-py` → `--input-padding-block`
 - [x] 2.4 Refactor sizing: `--input-w` → `--input-width`
@@ -49,7 +49,7 @@
 
 ## 3. Card Component Refactoring
 
-- [x] 3.1 Read current `packages/fpkit/src/components/cards/card.scss`
+- [x] 3.1 Read current `packages/acss/src/components/cards/card.scss`
 - [x] 3.2 Create backup of card.scss
 - [x] 3.3 Refactor abbreviated padding: `--card-p` → `--card-padding`
 - [x] 3.4 Verify existing good variables: `--card-bg`, `--card-radius`, `--card-display`, `--card-direction`, `--card-gap`
@@ -150,7 +150,7 @@
 ## 8. Version Management
 
 - [x] 8.1 Determine next major version number (e.g., 1.0.0 or 2.0.0)
-- [x] 8.2 Update `packages/fpkit/package.json` version
+- [x] 8.2 Update `packages/acss/package.json` version
 - [x] 8.3 Verify version follows semantic versioning (major bump for breaking changes)
 - [x] 8.4 Update root `package-lock.json` if needed
 - [x] 8.5 Tag version for Lerna: `git tag v{X}.0.0`

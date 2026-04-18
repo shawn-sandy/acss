@@ -36,11 +36,11 @@ The current implementation lacks:
 - Related: `ui-component` (Link uses UI component internally)
 
 ### Affected Code
-- `packages/fpkit/src/components/link/link.tsx` - Add runtime validations
-- `packages/fpkit/src/components/link/link.types.ts` - Make href required
-- `packages/fpkit/src/components/link/link.scss` - Add media queries, update transitions, touch targets
-- `packages/fpkit/src/components/link/link.stories.tsx` - Add accessibility test stories
-- `packages/fpkit/src/components/link/link.test.tsx` - Add validation and motion preference tests
+- `packages/acss/src/components/link/link.tsx` - Add runtime validations
+- `packages/acss/src/components/link/link.types.ts` - Make href required
+- `packages/acss/src/components/link/link.scss` - Add media queries, update transitions, touch targets
+- `packages/acss/src/components/link/link.stories.tsx` - Add accessibility test stories
+- `packages/acss/src/components/link/link.test.tsx` - Add validation and motion preference tests
 
 ### User Impact
 - **Positive**: Improved accessibility for users with disabilities

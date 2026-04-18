@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react-vite";
 import React from "react";
 import addonPerformancePanel from "@github-ui/storybook-addon-performance-panel";
-import "../packages/fpkit/src/styles/index.css";
+import "../packages/acss/src/styles/index.css";
 import { allModes } from "./modes";
 
 

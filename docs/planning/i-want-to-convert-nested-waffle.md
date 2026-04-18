@@ -23,15 +23,15 @@ Before committing to the 7-phase roadmap, these findings from validating against
 
 ### Round 2 findings (from deeper validation)
 
-**R2-1 — The "Alert is overloaded" claim was wrong.** Reading `packages/fpkit/src/components/alert/alert.tsx:27`, Alert exposes `severity` as a **typed React prop** (`"default" | "info" | "success" | "warning" | "error"`), not a `data-alert~="severity"` attribute. Alert also has a `variant` prop (`"outlined" | "filled" | "soft"`) at `alert.tsx:133`. The "Phase 4 — align Alert with the `data-{component}`+`data-color` convention" deliverable is therefore **misspecified**. Replace with: "audit how Alert's internal DOM maps its `severity` and `variant` props to data-attributes (if at all), and reconcile with `.claude/rules/component-conventions.md`." This may mean the *rules doc* is the thing that needs updating (props, not attributes, are Alert's public API), not Alert itself.
+**R2-1 — The "Alert is overloaded" claim was wrong.** Reading `packages/acss/src/components/alert/alert.tsx:27`, Alert exposes `severity` as a **typed React prop** (`"default" | "info" | "success" | "warning" | "error"`), not a `data-alert~="severity"` attribute. Alert also has a `variant` prop (`"outlined" | "filled" | "soft"`) at `alert.tsx:133`. The "Phase 4 — align Alert with the `data-{component}`+`data-color` convention" deliverable is therefore **misspecified**. Replace with: "audit how Alert's internal DOM maps its `severity` and `variant` props to data-attributes (if at all), and reconcile with `.claude/rules/component-conventions.md`." This may mean the *rules doc* is the thing that needs updating (props, not attributes, are Alert's public API), not Alert itself.
 
-**R2-2 — Hard-coded `rgba()` overlays in semantic tokens break dark mode.** `packages/fpkit/src/sass/tokens/_color-semantic.scss:83, 113, 114` define `--color-surface-overlay: rgba(0, 0, 0, 0.5)`, `--color-hover-overlay: rgba(0, 0, 0, 0.05)`, `--color-active-overlay: rgba(0, 0, 0, 0.1)`. In dark mode, black overlay on dark surface is invisible. Phase 1 must add dark-mode-aware overlay tokens (or split into `surface-overlay-light`/`surface-overlay-dark`). This is a concrete addition to Phase 1 scope.
+**R2-2 — Hard-coded `rgba()` overlays in semantic tokens break dark mode.** `packages/acss/src/sass/tokens/_color-semantic.scss:83, 113, 114` define `--color-surface-overlay: rgba(0, 0, 0, 0.5)`, `--color-hover-overlay: rgba(0, 0, 0, 0.05)`, `--color-active-overlay: rgba(0, 0, 0, 0.1)`. In dark mode, black overlay on dark surface is invisible. Phase 1 must add dark-mode-aware overlay tokens (or split into `surface-overlay-light`/`surface-overlay-dark`). This is a concrete addition to Phase 1 scope.
 
 **R2-3 — `useDisabledState` is already adopted broadly.** 99 references across 14 files including `form/inputs.tsx`, `form/textarea.tsx`, `form/select.tsx`, `form/checkbox.tsx`. The Phase 4 "promote to Checkbox/form inputs" deliverable is **mostly already done**. Narrow the remaining scope to: Link (when `disabled`) only.
 
 **R2-4 — No vitest coverage threshold exists.** `vitest.config.js` has no `thresholds` block, only reporter config. Phase 5's "80% coverage threshold" is net-new — and arbitrary without a baseline measurement. Mirror the size-limit "measure first, threshold second" approach: capture current coverage on a baseline PR, then set threshold at (baseline − 2%) with a roadmap to 80%.
 
-**R2-5 — Documentation drift is worse than reported.** `packages/fpkit/CLAUDE.md` declares version `0.5.11` (actual `6.5.0`), Storybook `9` (actual `10.2.16`), example CSS vars using `--btn-px` (deprecated), and `npm run release` via Lerna publish (if Phase 5 lands, release moves to Changesets). Phase 1 CLAUDE-cleanup grows: this single file has 4+ stale claims.
+**R2-5 — Documentation drift is worse than reported.** `packages/acss/CLAUDE.md` declares version `0.5.11` (actual `6.5.0`), Storybook `9` (actual `10.2.16`), example CSS vars using `--btn-px` (deprecated), and `npm run release` via Lerna publish (if Phase 5 lands, release moves to Changesets). Phase 1 CLAUDE-cleanup grows: this single file has 4+ stale claims.
 
 **R2-6 — Portal-rendered components (Dialog, Popover) need theme-toolbar verification.** Phase 3's Storybook theme toolbar toggles `data-theme` on the preview iframe `<html>`. Portal-mounted components escape the React tree but `data-theme` on `<html>` still cascades CSS. However, Chromatic snapshots of portal components may capture pre-toggle state if the portal mounts before the theme change propagates. Add an explicit Dialog+Popover dark-mode Chromatic story as Phase 3 verification.
 
@@ -40,7 +40,7 @@ Before committing to the 7-phase roadmap, these findings from validating against
 ### Round 1 findings
 
 1. **Variant unification was misdiagnosed.** `.claude/rules/component-conventions.md` codifies the existing convention as `data-{component}` (size/layout) + `data-style` (appearance) + `data-color` (semantic). Button correctly uses this pattern (`data-btn`, `data-style`, `data-color` across 96 refs in 7 files). **Alert's apparent outlier status turned out to be a prop/attribute distinction** (see R2-1) rather than a naming divergence.
-2. **`button.scss.backup` exists in repo** at `packages/fpkit/src/components/buttons/button.scss.backup`, containing the old non-standard variable names (`--btn-px`, `--btn-py`, `--btn-rds`, `--btn-cl`, `--btn-dsp`). Evidence of an in-flight, abandoned refactor. **Phase 1 must decide: restore, delete, or complete.** Leaving it creates confusion.
+2. **`button.scss.backup` exists in repo** at `packages/acss/src/components/buttons/button.scss.backup`, containing the old non-standard variable names (`--btn-px`, `--btn-py`, `--btn-rds`, `--btn-cl`, `--btn-dsp`). Evidence of an in-flight, abandoned refactor. **Phase 1 must decide: restore, delete, or complete.** Leaving it creates confusion.
 3. **Phase 3 (dark mode) is HARD-BLOCKED by Phase 1.** 9 component SCSS files still contain hex/rgb literals: `alert/alert.scss`, `breadcrumbs/breadcrumb.scss`, `cards/card.scss`, `form/checkbox.scss`, `form/select.scss`, `images/img.scss`, `layout/landmarks.scss`, `popover/popover.scss`, `tag/tag.scss`. Until these reference semantic tokens only, dark mode cannot flip via `[data-theme="dark"]`.
 4. **`storybook-addon-tag-badges` is installed but adopted by zero stories.** Lifecycle badges in Phase 1 are net-new work on every component meta, not a "wire up existing" task.
 5. **OpenSpec proposals are mid-design, not near-deployed.** Both `establish-css-variable-naming-standard` and `refactor-core-component-css-variables` still have `design.md` files alongside `proposal.md` and `specs/`. Landing them is weeks of work, not a rubber stamp.
@@ -80,16 +80,16 @@ Before committing to the 7-phase roadmap, these findings from validating against
 - **Eliminate hex/rgb literals** from these 9 component SCSS files (hard blocker for Phase 3): `alert/alert.scss`, `breadcrumbs/breadcrumb.scss`, `cards/card.scss`, `form/checkbox.scss`, `form/select.scss`, `images/img.scss`, `layout/landmarks.scss`, `popover/popover.scss`, `tag/tag.scss`. Every color must reference a semantic token from `src/sass/tokens/_color-semantic.scss`.
 - **Fix dark-mode-hostile rgba overlays** in `src/sass/tokens/_color-semantic.scss:83,113,114`: replace the hard-coded `rgba(0, 0, 0, 0.5)` / `rgba(0, 0, 0, 0.05)` / `rgba(0, 0, 0, 0.1)` in `--color-surface-overlay`, `--color-hover-overlay`, `--color-active-overlay` with tokens that invert in dark mode. Also add explicit `--color-focus-*` variants per intent (primary, error, etc.) if Phase 3's dark-mode audit reveals they're needed — today only a single global `--color-focus` exists.
 - **Resolve the prop-vs-attribute policy question**: `.claude/rules/component-conventions.md` codifies `data-style`/`data-color` attributes, but `Alert` (and likely others) expose these as typed React props (`variant`, `severity`). Ratify one rule: either (a) typed props are acceptable for enum-bounded appearance/intent axes and the rules doc documents the exception, or (b) all components must expose data-attributes and props become internal mappers. Document the decision in `component-conventions.md`.
-- **Resolve `packages/fpkit/src/components/buttons/button.scss.backup`** — diff against current `button.scss`, commit a resolution (apply, discard, or ticket the delta); document that `.backup` files are not a version-control convention.
-- Create `packages/fpkit/docs/guides/design-principles.md` — accessibility-first, composition-over-config, tokens-as-contract.
-- Create `packages/fpkit/docs/guides/component-lifecycle.md` — experimental → beta → rc → stable → deprecated, with promotion/demotion criteria.
+- **Resolve `packages/acss/src/components/buttons/button.scss.backup`** — diff against current `button.scss`, commit a resolution (apply, discard, or ticket the delta); document that `.backup` files are not a version-control convention.
+- Create `packages/acss/docs/guides/design-principles.md` — accessibility-first, composition-over-config, tokens-as-contract.
+- Create `packages/acss/docs/guides/component-lifecycle.md` — experimental → beta → rc → stable → deprecated, with promotion/demotion criteria.
 - Create `CONTRIBUTING.md` at repo root — points contributors at `openspec/` for the RFC process and defines when to file in `.claude/plans/` vs `openspec/plans/` vs `docs/planning/` (today these overlap and drift).
-- Extend `packages/fpkit/docs/guides/css-variables.md` with the ratified naming standard.
+- Extend `packages/acss/docs/guides/css-variables.md` with the ratified naming standard.
 - **Consolidate plan duplicates**: remove or redirect one copy of `checkbox-component-implementation.md` and `fpkit-mcp-server-implementation.md` (each duplicated across `.claude/plans/` and `openspec/plans/`).
-- **Refresh `packages/fpkit/CLAUDE.md`** — it has at least 4 stale claims: version `0.5.11` (actual `6.5.0`), Storybook `9` (actual `10.2.16`), example CSS vars use deprecated `--btn-px` names, and release instructions reference `npm run release` via Lerna publish (which Phase 5 replaces with Changesets). Audit all monorepo CLAUDE.md files.
+- **Refresh `packages/acss/CLAUDE.md`** — it has at least 4 stale claims: version `0.5.11` (actual `6.5.0`), Storybook `9` (actual `10.2.16`), example CSS vars use deprecated `--btn-px` names, and release instructions reference `npm run release` via Lerna publish (which Phase 5 replaces with Changesets). Audit all monorepo CLAUDE.md files.
 - Add lifecycle-badge adoption task to every component's `*.stories.tsx` — tag each story meta with current lifecycle (`"stable" | "beta" | "rc" | "deprecated" | "experimental" | "new"`). Net-new work despite the addon already being installed (zero stories use tag-badges today).
 
-**Reuse:** Existing guides under `packages/fpkit/docs/guides/`, `openspec/` machinery, `storybook-addon-tag-badges` already installed (addon setup only; per-story adoption is net-new).
+**Reuse:** Existing guides under `packages/acss/docs/guides/`, `openspec/` machinery, `storybook-addon-tag-badges` already installed (addon setup only; per-story adoption is net-new).
 
 ---
 
@@ -102,12 +102,12 @@ Before committing to the 7-phase roadmap, these findings from validating against
 **Direction change from prior draft**: SCSS **remains** the source of truth. Style Dictionary reads the compiled token set and emits JSON + TS only — it does **not** emit SCSS back. This eliminates the risk of generated SCSS diverging from hand-authored output and triggering Chromatic noise on every story.
 
 **Deliverables**
-- Add `style-dictionary` as devDep in `packages/fpkit/package.json`.
-- New `packages/fpkit/scripts/extract-tokens.mjs` — parses `src/sass/tokens/_color-primitives.scss`, `_color-semantic.scss`, `_type.scss`, `_globals.scss`, `styles/_shadows.scss` and emits intermediate JSON.
-- New `packages/fpkit/style-dictionary.config.mjs` — consumes that JSON and emits `libs/tokens.json` + `src/tokens/index.ts` (TS consts). No SCSS output target.
-- Add `tokens:build` npm script to `packages/fpkit/package.json`; wire into existing `build` pipeline after `build:sass` (not before — SCSS leads).
-- Create missing scale partials: `packages/fpkit/src/sass/_motion.scss` (duration, easing) and `packages/fpkit/src/sass/_breakpoints.scss`; tokenize existing shadow vars in `src/sass/styles/_shadows.scss`.
-- Update `packages/fpkit/package.json` `exports` field to add `./tokens` → `./libs/tokens.json`.
+- Add `style-dictionary` as devDep in `packages/acss/package.json`.
+- New `packages/acss/scripts/extract-tokens.mjs` — parses `src/sass/tokens/_color-primitives.scss`, `_color-semantic.scss`, `_type.scss`, `_globals.scss`, `styles/_shadows.scss` and emits intermediate JSON.
+- New `packages/acss/style-dictionary.config.mjs` — consumes that JSON and emits `libs/tokens.json` + `src/tokens/index.ts` (TS consts). No SCSS output target.
+- Add `tokens:build` npm script to `packages/acss/package.json`; wire into existing `build` pipeline after `build:sass` (not before — SCSS leads).
+- Create missing scale partials: `packages/acss/src/sass/_motion.scss` (duration, easing) and `packages/acss/src/sass/_breakpoints.scss`; tokenize existing shadow vars in `src/sass/styles/_shadows.scss`.
+- Update `packages/acss/package.json` `exports` field to add `./tokens` → `./libs/tokens.json`.
 - **End Phase 2 with a dedicated "Chromatic baseline reset" PR** — a tokens-only PR where reviewers approve any pixel-level diffs in one go, so Phase 5's CI gate adopts clean baselines.
 
 **Reuse:** Existing `src/sass/tokens/_color-primitives.scss`, `_color-semantic.scss`, `_type.scss`, `_globals.scss`, `styles/_shadows.scss` — these remain authoritative, the pipeline just reads them.
@@ -118,14 +118,14 @@ Before committing to the 7-phase roadmap, these findings from validating against
 
 **Goal:** Ship dark mode and a theme-switching primitive keyed on `data-theme`.
 
-**Entry gate:** Phase 1's hex-literal cleanup must be complete. Validation step: `rg '#[0-9a-fA-F]{3,6}|rgb\(|rgba\(|hsl\(' packages/fpkit/src/components/**/*.scss` returns zero results before starting Phase 3.
+**Entry gate:** Phase 1's hex-literal cleanup must be complete. Validation step: `rg '#[0-9a-fA-F]{3,6}|rgb\(|rgba\(|hsl\(' packages/acss/src/components/**/*.scss` returns zero results before starting Phase 3.
 
 **Deliverables**
 - Extend `src/sass/tokens/_color-semantic.scss` with a `[data-theme="dark"]` block that redefines every semantic slot (primitives unchanged). Light remains the `:root` default.
-- New `packages/fpkit/src/components/theme/theme-provider.tsx` — React context, writes `data-theme` to `document.documentElement`, reads `prefers-color-scheme`, persists to `localStorage`, exposes `useTheme()` hook.
-- New `packages/fpkit/src/components/theme/theme-toggle.tsx` — composes existing `Button` component.
+- New `packages/acss/src/components/theme/theme-provider.tsx` — React context, writes `data-theme` to `document.documentElement`, reads `prefers-color-scheme`, persists to `localStorage`, exposes `useTheme()` hook.
+- New `packages/acss/src/components/theme/theme-toggle.tsx` — composes existing `Button` component.
 - New `theme.stories.tsx`, `theme.test.tsx`, `theme/index.ts`.
-- New `packages/fpkit/src/components/theme/fouc-script.ts` — inline script string for SSR consumers (Next.js, Astro) to prevent flash-of-unstyled-theme.
+- New `packages/acss/src/components/theme/fouc-script.ts` — inline script string for SSR consumers (Next.js, Astro) to prevent flash-of-unstyled-theme.
 - Storybook theme toolbar — extend `.storybook/preview.tsx` with a `themes` global that toggles `data-theme` on the preview iframe's `<html>`.
 - SSR integration test: add a minimal Astro page in `apps/astro-builds/` that mounts ThemeProvider and verify no FOUC on reload.
 - **Portal-rendered component verification**: add Chromatic stories for Dialog and Popover rendered in both light and dark modes. Portals mount outside the React tree but `data-theme` on `<html>` still cascades via CSS — however, timing (portal mounts before theme propagates) can create stale-theme snapshots. Add explicit stories to catch this.
@@ -141,15 +141,15 @@ Before committing to the 7-phase roadmap, these findings from validating against
 **Scope shrinkage from stress test:** Original draft proposed a Button-wide refactor from `data-btn`/`data-style` to `data-variant`/`data-color`/`data-size`. The stress test showed `.claude/rules/component-conventions.md` codifies Button's current pattern (`data-{component}` + `data-style` + `data-color`) as the blessed convention. **Button needs no variant refactor.** The only outlier is Alert, which overloads `data-alert` with severity. So Phase 4 is now:
 
 **Deliverables**
-- Document the existing variant convention explicitly in `packages/fpkit/docs/guides/variants.md` — reflecting the policy decision from Phase 1 (props vs data-attributes for enum-bounded axes).
+- Document the existing variant convention explicitly in `packages/acss/docs/guides/variants.md` — reflecting the policy decision from Phase 1 (props vs data-attributes for enum-bounded axes).
 - **Reconcile Alert with the ratified convention** — depending on Phase 1's policy ruling, either (a) document Alert's `severity`/`variant` props as the exception-path for typed enums and make sure internal DOM uses matching `data-*` attributes for stylesheet selectors, or (b) add data-attribute pass-through so consumers can drive styling via attributes directly. Path (a) is expected — it's lower blast radius.
 - **Additive-only Button work**: add `success` and `warning` `data-color` variants to `buttons/button.scss` (parity with Alert's semantic colors). No breaking changes.
-- Promote `packages/fpkit/src/hooks/use-disabled-state.ts` to `Link` (only remaining consumer). Form inputs (`inputs.tsx`, `textarea.tsx`, `select.tsx`, `checkbox.tsx`) already adopted — verify consistency, don't rewrite.
+- Promote `packages/acss/src/hooks/use-disabled-state.ts` to `Link` (only remaining consumer). Form inputs (`inputs.tsx`, `textarea.tsx`, `select.tsx`, `checkbox.tsx`) already adopted — verify consistency, don't rewrite.
 - **Fill test gaps** (create `.test.tsx`): checkbox, heading, nav, progress, stack, tag, layout/landmarks, text, tables, text-to-speech.
 - **Fill story gaps** (create `.stories.tsx`): checkbox, modal, text-to-speech, tables.
 - **Fill SCSS gaps** (create `.scss`): col, heading, row, text, tables.
-- **Per-component a11y checklist** — append standardized checklist to each component's `README.mdx` (template based on `packages/fpkit/docs/guides/accessibility.md`).
-- Create `MIGRATION-v7.md` at `packages/fpkit/` documenting the Alert attribute rename and any API tightening from Phase 1.
+- **Per-component a11y checklist** — append standardized checklist to each component's `README.mdx` (template based on `packages/acss/docs/guides/accessibility.md`).
+- Create `MIGRATION-v7.md` at `packages/acss/` documenting the Alert attribute rename and any API tightening from Phase 1.
 
 **Reuse:** Button's current `data-btn`/`data-style`/`data-color` implementation as the convention reference (not Alert); existing `use-disabled-state` hook; snapshot infra under `src/components/__snapshots__/`.
 
@@ -163,9 +163,9 @@ Before committing to the 7-phase roadmap, these findings from validating against
 - New `.github/workflows/chromatic.yml` — visual regression on every PR; required check.
 - New `.github/workflows/test.yml` — vitest with coverage. **Measure current coverage on a baseline PR first**, then set initial threshold at `(baseline − 2%)` in `vitest.config.js` (currently no `thresholds` block exists). Track a roadmap target of 80% line coverage but don't set it as the initial gate — that would fail every PR on day one.
 - New `.github/workflows/a11y.yml` — Storybook test-runner with `@storybook/addon-a11y` axe integration.
-- Add `test:a11y` script to `packages/fpkit/package.json`.
+- Add `test:a11y` script to `packages/acss/package.json`.
 - Introduce **Changesets**: create `.changeset/config.json`, `.changeset/README.md`, add `.github/workflows/release.yml` that opens a version PR on merges to main. **Explicitly disable `lerna version` and `lerna publish`** (remove those scripts or replace with a guard that errors). Lerna remains only for `run` (task orchestration).
-- Bundle-size guard: add `size-limit` config + `size` script to `packages/fpkit/package.json` with **baseline captured before setting thresholds** (measure first, threshold second); wire into `test.yml` workflow.
+- Bundle-size guard: add `size-limit` config + `size` script to `packages/acss/package.json` with **baseline captured before setting thresholds** (measure first, threshold second); wire into `test.yml` workflow.
 - Chromatic baselines: adopt the post-Phase-2 reset baselines as required-check starting state.
 
 **Reuse:** Existing Chromatic config at repo root `chromatic.config.json`, existing `.github/workflows/claude.yml` as workflow pattern reference, existing `lerna.json` (Changesets coexists with Lerna for task running only — versioning authority shifts to Changesets).
@@ -185,12 +185,12 @@ Before committing to the 7-phase roadmap, these findings from validating against
 - New `apps/astro-builds/src/pages/` structure: `index.astro` (home), `foundations/{colors,typography,spacing,elevation,motion,breakpoints}.astro`, `components/[slug].astro` (dynamic route), `patterns/{forms,navigation,data-display,feedback}.astro`, `guides/[slug].astro`.
 - New `apps/astro-builds/src/components/` — docs-site components (TokenSwatch, TypeScale, SpacingScale, ComponentPlayground, CodeBlock).
 - Wire Astro site to consume `@fpkit/acss/tokens` (the JSON emitted in Phase 2) for auto-rendering Foundations pages — never hand-author token values in docs.
-- Content ingestion: Astro Content Collections read `packages/fpkit/docs/guides/*.md` and each component's `README.mdx` — no content duplication.
+- Content ingestion: Astro Content Collections read `packages/acss/docs/guides/*.md` and each component's `README.mdx` — no content duplication.
 - Live component demos via Astro islands with `client:load` (already the pattern in the repo).
 - Theme toggle in the docs site header — uses the same `ThemeProvider` shipped in Phase 3 (dogfooding).
 - Deployment: new `.github/workflows/deploy-docs.yml` — builds site on merge to main, publishes to Cloudflare Pages or Vercel.
 
-**Reuse:** `apps/astro-builds/` existing structure, all content under `packages/fpkit/docs/guides/` and `packages/fpkit/src/docs/*.mdx`, all component `README.mdx` files, tokens JSON from Phase 2, ThemeProvider from Phase 3.
+**Reuse:** `apps/astro-builds/` existing structure, all content under `packages/acss/docs/guides/` and `packages/acss/src/docs/*.mdx`, all component `README.mdx` files, tokens JSON from Phase 2, ThemeProvider from Phase 3.
 
 ---
 
@@ -206,36 +206,36 @@ Before committing to the 7-phase roadmap, these findings from validating against
   - `packages/icons/` — publishes `@fpkit/icons` (extracts existing `src/components/icons/` + any SVG set adopted).
 - **Keep `@fpkit/acss/icons` subpath export as a re-export shim** that forwards to `@fpkit/icons`. Consumers using the subpath import keep working; new consumers are directed to `@fpkit/icons` directly in migration docs.
 - Bump `@fpkit/acss` to a major version (v7) as the delivery vehicle for all breaking changes (theme runtime, Alert severity attribute rename, package split, any Phase 1 naming-standard renames).
-- Update `packages/fpkit/package.json` to depend on `@fpkit/tokens` and `@fpkit/icons` once split.
+- Update `packages/acss/package.json` to depend on `@fpkit/tokens` and `@fpkit/icons` once split.
 - Document ecosystem packages and the v7 migration in the Astro docs site.
 
-**Reuse:** `apps/astro-builds/` site framework from Phase 6, tokens pipeline from Phase 2, existing `packages/fpkit/src/components/icons/`.
+**Reuse:** `apps/astro-builds/` site framework from Phase 6, tokens pipeline from Phase 2, existing `packages/acss/src/components/icons/`.
 
 ---
 
 ## Critical Files
 
 **Token & style foundation**
-- `packages/fpkit/src/sass/tokens/_color-primitives.scss`
-- `packages/fpkit/src/sass/tokens/_color-semantic.scss`
-- `packages/fpkit/src/sass/_globals.scss`, `_type.scss`, `styles/_shadows.scss`
-- `packages/fpkit/tokens/` (new, Phase 2)
-- `packages/fpkit/style-dictionary.config.mjs` (new, Phase 2)
+- `packages/acss/src/sass/tokens/_color-primitives.scss`
+- `packages/acss/src/sass/tokens/_color-semantic.scss`
+- `packages/acss/src/sass/_globals.scss`, `_type.scss`, `styles/_shadows.scss`
+- `packages/acss/tokens/` (new, Phase 2)
+- `packages/acss/style-dictionary.config.mjs` (new, Phase 2)
 
 **Runtime**
-- `packages/fpkit/src/components/theme/` (new directory, Phase 3)
-- `packages/fpkit/src/hooks/use-disabled-state.ts` (promotion target, Phase 4)
-- `packages/fpkit/src/index.ts` (add theme exports)
+- `packages/acss/src/components/theme/` (new directory, Phase 3)
+- `packages/acss/src/hooks/use-disabled-state.ts` (promotion target, Phase 4)
+- `packages/acss/src/index.ts` (add theme exports)
 
 **Components (Phase 4 gap-fill)**
-- `packages/fpkit/src/components/{checkbox,heading,nav,progress,stack,tag,layout,text,tables,text-to-speech}/`
-- `packages/fpkit/src/components/{col,row,heading,text,tables}/*.scss` (new)
-- `packages/fpkit/src/components/buttons/button.tsx` + `button.scss` (refactor)
+- `packages/acss/src/components/{checkbox,heading,nav,progress,stack,tag,layout,text,tables,text-to-speech}/`
+- `packages/acss/src/components/{col,row,heading,text,tables}/*.scss` (new)
+- `packages/acss/src/components/buttons/button.tsx` + `button.scss` (refactor)
 
 **Docs & governance**
 - `CONTRIBUTING.md` (new, Phase 1)
-- `packages/fpkit/docs/guides/{design-principles,component-lifecycle,variants}.md` (new)
-- `packages/fpkit/MIGRATION-v7.md` (new, Phase 4)
+- `packages/acss/docs/guides/{design-principles,component-lifecycle,variants}.md` (new)
+- `packages/acss/MIGRATION-v7.md` (new, Phase 4)
 - `apps/astro-builds/` (expand, Phase 6)
 
 **CI**
@@ -248,9 +248,9 @@ Before committing to the 7-phase roadmap, these findings from validating against
 
 Each phase has explicit verification steps before moving on:
 
-**Phase 1:** `openspec list --deployed` shows the two proposals deployed (or the inline ADR committed if fallback path taken); **`rg '#[0-9a-fA-F]{3,6}|rgb\(|rgba\(|hsl\(' packages/fpkit/src/components/**/*.scss` returns zero results** (hard gate for Phase 3); Storybook sidebar shows lifecycle badges on component stories; `button.scss.backup` either deleted or merged.
+**Phase 1:** `openspec list --deployed` shows the two proposals deployed (or the inline ADR committed if fallback path taken); **`rg '#[0-9a-fA-F]{3,6}|rgb\(|rgba\(|hsl\(' packages/acss/src/components/**/*.scss` returns zero results** (hard gate for Phase 3); Storybook sidebar shows lifecycle badges on component stories; `button.scss.backup` either deleted or merged.
 
-**Phase 2:** `cd packages/fpkit && npm run tokens:build` produces `libs/tokens.json` and `src/tokens/index.ts`; `npm run build:sass` still succeeds as before (no generated SCSS imported); the dedicated Chromatic-reset PR shows approved baselines.
+**Phase 2:** `cd packages/acss && npm run tokens:build` produces `libs/tokens.json` and `src/tokens/index.ts`; `npm run build:sass` still succeeds as before (no generated SCSS imported); the dedicated Chromatic-reset PR shows approved baselines.
 
 **Phase 3:** `npm start` (Storybook) shows theme toolbar; toggling switches all component stories between light/dark; `npm test` passes the new `theme.test.tsx`; Astro integration page shows no FOUC on reload in both light and dark.
 

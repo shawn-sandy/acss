@@ -45,7 +45,7 @@ Two violations:
 - **`## Plan Mode Instructions` (lines 192–199)** — duplicates the global `~/.claude/CLAUDE.md` plan mode section nearly word-for-word, adding no project-specific content.
 
 ### Progressive Disclosure (1/2)
-`## Component Development` is the biggest section (63 lines), covering CSS variable naming, data attribute variants, `useDisabledState` hook internals, polymorphic `as` prop, Storybook import requirements, and testing gotchas. Much of this only activates when working in `packages/fpkit/src/components/`. Path-scoped `.claude/rules/` files would load this content only when relevant. The `docs/css-variables.md` reference in the tree could be surfaced as an `@import` link.
+`## Component Development` is the biggest section (63 lines), covering CSS variable naming, data attribute variants, `useDisabledState` hook internals, polymorphic `as` prop, Storybook import requirements, and testing gotchas. Much of this only activates when working in `packages/acss/src/components/`. Path-scoped `.claude/rules/` files would load this content only when relevant. The `docs/css-variables.md` reference in the tree could be surfaced as an `@import` link.
 
 ### Safety & Hygiene (2/2)
 Clean. CSS naming conventions and data-attribute variant patterns are project-specific and genuinely not inferable from tooling. No style rules that belong in `.eslintrc`. No secrets.
@@ -59,8 +59,8 @@ Clean. CSS naming conventions and data-attribute variant patterns are project-sp
 
 ## Top 3 Recommendations
 
-1. **Move component development conventions to a path-scoped rule file.** Extract the CSS variable naming, data attribute variants, hook/polymorphic patterns, Storybook rules, and testing gotchas into `.claude/rules/component-dev.md` with `paths: ["packages/fpkit/src/components/**"]`. These load only when Claude is working on components, reducing constant context load.
+1. **Move component development conventions to a path-scoped rule file.** Extract the CSS variable naming, data attribute variants, hook/polymorphic patterns, Storybook rules, and testing gotchas into `.claude/rules/component-dev.md` with `paths: ["packages/acss/src/components/**"]`. These load only when Claude is working on components, reducing constant context load.
 
 2. **Remove `## Plan Mode Instructions`.** It duplicates the global `~/.claude/CLAUDE.md` verbatim. Delete the section from the project file — the global version takes effect automatically and the project adds nothing new.
 
-3. **Use path-scoped rule files for the Publishing workflow.** The Publishing section can become `.claude/rules/publishing.md` with `paths: ["packages/fpkit/package.json"]` or simply a one-liner reference: *"Use the `npm-monorepo-publish` skill. See `.claude/rules/publishing.md` for details."*
+3. **Use path-scoped rule files for the Publishing workflow.** The Publishing section can become `.claude/rules/publishing.md` with `paths: ["packages/acss/package.json"]` or simply a one-liner reference: *"Use the `npm-monorepo-publish` skill. See `.claude/rules/publishing.md` for details."*

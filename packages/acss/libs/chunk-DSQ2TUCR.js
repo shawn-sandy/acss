@@ -1,0 +1,7 @@
+import t, { useId, useRef, useEffect } from 'react';
+
+var u=({id:g,children:f,trigger:s,triggerLabel:i="Open",mode:l="auto",placement:v="bottom",isOpen:r,onToggle:p,showCloseButton:c,showArrow:m=!0,closeButtonLabel:b="Close",className:h="",styles:P})=>{let y=useId(),n=g||y,a=useRef(null),E=c!==void 0?c:l==="manual";return useEffect(()=>{let e=a.current;if(e&&r!==void 0)try{let o=e.matches(":popover-open")||e.hasAttribute("data-popover-open");r&&!o?e.showPopover():!r&&o&&e.hidePopover();}catch{let o=e.hasAttribute("data-popover-open");r&&!o?e.showPopover():!r&&o&&e.hidePopover();}},[r]),useEffect(()=>{let e=a.current;if(!e||!p)return;let o=N=>{p(N.newState==="open");};return e.addEventListener("toggle",o),()=>e.removeEventListener("toggle",o)},[p]),t.createElement(t.Fragment,null,(()=>s?t.cloneElement(s,{popovertarget:n,popovertargetaction:"toggle"}):t.createElement("button",{type:"button",popovertarget:n,popovertargetaction:"toggle","aria-label":i,className:"fpkit-popover-trigger"},i))(),t.createElement("div",{ref:a,id:n,popover:l,className:`fpkit-popover ${h}`.trim(),"data-placement":v,style:P},m&&t.createElement("div",{className:"fpkit-popover-arrow","data-placement":v}),t.createElement("div",{className:"fpkit-popover-content"},f,E&&t.createElement("button",{type:"button",popovertarget:n,popovertargetaction:"hide","aria-label":b,className:"fpkit-popover-close"},"\u2715"))))},S=u;u.displayName="Popover";
+
+export { u as a, S as b };
+//# sourceMappingURL=out.js.map
+//# sourceMappingURL=chunk-DSQ2TUCR.js.map
