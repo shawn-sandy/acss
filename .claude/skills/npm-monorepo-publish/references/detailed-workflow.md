@@ -30,7 +30,7 @@ npm --version
 npm whoami
 
 # Verify package configuration
-cat packages/fpkit/package.json | grep -A 3 "publishConfig"
+cat packages/acss/package.json | grep -A 3 "publishConfig"
 ```
 
 **If checks fail:** Abort and fix issues first.
@@ -43,7 +43,7 @@ cat packages/fpkit/package.json | grep -A 3 "publishConfig"
 
 **Actions:**
 
-1. Get current version from `packages/fpkit/package.json`
+1. Get current version from `packages/acss/package.json`
 2. Check latest on npm: `npm view {package-name} version`
 3. Show commits since last tag (for changelog context)
 4. Ask user for version bump type (patch/minor/major)
@@ -57,7 +57,7 @@ cat packages/fpkit/package.json | grep -A 3 "publishConfig"
 
 ```bash
 # Get current version
-cat packages/fpkit/package.json | grep '"version"'
+cat packages/acss/package.json | grep '"version"'
 
 # Check npm latest
 npm view @fpkit/acss version
@@ -77,7 +77,7 @@ npm view @fpkit/acss@{next-version}
 
 **Objective:** Ensure package builds and tests pass
 
-**Validate in packages/fpkit:**
+**Validate in packages/acss:**
 
 1. Run build (check package.json for build script)
 2. Verify `libs/` directory exists with expected output
@@ -87,7 +87,7 @@ npm view @fpkit/acss@{next-version}
 **Commands:**
 
 ```bash
-cd packages/fpkit
+cd packages/acss
 
 # Build
 npm run build
@@ -148,7 +148,7 @@ lerna version {patch|minor|major} --no-push --no-git-tag-version
 ```bash
 # Edit version in package.json
 # Then commit
-git add packages/fpkit/package.json
+git add packages/acss/package.json
 git commit -m "chore(release): bump version to {version}"
 ```
 
@@ -158,7 +158,7 @@ git commit -m "chore(release): bump version to {version}"
 
 ```bash
 # Check version updated
-cat packages/fpkit/package.json | grep '"version"'
+cat packages/acss/package.json | grep '"version"'
 
 # Check git status
 git status
@@ -288,7 +288,7 @@ git checkout main
 git pull origin main
 
 # Verify version updated
-cat packages/fpkit/package.json | grep '"version"'
+cat packages/acss/package.json | grep '"version"'
 
 # Get OTP from authenticator app
 # Then publish

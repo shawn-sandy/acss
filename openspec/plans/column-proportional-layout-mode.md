@@ -15,11 +15,11 @@ Implement an **opt-in proportional mode** that keeps the current mobile-first re
 
 ## Critical Files
 
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/_columns.scss` - Add proportional layout utility class
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/row/row.tsx` - Add component prop
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/row/row.types.ts` - Update TypeScript interface
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/row/row.stories.tsx` - Add story examples
-- `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/row/row.test.tsx` - Add tests
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/_columns.scss` - Add proportional layout utility class
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/row/row.tsx` - Add component prop
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/row/row.types.ts` - Update TypeScript interface
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/row/row.stories.tsx` - Add story examples
+- `/Users/shawnsandy/devbox/acss/packages/acss/src/components/row/row.test.tsx` - Add tests
 
 ## Implementation Steps
 
@@ -293,7 +293,7 @@ describe('Row - Proportional Layout', () => {
 Run the following commands to ensure everything works:
 
 ```bash
-# From packages/fpkit/
+# From packages/acss/
 npm run build:sass      # Compile SCSS with new utility class
 npm test                # Verify tests pass
 npm run lint-fix        # Fix any linting issues

@@ -53,7 +53,7 @@ Add full responsive column support with mobile-first utility classes (`.col-{bre
 
 ### CSS Custom Properties
 
-Add to `/packages/fpkit/src/sass/_columns.scss` after existing `:root` block:
+Add to `/packages/acss/src/sass/_columns.scss` after existing `:root` block:
 
 ```scss
 /**
@@ -80,7 +80,7 @@ Add to `/packages/fpkit/src/sass/_columns.scss` after existing `:root` block:
 
 ## SCSS Implementation (Optimized)
 
-### File: `/packages/fpkit/src/sass/_columns.scss`
+### File: `/packages/acss/src/sass/_columns.scss`
 
 **Implementation Strategy:** Use SCSS loops and maps to generate utilities programmatically. This reduces code from ~500 lines to ~100 lines while producing the same CSS output.
 
@@ -238,7 +238,7 @@ Update existing `.col-row-proportional` section (~line 143):
 
 ## TypeScript Updates
 
-### File: `/packages/fpkit/src/components/row/row.tsx`
+### File: `/packages/acss/src/components/row/row.tsx`
 
 Add deprecation warning:
 
@@ -270,7 +270,7 @@ export const Row = React.forwardRef<HTMLElement, RowProps>(
     // Rest of implementation unchanged...
 ```
 
-### File: `/packages/fpkit/src/components/row/row.types.ts`
+### File: `/packages/acss/src/components/row/row.types.ts`
 
 Add `@deprecated` JSDoc:
 
@@ -474,7 +474,7 @@ This is acceptable for the flexibility gained.
 
 ### SCSS Compilation
 ```bash
-# In packages/fpkit/
+# In packages/acss/
 npm run sass:build      # Compile SCSS to CSS
 npm run sass:watch      # Watch mode for development
 ```
@@ -482,10 +482,10 @@ npm run sass:watch      # Watch mode for development
 ### Bundle Size Monitoring
 ```bash
 # Check compiled CSS size
-ls -lh packages/fpkit/libs/index.css
+ls -lh packages/acss/libs/index.css
 
 # Check gzipped size (production)
-gzip -c packages/fpkit/libs/index.css | wc -c
+gzip -c packages/acss/libs/index.css | wc -c
 ```
 
 **Target Sizes:**
@@ -519,21 +519,21 @@ gzip -c packages/fpkit/libs/index.css | wc -c
 
 ## Critical Files (Updated Estimates)
 
-1. **`/packages/fpkit/src/sass/_columns.scss`** - Primary implementation
+1. **`/packages/acss/src/sass/_columns.scss`** - Primary implementation
    - **Add:** ~100-120 lines (using SCSS loops)
    - **Modify:** ~20 lines (deprecation comments)
    - **Total change:** ~120 lines (vs 500-600 without loops)
 
-2. **`/packages/fpkit/src/components/row/row.tsx`** - Deprecation warning
+2. **`/packages/acss/src/components/row/row.tsx`** - Deprecation warning
    - **Add:** ~10 lines (console.warn in development)
 
-3. **`/packages/fpkit/src/components/row/row.types.ts`** - JSDoc update
+3. **`/packages/acss/src/components/row/row.types.ts`** - JSDoc update
    - **Modify:** ~20 lines (@deprecated tag and migration examples)
 
-4. **`/packages/fpkit/src/components/col/col.stories.tsx`** - Responsive examples
+4. **`/packages/acss/src/components/col/col.stories.tsx`** - Responsive examples
    - **Add:** ~150-200 lines (comprehensive examples for all breakpoints)
 
-5. **`/packages/fpkit/src/components/row/row.stories.tsx`** - Deprecation story
+5. **`/packages/acss/src/components/row/row.stories.tsx`** - Deprecation story
    - **Add:** ~30-40 lines (show deprecation warning in Storybook)
 
 **Total Code Addition: ~300-400 lines** (much smaller with SCSS optimization)

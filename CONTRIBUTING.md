@@ -24,8 +24,8 @@ All participants are expected to act in good faith, credit others, and keep disc
 1. Fork the repository and clone your fork.
 2. Install dependencies: `npm install` at the monorepo root.
 3. Start the Storybook dev server: `npm start` (serves on port 6006 and watches every package).
-4. Run tests for the main package: `cd packages/fpkit && npm test`.
-5. See `CLAUDE.md` (root) and `packages/fpkit/CLAUDE.md` for project structure, commands, and conventions.
+4. Run tests for the main package: `cd packages/acss && npm test`.
+5. See `CLAUDE.md` (root) and `packages/acss/CLAUDE.md` for project structure, commands, and conventions.
 
 ## Where to File Plans and Proposals
 
@@ -66,7 +66,7 @@ Use the `openspec:proposal` skill to scaffold. Reviewers look for: clear problem
 
 1. Create a topic branch from `main` (e.g., `feat/alert-dark-mode`, `fix/button-focus-ring`).
 2. Make changes with tests and stories.
-3. Run local checks: `npm run lint`, `npm test`, `npm run build` from `packages/fpkit/`.
+3. Run local checks: `npm run lint`, `npm test`, `npm run build` from `packages/acss/`.
 4. Open a PR against `main`. Describe the change, link any OpenSpec proposal, and include Storybook screenshots for visual changes.
 5. Respond to review; squash-merge when approved.
 
@@ -80,15 +80,15 @@ Breaking changes get `!` and a `BREAKING CHANGE:` footer: `feat(alert)!: rename 
 
 - **Units**: rem only in SCSS. No px.
 - **No Tailwind**. SCSS + CSS custom properties only.
-- **CSS variables**: follow the standard in `packages/fpkit/docs/guides/css-variables.md` — no `--btn-px` / `--btn-cl` / `--btn-rds` style names.
+- **CSS variables**: follow the standard in `packages/acss/docs/guides/css-variables.md` — no `--btn-px` / `--btn-cl` / `--btn-rds` style names.
 - **Colors in component SCSS**: reference semantic tokens (`--color-primary`, `--color-text-inverse`). No hex/rgb literals.
 - **TypeScript**: strict mode; explicit prop interfaces with JSDoc.
 - **Tests**: Vitest + React Testing Library. Every component gets a `.test.tsx` and a `.stories.tsx` with at least one play function.
 - **Accessibility**: WCAG 2.1 AA minimum. Keyboard navigation, visible focus, semantic HTML, ARIA only where HTML can't express the semantic. The Storybook a11y addon should report no violations.
 - **Disabled state**: use the `useDisabledState` hook from `#hooks/use-disabled-state` so components stay keyboard-reachable (`aria-disabled`, not native `disabled`).
-- **Variants**: follow `.claude/rules/component-conventions.md` — `data-{component}` for size/layout, `data-style` for appearance, `data-color` for semantic intent. See `packages/fpkit/docs/guides/variants.md` for the prop-vs-attribute policy.
+- **Variants**: follow `.claude/rules/component-conventions.md` — `data-{component}` for size/layout, `data-style` for appearance, `data-color` for semantic intent. See `packages/acss/docs/guides/variants.md` for the prop-vs-attribute policy.
 
-See `packages/fpkit/docs/guides/` for deep-dives on accessibility, architecture, composition, testing, CSS variables, and Storybook.
+See `packages/acss/docs/guides/` for deep-dives on accessibility, architecture, composition, testing, CSS variables, and Storybook.
 
 ## Release Process
 

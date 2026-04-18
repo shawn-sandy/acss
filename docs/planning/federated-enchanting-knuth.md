@@ -37,9 +37,9 @@ changes acknowledged; user confirmed minor bump. Branch is clean and up to date.
 
 ### Phase B — Build & Validate
 
-4. Run full validation from `packages/fpkit/`:
+4. Run full validation from `packages/acss/`:
    ```bash
-   cd packages/fpkit
+   cd packages/acss
    npm run build && npm run lint && npm test
    cd ../..
    ```
@@ -57,7 +57,7 @@ changes acknowledged; user confirmed minor bump. Branch is clean and up to date.
    ```bash
    lerna version minor --no-push --no-git-tag-version
    ```
-   Confirms `packages/fpkit/package.json` → `6.3.0`
+   Confirms `packages/acss/package.json` → `6.3.0`
 
 7. Update `CHANGELOG.md` — add `## [6.3.0] - 2026-02-18` section with:
    - New: xl/2xl button sizes, IconButton component, Popover component
@@ -66,7 +66,7 @@ changes acknowledged; user confirmed minor bump. Branch is clean and up to date.
 
 8. Commit changes:
    ```bash
-   git add packages/fpkit/package.json CHANGELOG.md
+   git add packages/acss/package.json CHANGELOG.md
    git commit -m "chore(release): publish @fpkit/acss@6.3.0"
    ```
 
@@ -100,7 +100,7 @@ changes acknowledged; user confirmed minor bump. Branch is clean and up to date.
 
 ## Critical Files
 
-- `packages/fpkit/package.json` — version field updated by Lerna (Step 6)
+- `packages/acss/package.json` — version field updated by Lerna (Step 6)
 - `CHANGELOG.md` — manually updated (Step 7)
 - `lerna.json` — read-only reference
 

@@ -16,7 +16,7 @@ Recent commits on `feat/buttom-updates` updated `README.mdx`, `STYLES.mdx`, and 
 
 > When `disabled` or `isDisabled` is set, built-in pointer handlers (`onPointerDown`, `onPointerOver`, `onPointerLeave`, `onClick`) take precedence over any handlers passed via props. This prevents interaction callbacks from firing on a disabled button.
 
-**File:** `packages/fpkit/src/components/buttons/README.mdx`
+**File:** `packages/acss/src/components/buttons/README.mdx`
 
 ---
 
@@ -28,7 +28,7 @@ Recent commits on `feat/buttom-updates` updated `README.mdx`, `STYLES.mdx`, and 
 
 > The `label` text is visually hidden below `48rem` (768px) but remains in the accessibility tree at all viewport sizes.
 
-**File:** `packages/fpkit/src/components/buttons/STYLES.mdx`
+**File:** `packages/acss/src/components/buttons/STYLES.mdx`
 
 ---
 
@@ -40,7 +40,7 @@ Recent commits on `feat/buttom-updates` updated `README.mdx`, `STYLES.mdx`, and 
 
 > `data-btn` tokens are applied as inline CSS and take precedence over the `size` prop's class-based tokens. If both are set, `data-btn` wins.
 
-**File:** `packages/fpkit/src/components/buttons/README.mdx`
+**File:** `packages/acss/src/components/buttons/README.mdx`
 
 ---
 

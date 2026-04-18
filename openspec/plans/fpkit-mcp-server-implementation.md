@@ -14,7 +14,7 @@ Create a TypeScript-based MCP (Model Context Protocol) server that provides auto
 ## Architecture
 
 ### Location
-**Package:** `packages/fpkit-mcp/` (new monorepo package)
+**Package:** `packages/acss-mcp/` (new monorepo package)
 - Independent from fpkit library (separate versioning)
 - Can be published to npm as `@fpkit/mcp-server`
 - Fits Lerna monorepo structure
@@ -74,7 +74,7 @@ Create a TypeScript-based MCP (Model Context Protocol) server that provides auto
 - `componentPath` (relative from src/) - Required
 - `exportTypes` (boolean) - Optional, default true
 
-**Updates:** `/packages/fpkit/src/index.ts`
+**Updates:** `/packages/acss/src/index.ts`
 
 ### 4. `query_component_patterns`
 **Purpose:** Search existing components for patterns and examples
@@ -102,7 +102,7 @@ Create a TypeScript-based MCP (Model Context Protocol) server that provides auto
 ## Package Structure
 
 ```
-packages/fpkit-mcp/
+packages/acss-mcp/
 ├── src/
 │   ├── index.ts                    # MCP server entry point
 │   ├── tools/
@@ -143,29 +143,29 @@ packages/fpkit-mcp/
 
 ## Critical Files to Reference
 
-1. **`packages/fpkit/src/components/alert/alert.tsx`**
+1. **`packages/acss/src/components/alert/alert.tsx`**
    - Gold standard component structure
    - Reference for TypeScript patterns, JSDoc, accessibility
 
-2. **`packages/fpkit/src/components/alert/alert.scss`**
+2. **`packages/acss/src/components/alert/alert.scss`**
    - Perfect CSS variable naming example
    - Shows variant patterns and rem unit usage
 
-3. **`packages/fpkit/src/components/alert/alert.stories.tsx`**
+3. **`packages/acss/src/components/alert/alert.stories.tsx`**
    - Comprehensive Storybook story structure
    - Play functions and interaction testing patterns
 
-4. **`packages/fpkit/docs/css-variables.md`**
+4. **`packages/acss/docs/css-variables.md`**
    - Authoritative CSS variable naming guide
    - Critical for CSS validator implementation
 
-5. **`packages/fpkit/src/index.ts`**
+5. **`packages/acss/src/index.ts`**
    - Export patterns for the `add_component_exports` tool
 
 ## Implementation Steps
 
 ### Phase 1: Package Setup
-1. Create `packages/fpkit-mcp/` directory structure
+1. Create `packages/acss-mcp/` directory structure
 2. Initialize `package.json` with dependencies:
    - `@modelcontextprotocol/sdk`
    - `handlebars`
@@ -281,9 +281,9 @@ Add to `~/.config/claude-code/mcp.json`:
   "mcpServers": {
     "fpkit-mcp": {
       "command": "node",
-      "args": ["/Users/shawnsandy/devbox/acss/packages/fpkit-mcp/dist/index.js"],
+      "args": ["/Users/shawnsandy/devbox/acss/packages/acss-mcp/dist/index.js"],
       "env": {
-        "FPKIT_ROOT": "/Users/shawnsandy/devbox/acss/packages/fpkit"
+        "FPKIT_ROOT": "/Users/shawnsandy/devbox/acss/packages/acss"
       }
     }
   }
@@ -296,7 +296,7 @@ Add to `~/.config/claude-code/mcp.json`:
 // Use MCP tool to scaffold new component
 scaffold_component({
   componentName: "ProgressBar",
-  path: "./packages/fpkit/src/components/progress-bar",
+  path: "./packages/acss/src/components/progress-bar",
   mode: "new",
   hasVariants: true,
   accessibility: true
@@ -304,7 +304,7 @@ scaffold_component({
 
 // Validate the generated component
 validate_component({
-  componentPath: "./packages/fpkit/src/components/progress-bar",
+  componentPath: "./packages/acss/src/components/progress-bar",
   checks: ["structure", "css-vars", "typescript", "accessibility"]
 })
 

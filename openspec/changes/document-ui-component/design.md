@@ -146,16 +146,16 @@ renderStyles?: boolean;
 **Options Considered**:
 
 **Option A**: Keep flat structure
-- `packages/fpkit/src/components/ui.tsx`
-- `packages/fpkit/src/components/ui.stories.tsx`
-- `packages/fpkit/src/components/ui.test.tsx`
-- `packages/fpkit/src/components/README-UI.mdx`
+- `packages/acss/src/components/ui.tsx`
+- `packages/acss/src/components/ui.stories.tsx`
+- `packages/acss/src/components/ui.test.tsx`
+- `packages/acss/src/components/README-UI.mdx`
 
 **Option B**: Create directory structure
-- `packages/fpkit/src/components/ui/ui.tsx`
-- `packages/fpkit/src/components/ui/ui.stories.tsx`
-- `packages/fpkit/src/components/ui/ui.test.tsx`
-- `packages/fpkit/src/components/ui/README.mdx`
+- `packages/acss/src/components/ui/ui.tsx`
+- `packages/acss/src/components/ui/ui.stories.tsx`
+- `packages/acss/src/components/ui/ui.test.tsx`
+- `packages/acss/src/components/ui/README.mdx`
 
 **Decision**: **Option A** initially, **Option B** as Phase 5
 

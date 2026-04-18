@@ -6,7 +6,7 @@ Branch `chore/publish-modal` has 2 commits ahead of `main` since the v6.4.2 rele
 - `fix(dialog)`: format export of DialogProps and DialogModalProps types
 - `chore(package)`: update gitHead in package.json
 
-Files changed: `packages/fpkit/package.json`, `packages/fpkit/src/index.ts`
+Files changed: `packages/acss/package.json`, `packages/acss/src/index.ts`
 
 These changes need to be merged to `main` before publishing. The fix commit warrants a **patch** bump: `6.4.2 → 6.4.3`.
 
@@ -30,7 +30,7 @@ These changes need to be merged to `main` before publishing. The fix commit warr
 ### Phase 3: Build & validate on main
 
 7. Switch to `main` and pull latest
-8. In `packages/fpkit/`, run sequentially:
+8. In `packages/acss/`, run sequentially:
    - `npm run build`
    - `npm run lint`
    - `npm test`
@@ -40,7 +40,7 @@ These changes need to be merged to `main` before publishing. The fix commit warr
 
 10. Create branch: `release/v6.4.3` from `main`
 11. Run: `lerna version patch --no-push --no-git-tag-version`
-    - Updates `packages/fpkit/package.json` version to `6.4.3`
+    - Updates `packages/acss/package.json` version to `6.4.3`
 
 ### Phase 5: Update CHANGELOG
 
@@ -83,9 +83,9 @@ These changes need to be merged to `main` before publishing. The fix commit warr
 
 ## Key Files
 
-- `packages/fpkit/package.json` — version field updated by Lerna (Step 11)
+- `packages/acss/package.json` — version field updated by Lerna (Step 11)
 - `CHANGELOG.md` — release notes added (Step 12)
-- `packages/fpkit/src/index.ts` — already updated on `chore/publish-modal`
+- `packages/acss/src/index.ts` — already updated on `chore/publish-modal`
 
 ---
 

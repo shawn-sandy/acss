@@ -260,14 +260,14 @@ Semantic grouping for related content:
 
 ## Critical Files
 
-- `packages/fpkit/src/components/layout/landmarks.tsx` - Component implementation
-- `packages/fpkit/src/components/layout/landmarks.scss` - Styling with CSS variables
-- `packages/fpkit/src/components/layout/landmarks.stories.tsx` - Story variants
-- `packages/fpkit/src/components/layout/STYLES.mdx` - Documentation
+- `packages/acss/src/components/layout/landmarks.tsx` - Component implementation
+- `packages/acss/src/components/layout/landmarks.scss` - Styling with CSS variables
+- `packages/acss/src/components/layout/landmarks.stories.tsx` - Story variants
+- `packages/acss/src/components/layout/STYLES.mdx` - Documentation
 
 ## Verification Checklist
 
-- [ ] **Build**: `cd packages/fpkit && npm run build` - compiles without errors
+- [ ] **Build**: `cd packages/acss && npm run build` - compiles without errors
 - [ ] **Storybook**: `npm start` from root - all 4 fieldset stories render
 - [ ] **Play functions**: Interactions panel - all assertions pass
 - [ ] **Accessibility**: a11y tab - no violations for fieldset (role="group")

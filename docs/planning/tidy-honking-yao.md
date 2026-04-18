@@ -10,16 +10,16 @@ The dialog header's close button uses a generic `Button` with `data-btn="icon"` 
 
 | File | Change |
 |------|--------|
-| `packages/fpkit/src/components/dialog/dialog.types.ts` | Add `closeIconSize` to `BaseDialogProps` and `DialogHeaderProps` |
-| `packages/fpkit/src/components/dialog/views/dialog-header.tsx` | Swap `Button` for `IconButton`, use `closeIconSize` prop |
-| `packages/fpkit/src/components/dialog/dialog.tsx` | Forward `closeIconSize` to `DialogHeader` |
-| `packages/fpkit/src/components/dialog/dialog-modal.tsx` | Forward `closeIconSize` to `Dialog` |
+| `packages/acss/src/components/dialog/dialog.types.ts` | Add `closeIconSize` to `BaseDialogProps` and `DialogHeaderProps` |
+| `packages/acss/src/components/dialog/views/dialog-header.tsx` | Swap `Button` for `IconButton`, use `closeIconSize` prop |
+| `packages/acss/src/components/dialog/dialog.tsx` | Forward `closeIconSize` to `DialogHeader` |
+| `packages/acss/src/components/dialog/dialog-modal.tsx` | Forward `closeIconSize` to `Dialog` |
 
 ## Steps
 
 ### 1. Add `closeIconSize` prop to types
 
-**File:** `packages/fpkit/src/components/dialog/dialog.types.ts`
+**File:** `packages/acss/src/components/dialog/dialog.types.ts`
 
 - Add to `BaseDialogProps`:
   ```ts
@@ -34,7 +34,7 @@ The dialog header's close button uses a generic `Button` with `data-btn="icon"` 
 
 ### 2. Replace `Button` with `IconButton` in dialog-header
 
-**File:** `packages/fpkit/src/components/dialog/views/dialog-header.tsx`
+**File:** `packages/acss/src/components/dialog/views/dialog-header.tsx`
 
 - Replace `Button` import with `IconButton` from `#components/buttons/icon-button`
 - Accept `closeIconSize = 24` in destructured props
@@ -55,14 +55,14 @@ The dialog header's close button uses a generic `Button` with `data-btn="icon"` 
 
 ### 3. Forward `closeIconSize` in `Dialog`
 
-**File:** `packages/fpkit/src/components/dialog/dialog.tsx`
+**File:** `packages/acss/src/components/dialog/dialog.tsx`
 
 - Destructure `closeIconSize` from props
 - Pass to `<DialogHeader closeIconSize={closeIconSize} />`
 
 ### 4. Forward `closeIconSize` in `DialogModal`
 
-**File:** `packages/fpkit/src/components/dialog/dialog-modal.tsx`
+**File:** `packages/acss/src/components/dialog/dialog-modal.tsx`
 
 - Destructure `closeIconSize` from props
 - Pass to `<Dialog closeIconSize={closeIconSize} />`
@@ -73,5 +73,5 @@ No test changes expected — existing tests query by role/accessible name which 
 
 ## Verification
 
-1. `cd packages/fpkit && npm test -- --run src/components/dialog/dialog.test.tsx`
+1. `cd packages/acss && npm test -- --run src/components/dialog/dialog.test.tsx`
 2. `npm start` (Storybook) — visually confirm the close icon renders at the new default size (24px) and that custom sizes work

@@ -25,23 +25,23 @@ Add a semantic `size` prop to the Checkbox component to provide a cleaner develo
 
 ## Files to Modify
 
-### 1. **`packages/fpkit/src/components/form/checkbox.tsx`**
+### 1. **`packages/acss/src/components/form/checkbox.tsx`**
    - Add `size?: 'xs' | 'sm' | 'md' | 'lg'` to CheckboxProps interface
    - Add JSDoc documentation for size prop with examples
    - Map size prop to `data-checkbox-size` attribute on wrapper div
    - Pass through to wrapper div's data attribute
 
-### 2. **`packages/fpkit/src/components/form/checkbox.scss`**
+### 2. **`packages/acss/src/components/form/checkbox.scss`**
    - Add size variant selectors using `&[data-checkbox-size]` pattern
    - Map each size to corresponding CSS variable token
    - Pattern: `div:has(> input[type="checkbox"])[data-checkbox-size~="sm"]`
 
-### 3. **`packages/fpkit/src/components/form/form.scss`**
+### 3. **`packages/acss/src/components/form/form.scss`**
    - Add `--checkbox-size-xs: 0.875rem` token (14px - new extra small)
    - Verify existing tokens: `--checkbox-size-sm` (1rem), `--checkbox-size-md` (1.25rem), `--checkbox-size-lg` (1.5rem)
    - Add corresponding gap tokens for each size to maintain proper spacing
 
-### 4. **`packages/fpkit/src/components/form/input.stories.tsx`**
+### 4. **`packages/acss/src/components/form/input.stories.tsx`**
    - Update CheckboxCustomSize story to demonstrate new size prop
    - Show all 4 size variants (xs, sm, md, lg) using prop instead of styles
    - Add separate story showing CSS variable override still works
@@ -276,7 +276,7 @@ This provides maximum flexibility while keeping the API clean for common cases.
 
 6. Rebuild SCSS:
 ```bash
-cd packages/fpkit
+cd packages/acss
 npm run sass:build
 ```
 
@@ -288,7 +288,7 @@ npm start
 
 8. Run tests to ensure no regressions:
 ```bash
-cd packages/fpkit
+cd packages/acss
 npm test
 ```
 
@@ -391,6 +391,6 @@ All new CSS variables follow the standardized naming convention from `docs/css-v
 ## Related Documentation
 
 - CSS Variable Naming: `/docs/css-variables.md`
-- Button Size Implementation: `/packages/fpkit/src/components/buttons/button.tsx`
-- Checkbox Component: `/packages/fpkit/src/components/form/checkbox.tsx`
-- Form Styles: `/packages/fpkit/src/components/form/form.scss`
+- Button Size Implementation: `/packages/acss/src/components/buttons/button.tsx`
+- Checkbox Component: `/packages/acss/src/components/form/checkbox.tsx`
+- Form Styles: `/packages/acss/src/components/form/form.scss`

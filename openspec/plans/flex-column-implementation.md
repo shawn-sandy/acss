@@ -12,7 +12,7 @@ Add a flex column feature that uses `flex-grow: 1` to fill remaining space after
 
 ### 1. Add CSS Utility Class
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/_columns.scss`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/_columns.scss`
 **Location**: After `.col-auto` (line 244)
 
 ```scss
@@ -44,7 +44,7 @@ Add a flex column feature that uses `flex-grow: 1` to fill remaining space after
 
 ### 2. Update TypeScript Type
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/types/layout-primitives.ts`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/types/layout-primitives.ts`
 **Line**: 63
 
 **Change**:
@@ -67,7 +67,7 @@ export type ColumnSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "fle
 
 ### 3. Update Col Component Logic
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/col/col.tsx`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/components/col/col.tsx`
 **Lines**: 73-78
 
 **Change from**:
@@ -96,7 +96,7 @@ if (auto) {
 
 ### 4. Update Component Props Documentation
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/col/col.types.ts`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/components/col/col.types.ts`
 **Lines**: 29-35
 
 **Update JSDoc**:
@@ -124,7 +124,7 @@ span?: ColumnSpan;
 
 ### 5. Add Unit Tests
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/col/col.test.tsx`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/components/col/col.test.tsx`
 **Location**: After "Auto Width" tests (after line 112)
 
 **Add test suite**:
@@ -179,7 +179,7 @@ describe("Flex Column", () => {
 
 ### 6. Add Storybook Stories
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/col/col.stories.tsx`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/components/col/col.stories.tsx`
 **Location**: Add after existing stories
 
 **Add stories**:
@@ -269,7 +269,7 @@ After implementation:
 
 ```bash
 # From fpkit package
-cd /Users/shawnsandy/devbox/acss/packages/fpkit
+cd /Users/shawnsandy/devbox/acss/packages/acss
 
 # Run tests
 npm test -- col.test.tsx
@@ -289,12 +289,12 @@ npm start
 
 ## Files Modified
 
-1. **`packages/fpkit/src/sass/_columns.scss`** - Add `.col-flex` utility (~15 lines)
-2. **`packages/fpkit/src/types/layout-primitives.ts`** - Extend `ColumnSpan` type (~3 lines)
-3. **`packages/fpkit/src/components/col/col.tsx`** - Update class logic (~3 lines)
-4. **`packages/fpkit/src/components/col/col.types.ts`** - Update JSDoc (~10 lines)
-5. **`packages/fpkit/src/components/col/col.test.tsx`** - Add test suite (~35 lines)
-6. **`packages/fpkit/src/components/col/col.stories.tsx`** - Add stories (~60 lines)
+1. **`packages/acss/src/sass/_columns.scss`** - Add `.col-flex` utility (~15 lines)
+2. **`packages/acss/src/types/layout-primitives.ts`** - Extend `ColumnSpan` type (~3 lines)
+3. **`packages/acss/src/components/col/col.tsx`** - Update class logic (~3 lines)
+4. **`packages/acss/src/components/col/col.types.ts`** - Update JSDoc (~10 lines)
+5. **`packages/acss/src/components/col/col.test.tsx`** - Add test suite (~35 lines)
+6. **`packages/acss/src/components/col/col.stories.tsx`** - Add stories (~60 lines)
 
 **Total**: 6 files, ~126 lines of changes
 

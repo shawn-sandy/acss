@@ -109,7 +109,7 @@ Key advantages over the copy-paste model:
 **Key references:**
 
 - `.claude/plugins/fpkit-developer/` — plugin structure precedent
-- `packages/fpkit/src/` — component source for reference docs
+- `packages/acss/src/` — component source for reference docs
 
 ### 2. Write the plugin manifest
 
@@ -129,12 +129,12 @@ The `UI` base component and shared types are the only files copied verbatim into
 
 Source files to copy into `assets/foundation/`:
 
-- `packages/fpkit/src/components/ui.tsx`
-- `packages/fpkit/src/types/component-props.ts`
-- `packages/fpkit/src/types/shared.ts`
-- `packages/fpkit/src/types/index.ts`
-- `packages/fpkit/src/types/input-props.ts`
-- `packages/fpkit/src/types/layout-primitives.ts`
+- `packages/acss/src/components/ui.tsx`
+- `packages/acss/src/types/component-props.ts`
+- `packages/acss/src/types/shared.ts`
+- `packages/acss/src/types/index.ts`
+- `packages/acss/src/types/input-props.ts`
+- `packages/acss/src/types/layout-primitives.ts`
 
 These 6 files total under 500 lines. They provide the polymorphic `UI` component and TypeScript interfaces that all generated components build on.
 
@@ -213,7 +213,7 @@ Brief description, use cases, accessibility notes.
 
 ## Source Reference
 
-Full component source code from packages/fpkit/src/.
+Full component source code from packages/acss/src/.
 Claude reads this to understand the implementation pattern.
 
 ## Props Interface
@@ -304,8 +304,8 @@ For each: confirm imports resolve, SCSS compiles, component renders. Then repeat
 
 **Existing files to read (not modified):**
 
-- `packages/fpkit/src/components/` — component source for reference doc content
-- `packages/fpkit/src/hooks/` — hook source for accessibility reference
+- `packages/acss/src/components/` — component source for reference doc content
+- `packages/acss/src/hooks/` — hook source for accessibility reference
 - `.claude/plugins/fpkit-developer/skills/fpkit-developer/references/` — reference docs to adapt
 
 ## Verification

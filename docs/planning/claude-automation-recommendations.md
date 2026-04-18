@@ -81,7 +81,7 @@ disable-model-invocation: true
       "matcher": "Edit|Write",
       "hooks": [{
         "type": "command",
-        "command": "cd packages/fpkit && npx tsc --noEmit 2>&1 | head -20"
+        "command": "cd packages/acss && npx tsc --noEmit 2>&1 | head -20"
       }]
     }]
   }

@@ -10,9 +10,9 @@ The Button component currently exposes styling only via raw `data-btn` HTML attr
 
 | File | Change |
 |------|--------|
-| `packages/fpkit/src/components/buttons/button.tsx` | Add `size`, `variant`, `color` props; merge into data attributes |
-| `packages/fpkit/src/components/buttons/button.scss` | Add `[data-color]` and `[data-style]` variant selectors |
-| `packages/fpkit/src/components/buttons/button.stories.tsx` | Add size, variant, color stories; update meta argTypes |
+| `packages/acss/src/components/buttons/button.tsx` | Add `size`, `variant`, `color` props; merge into data attributes |
+| `packages/acss/src/components/buttons/button.scss` | Add `[data-color]` and `[data-style]` variant selectors |
+| `packages/acss/src/components/buttons/button.stories.tsx` | Add size, variant, color stories; update meta argTypes |
 
 ---
 
@@ -161,13 +161,13 @@ Also alias existing `data-btn` style variants to `data-style` for consistency (s
 
 ## Verification
 
-1. Run `npm test` in `packages/fpkit/` — all existing tests must pass
+1. Run `npm test` in `packages/acss/` — all existing tests must pass
 2. Run Storybook (`npm start` from root) — verify:
    - New size/variant/color stories render with correct styles
    - `data-btn` prop still works as before (backward-compatible)
    - Disabled state works across all new color variants
    - `variant="outline"` matches the bordered style of link's button mode
-3. Check TypeScript: `npx tsc --noEmit` in `packages/fpkit/`
+3. Check TypeScript: `npx tsc --noEmit` in `packages/acss/`
 
 ---
 

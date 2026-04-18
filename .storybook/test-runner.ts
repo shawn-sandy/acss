@@ -6,7 +6,7 @@ import { injectAxe, checkA11y, configureAxe } from "axe-playwright";
  * Storybook test-runner configuration that wires up axe-core accessibility
  * checks against every story. Triggered from the a11y CI workflow
  * (.github/workflows/a11y.yml) and runnable locally via
- * `npm run test:a11y --prefix packages/fpkit`.
+ * `npm run test:a11y --prefix packages/acss`.
  *
  * How it works:
  * - preVisit: inject axe-playwright into the page once per story.

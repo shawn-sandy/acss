@@ -1,8 +1,8 @@
 ---
 paths:
-  - "packages/fpkit/src/components/**"
-  - "packages/fpkit/src/**/*.stories.tsx"
-  - "packages/fpkit/src/**/*.test.tsx"
+  - "packages/acss/src/components/**"
+  - "packages/acss/src/**/*.stories.tsx"
+  - "packages/acss/src/**/*.test.tsx"
 ---
 
 # Component Conventions

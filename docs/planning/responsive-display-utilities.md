@@ -24,7 +24,7 @@ The library has no `.hide`/`.show` or responsive visibility utilities. Users nee
 
 ## Steps
 
-1. **Create** `packages/fpkit/src/sass/utilities/_display.scss`
+1. **Create** `packages/acss/src/sass/utilities/_display.scss`
 
    **Base utilities (no breakpoint):**
    - `.hide` → `display: none !important`
@@ -51,13 +51,13 @@ The library has no `.hide`/`.show` or responsive visibility utilities. Users nee
 
    Media query syntax: `@media (width >= {bp})` (modern range syntax, same as `flex.scss`)
 
-2. **Update** `packages/fpkit/src/sass/utilities/_index.scss`
+2. **Update** `packages/acss/src/sass/utilities/_index.scss`
    - Add `@forward "./display";`
 
-3. **Update** `packages/fpkit/src/components/alert/alert.scss`
+3. **Update** `packages/acss/src/components/alert/alert.scss`
    - Remove `.sr-only` block (lines 2–12) — now provided by the utility layer (loads before components in `index.scss`)
 
-4. **Create** `packages/fpkit/src/sass/utilities/display.stories.tsx`
+4. **Create** `packages/acss/src/sass/utilities/display.stories.tsx`
    - Story per utility group: hide/show, invisible, sr-only, print, responsive combos
    - Use viewport switching to verify responsive variants at each breakpoint
    - Include cascade combination test: `class="hide md:show"` (hidden by default, shown at md+)
@@ -68,12 +68,12 @@ The library has no `.hide`/`.show` or responsive visibility utilities. Users nee
 
 | File | Action |
 |------|--------|
-| `packages/fpkit/src/sass/utilities/_display.scss` | **Create** |
-| `packages/fpkit/src/sass/utilities/_index.scss` | **Edit** — add `@forward "./display"` |
-| `packages/fpkit/src/components/alert/alert.scss` | **Edit** — remove `.sr-only` block |
-| `packages/fpkit/src/sass/utilities/display.stories.tsx` | **Create** |
+| `packages/acss/src/sass/utilities/_display.scss` | **Create** |
+| `packages/acss/src/sass/utilities/_index.scss` | **Edit** — add `@forward "./display"` |
+| `packages/acss/src/components/alert/alert.scss` | **Edit** — remove `.sr-only` block |
+| `packages/acss/src/sass/utilities/display.stories.tsx` | **Create** |
 
-No changes needed to `packages/fpkit/src/index.scss` — utilities already loaded via `@use "./sass/utilities"`.
+No changes needed to `packages/acss/src/index.scss` — utilities already loaded via `@use "./sass/utilities"`.
 
 ---
 

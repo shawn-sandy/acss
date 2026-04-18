@@ -33,7 +33,7 @@ This plan has been reviewed and optimized for production use:
 
 ### 1. Create Core SCSS File
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/_columns.scss`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/_columns.scss`
 
 **Content structure**:
 ```scss
@@ -169,7 +169,7 @@ This plan has been reviewed and optimized for production use:
 
 ### 2. Integrate into Build System
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/index.scss`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/index.scss`
 
 **Action**: Add one line after line 21 (after the grid-legacy import):
 
@@ -183,7 +183,7 @@ This ensures the column utilities are compiled into the main `libs/index.css` ou
 
 ### 3. Create Documentation
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/README.mdx` (create if doesn't exist)
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/README.mdx` (create if doesn't exist)
 
 **Content**: Document the column utility system with:
 - Quick start examples
@@ -196,7 +196,7 @@ This ensures the column utilities are compiled into the main `libs/index.css` ou
 
 ### 4. Create Storybook Stories (Optional but Recommended)
 
-**File**: `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/columns.stories.tsx`
+**File**: `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/columns.stories.tsx`
 
 **Purpose**: Demonstrate column utilities in Storybook
 
@@ -229,7 +229,7 @@ type Story = StoryObj<typeof meta>;
 **Commands to run**:
 ```bash
 # Compile SCSS
-cd /Users/shawnsandy/devbox/acss/packages/fpkit
+cd /Users/shawnsandy/devbox/acss/packages/acss
 npm run sass:build
 
 # Verify output includes column utilities
@@ -531,16 +531,16 @@ The "optional" features (offsets, auto-width, ordering) are **included by defaul
 ## Critical Files
 
 ### Files to CREATE:
-1. `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/_columns.scss` - Core implementation
-2. `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/README.mdx` - Documentation
-3. `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/columns.stories.tsx` - Storybook stories (optional)
+1. `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/_columns.scss` - Core implementation
+2. `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/README.mdx` - Documentation
+3. `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/columns.stories.tsx` - Storybook stories (optional)
 
 ### Files to MODIFY:
-1. `/Users/shawnsandy/devbox/acss/packages/fpkit/src/index.scss` - Add import (1 line)
+1. `/Users/shawnsandy/devbox/acss/packages/acss/src/index.scss` - Add import (1 line)
 
 ### Files for REFERENCE:
-1. `/Users/shawnsandy/devbox/acss/packages/fpkit/src/components/flexbox/flex.scss` - Media query pattern
-2. `/Users/shawnsandy/devbox/acss/packages/fpkit/src/sass/_globals.scss` - Spacing scale, breakpoints
+1. `/Users/shawnsandy/devbox/acss/packages/acss/src/components/flexbox/flex.scss` - Media query pattern
+2. `/Users/shawnsandy/devbox/acss/packages/acss/src/sass/_globals.scss` - Spacing scale, breakpoints
 3. `/Users/shawnsandy/devbox/acss/docs/css-variables.md` - CSS variable naming standards
 
 ## Success Criteria

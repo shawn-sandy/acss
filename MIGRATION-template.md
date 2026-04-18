@@ -219,10 +219,10 @@ Replace: --$1-focus-
 **Command Line (ripgrep + sed):**
 ```bash
 # Find occurrences
-rg '--([a-z]+)-px:' packages/fpkit/src/
+rg '--([a-z]+)-px:' packages/acss/src/
 
 # Replace (example for padding-inline)
-find packages/fpkit/src -name "*.scss" -exec sed -i '' 's/--\([a-z]\+\)-px:/--\1-padding-inline:/g' {} +
+find packages/acss/src -name "*.scss" -exec sed -i '' 's/--\([a-z]\+\)-px:/--\1-padding-inline:/g' {} +
 ```
 
 ---
@@ -231,7 +231,7 @@ find packages/fpkit/src -name "*.scss" -exec sed -i '' 's/--\([a-z]\+\)-px:/--\1
 
 ### Button Component
 
-**File:** `packages/fpkit/src/components/button/button.scss`
+**File:** `packages/acss/src/components/button/button.scss`
 
 | Old Variable | New Variable |
 |--------------|--------------|
@@ -258,7 +258,7 @@ find packages/fpkit/src -name "*.scss" -exec sed -i '' 's/--\([a-z]\+\)-px:/--\1
 
 ### Card Component
 
-**File:** `packages/fpkit/src/components/card/card.scss`
+**File:** `packages/acss/src/components/card/card.scss`
 
 | Old Variable | New Variable |
 |--------------|--------------|
@@ -286,7 +286,7 @@ find packages/fpkit/src -name "*.scss" -exec sed -i '' 's/--\([a-z]\+\)-px:/--\1
 
 ### Form/Input Component
 
-**File:** `packages/fpkit/src/components/input/input.scss`
+**File:** `packages/acss/src/components/input/input.scss`
 
 | Old Variable | New Variable |
 |--------------|--------------|
@@ -305,7 +305,7 @@ find packages/fpkit/src -name "*.scss" -exec sed -i '' 's/--\([a-z]\+\)-px:/--\1
 
 ### Navigation Component
 
-**File:** `packages/fpkit/src/components/nav/nav.scss`
+**File:** `packages/acss/src/components/nav/nav.scss`
 
 | Old Variable | New Variable |
 |--------------|--------------|
@@ -322,7 +322,7 @@ find packages/fpkit/src -name "*.scss" -exec sed -i '' 's/--\([a-z]\+\)-px:/--\1
 
 ### Alert Component
 
-**File:** `packages/fpkit/src/components/alert/alert.scss`
+**File:** `packages/acss/src/components/alert/alert.scss`
 
 **Good news!** Alert already follows the standard. No changes needed.
 
@@ -671,7 +671,7 @@ rg '--[a-z]+-rds:' --type scss
 ### Documentation
 - **CSS Variable Reference Guide** - `docs/css-variables.md`
 - **Contribution Guidelines** - `CLAUDE.md`
-- **Component Source** - `packages/fpkit/src/components/`
+- **Component Source** - `packages/acss/src/components/`
 
 ### Getting Help
 - **GitHub Discussions** - Ask questions and share migration experiences

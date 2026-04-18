@@ -2,7 +2,7 @@
 
 ## Why
 
-The UI component ([packages/fpkit/src/components/ui.tsx](../../packages/fpkit/src/components/ui.tsx)) is the foundational polymorphic primitive used by 25+ components across the fpkit library, yet it currently lacks:
+The UI component ([packages/acss/src/components/ui.tsx](../../packages/acss/src/components/ui.tsx)) is the foundational polymorphic primitive used by 25+ components across the fpkit library, yet it currently lacks:
 
 - **Comprehensive documentation** - No README.mdx explaining the polymorphic pattern or usage
 - **Developer examples** - No Storybook stories demonstrating the component's flexibility
@@ -16,7 +16,7 @@ This creates barriers for:
 - **Maintainers** debugging issues without clear specifications
 - **Type safety** enforcement since unused props can lead to confusion
 
-Additionally, the relationship between the UI component and the similar FP component ([packages/fpkit/src/components/fp.tsx](../../packages/fpkit/src/components/fp.tsx)) is undocumented, causing potential confusion about which to use and when.
+Additionally, the relationship between the UI component and the similar FP component ([packages/acss/src/components/fp.tsx](../../packages/acss/src/components/fp.tsx)) is undocumented, causing potential confusion about which to use and when.
 
 ## What Changes
 
@@ -72,7 +72,7 @@ This proposal introduces comprehensive documentation, testing, and optimization 
   - Missing props
 
 ### Phase 5: Directory Organization
-- Create `packages/fpkit/src/components/ui/` directory
+- Create `packages/acss/src/components/ui/` directory
 - Move `ui.tsx` into directory
 - Add co-located files: `README.mdx`, `ui.stories.tsx`, `ui.test.tsx`
 - Update imports across 25+ consuming components
@@ -85,18 +85,18 @@ This proposal introduces comprehensive documentation, testing, and optimization 
 ### Affected Code
 
 **Phase 1-4** (No file moves):
-- [packages/fpkit/src/components/ui.tsx](../../packages/fpkit/src/components/ui.tsx) - Add JSDoc, fix types
+- [packages/acss/src/components/ui.tsx](../../packages/acss/src/components/ui.tsx) - Add JSDoc, fix types
 
 **New Files** (Phases 2-4):
-- `packages/fpkit/src/components/ui/README.mdx` - Component documentation (OR `packages/fpkit/src/components/README-UI.mdx` if no directory move)
-- `packages/fpkit/src/components/ui.stories.tsx` - Storybook stories
-- `packages/fpkit/src/components/ui.test.tsx` - Unit tests
+- `packages/acss/src/components/ui/README.mdx` - Component documentation (OR `packages/acss/src/components/README-UI.mdx` if no directory move)
+- `packages/acss/src/components/ui.stories.tsx` - Storybook stories
+- `packages/acss/src/components/ui.test.tsx` - Unit tests
 
 **Phase 5** (Optional directory organization):
-- Move `packages/fpkit/src/components/ui.tsx` → `packages/fpkit/src/components/ui/ui.tsx`
+- Move `packages/acss/src/components/ui.tsx` → `packages/acss/src/components/ui/ui.tsx`
 - Update 25+ import statements across components:
   - Badge, Tag, Heading, Text, Button, Nav, Form elements, Alert views, Dialog views, etc.
-- Update `packages/fpkit/src/index.ts` export path
+- Update `packages/acss/src/index.ts` export path
 
 ### Breaking Changes
 

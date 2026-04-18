@@ -657,7 +657,7 @@ Complex components with multiple visual sections use element scoping.
 3. Your IDE will show all available variables for that component
 
 **Method 2: Inspect Source**
-1. Navigate to `packages/fpkit/src/components/{component}/{component}.scss`
+1. Navigate to `packages/acss/src/components/{component}/{component}.scss`
 2. Look for CSS custom property definitions (variables starting with `--`)
 3. Check for `:root` or component class selectors
 
@@ -776,7 +776,7 @@ If you're migrating from older versions of @fpkit/acss with inconsistent variabl
 ### Questions?
 
 - Check the [GitHub Discussions](https://github.com/your-org/fpkit/discussions)
-- Review component source at `packages/fpkit/src/components/`
+- Review component source at `packages/acss/src/components/`
 - Search existing [GitHub Issues](https://github.com/your-org/fpkit/issues)
 
 ### Found a Variable Bug?

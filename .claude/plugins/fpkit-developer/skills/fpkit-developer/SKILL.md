@@ -64,7 +64,7 @@ Understand what the user needs:
 
 ### Step 2: Check for Existing fpkit Components
 
-Review the [@fpkit/acss component catalog](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/src/components) or [Storybook](https://fpkit.netlify.app):
+Review the [@fpkit/acss component catalog](https://github.com/shawn-sandy/acss/tree/main/packages/acss/src/components) or [Storybook](https://fpkit.netlify.app):
 
 **Available components:**
 
@@ -492,7 +492,7 @@ For advanced production-ready implementations, see `references/composition.md`:
 
 ## Resources
 
-- **[fpkit Documentation](https://github.com/shawn-sandy/acss/tree/main/packages/fpkit/docs)** - Complete guides
+- **[fpkit Documentation](https://github.com/shawn-sandy/acss/tree/main/packages/acss/docs)** - Complete guides
 - **[Storybook](https://fpkit.netlify.app/)** - Component examples
 - **[npm Package](https://www.npmjs.com/package/@fpkit/acss)** - Installation and API
 - **[GitHub](https://github.com/shawn-sandy/acss)** - Source code and issues

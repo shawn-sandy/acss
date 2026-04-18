@@ -33,13 +33,13 @@ This plan covers:
 
 | File | Action |
 |------|--------|
-| `packages/fpkit/src/components/buttons/button.tsx` | Remove `IconButton` |
-| `packages/fpkit/src/components/buttons/button.scss` | Delete dead `[data-btn~="icon"]` block |
-| `packages/fpkit/src/components/buttons/icon-button.tsx` | Create — component + types |
-| `packages/fpkit/src/components/buttons/icon-button.scss` | Create — label + responsive styles |
-| `packages/fpkit/src/components/buttons/icon-button.stories.tsx` | Create — stories |
-| `packages/fpkit/src/components/buttons/icon-button.test.tsx` | Create — unit tests |
-| `packages/fpkit/src/index.ts` | Add `IconButton` + `IconButtonProps` exports |
+| `packages/acss/src/components/buttons/button.tsx` | Remove `IconButton` |
+| `packages/acss/src/components/buttons/button.scss` | Delete dead `[data-btn~="icon"]` block |
+| `packages/acss/src/components/buttons/icon-button.tsx` | Create — component + types |
+| `packages/acss/src/components/buttons/icon-button.scss` | Create — label + responsive styles |
+| `packages/acss/src/components/buttons/icon-button.stories.tsx` | Create — stories |
+| `packages/acss/src/components/buttons/icon-button.test.tsx` | Create — unit tests |
+| `packages/acss/src/index.ts` | Add `IconButton` + `IconButtonProps` exports |
 
 ---
 
@@ -170,7 +170,7 @@ export type { IconButtonProps } from './components/buttons/icon-button';
 ## Verification
 
 1. `npm run lint` — no TypeScript errors
-2. `npm test` (in `packages/fpkit/`) — all tests pass
+2. `npm test` (in `packages/acss/`) — all tests pass
 3. Storybook — navigate to `FP.React Components/Buttons`:
    - `IconButtonWithLabel` shows icon + text at desktop widths
    - Resize to < 768px — label hides, icon only remains

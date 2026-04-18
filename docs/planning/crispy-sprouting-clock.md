@@ -4,7 +4,7 @@
 `icon-button.scss` was updated on `feat/icon-dimensions` to add fixed 48px dimensions and flex centering to icon buttons. The changes use `px` units which violates the project rule: **all sizing must use rem** (`px ÷ 16 = rem`).
 
 ## Files to Modify
-- `packages/fpkit/src/components/buttons/icon-button.scss`
+- `packages/acss/src/components/buttons/icon-button.scss`
 
 ## Steps
 
@@ -14,16 +14,16 @@
    - `padding-inline: 0px` → `padding-inline: 0`
    - `padding-block: 0px` → `padding-block: 0`
 
-2. **Recompile CSS** from `packages/fpkit/`:
+2. **Recompile CSS** from `packages/acss/`:
    ```bash
    npm run build:sass
    ```
    This updates `src/styles/buttons/icon-button.css` and `.css.map`.
 
 3. **Commit** all modified files:
-   - `packages/fpkit/src/components/buttons/icon-button.scss`
-   - `packages/fpkit/src/styles/buttons/icon-button.css`
-   - `packages/fpkit/src/styles/buttons/icon-button.css.map`
+   - `packages/acss/src/components/buttons/icon-button.scss`
+   - `packages/acss/src/styles/buttons/icon-button.css`
+   - `packages/acss/src/styles/buttons/icon-button.css.map`
 
    Commit message:
    ```

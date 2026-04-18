@@ -12,7 +12,7 @@ Goal: add Storybook-surfaced MDX documentation for both changes.
 
 ## Files to Create
 
-### 1. `packages/fpkit/src/sass/utilities/display.mdx`
+### 1. `packages/acss/src/sass/utilities/display.mdx`
 
 Standalone Storybook MDX doc page for display/visibility utilities.
 
@@ -26,7 +26,7 @@ Standalone Storybook MDX doc page for display/visibility utilities.
 - Print utility section
 - Best practices / notes on `!important`
 
-### 2. `packages/fpkit/src/components/buttons/icon-button.mdx`
+### 2. `packages/acss/src/components/buttons/icon-button.mdx`
 
 New README-style MDX doc for IconButton in Storybook.
 
@@ -43,8 +43,8 @@ New README-style MDX doc for IconButton in Storybook.
 
 ## Steps
 
-1. Create `packages/fpkit/src/sass/utilities/display.mdx`
-2. Create `packages/fpkit/src/components/buttons/icon-button.mdx`
+1. Create `packages/acss/src/sass/utilities/display.mdx`
+2. Create `packages/acss/src/components/buttons/icon-button.mdx`
 3. Verify both pages appear in Storybook sidebar under their expected titles
 
 ---

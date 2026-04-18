@@ -80,7 +80,7 @@
 
 ```text
 acss/
-├── packages/fpkit/          # Main component library (@fpkit/acss)
+├── packages/acss/          # Main component library (@fpkit/acss)
 │   ├── src/
 │   │   ├── components/      # Component source files
 │   │   ├── hooks/           # Custom React hooks
@@ -133,7 +133,7 @@ components/{component-name}/
 
 - Test files: `*.test.tsx`
 - React Testing Library for component testing
-- Setup file: `packages/fpkit/src/test/setup.ts`
+- Setup file: `packages/acss/src/test/setup.ts`
 - Coverage reports with @vitest/coverage-v8
 - Run: `npm test` or `npm run test:ui`
 

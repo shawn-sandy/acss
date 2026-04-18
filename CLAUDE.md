@@ -20,7 +20,7 @@ This file provides guidance to Claude Code when working with this repository.
 
 ```
 acss/
-├── packages/fpkit/          # Main component library (@fpkit/acss)
+├── packages/acss/          # Main component library (@fpkit/acss)
 │   ├── src/
 │   │   ├── components/      # React components
 │   │   ├── hooks/           # Custom hooks
@@ -49,7 +49,7 @@ npm start                    # Storybook dev server (port 6006)
 npm run lint                 # ESLint check
 ```
 
-### fpkit Package (`packages/fpkit/`)
+### fpkit Package (`packages/acss/`)
 
 ```bash
 npm start                    # Watch mode (TS + SCSS)
@@ -63,7 +63,7 @@ npm test -- --run src/components/button/button.test.tsx  # Run single test
 
 ## Component Development
 
-Each component lives in `packages/fpkit/src/components/{name}/`:
+Each component lives in `packages/acss/src/components/{name}/`:
 
 ```
 button/
@@ -91,7 +91,7 @@ import { useToggle } from '#hooks/use-toggle'
 
 1. Create component with TypeScript + JSDoc
 2. Add `.scss` file using **rem units only** (px/16 = rem)
-3. Export from `packages/fpkit/src/index.ts`
+3. Export from `packages/acss/src/index.ts`
 4. Create Storybook story with `autodocs` tag
 5. Add tests using Vitest + RTL
 

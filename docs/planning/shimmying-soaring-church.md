@@ -17,7 +17,7 @@ Resolve all blocking review findings so the PR is merge-ready.
 The `| any` union erases all polymorphic type safety. Change to `| null`.
 
 **Files:**
-- `packages/fpkit/src/components/ui.tsx:165` — the source component
+- `packages/acss/src/components/ui.tsx:165` — the source component
 - `.claude/plugins/acss-kit-builder/assets/foundation/ui.tsx:112` — the plugin asset copy
 
 **Change:**
@@ -36,12 +36,12 @@ Both files get the same fix since the asset is a verbatim copy of the source.
 Both `ui.tsx` files open with `/* eslint-disable */` which suppresses all lint rules. This is the foundation component that gets copied into developer projects.
 
 **Files:**
-- `packages/fpkit/src/components/ui.tsx:2`
+- `packages/acss/src/components/ui.tsx:2`
 - `.claude/plugins/acss-kit-builder/assets/foundation/ui.tsx:2`
 
 **Approach:**
 1. Remove `/* eslint-disable */`
-2. Run `npx eslint packages/fpkit/src/components/ui.tsx` to identify specific violations
+2. Run `npx eslint packages/acss/src/components/ui.tsx` to identify specific violations
 3. Add targeted `// eslint-disable-next-line <rule>` comments only where needed
 4. Apply the same targeted disables to the asset copy
 
@@ -97,9 +97,9 @@ Two planning docs are committed to `docs/planning/` but CLAUDE.md specifies plan
 
 ## Verification
 
-1. Run `npx eslint packages/fpkit/src/components/ui.tsx` — should pass with only targeted disables
-2. Run `npx tsc --noEmit` from `packages/fpkit/` — UIComponent type should resolve correctly
-3. Run `npm test` from `packages/fpkit/` — existing tests should pass (type change is narrowing, not breaking)
+1. Run `npx eslint packages/acss/src/components/ui.tsx` — should pass with only targeted disables
+2. Run `npx tsc --noEmit` from `packages/acss/` — UIComponent type should resolve correctly
+3. Run `npm test` from `packages/acss/` — existing tests should pass (type change is narrowing, not breaking)
 4. Confirm the README link resolves: `ls .claude/plugins/acss-kit-builder/skills/acss-kit-builder/references/css-variables.md`
 
 ---

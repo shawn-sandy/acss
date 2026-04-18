@@ -106,7 +106,7 @@ Refactor the Alert component using Component-Driven Development principles to im
 - `specs/alert/spec.md` - **MODIFIED** to add maintainability, testability, and code organization requirements
 
 ### Affected Code
-- `packages/fpkit/src/components/alert/alert.tsx` - **REFACTORED** internal structure only
+- `packages/acss/src/components/alert/alert.tsx` - **REFACTORED** internal structure only
 
 ### Breaking Changes
 **None** - This is a pure refactoring that maintains:

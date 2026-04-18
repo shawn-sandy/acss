@@ -1,0 +1,35 @@
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: [
+    "src/index.ts",
+    "src/hooks.ts",
+    "src/icons.ts",
+    // Individual component entries
+    "src/components/button.ts",
+    "src/components/card.ts",
+    "src/components/modal.ts",
+    "src/components/form/inputs.tsx",
+    "src/components/link/link.tsx",
+    "src/components/list/list.tsx",
+    "src/components/icons/icon.tsx",
+    "src/components/tables/table.tsx",
+    "src/components/dialog/dialog.tsx",
+    "src/components/nav/nav.tsx",
+    "src/components/popover/popover.tsx",
+    "src/components/text/text.tsx",
+    "src/components/heading/heading.tsx",
+    "src/components/breadcrumbs/breadcrumb.tsx",
+    "src/components/form/textarea.tsx",
+    "src/components/form/fields.tsx",
+  ],
+  outDir: "libs",
+  splitting: true,
+  sourcemap: true,
+  dts: true,
+  treeshake: true,
+  external: ["react", "react-dom", "@fpkit/icons", "@fpkit/tokens"],
+  clean: true,
+  format: ["esm", "cjs"],
+  minify: true,
+});

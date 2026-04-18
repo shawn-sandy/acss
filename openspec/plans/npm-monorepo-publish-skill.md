@@ -40,7 +40,7 @@ Create npm publishing skill for @fpkit/acss monorepo with release branch workflo
 - **CRITICAL:** If major version, block and require explicit approval with warning
 
 #### Step 3: Pre-publish Build & Test
-- Run build: `cd packages/fpkit && npm run build`
+- Run build: `cd packages/acss && npm run build`
 - Verify build output exists in `libs/`
 - Run lint: `npm run lint`
 - Run tests: `npm test`
@@ -166,7 +166,7 @@ Create npm publishing skill for @fpkit/acss monorepo with release branch workflo
 
 **Reference (read-only):**
 - `lerna.json` - Lerna config (conventionalCommits: true, independent versioning)
-- `packages/fpkit/package.json` - Package metadata (version, files, publishConfig)
+- `packages/acss/package.json` - Package metadata (version, files, publishConfig)
 - Root `package.json` - Publish script (`lerna publish`)
 - `CHANGELOG.md` - Version history (Keep a Changelog format)
 

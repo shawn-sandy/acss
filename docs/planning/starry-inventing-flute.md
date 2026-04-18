@@ -6,10 +6,10 @@ Currently `DialogModal` always renders a `<Button>` as its trigger. Users want t
 
 ## Files to Modify
 
-1. `packages/fpkit/src/components/dialog/dialog.types.ts` — add `icon` prop to `DialogModalProps`
-2. `packages/fpkit/src/components/dialog/dialog-modal.tsx` — conditionally render `IconButton` vs `Button`
-3. `packages/fpkit/src/components/dialog/dialog-modal.stories.tsx` — add story showing icon trigger
-4. `packages/fpkit/src/components/dialog/dialog-modal.test.tsx` — add tests for icon trigger behavior
+1. `packages/acss/src/components/dialog/dialog.types.ts` — add `icon` prop to `DialogModalProps`
+2. `packages/acss/src/components/dialog/dialog-modal.tsx` — conditionally render `IconButton` vs `Button`
+3. `packages/acss/src/components/dialog/dialog-modal.stories.tsx` — add story showing icon trigger
+4. `packages/acss/src/components/dialog/dialog-modal.test.tsx` — add tests for icon trigger behavior
 
 ## Existing code to reuse
 
@@ -66,7 +66,7 @@ icon?: React.ReactElement;
 
 ## Verification
 
-1. Run `npm test -- --run src/components/dialog/` in `packages/fpkit/`
+1. Run `npm test -- --run src/components/dialog/` in `packages/acss/`
 2. Run `npm start` (Storybook) and visually confirm both button types work
 3. Verify the icon button has proper `aria-label` in browser DevTools
 

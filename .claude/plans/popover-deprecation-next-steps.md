@@ -122,7 +122,7 @@ npx @fpkit/migrate-popover src/
 
 #### 6. Update package.json
 
-**File:** `packages/fpkit/package.json`
+**File:** `packages/acss/package.json`
 
 ```json
 {
@@ -139,7 +139,7 @@ Add to README section highlighting native Popover API.
 
 #### 7. Update Root README
 
-**File:** `packages/fpkit/README.md`
+**File:** `packages/acss/README.md`
 
 Add migration notice banner:
 ```markdown

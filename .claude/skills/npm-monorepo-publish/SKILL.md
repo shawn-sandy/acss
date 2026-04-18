@@ -54,7 +54,7 @@ User requests:
 
 **Current packages:**
 
-- `@fpkit/acss` in `packages/fpkit/`
+- `@fpkit/acss` in `packages/acss/`
 
 ---
 
@@ -85,7 +85,7 @@ User requests:
 # Validate → Branch → Version → PR → Publish
 
 git checkout main && git status
-cd packages/fpkit && npm run build && npm run lint && npm test && cd ../..
+cd packages/acss && npm run build && npm run lint && npm test && cd ../..
 git checkout -b release/v{VERSION}
 lerna version {patch|minor|major} --no-push --no-git-tag-version
 # Update CHANGELOG, commit
@@ -219,13 +219,13 @@ Was package published to npm?
 **This skill reads:**
 
 - `lerna.json` - Lerna configuration
-- `packages/fpkit/package.json` - Package metadata
+- `packages/acss/package.json` - Package metadata
 - `CHANGELOG.md` - Release history
 - `.git/` - Branch, tags, commits
 
 **This skill modifies:**
 
-- `packages/fpkit/package.json` - Version field (Step 5)
+- `packages/acss/package.json` - Version field (Step 5)
 - `CHANGELOG.md` - Release notes (Step 6)
 - Git branches, tags (Steps 4, 8)
 
@@ -239,7 +239,7 @@ Was package published to npm?
 
 | Step | Check | Command |
 |------|-------|---------|
-| 1 | Get current version | `cat packages/fpkit/package.json \| grep version` |
+| 1 | Get current version | `cat packages/acss/package.json \| grep version` |
 | 2 | Check npm latest | `npm view @fpkit/acss version` |
 | 3 | View commit history | `git log --oneline {last-tag}..HEAD` |
 | 4 | Ask user for bump type | patch / minor / major |

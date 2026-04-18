@@ -60,9 +60,9 @@ npm start
 ```
 
 ## Critical Files
-- `packages/fpkit/src/components/popover/README.mdx` (modify)
-- `packages/fpkit/src/components/popover/STYLES.mdx` (reference - already correct)
-- `packages/fpkit/src/components/dialog/README.mdx` (reference - working pattern)
+- `packages/acss/src/components/popover/README.mdx` (modify)
+- `packages/acss/src/components/popover/STYLES.mdx` (reference - already correct)
+- `packages/acss/src/components/dialog/README.mdx` (reference - working pattern)
 
 ## Verification
 1. Storybook loads without console errors

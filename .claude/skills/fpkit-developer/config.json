@@ -1,8 +1,8 @@
 {
   "docsSource": "local",
-  "onlineDocsUrl": "https://raw.githubusercontent.com/shawn-sandy/acss/main/packages/fpkit/docs/guides",
+  "onlineDocsUrl": "https://raw.githubusercontent.com/shawn-sandy/acss/main/packages/acss/docs/guides",
   "localDocsPath": "./references",
-  "fpkitDocsPath": "../../../packages/fpkit/docs/guides",
+  "fpkitDocsPath": "../../../packages/acss/docs/guides",
   "availableGuides": [
     "css-variables.md",
     "composition.md",

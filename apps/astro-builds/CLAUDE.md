@@ -694,6 +694,6 @@ npm run dev -- --port 3000  # Use different port
 
 For questions or issues:
 1. Check Astro documentation for framework questions
-2. Check fpkit CLAUDE.md (`packages/fpkit/CLAUDE.md`) for component usage
+2. Check fpkit CLAUDE.md (`packages/acss/CLAUDE.md`) for component usage
 3. Review example components in `src/components/`
 4. Refer to root `CLAUDE.md` for monorepo-level guidance

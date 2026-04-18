@@ -35,4 +35,4 @@ For these, add `.changeset/empty.md` with an empty front-matter block if the wor
 - `minor`: new additive features, new exports, new props on existing components
 - `major`: breaking changes — renamed props, removed components, changed behavior
 
-When in doubt, default to `minor` for additions and `patch` for fixes. Breaking changes (`major`) require maintainer approval and a migration note in `packages/fpkit/MIGRATION-v7.md` (or the active migration guide).
+When in doubt, default to `minor` for additions and `patch` for fixes. Breaking changes (`major`) require maintainer approval and a migration note in `packages/acss/MIGRATION-v7.md` (or the active migration guide).

@@ -131,7 +131,7 @@ npm ERR! You do not have permission to publish "@fpkit/acss"
 
 4. **For scoped packages, verify publishConfig:**
 
-   In `packages/fpkit/package.json`:
+   In `packages/acss/package.json`:
    ```json
    {
      "publishConfig": {
@@ -245,7 +245,7 @@ npm ERR!   npm run
 
 1. **Verify build script exists:**
    ```bash
-   cat packages/fpkit/package.json | grep "build"
+   cat packages/acss/package.json | grep "build"
    ```
 
 2. **Install dependencies:**
@@ -256,7 +256,7 @@ npm ERR!   npm run
 
 3. **Test build manually:**
    ```bash
-   npm run build --prefix packages/fpkit
+   npm run build --prefix packages/acss
    ```
 
 4. **Fix build errors:**
@@ -524,7 +524,7 @@ Always verify before publishing:
 
 3. ✅ **Build succeeds:**
    ```bash
-   npm run build --prefix packages/fpkit
+   npm run build --prefix packages/acss
    ```
 
 4. ✅ **Lint passes:**
