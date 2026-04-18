@@ -10,7 +10,7 @@
   "scripts": {
     "start": "run-p package:watch sass:watch",
     "dev": "vite --open",
-    "build": "run-s tokens:build package sass build:sass build:css",
+    "build": "run-s package tokens:build sass build:sass build:css",
     "tokens:extract": "node scripts/extract-tokens.mjs",
     "tokens:build": "npm run tokens:extract && style-dictionary build --config style-dictionary.config.mjs",
     "package": "tsc && tsup --dts",
