@@ -42,7 +42,7 @@ Run at worktree root: `npm install`
 
 Run: `npm install --prefix packages/fpkit`
 
-**Why:** [packages/fpkit/package.json:9](packages/fpkit/package.json:9) build script is `run-s tokens:build package sass build:sass build:css` — this requires `tsup`, `sass`, `style-dictionary`, `postcss`, `autoprefixer`, `npm-run-all` from its own devDependencies. Without these, the `predev` hook's auto-build will crash, and `@fpkit/acss/styles` (mapped to `libs/index.css`) and `@fpkit/acss/tokens` (mapped to `libs/tokens.json`) won't resolve when Astro tries to import them.
+**Why:** [packages/fpkit/package.json:13](packages/fpkit/package.json:13) build script is `run-s package tokens:build sass build:sass build:css` — this requires `tsup`, `sass`, `style-dictionary`, `postcss`, `autoprefixer`, `npm-run-all` from its own devDependencies. Without these, the `predev` hook's auto-build will crash, and `@fpkit/acss/styles` (mapped to `libs/index.css`) and `@fpkit/acss/tokens` (mapped to `libs/tokens.json`) won't resolve when Astro tries to import them.
 
 ### Step 3 — Install astro-builds deps
 
@@ -69,7 +69,7 @@ Expected success indicators:
 - [apps/astro-builds/src/components/SiteHeader.tsx](apps/astro-builds/src/components/SiteHeader.tsx) — imports `ThemeProvider`, `ThemeToggle` from `@fpkit/acss`
 - [packages/fpkit/package.json](packages/fpkit/package.json) — `exports` map pointing to `libs/*` (lines 83–107)
 
-**No code changes are needed** — this is purely an environment setup issue.
+**The original launch failure was caused by worktree-local environment setup**, not by a defect in the checked-in Astro/fpkit source. Any code or config changes in this PR (the Netlify config, the fpkit build-script reorder, the preview port wiring) are follow-up hardening that came out of the diagnosis, not the root cause of this specific failure.
 
 ## Verification
 
@@ -81,7 +81,7 @@ Expected success indicators:
    - Verify the home page renders with fpkit-styled components (header, theme toggle).
 
 3. **Check a fpkit-dependent page:**
-   - Navigate to `/status` (the Phase 7A component maturity dashboard) and `/colors` (which imports `@fpkit/acss/tokens`) to confirm both the React island and the JSON tokens export resolve.
+   - Navigate to `/status` (the Phase 7A component maturity dashboard) and `/foundations/colors` (which imports `@fpkit/acss/tokens`) to confirm both the React island and the JSON tokens export resolve.
 
 4. **No console errors:**
    - Open browser DevTools → Console. No module-resolution or 404 errors for fpkit styles/scripts.
