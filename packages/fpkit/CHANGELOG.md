@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.6.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.4.0...@fpkit/acss@6.6.0) (2026-04-18)
+
+
+### Bug Fixes
+
+* **ci:** skip Chromatic cleanly when CHROMATIC_PROJECT_TOKEN is unset ([9efd87d](https://github.com/shawn-sandy/fpkit/commit/9efd87d924f376d1e4b275575f716cb20fd0b6fb))
+* **ci:** wire axe into Storybook test-runner and non-block a11y gate ([125a393](https://github.com/shawn-sandy/fpkit/commit/125a39385efb33b30acd326dcd7e1fa014ce748e))
+* **design-system:** address PR [#145](https://github.com/shawn-sandy/fpkit/issues/145) review feedback ([a910017](https://github.com/shawn-sandy/fpkit/commit/a910017f1202f8f9f0002c074fc8f133bf566300))
+* **dialog:** default position to center and update stories with position assertions ([d634f5d](https://github.com/shawn-sandy/fpkit/commit/d634f5dc41ac68b96c7401d5a3fd8bc233c761c8))
+* **dialog:** ensure modal centers by default with fit-content height ([36517f7](https://github.com/shawn-sandy/fpkit/commit/36517f7009c5cb9d6b4b9245a49c6e64105dfa08))
+* **dialog:** export DialogModal from package index ([269a245](https://github.com/shawn-sandy/fpkit/commit/269a245ffa1f1f5922427a07eb8c5c0219b57a8b))
+* **dialog:** format export of DialogProps and DialogModalProps types ([94d6898](https://github.com/shawn-sandy/fpkit/commit/94d689856d51b6b01e069a965b69e7c407f84760))
+* **plugin:** address PR [#142](https://github.com/shawn-sandy/fpkit/issues/142) review issues in ui.tsx and acss-kit-builder ([a54eba1](https://github.com/shawn-sandy/fpkit/commit/a54eba1d0106cc742a842b751a3881ba659552a2))
+* **stories:** repair 4 interaction-test failures surfacing in a11y job ([f4fd934](https://github.com/shawn-sandy/fpkit/commit/f4fd93477ca3e93bd4c74a77a9b067bd3271c08b)), closes [#145](https://github.com/shawn-sandy/fpkit/issues/145)
+* **storybook:** migrate config to Storybook 10 and fix dialog stories types ([5833106](https://github.com/shawn-sandy/fpkit/commit/5833106cee8404527e140b66a4b3f67a073ca703))
+
+
+### Features
+
+* **design-system:** Phase 1 — governance docs and theme-ready color tokens ([3a290db](https://github.com/shawn-sandy/fpkit/commit/3a290dbccd5093b92ff811b261e7b5f6d3132aea))
+* **design-system:** Phase 2 — design token pipeline ([f8496ef](https://github.com/shawn-sandy/fpkit/commit/f8496efaad06c0255792cc8474c719277296a2d7))
+* **design-system:** Phase 3 — theming runtime with light/dark support ([6e9dfc6](https://github.com/shawn-sandy/fpkit/commit/6e9dfc6e7d6f8a93c1828811e04fd4ede3f902bb))
+* **design-system:** Phase 4 — component completion and v7 migration scaffold ([56b8334](https://github.com/shawn-sandy/fpkit/commit/56b833448bf74956e05e8bca53d07ba6be7da817))
+* **design-system:** Phase 5 — CI quality gates (coverage, size, release) ([dcb7c22](https://github.com/shawn-sandy/fpkit/commit/dcb7c22f1172597a21a4c6d499dc34d81e8a1bd2))
+* **design-system:** Phase 7A — component maturity dashboard ([2f51db1](https://github.com/shawn-sandy/fpkit/commit/2f51db13c7fdd6ba4e02844688665f8de24b81e9)), closes [#146](https://github.com/shawn-sandy/fpkit/issues/146)
+* **dialog:** add size and position props for modal sizing and placement ([33d5cde](https://github.com/shawn-sandy/fpkit/commit/33d5cde587a9cf15db6e80f288dae928bd9a858e))
+* **dialog:** export DialogProps and DialogModalProps types from package index ([434c0cf](https://github.com/shawn-sandy/fpkit/commit/434c0cf9d41eda837878747ea965339df35e1025))
+
+
+
+
+
 # [6.5.0](https://github.com/shawn-sandy/fpkit/compare/@fpkit/acss@6.4.0...@fpkit/acss@6.5.0) (2026-03-08)
 
 

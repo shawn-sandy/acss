@@ -1,7 +1,7 @@
 {
   "name": "astro-fpkit",
   "type": "module",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "scripts": {
     "ensure-fpkit-build": "test -f ../../packages/fpkit/libs/index.js && test -f ../../packages/fpkit/libs/tokens.json || npm --prefix ../../packages/fpkit run build",

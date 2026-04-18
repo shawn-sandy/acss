@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/shawn-sandy/acss/compare/astro-fpkit@1.2.2...astro-fpkit@1.4.0) (2026-04-18)
+
+
+### Features
+
+* **design-system:** Phase 6 — Astro docs site scaffold ([01f926f](https://github.com/shawn-sandy/acss/commit/01f926fa2e8cb512476ee58fceb25f62543e7bc9))
+* **design-system:** Phase 7A — component maturity dashboard ([2f51db1](https://github.com/shawn-sandy/acss/commit/2f51db13c7fdd6ba4e02844688665f8de24b81e9)), closes [#146](https://github.com/shawn-sandy/acss/issues/146)
+* **dialog:** add size and position props for modal sizing and placement ([33d5cde](https://github.com/shawn-sandy/acss/commit/33d5cde587a9cf15db6e80f288dae928bd9a858e))
+
+
+
+
+
 # [1.3.0](https://github.com/shawn-sandy/acss/compare/astro-fpkit@1.2.2...astro-fpkit@1.3.0) (2026-03-08)
 
 
