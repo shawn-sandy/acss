@@ -4,7 +4,7 @@
   "version": "1.3.0",
   "private": true,
   "scripts": {
-    "ensure-fpkit-build": "test -f ../../packages/acss/libs/index.js && test -f ../../packages/acss/libs/tokens.json || npm --prefix ../../packages/acss run build",
+    "ensure-fpkit-build": "test -f ../../packages/acss/libs/index.js && test -f ../../packages/tokens/libs/tokens.json || npm --prefix ../../packages/acss run build",
     "predev": "npm run ensure-fpkit-build",
     "dev": "astro dev",
     "prebuild": "npm run ensure-fpkit-build",
