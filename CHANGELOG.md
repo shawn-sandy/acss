@@ -5,6 +5,28 @@ All notable changes to @fpkit/acss will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.6.0] - 2026-04-18
+
+### Added
+
+- **Design token pipeline** — Style Dictionary build pipeline extracts 129 tokens from SCSS into `libs/tokens.json` and `src/tokens/index.ts`
+- **ThemeProvider + ThemeToggle** — light/dark/system theme runtime with `localStorage` persistence and FOUC-prevention script
+- **Dialog `size` and `position` props** — modal sizing and placement control (center, top, bottom, etc.)
+- **Dialog type exports** — `DialogProps` and `DialogModalProps` now exported from the package index
+- **acss-kit-builder plugin** — standalone Claude Code plugin for generating fpkit-style components without the full library dependency
+- **Astro docs site scaffold** — Phase 6 Astro documentation site foundation
+- **Component maturity dashboard** — Phase 7A governance tooling for tracking component readiness
+- **CI quality gates** — coverage thresholds, bundle size checks, and a11y gate via axe + Storybook test-runner
+
+### Fixed
+
+- **Storybook 10 migration** — config updated and dialog stories types corrected
+- **Chromatic CI** — skips cleanly when `CHROMATIC_PROJECT_TOKEN` is unset
+- **a11y CI gate** — non-blocking axe integration; 4 interaction-test failures repaired
+- **Dialog centering** — modal now centers by default with `fit-content` height
+
+---
+
 ## [6.4.3] - 2026-03-07
 
 ### Fixed

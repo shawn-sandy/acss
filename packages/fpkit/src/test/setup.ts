@@ -3,6 +3,27 @@ import '@testing-library/jest-dom'
 import matchers from '@testing-library/jest-dom/matchers';
 import { expect, beforeAll } from 'vitest';
 
+// Vitest 0.33 ships a localStorage stub that omits clear() — replace with a
+// full in-memory Storage implementation so tests can call localStorage.clear()
+const makeStorage = () => {
+  const store: Record<string, string> = {};
+  return {
+    getItem: (key: string) => Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null,
+    setItem: (key: string, value: string) => { store[key] = String(value); },
+    removeItem: (key: string) => { delete store[key]; },
+    clear: () => { for (const k in store) delete store[k]; },
+    key: (index: number) => Object.keys(store)[index] ?? null,
+    get length() { return Object.keys(store).length; },
+  };
+};
+
+if (typeof window !== 'undefined') {
+  const localStorageMock = makeStorage();
+  const sessionStorageMock = makeStorage();
+  Object.defineProperty(window, 'localStorage', { value: localStorageMock, writable: true });
+  Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock, writable: true });
+}
+
 expect.extend(matchers);
 
 // Mock native <dialog> element methods for testing
