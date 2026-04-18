@@ -6,6 +6,42 @@ Welcome to the @fpkit/acss documentation! This collection of guides helps you bu
 
 ## 📚 Guides
 
+### [Theming Guide](./guides/theming.md)
+
+Ship light/dark theming without a flash of the wrong theme on first paint.
+
+**Topics:**
+- `ThemeProvider`, `useTheme`, `ThemeToggle`
+- How the `data-theme` attribute powers runtime switching
+- `getThemeFoucScript()` for SSR (Astro, Next.js, Remix)
+- Creating a custom theme
+- Accessibility notes (`prefers-color-scheme`, toggle labeling)
+
+**Use when:**
+- Adding light/dark mode to an app
+- Preventing theme flash in SSR frameworks
+- Building a custom theme on top of fpkit
+
+---
+
+### [Design Tokens Guide](./guides/design-tokens.md)
+
+Consume `@fpkit/acss/tokens` — the DTCG-compliant design token artifact that powers the Figma bridge and the public docs site.
+
+**Topics:**
+- Shipped categories: color, motion, breakpoints (typography and spacing are on the roadmap)
+- The JSON artifact vs. the typed TS module (`var()` references)
+- Feeding Figma bridges, docs sites, and custom CSS generators
+- The extract-tokens + Style Dictionary pipeline
+- Relationship to CSS variables
+
+**Use when:**
+- Building a docs site or design-system tool that reads fpkit tokens
+- Bridging fpkit values into Figma variables
+- Generating custom CSS output from the same source
+
+---
+
 ### [CSS Variables Guide](./guides/css-variables.md)
 
 Learn how to discover, customize, and override CSS custom properties in fpkit components.
@@ -132,6 +168,23 @@ Document custom components and compositions using Storybook for development and 
 
 ---
 
+### [Component Lifecycle Guide](./guides/component-lifecycle.md)
+
+Understand the lifecycle tags (`experimental`, `beta`, `rc`, `stable`, `deprecated`) and the promotion criteria between them.
+
+**Topics:**
+- Lifecycle stage definitions and what they promise users
+- How tags are applied in Storybook story meta objects
+- Coverage signals that feed the [Component Maturity Dashboard](../../../apps/astro-builds/src/pages/status.astro): `hasTests`, `a11y-verified`, `dark-mode-verified`
+- Promotion checklist for moving a component stage up (or demoting it)
+
+**Use when:**
+- Authoring a new component and choosing its initial lifecycle stage
+- Reviewing whether a component is ready to promote from beta → rc → stable
+- Reading the `/status` dashboard and interpreting its signals
+
+---
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -167,6 +220,9 @@ function App() {
 
 ### I want to...
 
+**Add light/dark theming to my app**
+→ Follow [Theming Guide](./guides/theming.md) (and the [Design Tokens Guide](./guides/design-tokens.md) if building a docs site or Figma bridge)
+
 **Customize component appearance**
 → Start with [CSS Variables Guide](./guides/css-variables.md)
 
@@ -181,6 +237,9 @@ function App() {
 
 **Document components**
 → Learn [Storybook Guide](./guides/storybook.md)
+
+**Promote a component from beta → stable (or author a new one)**
+→ Read [Component Lifecycle Guide](./guides/component-lifecycle.md) and check the [`/status` dashboard](../../../apps/astro-builds/src/pages/status.astro)
 
 **Understand fpkit patterns**
 → Start with [Architecture Guide](./guides/architecture.md)
@@ -207,10 +266,12 @@ function App() {
 
 ### Creating a Theme
 
-1. **Variables** - Discover customizable CSS variables ([CSS Variables Guide](./guides/css-variables.md))
-2. **Contrast** - Verify color contrast ratios ([Accessibility Guide](./guides/accessibility.md))
-3. **Testing** - Test theme across components ([Testing Guide](./guides/testing.md))
-4. **Documentation** - Document theme in Storybook ([Storybook Guide](./guides/storybook.md))
+1. **Runtime** - Understand light/dark runtime switching ([Theming Guide](./guides/theming.md))
+2. **Tokens** - Know what color categories exist ([Design Tokens Guide](./guides/design-tokens.md))
+3. **Variables** - Discover customizable CSS variables ([CSS Variables Guide](./guides/css-variables.md))
+4. **Contrast** - Verify color contrast ratios ([Accessibility Guide](./guides/accessibility.md))
+5. **Testing** - Test theme across components ([Testing Guide](./guides/testing.md))
+6. **Documentation** - Document theme in Storybook ([Storybook Guide](./guides/storybook.md))
 
 ---
 
@@ -264,6 +325,8 @@ Learn more in the [Architecture Guide](./guides/architecture.md).
 - [GitHub Repository](https://github.com/shawn-sandy/acss)
 - [Storybook Documentation](https://fpkit.netlify.app) _(if deployed)_
 - [npm Package](https://www.npmjs.com/package/@fpkit/acss)
+- [Component Maturity Dashboard](../../../apps/astro-builds/src/pages/status.astro) - Live view of every component's lifecycle and coverage
+- [Astro Foundations Pages](../../../apps/astro-builds/src/pages/foundations/) - Colors, Typography, Spacing, Motion rendered from tokens
 
 ### Web Standards
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
@@ -310,16 +373,21 @@ Found an issue or want to contribute? Visit our [GitHub repository](https://gith
 docs/
 ├── README.md (this file)
 └── guides/
-    ├── css-variables.md      - Styling and customization
-    ├── composition.md         - Component composition patterns
-    ├── accessibility.md       - WCAG compliance and a11y
-    ├── architecture.md        - Component structure and patterns
-    ├── testing.md            - Testing strategies
-    └── storybook.md          - Component documentation
+    ├── theming.md              - Light/dark runtime and custom themes
+    ├── design-tokens.md        - @fpkit/acss/tokens artifact and pipeline
+    ├── css-variables.md        - Styling and customization
+    ├── composition.md          - Component composition patterns
+    ├── accessibility.md        - WCAG compliance and a11y
+    ├── architecture.md         - Component structure and patterns
+    ├── component-lifecycle.md  - Lifecycle stages and promotion criteria
+    ├── design-principles.md    - Design system principles
+    ├── variants.md             - Variant authoring patterns
+    ├── testing.md              - Testing strategies
+    └── storybook.md            - Component documentation
 ```
 
 ---
 
-**Version**: 1.0.0
-**Last Updated**: 2025-01-05
+**Version**: 1.1.0
+**Last Updated**: 2026-04-17
 **License**: MIT

@@ -16,12 +16,10 @@
         "--prefix",
         "apps/astro-builds",
         "run",
-        "dev",
-        "--",
-        "--port",
-        "4327"
+        "dev"
       ],
-      "port": 4327
+      "port": 4327,
+      "autoPort": true
     }
   ]
 }
