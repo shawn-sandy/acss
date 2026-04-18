@@ -179,10 +179,12 @@ import { Button } from '@fpkit/acss';
 // Individual import
 import { Button } from '@fpkit/acss/button';
 
-// Usage
-<Button type="button" onClick={() => console.log('clicked')}>
+// Usage — sizes xs through 2xl, plus `block` for full-width
+<Button type="button" size="lg" onClick={() => console.log('clicked')}>
   Click me
 </Button>
+
+<Button type="submit" block>Full-width submit</Button>
 
 // With TypeScript
 import { Button, type ButtonProps } from '@fpkit/acss/button';
@@ -192,6 +194,24 @@ const buttonProps: ButtonProps = {
   disabled: false,
   children: 'Submit Form'
 };
+```
+
+### IconButton
+
+Icon-only button with a required accessible label and an optional visible text label:
+
+```tsx
+import { IconButton, Icon } from '@fpkit/acss';
+
+// Accessible-label-only (visually icon-only)
+<IconButton aria-label="Close dialog" onClick={handleClose}>
+  <Icon name="close" />
+</IconButton>
+
+// With a responsive label (hidden on small viewports, visible on larger)
+<IconButton aria-label="Settings" label="Settings">
+  <Icon name="settings" />
+</IconButton>
 ```
 
 ### Card
@@ -266,6 +286,25 @@ import { Field } from '@fpkit/acss';
 </Field>
 ```
 
+### Fieldset
+
+Accessible `<fieldset>` wrapper with a semantic `legend` — groups related form controls for screen readers:
+
+```tsx
+import { Fieldset } from '@fpkit/acss';
+
+<Fieldset legend="Shipping address">
+  <Field>
+    <Field.Label>Street</Field.Label>
+    <Input type="text" name="street" />
+  </Field>
+  <Field>
+    <Field.Label>City</Field.Label>
+    <Input type="text" name="city" />
+  </Field>
+</Fieldset>
+```
+
 ### Navigation
 
 Semantic navigation components:
@@ -330,6 +369,47 @@ FPKit uses CSS custom properties for theming and styling:
   --fp-button-padding: var(--fp-spacing-md);
 }
 ```
+
+### Theming Runtime (Light / Dark / System)
+
+FPKit ships a tiny theming runtime built around a single `data-theme` attribute on `<html>`. Wrap your app and drop in a toggle:
+
+```tsx
+import { ThemeProvider, ThemeToggle, useTheme } from '@fpkit/acss';
+
+function App() {
+  return (
+    <ThemeProvider defaultPreference="system">
+      <ThemeToggle />
+      <YourApp />
+    </ThemeProvider>
+  );
+}
+
+// In any child component:
+function SomeChild() {
+  const { theme, preference, setPreference } = useTheme();
+  // theme is always "light" or "dark"; preference can also be "system"
+  return <span>Current theme: {theme}</span>;
+}
+```
+
+**For SSR frameworks (Next.js, Astro, Remix):** `getThemeFoucScript()` returns an inline script string you render in `<head>` so `data-theme` is set synchronously before React hydrates — no flash of wrong theme on first paint. Framework-specific recipes and custom-theme authoring live in the [Theming guide](docs/guides/theming.md).
+
+### Design Tokens
+
+The library exports a DTCG-compliant JSON artifact for use in docs sites, Figma bridges, and custom build pipelines:
+
+```ts
+import tokens from '@fpkit/acss/tokens';
+
+// Primitive scales:  tokens.color.neutral[600], tokens.color.blue[600], ...
+// Semantic colors:   tokens.color.primary, tokens.color.error, tokens.color.surface, ...
+// Motion:            tokens.duration.base, tokens.ease.standard, ...
+// Layout:            tokens.breakpoint.md, tokens.breakpoint.lg, ...
+```
+
+There's also a typed TS export at `src/tokens/index.ts` (generated from SCSS) where each token resolves to its CSS custom property reference — `tokens.color.primary` returns `"var(--color-primary)"` so consumers get runtime theme switching for free. Dark-mode values live inside each semantic token's `$extensions.com.fpkit.themeModes.dark` slot. See the [Design Tokens guide](docs/guides/design-tokens.md) for the full shape, category breakdown, and consumption patterns.
 
 ### Component Styling
 
@@ -417,20 +497,28 @@ export default App;
 
 ### Core UI Components
 
-- **Button** - Accessible button with variants
+- **Button** - Accessible button with variants, sizes xs–2xl, `block` prop
+- **IconButton** - Icon-only button with required accessible label
 - **Card** - Flexible card container with composable parts
 - **Modal** - Accessible modal dialog
-- **Dialog** - General purpose dialog component
+- **Dialog** - General purpose dialog component (optional `icon` trigger)
 - **Input** - Form input with validation
 - **Field** - Form field wrapper with label and error
-- **Link** - Accessible link component
+- **Fieldset** - Accessible fieldset + legend wrapper for grouped form controls
+- **Link** - Accessible link component (WCAG 2.1.1-compliant `disabled` state)
 - **List** - Semantic list components
+
+### Theming & Tokens
+
+- **ThemeProvider / useTheme / ThemeToggle** - Light/dark theming runtime
+- **`getThemeFoucScript()`** - SSR script to prevent theme flash
+- **`@fpkit/acss/tokens`** - DTCG design token JSON artifact
 
 ### Layout Components
 
 - **Box** - Generic container component
 - **Nav** - Navigation components
-- **Landmarks** - Semantic landmark components
+- **Landmarks** - Semantic landmark components (Header, Main, Footer, Aside, Fieldset)
 
 ### Typography
 
@@ -525,10 +613,13 @@ Comprehensive guides to help you build accessible, maintainable applications wit
 
 ### Core Guides
 
+- **[Theming Guide](docs/guides/theming.md)** - `ThemeProvider`, `useTheme`, `ThemeToggle`, SSR FOUC handling, and creating custom themes
+- **[Design Tokens Guide](docs/guides/design-tokens.md)** - Consume the `@fpkit/acss/tokens` JSON artifact; token categories and integration patterns
 - **[CSS Variables Guide](docs/guides/css-variables.md)** - Learn how to discover and customize CSS custom properties for theming and styling
 - **[Composition Guide](docs/guides/composition.md)** - Master component composition patterns to build custom components by combining fpkit primitives
 - **[Accessibility Guide](docs/guides/accessibility.md)** - Understand and maintain WCAG 2.1 Level AA compliance when using and composing components
 - **[Architecture Guide](docs/guides/architecture.md)** - Learn fpkit's architectural patterns, component structure, and how to work effectively with the library
+- **[Component Lifecycle](docs/guides/component-lifecycle.md)** - Lifecycle stages (experimental → beta → rc → stable → deprecated) and promotion criteria
 - **[Testing Guide](docs/guides/testing.md)** - Test applications and custom components using Vitest and React Testing Library
 - **[Storybook Guide](docs/guides/storybook.md)** - Document custom components and compositions using Storybook
 
@@ -536,6 +627,7 @@ Comprehensive guides to help you build accessible, maintainable applications wit
 
 - **[Documentation Index](docs/README.md)** - Complete documentation hub with guide navigator and workflows
 - **[Storybook](https://fpkit.netlify.app/)** - Interactive component documentation and playground
+- **[Component Maturity Dashboard](../../apps/astro-builds/src/pages/status.astro)** - Live view of every component's lifecycle stage and coverage signals (tests, a11y, dark mode) on the Astro docs site
 
 ### Common Tasks
 

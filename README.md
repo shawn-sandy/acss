@@ -50,15 +50,17 @@ function App() {
 ## Available Components
 
 ### UI Components
-- **Alert** - Display important messages and notifications
+- **Alert** - Display important messages and notifications (semantic variants: error, success, warning, info)
 - **Badge** - Labels and status indicators with auto-scaling
 - **Breadcrumb** - Navigation path with improved accessibility
-- **Button** - Interactive button elements
+- **Button** - Interactive button elements (sizes `xs`–`2xl`, `block` for full-width, semantic `color`)
 - **Card** - Content containers with interactive features
 - **Details** - Collapsible content sections (WCAG AA compliant)
-- **Dialog** - Modal dialogs with controlled component pattern
+- **Dialog** - Modal dialogs with controlled component pattern; optional `icon` prop for IconButton triggers
+- **Fieldset** - Accessible fieldset wrapper with semantic `legend` support
 - **Form** - Form elements and validation
-- **Link** - Accessible link components
+- **IconButton** - Standalone icon button with accessible label (visually-hidden or responsive)
+- **Link** - Accessible link components (with WCAG 2.1.1-compliant `disabled` state)
 - **List** - Styled list components
 - **Modal** - Overlay modals and dialogs
 - **Nav** - Navigation components
@@ -67,7 +69,11 @@ function App() {
 - **Table** - Data table components
 - **Tag** - Tagging and categorization
 - **Text** - Typography components
-- **Title** - Semantic heading component (h1-h6)
+- **Title** - Semantic heading component (h1-h6) with size and color variants
+
+### Theming & Tokens
+- **ThemeProvider / ThemeToggle / useTheme** - Light/dark theming runtime (system-preference aware)
+- **`@fpkit/acss/tokens`** - DTCG-compliant design token JSON artifact
 
 ### Specialized Components
 - **Icons** - Icon library and components
@@ -75,16 +81,15 @@ function App() {
 - **TextToSpeech** - Text-to-speech functionality
 - **WordCount** - Word counting utilities
 
-## Recent Improvements
+## What's New in v6.x
 
-### v0.5.11
-- **Title Component** - New semantic heading component replacing deprecated Heading
-- **Dialog Refactoring** - Comprehensive refactoring with controlled component pattern and WCAG AA compliance
-- **Details Component** - Enhanced accessibility with live accessibility review
-- **Card Component** - Comprehensive refactoring with focus styles and interactive features
-- **Breadcrumb Enhancements** - Performance and accessibility improvements
-- **Badge Updates** - Auto-scaling functionality and enhanced styles
-- **Accessibility Focus** - Improved documentation and WCAG compliance across all components
+Major additions since `1.0.0-beta.0` (CSS-variable rename — see [MIGRATION-v7.md](packages/fpkit/MIGRATION-v7.md)):
+
+- **Theming runtime** — `ThemeProvider`, `useTheme`, `ThemeToggle`, and `getThemeFoucScript()` for SSR. Light/dark via a single `data-theme` attribute on `<html>`; system-preference tracking built in. See the [Theming guide](packages/fpkit/docs/guides/theming.md).
+- **Design token pipeline** — `@fpkit/acss/tokens` ships a DTCG-compliant JSON artifact with primitive and semantic colors (plus per-token dark-mode overrides), motion durations and easings, and responsive breakpoints. Ready for Figma bridges, docs sites, and custom builds. Typography and spacing tokens are on the roadmap. See the [Design Tokens guide](packages/fpkit/docs/guides/design-tokens.md).
+- **Public Astro docs site** — [apps/astro-builds/](apps/astro-builds/) renders Foundations pages (Colors, Typography, Spacing, Motion) and a live [component maturity dashboard](apps/astro-builds/src/pages/status.astro) derived from Storybook lifecycle tags.
+- **CI quality gates** — Vitest coverage thresholds, `size-limit` bundle budgets, axe-powered a11y auditing in the Storybook test-runner, and Changesets for versioning.
+- **New components / APIs** — `IconButton` (v6.3.0), `Fieldset` (v6.2.0), Button `xl` / `2xl` / `block`, Dialog `icon` prop, responsive display utilities, Alert `info` variant, Link `disabled` (WCAG 2.1.1 compliant).
 
 ## Importing Styles
 
@@ -102,6 +107,36 @@ Or import specific component styles:
 import '@fpkit/acss/css/button/button.css';
 import '@fpkit/acss/css/card/card.css';
 ```
+
+## Theming
+
+Ship light/dark theming without a flash of unthemed content:
+
+```tsx
+import { ThemeProvider, ThemeToggle } from '@fpkit/acss';
+
+function App() {
+  return (
+    <ThemeProvider defaultPreference="system">
+      <ThemeToggle />
+      {/* your app */}
+    </ThemeProvider>
+  );
+}
+```
+
+For SSR frameworks, `getThemeFoucScript()` returns an inline script string you place in `<head>` so `data-theme` is set before React hydrates. Framework-specific patterns (Next.js `app/layout.tsx`, Astro layouts, Remix) and the full API — `useTheme`, custom storage keys, creating additional themes — live in the [Theming guide](packages/fpkit/docs/guides/theming.md).
+
+## Design Tokens
+
+Consume the token JSON directly for docs sites, Figma bridges, and custom builds:
+
+```ts
+import tokens from '@fpkit/acss/tokens';
+// tokens.color.primary, tokens.duration.base, tokens.ease.standard, tokens.breakpoint.md
+```
+
+Tokens are DTCG-compliant (129 tokens as of v6.5) and include primitive color scales, semantic colors with per-token dark-mode overrides, motion (durations + easings), and responsive breakpoints. See the [Design Tokens guide](packages/fpkit/docs/guides/design-tokens.md) for the full shape and consumption patterns.
 
 ## Using Hooks
 
@@ -130,23 +165,37 @@ function MyComponent() {
 
 ## Monorepo Structure
 
-This is a Lerna-managed monorepo containing:
+This is a monorepo using Lerna for task orchestration and Changesets for versioning:
 
 ```
 acss/
 ├── packages/
 │   └── fpkit/              # Main component library (@fpkit/acss)
 ├── apps/
-│   └── astro-builds/       # Astro integration demo
+│   └── astro-builds/       # Public Astro docs site (Foundations + /status dashboard)
 ├── .storybook/             # Storybook configuration
 └── storybook-static/       # Built Storybook docs
+```
+
+## Docs Site & Component Maturity
+
+The project ships a companion Astro docs site at [apps/astro-builds/](apps/astro-builds/):
+
+- **Foundations pages** (`/foundations/colors`, `/foundations/typography`, `/foundations/spacing`, `/foundations/motion`) render live views straight from the token JSON — they stay in sync with the library automatically.
+- **Component maturity dashboard** at [/status](apps/astro-builds/src/pages/status.astro) shows every component's lifecycle stage (experimental → beta → rc → stable → deprecated) alongside coverage signals (tests present, a11y verified, dark-mode verified), auto-derived from Storybook tags. See the [component lifecycle guide](packages/fpkit/docs/guides/component-lifecycle.md) for promotion criteria.
+
+Run the docs site locally:
+
+```bash
+cd apps/astro-builds
+npm run dev
 ```
 
 ## Development
 
 ### Prerequisites
 
-- Node.js >= 20.9.0
+- Node.js >= 22.12.0
 - npm >= 8.0.0
 
 ### Setup
@@ -180,7 +229,8 @@ npm run dev              # Start Vite dev server
 npm start                # Watch mode: builds package + SASS
 
 # Building
-npm run build            # Full build pipeline
+npm run build            # Full build: tokens → TS → SCSS → CSS
+npm run tokens:build     # Extract tokens.json from SCSS sources
 npm run package          # Build TypeScript with tsup
 npm run sass:build       # Compile SCSS to CSS
 
@@ -188,7 +238,22 @@ npm run sass:build       # Compile SCSS to CSS
 npm test                 # Run Vitest tests
 npm run test:ui          # Run tests with UI
 npm run test:coverage    # Generate coverage report
+npm run size             # Check bundle-size budgets (size-limit)
+npm run size:why         # Visualize what's in each bundle
+
+# Publishing
+npm run changeset        # Create a changeset entry (at monorepo root)
+npm run version-packages # Apply changesets and bump versions
 ```
+
+### CI Quality Gates
+
+Contributors should know what the CI enforces before opening a PR:
+
+- **Test coverage thresholds** — configured in [packages/fpkit/vitest.config.js](packages/fpkit/vitest.config.js); failing below ~89% lines / 90% branches breaks the test job.
+- **Bundle-size budgets** — [packages/fpkit/.size-limit.cjs](packages/fpkit/.size-limit.cjs) caps the main build, hooks, icons, and CSS entry points. `npm run size` reports against the budget.
+- **Accessibility audit** — the Storybook test-runner wires axe via [.storybook/test-runner.ts](.storybook/test-runner.ts). Non-blocking during triage; flipping to blocking is tracked in [MIGRATION-v7.md](packages/fpkit/MIGRATION-v7.md).
+- **Versioning** — Changesets owns `CHANGELOG.md` and version bumps. Hand-edits to `CHANGELOG.md` will be clobbered on the next release.
 
 ## TypeScript Support
 
