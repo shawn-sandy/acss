@@ -6,7 +6,7 @@ import Img from './img'
 const meta: Meta<typeof Img> = {
   title: 'FP.React Components/Img',
   component: Img,
-  tags: ['version:2.0.0', 'accessibility', 'responsive'],
+  tags: ['stable', 'version:2.0.0', 'accessibility', 'responsive'],
   argTypes: {
     src: {
       control: 'text',

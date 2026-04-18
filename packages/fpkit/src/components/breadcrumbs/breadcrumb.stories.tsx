@@ -8,7 +8,7 @@ const linkClicked = fn();
 const meta: Meta<typeof Breadcrumb> = {
   title: "FP.React Components/Breadcrumb",
   component: Breadcrumb,
-  tags: ["autodocs"],
+  tags: ["beta", "autodocs"],
   parameters: {
     docs: {
       description: {

@@ -1,0 +1,350 @@
+---
+/**
+ * Component maturity dashboard.
+ *
+ * Build-time page that renders every component story's lifecycle tag plus
+ * derived signal columns (tests, a11y verified, dark-mode verified). Data
+ * comes from `../lib/component-status.ts`, which walks the fpkit components
+ * directory and parses story `meta` objects.
+ *
+ * The page is static: no JS ships for this view.
+ */
+import Layout from "../layouts/Layout.astro";
+import {
+  getComponentStatus,
+  lifecycleLabel,
+  type Lifecycle,
+} from "../lib/component-status";
+
+const rows = await getComponentStatus();
+
+const totals: Record<Lifecycle | "untagged", number> = {
+  stable: 0,
+  rc: 0,
+  beta: 0,
+  experimental: 0,
+  deprecated: 0,
+  untagged: 0,
+};
+for (const row of rows) {
+  const key = row.lifecycle ?? "untagged";
+  totals[key] += 1;
+}
+
+const testCoverage = rows.filter((r) => r.hasTests).length;
+const a11yCoverage = rows.filter((r) => r.hasA11yVerified).length;
+const darkCoverage = rows.filter((r) => r.hasDarkModeVerified).length;
+---
+
+<Layout
+  title="Component status — @fpkit/acss"
+  description="Maturity dashboard: lifecycle, tests, a11y, and dark-mode coverage for every @fpkit/acss component."
+>
+  <section class="page-intro">
+    <h1>Component status</h1>
+    <p>
+      Every component's lifecycle tag and coverage signals, generated from
+      the Storybook meta at build time. See the
+      <a href="https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/component-lifecycle.md">
+        lifecycle guide
+      </a>
+      for what each stage means.
+    </p>
+  </section>
+
+  <section class="summary" aria-label="Totals by lifecycle">
+    <dl class="summary__grid">
+      <div class="summary__item" data-lifecycle="stable">
+        <dt>Stable</dt><dd>{totals.stable}</dd>
+      </div>
+      <div class="summary__item" data-lifecycle="rc">
+        <dt>RC</dt><dd>{totals.rc}</dd>
+      </div>
+      <div class="summary__item" data-lifecycle="beta">
+        <dt>Beta</dt><dd>{totals.beta}</dd>
+      </div>
+      <div class="summary__item" data-lifecycle="experimental">
+        <dt>Experimental</dt><dd>{totals.experimental}</dd>
+      </div>
+      <div class="summary__item" data-lifecycle="deprecated">
+        <dt>Deprecated</dt><dd>{totals.deprecated}</dd>
+      </div>
+      {totals.untagged > 0 && (
+        <div class="summary__item" data-lifecycle="untagged">
+          <dt>Untagged</dt><dd>{totals.untagged}</dd>
+        </div>
+      )}
+    </dl>
+    <p class="summary__coverage">
+      {testCoverage} of {rows.length} have tests ·
+      {a11yCoverage} marked a11y-verified ·
+      {darkCoverage} marked dark-mode-verified
+    </p>
+  </section>
+
+  <section>
+    <table class="status-table">
+      <caption class="visually-hidden">
+        Component status matrix: {rows.length} stories.
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Component</th>
+          <th scope="col">Lifecycle</th>
+          <th scope="col">Tests</th>
+          <th scope="col">A11y</th>
+          <th scope="col">Dark mode</th>
+          <th scope="col">Other tags</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            <td>
+              <span class="cell-name">{row.name}</span>
+              <span class="cell-path">{row.storyPath}</span>
+            </td>
+            <td>
+              <span
+                class="pill"
+                data-lifecycle={row.lifecycle ?? "untagged"}
+              >
+                {lifecycleLabel(row.lifecycle)}
+              </span>
+            </td>
+            <td>
+              <span
+                class="signal"
+                data-signal={row.hasTests ? "yes" : "no"}
+                aria-label={row.hasTests ? "Has tests" : "No tests"}
+              >
+                {row.hasTests ? "✓" : "—"}
+              </span>
+            </td>
+            <td>
+              <span
+                class="signal"
+                data-signal={row.hasA11yVerified ? "yes" : "no"}
+                aria-label={
+                  row.hasA11yVerified ? "A11y verified" : "A11y not marked"
+                }
+              >
+                {row.hasA11yVerified ? "✓" : "—"}
+              </span>
+            </td>
+            <td>
+              <span
+                class="signal"
+                data-signal={row.hasDarkModeVerified ? "yes" : "no"}
+                aria-label={
+                  row.hasDarkModeVerified
+                    ? "Dark mode verified"
+                    : "Dark mode not marked"
+                }
+              >
+                {row.hasDarkModeVerified ? "✓" : "—"}
+              </span>
+            </td>
+            <td class="cell-tags">
+              {row.tags
+                .filter(
+                  (t) =>
+                    ![
+                      "stable",
+                      "rc",
+                      "beta",
+                      "experimental",
+                      "deprecated",
+                    ].includes(t)
+                )
+                .map((t) => (
+                  <span class="tag-chip">{t}</span>
+                ))}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  <style>
+    .page-intro {
+      margin-block-end: 2rem;
+    }
+    .page-intro h1 {
+      margin-block: 0 0.5rem;
+    }
+    .page-intro p {
+      color: var(--color-text-secondary);
+      max-width: 48rem;
+      margin: 0;
+    }
+    .page-intro a {
+      color: var(--color-link);
+    }
+
+    .summary {
+      margin-block-end: 2rem;
+    }
+    .summary__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+      gap: 0.75rem;
+      margin: 0 0 1rem;
+      padding: 0;
+    }
+    .summary__item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+      padding: 0.75rem 1rem;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+    }
+    .summary__item dt {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+    .summary__item dd {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--color-text);
+    }
+    .summary__coverage {
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .status-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9375rem;
+    }
+    .status-table caption {
+      text-align: start;
+    }
+    .status-table th,
+    .status-table td {
+      padding: 0.625rem 0.75rem;
+      text-align: start;
+      border-bottom: 1px solid var(--color-border-subtle);
+      vertical-align: top;
+    }
+    .status-table thead th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-text-secondary);
+      background: var(--color-surface-elevated);
+      position: sticky;
+      top: 4rem;
+      z-index: 1;
+    }
+    .status-table tbody tr:hover {
+      background: var(--color-surface-elevated);
+    }
+
+    .cell-name {
+      display: block;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .cell-path {
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.75rem;
+      color: var(--color-text-tertiary);
+      margin-block-start: 0.125rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.625rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border: 1px solid transparent;
+    }
+    .pill[data-lifecycle="stable"] {
+      background: var(--color-success-surface, #d4edda);
+      color: var(--color-success-text, #155724);
+      border-color: var(--color-success-border, #c3e6cb);
+    }
+    .pill[data-lifecycle="rc"] {
+      background: var(--color-info-surface, #cfe2ff);
+      color: var(--color-info-text, #084298);
+      border-color: var(--color-info-border, #b6d4fe);
+    }
+    .pill[data-lifecycle="beta"] {
+      background: var(--color-warning-surface, #fff3cd);
+      color: var(--color-warning-text, #856404);
+      border-color: var(--color-warning-border, #ffeeba);
+    }
+    .pill[data-lifecycle="experimental"] {
+      background: var(--color-surface-tertiary, #eee);
+      color: var(--color-text-secondary);
+      border-color: var(--color-border-subtle);
+    }
+    .pill[data-lifecycle="deprecated"] {
+      background: var(--color-error-surface, #f8d7da);
+      color: var(--color-error-text, #721c24);
+      border-color: var(--color-error-border, #f5c6cb);
+    }
+    .pill[data-lifecycle="untagged"] {
+      background: transparent;
+      color: var(--color-text-tertiary);
+      border-color: var(--color-border-subtle);
+    }
+
+    .signal {
+      display: inline-block;
+      min-width: 1.25rem;
+      font-weight: 600;
+    }
+    .signal[data-signal="yes"] {
+      color: var(--color-success-text, #2b7a3d);
+    }
+    .signal[data-signal="no"] {
+      color: var(--color-text-tertiary);
+    }
+
+    .cell-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+    .tag-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.0625rem 0.5rem;
+      background: var(--color-surface-tertiary, #f4f4f5);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.25rem;
+      font-size: 0.6875rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      color: var(--color-text-secondary);
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</Layout>

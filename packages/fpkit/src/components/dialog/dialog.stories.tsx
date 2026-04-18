@@ -30,7 +30,7 @@ const buttonDecorator = [
 const meta: Meta<typeof Dialog> = {
   title: "FP.React Components/Dialog/Dialogs",
   component: Dialog,
-  tags: ["alpha"],
+  tags: ["experimental"],
   parameters: {
     docs: {
       description: {

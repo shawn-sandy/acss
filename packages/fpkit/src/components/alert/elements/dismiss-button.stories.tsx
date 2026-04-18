@@ -5,7 +5,7 @@ import DismissButton from "./dismiss-button";
 const meta: Meta<typeof DismissButton> = {
   title: "FP.React Elements/DismissButton",
   component: DismissButton,
-  tags: ["new"],
+  tags: ["beta", "new"],
   parameters: {
     docs: {
       description: {

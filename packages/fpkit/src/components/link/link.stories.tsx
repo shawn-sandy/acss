@@ -8,7 +8,7 @@ import "../../styles/link/link.css";
 
 const meta = {
   title: "FP.React Components/Links",
-  tags: ["version:1.0.0", "autodocs"],
+  tags: ["stable", "version:1.0.0", "autodocs"],
   component: Link,
   args: {
     href: "/",

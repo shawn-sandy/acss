@@ -17,6 +17,7 @@ const NAV = [
   { href: "/", label: "Home" },
   { href: "/foundations/colors", label: "Foundations" },
   { href: "/guides/design-principles", label: "Guides" },
+  { href: "/status", label: "Status" },
 ];
 
 export default function SiteHeader() {

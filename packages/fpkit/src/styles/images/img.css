@@ -34,7 +34,7 @@ img[alt] {
 figure:has(img[alt]) {
   --fig-display: flex;
   --fig-padding: 0.5rem;
-  --fig-bg: rgba(245, 245, 245, 0.683);
+  --fig-bg: var(--color-surface-tertiary);
   --fig-width: fit-content;
   display: var(--fig-display);
   position: relative;

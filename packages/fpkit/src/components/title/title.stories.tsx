@@ -6,7 +6,7 @@ import Title from "./title";
 const meta: Meta<typeof Title> = {
   title: "FP.React Components/Title",
   component: Title,
-  tags: ["version:2.0.0", "autodocs"],
+  tags: ["stable", "version:2.0.0", "autodocs"],
   parameters: {
     docs: {
       description: {

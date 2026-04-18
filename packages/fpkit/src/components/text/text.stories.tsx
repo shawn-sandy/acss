@@ -6,7 +6,7 @@ import Text from "./text";
 const meta: Meta<typeof Text> = {
   title: "FP.React Components/Text",
   component: Text,
-  tags: ["version:1.0.0"],
+  tags: ["stable", "version:1.0.0"],
   args: {
     children:
       "Exercitation non voluptate fugiat amet dolor tempor consectetur. Eu esse adipisicing laboris duis et velit in quis et sunt pariatur tempor laborum nisi. Et id amet ullamco culpa irure nulla esse dolore velit esse.",
