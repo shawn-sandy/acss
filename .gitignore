@@ -37,3 +37,6 @@ packages/fpkit/tokens/generated/
 
 # Claude Code worktrees
 .claude/worktrees/
+
+# Claude Code runtime state (session locks, scheduled tasks)
+.claude/*.lock
