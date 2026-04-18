@@ -4,7 +4,7 @@ import List from "./list";
 
 const meta: Meta<typeof List> = {
   title: "FP.React Components/List",
-  tags: ["version:1.0.0", "accessibility:wcag-aa"],
+  tags: ["stable", "version:1.0.0", "accessibility:wcag-aa"],
   component: List,
   parameters: {
     docs: {

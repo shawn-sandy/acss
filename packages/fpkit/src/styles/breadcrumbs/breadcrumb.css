@@ -4,7 +4,7 @@ nav[data-breadcrumb] {
   --breadcrumb-display: flex;
   --breadcrumb-gap: 0.5rem;
   --breadcrumb-color: currentColor;
-  --breadcrumb-current-color: rgb(46, 46, 46);
+  --breadcrumb-current-color: var(--color-text);
   --breadcrumb-fs: var(--fs-3);
   margin-inline: unset;
   padding-inline: unset;

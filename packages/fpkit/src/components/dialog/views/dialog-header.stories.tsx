@@ -6,6 +6,7 @@ import DialogHeader from "./dialog-header";
 const meta: Meta<typeof DialogHeader> = {
   title: "FP.React Components/Dialog/Views/DialogHeader",
   component: DialogHeader,
+  tags: ["beta"],
   parameters: {
     layout: "centered",
     docs: {

@@ -13,6 +13,7 @@ import { Main } from "./landmarks";
 const meta: Meta<typeof Main> = {
   title: "FP.React Components/Layout/Landmarks",
   component: Main,
+  tags: ["stable"],
   args: {
     children: (
       <section>

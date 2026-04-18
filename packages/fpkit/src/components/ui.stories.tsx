@@ -17,7 +17,7 @@ import UI from "./ui";
 const meta = {
   title: "FP/UI",
   component: UI,
-  tags: ["autodocs", "primitive"],
+  tags: ["stable", "autodocs", "primitive"],
   parameters: {
     docs: {
       description: {

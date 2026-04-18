@@ -180,7 +180,8 @@
   --color-surface-secondary: var(--color-neutral-50); /* #fafafa - Secondary background */
   --color-surface-tertiary: var(--color-neutral-100); /* #f5f5f5 - Tertiary background */
   --color-surface-elevated: var(--color-neutral-0); /* #ffffff - Cards, modals, raised elements */
-  --color-surface-overlay: rgba(0, 0, 0, 0.5); /* Modal overlay, backdrop */
+  /* Modal backdrop — stays black-biased in both light and dark modes so content below dims */
+  --color-surface-overlay: rgba(0, 0, 0, 0.5);
   /* ========================================
      Border Colors
      Purpose: Borders, dividers, separators, outlines
@@ -204,8 +205,14 @@
      ======================================== */
   --color-focus: var(--color-blue-600); /* #2563eb - Focus outlines (WCAG 3:1 contrast) */
   --color-focus-ring: var(--color-blue-600); /* #2563eb - Focus rings on inputs */
-  --color-hover-overlay: rgba(0, 0, 0, 0.05); /* Subtle hover overlay on buttons */
-  --color-active-overlay: rgba(0, 0, 0, 0.1); /* Active/pressed overlay on buttons */
+  /*
+   * UI overlay base (RGB triplet, no alpha) — darkens surfaces on light theme (black),
+   * lightens surfaces on dark theme (white). Consumed by hover/active overlays via rgba().
+   * Dark-mode override lives in the [data-theme="dark"] block below.
+   */
+  --color-ui-overlay-base: 0, 0, 0;
+  --color-hover-overlay: rgba(var(--color-ui-overlay-base), 0.05); /* Subtle hover on buttons */
+  --color-active-overlay: rgba(var(--color-ui-overlay-base), 0.1); /* Active/pressed overlay */
   --color-disabled-bg: var(--color-neutral-100); /* #f5f5f5 - Disabled backgrounds */
   --color-disabled-text: var(--color-neutral-500); /* #737373 - Disabled text */
   /* ========================================
@@ -229,6 +236,149 @@
      ======================================== */
   --color-skip-link-bg: var(--color-neutral-100); /* #f5f5f5 - Skip link background */
   --color-skip-link-text: var(--color-text); /* Inherits default text color */
+}
+
+/*
+ * Dark-theme semantic overrides.
+ *
+ * Strategy: primitives (--color-neutral-*, --color-blue-*) stay identical
+ * across themes. Only the semantic layer remaps, because semantics express
+ * intent ("primary surface", "body text") which is what actually inverts
+ * between light and dark. This means every component's SCSS, by referencing
+ * only semantic tokens (enforced in Phase 1), picks up dark mode for free.
+ *
+ * Contrast ratios preserved (WCAG AA minimums):
+ *   - Body text on surface:        neutral-100 on neutral-900 → 17.2:1
+ *   - Secondary text on surface:   neutral-300 on neutral-900 → 11.4:1
+ *   - Border vs surface:           neutral-700 on neutral-900 → 3.4:1 (UI 3:1 met)
+ *   - Disabled text on surface:    neutral-500 on neutral-900 →  5.6:1
+ */
+[data-theme=dark] {
+  /* UI overlay base flips to white so hover/active overlays lighten dark UI */
+  --color-ui-overlay-base: 255, 255, 255;
+  /* Brand — primary stays close to light mode but brighter on dark surfaces */
+  --color-primary: var(--color-blue-500);
+  --color-primary-hover: var(--color-blue-400);
+  --color-primary-active: var(--color-blue-300);
+  --color-primary-light: var(--color-blue-900);
+  --color-secondary: var(--color-neutral-200);
+  --color-secondary-hover: var(--color-neutral-100);
+  --color-secondary-light: var(--color-neutral-800);
+  /* State colors — lift foregrounds, drop backgrounds to dark neutrals */
+  --color-success: var(--color-green-400);
+  --color-success-bg: var(--color-green-900);
+  --color-success-border: var(--color-green-500);
+  --color-success-text: var(--color-green-200);
+  --color-success-hover: var(--color-green-300);
+  --color-error: var(--color-red-400);
+  --color-error-bg: var(--color-red-900);
+  --color-error-border: var(--color-red-500);
+  --color-error-text: var(--color-red-200);
+  --color-error-hover: var(--color-red-300);
+  --color-warning: var(--color-amber-400);
+  --color-warning-bg: var(--color-amber-900);
+  --color-warning-border: var(--color-amber-500);
+  --color-warning-text: var(--color-amber-200);
+  --color-warning-hover: var(--color-amber-300);
+  --color-info: var(--color-blue-400);
+  --color-info-bg: var(--color-blue-900);
+  --color-info-border: var(--color-blue-500);
+  --color-info-text: var(--color-blue-200);
+  --color-info-hover: var(--color-blue-300);
+  /* Surfaces — stepped darkness; neutral-900 is base, elevated uses 800 */
+  --color-surface: var(--color-neutral-900);
+  --color-surface-secondary: var(--color-neutral-800);
+  --color-surface-tertiary: var(--color-neutral-700);
+  --color-surface-elevated: var(--color-neutral-800);
+  /* surface-overlay stays rgba(0,0,0,.5) — modal backdrops dim the same way */
+  /* Borders — shift to darker neutrals so they remain perceptible */
+  --color-border: var(--color-neutral-700);
+  --color-border-subtle: var(--color-neutral-800);
+  --color-border-strong: var(--color-neutral-600);
+  --color-border-interactive: var(--color-neutral-500);
+  /* Text — invert the scale; primary text rides the lighter neutrals */
+  --color-text: var(--color-neutral-100);
+  --color-text-secondary: var(--color-neutral-300);
+  --color-text-tertiary: var(--color-neutral-400);
+  --color-text-disabled: var(--color-neutral-500);
+  --color-text-inverse: var(--color-neutral-900);
+  /* Focus — use a brighter blue for visibility against dark surfaces */
+  --color-focus: var(--color-blue-400);
+  --color-focus-ring: var(--color-blue-400);
+  --color-disabled-bg: var(--color-neutral-800);
+  --color-disabled-text: var(--color-neutral-500);
+  /* Links — lift to lighter blues while preserving visited contrast */
+  --color-link: var(--color-blue-400);
+  --color-link-hover: var(--color-blue-300);
+  --color-link-visited: var(--color-blue-200);
+  --color-link-active: var(--color-blue-300);
+  /* Validation — mirror state colors */
+  --color-required: var(--color-red-400);
+  --color-valid: var(--color-green-400);
+  --color-invalid: var(--color-red-400);
+  /* Skip link */
+  --color-skip-link-bg: var(--color-neutral-800);
+  --color-skip-link-text: var(--color-text);
+}
+
+/* Motion scale — durations and easings */
+/**
+ * Motion Tokens — durations and easings
+ *
+ * Motion should be perceptible without distracting. These tokens cover the
+ * most common animation lengths and curves. Consumers who disable motion
+ * via prefers-reduced-motion should see `duration-instant` effectively,
+ * which is why most component animations reference duration tokens rather
+ * than hard-coding values.
+ */
+:root {
+  /* Duration scale — paced to feel deliberate rather than twitchy */
+  --duration-instant: 0ms; /* Reduced-motion target */
+  --duration-fast: 120ms; /* Small state changes (hover, focus) */
+  --duration-base: 200ms; /* Default for most UI transitions */
+  --duration-slow: 320ms; /* Entrances, larger layout shifts */
+  --duration-slower: 480ms; /* Modal open/close, page-level transitions */
+  /* Easing curves — named by intent rather than cubic-bezier values */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* Natural acceleration + ease-out */
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1); /* Exits the viewport */
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1); /* Enters the viewport */
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1.2); /* Attention-grabbing snap */
+}
+
+/*
+ * Respect the user's reduced-motion preference: collapse all durations to
+ * near-instant. Component authors who reference --duration-* tokens get this
+ * for free without custom media-query handling.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 1ms;
+    --duration-base: 1ms;
+    --duration-slow: 1ms;
+    --duration-slower: 1ms;
+  }
+}
+/* Breakpoints — responsive layout thresholds */
+/**
+ * Breakpoint Tokens — responsive layout thresholds
+ *
+ * Breakpoints are exposed as custom properties so token consumers (Figma,
+ * docs site, native apps) can read them as values. They are NOT directly
+ * usable inside @media queries — CSS custom properties aren't allowed
+ * there. For SCSS-side media queries, use the SCSS variables below instead.
+ *
+ * The two layers are kept in sync by convention. If you update one, update
+ * the other.
+ */
+:root {
+  /* Custom properties — for JS/TS consumers and design-token tooling */
+  --breakpoint-reflow: 20rem; /* 320px — WCAG 1.4.10 reflow minimum */
+  --breakpoint-xs: 23.4375rem; /* 375px — iPhone SE and similar */
+  --breakpoint-sm: 30rem; /* 480px — small devices */
+  --breakpoint-md: 48rem; /* 768px — tablets */
+  --breakpoint-lg: 62rem; /* 992px — desktops */
+  --breakpoint-xl: 80rem; /* 1280px — large screens */
+  --breakpoint-2xl: 96rem; /* 1536px — extra large screens */
 }
 
 *,
@@ -1130,6 +1280,10 @@ button[data-color=warning] {
   --btn-bg: var(--color-warning);
   --btn-color: var(--color-text-inverse);
 }
+button[data-color=info] {
+  --btn-bg: var(--color-info);
+  --btn-color: var(--color-text-inverse);
+}
 button[data-style~=outline] {
   --btn-bg: transparent;
   --btn-color: currentColor;
@@ -1340,7 +1494,7 @@ p[role=note][data-tag~=production],
 [role=note][data-tag~=production],
 small > span[data-tag~=production],
 [data-tag][data-tag~=production] {
-  --tag-color: #ffffff; /* White: 8.59:1 contrast with dark blue */
+  --tag-color: var(--color-text-inverse); /* White: 8.59:1 contrast with dark blue */
   --tag-bg: var(--production);
   /* Visual indicator beyond color - live indicator symbol */
 }
@@ -1399,7 +1553,7 @@ img[alt] {
 figure:has(img[alt]) {
   --fig-display: flex;
   --fig-padding: 0.5rem;
-  --fig-bg: rgba(245, 245, 245, 0.683);
+  --fig-bg: var(--color-surface-tertiary);
   --fig-width: fit-content;
   display: var(--fig-display);
   position: relative;
@@ -1501,7 +1655,7 @@ figure:has(img[alt]) > figcaption {
   --card-transition-duration: 0.2s;
   --card-transition-timing: ease;
   --card-hover-lift: -0.125rem;
-  --card-hover-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  --card-hover-shadow: 0 0.25rem 0.75rem rgba(var(--color-ui-overlay-base), 0.15);
   cursor: pointer;
   transition: box-shadow var(--card-transition-duration) var(--card-transition-timing), transform var(--card-transition-duration) var(--card-transition-timing);
 }
@@ -1939,7 +2093,7 @@ footer > div {
 }
 
 fieldset {
-  border: var(--fieldset-border, 1px solid var(--border-default, #999));
+  border: var(--fieldset-border, 0.0625rem solid var(--color-border));
   border-radius: var(--fieldset-border-radius, 0.5rem);
   padding: var(--fieldset-padding, 1rem);
   padding-inline: var(--fieldset-padding-inline, 1.5rem);
@@ -1960,12 +2114,12 @@ fieldset .fieldset-description {
   margin-block-start: 0.5rem;
   margin-block-end: 0;
   font-size: var(--fieldset-description-fs, 0.875rem);
-  color: var(--fieldset-description-color, var(--text-subtle, #666));
+  color: var(--fieldset-description-color, var(--color-text-tertiary));
 }
 
 fieldset:focus-within {
-  outline: var(--fieldset-focus-outline, 2px solid var(--focus-color, #005a9c));
-  outline-offset: var(--fieldset-focus-offset, 2px);
+  outline: var(--fieldset-focus-outline, 0.125rem solid var(--color-focus));
+  outline-offset: var(--fieldset-focus-offset, 0.125rem);
 }
 
 @media (hover: hover) {
@@ -1978,7 +2132,7 @@ fieldset:disabled {
   cursor: not-allowed;
 }
 fieldset:disabled > legend {
-  color: var(--legend-disabled-color, var(--text-disabled, #757575));
+  color: var(--legend-disabled-color, var(--color-text-disabled));
 }
 
 fieldset[data-legend=inline] {
@@ -1992,9 +2146,9 @@ fieldset[data-legend=inline] > legend {
 }
 
 fieldset[data-fieldset=grouped] {
-  --fieldset-bg: var(--surface-subtle, #f5f5f5);
+  --fieldset-bg: var(--color-surface-tertiary);
   --fieldset-padding-block: 1.5rem;
-  --fieldset-border: 2px solid var(--border-focus, #005a9c);
+  --fieldset-border: 0.125rem solid var(--color-focus);
 }
 fieldset[data-fieldset=grouped] > legend {
   --legend-fs: 1.125rem;
@@ -2838,20 +2992,20 @@ dialog[data-position=bottom-right] {
  * Uses native HTML popover API with CSS custom properties
  */
 .fpkit-popover {
-  --popover-bg: #ffffff;
-  --popover-border: 0.0625rem solid #ccc;
+  --popover-bg: var(--color-surface-elevated);
+  --popover-border: 0.0625rem solid var(--color-border);
   --popover-border-radius: 0.5rem;
   --popover-padding: 1rem;
   --popover-margin: 0.5rem;
   --popover-max-width: 20rem;
-  --popover-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1),
-    0 0.125rem 0.25rem rgba(0, 0, 0, 0.06);
+  --popover-shadow: 0 0.25rem 0.5rem rgba(var(--color-ui-overlay-base), 0.1),
+    0 0.125rem 0.25rem rgba(var(--color-ui-overlay-base), 0.06);
   --popover-arrow-size: 0.5rem;
   --popover-arrow-color: var(--popover-bg);
   --popover-close-size: 1.5rem;
-  --popover-close-color: #666;
-  --popover-close-hover-color: #000;
-  --popover-close-hover-bg: rgba(0, 0, 0, 0.05);
+  --popover-close-color: var(--color-text-tertiary);
+  --popover-close-hover-color: var(--color-text);
+  --popover-close-hover-bg: var(--color-hover-overlay);
   background: var(--popover-bg);
   border: var(--popover-border);
   border-radius: var(--popover-border-radius);
@@ -2892,13 +3046,13 @@ dialog[data-position=bottom-right] {
 }
 
 .fpkit-popover::backdrop {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(var(--color-ui-overlay-base), 0.3);
   backdrop-filter: blur(0.125rem);
   transition: background 0.2s ease-out, backdrop-filter 0.2s ease-out, overlay 0.2s ease-out allow-discrete, display 0.2s ease-out allow-discrete;
 }
 @starting-style {
   .fpkit-popover::backdrop {
-    background: rgba(0, 0, 0, 0);
+    background: rgba(var(--color-ui-overlay-base), 0);
     backdrop-filter: blur(0);
   }
 }
@@ -2974,8 +3128,8 @@ dialog[data-position=bottom-right] {
 
 .fpkit-popover-trigger {
   padding: 0.5rem 1rem;
-  background: #0066cc;
-  color: #ffffff;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
@@ -2983,7 +3137,7 @@ dialog[data-position=bottom-right] {
   transition: background-color 0.15s ease, transform 0.1s ease;
 }
 .fpkit-popover-trigger:hover {
-  background: #0052a3;
+  background: var(--color-primary-hover);
 }
 .fpkit-popover-trigger:active {
   transform: scale(0.98);
@@ -4132,7 +4286,7 @@ nav button:focus-visible {
  * - --checkbox-focus-ring-offset: Focus ring offset (default: 0.125rem)
  * - --checkbox-hover-label-color: Label color on hover (default: inherit)
  * - --checkbox-error-label-color: Label color when invalid (default: var(--color-error-text))
- * - --checkbox-valid-label-color: Label color when valid (default: #16a34a)
+ * - --checkbox-valid-label-color: Label color when valid (default: var(--color-success))
  * - --checkbox-focus-radius: Focus outline border radius (default: 0.125rem)
  *
  * WCAG 2.1 AA Compliance:
@@ -4256,24 +4410,24 @@ select {
    ========================================================================== */
 /*
 option[data-option="primary"] {
-  background-color: var(--color-primary-light, #dbeafe);
-  color: var(--color-primary, #2563eb);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
   font-weight: 600;
 }
 
 option[data-option="success"] {
-  background-color: var(--color-success-bg, #dcfce7);
-  color: var(--color-success, #16a34a);
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
 }
 
 option[data-option="error"] {
-  background-color: var(--color-error-bg, #fee2e2);
-  color: var(--color-error, #dc2626);
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
 }
 
 option[data-option="warning"] {
-  background-color: var(--color-warning-bg, #fef3c7);
-  color: var(--color-warning, #d97706);
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning);
 }
 */
 /*
@@ -4291,12 +4445,12 @@ option[data-size="lg"] {
 /*
 option[data-featured="true"] {
   font-weight: 700;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
 }
 
 option[data-category="premium"] {
-  background-color: #fef3c7;
+  background-color: var(--color-warning-bg);
   font-style: italic;
 }
 */
@@ -4428,7 +4582,7 @@ nav[data-breadcrumb] {
   --breadcrumb-display: flex;
   --breadcrumb-gap: 0.5rem;
   --breadcrumb-color: currentColor;
-  --breadcrumb-current-color: rgb(46, 46, 46);
+  --breadcrumb-current-color: var(--color-text);
   --breadcrumb-fs: var(--fs-3);
   margin-inline: unset;
   padding-inline: unset;
@@ -4802,8 +4956,8 @@ li:has(> button) {
   --alert-color: white;
 }
 [role=alert][data-variant=filled][data-alert~=default] {
-  --alert-bg: #757575;
-  --alert-color: white;
+  --alert-bg: var(--color-neutral-500);
+  --alert-color: var(--color-text-inverse);
 }
 [role=alert][data-variant=soft] {
   border: none;

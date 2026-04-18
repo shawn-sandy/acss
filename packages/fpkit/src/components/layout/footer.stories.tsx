@@ -13,6 +13,7 @@ import { Footer } from "./landmarks";
 const meta: Meta<typeof Footer> = {
   title: "FP.React Components/Layout/Landmarks",
   component: Footer,
+  tags: ["stable"],
   args: {
     children: "Main Landmark",
     "data-testid": "main",

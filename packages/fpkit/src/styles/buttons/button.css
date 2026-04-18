@@ -95,6 +95,10 @@ button[data-color=warning] {
   --btn-bg: var(--color-warning);
   --btn-color: var(--color-text-inverse);
 }
+button[data-color=info] {
+  --btn-bg: var(--color-info);
+  --btn-color: var(--color-text-inverse);
+}
 button[data-style~=outline] {
   --btn-bg: transparent;
   --btn-color: currentColor;

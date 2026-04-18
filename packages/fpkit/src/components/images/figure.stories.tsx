@@ -6,7 +6,7 @@ import Figure from "./figure";
 const meta: Meta<typeof Figure> = {
   title: "FP.React Components/Figure",
   component: Figure,
-  tags: ["version:1.0.0"],
+  tags: ["stable", "version:1.0.0"],
   parameters: {
     docs: {
       description: {

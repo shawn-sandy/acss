@@ -123,7 +123,7 @@ p[role=note][data-tag~=production],
 [role=note][data-tag~=production],
 small > span[data-tag~=production],
 [data-tag][data-tag~=production] {
-  --tag-color: #ffffff; /* White: 8.59:1 contrast with dark blue */
+  --tag-color: var(--color-text-inverse); /* White: 8.59:1 contrast with dark blue */
   --tag-bg: var(--production);
   /* Visual indicator beyond color - live indicator symbol */
 }
