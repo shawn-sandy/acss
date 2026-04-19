@@ -98,18 +98,15 @@ tokens.color.primary.$extensions['com.fpkit.themeModes'].dark;
         <code>$extensions['com.fpkit.themeModes'].dark</code>. Primitive
         palettes don't — only semantic mappings flip.
       </p>
-
-      <h3>TypeScript module — React runtime</h3>
-      <pre><code>{`import { tokens } from '@fpkit/acss/tokens';
-
-const styles = {
-  color: tokens.color.primary,     // "var(--color-primary)"
-  transition: \`color \${tokens.duration.base} \${tokens.ease.standard}\`,
-};`}</code></pre>
       <p>
-        Each entry resolves to a <code>var()</code> reference — the resolved
-        color follows whatever <code>data-theme</code> is active on
-        <code>&lt;html&gt;</code>. No rebuild when the user toggles.
+        The package also generates a typed TypeScript module at
+        <code>src/tokens/index.ts</code> whose entries resolve to{" "}
+        <code>var()</code> references for runtime theme-aware styling. It
+        isn't exposed via a package subpath yet — see the{" "}
+        <a
+          href="https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/design-tokens.md"
+          >full design-tokens guide</a
+        > for the roadmap.
       </p>
     </section>
 
