@@ -2,6 +2,20 @@
 
 This guide collects every breaking or semi-breaking change that accumulates across the design-system conversion roadmap (see `docs/planning/i-want-to-convert-nested-waffle.md`). A **v7.0.0** release will bundle them; some entries are additive and ship in v6.x minors.
 
+## Minimum viable v6.x upgrade
+
+You're on an older v6 minor and want to pick up theming + tokens today. The absolute-minimum steps:
+
+1. **Bump the package** — `npm install @fpkit/acss@latest`. All changes below are additive in v6.x; nothing breaks.
+2. **Wrap your app in `ThemeProvider`** and render a `ThemeToggle` (or call `useTheme()` from your own picker). See [`ThemeProvider` upgrade steps](#themeprovider-useTheme-themetoggle--additive) below.
+3. **SSR apps only**: inline `getThemeFoucScript()` in your document `<head>` before any styles load — prevents theme-flash on first paint. See [FOUC upgrade steps](#fouc-prevention-script--additive).
+4. **Drop hand-coded hover/active overlays** (`rgba(0, 0, 0, 0.08)` style) in favor of `var(--color-hover-overlay)` / `var(--color-active-overlay)` so your styles flip correctly under dark mode. See [overlay token upgrade steps](#css-custom-properties-for-ui-overlays--additive).
+5. **If you style links yourself** and you've added an `aria-disabled` or click-suppressed variant, replace it with the new `disabled` prop on `<Link>` — you get keyboard-reachable disabled state for free. See [Link upgrade steps](#link--disabled-prop-added--additive).
+
+That's enough to make dark mode work and bring your app onto the token surface. Everything below is depth.
+
+> **v7.0.0 forward-compatibility:** every item in this list is a v6.x minor. The only changes that will land in v7 are the ones marked 💥 below. If you're green on the list above, you're green for v7 too.
+
 **Tracking status:**
 
 - ✅ = shipped in a v6 minor (additive; no action required)
@@ -18,7 +32,33 @@ This guide collects every breaking or semi-breaking change that accumulates acro
 `_color-semantic.scss` introduces `--color-ui-overlay-base` as an RGB triplet (`0, 0, 0` light / `255, 255, 255` dark). Hover and active overlays (`--color-hover-overlay`, `--color-active-overlay`) are now composed via `rgba(var(--color-ui-overlay-base), …)` so they invert correctly under `[data-theme="dark"]`.
 
 **Migration**
-Nothing to do for consumers that only reference `--color-hover-overlay` / `--color-active-overlay`. If you hard-coded `rgba(0, 0, 0, X)` in your own overrides, switch to the composed form so your styles follow the active theme.
+Nothing to do for consumers that only reference `--color-hover-overlay` / `--color-active-overlay`. If you hard-coded overlay colors, switch to the composed form so your styles follow the active theme.
+
+**Upgrade steps**
+
+```scss
+/* Before — dark mode ignores this, overlay stays black */
+.card:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* After — inverts automatically when [data-theme="dark"] is set */
+.card:hover {
+  background: var(--color-hover-overlay);
+}
+
+/* Or compose your own overlay with a different alpha */
+.card:active {
+  background: rgba(var(--color-ui-overlay-base), 0.16);
+}
+```
+
+Find candidates to migrate with a quick ripgrep:
+
+```bash
+rg 'rgba\(0,\s*0,\s*0' src/
+rg 'rgba\(255,\s*255,\s*255' src/
+```
 
 ### New token categories (✅ additive)
 
@@ -31,6 +71,34 @@ These are exposed via `@fpkit/acss/tokens` (the generated JSON artifact) and `@f
 ### `libs/tokens.json` export (✅ additive)
 
 Consumers can now `import tokens from '@fpkit/acss/tokens'` to get every token with dark-mode extensions. Useful for docs sites, native apps, and Figma bridges.
+
+**Upgrade steps**
+
+```ts
+// Before — hex values duplicated in app CSS, no dark override
+const primary = '#2563eb';
+const primaryHover = '#1d4ed8';
+
+// After — one source of truth, dark value is discoverable
+import tokens from '@fpkit/acss/tokens';
+
+const primary = tokens.color.primary.$value;                                        // "#2563eb"
+const primaryDark = tokens.color.primary.$extensions?.['com.fpkit.themeModes']?.dark; // "#3b82f6"
+```
+
+For React runtime use — where the value should follow whatever `data-theme` is active — import the typed `var()` references instead:
+
+```tsx
+// TS module — each entry resolves to a `var(--...)` reference
+import { tokens } from '@fpkit/acss/tokens';
+
+const styles = {
+  color: tokens.color.primary,          // "var(--color-primary)"
+  transition: `color ${tokens.duration.base} ${tokens.ease.standard}`,
+};
+```
+
+See the [Design Tokens guide](docs/guides/design-tokens.md) for the full shape + Figma/native consumption patterns.
 
 ---
 
@@ -51,6 +119,36 @@ import { ThemeProvider, ThemeToggle, useTheme } from '@fpkit/acss';
 
 `ThemeProvider` writes `data-theme="light"` or `data-theme="dark"` on `document.documentElement`, watches `prefers-color-scheme` when preference is `"system"`, and persists to `localStorage`.
 
+**Upgrade steps**
+
+```tsx
+// Before — app root has no theme context; dark mode isn't wired
+function App() {
+  return (
+    <header>
+      <button>Toggle theme (no-op)</button>
+    </header>
+  );
+}
+
+// After — wrap once, drop ThemeToggle in the header, every token-driven
+// component picks up light/dark automatically
+import { ThemeProvider, ThemeToggle } from '@fpkit/acss';
+
+function App() {
+  return (
+    <ThemeProvider defaultPreference="system">
+      <header>
+        <ThemeToggle display="icon" />
+      </header>
+      <main>{/* … */}</main>
+    </ThemeProvider>
+  );
+}
+```
+
+For a custom picker (three explicit buttons instead of a cycler), use `useTheme()` directly — see the [Theming guide](docs/guides/theming.md#usetheme).
+
 ### FOUC prevention script (✅ additive)
 
 For SSR apps (Next.js, Astro, Remix):
@@ -63,6 +161,51 @@ import { getThemeFoucScript } from '@fpkit/acss';
 
 Inject before any styles load to avoid a theme flash on first paint.
 
+**Upgrade steps — framework-specific**
+
+```astro
+<!-- Astro — src/layouts/Layout.astro -->
+---
+import { getThemeFoucScript } from '@fpkit/acss';
+const foucScript = getThemeFoucScript();
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <script is:inline set:html={foucScript} />
+    {/* ...rest of head */}
+  </head>
+  <body><slot /></body>
+</html>
+```
+
+```tsx
+// Next.js (App Router) — app/layout.tsx
+import { getThemeFoucScript } from '@fpkit/acss';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: getThemeFoucScript() }} />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+`suppressHydrationWarning` on `<html>` is required for Next.js — the FOUC script sets `data-theme` before React hydrates, producing a legitimate attribute mismatch the flag silences.
+
+Using a custom storage key? Pass it to **both** the provider and the FOUC helper (mismatched keys re-introduce the flash):
+
+```tsx
+<ThemeProvider storageKey="my-app-theme">{children}</ThemeProvider>
+
+// And in document head:
+getThemeFoucScript('my-app-theme');
+```
+
 ---
 
 ## Components
@@ -71,7 +214,19 @@ Inject before any styles load to avoid a theme flash on first paint.
 
 Brings Button to parity with Alert's semantic colors. No breaking change; existing `primary`/`secondary`/`danger`/`success`/`warning` are unchanged.
 
+**Upgrade steps**
+
 ```tsx
+// Before — custom CSS to add an info-colored button
+<Button
+  type="button"
+  className="btn-info"
+  style={{ '--btn-bg': 'var(--color-info)' } as React.CSSProperties}
+>
+  Learn more
+</Button>
+
+// After — first-class semantic variant, picks up dark-mode overrides for free
 <Button color="info" type="button">Learn more</Button>
 ```
 
@@ -79,9 +234,20 @@ Brings Button to parity with Alert's semantic colors. No breaking change; existi
 
 Links now accept `disabled?: boolean`. The component applies `aria-disabled`, suppresses `href`, and blocks `onClick`/`onPointerDown` via the shared `useDisabledState` hook. The element stays in tab order so keyboard users still discover the disabled state (WCAG 2.1.1).
 
+**Upgrade steps**
+
 ```tsx
+// Before — app-level logic + conditional render, keyboard users can't
+// discover the disabled state because the link disappears
+{canEdit
+  ? <Link href="/settings">Edit settings</Link>
+  : <span className="link-disabled" aria-disabled="true">Edit settings</span>}
+
+// After — link stays in tab order, aria-disabled set, href + onClick suppressed
 <Link href="/settings" disabled={!canEdit}>Edit settings</Link>
 ```
+
+Why keep the element in tab order? WCAG 2.1.1 (Keyboard): every piece of functionality must be keyboard-operable *and discoverable*. Removing the link from the DOM hides the fact that it existed — a screen-reader user has no way to know "this action is temporarily unavailable."
 
 ### Alert — `data-alert` + `data-variant` documented exception (no change)
 
@@ -100,6 +266,18 @@ If you author SCSS overrides for Alert, no change is needed. A future release ma
 // After
 <Title level="h2">Section</Title>
 ```
+
+**Codemod** — find every call site to migrate:
+
+```bash
+# Imports
+rg "import\s+\{[^}]*Heading[^}]*\}\s+from\s+['\"]@fpkit/acss['\"]" src/
+
+# JSX usage — maps Heading type="h{n}" to Title level="h{n}"
+rg '<Heading\s+type=' src/
+```
+
+The prop rename is `type` → `level`; nothing else changes. `Title` is already WCAG AA compliant and ships the same size/color variants as `Heading`.
 
 ---
 

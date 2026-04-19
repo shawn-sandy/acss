@@ -1,0 +1,191 @@
+---
+/**
+ * Theming guide — condensed landing on the docs site.
+ *
+ * Full markdown (kept as source of truth): packages/fpkit/docs/guides/theming.md
+ * This page surfaces the quick-start path and the SSR gotcha most consumers
+ * hit; anything deeper links to GitHub.
+ */
+import Layout from "../../layouts/Layout.astro";
+
+const GITHUB_SOURCE =
+  "https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/theming.md";
+---
+
+<Layout
+  title="Theming — @fpkit/acss guides"
+  description="Wire light/dark theming into your app with ThemeProvider, ThemeToggle, and getThemeFoucScript."
+>
+  <article>
+    <header class="page-intro">
+      <p class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/guides/">Guides</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Theming</span>
+      </p>
+      <h1>Theming</h1>
+      <p>
+        Ship light/dark theming without a flash of the wrong colors on first
+        paint. Three primitives cover ~99% of apps: <code>ThemeProvider</code>,
+        <code>ThemeToggle</code>, and <code>getThemeFoucScript()</code> for SSR.
+      </p>
+    </header>
+
+    <section aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How it works</h2>
+      <p>
+        The runtime sets <code>data-theme="light"</code> or
+        <code>data-theme="dark"</code> on <code>&lt;html&gt;</code>. Every
+        fpkit component that references semantic tokens flips immediately —
+        no re-render, no prop-drilling. Preference persists to
+        <code>localStorage</code>; "system" preference tracks
+        <code>prefers-color-scheme</code> at runtime.
+      </p>
+    </section>
+
+    <section aria-labelledby="quick-start">
+      <h2 id="quick-start">Quick start</h2>
+      <p>Client-only apps:</p>
+      <pre><code>{`import { ThemeProvider, ThemeToggle } from '@fpkit/acss';
+
+function App() {
+  return (
+    <ThemeProvider defaultPreference="system">
+      <header>
+        <ThemeToggle />
+      </header>
+      <main>{/* your app */}</main>
+    </ThemeProvider>
+  );
+}`}</code></pre>
+    </section>
+
+    <section aria-labelledby="ssr">
+      <h2 id="ssr">Preventing theme flash in SSR</h2>
+      <p>
+        For Astro, Next.js, or Remix, inline
+        <code>getThemeFoucScript()</code> in <code>&lt;head&gt;</code> so
+        <code>data-theme</code> is set before stylesheets load. This page
+        does it — check this file's <code>Layout.astro</code> for the
+        reference implementation.
+      </p>
+      <pre><code>{`---
+import { getThemeFoucScript } from '@fpkit/acss';
+const foucScript = getThemeFoucScript();
+---
+<html lang="en">
+  <head>
+    <script is:inline set:html={foucScript} />
+  </head>
+</html>`}</code></pre>
+      <p class="callout">
+        <strong>Custom storage key?</strong> Pass it to both
+        <code>ThemeProvider.storageKey</code> and
+        <code>getThemeFoucScript(key)</code>. Mismatched keys bring the flash
+        back.
+      </p>
+    </section>
+
+    <section aria-labelledby="custom-picker">
+      <h2 id="custom-picker">Building a custom picker</h2>
+      <p>
+        <code>ThemeToggle</code> is a three-state cycler (light → dark →
+        system). For a three-button radio group or a dropdown, compose with
+        <code>useTheme()</code>:
+      </p>
+      <pre><code>{`import { useTheme } from '@fpkit/acss';
+
+function ThemePicker() {
+  const { preference, setPreference } = useTheme();
+  return (
+    <fieldset>
+      <legend>Theme</legend>
+      <label><input type="radio" checked={preference === 'light'}
+        onChange={() => setPreference('light')} /> Light</label>
+      <label><input type="radio" checked={preference === 'dark'}
+        onChange={() => setPreference('dark')} /> Dark</label>
+      <label><input type="radio" checked={preference === 'system'}
+        onChange={() => setPreference('system')} /> Match system</label>
+    </fieldset>
+  );
+}`}</code></pre>
+    </section>
+
+    <aside class="see-also" aria-labelledby="see-also">
+      <h2 id="see-also">See also</h2>
+      <ul>
+        <li>
+          <a href={GITHUB_SOURCE}
+            >Full theming guide on GitHub</a
+          > — custom themes, API reference, verification procedures, troubleshooting.
+        </li>
+        <li><a href="/guides/tokens">Design tokens guide</a></li>
+        <li><a href="/foundations/colors">Foundations — colors in light + dark</a></li>
+        <li>
+          <a
+            href="https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/MIGRATION-v7.md#themeprovider-usetheme-themetoggle--additive"
+            >ThemeProvider migration steps</a
+          >
+        </li>
+      </ul>
+    </aside>
+  </article>
+
+  <style>
+    .page-intro {
+      margin-block-end: 2rem;
+    }
+    .breadcrumb {
+      margin: 0 0 0.5rem;
+      font-size: 0.875rem;
+      color: var(--color-text-tertiary);
+    }
+    .breadcrumb a {
+      color: var(--color-link);
+    }
+    .breadcrumb span[aria-current] {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+    .page-intro p {
+      color: var(--color-text-secondary);
+      max-width: 48rem;
+    }
+    section {
+      margin-block-end: 2rem;
+    }
+    pre {
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.9em;
+    }
+    .callout {
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-left: 3px solid var(--color-info, var(--color-primary));
+      padding: 0.75rem 1rem;
+      border-radius: 0.25rem;
+    }
+    .see-also {
+      padding: 1rem 1.25rem;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+    }
+    .see-also h2 {
+      margin-block: 0 0.5rem;
+      font-size: 1rem;
+    }
+    .see-also a {
+      color: var(--color-link);
+    }
+  </style>
+</Layout>

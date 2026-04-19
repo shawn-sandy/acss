@@ -4,8 +4,17 @@ A lightweight React UI library for building modern and accessible components tha
 
 [![npm version](https://badge.fury.io/js/@fpkit%2Facss.svg)](https://badge.fury.io/js/@fpkit%2Facss)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Design system v6](https://img.shields.io/badge/design--system-v6-blueviolet.svg)](docs/DESIGN-SYSTEM-v6.md)
 
 [📚 **Storybook Documentation**](https://fpkit.netlify.app/?path=/story/guides-introduction--page) | [🎯 **Component Playground**](https://fpkit.netlify.app/)
+
+## Design system
+
+As of v6.x, `@fpkit/acss` ships as a full design system — tokens, theming, CI gates, and a public docs site. Start with:
+
+- 📖 [Design System v6 Overview](docs/DESIGN-SYSTEM-v6.md) — narrative of everything shipped in v6.x.
+- 🗺️ [Documentation index](docs/README.md) — one-line-per-guide directory of all 13 guides.
+- ⬆️ [Migration guide](MIGRATION-v7.md) — per-change upgrade steps with before/after code.
 
 ## ✨ Features
 

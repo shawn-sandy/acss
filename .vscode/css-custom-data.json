@@ -1,0 +1,138 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-css-languageservice/main/docs/customData.schema.json",
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "--color-primary",
+      "description": "Brand primary color. Inverts under [data-theme=\"dark\"]."
+    },
+    {
+      "name": "--color-secondary",
+      "description": "Brand secondary color."
+    },
+    {
+      "name": "--color-surface",
+      "description": "Default page/background surface."
+    },
+    {
+      "name": "--color-surface-elevated",
+      "description": "Elevated surface (cards, popovers)."
+    },
+    {
+      "name": "--color-text",
+      "description": "Primary body text color."
+    },
+    {
+      "name": "--color-text-secondary",
+      "description": "Secondary text (descriptions, captions)."
+    },
+    {
+      "name": "--color-text-inverse",
+      "description": "Text color on dark surfaces (buttons, chips)."
+    },
+    {
+      "name": "--color-error",
+      "description": "Error / danger semantic color."
+    },
+    {
+      "name": "--color-success",
+      "description": "Success semantic color."
+    },
+    {
+      "name": "--color-warning",
+      "description": "Warning semantic color."
+    },
+    {
+      "name": "--color-info",
+      "description": "Info semantic color."
+    },
+    {
+      "name": "--color-ui-overlay-base",
+      "description": "RGB triplet for composing hover/active overlays via rgba(). Inverts under dark mode (0,0,0 light; 255,255,255 dark)."
+    },
+    {
+      "name": "--color-hover-overlay",
+      "description": "Prebuilt hover overlay, theme-aware. Use instead of hard-coded rgba(0,0,0,…)."
+    },
+    {
+      "name": "--color-active-overlay",
+      "description": "Prebuilt active/pressed overlay, theme-aware."
+    },
+    {
+      "name": "--color-border-subtle",
+      "description": "Low-contrast border for dividers and outlines."
+    },
+    {
+      "name": "--color-link",
+      "description": "Link color. Distinct from --color-primary."
+    },
+    {
+      "name": "--color-focus",
+      "description": "Focus ring color."
+    },
+    {
+      "name": "--duration-instant",
+      "description": "Motion token — 0ms (essentially immediate). Added in Phase 2 token pipeline."
+    },
+    {
+      "name": "--duration-fast",
+      "description": "Motion token — short transitions (hover, small state changes)."
+    },
+    {
+      "name": "--duration-base",
+      "description": "Motion token — default transition duration for most UI changes."
+    },
+    {
+      "name": "--duration-slow",
+      "description": "Motion token — larger elements entering or leaving."
+    },
+    {
+      "name": "--duration-slower",
+      "description": "Motion token — full-page transitions."
+    },
+    {
+      "name": "--ease-standard",
+      "description": "Motion easing — default curve for most transitions."
+    },
+    {
+      "name": "--ease-accelerate",
+      "description": "Motion easing — for elements leaving the screen."
+    },
+    {
+      "name": "--ease-decelerate",
+      "description": "Motion easing — for elements entering the screen."
+    },
+    {
+      "name": "--ease-emphasized",
+      "description": "Motion easing — for attention-grabbing transitions."
+    },
+    {
+      "name": "--breakpoint-reflow",
+      "description": "Responsive breakpoint (20rem / 320px) — WCAG reflow minimum."
+    },
+    {
+      "name": "--breakpoint-xs",
+      "description": "Responsive breakpoint (23.4375rem / 375px) — iPhone SE class."
+    },
+    {
+      "name": "--breakpoint-sm",
+      "description": "Responsive breakpoint (30rem / 480px) — small phones upright."
+    },
+    {
+      "name": "--breakpoint-md",
+      "description": "Responsive breakpoint (48rem / 768px) — tablets."
+    },
+    {
+      "name": "--breakpoint-lg",
+      "description": "Responsive breakpoint (62rem / 992px) — desktops."
+    },
+    {
+      "name": "--breakpoint-xl",
+      "description": "Responsive breakpoint (80rem / 1280px) — large screens."
+    },
+    {
+      "name": "--breakpoint-2xl",
+      "description": "Responsive breakpoint (96rem / 1536px) — very large screens."
+    }
+  ]
+}

@@ -13,6 +13,7 @@ This guide covers:
 - [Creating a custom theme](#creating-a-custom-theme)
 - [API reference](#api-reference)
 - [Accessibility notes](#accessibility-notes)
+- [Verification & troubleshooting](#verification--troubleshooting)
 
 ---
 
@@ -256,6 +257,130 @@ All exports are available from the main barrel `@fpkit/acss`:
 - **No focus flash.** Because theme switching is a single attribute change on `<html>`, focus rings and component state don't flicker.
 - **No JS required for visual theming.** If JS is disabled, the page renders with the `:root` (light) theme and remains fully usable. Only the toggle and preference persistence require JS.
 - **Respect `prefers-reduced-motion`.** The runtime itself doesn't animate, but custom themes should ensure transitions on `color`/`background-color` honor the user's reduced-motion preference.
+
+---
+
+## Verification & troubleshooting
+
+A short checklist for verifying dark mode works correctly, plus the common issues teams hit when wiring the runtime into a new app.
+
+### Verifying dark mode in Storybook
+
+Until a Storybook theme toolbar addon ships (tracked as a Phase 3 follow-up), toggle dark mode manually from DevTools:
+
+```js
+// In the browser DevTools console while viewing any story:
+document.documentElement.setAttribute('data-theme', 'dark');
+
+// Back to light:
+document.documentElement.setAttribute('data-theme', 'light');
+```
+
+Every component that references semantic tokens (`--color-primary`, `--color-surface`, etc.) flips immediately. Step through every variant in your story — hover states, active states, focus rings, disabled appearance — and confirm:
+
+1. **Text contrast remains ≥ 4.5:1** against the new surface. Use the axe DevTools extension or WebAIM's contrast checker.
+2. **Focus indicators are still visible.** The default focus ring uses `currentColor`, which means it inherits whichever foreground color the component is using — double-check it doesn't blend into the new surface.
+3. **Semantic colors remain distinguishable.** Error / success / warning / info should still read as their intended emotion, not all converge to "slightly-different-gray."
+4. **Custom SCSS overrides still work.** If your story sets `--btn-bg: #custom` in `styles`, that hex value *won't* flip — that's the point of the override. Ensure the color you picked works in both themes.
+
+### Capturing Chromatic baselines for dark mode
+
+Once [`CHROMATIC_PROJECT_TOKEN`](ci-gates.md#visual-regression-chromatic) is populated and the initial light-mode baseline is approved, add dark-mode snapshots per story:
+
+```tsx
+export default {
+  component: Button,
+  parameters: {
+    chromatic: {
+      modes: ['light', 'dark'],
+    },
+  },
+} satisfies Meta;
+```
+
+Chromatic will capture one snapshot per mode. When you introduce a change that affects both themes, both baselines diff — a regression in just dark mode is caught without any extra work.
+
+**Baseline reset procedure** (if you accept a bulk theme change and want the current state to become the new baseline):
+
+1. Merge the PR with the change.
+2. In the Chromatic UI, navigate to the affected component.
+3. For each story, click **"Approve this change"** on the dark-mode diff (and light-mode, if both changed).
+4. The next run uses the approved snapshots as the baseline.
+
+Don't run `chromatic --auto-accept-changes` on `main` unless you've manually reviewed the changes — it approves *everything*, including regressions you didn't intend.
+
+### Common issues
+
+**FOUC still flashes even though I added `getThemeFoucScript()`**
+
+Most likely: your `ThemeProvider` and the FOUC script use different `storageKey` values. The script reads `localStorage['fpkit-theme-preference']` by default; if the provider uses a custom key, pass it to both:
+
+```tsx
+<ThemeProvider storageKey="my-app-theme">{children}</ThemeProvider>
+
+// And in <head>:
+getThemeFoucScript('my-app-theme');
+```
+
+Other suspects:
+
+- The script is in `<body>` instead of `<head>` — move it so it runs before any stylesheet loads.
+- The script is bundled (`<script type="module">`) instead of inline — `is:inline` (Astro) or `dangerouslySetInnerHTML` (React) is required.
+- A CSS-in-JS library is hydrating styles *before* the FOUC script runs — check your framework's script-ordering guarantees.
+
+**`useTheme()` throws "must be used inside a ThemeProvider"**
+
+The hook intentionally throws when called outside a provider. Common causes:
+
+- The provider is rendered *inside* the component that calls the hook (wrap higher up).
+- Two React trees (e.g. a portal, a separate `createRoot` call) — the provider only reaches its own subtree.
+- SSR hydration is swapping trees — confirm `ThemeProvider` is in the server-rendered output too.
+
+**Custom theme name isn't detected by `ThemeToggle`**
+
+Expected. `ThemeToggle` is a three-state cycler (`light` → `dark` → `system`); it doesn't know about `sepia` or any other custom theme. For apps with custom themes, compose your own picker with `useTheme()`:
+
+```tsx
+function ThemePicker() {
+  const { preference, setPreference } = useTheme();
+  return (
+    <select
+      value={preference}
+      onChange={(e) => setPreference(e.target.value as ThemePreference)}
+    >
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+      <option value="system">System</option>
+      {/* For a third custom theme, set data-theme directly on <html> — */}
+      {/* the provider only tracks the three built-in preferences. */}
+    </select>
+  );
+}
+```
+
+**Theme preference doesn't persist across page reloads**
+
+Check browser DevTools → Application → Local Storage. The key is `fpkit-theme-preference` (or your custom `storageKey`). If it's missing:
+
+- Third-party cookies / storage blocked (Safari ITP, strict privacy modes) — graceful fallback is to the `defaultPreference` prop.
+- `localStorage` quota exceeded (unusual but possible) — other code in the app may be writing large values.
+- SSR hydration mismatch wiping the attribute before the provider mounts — ensure `getThemeFoucScript()` runs before React hydrates.
+
+**Dark-mode colors look washed out**
+
+The semantic color mappings flip values between light and dark (e.g. primary goes from `#2563eb` → `#3b82f6`, a lighter blue for dark-mode legibility). If custom overrides look wrong under dark mode, you're probably overriding the *light value* and missing the dark one. Either:
+
+1. Set the override in `:root` only and accept the library's dark value.
+2. Add a matching override under `[data-theme="dark"]` in your CSS.
+
+```css
+:root {
+  --color-primary: #7c3aed;  /* your brand purple for light mode */
+}
+[data-theme="dark"] {
+  --color-primary: #a78bfa;  /* a lighter purple for dark mode */
+}
+```
 
 ---
 

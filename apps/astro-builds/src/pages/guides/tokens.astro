@@ -1,0 +1,245 @@
+---
+/**
+ * Design tokens guide — condensed landing on the docs site.
+ *
+ * Full markdown (source of truth): packages/fpkit/docs/guides/design-tokens.md
+ * This page surfaces import paths, JSON vs TS module distinction, and a few
+ * representative token counts read live from @fpkit/acss/tokens.
+ */
+import Layout from "../../layouts/Layout.astro";
+import tokens from "@fpkit/acss/tokens";
+
+const GITHUB_SOURCE =
+  "https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/design-tokens.md";
+
+// Live counts — read from the artifact the page is documenting.
+// Primitives nest as color.{palette}.{shade}; semantics sit at color.{name}.
+const colorTokens = tokens.color as Record<string, unknown>;
+const semanticColorCount = Object.entries(colorTokens).filter(
+  ([, v]) => typeof v === "object" && v !== null && "$value" in v
+).length;
+const primitiveColorCount = Object.entries(colorTokens).filter(
+  ([, v]) => typeof v === "object" && v !== null && !("$value" in v)
+).length;
+const durationCount = Object.keys(tokens.duration ?? {}).length;
+const easeCount = Object.keys(tokens.ease ?? {}).length;
+const breakpointCount = Object.keys(tokens.breakpoint ?? {}).length;
+---
+
+<Layout
+  title="Design tokens — @fpkit/acss guides"
+  description="The @fpkit/acss/tokens artifact — DTCG JSON plus a typed TS module, with consumption patterns for Figma, Astro, and native."
+>
+  <article>
+    <header class="page-intro">
+      <p class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/guides/">Guides</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Design tokens</span>
+      </p>
+      <h1>Design tokens</h1>
+      <p>
+        <code>@fpkit/acss/tokens</code> ships two artifacts from the same build
+        step: a DTCG JSON file for cross-platform consumers (Figma, native,
+        docs sites) and a typed TypeScript module of <code>var()</code>
+        references for React runtime.
+      </p>
+    </header>
+
+    <section aria-labelledby="whats-in">
+      <h2 id="whats-in">What's in the artifact</h2>
+      <p>
+        Live counts from the build of <code>@fpkit/acss/tokens</code> that
+        generated this page:
+      </p>
+      <dl class="stat-grid">
+        <div class="stat">
+          <dt>Primitive color palettes</dt>
+          <dd>{primitiveColorCount}</dd>
+        </div>
+        <div class="stat">
+          <dt>Semantic color tokens</dt>
+          <dd>{semanticColorCount}</dd>
+        </div>
+        <div class="stat">
+          <dt>Motion durations</dt>
+          <dd>{durationCount}</dd>
+        </div>
+        <div class="stat">
+          <dt>Motion easings</dt>
+          <dd>{easeCount}</dd>
+        </div>
+        <div class="stat">
+          <dt>Breakpoints</dt>
+          <dd>{breakpointCount}</dd>
+        </div>
+      </dl>
+      <p class="note">
+        Typography and spacing tokens are on the roadmap — today they live
+        in component-scoped SCSS. Track progress in the <a href={GITHUB_SOURCE}
+          >design-tokens guide</a
+        >.
+      </p>
+    </section>
+
+    <section aria-labelledby="two-artifacts">
+      <h2 id="two-artifacts">Two artifacts, two jobs</h2>
+
+      <h3>JSON — cross-platform consumers</h3>
+      <pre><code>{`import tokens from '@fpkit/acss/tokens';
+
+tokens.color.primary.$value;
+// "#2563eb"
+
+tokens.color.primary.$extensions['com.fpkit.themeModes'].dark;
+// "#3b82f6"`}</code></pre>
+      <p>
+        Every semantic token carries its dark-mode override under
+        <code>$extensions['com.fpkit.themeModes'].dark</code>. Primitive
+        palettes don't — only semantic mappings flip.
+      </p>
+
+      <h3>TypeScript module — React runtime</h3>
+      <pre><code>{`import { tokens } from '@fpkit/acss/tokens';
+
+const styles = {
+  color: tokens.color.primary,     // "var(--color-primary)"
+  transition: \`color \${tokens.duration.base} \${tokens.ease.standard}\`,
+};`}</code></pre>
+      <p>
+        Each entry resolves to a <code>var()</code> reference — the resolved
+        color follows whatever <code>data-theme</code> is active on
+        <code>&lt;html&gt;</code>. No rebuild when the user toggles.
+      </p>
+    </section>
+
+    <section aria-labelledby="consumption">
+      <h2 id="consumption">Consumption patterns</h2>
+
+      <h3>Figma / native platforms</h3>
+      <p>
+        Point your Figma plugin at
+        <code>node_modules/@fpkit/acss/libs/tokens.json</code>. The DTCG
+        <code>$type</code> fields map one-to-one with Figma variable types
+        (<code>color</code>, <code>number</code>, <code>string</code>).
+      </p>
+
+      <h3>Astro docs site</h3>
+      <p>
+        The Foundations pages on this site render every token category live
+        from the JSON — open <a href="/foundations/colors">/foundations/colors</a>
+        to see the pattern in action. The source:
+        <code>apps/astro-builds/src/pages/foundations/colors.astro</code>.
+      </p>
+
+      <h3>Custom CSS generator</h3>
+      <pre><code>{`// Generate --mybrand-* aliases in your own build
+import tokens from '@fpkit/acss/tokens';
+// ...feed through style-dictionary or your preferred generator`}</code></pre>
+    </section>
+
+    <aside class="see-also" aria-labelledby="see-also">
+      <h2 id="see-also">See also</h2>
+      <ul>
+        <li>
+          <a href={GITHUB_SOURCE}
+            >Full design-tokens guide on GitHub</a
+          > — complete token shape, build pipeline, dark-mode extensions, Figma bridge notes.
+        </li>
+        <li><a href="/foundations/colors">Foundations — colors</a></li>
+        <li><a href="/foundations/motion">Foundations — motion</a></li>
+        <li><a href="/foundations/spacing">Foundations — spacing</a></li>
+        <li>
+          <a
+            href="https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/guides/css-variables.md"
+            >CSS variable naming standard</a
+          >
+        </li>
+      </ul>
+    </aside>
+  </article>
+
+  <style>
+    .page-intro {
+      margin-block-end: 2rem;
+    }
+    .breadcrumb {
+      margin: 0 0 0.5rem;
+      font-size: 0.875rem;
+      color: var(--color-text-tertiary);
+    }
+    .breadcrumb a {
+      color: var(--color-link);
+    }
+    .breadcrumb span[aria-current] {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+    .page-intro p {
+      color: var(--color-text-secondary);
+      max-width: 48rem;
+    }
+    section {
+      margin-block-end: 2rem;
+    }
+    h3 {
+      margin-block: 1.5rem 0.5rem;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+    }
+    .stat {
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+    }
+    .stat dt {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+    .stat dd {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    pre {
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.9em;
+    }
+    .note {
+      color: var(--color-text-secondary);
+      font-size: 0.9375rem;
+    }
+    .see-also {
+      padding: 1rem 1.25rem;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+    }
+    .see-also h2 {
+      margin-block: 0 0.5rem;
+      font-size: 1rem;
+    }
+    .see-also a {
+      color: var(--color-link);
+    }
+  </style>
+</Layout>

@@ -11,6 +11,7 @@ Thank you for considering a contribution. This guide covers how to propose chang
 - [Development Workflow](#development-workflow)
 - [Commit Conventions](#commit-conventions)
 - [Style, Testing, and Accessibility Bars](#style-testing-and-accessibility-bars)
+- [Docs accessibility checklist](#docs-accessibility-checklist)
 - [Release Process](#release-process)
 
 ---
@@ -89,6 +90,58 @@ Breaking changes get `!` and a `BREAKING CHANGE:` footer: `feat(alert)!: rename 
 - **Variants**: follow `.claude/rules/component-conventions.md` — `data-{component}` for size/layout, `data-style` for appearance, `data-color` for semantic intent. See `packages/fpkit/docs/guides/variants.md` for the prop-vs-attribute policy.
 
 See `packages/fpkit/docs/guides/` for deep-dives on accessibility, architecture, composition, testing, CSS variables, and Storybook.
+
+## Docs accessibility checklist
+
+The docs themselves must meet the same accessibility bar as the components — WCAG 2.1 AA. Before opening a PR that adds or modifies documentation (markdown files, Astro pages, or component-level READMEs), run through this checklist.
+
+### Markdown (applies to every `.md` file)
+
+- [ ] **Heading hierarchy** — no skipped levels. Each page has exactly one `#` title; subsequent headings follow `##` → `###` in order. Validate with `markdownlint` rule `MD001`.
+- [ ] **Alt text on every image** — including decorative images (`alt=""`). No image-only content.
+- [ ] **Descriptive link text** — no "click here" or "read more"; use "See the theming guide" style. Screen-reader users navigate by link list.
+- [ ] **Code fences specify a language** — `~~~tsx`, `~~~scss`, `~~~bash`. Enables syntax highlighting and helps assistive tech identify code blocks.
+- [ ] **Tables have header rows** — use `| --- | --- |` syntax so screen readers announce column context.
+- [ ] **Color isn't the only signal** — if you use emoji or color to convey status, pair it with text (e.g. `✅ shipped`, not just `✅`).
+
+### Astro docs site (`apps/astro-builds/`)
+
+- [ ] **Semantic HTML** — use `<main>`, `<nav>`, `<article>`, `<aside>`. Reuse the fpkit `Layout`, `Header`, `Main`, `Footer` components where applicable.
+- [ ] **One `<h1>` per page** — followed by a logical heading outline. Verify in DevTools → Accessibility tree.
+- [ ] **Skip link reachable on first tab** — the `Layout.astro` ships one; don't break it. Test with keyboard only.
+- [ ] **Visible focus indicators** — never suppress `:focus-visible`. Tab through every interactive element; confirm a ring is visible in both light and dark themes.
+- [ ] **Color contrast ≥ 4.5:1 in both themes** — run axe DevTools extension with `data-theme="light"` and `data-theme="dark"`. Pay special attention to label text over color swatches (Foundations pages) and lifecycle pills (Status page).
+- [ ] **Keyboard-only pass** — no keyboard traps, tab order matches visual order, every interactive element reachable.
+- [ ] **`prefers-reduced-motion`** — if you add transitions, wrap them in `@media (prefers-reduced-motion: no-preference)`.
+- [ ] **No hardcoded colors** — use semantic tokens (`var(--color-text)`, `var(--color-surface)`) so dark mode works automatically.
+
+### Component READMEs (`.mdx`)
+
+- [ ] All of the markdown items above, plus:
+- [ ] **Code examples compile** — every snippet should be copy-pasteable and type-check against the current component API.
+- [ ] **JSX examples include `import` statements** — readers copying the snippet don't have to guess the export name.
+
+### Verification commands
+
+```bash
+# Markdown lint (install once: npm i -g markdownlint-cli)
+markdownlint packages/fpkit/docs/**/*.md packages/fpkit/MIGRATION-v7.md
+
+# Broken link check
+npx markdown-link-check packages/fpkit/docs/**/*.md
+
+# Astro build — catches type errors in .astro files
+cd apps/astro-builds && npm run build
+
+# Manual axe pass on the built docs site
+# 1. Install axe DevTools extension (Chrome/Firefox)
+# 2. npm run dev (or npm run preview after build)
+# 3. Run axe on every page in both light and dark themes
+```
+
+If you find a violation in *existing* docs during your PR, file a follow-up issue rather than blocking merge — unless the violation is in code you directly touched.
+
+> **Planned CI gate:** a `@axe-core/cli` check against the built Astro docs site is on the roadmap. Until it lands, this checklist is the contract. See the [CI Gates guide](packages/fpkit/docs/guides/ci-gates.md#docs-site-gate--planned).
 
 ## Release Process
 

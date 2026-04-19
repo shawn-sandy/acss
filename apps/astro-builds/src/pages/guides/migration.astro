@@ -1,0 +1,243 @@
+---
+/**
+ * Migration guide landing — the minimum-viable upgrade checklist surfaced
+ * on the docs site.
+ *
+ * Full per-change history (source of truth): packages/fpkit/MIGRATION-v7.md
+ * This page is intentionally short: 5 steps + the "what will break in v7"
+ * summary. Deep dives link to the repo markdown.
+ */
+import Layout from "../../layouts/Layout.astro";
+
+const MIGRATION_MD =
+  "https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/MIGRATION-v7.md";
+
+const STEPS = [
+  {
+    title: "Bump the package",
+    body: `npm install @fpkit/acss@latest. Every change below is additive in v6.x — nothing breaks.`,
+  },
+  {
+    title: "Wrap your app in ThemeProvider",
+    body: `Render a ThemeToggle (or call useTheme() from your own picker). Every token-driven component picks up light/dark automatically.`,
+  },
+  {
+    title: "SSR only: inline getThemeFoucScript()",
+    body: `In your document <head>, before any styles load. Prevents the theme-flash on first paint. Works for Astro, Next.js, and Remix — the recipe differs, the script string is the same.`,
+  },
+  {
+    title: "Drop hand-coded hover/active overlays",
+    body: `Replace rgba(0, 0, 0, 0.08) with var(--color-hover-overlay) (and rgba(0, 0, 0, 0.16) with var(--color-active-overlay)). Your styles now flip correctly under dark mode.`,
+  },
+  {
+    title: "Migrate disabled-link logic",
+    body: `If you've rolled your own aria-disabled-on-link pattern, replace it with <Link disabled={!canEdit}>. You get keyboard-reachable disabled state (WCAG 2.1.1) for free.`,
+  },
+];
+---
+
+<Layout
+  title="Migration — @fpkit/acss guides"
+  description="Upgrade an existing @fpkit/acss app to the latest v6.x release in five steps."
+>
+  <article>
+    <header class="page-intro">
+      <p class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/guides/">Guides</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Migration</span>
+      </p>
+      <h1>Migration</h1>
+      <p>
+        You're on an older v6.x and want to pick up theming + tokens today.
+        This is the absolute-minimum path. Every change is additive — if
+        you're green on this list, you're green for v7 too.
+      </p>
+    </header>
+
+    <section aria-labelledby="steps-heading">
+      <h2 id="steps-heading">Five-step upgrade</h2>
+      <ol class="step-list">
+        {
+          STEPS.map((step, i) => (
+            <li class="step">
+              <div class="step__number" aria-hidden="true">{i + 1}</div>
+              <div class="step__body">
+                <h3 class="step__title">{step.title}</h3>
+                <p class="step__text">{step.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section aria-labelledby="whats-coming">
+      <h2 id="whats-coming">What's coming in v7</h2>
+      <p>
+        v7.0.0 will bundle only the changes marked <span class="marker marker--break">💥</span>
+        in the full migration guide. Today there's one:
+      </p>
+      <ul>
+        <li>
+          <code>&lt;Heading&gt;</code> — deprecated since v6. Migrate to
+          <code>&lt;Title&gt;</code>. Prop rename is <code>type</code> →
+          <code>level</code>; nothing else changes.
+        </li>
+      </ul>
+      <p>
+        Everything else — tokens, theming, Button
+        <code>color="info"</code>, Link <code>disabled</code>, CSS overlay
+        tokens — already shipped in v6.x minors and will continue to work in
+        v7 unchanged.
+      </p>
+    </section>
+
+    <section aria-labelledby="status-legend">
+      <h2 id="status-legend">Status markers</h2>
+      <dl class="status-legend">
+        <div>
+          <dt><span class="marker marker--ship">✅</span></dt>
+          <dd>Shipped in a v6 minor. Additive; no action required.</dd>
+        </div>
+        <div>
+          <dt><span class="marker marker--warn">⚠️</span></dt>
+          <dd>Shipped in a v6 minor with a deprecation warning. Action required before v7.</dd>
+        </div>
+        <div>
+          <dt><span class="marker marker--break">💥</span></dt>
+          <dd>Will ship in v7.0.0. Breaking.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <aside class="see-also" aria-labelledby="see-also">
+      <h2 id="see-also">See also</h2>
+      <ul>
+        <li>
+          <a href={MIGRATION_MD}
+            >Full migration guide on GitHub</a
+          > — every change with before/after code, plus the complete v7 breakage list.
+        </li>
+        <li><a href="/guides/theming">Theming quick-start</a></li>
+        <li><a href="/guides/tokens">Design tokens quick-start</a></li>
+        <li>
+          <a
+            href="https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/docs/DESIGN-SYSTEM-v6.md"
+            >Design System v6 Overview</a
+          > — narrative of everything shipped in v6.x.
+        </li>
+      </ul>
+    </aside>
+  </article>
+
+  <style>
+    .page-intro {
+      margin-block-end: 2rem;
+    }
+    .breadcrumb {
+      margin: 0 0 0.5rem;
+      font-size: 0.875rem;
+      color: var(--color-text-tertiary);
+    }
+    .breadcrumb a {
+      color: var(--color-link);
+    }
+    .breadcrumb span[aria-current] {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+    .page-intro p {
+      color: var(--color-text-secondary);
+      max-width: 48rem;
+    }
+    section {
+      margin-block-end: 2rem;
+    }
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1rem 1.25rem;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+    }
+    .step__number {
+      flex: none;
+      width: 1.75rem;
+      height: 1.75rem;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    .step__title {
+      margin: 0 0 0.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .step__text {
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.9em;
+      background: var(--color-surface-elevated);
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.25rem;
+    }
+    .marker {
+      display: inline-block;
+      margin-inline-end: 0.25rem;
+    }
+    .status-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    .status-legend > div {
+      display: flex;
+      gap: 0.75rem;
+      align-items: baseline;
+    }
+    .status-legend dt {
+      flex: none;
+      width: 2rem;
+      text-align: center;
+    }
+    .status-legend dd {
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+    .see-also {
+      padding: 1rem 1.25rem;
+      background: var(--color-surface-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.5rem;
+    }
+    .see-also h2 {
+      margin-block: 0 0.5rem;
+      font-size: 1rem;
+    }
+    .see-also a {
+      color: var(--color-link);
+    }
+  </style>
+</Layout>

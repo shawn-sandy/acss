@@ -4,6 +4,17 @@ A lightweight React UI component library for building modern and accessible appl
 
 [![npm version](https://img.shields.io/npm/v/@fpkit/acss.svg)](https://www.npmjs.com/package/@fpkit/acss)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docs site](https://img.shields.io/badge/docs-astro-ff5d01.svg)](apps/astro-builds/)
+[![Design system v6](https://img.shields.io/badge/design--system-v6-blueviolet.svg)](packages/fpkit/docs/DESIGN-SYSTEM-v6.md)
+
+## Design system
+
+`@fpkit/acss` ships a complete design system as of v6.x: tokens, theming, CI quality gates, and a public docs site.
+
+- 📖 **[Design System v6 Overview](packages/fpkit/docs/DESIGN-SYSTEM-v6.md)** — narrative of everything that shipped in v6.x.
+- 🗺️ **[Documentation index](packages/fpkit/docs/README.md)** — one-line-per-guide directory of all 13 guides.
+- ⬆️ **[Upgrade guide](packages/fpkit/MIGRATION-v7.md#minimum-viable-v6x-upgrade)** — five-step minimum-viable upgrade path.
+- 🎨 **[Astro docs site](apps/astro-builds/)** — live Foundations pages and `/status` maturity dashboard.
 
 ## Features
 
@@ -83,7 +94,7 @@ function App() {
 
 ## What's New in v6.x
 
-Major additions since `1.0.0-beta.0` (CSS-variable rename — see [MIGRATION-v7.md](packages/fpkit/MIGRATION-v7.md)):
+See the [Design System v6 Overview](packages/fpkit/docs/DESIGN-SYSTEM-v6.md) for the full narrative. Major additions since `1.0.0-beta.0` (CSS-variable rename — see [MIGRATION-v7.md](packages/fpkit/MIGRATION-v7.md)):
 
 - **Theming runtime** — `ThemeProvider`, `useTheme`, `ThemeToggle`, and `getThemeFoucScript()` for SSR. Light/dark via a single `data-theme` attribute on `<html>`; system-preference tracking built in. See the [Theming guide](packages/fpkit/docs/guides/theming.md).
 - **Design token pipeline** — `@fpkit/acss/tokens` ships a DTCG-compliant JSON artifact with primitive and semantic colors (plus per-token dark-mode overrides), motion durations and easings, and responsive breakpoints. Ready for Figma bridges, docs sites, and custom builds. Typography and spacing tokens are on the roadmap. See the [Design Tokens guide](packages/fpkit/docs/guides/design-tokens.md).
@@ -248,12 +259,13 @@ npm run version-packages # Apply changesets and bump versions
 
 ### CI Quality Gates
 
-Contributors should know what the CI enforces before opening a PR:
+Contributors should know what the CI enforces before opening a PR. Full details in the [CI Gates guide](packages/fpkit/docs/guides/ci-gates.md):
 
-- **Test coverage thresholds** — configured in [packages/fpkit/vitest.config.js](packages/fpkit/vitest.config.js); failing below ~89% lines / 90% branches breaks the test job.
-- **Bundle-size budgets** — [packages/fpkit/.size-limit.cjs](packages/fpkit/.size-limit.cjs) caps the main build, hooks, icons, and CSS entry points. `npm run size` reports against the budget.
-- **Accessibility audit** — the Storybook test-runner wires axe via [.storybook/test-runner.ts](.storybook/test-runner.ts). Non-blocking during triage; flipping to blocking is tracked in [MIGRATION-v7.md](packages/fpkit/MIGRATION-v7.md).
-- **Versioning** — Changesets owns `CHANGELOG.md` and version bumps. Hand-edits to `CHANGELOG.md` will be clobbered on the next release.
+- **Test coverage thresholds** — lines 89%, branches 90%, functions 66%, statements 89% ([vitest.config.js](packages/fpkit/vitest.config.js)).
+- **Bundle-size budgets** — main 18 KB, hooks 3 KB, icons 6 KB, CSS 18 KB gzipped ([.size-limit.cjs](packages/fpkit/.size-limit.cjs)). Run `npm run size` to check locally.
+- **Accessibility audit** — Storybook test-runner + axe. Non-blocking during triage; [flip criteria documented](packages/fpkit/docs/guides/ci-gates.md#flipping-to-blocking).
+- **Visual regression** — Chromatic, gated on `CHROMATIC_PROJECT_TOKEN` secret.
+- **Versioning** — Changesets owns `CHANGELOG.md` and version bumps. Hand-edits will be clobbered on the next release.
 
 ## TypeScript Support
 
