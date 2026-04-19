@@ -107,7 +107,6 @@ See the [theming verification section](theming.md#verification--troubleshooting)
 
 Rendered as small chips. Common non-lifecycle tags in the repo:
 
-- `rc` — historical React Component indicator (may be redundant with lifecycle tags; kept for compatibility).
 - `a11y-verified`, `dark-mode-verified` — promoted to dedicated columns (duplicated in the chip list for visibility).
 - Custom tags you add per-project (e.g. `wip`, `compat-breaking`).
 

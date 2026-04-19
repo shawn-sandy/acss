@@ -6,10 +6,10 @@
  * these Astro pages surface the high-value ones (theming, tokens, migration)
  * to the public docs site so consumers don't have to dig into the repo.
  *
- * Design note on accessibility: every card is an <a> wrapping the title, not
- * a <div> with a button inside. Screen-reader users navigate the site by link
- * list; wrapping the whole card surface keeps the click target generous
- * without breaking that navigation model.
+ * Design note on accessibility: each card exposes its title as a real <a>,
+ * rather than using a <div> with a button inside. Screen-reader users
+ * navigate the site by link list, so keeping the heading itself as the link
+ * preserves that navigation model while matching the current markup.
  */
 import Layout from "../../layouts/Layout.astro";
 
