@@ -2,6 +2,9 @@
 
 Welcome to the @fpkit/acss documentation! This collection of guides helps you build accessible, maintainable applications using the fpkit component library.
 
+> **New here?** Start with the [Design System v6 Overview](./DESIGN-SYSTEM-v6.md) — a one-page narrative of everything that shipped in v6.x.
+> **Upgrading?** Jump to the [minimum-viable upgrade checklist](../MIGRATION-v7.md#minimum-viable-v6x-upgrade).
+
 ---
 
 ## 📚 Guides
@@ -185,6 +188,42 @@ Understand the lifecycle tags (`experimental`, `beta`, `rc`, `stable`, `deprecat
 
 ---
 
+### [Component Maturity Dashboard Guide](./guides/maturity-dashboard.md)
+
+Understand the `/status` page — how signals are extracted from Storybook meta, what each column means, and how to tag a component so it shows up correctly.
+
+**Topics:**
+- Lifecycle vocabulary and how it maps to visual pills
+- Signal columns (Tests / A11y / Dark mode) — what each source of truth is
+- Tagging conventions (`tags: ["stable", "a11y-verified", "dark-mode-verified"]`)
+- Troubleshooting a component that shows as untagged or missing a signal
+
+**Use when:**
+- Tagging a new component's story
+- Debugging why the dashboard doesn't reflect your recent changes
+- Reviewing the dashboard before promoting a component
+
+---
+
+### [CI Quality Gates Guide](./guides/ci-gates.md)
+
+The CI gates that enforce code quality on every PR — coverage thresholds, bundle-size budgets, a11y audit, visual regression, and the Changesets release flow.
+
+**Topics:**
+- Coverage thresholds (lines 89%, branches 90%, functions 66%, statements 89%) — why these numbers, roadmap target
+- Bundle-size budgets per entry point with headroom and diagnostic tools (`npm run size:why`)
+- Non-blocking gates (axe, Chromatic) and the criteria to flip them to blocking
+- Changesets workflow: authoring a changeset, the Version Packages PR, release.yml
+- Pre-PR local checklist
+
+**Use when:**
+- A PR fails a CI gate and you need to diagnose
+- Tightening or relaxing a threshold
+- Understanding the release flow
+- Onboarding a new contributor
+
+---
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -239,10 +278,19 @@ function App() {
 → Learn [Storybook Guide](./guides/storybook.md)
 
 **Promote a component from beta → stable (or author a new one)**
-→ Read [Component Lifecycle Guide](./guides/component-lifecycle.md) and check the [`/status` dashboard](../../../apps/astro-builds/src/pages/status.astro)
+→ Read [Component Lifecycle Guide](./guides/component-lifecycle.md) and the [Maturity Dashboard Guide](./guides/maturity-dashboard.md), then check the live [`/status` dashboard](../../../apps/astro-builds/src/pages/status.astro)
 
 **Understand fpkit patterns**
 → Start with [Architecture Guide](./guides/architecture.md)
+
+**My PR failed a CI gate**
+→ [CI Quality Gates Guide](./guides/ci-gates.md)
+
+**Upgrade my app to the latest v6.x**
+→ [Minimum-viable upgrade checklist](../MIGRATION-v7.md#minimum-viable-v6x-upgrade)
+
+**See everything that shipped in v6.x**
+→ [Design System v6 Overview](./DESIGN-SYSTEM-v6.md)
 
 ---
 
@@ -371,23 +419,28 @@ Found an issue or want to contribute? Visit our [GitHub repository](https://gith
 
 ```
 docs/
-├── README.md (this file)
+├── README.md                   - This index
+├── DESIGN-SYSTEM-v6.md         - Narrative overview of the v6.x conversion
 └── guides/
-    ├── theming.md              - Light/dark runtime and custom themes
+    ├── theming.md              - Light/dark runtime, custom themes, verification
     ├── design-tokens.md        - @fpkit/acss/tokens artifact and pipeline
     ├── css-variables.md        - Styling and customization
     ├── composition.md          - Component composition patterns
     ├── accessibility.md        - WCAG compliance and a11y
     ├── architecture.md         - Component structure and patterns
     ├── component-lifecycle.md  - Lifecycle stages and promotion criteria
+    ├── maturity-dashboard.md   - /status page signals and tagging conventions
+    ├── ci-gates.md             - Coverage, size, a11y, Chromatic, release flow
     ├── design-principles.md    - Design system principles
     ├── variants.md             - Variant authoring patterns
     ├── testing.md              - Testing strategies
     └── storybook.md            - Component documentation
 ```
 
+Also at the package root: [`../MIGRATION-v7.md`](../MIGRATION-v7.md) — per-change upgrade steps with before/after code.
+
 ---
 
-**Version**: 1.1.0
-**Last Updated**: 2026-04-17
+**Version**: 1.2.0
+**Last Updated**: 2026-04-19
 **License**: MIT
