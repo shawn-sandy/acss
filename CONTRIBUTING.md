@@ -108,7 +108,7 @@ The docs themselves must meet the same accessibility bar as the components — W
 
 - [ ] **Semantic HTML** — use `<main>`, `<nav>`, `<article>`, `<aside>`. Reuse the fpkit `Layout`, `Header`, `Main`, `Footer` components where applicable.
 - [ ] **One `<h1>` per page** — followed by a logical heading outline. Verify in DevTools → Accessibility tree.
-- [ ] **Skip link reachable on first tab** — the `Layout.astro` ships one; don't break it. Test with keyboard only.
+- [ ] **Skip link reachable on first tab** — `SiteHeader.tsx` renders it; don't break it. Test with keyboard only.
 - [ ] **Visible focus indicators** — never suppress `:focus-visible`. Tab through every interactive element; confirm a ring is visible in both light and dark themes.
 - [ ] **Color contrast ≥ 4.5:1 in both themes** — run axe DevTools extension with `data-theme="light"` and `data-theme="dark"`. Pay special attention to label text over color swatches (Foundations pages) and lifecycle pills (Status page).
 - [ ] **Keyboard-only pass** — no keyboard traps, tab order matches visual order, every interactive element reachable.

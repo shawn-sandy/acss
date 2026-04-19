@@ -247,7 +247,7 @@ Links now accept `disabled?: boolean`. The component applies `aria-disabled`, su
 <Link href="/settings" disabled={!canEdit}>Edit settings</Link>
 ```
 
-Why keep the element in tab order? WCAG 2.1.1 (Keyboard): every piece of functionality must be keyboard-operable *and discoverable*. Removing the link from the DOM hides the fact that it existed — a screen-reader user has no way to know "this action is temporarily unavailable."
+Why keep the element in tab order? As an accessibility-focused library behavior, leaving the disabled link focusable helps keyboard and assistive-technology users perceive that the action exists, even when it is temporarily unavailable. Removing the link from the DOM can hide that option entirely, so a user may have no way to know the action is unavailable right now.
 
 ### Alert — `data-alert` + `data-variant` documented exception (no change)
 

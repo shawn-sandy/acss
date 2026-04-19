@@ -281,7 +281,7 @@ Every component that references semantic tokens (`--color-primary`, `--color-sur
 1. **Text contrast remains ≥ 4.5:1** against the new surface. Use the axe DevTools extension or WebAIM's contrast checker.
 2. **Focus indicators are still visible.** The default focus ring uses `currentColor`, which means it inherits whichever foreground color the component is using — double-check it doesn't blend into the new surface.
 3. **Semantic colors remain distinguishable.** Error / success / warning / info should still read as their intended emotion, not all converge to "slightly-different-gray."
-4. **Custom SCSS overrides still work.** If your story sets `--btn-bg: #custom` in `styles`, that hex value *won't* flip — that's the point of the override. Ensure the color you picked works in both themes.
+4. **Custom SCSS overrides still work.** If your story sets `--btn-bg: #7c3aed` in `styles`, that hex value *won't* flip — that's the point of the override. Ensure the color you picked works in both themes.
 
 ### Capturing Chromatic baselines for dark mode
 
