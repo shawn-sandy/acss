@@ -28,11 +28,15 @@ const {
 // Cache the FOUC script string once at build time.
 const foucScript = getThemeFoucScript();
 
-// Canonical URL — keeps search engines from splitting authority across any
-// alternate origins (GitHub Pages + custom domain, preview deployments, etc.).
-// Astro.url includes the current path; Astro.site is the canonical origin
-// declared in astro.config.mjs (falls back to the request origin when unset).
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+// Canonical URL — only emit when `site` is explicitly configured in
+// astro.config.mjs. Without that, Astro.url falls back to the serving host
+// (Netlify preview subdomain, localhost during `astro build`, etc.), which
+// would publish misleading canonical/og:url values and fragment search
+// authority. Once the production URL is decided, set `site` in astro.config
+// and these tags will appear automatically.
+const canonicalUrl = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).toString()
+  : null;
 ---
 
 <!doctype html>
@@ -42,13 +46,13 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toStri
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={canonicalUrl} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta name="generator" content={Astro.generator} />
     {/* Open Graph — helps link previews in Slack, GitHub, etc. */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     <title>{title}</title>
     {/* FOUC guard — must run before any styles apply so data-theme is set on <html>. */}
     <script is:inline set:html={foucScript} />
