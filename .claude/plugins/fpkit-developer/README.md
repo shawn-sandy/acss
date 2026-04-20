@@ -1,5 +1,22 @@
 # fpkit-developer
 
+> **⚠️ DEPRECATED — superseded by [`acss-app-builder`](../acss-app-builder/).**
+>
+> The composition / extension / accessibility workflows in this plugin have been
+> absorbed into `acss-app-builder` as the `/app-compose` command, alongside
+> new app-level scaffolding (`/app-init`, `/app-layout`, `/app-page`,
+> `/app-theme`, `/app-form`, `/app-pattern`). This plugin is kept in place for
+> one release cycle so existing installs keep working, then will be removed.
+>
+> **Migrating:**
+>
+> 1. Uninstall the old plugin to avoid duplicate skills loading:
+>    `/plugin uninstall fpkit-developer@shawn-sandy-acss`
+> 2. Install or enable `acss-app-builder`.
+> 3. Replace calls to `/fpkit-developer:fpkit-dev` with `/app-compose`.
+
+---
+
 A Claude Code plugin for building applications with **[@fpkit/acss](https://www.npmjs.com/package/@fpkit/acss)** React components. It activates automatically when you work with fpkit components, and adds a `/fpkit-developer:fpkit-dev` slash command for starting the guided workflow directly.
 
 ## What it does

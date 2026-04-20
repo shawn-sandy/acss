@@ -37,13 +37,24 @@ Stop. Do not generate any files.
 
 ### A3. Determine target directory
 
-If no target has been established, ask:
+Target-directory resolution is **shared with the `acss-app-builder` plugin** via a `.acss-target.json` file at the project root (committed to git).
 
-```
-Where should components be generated? (default: src/components/fpkit/)
-```
+1. If `.acss-target.json` exists at the project root, read `componentsDir` from it and use that as the target. Skip the prompt.
+2. Otherwise, ask:
 
-Remember the answer for this session.
+   ```
+   Where should components be generated? (default: src/components/fpkit/)
+   ```
+
+3. After the developer answers (or accepts the default), write `.acss-target.json` at the project root:
+
+   ```json
+   { "componentsDir": "src/components/fpkit" }
+   ```
+
+   Commit this file — both `/kit-add` and every `acss-app-builder` command (`/app-page`, `/app-layout`, etc.) read it as the source of truth. Without it, page templates and generated components would disagree on import paths.
+
+Remember the answer for the current session as well, so subsequent `/kit-add` calls don't re-read the file unnecessarily.
 
 ### A4. Copy UI foundation
 
