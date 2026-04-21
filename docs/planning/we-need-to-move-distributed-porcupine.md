@@ -22,6 +22,56 @@ We also want the new plugin repo to reference the current `shawn-sandy/acss` rep
 | Bidirectional reference | Full GitHub URLs in plugin docs (no sibling-clone dependency) |
 | Cleanup scope | Delete `.claude/plugins/` and root stale zips only; keep standalone skill, `downloads/`, and historical planning docs |
 
+## Execution status (as of 2026-04-21)
+
+**✅ Phase 1 complete** — commit `f3a4c31` on `claude/move-marketplace-plugins-repo-8kXL9`, pushed to origin:
+- All three plugins registered in `/home/user/acss/.claude-plugin/marketplace.json`
+- Plugin versions bumped (`fpkit-developer` 0.1.7, `acss-kit-builder` 0.1.1, `acss-app-builder` 0.1.1)
+- `fpkit-developer/README.md` and `acss-kit-builder/README.md` install instructions rewritten for `shawn-sandy/acss-plugins`
+- SKILL.md + reference docs repo-relative paths rewritten to full GitHub URLs
+
+**✅ Phase 0 step 3b (schema verification) complete** — docs confirm `git-subdir` source type supports subdirectory targeting with sparse clone. Transparent-redirect strategy validated.
+
+**🟡 Phase 2 partially complete** — local extraction to `/tmp/acss-plugins-extract` done, ready for push once remote repo exists:
+- `git-filter-repo` installed at `~/.local/bin/git-filter-repo`
+- `git clone --no-local /home/user/acss /tmp/acss-plugins-extract` done
+- Filter applied: 62 commits → 7 commits (just the plugin-touching ones), paths renamed to root
+- Pre-push checkpoint passed: 91 files, 9 root entries, all source paths rewritten to `./<name>`, all 3 plugin.json manifests intact
+- Scaffolding files added and staged (not yet committed — the commit-signing server in this sandbox rejects commits from `/tmp/` paths): `README.md`, `CONTRIBUTING.md`, `LICENSE`, `.gitignore`, updated `marketplace.json`
+- Current branch in extract: `claude/move-marketplace-plugins-repo-8kXL9` (needs rename to `main`)
+
+### Handoff: to finish Phase 2
+
+Run these on a machine where commit signing works (the user's laptop or a CI environment that shares this sandbox's signing identity):
+
+```bash
+# 1. Create the remote repo at github.com/shawn-sandy/acss-plugins (empty, no README/LICENSE)
+
+# 2. Commit the staged scaffolding
+cd /tmp/acss-plugins-extract
+git status    # should show 5 staged files ready
+git commit -m "$(cat <<'EOF'
+chore: initial standalone-repo scaffolding
+
+Added after git filter-repo extraction from shawn-sandy/acss:
+- README.md, CONTRIBUTING.md, LICENSE, .gitignore (top-level)
+- Rewrote marketplace.json source paths from ./.claude/plugins/<name>
+  to ./<name> to match the new flat repo layout.
+- Bumped marketplace version to 0.2.0.
+- Removed redundant per-plugin version fields from marketplace.json
+  (plugin.json always wins silently per Claude Code docs).
+- Updated owner.url to this repo's URL.
+EOF
+)"
+
+# 3. Rename branch to main and set up remote
+git branch -m claude/move-marketplace-plugins-repo-8kXL9 main
+git remote add origin https://github.com/shawn-sandy/acss-plugins.git
+git push -u origin main
+```
+
+Once `shawn-sandy/acss-plugins` is live, proceed to Phase 3 in the main acss repo.
+
 ## Stress-test findings (incorporated into plan below)
 
 Gaps and assumptions caught during review; each maps to a concrete plan change:
@@ -92,7 +142,19 @@ acss-plugins/
 2. Install `git-filter-repo`: `pip install git-filter-repo`.
 3. Confirm working tree clean: `git status` in `/home/user/acss`.
 3a. **Marketplace keying + double-subscribe smoke test** (resolves stress-test findings #5, #6): in a disposable Claude Code session, `/plugin marketplace add shawn-sandy/acss`, then manually add a second marketplace with the same internal `name` field (e.g., a temporary fork) and run `/plugin marketplace list`. Confirm Claude Code keys by repo slug, not `name`. If it keys by `name`, abandon the transparent-redirect strategy and fall back to hard cutover.
-3b. **Marketplace schema verification** (resolves stress-test finding #7): fetch `https://anthropic.com/claude-code/marketplace.schema.json`. Confirm the `plugins[].source` field accepts an object form `{ "source": "github", "repo": "...", "path": "..." }`. If it only accepts relative strings, halt: the transparent-redirect strategy is unworkable and must be replaced with hard cutover before any Phase 1 work begins.
+3b. **Marketplace schema verification** — **✅ RESOLVED on 2026-04-21** (stress-test finding #7). Docs at <https://code.claude.com/docs/en/plugin-marketplaces#plugin-sources> confirm five `source` types. For the redirect strategy the correct type is **`git-subdir`**, not `github`:
+    ```json
+    "source": {
+      "source": "git-subdir",
+      "url": "https://github.com/shawn-sandy/acss-plugins.git",
+      "path": "acss-app-builder"
+    }
+    ```
+    `git-subdir` "clones sparsely to minimize bandwidth for monorepos" — so users of the redirect stub automatically get the ~600 KB sparse clone instead of full-repo download. The install-size goal is achieved for existing users even without re-adding the new marketplace.
+3c. **Version field placement** (new, from schema docs): the docs warn "The plugin manifest always wins silently…For relative-path plugins, set the version in the marketplace entry. For all other plugin sources, set it in the plugin manifest." Accordingly:
+    - New repo (`acss-plugins`, relative-path sources): version belongs in **marketplace entry only**, remove from individual `plugin.json` files
+    - acss redirect stub (`git-subdir` sources): version belongs in **plugin.json only**, remove from marketplace entry
+    - Phase 1's commit currently has versions in both — non-breaking but violates the docs. Phase 2/3 edits must correct this.
 
 ### Phase 1 — Prepare plugin files for extraction (in `/home/user/acss` on branch `claude/move-marketplace-plugins-repo-8kXL9`)
 
@@ -167,6 +229,7 @@ Back in `/home/user/acss` on branch `claude/move-marketplace-plugins-repo-8kXL9`
       }
       ```
       Why `git-subdir` and not `github`: the `github` source type assumes the whole repo is one plugin — no `path` field. `git-subdir` is purpose-built for multi-plugin monorepos and clones sparsely, minimizing bandwidth.
+    - **Remove `version` from each plugin entry** in this redirect stub — per Phase 0 step 3c, non-relative-path sources take version from `plugin.json`, and setting both causes the marketplace entry to be silently ignored.
     - Add a `description` line noting the move: "Plugins now live at shawn-sandy/acss-plugins; this marketplace redirects automatically."
 15. Delete:
     - `/home/user/acss/.claude/plugins/` (entire tree — `rm -rf`)
