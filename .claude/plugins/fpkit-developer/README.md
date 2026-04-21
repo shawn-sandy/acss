@@ -11,7 +11,7 @@
 > **Migrating:**
 >
 > 1. Uninstall the old plugin to avoid duplicate skills loading:
->    `/plugin uninstall fpkit-developer@shawn-sandy-acss`
+>    `/plugin uninstall fpkit-developer@shawn-sandy-acss-plugins`
 > 2. Install or enable `acss-app-builder`.
 > 3. Replace calls to `/fpkit-developer:fpkit-dev` with `/app-compose`.
 
@@ -47,13 +47,13 @@ This installs the plugin directly from the GitHub repository without cloning.
 **Step 1 — Add the marketplace:**
 
 ```shell
-/plugin marketplace add shawn-sandy/acss
+/plugin marketplace add shawn-sandy/acss-plugins
 ```
 
 **Step 2 — Install the plugin:**
 
 ```shell
-/plugin install fpkit-developer@shawn-sandy-acss
+/plugin install fpkit-developer@shawn-sandy-acss-plugins
 ```
 
 Claude Code copies the plugin to its local cache. Restart Claude Code when prompted.
@@ -61,13 +61,13 @@ Claude Code copies the plugin to its local cache. Restart Claude Code when promp
 **To update later:**
 
 ```shell
-/plugin marketplace update shawn-sandy-acss
+/plugin marketplace update shawn-sandy-acss-plugins
 ```
 
 **To uninstall:**
 
 ```shell
-/plugin uninstall fpkit-developer@shawn-sandy-acss
+/plugin uninstall fpkit-developer@shawn-sandy-acss-plugins
 ```
 
 ---
@@ -77,21 +77,21 @@ Claude Code copies the plugin to its local cache. Restart Claude Code when promp
 Clone the repository and copy the plugin manually.
 
 ```bash
-git clone https://github.com/shawn-sandy/acss.git
+git clone https://github.com/shawn-sandy/acss-plugins.git
 ```
 
 **User-level** (available across all your projects):
 
 ```bash
 mkdir -p ~/.claude/plugins/
-cp -r acss/.claude/plugins/fpkit-developer ~/.claude/plugins/
+cp -r acss-plugins/fpkit-developer ~/.claude/plugins/
 ```
 
 **Project-level** (this project only):
 
 ```bash
 mkdir -p .claude/plugins/
-cp -r acss/.claude/plugins/fpkit-developer .claude/plugins/
+cp -r acss-plugins/fpkit-developer .claude/plugins/
 ```
 
 ---
@@ -104,14 +104,14 @@ If you only need the skill without the plugin command:
 
 ```bash
 mkdir -p ~/.claude/skills/
-cp -r acss/.claude/plugins/fpkit-developer/skills/fpkit-developer ~/.claude/skills/
+cp -r acss-plugins/fpkit-developer/skills/fpkit-developer ~/.claude/skills/
 ```
 
 **Project-level:**
 
 ```bash
 mkdir -p .claude/skills/
-cp -r acss/.claude/plugins/fpkit-developer/skills/fpkit-developer .claude/skills/
+cp -r acss-plugins/fpkit-developer/skills/fpkit-developer .claude/skills/
 ```
 
 ---
