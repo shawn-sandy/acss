@@ -25,9 +25,40 @@ npm install -D sass
 
 ## Installation
 
-The plugin is already included in this repository at `.claude/plugins/acss-kit-builder/`. Claude Code auto-discovers plugins in `.claude/plugins/`.
+### Marketplace install (recommended)
 
-To use in another project, copy the entire `.claude/plugins/acss-kit-builder/` directory into the target project's `.claude/plugins/` folder.
+```shell
+/plugin marketplace add shawn-sandy/acss
+/plugin install acss-kit-builder@acss-plugins
+```
+
+Claude Code sparse-clones only this plugin's directory — the rest of the `@fpkit/acss` monorepo is not transferred.
+
+**To update later:**
+
+```shell
+/plugin marketplace update acss-plugins
+```
+
+**To uninstall:**
+
+```shell
+/plugin uninstall acss-kit-builder@acss-plugins
+```
+
+**Upgrading from a pre-git-subdir install (required for users who installed before v0.2.0 of the marketplace):**
+
+Prior versions of the marketplace used a relative-path source, which caused the entire monorepo to be cached locally. To flush the old cache:
+
+```shell
+/plugin uninstall acss-kit-builder@acss-plugins
+/plugin marketplace update acss-plugins
+/plugin install acss-kit-builder@acss-plugins
+```
+
+### Manual install (fallback)
+
+The plugin is also included in this repository at `.claude/plugins/acss-kit-builder/` and Claude Code auto-discovers plugins in `.claude/plugins/`. To use in another project, copy the entire directory into the target project's `.claude/plugins/` folder.
 
 ## Commands
 

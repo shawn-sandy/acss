@@ -1,6 +1,6 @@
 {
   "name": "fpkit-developer",
-  "description": "Guides development of applications built with @fpkit/acss React components. Provides component composition workflows, CSS variable validation, and WCAG accessibility guidance.",
+  "description": "[DEPRECATED — use acss-app-builder] Guides development of applications built with @fpkit/acss React components. Provides component composition workflows, CSS variable validation, and WCAG accessibility guidance.",
   "version": "0.1.6",
   "author": {
     "name": "Shawn Sandy",

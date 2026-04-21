@@ -11,7 +11,7 @@
 > **Migrating:**
 >
 > 1. Uninstall the old plugin to avoid duplicate skills loading:
->    `/plugin uninstall fpkit-developer@shawn-sandy-acss`
+>    `/plugin uninstall fpkit-developer@acss-plugins`
 > 2. Install or enable `acss-app-builder`.
 > 3. Replace calls to `/fpkit-developer:fpkit-dev` with `/app-compose`.
 
@@ -53,7 +53,7 @@ This installs the plugin directly from the GitHub repository without cloning.
 **Step 2 — Install the plugin:**
 
 ```shell
-/plugin install fpkit-developer@shawn-sandy-acss
+/plugin install fpkit-developer@acss-plugins
 ```
 
 Claude Code copies the plugin to its local cache. Restart Claude Code when prompted.
@@ -61,14 +61,26 @@ Claude Code copies the plugin to its local cache. Restart Claude Code when promp
 **To update later:**
 
 ```shell
-/plugin marketplace update shawn-sandy-acss
+/plugin marketplace update acss-plugins
 ```
 
 **To uninstall:**
 
 ```shell
-/plugin uninstall fpkit-developer@shawn-sandy-acss
+/plugin uninstall fpkit-developer@acss-plugins
 ```
+
+**Upgrading from a pre-git-subdir install (required for users who installed before v0.2.0 of the marketplace):**
+
+Prior versions of the marketplace used a relative-path source, which caused the entire `@fpkit/acss` monorepo to be cached locally. To flush the old cache and refresh with the new sparse-clone form:
+
+```shell
+/plugin uninstall fpkit-developer@acss-plugins
+/plugin marketplace update acss-plugins
+/plugin install fpkit-developer@acss-plugins
+```
+
+If `/plugin marketplace update` alone refreshes your cache cleanly, the `uninstall` + `install` steps are optional. Inspect `~/.claude/plugins/cache/acss-plugins/fpkit-developer/` — if it still contains monorepo directories like `packages/` or `apps/`, run the full three-command sequence above.
 
 ---
 

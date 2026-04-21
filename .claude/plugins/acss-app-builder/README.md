@@ -14,7 +14,7 @@ Prefers generated source when both are present.
 This plugin **replaces** the deprecated `fpkit-developer` plugin. If you installed the old one via marketplace, uninstall it first to avoid duplicate skills loading:
 
 ```
-/plugin uninstall fpkit-developer@shawn-sandy-acss
+/plugin uninstall fpkit-developer@acss-plugins
 ```
 
 All composition / extension / a11y workflows from `fpkit-developer` are preserved as sections of the `/app-compose` command in this plugin.
@@ -24,6 +24,37 @@ All composition / extension / a11y workflows from `fpkit-developer` are preserve
 - Vite + React + TypeScript project
 - `sass` or `sass-embedded` in `devDependencies`
 - Claude Code >= v1.0.33
+
+## Installation
+
+```shell
+/plugin marketplace add shawn-sandy/acss
+/plugin install acss-app-builder@acss-plugins
+```
+
+Claude Code sparse-clones only this plugin's directory — the rest of the `@fpkit/acss` monorepo is not transferred.
+
+**To update later:**
+
+```shell
+/plugin marketplace update acss-plugins
+```
+
+**To uninstall:**
+
+```shell
+/plugin uninstall acss-app-builder@acss-plugins
+```
+
+**Upgrading from a pre-git-subdir install (required for users who installed before v0.2.0 of the marketplace):**
+
+Prior versions of the marketplace used a relative-path source, which caused the entire monorepo to be cached locally. To flush the old cache:
+
+```shell
+/plugin uninstall acss-app-builder@acss-plugins
+/plugin marketplace update acss-plugins
+/plugin install acss-app-builder@acss-plugins
+```
 
 ## Commands
 
