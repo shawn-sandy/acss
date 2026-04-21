@@ -3,7 +3,7 @@
 // These are NOT written to the developer's project; they document the rendering contract.
 //
 // All renderers use the real, verified exports from @fpkit/acss:
-//   Field, Input, Checkbox  — see packages/fpkit/src/index.ts
+//   Field, Input, Checkbox  — see https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/src/index.ts
 // Native <select> and <textarea> wrap inside <Field> because fpkit does not export wrappers.
 // {{IMPORT_SOURCE:Field,Input,Checkbox}}
 

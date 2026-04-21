@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "acss-plugins",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Claude Code plugins for building applications with @fpkit/acss React components",
   "owner": {
     "name": "Shawn Sandy",
@@ -11,10 +11,26 @@
     {
       "name": "fpkit-developer",
       "source": "./.claude/plugins/fpkit-developer",
-      "version": "0.1.6",
-      "description": "Guides development of applications built with @fpkit/acss React components. Use when composing custom components from fpkit primitives, validating or customizing CSS variables, extending fpkit components, or ensuring WCAG accessibility compliance.",
+      "version": "0.1.7",
+      "description": "Deprecated — superseded by acss-app-builder. Guides development of applications built with @fpkit/acss React components.",
       "category": "development",
-      "tags": ["fpkit", "acss", "react", "css-variables", "accessibility", "wcag", "component-composition"]
+      "tags": ["fpkit", "acss", "react", "css-variables", "accessibility", "wcag", "component-composition", "deprecated"]
+    },
+    {
+      "name": "acss-kit-builder",
+      "source": "./.claude/plugins/acss-kit-builder",
+      "version": "0.1.1",
+      "description": "Generate fpkit-style React components without installing @fpkit/acss. Reference-guided generation with CSS custom properties. Requires only React + sass.",
+      "category": "development",
+      "tags": ["fpkit", "acss", "react", "component-generation", "css-variables", "sass", "typescript"]
+    },
+    {
+      "name": "acss-app-builder",
+      "source": "./.claude/plugins/acss-app-builder",
+      "version": "0.1.1",
+      "description": "Scaffold apps with the @fpkit/acss design system: layouts, pages, themes, forms, patterns. Works with the @fpkit/acss npm package OR generated acss-kit-builder source.",
+      "category": "development",
+      "tags": ["fpkit", "acss", "react", "scaffolding", "forms", "layouts", "themes", "patterns"]
     }
   ]
 }
