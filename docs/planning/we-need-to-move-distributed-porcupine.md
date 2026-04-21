@@ -39,10 +39,13 @@ We also want the new plugin repo to reference the current `shawn-sandy/acss` rep
 - Pre-push checkpoint passed: 91 files, 9 root entries, all source paths rewritten to `./<name>`, all 3 plugin.json manifests intact
 - Scaffolding files added and staged (not yet committed — the commit-signing server in this sandbox rejects commits from `/tmp/` paths): `README.md`, `CONTRIBUTING.md`, `LICENSE`, `.gitignore`, updated `marketplace.json`
 - Current branch in extract: `claude/move-marketplace-plugins-repo-8kXL9` (needs rename to `main`)
+- **Scaffolding files preserved in tree** at `docs/planning/acss-plugins-scaffolding/` so the user can re-run extraction on their own laptop without losing the prepared content. See `docs/planning/acss-plugins-scaffolding/HANDOFF.md` for the step-by-step laptop workflow.
 
 ### Handoff: to finish Phase 2
 
-Run these on a machine where commit signing works (the user's laptop or a CI environment that shares this sandbox's signing identity):
+**Recommended path** — re-run the extraction on the user's laptop using the deterministic commands and scaffolding files stored in `docs/planning/acss-plugins-scaffolding/`. Full instructions in `docs/planning/acss-plugins-scaffolding/HANDOFF.md`. This works regardless of sandbox lifecycle.
+
+**Sandbox-resident path** (only valid while `/tmp/acss-plugins-extract` survives) — run these on a machine where commit signing works:
 
 ```bash
 # 1. Create the remote repo at github.com/shawn-sandy/acss-plugins (empty, no README/LICENSE)
