@@ -414,8 +414,8 @@ This plan was stress-tested via `/plan-interview:plan-interview` on 2026-04-21. 
 - **Deprecation applied in two places, not one**: `fpkit-developer/plugin.json` description gets the `[DEPRECATED]` prefix in addition to marketplace.json. Plugin.json can win silently when users inspect an installed plugin, so both sources must agree.
 - **Feature-branch test before merge**: push the refactor to a branch, add the marketplace via `shawn-sandy/acss@<branch>`, verify sparse-clone fetches only the plugin subdirectory, then merge. Avoids a broken state on main.
 - **Explicit upgrade-path coverage**: testing includes a dedicated section (Testing § C) that verifies existing `fpkit-developer` installs refresh cleanly. READMEs document the reinstall path (`uninstall → update → install`) required if `update` alone leaves stale files.
-- **GitHub shorthand URL**: `"url": "shawn-sandy/acss"` — concise, docs-sanctioned, public-friendly.
-- **Defer `metadata.*` reshuffle**: split from this PR so the git-subdir change can be bisected independently if anything regresses post-merge.
+- **Full HTTPS URL** (revised from shorthand during implementation): `"url": "https://github.com/shawn-sandy/acss.git"`. The original decision was to use GitHub shorthand (`shawn-sandy/acss`), but shorthand resolves to `git@github.com:...` (SSH) and fails on machines without SSH keys configured. HTTPS works for any user with network access and is the only portable choice for public OSS distribution.
+- **`metadata.*` reshuffle required, not deferred** (revised during implementation): the original decision was to defer moving root-level `version`/`description` into a `metadata` object so the git-subdir change could be bisected independently. The validator hard-rejects root-level `$schema`/`version`/`description` as unrecognized keys, making the reshuffle mandatory. The final file drops `$schema` (Claude Code doesn't recognize it — it was IDE hinting only) and nests `version`/`description` under `metadata`.
 
 ### Plan Naming
 
@@ -436,10 +436,11 @@ This plan was stress-tested via `/plan-interview:plan-interview` on 2026-04-21. 
 2. Added explicit Testing section with three pre-merge phases (local validation, feature-branch install, upgrade-path) and a post-merge smoke check.
 3. Moved README install/reinstall instructions into in-scope Implementation Steps and Target State.
 4. Added private-repo risk note in Context.
-5. Removed `metadata.*` reshuffle from target JSON; listed as a deferred follow-up.
+5. Applied the required `metadata.*` reshuffle into the target JSON: dropped unsupported root-level `$schema` and moved `version`/`description` into `metadata.*` because `claude plugin validate .` requires that structure. (Originally planned to defer; validator forced it.)
 6. Added CI drift-guard (`claude plugin validate .` in CI) to Next Steps.
 7. (Added in this revision) Expanded Testing into Sections A–D with concrete commands, expected outputs, and pass criteria.
+8. (Added after initial review) Switched plugin source URL from GitHub shorthand to full HTTPS URL because shorthand resolves to SSH and fails without configured keys.
 
 ### Simplification Opportunities
 
-None. The plan is already minimal — no abstractions to remove, no layers to collapse. The scope reduction applied (deferring the `metadata.*` reshuffle) reduces risk rather than complexity.
+None. The plan is already minimal — no abstractions to remove, no layers to collapse. The required `metadata.*` reshuffle is already folded into the target state to satisfy validation, so there is no remaining scope reduction to apply there.

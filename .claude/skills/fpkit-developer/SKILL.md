@@ -19,5 +19,5 @@ The canonical version is located at:
 Install the plugin instead:
 
 ```
-/plugin install fpkit-developer@shawn-sandy-acss
+/plugin install fpkit-developer@acss-plugins
 ```
