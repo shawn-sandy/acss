@@ -42,13 +42,15 @@ A Claude Code plugin for building applications with **[@fpkit/acss](https://www.
 
 ### Option A — Marketplace install (recommended)
 
-This installs the plugin directly from the GitHub repository without cloning.
+This installs the plugin directly from the GitHub repository without cloning the full monorepo.
 
-**Step 1 — Add the marketplace:**
+**Step 1 — Add the marketplace** (the `--sparse` flag limits the marketplace clone to the catalog directory only, ~1.6 MB instead of the full ~14 MB monorepo):
 
 ```shell
-/plugin marketplace add shawn-sandy/acss
+/plugin marketplace add shawn-sandy/acss --sparse .claude-plugin
 ```
+
+If you forget `--sparse`, it still works — you just end up with a larger marketplace cache in `~/.claude/plugins/marketplaces/acss-plugins/`. The per-plugin caches are always narrow regardless.
 
 **Step 2 — Install the plugin:**
 
@@ -56,7 +58,7 @@ This installs the plugin directly from the GitHub repository without cloning.
 /plugin install fpkit-developer@acss-plugins
 ```
 
-Claude Code copies the plugin to its local cache. Restart Claude Code when prompted.
+Claude Code sparse-clones only this plugin's subdirectory (~164 K). Restart Claude Code when prompted.
 
 **To update later:**
 

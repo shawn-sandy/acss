@@ -28,11 +28,13 @@ All composition / extension / a11y workflows from `fpkit-developer` are preserve
 ## Installation
 
 ```shell
-/plugin marketplace add shawn-sandy/acss
+/plugin marketplace add shawn-sandy/acss --sparse .claude-plugin
 /plugin install acss-app-builder@acss-plugins
 ```
 
-Claude Code sparse-clones only this plugin's directory — the rest of the `@fpkit/acss` monorepo is not transferred.
+The `--sparse .claude-plugin` flag limits the marketplace clone to the catalog directory only (1.6 MB instead of the full monorepo at ~14 MB). Claude Code separately sparse-clones each plugin's subdirectory on install, so your per-plugin cache stays small (~324 K) too.
+
+If you forget the flag, it still works — you just end up with the full monorepo in `~/.claude/plugins/marketplaces/acss-plugins/`. The plugin caches (`~/.claude/plugins/cache/acss-plugins/<name>/`) are always narrow regardless.
 
 **To update later:**
 

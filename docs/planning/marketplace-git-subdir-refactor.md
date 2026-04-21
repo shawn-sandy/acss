@@ -14,7 +14,14 @@
 
 **Dependency note.** This plan assumes `shawn-sandy/acss` remains a **public** GitHub repo. If the repo is ever made private, `git-subdir` installs require users to set `GITHUB_TOKEN` in their environment (per Claude Code plugin docs). Not a concern today, but worth flagging.
 
-**Non-goal.** This does not affect the *marketplace add* step (which still clones the repo to read `marketplace.json`). That is user-side — documented in Next Steps.
+**Two caches, two concerns.** Claude Code keeps two separate caches per marketplace and the refactor only narrows one of them:
+
+| Cache | Path | Before refactor | After refactor | Fix |
+|-------|------|----------------|----------------|-----|
+| Marketplace (holds `marketplace.json`) | `~/.claude/plugins/marketplaces/<name>/` | ~14 MB full monorepo | Still ~14 MB — same repo | **User-side CLI flag**: `--sparse .claude-plugin` on `marketplace add` → ~1.6 MB |
+| Plugin payload (what actually runs) | `~/.claude/plugins/cache/<name>/<plugin>/<version>/` | ~14 MB full monorepo per plugin | ~150–325 K per plugin | `git-subdir` source type in `marketplace.json` (this refactor) |
+
+The marketplace-cache reduction requires the user to pass `--sparse .claude-plugin`; we can't enforce it from `marketplace.json`. Plugin READMEs now recommend it as the default install flow.
 
 ---
 
@@ -393,7 +400,7 @@ No other files change.
 ## Next Steps (out of scope — flag for follow-up)
 
 - **CI drift-guard**: add `claude plugin validate .` to the repo's CI so any future plugin added to `.claude/plugins/` without a matching marketplace entry is caught automatically. (This bug — two plugins present but not registered — produced the user-facing symptom in the first place. The validator would have caught both the missing plugins and the schema issues discovered during this implementation.)
-- **Top-level `PLUGINS.md`**: document that users with slow networks can pair `/plugin marketplace add` with `--sparse .claude-plugin` to skip cloning the monorepo purely to read `marketplace.json`. This is a user-side CLI flag, not a marketplace.json field.
+- **Top-level `PLUGINS.md`**: consolidate install guidance (currently spread across three plugin READMEs) into one repo-level entry point. The `--sparse .claude-plugin` recommendation is already in each plugin's README.
 - **Release tagging**: consider tagging future plugin releases (e.g., `acss-app-builder-v0.2.0`) so downstream users can pin via `source.ref`. Default-branch tracking is fine while plugins are still stabilizing.
 - **Remove `fpkit-developer` entry** once `acss-app-builder` adoption is confirmed and telemetry/feedback shows no active fpkit-developer installs.
 
