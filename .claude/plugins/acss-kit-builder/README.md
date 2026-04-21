@@ -25,9 +25,22 @@ npm install -D sass
 
 ## Installation
 
-The plugin is already included in this repository at `.claude/plugins/acss-kit-builder/`. Claude Code auto-discovers plugins in `.claude/plugins/`.
+### Marketplace install (recommended)
 
-To use in another project, copy the entire `.claude/plugins/acss-kit-builder/` directory into the target project's `.claude/plugins/` folder.
+```shell
+/plugin marketplace add shawn-sandy/acss-plugins
+/plugin install acss-kit-builder@shawn-sandy-acss-plugins
+```
+
+### Manual install via GitHub clone
+
+```bash
+git clone https://github.com/shawn-sandy/acss-plugins.git
+mkdir -p ~/.claude/plugins/
+cp -r acss-plugins/acss-kit-builder ~/.claude/plugins/
+```
+
+For project-level install, substitute `~/.claude/plugins/` with `.claude/plugins/` inside your project.
 
 ## Commands
 

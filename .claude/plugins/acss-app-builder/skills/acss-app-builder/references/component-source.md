@@ -39,7 +39,7 @@ import { Button, Card, Link } from '@fpkit/acss'
 import '@fpkit/acss/styles'
 ```
 
-## Verified exports (authoritative: `packages/fpkit/src/index.ts`)
+## Verified exports (authoritative: [`packages/fpkit/src/index.ts`](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/src/index.ts))
 
 Do not invent imports. The package CLAUDE.md is out of date — `src/index.ts` is the source of truth.
 

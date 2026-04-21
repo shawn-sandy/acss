@@ -91,7 +91,7 @@ A single-skill workflow for scaffolding apps with the **@fpkit/acss** design sys
 2. If `name` omitted, derive PascalCase from template (e.g. `auth-login` → `AuthLogin`).
 3. Read `assets/pages/<template>.tsx`. If template file uses specific fpkit components, verify each against the active source:
    - For `generated`: check `<componentsDir>/<component>/<component>.tsx` exists. If missing, print `/kit-add <component>` hint and halt.
-   - For `npm`: assume the package exports from `packages/fpkit/src/index.ts`.
+   - For `npm`: assume the package exports from [`packages/fpkit/src/index.ts`](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/src/index.ts).
 4. Substitute `{{IMPORT_SOURCE:...}}`, `{{NAME}}`, `{{ROUTE}}` tokens.
 5. Write to `src/pages/<Name>.tsx` (refuse without `--force` on conflict).
 6. Print wiring snippet for `src/App.tsx` or the developer's router.
@@ -206,7 +206,7 @@ A single-skill workflow for scaffolding apps with the **@fpkit/acss** design sys
 
 1. **No `@/` import aliases** — use relative imports.
 2. **Generated source wins on tie** — if `<componentsDir>/ui.tsx` exists, never import from `@fpkit/acss`.
-3. **Never invent exports** — the authoritative list is `packages/fpkit/src/index.ts`. Do not import `FieldLabel`, `FieldInput`, `Select`, or `Textarea` as named exports (they are not there).
+3. **Never invent exports** — the authoritative list is [`packages/fpkit/src/index.ts`](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/src/index.ts). Do not import `FieldLabel`, `FieldInput`, `Select`, or `Textarea` as named exports (they are not there).
 4. **Refuse, don't overwrite** — require `--force` for any non-empty target.
 5. **Refuse on dirty tree** — require committed or stashed changes before mutating the project.
 6. **Sentinel blocks for entry mutation** — never use regex rewriting on `src/main.tsx`.

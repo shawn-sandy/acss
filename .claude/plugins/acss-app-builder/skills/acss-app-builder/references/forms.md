@@ -2,7 +2,7 @@
 
 Form generation from a JSON schema via `/app-form`.
 
-## The real Field API (verified at `packages/fpkit/src/components/form/fields.tsx`)
+## The real Field API (verified at [`packages/fpkit/src/components/form/fields.tsx`](https://github.com/shawn-sandy/acss/blob/main/packages/fpkit/src/components/form/fields.tsx))
 
 ```tsx
 export const Field = ({ label, labelFor, children, ... }: FieldProps) => (
