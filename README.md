@@ -16,6 +16,17 @@ A lightweight React UI component library for building modern and accessible appl
 - ⬆️ **[Upgrade guide](packages/fpkit/MIGRATION-v7.md#minimum-viable-v6x-upgrade)** — five-step minimum-viable upgrade path.
 - 🎨 **[Astro docs site](apps/astro-builds/)** — live Foundations pages and `/status` maturity dashboard.
 
+## Claude Code plugins
+
+Plugins for building applications with `@fpkit/acss` are distributed through a separate marketplace: **[shawn-sandy/acss-plugins](https://github.com/shawn-sandy/acss-plugins)**.
+
+```bash
+/plugin marketplace add shawn-sandy/acss-plugins
+/plugin install acss-app-builder@shawn-sandy-acss-plugins
+```
+
+Three plugins are available: `acss-app-builder` (app scaffolding), `acss-kit-builder` (component generation), and `fpkit-developer` (deprecated).
+
 ## Features
 
 - **Modern React** - Built with React 18+ and TypeScript for type-safe development
