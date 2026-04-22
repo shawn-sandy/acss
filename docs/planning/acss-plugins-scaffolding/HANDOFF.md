@@ -2,7 +2,14 @@
 
 This directory contains everything needed to bootstrap the new `shawn-sandy/acss-plugins` repo from a fresh extraction of this `shawn-sandy/acss` repo. The files here mirror what should end up at the **root** of the new repo.
 
-## Files
+## Which path to follow
+
+Two parallel recipes, same end state:
+
+- **[`CLEAN-COPY.md`](./CLEAN-COPY.md) — recommended for most users.** Plain `cp -r` + `git init`. No new tooling. Loses the 7-commit per-plugin history; preserves provenance via the initial commit message.
+- **`HANDOFF.md` (this file) — history-preserving.** Uses `git-filter-repo` to carry per-plugin commit history into the new repo. Requires `pip install git-filter-repo`. Pick this if you want `git blame` and `git log` to show the full evolution of each plugin file.
+
+## Files (used by both recipes)
 
 | File | Goes where in the new repo | Notes |
 |---|---|---|
